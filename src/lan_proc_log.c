@@ -89,7 +89,7 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char compid_in[128] = "";
     char ip_in[16] = "";
     char sdate_in[24] = "";
-    char bdate_in[24] = "";
+    char edate_in[24] = "";
     char proc_name_in[32] = "";
     char comp_name_in[32] = "";
     char dev_name_in[32] = "";
@@ -108,7 +108,7 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                      "compId",       UT_TYPE_STRING,  sizeof(compid_in) - 1,       compid_in,
                      "ip",           UT_TYPE_STRING,  sizeof(ip_in) - 1,               ip_in,
                      "sdate",        UT_TYPE_STRING,  sizeof(sdate_in) - 1,            sdate_in,
-                     "bdate",        UT_TYPE_STRING,  sizeof(bdate_in) - 1,            bdate_in,
+                     "bdate",        UT_TYPE_STRING,  sizeof(edate_in) - 1,            edate_in,
                      "procName", UT_TYPE_STRING,  sizeof(proc_name_in) - 1,    proc_name_in,
                      "compName", UT_TYPE_STRING,  sizeof(comp_name_in) - 1,    comp_name_in,
                      "devName",  UT_TYPE_STRING,  sizeof(dev_name_in) - 1,     dev_name_in,
@@ -131,14 +131,17 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     //取数据
     //增加where 条件的标识
+    printf("proc before modi==%s,%s\n", sdate_in, edate_in);
+    modifyDates(sdate_in, edate_in);
+    printf("proc after modi==%s,%s\n", sdate_in, edate_in);
 
     unsigned long stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
-    unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", bdate_in);
+    unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);
 
     snprintf(sql_tmp, sizeof(sql_tmp), "where new_table.stime>=%u and new_table.stime<=%u", stime, etime);
 
     sdate_in[10] = '\0';
-    bdate_in[10] = '\0';
+    edate_in[10] = '\0';
 
     //添加按电脑名查询条件
     if(!utStrIsSpaces(comp_name_in))
@@ -254,7 +257,7 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     unsigned int db_count = 0;
     char table_name[1024] = "";
 
-    proc_combine_table(table_name, sdate_in, bdate_in);
+    proc_combine_table(table_name, sdate_in, edate_in);
 
     snprintf(sql, sizeof(sql), "select count(*) from %s left join nwcompute on nwcompute.compid=new_table.compid %s and new_table.procname not in(select processname from nwprocignore where company='%s')", table_name, sql_tmp, shortname);
 

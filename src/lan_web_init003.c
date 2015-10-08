@@ -231,8 +231,8 @@ int lan_log_getFileLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     unsigned long lTotRec = 0;
     unsigned long lCompid1 = 0;
 
-    char sdate[11] = "";
-    char edate[11] = "";
+    char sdate[24] = "";
+    char edate[24] = "";
     char stime1[11] = "";
     char etime1[11] = "";
     char time_flag[2] = "";
@@ -360,7 +360,7 @@ int lan_log_getFileLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
 
     if(strlen(sdate) > 0 && strlen(edate) > 0)
-    {
+    { 	
         ptmp = ncsUtlGetTable2(sdate, edate, "nwfilelog_", &lStartTime, &lTime, &lCount);
     }
     else
@@ -1733,6 +1733,9 @@ int lan_log_getAlarmLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(strlen(sdate) > 0 && strlen(edate) > 0)
     {
+    	printf("alarm before modi==%s,%s\n", sdate, edate);
+        modifyDates(sdate, edate);
+        printf("alarm after modi==%s,%s\n", sdate, edate);
         ptmp = ncsUtlGetTable2(sdate, edate, "nwwarnlog_", &lStartTime, &lTime, &lCount);
         ptmp2 = ncsUtlGetTable2(sdate, edate, "nwwarnscreen_", &lStartTime, &lTime, &lCount);
     }
