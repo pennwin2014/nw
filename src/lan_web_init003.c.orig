@@ -969,25 +969,71 @@ void RepairCompid()
 }
 int modifyDates(char* sdate, char* edate)
 {
-	/*
-	* 2015/9/30T23:59:59  ===>  2015/09/30T23:59:59 
-	*/
-	int i = 0;
-	if(strlen(sdate) == 18){
-		printf("strlen(sdate)=%d\n", strlen(sdate));
-		for(i=18;i>4;i--){
-			sdate[i+1] = sdate[i];
+    /*
+      * 2015/9/30T23:59:59  ===>  2015/09/30T23:59:59
+      * 2015/10/8T00:00:00  ===>  2015/10/08T23:59:59
+     */
+    int i = 0;
+    //找到第一个/和第二个/之间的字符串
+    char* p = NULL;
+    p = strtok(sdate, "/");
+    if(p)
+        printf("first %s\n", p);
+    p = strtok(NULL, "/");
+    if(p)
+        printf("second %s\n", p);
+    if(strlen(p) == 1)
+    {
+
+        for(i = 18; i > 4; i--)
+        {
+            sdate[i + 1] = sdate[i];
+        }
+        sdate[5] = '0';
+    }
+	//找到第二个/和T之间的字符串
+    p = strtok(NULL, "T");
+    if(p)
+        printf("T %s\n", p);
+    if(strlen(p) == 1)
+    {
+
+        for(i = 18; i > 7; i--)
+        {
+            sdate[i + 1] = sdate[i];
+        }
+        sdate[8] = '0';
+    }
+    
+	//结束时间
+	p = strtok(edate, "/");
+		if(p)
+			printf("efirst %s\n", p);
+		p = strtok(NULL, "/");
+		if(p)
+			printf("esecond %s\n", p);
+		if(strlen(p) == 1)
+		{
+	
+			for(i = 18; i > 4; i--)
+			{
+				edate[i + 1] = edate[i];
+			}
+			edate[5] = '0';
 		}
-		sdate[5] = '0';
-	}
-	if(strlen(edate) == 18){
-		printf("strlen(edate)=%d\n", strlen(edate));
-		for(i=18;i>4;i--){
-			edate[i+1] = edate[i];
+		p = strtok(NULL, "T");
+		if(p)
+			printf("eT %s\n", p);
+		if(strlen(p) == 1)
+		{
+	
+			for(i = 18; i > 7; i--)
+			{
+				edate[i + 1] = edate[i];
+			}
+			edate[8] = '0';
 		}
-		edate[5] = '0';
-	}
-	return 0;
+    return 0;
 }
 int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
@@ -1093,14 +1139,12 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(!utStrIsSpaces(sdate))
     {
-    	
-    	
-			printf("before modi==%s,%s\n",sdate,edate);
-			modifyDates(sdate, edate);
-			printf("after modi==%s,%s\n",sdate,edate);
-		
-		lStartTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate);
-		lTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate);		     
+        printf("before modi==%s,%s\n", sdate, edate);
+        modifyDates(sdate, edate);
+        printf("after modi==%s,%s\n", sdate, edate);
+
+        lStartTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate);
+        lTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate);
     }
 
     char msg[256] = "";
@@ -1200,7 +1244,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         lStartTime = lStartTime1;
         lTime = lTime1;
     }
-	
+
     for(i = 0; i < lCount; i++)
     {
         snprintf(frmfile, sizeof(frmfile), "/usr/local/infobright/data/ncs/%s.frm", ptmp[i]);
@@ -1246,7 +1290,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         lCount1 = 0;
         writeLog("logCheck.txt", "pingmu", sql);
         iReturn = pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &lCount1);
-		printf("sql=%s\n", sql);
+        printf("sql=%s\n", sql);
         if(iReturn != 1146 && lCount1 > 0)
         {
             strcpy(tableinfo[num].tname, ptmp[i]);
@@ -1257,7 +1301,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         free(ptmp[i]);
     }
     free(ptmp);
-	printf("lcount=%d,num=%d\n", lCount, num);
+    printf("lcount=%d,num=%d\n", lCount, num);
     for(i = 0; i < num; i++)
     {
         lTotRec += tableinfo[i].lCount;
@@ -1371,7 +1415,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         writeLog("logCheck.txt", "pingmu", sql);
         psCur = pasDbOpenSql(sql, 0);
         recodeLogInfo("screen sql select ....", "$$$$$$$$$$$$$$$$$$$$", sql);
-		printf("sql=%s\n", sql);
+        printf("sql=%s\n", sql);
         if(psCur != NULL)
         {
             long long sid = 0;

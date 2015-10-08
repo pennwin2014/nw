@@ -969,30 +969,73 @@ void RepairCompid()
 }
 int modifyDates(char* sdate, char* edate)
 {
-  /*
-    * 2015/9/30T23:59:59  ===>  2015/09/30T23:59:59
-    * 2015/10/8T00:00:00  ===>  2015/10/08T23:59:59
-   */
-   //找到第一个/和第二个/之间的字符串
-   //找到第二个/和T之间的字符串
+	char ssdate[24]="", eedate[24]="";
+	strcpy(ssdate, sdate);
+	strcpy(eedate, edate);
+    /*
+      * 2015/9/30T23:59:59  ===>  2015/09/30T23:59:59
+      * 2015/10/8T00:00:00  ===>  2015/10/08T23:59:59
+     */
     int i = 0;
-    if(strlen(sdate) == 18)
+    //找到第一个/和第二个/之间的字符串
+    char* p = NULL;
+    p = strtok(ssdate, "/");
+    if(p)
+        printf("first %s\n", p);
+    p = strtok(NULL, "/");
+    if(p)
+        printf("second %s\n", p);
+    if(strlen(p) == 1)
     {
-        printf("strlen(sdate)=%d\n", strlen(sdate));
+		printf("add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             sdate[i + 1] = sdate[i];
         }
         sdate[5] = '0';
     }
-    if(strlen(edate) == 18)
+    //找到第二个/和T之间的字符串
+    p = strtok(NULL, "T");
+    if(p)
+        printf("T %s\n", p);
+    if(strlen(p) == 1)
     {
-        printf("strlen(edate)=%d\n", strlen(edate));
+		printf("add 0 in pos 8\n");
+        for(i = 18; i > 7; i--)
+        {
+            sdate[i + 1] = sdate[i];
+        }
+        sdate[8] = '0';
+    }
+
+    //结束时间
+    p = strtok(eedate, "/");
+    if(p)
+        printf("efirst %s\n", p);
+    p = strtok(NULL, "/");
+    if(p)
+        printf("esecond %s\n", p);
+    if(strlen(p) == 1)
+    {
+		printf("e add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             edate[i + 1] = edate[i];
         }
         edate[5] = '0';
+    }
+	//找到第二个/和T之间的字符串
+    p = strtok(NULL, "T");
+    if(p)
+        printf("eT %s\n", p);
+    if(strlen(p) == 1)
+    {
+		printf("e add 0 in pos 8\n");
+        for(i = 18; i > 7; i--)
+        {
+            edate[i + 1] = edate[i];
+        }
+        edate[8] = '0';
     }
     return 0;
 }
