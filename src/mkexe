@@ -1,0 +1,10 @@
+killall -9 $1
+killall -9 $1
+gcc -g  -DPAS_MYSQL -o $1  -I/home/pas36/include \
+ -I$MYSQL_HOME/include \
+ $1.c nc.a  tnef.a ncrtf.a  /usr/local/lib/liblber.a libcifsauth.a libftp.a $PAS_HOME/lib/maillib.a  $PAS_HOME/lib/libpasv40_x32.a \
+ $MYSQL_HOME/lib/libmysqlclient.a libz.a libpdf.a libgd.a  \
+ 	 /usr/lib/libpng12.so.0 \
+   -l pthread -lm -lnet -lcrypt   -lc -lpthread -lc -lresolv -lpasspod  libpcsclite.a libpcap.a  libqdbm.a -ldl -lfreetype -lpthread -liconv 
+
+cp $1 ../bin

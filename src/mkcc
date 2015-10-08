@@ -1,0 +1,5 @@
+gcc   -c -g  -DNCS_CLIENT -DPAS_MYSQL -I$PAS_HOME/include -I$MYSQL_HOME/include  \
+  -o $1.o  $1.c 
+ar rv nc.a  $1.o
+rm $1.o
+

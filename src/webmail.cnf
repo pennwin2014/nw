@@ -1,0 +1,33 @@
+# 2009/02/28   Add: Yahoo Mail
+# 2007/12/08 
+# Modified Date: 2005/03/08
+# Create   Date: 2005/03/04
+# WebMail 描述文件
+# H:域名    F:发件人特征   T:收件人特征  C:抄送  B:密件抄送 S:主题  M:正文内容  A:附件
+# 缺省WebMail的描述
+H:
+F:From,Sender,sendfrom,account,defFromAddress,from.email
+T:To,to,recipient,to.email
+S:Sub,Subject,Subj,subject
+M:Text,Message,Content,Body,msgtxt,content,mess,body,editcontent,simplebody.html
+C:Cc,cc,cc.email
+B:Bcc,bcc,bcc.email
+A:file*,File*,FileName,Attache,AttName,UploadFileName,userFile*,atth*,fname,upload,attfile,attachment,uploadfile,UploadFile
+# 163.com
+A:attachfile*
+# zjwu.net
+H:zjwu.net
+T:recipient
+M:editcontent,content
+S:subject
+A:filename,FileName
+# 以下描述针对特定的Webmail 
+H:pronetway.com
+F:From
+T:To
+S:Sub,Subject,Subj
+M:Text,Message,Content,Txt,Mesg
+C:Cc,Ccname
+B:Bcc,CccName
+A:fname
+

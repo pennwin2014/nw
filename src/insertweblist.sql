@@ -1,0 +1,1 @@
+insert into ncweblist (id,url,name,modtime) (select id,url,title,rtime from unkownurl where flag=2 and id=rid and url not in (select url from ncweblist ));
