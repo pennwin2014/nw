@@ -1,0 +1,127 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link REL=stylesheet HREF="/css/runmit.css" TYPE='text/css'>
+</head>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#4189DD";
+	o.style.borderColor= "#cccccc";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+parent.parent.clearTimeout(parent.parent.popTimer);
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+parent.parent.popOut()		
+	
+}
+function menu_frame_onmouseover()
+{
+	parent.clearTimeout(parent.popTimer);
+	document.body.className='highlight_container'}
+function menu_frame_onmouseout()
+{
+	document.body.className="menu_container";
+	parent.popOut()}
+
+function goto(t){
+  parent.sbpm_right.location.href=t
+}
+
+function goto2(t){
+  parent.sbpm_left.location.href=t
+}
+function dono() {
+}
+</script>
+<body topMargin=0 leftmargin=0 marginheight="0" class=menu_space style='cursor:default;border:0' fixed oncontextmenu="return false">
+<table class=3dtable_notop1 border=0 width=100% cellspacing=0 cellpadding=0 style='padding:2px'>
+<!--   -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebRuleSearch');goto2('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebLim_Dispmenu&plate@tree/tree_menu_lim_allcx.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">控制规则查询</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0');goto2('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebLim_Dispmenu&plate@tree/tree_menu_lim.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网控制规则设定</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebError_WarnSet');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">告警信息邮件订阅</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimNomonService');goto2('/pronline/Msg?FunName@ncWebLimIpGroup_new&plate@nc/nc_limgroupiptree_nomon.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网络服务识别开关</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimShowDefault');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网综合参数设置</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_ctlbase_setmenu.htm');goto2('/pronline/Msg?FunName@ncWebWebPolClass&plate@tree/nc_tree_limwebpol_top.htm&rownum@999');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">控制规则基础数据</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebDispPorcylist');goto2('/pronline/Msg?FunName@ncWebLimRuleGroup&plate@nc/nc_limprocytree.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">分配预定义上网策略</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_sentive_setmenu.htm');goto2('/pronline/Msg?FunName@ncWebMailGroupEdit&plate@mail/nc_mailmonsettree.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">敏感信息规则定义</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebSnaprulelist');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网页快照规则设置</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncQQrulelist');goto2('/no.htm.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">QQ号监控规则</font></td>
+  </tr>
+<!--      -->
+  <tr id="11"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebTcDispInterface2&cid@1');goto2('/pronline/Msg?FunName@ncWebTcIntfaceTree');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">带宽接口参数定义</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/nc_tcprocy_desc.htm');goto2('/pronline/Msg?FunName@ncWebTcProcyTree&flag@1');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">一级带宽策略设置</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/nc_tcprocy_desc.htm');goto2('/pronline/Msg?FunName@ncWebTcProcyTree&flag@2');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">二级带宽策略设置</font></td>
+  </tr>
+<!--   -->
+</table>
+</body>
+</html>

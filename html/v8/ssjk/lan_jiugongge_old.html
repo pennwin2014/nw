@@ -1,0 +1,1522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+ 
+       <style type="text/css">
+    	
+	.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+    	
+    *{font-size:12px!important;}
+    .page{margin:0 auto;width:[#swidth#]px;background-color:#E9F2FC;overflow:hidden; border:1px solid #D4E0F5;}
+	
+	.div
+	{
+	box-shadow: 10px 10px 5px #888888;
+	}
+	.screenList{float:left;display:block;width:350px;height:320px;margin:5px;border:10px;border:2px solid;
+	border-radius:15px; 	box-shadow: 5px 5px 5px #888888;
+	
+	-moz-border-radius:25px; /* Old Firefox */}
+	
+	.view1{float:left;display:block;
+	margin:5px;border:10px;border:2px solid;
+	border-radius:15px; 	box-shadow: 5px 5px 5px #888888;
+	-moz-border-radius:25px; /* Old Firefox */}
+	
+	.view2{float:left;display:block;margin:2px;border:10px;border:2px solid;
+	border-radius:10px; 	box-shadow: 5px 5px 5px #888888;
+	-moz-border-radius:25px; /* Old Firefox */}
+	
+	.view3{float:left;display:block;margin:2px;border:5px;border:2px solid;
+	border-radius:10px; 	box-shadow: 2px 2px 2px #888888;
+	-moz-border-radius:25px; /* Old Firefox */}
+		.selected{background-color: #D3E1F1;}
+		.overitem{background-color: #ff9a00;}
+	
+	.title{font-size:30pt;}
+	
+	.tips{font-size:20px!important; text-align:center;color:blue;}
+	.button_close {
+		background-image: url("/newver/wubin/2474.png");
+		height:20px;
+		width:20px;
+	}
+  </style>
+<title></title>
+  <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+   <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+
+
+     <script type="text/javascript">  
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+	'Ext.view.View',
+    'Ext.ux.DataView.Animated',
+    'Ext.XTemplate',
+	'Ext.slider.Single',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+	 
+var store1; 
+var store2;
+var store3; 
+var store4; 
+var store5; var store6; var store7; var store8; var store9;  
+var store1PageSize = 50; 
+var store2PageSize = 50;  
+var store3PageSize = 50;  
+var store4PageSize = 50;     
+var store5PageSize =50; var store6PageSize =50; var store7PageSize =50; var store8PageSize =50; var store9PageSize =50;
+var index1 = 0;
+var index2 = 0;
+var index3 = 0;
+var index4 = 0;
+var index5 = 0; var index6 = 0; var index7 = 0; var index8 = 0; var index9 = 0;
+ var count = 0;
+ var _store1;
+ var _store2;
+ var _store3;
+ var _store4;
+ var _store5; var _store6; var _store7; var _store8; var _store9;
+	var _index = 15;		
+    var imageWidth;
+	var imageHeight;
+	var intervalNumber =0 ;
+
+//var _imagehtml = '<font color = "blue">屏幕实时监控操作说明: 选择左边部门树的计算机对其屏幕进行监控，最多可选择九个计算机同时监控.</font>';	
+ var _imagehtml = "";
+ 
+ 
+function reflash1(){
+//alert("store1 refalsh111111111111!");
+  var did1=document.getElementById("form1").did1.value;
+  var gid1=document.getElementById("form1").groupid1.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did6="";
+  var gid6="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+	
+store1.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+//	alert("11111111111111111 store1: " + store1.getTotalCount() + "store2: "+store2.getTotalCount());
+//	if(index1 >= store1.getTotalCount()){index1 = 0;}else{index1 ++;}
+	
+//	Ext.getCmp('viewPanel').update(_imagehtml);
+ }
+ 
+function reflash2(){
+//alert("store1 refalsh111111111111!");
+  var did2=document.getElementById("form1").did2.value;
+  var gid2=document.getElementById("form1").groupid2.value;
+  
+  var did6="";
+  var gid6="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+   var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store2.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ 
+function reflash3(){
+//alert("store1 refalsh111111111111!");
+  var did3=document.getElementById("form1").did3.value;
+  var gid3=document.getElementById("form1").groupid3.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did6="";
+  var gid6="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store3.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ 
+function reflash4(){
+//alert("store1 refalsh111111111111!");
+  var did4=document.getElementById("form1").did4.value;
+  var gid4=document.getElementById("form1").groupid4.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did6="";
+  var gid6="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store4.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ 
+  function reflash5(){
+//alert("store1 refalsh111111111111!");
+  var did5=document.getElementById("form1").did5.value;
+  var gid5=document.getElementById("form1").groupid5.value;
+  
+  var did1="";
+  var gid1="";
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+
+  
+   var did6="";
+  var gid6="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var sdate=document.getElementById("form1").sdate.value;//起始日期
+  var edate=document.getElementById("form1").edate.value;//结束日期
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var compid1=document.getElementById('form1').compid1.value; //类型
+    var udisp1=document.getElementById('form1').udisp1.value; //类型
+    var stime1=document.getElementById('form1').stime1.value; //时间
+	var department1=document.getElementById('form1').department1.value; //备注
+	var mac1=document.getElementById('form1').mac1.value; //用户
+	var sip1=document.getElementById('form1').sip1.value; //IP
+	var image1=document.getElementById('form1').image1.value; //文件名
+	var procname1=document.getElementById('form1').procname1.value; //进程名
+	
+store5.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+//	alert("2222222222 store2: " + store2.getTotalCount() + "store1: "+store1.getTotalCount());
+//	if(index2 >= store2.getTotalCount()){index2 = 0;}else{index2 ++;}
+	
+
+ }
+ 
+ function reflash6(){
+//alert("store1 refalsh111111111111!");
+  var did6=document.getElementById("form1").did6.value;
+  var gid6=document.getElementById("form1").groupid6.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store6.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ function reflash7(){
+//alert("store1 refalsh111111111111!");
+  var did7=document.getElementById("form1").did7.value;
+  var gid7=document.getElementById("form1").groupid7.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did6="";
+  var gid6="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store7.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ function reflash8(){
+//alert("store1 refalsh111111111111!");
+  var did8=document.getElementById("form1").did8.value;
+  var gid8=document.getElementById("form1").groupid8.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did6="";
+  var gid6="";
+  
+   var did9="";
+  var gid9="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store8.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+ 
+ function reflash9(){
+//alert("store1 refalsh111111111111!");
+  var did9=document.getElementById("form1").did9.value;
+  var gid9=document.getElementById("form1").groupid9.value;
+  
+  var did2="";
+  var gid2="";
+  
+  var did3="";
+  var gid3="";
+  
+  var did4="";
+  var gid4="";
+  
+ var did5="";
+  var gid5="";
+  
+   var did1="";
+  var gid1="";
+  
+   var did7="";
+  var gid7="";
+  
+   var did8="";
+  var gid8="";
+  
+   var did6="";
+  var gid6="";
+
+  var ip1=document.getElementById("form1").ip1.value;
+  var keyword1;
+//  var keyword1=Ext.getCmp('keyword').value; 
+ // if(keyword1!='输入单位编码/名称查询'){
+ keyword1=document.getElementById('form1').keyword5.value;
+//  }
+   
+  var fcod1=document.getElementById('form1').fcode.value; //部门
+   var servicestate1=document.getElementById('form1').servicestate1.value;
+   var clb=document.getElementById('form1').lb.value;
+    var udisp1 = document.getElementById('form1').udisp1.value;
+   var time_flag=document.getElementById("form1").time_flag.value; 
+    var sid1=document.getElementById('form1').sid1.value; //序号
+    var stime1=document.getElementById('form1').stime1.value; //时间
+
+
+store9.load({params:{sid1:sid1,udisp1:udisp1,stime1:stime1,time_flag:time_flag,did1:did1,did2:did2,did3:did3,did4:did4,did5:did5,did6:did6,did7:did7,did8:did8,did9:did9,gid1:gid1,gid2:gid2,gid3:gid3,gid4:gid4,gid5:gid5,gid6:gid6,gid7:gid7,gid8:gid8,gid9:gid9}});
+ }
+
+ function SetPage(){
+	
+		}
+var compids;
+ function reflash(groupid,did,number){
+ //alert("jiugongge : " + parent.compid_ck);
+ // var compid=parent.compid;
+ // var groupid=parent.groupid;
+ compids = parent.compid_ck.split(',');
+
+ document.getElementById("form1").groupid1.value = "0";
+ document.getElementById("form1").groupid2.value = "0";
+ document.getElementById("form1").groupid3.value = "0";
+ document.getElementById("form1").groupid4.value = "0";
+ document.getElementById("form1").groupid5.value = "0";
+ document.getElementById("form1").groupid6.value = "0";
+ document.getElementById("form1").groupid7.value = "0";
+ document.getElementById("form1").groupid8.value = "0";
+ document.getElementById("form1").groupid9.value = "0";
+ store1.load({params: {did1:0}});
+ store2.load({params: {did2:0}});
+ store3.load({params: {did3:0}});
+ store4.load({params: {did4:0}});
+ store5.load({params: {did5:0}});
+ store6.load({params: {did6:0}});
+ store7.load({params: {did7:0}});
+ store8.load({params: {did8:0}});
+ store9.load({params: {did9:0}});
+
+//  alert("compids = "+compids);
+//  alert("did = " + did);
+//  alert("groupid = " + groupid);
+	
+	
+//	alert(compids.length);
+	var i =0;
+	for(i=0; i<compids.length; i++){
+//	alert("compids[i] = "+compids[i]);
+    switch(i){
+	  case 0:
+//	  alert("000000000000000000000000");
+	 document.getElementById("form1").groupid1.value=compids[i];
+	 document.getElementById("form1").did1.value=did;
+	  
+	  break;
+	  case 1:
+//	  alert("1111111111111111111111");
+	 document.getElementById("form1").groupid2.value=compids[i];
+	 document.getElementById("form1").did2.value=did;
+	  
+	  break;
+	  case 2:
+//	   alert("2222222222222222222");
+	  document.getElementById("form1").groupid3.value=compids[i];
+	 document.getElementById("form1").did3.value=did;
+	  
+	  break;
+	   case 3:
+//	   alert("33333333333333333333333333");
+	  document.getElementById("form1").groupid4.value=compids[i];
+	  document.getElementById("form1").did4.value=did;
+	  
+	  break;
+	   case 4:
+//	   alert("44444444444444444444444444");
+	  document.getElementById("form1").groupid5.value=compids[i];
+	  document.getElementById("form1").did5.value=did;
+	  
+	  break;
+	   case 5:
+//	   alert("555555555555555555555555");
+	  document.getElementById("form1").groupid6.value=compids[i];
+	  document.getElementById("form1").did6.value=did;
+	  
+	  break;
+	   case 6:
+//	   alert("6666666666666666666");
+	  document.getElementById("form1").groupid7.value=compids[i];
+	  document.getElementById("form1").did7.value=did;
+	  
+	  break;
+	   case 7:
+//	   alert("7777777777777777777");
+	  document.getElementById("form1").groupid8.value=compids[i];
+	  document.getElementById("form1").did8.value=did;
+	  
+	  break;
+	   case 8:
+//	   alert("8888888888888888888");
+	  document.getElementById("form1").groupid9.value=compids[i];
+	  document.getElementById("form1").did9.value=did;
+	  
+	  break;
+	    
+	  default: 
+	  alert("最多选择九个");
+	  break;
+	  }
+	  }
+ 
+	  imgDetail();
+  }
+ 
+ 
+ function selectScreen(count){
+//	alert("选择监控屏幕 " + count);
+	switch(count){
+	case 1: _store1 = store1.getAt(index1);
+//	alert("store1 "+store1.getAt(index1).get('udisp'));
+	break;
+//	alert("selectScreen"+_store1.get('udisp'));
+	case 2: 
+//	alert("WTF");
+	_store2 = store2.getAt(index2);break;
+//	alert("selectScreen"+_store2.get('udisp'));
+	case 3: _store3 = store3.getAt(index3);break;
+	case 4: _store4 = store4.getAt(index4);break;
+	case 5: _store5 = store5.getAt(index5);break;
+	case 6: _store6 = store6.getAt(index6);break;
+	case 7: _store7 = store7.getAt(index7);break;
+	case 8: _store8 = store8.getAt(index8);break;
+	case 9: _store9 = store9.getAt(index9);break;
+	default: break;
+	}
+	
+ };
+ 
+ function imgClose(store){
+  
+ if(confirm('关闭监控计算机: '+store.get('compname')+' ？')){  
+           		  
+var i =0;
+ var records = parent.Ext.getCmp('tree_ck').getView().getChecked(); 
+
+ for (i = 0; i<records.length; i++){
+ //alert(records[i].get('compid'));
+	 if(store.get('compid') == records[i].get('compid')){
+			parent.Ext.getCmp('tree_ck').getView().getChecked()[i].set('checked',false);
+			parent.Ext.getCmp('tree_ck').fireEvent('checkchange');
+	 //alert('same');
+	 }
+ }
+				  
+				  
+           		  }
+ //alert("关闭"+ store.get('compid'));
+ //alert(parent.compid_ck);
+ 
+ }
+
+ function updateAllScreen(){
+ 
+ 	var x= (Math.random()*100000);
+	
+ 
+ 
+//	alert("index1= "+index1 +"index2= "+index2+"index3= "+index3+"index4= "+index4);
+//	_imagehtml = '';
+
+
+	//alert(x);
+	_imagehtml = '';
+	Ext.getDom('title1').innerHTML='';
+	
+	switch(count){
+	case 1:
+
+	_imagehtml = '<div class="view1" style = "width:'+(imageWidth+20)+'px;  height:'+(imageHeight+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+imageWidth+' height='+imageHeight+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												;
+	//alert(_imagehtml);											
+
+	break;
+	
+	case 2:
+	_imagehtml = '<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+
+												;
+	break;
+	
+	case 3:
+	_imagehtml = '<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												
+												;
+	break;
+	
+	case 4:
+	_imagehtml = '<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view2" style = "width:'+(imageWidth/2+20)+'px;  height:'+(imageHeight/2+30)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												;
+	break;
+	
+	case 5:
+ _imagehtml = '<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store3)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store4)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store5.get('gname')+'</font> IP: <font color="red">'+_store5.get('sip')+'</font> 用户: <font color="red">'+ _store5.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store5)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store5)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store5.get('file')+'&number@'+x+'"/></center></div>'
+						
+												;
+	break;
+	
+	case 6:
+_imagehtml = '<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store3)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store4)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store5.get('gname')+'</font> IP: <font color="red">'+_store5.get('sip')+'</font> 用户: <font color="red">'+ _store5.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store5)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store5)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store5.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store6.get('gname')+'</font> IP: <font color="red">'+_store6.get('sip')+'</font> 用户: <font color="red">'+ _store6.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store6)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store6)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store6.get('file')+'&number@'+x+'"/></center></div>'
+													
+												;
+	break;
+	
+	case 7:
+_imagehtml = '<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store3)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store4)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store5.get('gname')+'</font> IP: <font color="red">'+_store5.get('sip')+'</font> 用户: <font color="red">'+ _store5.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store5)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store5)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store5.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store6.get('gname')+'</font> IP: <font color="red">'+_store6.get('sip')+'</font> 用户: <font color="red">'+ _store6.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store6)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store6)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store6.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store7.get('gname')+'</font> IP: <font color="red">'+_store7.get('sip')+'</font> 用户: <font color="red">'+ _store7.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store7)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store7)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store7.get('file')+'&number@'+x+'"/></center></div>'
+											
+												;
+	break;
+	
+	case 8:
+_imagehtml = '<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store3)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store4)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store5.get('gname')+'</font> IP: <font color="red">'+_store5.get('sip')+'</font> 用户: <font color="red">'+ _store5.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store5)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store5)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store5.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store6.get('gname')+'</font> IP: <font color="red">'+_store6.get('sip')+'</font> 用户: <font color="red">'+ _store6.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store6)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store6)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store6.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store7.get('gname')+'</font> IP: <font color="red">'+_store7.get('sip')+'</font> 用户: <font color="red">'+ _store7.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store7)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store7)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store7.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store8.get('gname')+'</font> IP: <font color="red">'+_store8.get('sip')+'</font> 用户: <font color="red">'+ _store8.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store8)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store8)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store8.get('file')+'&number@'+x+'"/></center></div>'
+											
+												;
+	break;
+	
+	case 9: 
+ _imagehtml = '<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store1.get('gname')+'</font> IP: <font color="red">'+_store1.get('sip')+'</font> 用户: <font color="red">'+ _store1.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store1)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+' ondblclick ="showImgDetail(_store1)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store1.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store2.get('gname')+'</font> IP: <font color="red">'+_store2.get('sip')+'</font> 用户: <font color="red">'+ _store2.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store2)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store2)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store3.get('gname')+'</font> IP: <font color="red">'+_store3.get('sip')+'</font> 用户: <font color="red">'+ _store3.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store3)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store3)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store3.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store4.get('gname')+'</font> IP: <font color="red">'+_store4.get('sip')+'</font> 用户: <font color="red">'+ _store4.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store4)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store4)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store4.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store5.get('gname')+'</font> IP: <font color="red">'+_store5.get('sip')+'</font> 用户: <font color="red">'+ _store5.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store5)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store5)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store5.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store6.get('gname')+'</font> IP: <font color="red">'+_store6.get('sip')+'</font> 用户: <font color="red">'+ _store6.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store6)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store6)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store6.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store7.get('gname')+'</font> IP: <font color="red">'+_store7.get('sip')+'</font> 用户: <font color="red">'+ _store7.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store7)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store7)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store7.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store8.get('gname')+'</font> IP: <font color="red">'+_store8.get('sip')+'</font> 用户: <font color="red">'+ _store8.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store8)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store8)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store8.get('file')+'&number@'+x+'"/></center></div>'
+												+'<div class="view3" style = "width:'+(imageWidth/3+20)+'px;  height:'+(imageHeight/3+40)+'px"><div style="text-align:center" float:left><span>部门: <font color = "red">'+_store9.get('gname')+'</font> IP: <font color="red">'+_store9.get('sip')+'</font> 用户: <font color="red">'+ _store9.get('compname')+'</font></span><span style="float:right"><input type="button" class="button_close" value="" onclick="imgClose(_store9)"/></span></div><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="showImgDetail(_store9)" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store9.get('file')+'&number@'+x+'"/></center></div>'
+												;
+	break;
+	default: 
+			_imagehtml = '<div class = "tips">屏幕实时监控操作说明:<br>选择左边部门树的计算机对其屏幕进行监控<br>最多可选择九个计算机同时监控.</div>';	
+	break;
+	}
+	
+	//Ext.getCmp('viewPanel2').update(_imagehtml);
+	//setTimeout("updateReadyImg()",4000);
+	Ext.getCmp('viewPanel').update(_imagehtml);
+	
+	if(index1 >= store1.getTotalCount()-1){index1 = 0;}else{index1 ++;}
+	if(index2 >= store2.getTotalCount()-1){index2 = 0;}else{index2 ++;}
+	if(index3 >= store3.getTotalCount()-1){index3 = 0;}else{index3 ++;}
+	if(index4 >= store4.getTotalCount()-1){index4 = 0;}else{index4 ++;}
+	if(index5 >= store5.getTotalCount()-1){index5 = 0;}else{index5 ++;}
+	if(index6 >= store6.getTotalCount()-1){index6 = 0;}else{index6 ++;}
+	if(index7 >= store7.getTotalCount()-1){index7 = 0;}else{index7 ++;}
+	if(index8 >= store8.getTotalCount()-1){index8 = 0;}else{index8 ++;}
+	if(index9 >= store9.getTotalCount()-1){index9 = 0;}else{index9 ++;}
+	
+	count = 0;
+	if(document.getElementById("form1").groupid1.value != ""&& document.getElementById("form1").groupid1.value != "0"){reflash1(); count++; selectScreen(count);}
+	if(document.getElementById("form1").groupid2.value != ""&& document.getElementById("form1").groupid2.value != "0"){reflash2(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid3.value != ""&& document.getElementById("form1").groupid3.value != "0"){reflash3(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid4.value != ""&& document.getElementById("form1").groupid4.value != "0"){reflash4(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid5.value != ""&& document.getElementById("form1").groupid5.value != "0"){reflash5(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid6.value != ""&& document.getElementById("form1").groupid6.value != "0"){reflash6(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid7.value != ""&& document.getElementById("form1").groupid7.value != "0"){reflash7(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid8.value != ""&& document.getElementById("form1").groupid8.value != "0"){reflash8(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid9.value != ""&& document.getElementById("form1").groupid9.value != "0"){reflash9(); count++; selectScreen(count); }
+ }
+	
+	function updateReadyImg(){
+	//alert("updateReadyImg");
+	Ext.getCmp('viewPanel').update(_imagehtml);
+	}
+	
+	function showImgDetail(store){
+	var x= (Math.random()*100000);
+//	alert("双击图片" + store);
+//	alert(store.get('file'));
+	var html_img = '<div class="view1" style = "width:'+(imageWidth+20)+'px;  height:'+(imageHeight+30)+'px"><center>部门: <font color = "red">'+store.get('gname')+'</font> IP: <font color="red">'+store.get('sip')+'</font> 用户: <font color="red">'+ store.get('compname')+'</font></center><center><img width= '+imageWidth+' height='+imageHeight+' src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store.get('file')+'&number@'+x+'"/></center></div>'
+	var winImg = new Ext.Window( 
+            	{
+				
+				title:'屏幕实时监控窗口',
+				closeAction: 'hide',
+				x:0,
+                y:0,
+			//	plain:false,  
+				layout:'form',  
+				width:imageWidth+60,
+				height:imageHeight+80,
+				draggable:true, //可拖动的
+			//	maximizable:true, //可最大化的
+			//	resizable: true, //可改变大小
+                modal: false,//后面的内容可以操作
+			//	plain：true,//则主体背景透明
+			//	items: fp2
+				constrain:true, //限制窗口只能在其容器内移动
+			//	minimizable:true, //可最小化
+				items:[ {
+					baseCls:"x-plain",
+					xtype:'label',	  
+            		html:html_img}
+					]
+				});
+				winImg.show();
+				
+	}
+ 
+ 
+	function imgDetail(){
+		clearInterval(intervalNumber);
+		intervalNumber =0;
+		index1 =0; 
+		index2 =0; 
+		index3 =0;
+		index4 =0;
+		index5 =0;
+		index6 =0;
+		index7 =0;
+		index8 =0;
+		index9 =0;
+	//   alert("img1Detail内容");
+	//   alert("groupid"+document.getElementById("form1").groupid1.value+"groupid2"+document.getElementById("form1").groupid2.value+"groupid3"+document.getElementById("form1").groupid3.value+"groupid4"+document.getElementById("form1").groupid4.value+"groupid5"+document.getElementById("form1").groupid5.value+"groupid6"+document.getElementById("form1").groupid6.value+"groupid7"+document.getElementById("form1").groupid7.value+"groupid8"+document.getElementById("form1").groupid8.value+"groupid9"+document.getElementById("form1").groupid9.value);
+//	    alert("did"+document.getElementById("form1").did1.value);
+		
+//		alert("fcode"+document.getElementById("form1").fcode.value);
+//		alert("lb"+document.getElementById("form1").lb.value);
+	count = 0;		
+//	alert("count ="+count);
+	if(document.getElementById("form1").groupid1.value != "" && document.getElementById("form1").groupid1.value != "0"){reflash1(); count++; selectScreen(count);}
+	if(document.getElementById("form1").groupid2.value != "" && document.getElementById("form1").groupid2.value != "0"){reflash2(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid3.value != ""&& document.getElementById("form1").groupid3.value != "0"){reflash3(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid4.value != ""&& document.getElementById("form1").groupid4.value != "0"){reflash4(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid5.value != ""&& document.getElementById("form1").groupid5.value != "0"){reflash5(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid6.value != ""&& document.getElementById("form1").groupid6.value != "0"){reflash6(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid7.value != ""&& document.getElementById("form1").groupid7.value != "0"){reflash7(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid8.value != ""&& document.getElementById("form1").groupid8.value != "0"){reflash8(); count++; selectScreen(count); }
+	if(document.getElementById("form1").groupid9.value != ""&& document.getElementById("form1").groupid9.value != "0"){reflash9(); count++; selectScreen(count); }
+	
+	//alert("count ="+count);	
+	//	updateAllScreen();
+	if(intervalNumber ==0){
+	intervalNumber = setInterval('autoPlay()',4000);
+	
+	}
+	}
+
+	function autoPlay(){
+	
+//	alert(parent.bStartim);
+	if(parent.bStartim==2){
+		updateAllScreen();
+	}
+	else{
+			clearInterval(intervalNumber);
+			_imagehtml = '<div class = "tips">屏幕实时监控操作说明:<br>选择左边部门树的计算机对其屏幕进行监控<br>最多可选择九个计算机同时监控.</div>';	
+			Ext.getCmp('viewPanel').update(_imagehtml);
+	}
+	}
+	 
+	Ext.onReady (function(){
+	
+	
+	
+		var viewWidth = document.body.scrollWidth;	//网页正文全文宽
+		var viewHeight = document.body.scrollHeight;	//网页正文全文高
+		imageWidth= document.body.clientWidth -100;
+		imageHeight= window.screen.availHeight - 350;
+		
+		Ext.define('EimData2',{
+		extend:'Ext.data.Model',
+		fields:['sid','department','compid','udisp','sip','mac','stime','file','compname','gname'],
+	});
+	
+	// create the Data Store
+    //重写排序函数，解决远程条件查询问题
+      store1 = Ext.create('Ext.data.Store', {
+        pageSize: store1PageSize,
+		id : 'store1',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+		store1.load({params: {did1:0}});
+	
+	 store2 = Ext.create('Ext.data.Store', {
+        pageSize: store2PageSize,
+		id : 'store2',
+        model: 'EimData2',
+        remoteSort: true,
+		//autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+	store2.load({params: {did2:0}});
+		
+		store3 = Ext.create('Ext.data.Store', {
+        pageSize: store3PageSize,
+		id : 'store3',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+		store3.load({params: {did3:0}});
+		
+		store4 = Ext.create('Ext.data.Store', {
+        pageSize: store4PageSize,
+		id : 'store4',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+		store4.load({params: {did4:0}});
+		
+			store5 = Ext.create('Ext.data.Store', {
+        pageSize: store5PageSize,
+		id : 'store5',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+		store5.load({params: {did5:0}});
+		store6 = Ext.create('Ext.data.Store', {
+        pageSize: store6PageSize,
+		id : 'store6',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+		store6.load({params: {did6:0}});
+		store7 = Ext.create('Ext.data.Store', {
+        pageSize: store7PageSize,
+		id : 'store7',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+	store7.load({params: {did7:0}});
+		store8 = Ext.create('Ext.data.Store', {
+        pageSize: store8PageSize,
+		id : 'store8',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+	store8.load({params: {did8:0}});
+		store9 = Ext.create('Ext.data.Store', {
+        pageSize: store9PageSize,
+		id : 'store9',
+        model: 'EimData2',
+        remoteSort: true,
+	//	 autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_ssjk_getScreen2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+	store9.load({params: {did9:0}});
+	
+	Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+	
+	/*
+	//加载时间
+	   var timeFlagStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'timeFlagStore.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+				
+				}
+		    });
+			
+    var timeFlagCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'timeFlagCombo',
+				fieldLabel: '时间',
+		        labelWidth: 40,
+		        width: 180,
+		        valueField:'groupid',
+		        value:'0',
+		        displayField: 'groupname',
+		        name : 'time_flag',      
+		        allowBlank: true,
+		        store: timeFlagStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+									if(this.value !=0){ //不是自定义时间清空开始，终止事件
+					          		document.getElementById("form1").sdate.value = "";
+				        			document.getElementById("form1").edate.value = "";
+									}									
+					                document.getElementById('form1').time_flag.value=this.value;
+		                    reflash1();
+							reflash2();
+							reflash3();
+							reflash4();
+							reflash5();
+							reflash6();
+							reflash7();
+							reflash8();
+							reflash9();
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+			
+			//加载时间
+	var viewStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'viewStore.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+		*/
+	
+	var viewTpl= Ext.create('Ext.XTemplate',
+									'<tpl for=".">',
+									'<div class="screenList" id="screen{id}">',
+									'<center><img width="330" height="250" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@{file}" /></center>',
+									'<center>部门: {gname}, 计算机: {compid}, 用户: {compname}</center>',
+									'<center>IP: {sip},  MAC: {mac}</center>',
+									'<center style="color:red">时间: {stime}</center>',
+									'</div>',
+									'</tpl>'
+									);
+									
+/*
+    var viewCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'viewCombo',
+				fieldLabel: '屏幕模式',
+		        labelWidth: 60,
+		        width: 180,
+		        valueField:'groupid',
+		        value:'0',
+		        displayField: 'groupname',
+		        name : 'view',      
+		        allowBlank: true,
+		        store: viewStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+								//	if(this.value !=0){ //不是自定义时间清空开始，终止事件
+					          //		document.getElementById("form1").sdate.value = "";
+				        		//	document.getElementById("form1").edate.value = "";
+								//	}									
+					         //       document.getElementById('form1').time_flag.value=this.value;
+									//alert(this.value);
+									switch(this.value){
+									case '1':
+								//	alert(this.value);
+								//	alert(document.body.clientWidth + "px");
+								//	alert( window.screen.availHeight + "px");
+								//	alert( document.body.clientHeight + "px");
+								//	alert( document.body.offsetHeight + "px");
+								//	alert( document.body.scrollHeight + "px");
+								//	alert( window.screen.height + "px");
+								//	alert( window.screen.availHeight + "px");
+									
+								//	alert(document.body.offsetHeight + "px");
+								
+									/*
+									viewTpl = Ext.create('Ext.XTemplate',
+									'<tpl for=".">',
+									'<div class="view1" id="screen{id}">',
+									'<center><img width=viewWidth-10 height=viewHeight-10 src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@{file}" /></center>',
+									'<center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center>',
+									'<center>IP: {sip},  MAC: {mac}</center>',
+									'<center style="color:red">时间: {stime}</center>',
+									'</div>',
+									'</tpl>'
+									);
+									viewTpl.overwrite(Ext.get("grid-corp"), store1);
+								//	Ext.getCmp('viewPanel').update(viewTpl);
+								
+									_imagehtml = '<div class="view1"><center><img width= '+imageWidth+' height='+imageHeight+' ondblclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												;
+											
+							//		viewTpl.overwrite(Ext.get("grid-corp"), store1);
+									Ext.getCmp('viewPanel').update(_imagehtml);
+								
+									break;
+								
+									case '2':
+									//alert(this.value);
+									
+									viewTpl = Ext.create('Ext.XTemplate',
+									'<tpl for=".">',
+									'<div class="view3" id="screen{id}">',
+									'<center><img width=viewWidth/2-5 height=viewHeight/2-5 src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@{file}" /></center>',
+									'<center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center>',
+									'<center>IP: {sip},  MAC: {mac}</center>',
+									'<center style="color:red">时间: {stime}</center>',
+									'</div>',
+									'</tpl>'
+									);
+									viewTpl.overwrite(Ext.get("grid-corp"), store1);
+									
+									//	reflash1();
+									_imagehtml = '<div class="view1"><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												+'<div class="view1"><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												+'<div class="view1"><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												+'<div class="view1"><center><img width= '+(imageWidth/2)+' height='+(imageHeight/2)+' ondblclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												;
+											
+							//		viewTpl.overwrite(Ext.get("grid-corp"), store1);
+								Ext.getCmp('viewPanel').update(_imagehtml);
+									
+									break;
+								
+									case '3':
+								//	alert(this.value);
+								//	reflash1();
+									_imagehtml = '<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store1.getAt(1).get('department')+'</font> IP: <font color="red">'+store1.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store1.getAt(1).get('udisp')+'</font></center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store2.getAt(1).get('file')+'"/></center><center>部门: <font color = "red">'+store2.getAt(1).get('department')+'</font> IP: <font color="red">'+store2.getAt(1).get('sip')+'</font> 用户: <font color="red">'+ store2.getAt(1).get('udisp')+'</font></center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												+'<div class="view3"><center><img width= '+(imageWidth/3)+' height='+(imageHeight/3)+'   onclick ="imgDetail()" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ store1.getAt(0).get('file')+'"/></center><center>部门: {department}, 计算机: {compid}, 用户: {udisp}</center></div>'
+												;
+											
+							//		viewTpl.overwrite(Ext.get("grid-corp"), store1);
+									Ext.getCmp('viewPanel').update(_imagehtml);
+									break;
+									default:break;
+									}
+		
+		                  //  reflash1();
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    });
+			
+   */
+	
+	
+var panel =	Ext.create('Ext.panel.Panel', {
+//        title: 'Forum Search',
+        height: '100%',
+      //  width: 1000,
+		renderTo: 'grid-corp',
+		autoScroll : true,
+	//	title: '屏幕日志 (选择 0 张图片)',
+        id: 'viewPanel',
+        layout: 'fit',
+	//	autoScroll:true,
+		  viewConfig:{
+	        	loadMask : false
+	        },
+       items:[{
+					baseCls:"x-plain",
+					id:'imageLabel',
+					xtype:'label',	  
+  
+					html:_imagehtml
+		
+				}],
+		listeners: {
+					 'change':function(){
+							console.log("hello~~~");
+							  
+							//reflash1()
+							}
+							}
+	});
+	
+	var panel2 =	Ext.create('Ext.panel.Panel', {
+//        title: 'Forum Search',
+        height: '100%',
+      //  width: 1000,
+	//	renderTo: 'grid-corp',
+		autoScroll : true,
+	//	title: '屏幕日志 (选择 0 张图片)',
+        id: 'viewPanel2',
+        layout: 'fit',
+	//	autoScroll:true,
+		  viewConfig:{
+	        	loadMask : false
+	        },
+       items:[{
+					baseCls:"x-plain",
+					id:'imageLabel2',
+					xtype:'label',	  
+  
+					html:_imagehtml
+		
+				}],
+		listeners: {
+					 'change':function(){
+							console.log("hello~~~");
+							  
+							//reflash1()
+							}
+							},
+		
+	});
+	/*
+var panel2 = Ext.create('Ext.panel.Panel',{
+			renderTo: 'hello',
+			id: 'combos',
+			dockedItems: [{
+            dock: 'top',
+ //           margins: '0 0 0 0',
+            border:false,
+            xtype: 'toolbar',
+            items: [	
+				timeFlagCombo,//时间下拉菜单
+				viewCombo
+            ]
+        }],
+		   
+});
+*/
+	 })
+
+
+
+</script>
+
+</head>
+
+
+<body>
+<div id="hello"></div>
+<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_ssjk_getScreen2">
+		<input type="hidden" name="groupid" value="0">
+		<input type="hidden" name="did" value="">
+		<input type="hidden" name="groupid1" value="0">
+		<input type="hidden" name="did1" value="">
+		<input type="hidden" name="groupid2" value="0">
+		<input type="hidden" name="did2" value="">
+		<input type="hidden" name="groupid3" value="0">
+		<input type="hidden" name="did3" value="">
+		<input type="hidden" name="groupid4" value="0">
+		<input type="hidden" name="did4" value="">
+		<input type="hidden" name="groupid5" value="0">
+		<input type="hidden" name="did5" value="">
+		<input type="hidden" name="groupid6" value="0">
+		<input type="hidden" name="did6" value="">
+		<input type="hidden" name="groupid7" value="0">
+		<input type="hidden" name="did7" value="">
+		<input type="hidden" name="groupid8" value="0">
+		<input type="hidden" name="did8" value="">
+		<input type="hidden" name="groupid9" value="0">
+		<input type="hidden" name="did9" value="">
+		
+		<input type="hidden" name="ip1" value="">		
+
+	  <input type="hidden" name="address1" value="">
+		<input type="hidden" name="area1" value="">
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="lxstate" value="">
+	
+		<input type="hidden" name="mid" value="">
+		
+		<input type="hidden" name="fcode" value="">
+		<input type="hidden" name="servicestate1" value="">
+		<input type="hidden" name="lb" value="">
+		
+		<input type="hidden" name="keyword5" value="">
+		
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="time_flag" value="5">
+		
+	<input type="hidden" name="sid1" value="">
+	<input type="hidden" name="compid1" value="">
+	<input type="hidden" name="udisp1" value="">
+	<input type="hidden" name="stime1" value="">
+	<input type="hidden" name="department1" value="">
+	<input type="hidden" name="mac1" value="">
+	<input type="hidden" name="sip1" value="">
+	<input type="hidden" name="image1" value="">
+	<input type="hidden" name="procname1" value="">
+	<input type="hidden" name="soupath1" value="">
+	<input type="hidden" name="destpath1" value="">
+	<input type="hidden" name="content1" value="">
+		
+	</form>
+<div id="grid-corp"><div class = "tips" id = "title1">屏幕实时监控操作说明:<br>选择左边部门树的计算机对其屏幕进行监控<br>最多可选择九个计算机同时监控.</div></div>
+
+</body>
+</html>

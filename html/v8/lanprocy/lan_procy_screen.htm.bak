@@ -1,0 +1,549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>网络策略</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+ function reflash(){
+  var tid=parent.pid;
+  store.load({params: {pid:tid}});  
+  }
+
+
+
+Ext.onReady(function(){
+		Ext.QuickTips.init();
+		Ext.form.Field.prototype.msgTarget = 'side';
+
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'ctype','optype','ftime','lxtype','modtime','createuser','sid','optype_desc','type_desc','ctype_desc'
+        ],
+      idProperty: 'sid'
+    });
+
+    // create the Data Store
+//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+       store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_Procy_Oth',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'sid',
+            direction: 'ASC'
+        }]
+    });
+
+
+
+    // pluggable renders
+ 
+  
+    var pluginExpanded = true;
+    
+ 
+ 
+     var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+            	var str = parent.right_fun;
+            	if(str.indexOf('2830')!=-1){         
+           			grid.down('#removeEmployee').setDisabled(selections.length == 0);
+              }
+            }
+        }
+    
+    });
+ 
+ 
+  
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){
+    
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}}
+       
+});
+
+
+function openAdd(rcd){
+		var optype_flag=0;
+		var temp_ftime = 0;
+		var temp_sid = "";
+     
+    var fp2=Ext.create('Ext.FormPanel', {
+      frame: true,
+      fieldDefaults: {
+          labelWidth: 110
+      },
+      width: 600,
+      bodyPadding: 10,
+      items: [{
+        xtype: 'checkboxgroup',
+        fieldLabel: '控制方式',
+        columns: 2,
+        vertical: true,
+        items: [{
+      		boxLabel: '不上传聊天日志',
+          inputValue: 1,
+          name        : 'liaotian',
+          id        : 'liaotian'
+        },{
+      		boxLabel: '不上传屏幕日志',
+          inputValue: 2,
+          name      : 'pingmu',
+          id      : 'pingmu',
+          listeners:{
+          	'change':function(thisFeild,newValue,oldValue,eOpts){
+          		Ext.getCmp('freqTime').setDisabled(newValue);
+          	} 
+          }
+      	},{
+      		boxLabel: '不上传进程日志',
+          inputValue: 4,
+          name        : 'jincheng',
+          id        : 'jincheng'
+        },{
+      		boxLabel: '不上传文件日志',
+          inputValue: 8,
+          name        : 'wenjian',
+          id        : 'wenjian'
+        },{
+      		boxLabel: '不上传网址日志',
+          inputValue: 16,
+          name        : 'wangzhi',
+          id        : 'wangzhi'
+        },{
+      		boxLabel: '不上传外设日志',
+          inputValue: 32,
+          name        : 'waishe',
+          id        : 'waishe'
+        }]
+    	},{
+    		xtype: 'numberfield',
+    		name: 'freqTime',
+    		id: 'freqTime',
+        fieldLabel: '截屏间隔(分钟)',
+        value: 2,
+        margins: "0 0 0 20",
+        maxValue: 60,
+        minValue: 0
+      }]
+    });
+    
+    if(rcd!=''){
+			optype_flag=rcd.get('optype');
+			temp_ftime=rcd.get('ftime');
+			temp_sid=rcd.get('sid');
+			
+			var formValues = fp2.getForm().getValues();
+			
+			if(optype_flag&1){
+				Ext.getCmp('liaotian').setValue(true);
+			}
+			optype_flag = optype_flag>> 1;
+			
+			if(optype_flag&1){
+				Ext.getCmp('pingmu').setValue(true);
+			}
+			optype_flag = optype_flag>> 1;
+			
+			if(optype_flag&1){
+				Ext.getCmp('jincheng').setValue(true);
+			}
+			optype_flag = optype_flag>> 1;
+			
+			if(optype_flag&1){
+				Ext.getCmp('wenjian').setValue(true);
+			}
+			optype_flag = optype_flag>> 1;
+			
+			if(optype_flag&1){
+				Ext.getCmp('wangzhi').setValue(true);
+			}
+			optype_flag = optype_flag>> 1;
+			
+			if(optype_flag&1){
+				Ext.getCmp('waishe').setValue(true);
+			}
+			
+			Ext.getCmp('freqTime').setValue(temp_ftime);
+		}
+    
+         var win2 = new Ext.Window ({
+               id:"addwindow",
+               title:"日志传送策略",
+               x:0,
+               y:0,
+               width:630,
+         //      height:600,
+               bodyPadding: 10,
+               modal:true,
+               resizable:true,
+               items: fp2,
+        buttons: [{
+            text: '保存',
+            handler: function(){
+							var ftime_id="";
+							var formValues = fp2.getForm().getValues();
+							var optype_id = 0;
+							
+							if(formValues.pingmu == 2){
+								optype_id += 2;
+							}
+							if(formValues.liaotian == 1){
+								optype_id += 1;
+							}
+							if(formValues.jincheng == 4){
+								optype_id += 4;
+							}
+							if(formValues.wenjian == 8){
+								optype_id += 8;
+							}
+							if(formValues.wangzhi == 16){
+								optype_id += 16;
+							}
+							if(formValues.waishe == 32){
+								optype_id += 32;
+							}
+							
+							if(formValues.pingmu != 2){
+								ftime_id=Ext.getCmp('freqTime').getValue();;
+							}
+            
+             var temp_id=parent.pid;
+            
+	           store.load({params:{update:"update",pid:temp_id,optype:optype_id,ctype:"",ftime:ftime_id,lxtype:"",sid:temp_sid}});
+	            Ext.getCmp('addwindow').close();
+       
+            }
+        },{
+            text: '关闭',
+            handler: function(){
+              Ext.getCmp('addwindow').close();
+
+            }
+         }]
+							 
+                                               
+         }
+        )
+        win2.show();
+   
+}
+
+    var grid = Ext.create('Ext.grid.Panel', {
+ 
+        height: 980,
+         stripeRows: true,
+        store: store,
+        selModel: sm,
+     //  forceFit: true,
+        scrollOffset: 0,
+        frame:true,
+       
+        // grid columns
+        columns:[{
+          header: '修改',
+	        xtype: 'actioncolumn',
+	        dataIndex: 'userid',
+	        icon: '/images/v8/edit_task.png',
+	        tooltip: '点击该图标进入修改界面。',
+	        flex: 1,
+	        id: "procyscreenchg",
+	        align: 'center',
+	        sortable: false,
+	        handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+        //        gotoedit1(record.get('userid'));
+        openAdd(record)
+            }
+
+        },{
+          text: "控制方式",
+          dataIndex: 'optype',
+          flex:10,
+          hidden:false,
+          sortable: true,
+          renderer:function(value,metaData,record){
+          	var iNum = 1;
+          	var rec = "";
+          	if(value&1){
+          		iNum++;
+          		rec += "不上传聊天日志";
+          	}
+          	value = value >> 1;
+          	
+          	if(value&1){
+          		if(iNum > 1){
+          			rec += ",";
+          		}
+          		iNum++;
+          		rec += "不上传屏幕日志";
+          	}
+          	value = value >> 1;
+          	
+          	if(value&1){
+          		if(iNum > 1){
+          			rec += ",";
+          		}
+          		iNum++;
+          		rec += "不上传进程日志";
+          	}
+          	value = value >> 1;
+          	
+          	if(value&1){
+          		if(iNum > 1){
+          			rec += ",";
+          		}
+          		iNum++;
+          		rec += "不上传文件日志";
+          	}
+          	value = value >> 1;
+          	
+          	if(value&1){
+          		if(iNum > 1){
+          			rec += ",";
+          		}
+          		iNum++;
+          		rec += "不上传网址日志";
+          	}
+          	value = value >> 1;
+          	
+          	if(value&1){
+          		if(iNum > 1){
+          			rec += ",";
+          		}
+          		iNum++;
+          		rec += "不上传外设日志";
+          	}
+          	
+          	
+          	return rec;
+          }
+        },{
+          text: "修改时间",
+          dataIndex: 'modtime',
+          hidden: false,
+          flex:3,
+          sortable: false
+        },{
+          text: "操作人",
+          dataIndex: 'createuser',
+          hidden: false,
+          flex:2,
+          sortable: false
+        },{
+            flex:1
+        }],
+        
+        columnLines: true,
+                                        
+        // paging bar on the bottom
+ 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",
+                                       
+            items: [
+             {               
+                text:'添加',
+                iconCls:'add',
+                id: "procyscreenadd",
+                handler: function(){
+                	if(parent.pid==''){
+                		alert('请先点击左侧策略树，选取主策略');
+                		return;
+                	}
+                  openAdd('');
+              
+                }
+            },
+             {
+            itemId: 'removeEmployee',
+            text: '删除',
+            id: "procyscreendel",
+            iconCls: 'remove',
+
+                handler:function(){
+             
+							   if(confirm('您真的要执行删除操作吗？')){                  
+                 var selsid;  
+                 var rows=sm.getSelection();
+                   selsid='';
+                  for(var i=0;i<rows.length;i++){
+                  	if(i==0){
+                  	 selsid=rows[i].getId();
+                  	}
+                  	else{
+                       selsid=selsid+","+rows[i].getId();
+                    }
+                   
+                   }
+                   var temp_id=parent.pid;
+                      store.load({params: {del: "del",selsid:selsid,pid:temp_id}});
+                  
+                
+              }
+                
+            },
+            disabled: true
+        },{
+      		text: "应用",
+      		iconCls:'accept',
+      		handler: function(){
+      			parent.ncapp.onItemReflash();
+      		}
+      	}]
+       
+
+        })
+        
+
+        ,
+        renderTo: 'grid-corp'
+    });
+		var str = parent.right_fun;
+		//console.info(str,",",str.indexOf('1110'))
+		if(str.indexOf('2810')==-1){;
+			Ext.getCmp('procyscreenadd').setDisabled(true);
+		}
+		if(str.indexOf('2820')==-1){;
+			Ext.getCmp('procyscreenchg').setDisabled(true);
+		}
+
+		if(str.indexOf('2830')==-1){;
+			Ext.getCmp('procyscreendel').setDisabled(true);
+		}
+    // trigger the data store load
+       reflash();
+    
+    
+ //    store.loadPage(1);
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_Procy_Oth">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">	
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="field_flag" value="1">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="cname" value="">
+		<input type="hidden" name="position" value="">
+		<input type="hidden" name="servicecode" value="">
+		<input type="hidden" name="idno" value="">
+		<input type="hidden" name="dispname" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

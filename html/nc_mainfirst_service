@@ -1,0 +1,46 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>上网排行榜</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style type="text/css">
+<!--
+
+.bord1 {  font-size:9pt;border: #999999 solid; border-width: 0px 0px 1px 1px}
+.bord3 { font-size:9pt;border: #999999 solid; border-width: 0px 1px 1px}
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:450px;
+    cursor: default;
+    }
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden">
+<table  border=0 cellspacing=0 width="100%" cellpadding=0 align="center">
+	<tr><td>
+		<div class="tScrollw" id="tC">
+		<table border=0 cellspacing=0 width="100%" cellpadding=0>          
+   <tr bgcolor="#dfdfdf" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)">  	
+       <td width="165" height="22" align="center" class="bord1">网络服务名称</td>                
+       <td class="bord1"  align="center">本日</td>  
+       <td class="bord1"  align="center">本周</td>
+       <td class="bord3"  align="center">本月</td> 
+     
+    </tr>
+                                                    
+          </table>
+    </div>
+        </td>
+      </tr>
+          
+</table>
+                   
+</body>
+</html>

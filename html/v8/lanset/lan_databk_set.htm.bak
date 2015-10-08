@@ -1,0 +1,474 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>设置显示字段</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+
+      Ext.define('globparm', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'StartBack',type: 'string'},
+            {name: 'BackTime',type: 'string'},
+            {name: 'BackBaseDB',type: 'string'},
+            {name: 'BackIm',type: 'string'},
+            {name: 'BackScreen',type: 'string'},
+            {name: 'BackWeblog',type: 'string'},
+            {name: 'BackProcess',type: 'string'},
+            {name: 'BackDev',type: 'string'},
+            {name: 'BackFile',type: 'string'},
+            {name: 'BackWarnlog',type: 'string'},
+            {name: 'StartRmBack',type: 'string'},
+            {name: 'rip',type: 'string'},
+            {name: 'rhost',type: 'string'},
+            {name: 'ruser',type: 'string'},
+            {name: 'rpass',type: 'string'},
+            {name: 'rshare',type: 'string'}
+        ]
+    });
+
+    var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        title   : '数据备份参数设置',
+        autoHeight: true,
+        width   : 600,
+        height:590,
+        bodyPadding: 10,
+        frame:true,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items   : [
+           
+            {
+                xtype: 'fieldset',
+                title:'',
+                layout: 'hbox',
+                defaults: {
+                    flex: 1,
+                    labelWidth: 110,
+                   
+                    hideLabel: false
+                },
+                items: [
+                       {                              
+                                width:          50,
+                                xtype:          'combo',
+                                id: 'rmcombo',
+                                mode:           'local',
+                                value:          'mrs',
+                                triggerAction:  'all',
+                                forceSelection: true,
+                                editable:       false,
+                                fieldLabel:     '启动自动备份功能',
+                                name:           'StartBack',
+                                displayField:   'name',
+                                valueField:     'value',
+                                queryMode: 'local',
+                                store:Ext.create('Ext.data.Store', {
+                                    fields : ['name', 'value'],
+                                    data   : [
+                                        {name : '启动',   value: 'Yes'},
+                                        {name : '停止',  value: 'No'}
+                                    ]
+                                })
+                            },
+                    {
+                        xtype     : 'textfield',
+                        name      : 'BackTime',
+                        margins: '0 0 0 10',
+                        fieldLabel: '每天备份时间',
+                       labelWidth: 80,
+                        allowBlank: false
+                    }
+                ]
+            },
+            {
+                xtype: 'fieldset',
+                title: '本地备份内容',
+                collapsible: true,
+                defaults: {
+                    labelWidth: 89,
+                    anchor: '100%',
+                    layout: {
+                        type: 'hbox',
+                        defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+                    }
+                },
+                items: [
+                    {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '基础数据',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype:'checkbox', fieldLabel: '基础数据', boxLabel: '基础数据', name: 'BackBaseDB',inputValue: 'Yes'},
+                            {xtype: 'displayfield', value: '(包含计算机信息、部门、系统用户及权限、策略数据等)',width:400}
+                           
+                        ]
+                    },
+                    {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '聊天记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype:'checkbox', fieldLabel: '聊天记录', boxLabel: '聊天记录', name: 'BackIm',inputValue: 'Yes'}
+                          
+                        ]
+                    },
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '屏幕记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype:'checkbox', fieldLabel: '屏幕记录', boxLabel: '屏幕记录', name: 'BackScreen',inputValue: 'Yes'}
+                          
+                        ]
+                    }
+                    
+                    ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '网站访问记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype:'checkbox', fieldLabel: '网站访问记录', boxLabel: '网站访问记录', name: 'BackWeblog',inputValue: 'Yes'}
+                          
+                        ]
+                    }                    
+                     ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '进程使用记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                             {xtype:'checkbox', fieldLabel: '进程使用记录', boxLabel: '进程使用记录', name: 'BackProcess',inputValue: 'Yes'}
+                      
+                        ]
+                    }
+                     ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '外设使用记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                             {xtype:'checkbox', fieldLabel: '外设使用记录', boxLabel: '外设使用记录', name: 'BackDev',inputValue: 'Yes'}
+                          
+                        ]
+                    }
+                     ,                   ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '文件操作记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                             {xtype:'checkbox', fieldLabel: '文件操作记录', boxLabel: '文件操作记录', name: 'BackFile',inputValue: 'Yes'}
+                          
+                        ]
+                    }
+                   ,                      ,                   ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '告警记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                             {xtype:'checkbox', fieldLabel: '告警记录', boxLabel: '告警记录', name: 'BackWarnlog',inputValue: 'Yes'}
+                           
+                        ]
+                    }
+                ]
+            },
+            
+            {
+                xtype: 'fieldset',
+                title:'',
+                layout: 'hbox',
+                defaults: {
+                    flex: 1,
+                    labelWidth: 110,
+                   
+                    hideLabel: false
+                },
+                items: [
+                       {                              
+                                width:          50,
+                                xtype:          'combo',
+                                mode:           'local',
+                                value:          'mrs',
+                                triggerAction:  'all',
+                                forceSelection: true,
+                                editable:       false,
+                                fieldLabel:     '启动远程备份功能',
+                                name:           'StartRmBack',
+                                id:             'StartRmBack',
+                                displayField:   'name',
+                                valueField:     'value',
+                                queryMode: 'local',
+                                store:          Ext.create('Ext.data.Store', {
+                                    fields : ['name', 'value'],
+                                    data   : [
+                                        {name : '启用SMB备份',   value: 'Yes'},
+                                        {name : '启用FTP备份',   value: 'FtpBackup'},
+                                        {name : '停止',  value: 'No'}
+                                    ]
+                                }),
+                             
+                                 listeners: {
+                                 	"select":function(){
+                                 		if(this.value=='FtpBackup'){
+                                 			Ext.getCmp('rshare').setDisabled(true);
+                                 			Ext.getCmp('rhost').setDisabled(true);
+                                 		}
+                                 		else{
+                                 			Ext.getCmp('rshare').setDisabled(false);
+                                 			Ext.getCmp('rhost').setDisabled(false);
+                                 		}
+                                 	}
+                                }
+                                
+                                
+                            },
+                   {xtype: 'displayfield', value: '&nbsp;(选择远程备份，将同时在本地进行备份)',width:400}
+                ]
+            },
+            
+            
+            {
+                xtype: 'fieldset',
+                title: '远程备份主机设置',
+                collapsible: true,
+                defaults: {
+                    labelWidth: 89,
+                    anchor: '100%',
+                    layout: {
+                        type: 'hbox',
+                        defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+                    }
+                },
+                items: [                
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'rip',margins: '0 0 0 10', fieldLabel: '主机IP地址', labelWidth: 80},
+                           {xtype: 'button', margins: '0 0 0 40',  name:'aaaa',text: '测试远程连接',width:100,
+                           	handler: function() {
+                           		
+                           		 this.up('form').getForm().doAction('submit',{
+                               url:'/pronline/Msg',
+                               method:'post',
+                               params:{FunName:'lanBackParmSet_Test'},   
+                               success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                              alert(action.result.success);
+                                }  
+                              } 
+                             )
+                           		
+                           		
+                           		
+                           	}
+                           	
+                           	}
+                           
+                        ]
+                       }
+                       ,
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'rhost', id:'rhost', margins: '0 0 0 10', fieldLabel: '主机名称', labelWidth: 80},
+                            {xtype: 'displayfield', value: '',width:300}
+                           
+                        ]
+                       }
+                        ,
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'ruser',margins: '0 0 0 10', fieldLabel: '账号', labelWidth: 80},
+                            {xtype: 'displayfield', value: '',width:300}
+                           
+                        ]
+                       }
+                       ,
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'rpass',margins: '0 0 0 10', fieldLabel: '密码', labelWidth: 80},
+                            {xtype: 'displayfield', value: '',width:300}
+                           
+                        ]
+                       },
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'rshare',id:'rshare',margins: '0 0 0 10', fieldLabel: '共享名', labelWidth: 80},
+                            {xtype: 'displayfield', value: '',width:300}
+                           
+                        ]
+                       }
+                       
+                     
+                ]
+            }
+            
+
+            
+            
+            
+            
+            
+            
+        ],
+        buttons: [
+            {
+                text   : '保存',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanBackParmSet_Save'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                 alert(action.result.success);
+                 }   
+                 })
+
+                }
+            },
+            {
+                text   : '手动立即执行',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanBackParmSet_Save',app:'app'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+      //           store.load();
+                 alert('正在执行备份操作，请稍候!');
+                 }   
+                 })
+
+                }
+            }
+        ]
+    });
+    
+       //初始化  
+       var store = Ext.create('Ext.data.Store', {
+        model: 'globparm',
+        autoLoad: true,
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanBackParmSet',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        listeners:{'load':function(){      
+        	form.loadRecord(this.getAt(0));
+        	if(Ext.getCmp('StartRmBack').value=='FtpBackup'){
+        		Ext.getCmp('rshare').setDisabled(true);
+        		Ext.getCmp('rhost').setDisabled(true);
+        	}
+        	}}
+    });
+    
+    
+    
+});
+</script>
+    
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

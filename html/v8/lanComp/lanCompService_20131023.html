@@ -1,0 +1,323 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>服务</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+  <script type="text/javascript">
+  	var compId = "";
+  	var groupId = "";
+  	var keywords = "";
+  	var ready = 0;
+  	
+  	Ext.define('EimData2', {
+      extend: 'Ext.data.Model',
+      fields: ['sid','serviceName','serviceType','log','serviceStatus','demo','infoType']
+    });
+    
+   	var serviceStore = Ext.create('Ext.data.Store', {
+      pageSize: 40,
+      model: 'EimData2',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_comp_service_search',
+        reader: {
+          type:'json',
+          root: 'eimdata',
+          totalProperty: 'totalCount'
+        },         
+        simpleSortMode: true
+      }
+    });
+    
+    function serviceStoreReflash(){
+    	keywords = Ext.getCmp('keywords').getValue();
+			serviceStore.load({params:{
+    		groupId: groupId,
+      	compId: compId,
+      	keywords:keywords
+      }});
+    }
+	
+	 	function SetPage(){
+			serviceStore.currentPage=1;
+		}
+  
+  	function reflash(){
+			if(ready == 1){
+  			compId = parent.compid;
+  			groupId = parent.groupid; 
+  			serviceStoreReflash();
+  			if(compId != ""){
+					Ext.getCmp('compServicePanel').setTitle(parent.dxtitle);
+				}else{
+					Ext.getCmp('compServicePanel').setTitle(parent.dxtitle);
+				}
+  		}
+  	}
+  	
+  	function serviceStop(){
+	  	Ext.Msg.alert("消息","服务停止成功！");
+	  }
+	  
+	  function serviceRestart(){
+	  	Ext.Msg.alert("消息","服务重启成功！");
+	  }
+	  
+	  function serviceStart(){
+	  	Ext.Msg.alert("消息","服务启动成功！");
+	  }
+  	
+  	Ext.onReady(function() {
+  		ready = 1;
+		  
+			//初始化标签中的Ext:Qtip属性。
+			Ext.QuickTips.init();
+			Ext.form.Field.prototype.msgTarget = 'side';
+			serviceStore.load();
+		  
+		  var serviceTpl = new Ext.XTemplate(
+		  	'<br>',
+		  	'<div>',
+		  	'<p>{serviceName}</p><br><br>',
+		  	'<tpl if="this.isStart(serviceStatus)">',
+		  	'<a href = "#sss" onclick="serviceStop()">停止</a><span>此服务</span><br>',
+		  	'<a href = "#sss" onclick="serviceRestart()">重启动</a><span>此服务</span>',
+		  	'</tpl>',
+		  	'<tpl if="this.isStop(serviceStatus)">',
+		  	'<a href = "#sss" onclick="serviceStart()">启动</a><span>此服务</span>',
+		  	'</tpl>',
+		  	'<br><br><br>',
+		  	'<p>描述：</p>',
+		  	'<p>{demo}</p>',
+		  	'</div>',
+	      {
+	        isStart: function(serviceStatus){
+	        	if(serviceStatus == 'SERVICE_RUNNING'){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        },
+	        isStop: function(serviceStatus){
+	        	if(serviceStatus == 'SERVICE_STOPPED'){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        }
+	      }
+			);
+		  
+		  Ext.create('Ext.panel.Panel',{
+		  	renderTo:Ext.getBody(),
+		  	layout: 'hbox',
+		  	title: '计算机：(未选)',
+		  	id:    'compServicePanel',
+				width: '100%',
+				height: '100%',
+				items:[{
+					xtype: 'panel',
+					id: 'showData',
+					width: '20%',
+					border: 2,
+					height: '100%',
+					html: '<br>请选择一个项目来查看它的描述。'
+				},{
+					xtype: 'grid',
+					width: '80%',
+					height: '100%',
+					store: serviceStore,
+					columns:[{
+	          text:"服务名称",
+	          dataIndex: 'serviceName',
+	          width:'20%',
+	          hidden: false,
+	          sortable: true,
+	          renderer: function(value, metaData, data) {
+            	var cname = value;
+            	if(value.length>30){
+            		metaData.tdAttr = 'data-qtip="'+value+'"';
+            		cname = value.substring(0,30)+"...";
+            	}
+              return cname;
+            }
+	        },{
+	          text: "状态",
+	          dataIndex: 'serviceStatus',
+	          sortable: true
+	        },{
+	          text: "启动类型",
+	          dataIndex: 'serviceType',
+	          sortable: true,
+	          width: '18%'
+	        },{
+	          text: "登录账号",
+	          dataIndex: 'infoType',
+	          sortable: true
+	        },{
+	          text: "描述",
+	          width: '40%',
+	          dataIndex: 'demo',
+	          sortable: true,
+	          forceFit: true,
+	          renderer: function(value, metaData, data) {
+            	metaData.tdAttr = 'data-qtip="'+value+'"';
+              return value;
+            }
+	        }],
+	        tbar: [{
+	        	xtype: 'pagingtoolbar',
+	        	store: serviceStore,
+	        	border: 0,
+	          doRefresh:function(){ 
+	      			serviceStoreReflash();
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		serviceStore.currentPage=a;
+				    		serviceStoreReflash();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	serviceStore.currentPage=1;
+					    	serviceStoreReflash();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				serviceStore.currentPage=a;
+				   				serviceStoreReflash();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				serviceStore.currentPage=a;
+				   				serviceStoreReflash();
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.serviceStore.loadPage(g)
+						        d.store.currentPage=g;
+					         	serviceStoreReflash();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+	        },{
+	    		labelWidth: 50,
+	        fieldLabel:'关键字',
+	        xtype: 'textfield',
+	        width: 200,
+	        emptyText: '输入服务名/服务描述',
+	        id:'keywords'                    
+		    	},{
+		    		xtype: 'button',
+		    		text: '确定',
+		    		handler: function(){
+	  					serviceStoreReflash();
+		    		}
+		    	}],
+	        listeners:{
+						'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+							event.stopEvent();
+							Ext.create('Ext.menu.Menu', {
+								floating:	true,
+								items: [{
+									text: '启动',
+									handler: function(){
+										serviceStart();
+									}
+								},{
+									text: '停止',
+									handler: function(){
+										serviceStop();
+									}
+								},{
+									text: '暂停',
+									handler: function(){
+										Ext.Msg.show({
+									  	title:'暂停',
+									    msg: '服务已暂停',
+									    buttons: Ext.Msg.CANCEL,
+									    icon: Ext.Msg.QUESTION
+										});
+									}
+								},{
+									text: '恢复',
+									handler: function(){
+										Ext.Msg.show({
+									  	title:'恢复',
+									    msg: '服务已恢复',
+									    buttons: Ext.Msg.CANCEL,
+									    icon: Ext.Msg.QUESTION
+										});
+									}
+								},{
+									text: '重新启动',
+									handler: function(){
+										serviceRestart();
+									}
+								},{
+									text: '所有任务',
+									handler: function(){
+									}
+								},{
+									text: '刷新',
+									handler: function(){
+										serviceStoreReflash();
+									}
+								}]	
+							}).showAt(event.getXY());
+						},
+						'select':function(thisRowModel,record,index,eOpts ){
+							var data1 = {
+								serviceName: record.get('serviceName'),
+								serviceStatus:record.get('serviceStatus'),
+								demo:record.get('demo')
+							};
+							serviceTpl.overwrite(Ext.getCmp('showData').body,data1);
+						}
+					}
+				}]
+			});
+		});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

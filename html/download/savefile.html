@@ -1,0 +1,37 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> save Control, version 0.1 </TITLE>
+</HEAD>
+
+<BODY >
+<OBJECT ID="SaveData"  CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="http://192.168.20.190/save.CAB">
+</OBJECT>
+<SCRIPT LANGUAGE="JavaScript">
+
+    function init() {
+      
+        alert("init");
+        document.getElementById("what").value = "start";
+
+        var x = 0;
+        x = SaveData.savedata("C://22.txt", "daxiongmao");
+        if(x >0)
+        {
+            document.getElementById("what").value = "保存成功";
+        }
+        else
+        {
+            document.getElementById("what").value = "保存失败";
+        }
+        
+    }
+
+</SCRIPT>
+<p> 数据：大熊猫  （保存到G://111.txt）</p>
+    <input type="button" onclick="init()" size=200 value="保存数据"/>
+    <input type="text"   id="what" value="start0000" >
+</BODY>
+</HTML>
+

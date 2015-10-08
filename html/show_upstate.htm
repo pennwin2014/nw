@@ -1,0 +1,130 @@
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>测试CPU</title>
+<style>
+	v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+TD {	FONT-SIZE: 9pt}
+
+.style2 {
+	font-size: 12px;
+	color: #00237e;
+	font-weight: bold;
+}
+</style>
+
+<script src="/js/ajax.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript">
+	
+	var tb_left=50;
+	var tb_top=20;
+	var tb_width=400;
+	var tb_width2=0;
+	var tb_height=30;	
+  var strcolor="#DEE8FA";
+	
+	
+	
+	
+function drawcpu(){
+
+
+		strcolor="green";
+
+
+   temp_html="<v:RoundRect  arcsize='0.05'  style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#DEE8FA' strokecolor='"+strcolor+"' strokeweight='1' stroked='t'>"; 
+   temp_html=temp_html+"</v:RoundRect>";  
+   temp_html=temp_html+"<v:RoundRect  arcsize='0.05'  style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width2+";height:"+tb_height+";z-index:-1' fillcolor='green' strokecolor='green' strokeweight='1' stroked='t'>";
+ 
+   temp_html=temp_html+"</v:RoundRect>";
+
+	document.getElementById("test1").innerHTML=temp_html;
+}
+	
+	
+	
+var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+if(tb_width2==400) return;
+
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowUpServerStatAjx&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+
+
+function initAjax(){
+
+callServer();
+setInterval('callServer()',1000);
+
+
+}
+
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+  
+     var temp_date=getxmlbyname(response,"<upserver>","</upserver>");
+      tb_width2=temp_date;
+//      alert(tb_width2);
+     if((parseInt(tb_width2)<400)&&parseInt(tb_width2)>0){
+      
+       parent.document.all.ff2.innerHTML='&nbsp;正在升级，请稍候....';
+      }
+   else if(parseInt(tb_width2)>=400){
+
+    	parent.document.all.ff2.innerHTML='&nbsp;升级完成';
+   }
+
+     
+     drawcpu();
+     
+     
+     
+//alert(response);
+   }
+ 
+ }	
+	
+	
+	
+</script>
+
+
+</head>
+<body topmargin=0 leftmargin=0 bgcolor="#DEE8FA" style="overflow:hidden" onload="initAjax()">
+<div id="test1">
+	
+</div>
+	
+</body>

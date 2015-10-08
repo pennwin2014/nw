@@ -1,0 +1,939 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>客户端管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+    <style type="text/css">
+      .icon-grid {
+        background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+      }
+      .add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+      }
+      .option {
+        background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+      }
+      .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+      }
+      .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+      }
+      .accept {
+        background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+      }
+      .restart {
+        background-image:url(/v8/images/icon/restart.gif) !important;
+      }
+      .shutdown {
+        background-image:url(/v8/images/icon/shutdown.gif) !important;
+      }
+      .unistall {
+        background-image:url(/v8/images/icon/unistall.png) !important;
+      }
+      .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+			  height: 16px !important;
+			  line-height: 16px;
+	    }
+
+    </style>
+		<style type="text/css">   
+		  .x-selectable, .x-selectable * {   
+			  -moz-user-select: text!important;   
+			  -khtml-user-select: text!important;   
+			}   
+		</style>
+	      
+	  <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	  <script> 
+			var store;
+			var bStart=1;
+			var groupid;
+			var compid;
+			var status="";
+			
+			function SetPage(){
+				store.currentPage=1;
+			}
+			function reflash(){
+			  groupid=parent.groupid;
+			  compid=parent.compid;
+			 //bbbb=document.all('titledx');
+			  //bbb.innerHTML==parent.dxtitle;
+			  document.getElementById("titledx").innerHTML='&nbsp'+parent.dxtitle+'&nbsp;&nbsp;';
+			    //       alert(parent.dxtitle); 
+			  var keyword=Ext.getCmp('keyword1').value;
+			  if(keyword=='输入计算机名/IP/MAC查询'){
+			  	keyword='';
+			  }
+				store.load({params: {groupid:groupid,compid:compid,keyword:keyword,status:status}}); 
+			}
+	  
+			Ext.Loader.setConfig({enabled: true});
+			Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+			Ext.require([
+		    'Ext.form.*',
+		    'Ext.window.*',
+		    'Ext.grid.*',
+		    'Ext.data.*',
+		    'Ext.util.*',
+		    'Ext.window.MessageBox',
+		    'Ext.toolbar.Paging',
+		    'Ext.ux.PreviewPlugin'
+		//    'Ext.ModelManager',
+		//    'Ext.tip.QuickTipManager'
+			]);
+	
+	
+	
+			Ext.define('TreeCombox', {  
+			  extend: 'Ext.form.field.Picker',  
+			  xtype: 'treecombox',  
+			  triggerCls: Ext.baseCSSPrefix + 'form-arrow-trigger',  
+			  config: {  
+		      displayField: null,  
+		      columns: null,  
+		      rootVisible: false,  
+		      selectOnTab: true,  
+		      firstSelected: false,  
+		      maxPickerWidth: 150,  
+		      maxPickerHeight: 360,  
+		      minPickerHeight: 100  
+			  },  
+			  editable: false,  
+			  initComponent: function() {  
+		      var me = this;  
+		      me.callParent(arguments);  
+		      this.addEvents('select');  
+		      me.store.on('load', me.onLoad, me);  
+			  },  
+			  createPicker: function() {  
+		      var me = this,  
+          picker = Ext.create('Ext.tree.Panel', {  
+            store: me.store,  
+            floating: true,  
+            hidden: true,  
+            width: me.maxPickerWidth,  
+            displayField: me.displayField,  
+            columns: me.columns,  
+            maxHeight: me.maxTreeHeight,  
+            shadow: false, 
+            rootVisible:false,  
+            manageHeight: false,  
+            listeners: {  
+                itemclick: Ext.bind(me.onItemClick, me)  
+            },  
+            viewConfig: {  
+                listeners: {  
+                    render: function(view) {  
+                        view.getEl().on('keypress', me.onPickerKeypress, me);  
+                    }  
+                }  
+            }  
+          }),  
+		      view = picker.getView();  
+		
+		      view.on('render', me.setPickerViewStyles, me);  
+		      if (Ext.isIE9 && Ext.isStrict) {  
+	          view.on('highlightitem', me.repaintPickerView, me);  
+	          view.on('unhighlightitem', me.repaintPickerView, me);  
+	          view.on('afteritemexpand', me.repaintPickerView, me);  
+	          view.on('afteritemcollapse', me.repaintPickerView, me); 
+		      }  
+		      return picker;  
+			  },  
+			  setPickerViewStyles: function(view) {  
+		      view.getEl().setStyle({  
+	          'min-height': this.minPickerHeight + 'px',  
+	          'max-height': this.maxPickerHeight + 'px'  
+		      });  
+			  },  
+			  repaintPickerView: function() {  
+		      var style = this.picker.getView().getEl().dom.style;  
+		      style.display = style.display;  
+			  },  
+			  alignPicker: function() {  
+		      var me = this,  
+		      		picker;  
+		
+		      if (me.isExpanded) {  
+	          picker = me.getPicker();  
+	          if (me.matchFieldWidth) {  
+	          	picker.setWidth(this.picker.getWidth());  
+	          }  
+	          if (picker.isFloating()) {  
+	          	me.doAlign();  
+	          }  
+		      }  
+			  },  
+			  onItemClick: function(view, record, node, rowIndex, e) { 
+			//    	alert(record.data.id);
+			  	this.selectItem(record);  
+			  },  
+			  onPickerKeypress: function(e, el) {  
+		      var key = e.getKey();  
+		
+		      if(key === e.ENTER || (key === e.TAB && this.selectOnTab)) {
+	          this.selectItem(this.picker.getSelectionModel().getSelection()[0]);  
+		      }  
+			  },  
+			  selectItem: function(record) {      
+			  	var me = this; 
+			    document.getElementById("form1").mid.value=record.get('id');
+			//   temp_id=record.get('id');
+			    me.setValue(record.get('text'));  
+		      me.picker.hide();  
+		      me.inputEl.focus();  
+		      me.fireEvent('select', me, record);
+			  },  
+			  onExpand: function() {  
+		      var me = this,  
+		          picker = me.picker,  
+		          store = picker.store,  
+		          value = me.value;  
+		      if(value) {  
+	          var node = store.getNodeById(value);  
+	          if(node)  
+	          	picker.selectPath(node.getPath());  
+		      } else {  
+	          var hasOwnProp = me.store.hasOwnProperty('getRootNode');  
+	          if(hasOwnProp)  
+              picker.getSelectionModel().select(store.getRootNode());  
+		      }  
+		
+		      Ext.defer(function() {  
+		      	picker.getView().focus();  
+		      }, 1);  
+			  },  
+			  setValue: function(value) {  
+		      var me = this,record;  
+		      me.value = value;  
+		      if (me.store.loading) {  
+		      	return me;  
+		      }  
+		      try{    
+	          var i = value.indexOf(">");
+	          var j = value.indexOf("</");
+	          if(i != -1 && j != -1){
+	          	me.setRawValue(value.substring(i+1,j));
+	          }
+	          else{
+	          	me.setRawValue(value);
+	          }
+		      }catch(e){  
+		      	 me.setRawValue('');  
+		      }  
+		
+		      return me;  
+			  },  
+			  getValue: function() {  
+			  	return this.value;
+			  },
+			  onLoad: function(store,node,records) {  
+		      var value = this.value;  
+		      if (value) {  
+		      	this.setValue(value);  
+		      }else{  
+	          if(this.firstSelected){  
+              if(records && records.length > 0){  
+                var record = records[0];  
+                this.setValue(record.get(this.valueField));  
+              }  
+	          }  
+		      }  
+			  },  
+			  getSubmitData: function() {  
+		      var me = this,  
+		      	data = null;  
+		      if (!me.disabled && me.submitValue) {  
+	          data = {};  
+	          data[me.getName()] = '' + me.getValue();  
+		      }  
+		      return data;  
+			  },  
+			  onTriggerClick: function() {  
+		      var me = this;  
+		      //me.store.load();  
+		      if (!me.readOnly && !me.disabled) {  
+	          if (me.isExpanded) {  
+	          	me.collapse();  
+	          } else {  
+	          	me.expand();  
+	          }  
+	          me.inputEl.focus();  
+		      }  
+			  }  
+			});
+			
+			store_classtree=Ext.create('Ext.data.TreeStore', {   
+				fields: ['id','text'],
+				autoLoad : true,
+				proxy: {   
+					type: 'ajax',
+					url: '/pronline/Msg?FunName@lan_group_tree_search'  
+				}  
+			});
+	
+			Ext.onReady(function(){
+	//    Ext.tip.QuickTipManager.init();
+				parent.bStartcomp=1;
+				parent.bStartim=0;
+				Ext.define('EimData',{
+					extend: 'Ext.data.Model',
+					fields:['compName', 'ip', 'devName', 'version', 'logTime', 'lastTime', 'groupName', 'compId','mac','status'],
+					idProperty: 'compid'
+				});
+	
+     		store = Ext.create('Ext.data.Store', {
+      		pageSize: 37,
+      		model: 'EimData',
+      		remoteSort: true,
+      		proxy: {
+      			type: 'ajax',
+      			url: '/pronline/Msg?FunName@lan_client_search',
+      			reader: {
+        			type:'json',
+        			root: 'eimdata',
+        			totalProperty: 'totalCount'
+      			},         
+      			simpleSortMode: true
+      		}
+  			});
+	
+		    // create the Data Store
+		    //重写排序函数，解决远程条件查询问题
+		    Ext.data.Store.prototype.doSort = function() {
+		    	reflash();
+		    }
+
+		    var clientRowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+		      clicksToMoveEditor: 1,
+		      autoCancel: false,
+		      saveBtnText: '保存',   
+			    cancelBtnText: '取消',   
+			    errorsText: '错误信息',   
+			    dirtyText: '已修改,你需要提交或取消变更',
+			    completeEdit: function() {   
+		        var me = this;  
+		        if (me.editing && me.validateEdit()) {
+		          me.editing = false;   
+		          me.fireEvent('edit', me.context);   
+		        }   
+		        me.adding = false;
+		        
+		        store.currentPage=1; 
+		        store.load({params:{
+		        	deal: "update",
+		        	groupid:groupid,
+		        	compid:me.context.record.data.compId,
+		        	mid:document.getElementById("form1").mid.value,
+		        	devName:Ext.getCmp('updateDevName').getValue()
+		        }});
+					},
+					cancelEdit: function(){
+		        var me = this; 
+		 
+		        if (me.editing) {   
+		          me.getEditor().cancelEdit();   
+		          me.editing = false;   
+		          me.fireEvent('canceledit', me.context);    
+		          if (me.autoRecoverOnCancel){ 
+		            var tmpid=me.context.record.data.sid;
+		            if((!tmpid)){  	 
+	                me.context.record.store.remove(me.context.record);  
+	                me.adding = false;
+		            }else{   
+		                //不需要reject,因为Editor没有更改record.   
+		                //me.context.record.reject()   
+		            }   
+		          } 
+		        }    
+		    	}   
+		    });
+	  
+				//对翻页工具条重新构建，替换翻页函数    
+				Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+					doRefresh:function(){  
+						reflash();
+				  },
+				  moveLast:function(){
+			    	var b=this,a=b.getPageData().pageCount;
+			    	if(b.fireEvent("beforechange",b,a)!==false){
+				    	store.currentPage=a;
+				    	reflash();
+			      }
+			    },
+					moveFirst:function(){
+						if(this.fireEvent("beforechange",this,1)!==false){
+							store.currentPage=1;
+							reflash();
+						}
+					}, 
+					movePrevious:function(){
+						var b=this,a=b.store.currentPage-1;
+						
+						if(a>0){
+							if(b.fireEvent("beforechange",b,a)!==false){
+								store.currentPage=a;reflash();
+							}
+						}
+					},
+					moveNext:function(){
+						var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+						if(a<=b){
+							if(c.fireEvent("beforechange",c,a)!==false){
+								store.currentPage=a;reflash();
+							}
+						}
+					},
+					onPagingKeyDown:function(i,h){
+						var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+						if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+						  if(g!==false){
+								g=Math.min(Math.max(1,g),c.pageCount);
+								if(d.fireEvent("beforechange",d,g)!==false){
+									//d.store.loadPage(g)
+									d.store.currentPage=g;
+									reflash();
+						  	}        
+							}
+						}else{
+							if(b==h.HOME||b==h.END){
+								h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+							}else{
+								if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+									h.stopEvent();g=d.readPageFromInput(c);
+									if(g){
+										if(b==h.DOWN||b==h.PAGEDOWN){
+											a*=-1
+										}
+										g+=a;
+										if(g>=1&&g<=c.pages){
+											i.setValue(g)
+										}
+									}
+								}
+							}
+						}  
+					}  
+				});
+				
+				var toolStore = Ext.create('Ext.data.Store', {
+		  		fields:['id','text'],
+		  		data:[
+		  			{id: 0,text:"全部"},
+		  			{id: 1,text:"在线"},
+		  			{id: 3,text:'离线'},
+		  			{id: 2,text:'卸载'}
+		  		]
+		  	});
+	
+	 			var sm = Ext.create('Ext.selection.CheckboxModel',{
+	        listeners: {
+            selectionchange: function(sm, selections) {
+            	if(selections.length>0){
+            		parent.bStartcomp=0;
+            	}else{
+            		parent.bStartcomp=1;
+            	}
+            	
+            	var str = parent.right_fun;
+        			if(str.indexOf('5130')!=-1){
+        				Ext.getCmp('shutdButton').setDisabled(selections.length == 0);
+	            	for(var i=0;i<selections.length;i++){
+	            		if(selections[i].get('status')!=0){
+	            			Ext.getCmp('shutdButton').setDisabled(true);
+	            			break;
+	            		}
+	            	}
+        			}
+        			
+        			if(str.indexOf('5140')!=-1){
+        				Ext.getCmp('restartButton').setDisabled(selections.length == 0);
+	            	for(var i=0;i<selections.length;i++){
+	            		if(selections[i].get('status')!=0){
+	            			Ext.getCmp('restartButton').setDisabled(true);
+	            			break;
+	            		}
+	            	}
+        			}
+        		
+        			if(str.indexOf('5150')!=-1){
+        				Ext.getCmp('uniButton').setDisabled(selections.length == 0);
+            		for(var i=0;i<selections.length;i++){
+	            		if(selections[i].get('status')!=0){
+	            			Ext.getCmp('uniButton').setDisabled(true);
+            				break;
+	            		}
+	            	}
+        			}
+	      			
+	      			if(str.indexOf('5160')!=-1){
+	      				Ext.getCmp('moveButton').setDisabled(selections.length == 0);
+	      			}
+            	
+            	
+        			if(str.indexOf('5120')!=-1){
+        				Ext.getCmp('removeButton').setDisabled(selections.length == 0);
+            	
+	            	for(var i=0;i<selections.length;i++){
+	            		if(selections[i].get('status')==0){
+	            			Ext.getCmp('removeButton').setDisabled(true);
+	            			break;
+	            		}
+	            	}
+	            }
+            }
+	        }
+	    	});
+	    	
+				var form_tmp = Ext.create('Ext.form.Panel');
+	    	var grid = Ext.create('Ext.grid.Panel', {
+	//        width: aaa,
+	  //      forceFit: true,
+	        scrollOffset: 0,
+	        height: 980,
+	        selModel: sm,
+	        store: store,
+	        frame:false,
+	        plugins: clientRowEditing,
+	        viewConfig:{
+		      	loadMask : false
+		      },
+	        // grid columns
+	        columns:[{
+	        	dataIndex:'status',
+	        	width: 25,
+	        	renderer: function(value,metaData,record){
+	        		if(value == 2){
+	          		value='<img src="/v8/images/icon/compute_uni.png"/>';
+	          	}else if(value == 3){
+	          		value='<img src="/v8/images/icon/compute_off.png"/>';
+	          	}else{
+	          		value='<img src="/v8/images/icon/compute_on.png"/>';
+	          	}
+	          	return value;
+	        	}
+	        },{
+            text: "计算机名",
+            dataIndex: 'compName',
+            flex:1.5,
+            sortable: false,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+						text: "部门名",
+						dataIndex: 'groupName', 
+            flex:1,
+						sortable: false,
+						editor:{
+							xtype: 'treecombox',
+							id:   'updateGroupCombo',
+							valueField: 'id',  
+							displayField: 'text',  
+							store:store_classtree
+						},
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "IP地址",
+            dataIndex: 'ip', 
+            hidden: false, 
+            align: 'right',
+            flex:1.2,
+            sortable: false,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "MAC地址",
+            dataIndex: 'mac',
+            hidden: false,
+            align: 'right',
+            flex:1.2,
+            sortable: false,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "使用者",
+            dataIndex: 'devName',
+            hidden: false,
+            flex:1,
+            sortable: false,
+            editor:{
+            	xtype: 'textfield',
+            	id:  'updateDevName'
+            },
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "登录时间",
+            dataIndex: 'logTime',
+            hidden: false,
+            align: 'right',
+            flex:1.5,
+            sortable: true,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "最近连接时间",
+            dataIndex: 'lastTime',
+            flex:1.5,
+            align: 'right',
+            sortable: true,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "版本号",
+            dataIndex: 'version',
+            flex:1.5,
+            hidden: false,
+            align: 'right',
+            sortable: true,
+            renderer: function(value,metaData,record){
+            	//alert(record.get('status'));
+            	if(record.get('status')==3){
+            		value = '<font color="#888888">'+value+'</font>';
+            	}else if(record.get('status')==2){
+            		value = '<font color="#FF0000">'+value+'</font>';
+            	}
+            	return value;
+            }
+	        }],
+	        columnLines: true,               
+	        // paging bar on the bottom
+	        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",                     
+            items: [
+            '-',{
+							xtype:'label',        
+							html:'<span id="titledx"></span>'
+            },{
+							xtype:'textfield',
+							id:'keyword1',
+							name:'keyword1',
+							width:'150px',
+							style:'color:#7aa7d5',
+							emptyText:'输入计算机名/IP/MAC查询',
+							enableKeyEvents:true,
+							listeners:{
+								'focus':function(){
+									if(this.value=='输入计算机名/IP/MAC查询'){        
+							   		this.setValue('');
+							   	}
+							 	},
+								'keydown' : function(i,e){
+								 	var aae=e.getKey() ; 
+								  if(aae==13){
+								    var aa=Ext.getCmp('keyword1').value;
+								    
+								    store.currentPage=1;
+								    reflash();
+							  	}
+							 	}
+							}
+						},{
+              text:'确认',
+              iconCls:'accept',
+              handler: function(){
+              var aa=Ext.getCmp('keyword1').value;
+                if(aa!='输入计算机名/IP/MAC查询'){
+                  store.currentPage=1;
+                  reflash();
+                }
+              }
+            },{
+							xtype: 'combobox',
+							fieldLabel: '状态',
+							labelWidth: 40,
+							width: 150,
+							valueField:'id',
+							value: 0,
+							editable: false,
+							displayField: 'text',
+							allowBlank: true,
+							store: toolStore,
+							triggerAction: 'all',
+							typeAhead: true,
+							listeners:{
+								'change':function(thisField,newValue,oldValue,eOpts){
+									if(newValue!=0){
+										status = newValue;
+									}else{
+										status = "";
+									}
+									
+									reflash();
+								}
+							}
+						}]
+		      })
+	    	});
+	    	
+	    	Ext.create('Ext.panel.Panel',{
+	    		height: 980,
+	    		items:grid,
+	        renderTo: 'grid-corp',
+	        tbar:['-','-',{
+	            xtype:'label',
+	            html:'移到'
+          },{
+						xtype:'treecombox',
+						id: 'mgroupid',  
+						width:150, 
+						name: 'mgroupname',  
+						valueField: 'id',  
+						displayField: 'text',  
+						store:store_classtree
+          },{
+						text:'确认',
+						id: 'moveButton',
+						disabled: true,
+						handler:function(){
+							if(confirm('您真的要执行移动操作吗？')){       
+								var selsid;  
+								var rows=sm.getSelection();
+								selsid='';
+						  	for(var i=0;i<rows.length;i++){
+							  	if(i==0){
+							  		selsid=rows[i].get('compId');
+							  	}else{
+							    	selsid=selsid+","+rows[i].get('compId');
+							    }
+						   	}
+						 
+					      var gid=parent.groupid;
+							  var mid=document.getElementById("form1").mid.value;
+					
+							  if(mid==''){
+								  alert('请选择移动目标');
+								  return;
+							  }
+							  var keyword=Ext.getCmp('keyword1').value;
+							  if(keyword=='输入计算机名/IP/MAC查询'){
+							  	keyword='';
+							  }
+					
+					      store.load({params:{
+					      	deal:"move",
+					      	compid:selsid,
+					      	keyword:keyword,
+					      	groupid:gid,
+					      	mid:mid
+					      }});
+						 	}  
+						}
+					},{
+          	text: '删除',
+            iconCls:'remove',
+						id: 'removeButton',
+						disabled: true,
+            handler:function(){
+            	Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要移除这些计算机吗？",
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+	      						var selsid="";  
+										var rows=sm.getSelection();
+								  	for(var i=0;i<rows.length;i++){
+									  	if(i==0){
+									  		selsid=rows[i].get('compId');
+									  	}else{
+									    	selsid=selsid+","+rows[i].get('compId');
+									    }
+								   	}
+										//Ext.Msg.alert('删除','删除了'+selsid);
+							  		var keyword=Ext.getCmp('keyword1').value;
+										store.currentPage=1;
+										store.load({params: {deal:"delete",groupid:groupid,compid:selsid,keyword:keyword}});
+						      }
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+            }
+					},'-',{
+	          	text: '关机',
+	            iconCls:'shutdown',
+	            disabled: true,
+							id: 'shutdButton',
+	            handler:function(){
+								var form1 = form_tmp.getForm();
+	            	Ext.Msg.show({
+		      				title:"提示",
+		      				msg:"您确定要关闭这些计算机吗？",
+		      				buttons:Ext.Msg.YESNO,	      				
+		      				fn:function(btn){
+		      					if(btn == 'yes'){
+											var rows=sm.getSelection();
+									  	for(var i=0;i<rows.length;i++){
+												form1.submit({
+													clientValidation: true,
+													url:'/pronline/Msg?FunName@lan_onLineComp',
+													method: 'get',
+													params: {
+											    	compid: rows[i].get('compId'),
+											    	deal: 0
+											    }
+											  });
+									   	}
+										//	reflash();
+							      }
+		      				},
+		      				icon: Ext.Msg.QUESTION
+		      			}).setPosition(300,100);
+	            }
+					},{
+          	text: '重启',
+            iconCls:'restart',
+            disabled: true,
+						id: 'restartButton',
+            handler:function(){
+							var form1 = form_tmp.getForm();
+            	Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要重启这些计算机吗？",
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+										var rows=sm.getSelection();
+										
+								  	for(var i=0;i<rows.length;i++){
+											form1.submit({
+												clientValidation: true,
+												url:'/pronline/Msg?FunName@lan_onLineComp',
+												method: 'get',
+												params: {
+										    	compid: rows[i].get('compId'),
+										    	deal: 1
+										    }
+										  });
+								   	}
+									//	reflash();
+						      }
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+            }
+					},{
+          	text: '卸载客户端',
+            iconCls:'unistall',
+            disabled: true,
+						id: 'uniButton',
+            handler:function(){
+							var form1 = form_tmp.getForm();
+            	Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要卸载这些客户端吗？",
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+										var rows=sm.getSelection();
+								  	for(var i=0;i<rows.length;i++){
+									  	form1.submit({
+												clientValidation: true,
+												url:'/pronline/Msg?FunName@lan_onLineComp',
+												method: 'get',
+												params: {
+										    	compid: rows[i].get('compId'),
+										    	deal: 2
+										    }
+										  });
+								   	}
+									//	reflash();
+						      }
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+            }
+					},'-',{
+						text: '导出硬件列表',
+	          iconCls:'exp',
+	          id: "hardlistexp",
+						handler: function(){
+							document.getElementById("form2").submit();
+						}
+					}]
+	    	});
+	
+	    // trigger the data store load
+	    	reflash();
+	 //    store.loadPage(1);
+			});
+		</script>
+	</head>
+	<body>
+		<form name="form1" id="form1" action="/pronline/Msg">
+			<input type="hidden" name="FunName" value="ncsWebClientSearch_v4">
+			<input type="hidden" name="groupid" value="">
+	    <input type="hidden" name="did" value="">
+			<input type="hidden" name="lb" value="">
+			<input type="hidden" name="fcode" value="">
+			<input type="hidden" name="did" value="">
+			<input type="hidden" name="lxstate" value="1">
+			<input type="hidden" name="export2" value="">
+			<input type="hidden" name="keyword" value="">
+			<input type="hidden" name="mid" value="">
+		</form>
+		
+		<form name="form2" id="form2" action="/pronline/Msg">
+			<input type="hidden" name="FunName" value="getHardList">
+		</form>
+	  <div id="grid-corp"></div>
+	
+	</body>
+</html>

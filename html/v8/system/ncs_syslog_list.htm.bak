@@ -1,0 +1,499 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>单位管理</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+
+	.x-selectable, .x-selectable * 
+	{   
+    		-moz-user-select: text!important;   
+		-khtml-user-select: text!important;   
+	}   
+
+	</style>
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+  <script> 
+		Ext.Loader.setConfig({enabled: true});
+		Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+		Ext.require([
+		    'Ext.form.*',
+		    'Ext.window.*',
+		    'Ext.grid.*',
+		    'Ext.data.*',
+		    'Ext.util.*',
+		    'Ext.window.MessageBox',
+		    'Ext.toolbar.Paging',
+		    'Ext.ux.PreviewPlugin'
+		//    'Ext.ModelManager',
+		//    'Ext.tip.QuickTipManager'
+		]);
+		var store;
+ 		function reflash(){
+		  var keyword=document.getElementById('form1').keyword.value;
+		  var sdate=document.getElementById('form1').sdate.value;
+		
+		  if(sdate=='undefined'){
+		  	sdate='';
+		  }
+		  var edate=document.getElementById('form1').edate.value;
+		  if(edate=='undefined'){
+		  	edate='';
+		  }
+		
+		  var ipaddr=document.getElementById('form1').ipaddr.value;
+		  var caction=document.getElementById('form1').action.value;
+		  var cresult=document.getElementById('form1').result.value;
+		  var opname=document.getElementById('form1').opname.value;
+		  var descr=document.getElementById('form1').descr.value;
+		  store.load({params: {ipaddr:ipaddr,action:caction,result:cresult,keyword:keyword,sdate:sdate,edate:edate,opname:opname,descr:descr}});  
+  	}
+
+		Ext.onReady(function(){
+			var myDate = new Date();
+		
+		  var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+		
+		  var mm=myDate.getMonth()+1;
+		  
+		  if(mm<10){
+	  		mm='0'+mm;
+	  	}
+		  var dd=myDate.getDate();
+	  	if(dd<10){
+	  		dd='0'+dd;
+	  	}
+		  		
+  		var today=yy+'-'+mm+'-'+dd;
+  		var startday=yy+'-'+mm+'-'+'01';
+  		
+		  document.getElementById('form1').sdate.value = today;
+		  document.getElementById('form1').edate.value = today;
+		
+	    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: ['sdate', 'descr', 'action', 'name', 'ipaddr','result']
+	    });
+	    
+		    // create the Data Store
+		//重写排序函数，解决远程条件查询问题
+	    Ext.data.Store.prototype.doSort = function() {
+	    	reflash();
+	    }
+	    
+	    var actionStore = Ext.create('Ext.data.Store', {
+	  		fields:['id','text'],
+	  		data:[
+	  			{id:'0',text:'全部'},
+					{id:'1',text:'鉴别与登录'},
+					{id:'2',text:'修改鉴别信息'},
+					{id:'3',text:'修改系统配置'},
+					{id:'4',text:'修改下发审计策略'},
+					{id:'5',text:'增加修改删除用户'},
+					{id:'6',text:'查询信息'},
+					{id:'7',text:'统计各类数据'},
+					{id:'9',text:'数据接收下发'},
+					{id:'10',text:'备份与恢复'},
+					{id:'11',text:'系统启动与关闭'},
+					{id:'99',text:'其它'}]
+	  	});
+		 
+			store = Ext.create('Ext.data.Store', {
+				pageSize: 38,
+				model: 'EimData',
+				remoteSort: true,
+				proxy: {
+			    type: 'ajax',
+			    url: '/pronline/Msg?FunName@lan_systemLog_search',
+			    reader: {
+		        type:'json',
+		        root: 'eimdata',
+		        totalProperty: 'totalCount'
+			    },         
+			    simpleSortMode: true
+				},
+				sorters: [{
+			    property: 'sid',
+			    direction: 'DESC'
+				}]
+			});
+	
+	
+			var timeFlagStore = Ext.create('Ext.data.Store', {
+	  		fields:['id','text'],
+	  		data:[
+					{id:'1',text:'今天'},
+					{id:'2',text:'近三天'},
+					{id:'3',text:'近一周'},
+					{id:'4',text:'近一月'},
+					{id:'5',text:'近三月'},
+					{id:'6',text:'近半年'}]
+	  	});
+	  	
+			var pluginExpanded = true;
+			
+		 //查询  
+		 
+			Ext.define('State', {
+			  extend: 'Ext.data.Model',
+			  fields: [{type: 'string', name: 'result'}]
+			});
+		   
+			var data_result = [
+			  {"result":"成功"},
+			  {"result":"失败"}
+			];
+			var store_result = Ext.create('Ext.data.Store', {
+			  model: 'State',
+			  data: data_result
+			});
+			
+			fp2=Ext.create('Ext.FormPanel', {         
+				frame: true,
+				fieldDefaults: {
+					labelWidth: 65,                        
+					xtype: 'textfield' 
+				},
+				bodyPadding: 10,
+				items: [{                        
+					fieldLabel:'起始日期',
+					xtype: 'datefield',
+					format:"Y-m-d",
+					value:startday,
+					name:'sdate'
+			  },{
+		      fieldLabel:'结束日期',
+		      xtype: 'datefield',
+					format:"Y-m-d",
+		      value:today,
+		      name:'edate'
+			  },{
+		      fieldLabel:'操作员',
+		      xtype: 'textfield',
+		      name:'opname'
+			  },{
+		      fieldLabel:'IP地址',
+		      xtype: 'textfield',
+		      name:'ipaddr'
+			  },{
+					fieldLabel:'结果',
+					xtype: 'combo',
+					store:store_result,
+					displayField: 'result',
+					valueField:'result',
+					queryMode: 'local',
+					name:'result'
+			  },{
+		      fieldLabel:'事件描述',
+		      xtype: 'textfield',
+		      name:'descr'
+			  },{
+					xtype: 'button',
+					anchor: 'right',
+					style : 'margin-left:80px',
+					text:'查&nbsp;&nbsp;询',
+					handler: function(){
+						Ext.getCmp('timeFlag').setRawValue("自定义");
+						document.getElementById("form1").ipaddr.value=fp2.getForm().getValues().ipaddr;
+						
+						var tm=fp2.getForm().getValues().sdate;                      
+						document.getElementById("form1").sdate.value=tm;
+						document.getElementById("form1").edate.value=fp2.getForm().getValues().edate;
+						
+						if(fp2.getForm().getValues().result == "成功")
+							document.getElementById("form1").result.value = "Success";
+						else if(fp2.getForm().getValues().result == "失败"){
+							document.getElementById("form1").result.value = "Fail";
+						}else{
+							document.getElementById("form1").result.value = "";
+						}
+						
+						document.getElementById("form1").descr.value=fp2.getForm().getValues().descr; 
+						document.getElementById("form1").opname.value=fp2.getForm().getValues().opname; 
+						document.getElementById("form1").keyword.value='';
+						store.currentPage=1;
+						reflash();
+						
+						document.getElementById("form1").ipaddr.value='';
+						document.getElementById("form1").result.value='';
+						document.getElementById("form1").descr.value='';
+						document.getElementById("form1").opname.value='';
+						win2.close();
+					}
+			  },{
+	        text: '清&nbsp;&nbsp;除',
+	        style : 'margin-left:10px',
+	        xtype: 'button',
+	        handler: function(){
+	        	fp2.getForm().reset();
+	        }
+	     	}]
+			});
+      var win2;
+      function showCxForm() {
+        if (!win2) {
+          win2 = Ext.widget('window', {
+            title: '高级查询',
+            closeAction: 'hide',
+            x:600,
+            y:32,
+            width: 280,
+            height: 330,
+            minHeight: 330,
+            resizable: true,
+            modal: false,
+            items: fp2
+          });
+        }
+        win2.show();
+    	}
+		  
+		//对翻页工具条重新构建，替换翻页函数    
+			Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+				doRefresh:function(){
+					reflash();
+				},
+				moveLast:function(){
+					var b=this,a=b.getPageData().pageCount;
+					if(b.fireEvent("beforechange",b,a)!==false){
+						store.currentPage=a;
+						reflash();
+					}
+				},
+				moveFirst:function(){
+					if(this.fireEvent("beforechange",this,1)!==false){
+						store.currentPage=1;
+						reflash();
+					}
+				}, 
+				movePrevious:function(){
+					var b=this,a=b.store.currentPage-1;
+					if(a>0){
+						if(b.fireEvent("beforechange",b,a)!==false){
+							store.currentPage=a;reflash();
+						}
+					}
+				},
+				moveNext:function(){
+					var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+					if(a<=b){
+						if(c.fireEvent("beforechange",c,a)!==false){
+							store.currentPage=a;reflash();
+						}
+					}
+				}
+			});
+			
+			var timeFlagCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '时间',
+        id : 'timeFlag',
+        labelWidth: 40,
+        width: 130,
+        valueField:'id',
+        value:'1',
+        displayField: 'text',
+        allowBlank: true,
+        store: timeFlagStore,
+        triggerAction: 'all',
+				queryMode: 'local',
+				typeAhead: true,
+        listeners: {
+          'change':function(thisField,newValue,oldValue,eOpts){
+          	var nowDate = new Date();
+						var sdateTmp = new Date();
+								
+    				switch(newValue){
+    					case '1':
+    						break;
+    					case '2':
+    						sdateTmp.setDate(nowDate.getDate()-3);
+    						break;
+    					case '3':
+    						sdateTmp.setDate(nowDate.getDate()-7);
+    						break;
+    					case '4':
+    						sdateTmp.setMonth(nowDate.getMonth()-1);
+    						break;
+    					case '5':
+    						sdateTmp.setMonth(nowDate.getMonth()-3);
+    						break;
+    					case '6':
+    						sdateTmp.setMonth(nowDate.getMonth()-6);
+    						break;
+							default: ;
+								break;
+    				}
+    				
+    				document.getElementById("form1").sdate.value = sdateTmp.getFullYear()+"-"+(sdateTmp.getMonth()+1)+"-"+sdateTmp.getDate();
+    				document.getElementById("form1").edate.value = nowDate.getFullYear()+"-"+(nowDate.getMonth()+1)+"-"+nowDate.getDate();
+    				
+            reflash();
+          }
+        },
+				listConfig:{
+    			loadingText: 'Searching...',
+    			emptyText: 'No matching found.'
+  			}
+	    });
+	    
+	    var actionCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '行为类型',
+        id : 'actionId',
+        labelWidth: 60,
+        width: 200,
+        valueField:'id',
+        value:'0',
+        displayField: 'text',
+        allowBlank: true,
+        store: actionStore,
+        triggerAction: 'all',
+				queryMode: 'local',
+				typeAhead: true,
+        listeners: {
+          'change':function(thisField,newValue,oldValue,eOpts){
+          	if(newValue!=0){
+          		document.getElementById('form1').action.value = newValue;
+    				}else{
+    					document.getElementById('form1').action.value = "";
+    				}
+            reflash();
+          }
+        },
+				listConfig:{
+    			loadingText: 'Searching...',
+    			emptyText: 'No matching found.'
+  			}
+	    });
+	    
+		  var grid = Ext.create('Ext.grid.Panel', {
+		  	height: 980,
+        scrollOffset: 0,
+        store: store,
+        frame:true,
+        columns:[{
+          id: 'userid',
+          text: "日期",
+          dataIndex: 'sdate',
+          hidden: false,
+          width: 140,
+          sortable: true
+        },{
+          text: "操作员",
+          dataIndex: 'name', 
+         	width: 100,
+          sortable: true
+		    },{
+          text: "IP地址",
+          dataIndex: 'ipaddr',           
+          width: 110,
+          sortable: true
+        },{
+          text: "行为类型",
+          dataIndex: 'action',
+          hidden: false,
+          width: 90,
+          sortable: true,
+          renderer: function(value,metaData,record){
+          	return actionStore.getById(value).get('text');
+          }
+        },{
+          text: "结果",
+          dataIndex: 'result',
+          hidden: false,
+          width: 60,
+          sortable: true
+        },{
+          text: "事件描述",
+          dataIndex: 'descr',
+          hidden: false,
+          flex:1,
+          sortable: true
+		    }],
+		    columnLines: true,		 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+          store: store,
+          displayInfo: true,
+          displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+          emptyMsg: "没有记录可显示",                 
+          items: [
+          '-',
+          timeFlagCombo,
+          actionCombo,{
+						xtype:'textfield',
+						fieldLabel: '关键字',
+        		labelWidth: 50,
+						id:'keyword1',
+						name:'keyword1',
+						width:'180px',
+						style:'color:#7aa7d5',
+						emptyText:'请输入查询内容'
+          },{
+						text:'确认',
+						iconCls:'accept',
+						handler: function(){
+							var aa=Ext.getCmp('keyword1').getValue();
+							document.getElementById("form1").keyword.value=aa;
+							
+							store.currentPage=1;
+							reflash();
+						}
+          },'-',{
+	          text:'高级',
+	          anchor: 'right',          
+	         	handler: showCxForm,
+	          iconCls:'option'
+          }]
+        }),
+		    renderTo: 'grid-corp'
+			});
+
+		  reflash();
+		});
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+	
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="action" value="">
+		<input type="hidden" name="opname" value="">
+		<input type="hidden" name="result" value="">
+		<input type="hidden" name="descr" value="">
+		<input type="hidden" name="ipaddr" value="">
+
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

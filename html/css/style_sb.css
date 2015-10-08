@@ -1,0 +1,84 @@
+.body {
+	font-family: "ÐÂËÎÌå";
+	font-size: 12px;
+	line-height: 24px;
+	height: 385px;
+	width: 542px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 0px;
+	
+}
+.container {
+	height: 354px;
+	width: 536px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.toper {
+	height: 24px;
+	width: 289px;
+	margin-left: 135px;
+}
+.werper {
+	height: 313px;
+	width: 542px;
+	float: center;
+	background-image: url(/images/sb/jie33.gif);
+	background-repeat: no-repeat;
+	margin-top: 10px;
+}
+.tittle {
+	height: 19px;
+	width: 104px;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	margin-left: 25px;
+}
+.buttom {
+	height: 32px;
+	width: 180px;
+	margin-left: 100px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #52b71d;
+	padding-top: 5px;
+}
+
+.btn_11 {
+	line-height: 32px;
+	background-image: url(/images/sb/jie3.gif);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 133px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+}
+.zhuyi {
+	float: left;
+	height: auto;
+	width: 400px;
+	margin-left: 80px;
+	margin-top: 20px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #666;
+}
+.mei {
+	font-size: 14px;
+	font-weight: bold;
+	color: #faaa44;
+}
+.bootom {
+	float: left;
+	height: 24px;
+	margin-top: 10px;
+	margin-left: 60px;
+	width: 360px;
+}
+.zz {
+	color: #52b71d;
+	font-size: 12px;
+}

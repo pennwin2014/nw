@@ -1,0 +1,606 @@
+ <head>
+ 	
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+ <title>新网程桌面管理系统</title>
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+ <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+    <style type="text/css">
+ .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+	.x-statusbar .x-status-busy {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 0;
+}
+  .x-statusbar .x-status-busy {
+    background-image: url(/images/loading.gif);
+}
+  .add_dw {
+    background-image: url(/images/v8/gman.gif) !important;
+}	 
+  .add_sf {
+    background-image: url(/images/v8/customers.png) !important;
+}	
+ .dhs {
+    background-image: url(/images/v8/earth.png) !important;
+}	
+ .mggd {
+    background-image: url(/images/v8/info.png) !important;
+}
+ .refresh {
+    background-image: url(/images/v8/refresh.png) !important;
+}
+ .unlock {
+    background-image: url(/images/v8/unlock.png) !important;
+}
+
+ .search {
+    background-image: url(/images/v8/search.png) !important;
+}
+ .lamp {
+    background-image: url(/images/v8/lamp.png) !important;
+}
+ .bk {
+    background-image: url(/images/v8/bk.png) !important;
+}
+
+ .sitemap {
+    background-image: url(/images/v8/sitemap.png) !important;
+}
+ .pencil {
+    background-image: url(/images/v8/pencil.png) !important;
+}
+ .address {
+    background-image: url(/images/v8/address.png) !important;
+}
+ .dvd {
+    background-image: url(/images/v8/dvd.png) !important;
+}
+ .edit {
+    background-image: url(/images/v8/edit.png) !important;
+}
+ .static {
+    background-image: url(/images/v8/pie-chart_graph.png) !important;
+}
+ .group {
+    background-image: url(/images/v8/category.png) !important;
+}
+
+ .users {
+    background-image: url(/images/v8/user_friend.png) !important;
+}
+ .macs {
+    background-image: url(/images/v8/help_ring-buoy.png) !important;
+}
+ .calculator {
+    background-image: url(/images/v8/calculator.png) !important;
+}
+ .szhtj {
+    background-image: url(/images/v8/statistics.png) !important;
+}
+ .xtyh {
+    background-image: url(/images/v8/add.gif) !important;
+}
+ .mark_flag {
+    background-image: url(/images/v8/flag_mark_green.png) !important;
+}
+.ssjk {
+
+    background-image: url(/images/large/ssjk.png) !important;
+
+}	 
+.computer {
+
+    background-image: url(/images/large/computer_monitor.png) !important;
+
+}	 
+.rzck{
+
+    background-image: url(/images/large/rzck.png) !important;
+
+}	 
+
+.xtfx{
+
+    background-image: url(/images/large/xtfx.png) !important;
+
+}	
+
+
+
+.xtgl{
+
+    background-image: url(/images/large/xtgl.png) !important;
+
+}	
+
+.kzcl{
+
+    background-image: url(/images/large/kzcl.png) !important;
+
+}	
+
+.cssz{
+
+    background-image: url(/images/large/cssz.png) !important;
+
+}	
+
+.gjxx{
+
+    background-image: url(/images/large/gjxx.png) !important;
+
+}	
+
+.bz{
+
+    background-image: url(/images/large/bz.png) !important;
+
+}	
+.treecls {  
+background-image:url(/images/large/application_view_list.png) !important;  
+}  
+.treecompt {  
+background-image:url(/images/large/image_add.png) !important;  
+}  
+
+#toolbarBackground{
+
+    background-image: url(/images/large/toolbarbackground.png) !important;
+
+}
+
+.screenList{float:left;display:block;margin:5px;border:10px;border:2px solid;
+border-radius:15px; 	box-shadow: 5px 5px 5px #888888;
+-moz-border-radius:25px; /* Old Firefox */}  
+
+   *{font-size:12px!important;}
+  </style>
+  
+
+    <script type="text/javascript">
+    
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+ 
+   //     Ext.Loader.setPath('Ext.app', 'classes');
+        Ext.require([
+    'Ext.tip.QuickTipManager',
+    'Ext.container.Viewport',
+    'Ext.layout.*',
+    'Ext.form.Panel',
+    'Ext.form.Label',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.tree.*',
+     'Ext.panel.*',
+    'Ext.toolbar.*',
+    'Ext.button.*',
+    'Ext.selection.*',
+    'Ext.tab.Panel',
+    'Ext.tab.*',
+    'Ext.ux.TabCloseMenu',
+    'Ext.ux.layout.Center',
+     'Ext.chart.*',
+    'Ext.ux.statusbar.StatusBar'
+
+        ]);
+        
+     
+           	
+ function sendImgStore(store2){
+// alert("store3=store2");
+ store3 = store2;
+// sliderMax = store3.getTotalCount();
+//	slider2.setMaxValue(sliderMax);
+_store2 = store3;
+//alert('2222222222');
+
+//setTimeout("updateWin10()",300);
+//	slider2.setValue(_currentRec);
+ }       	
+        	
+var _playTime = 6000;
+var win10;
+
+
+ var slider2 = Ext.create('Ext.slider.Single', {
+	text:'图片位置',
+//	 hideLabel: true,
+   // renderTo: 'slider1',
+    width: 300,
+    minValue: 1,
+    maxValue: 15,
+    value: 1,
+	listeners: {
+           dragend: function(){ //监听拖动结束
+				_currentRec = slider2.getValue();
+			//	alert('_currentRec = ' + _currentRec);
+			//	alert('_index = '+_index);
+			//	_index = slider2.getValue()-1;
+				
+			if(_index < _currentRec){
+								
+							store3.currentPage = parseInt(_currentRec/store3PageSize)+1;
+						//	alert(store3.currentPage)
+							parent.updateImgStore(store3.currentPage);
+							//reflash();
+						//	_store2 = store3;
+						//	sliderMax = _store2.getTotalCount();
+						//	slider2.setMaxValue(sliderMax);
+						//	slider2.setValue(_currentRec);
+						//	alert('_store2.currentPage'+_store2.currentPage);
+						//	alert(_store2.getAt(0).get('stime'));
+							_index = _currentRec%store3PageSize; //加载数量-1
+						//	alert(_index)
+							}
+							else
+							{
+								//_currentRec = _currentRec - 1;
+								_index = _currentRec-1;
+							}
+								
+			//alert(_currentRec);
+			//alert(store3.currentPage);
+			
+			//alert(_index);
+		//	slider2.setValue(_currentRec);
+			//	win10.close();
+			//	showWin10();
+			 _imagehtml = '<div class="screenList" ondblclick="parent.closeWin10();"><center><img width="1200" height="600" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.getAt(_index).get('file')+'"/></center></div>';
+							_title ='<center><font class = "title" size="2" color = "red">部门:&nbsp;'+ 	_store2.getAt(_index).get('department')+'&nbsp;&nbsp;&nbsp;计算机:&nbsp;'+	_store2.getAt(_index).get('devname')+'&nbsp;&nbsp;&nbsp;用户:&nbsp;'+	_store2.getAt(_index).get('udisp')+'&nbsp;&nbsp;&nbsp;IP: ' + 	_store2.getAt(_index).get('sip')+'&nbsp;&nbsp;&nbsp;MAC: '+ 	_store2.getAt(_index).get('mac')+'&nbsp;&nbsp;&nbsp;时间: '+ 	_store2.getAt(_index).get('stime')+'</font></center>';
+							win10.setTitle(_title);
+							Ext.getCmp('imageLabel').update(_imagehtml);
+							Ext.getCmp('win10Position').setValue('当前位置: '+_currentRec+'/'+sliderMax+"  ");
+            }
+        }
+
+});    
+var store3;  	
+var _win10BtnText = "自动播放";
+var _store2;
+var _index = 0;
+var _htmlvar;
+var _imagehtml;
+var _title = null;
+var sliderMax = 0;
+var _intervalNumber = 0;
+var _currentRec;
+var store3PageSize = 4;
+//显示屏幕日志信息
+function _show_screenlog(){
+//	alert('kkkkk');
+//		document.getElementById("form1").time_flag.value = time_flag;
+		store3PageSize = parent.store3PageSize;
+		
+		Ext.define('EimData2',{
+		extend:'Ext.data.Model',
+		fields:['sid','department','compid','udisp','sip','mac','stime','file','gname','devname']
+	});
+	
+        store3 = Ext.create('Ext.data.Store', {
+        pageSize: store3PageSize,
+		id : 'store3',
+        model: 'EimData2',
+        remoteSort: true,
+		//autoLoad:true,// 自动加载服务器数据  
+        proxy: {
+            type: 'ajax',
+          //  url: '/pronline/Msg?FunName@ncsWebClientSearch_v4&plate@v4/ncs_corp_list.htm',
+			url:'/pronline/Msg?FunName@lan_log_getScreenLog',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'stime',
+            direction: 'DESC'
+        }]	
+             
+    });
+			store3.currentPage = parent._currentPage;
+	//		alert("currentPage"+currentPage);
+	//		reflash();
+			
+			_store2 = parent._store2;
+			_index = parent._index;
+			_playTime = parent._playTime;
+		//	_index = parent._index;
+			_intervalNumber = parent._intervalNumber;
+			_currentRec = parent._currentRec;
+		//	alert("_playTime" + _playTime);
+			_win10BtnText = parent._win10BtnText;
+		//	Ext.getCmp('_win10Btn').setText(_win10BtnText);
+			if(win10){
+			//	alert("111111111")
+				updateWin10();
+			}else{
+		
+	_title ='<center><font class = "title" size="2" color = "red">部门:&nbsp;'+ 	_store2.getAt(_index).get('department')+'&nbsp;&nbsp;&nbsp;计算机:&nbsp;'+	_store2.getAt(_index).get('devname')+'&nbsp;&nbsp;&nbsp;用户:&nbsp;'+	_store2.getAt(_index).get('udisp')+'&nbsp;&nbsp;&nbsp;IP: ' + 	_store2.getAt(_index).get('sip')+'&nbsp;&nbsp;&nbsp;MAC: '+ 	_store2.getAt(_index).get('mac')+'&nbsp;&nbsp;&nbsp;时间: '+ 	_store2.getAt(_index).get('stime')+'</font></center>';
+	_imagehtml = '<div class="screenList" ondblclick="parent.closeWin10()"><center><img width="1200" height="600" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.getAt(_index).get('file')+'"/></center></div>';
+			}
+		//	alert('_index'+_index);
+		//	alert('_currentRec'+_currentRec);
+			sliderMax = _store2.getTotalCount();
+			slider2.setMaxValue(sliderMax);
+			slider2.setValue(_currentRec);
+		//	alert("sliderMax "+sliderMax);
+		
+			if(_intervalNumber == 1){
+				//Ext.getCmp('_playTime').setValue(_playTime);
+				_intervalNumber = setInterval('autoPlay()',_playTime);
+			}
+			//	alert("2222222222")
+			showWin10();
+}
+
+function updateWin10(){
+
+_imagehtml = '<div class="screenList" ondblclick="parent.closeWin10();"><center><img width="1200" height="600" src="/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@'+ _store2.getAt(_index).get('file')+'"/></center></div>';
+							_title ='<center><font size="2" color = "red">部门:&nbsp;'+ 	_store2.getAt(_index).get('department')+'&nbsp;&nbsp;&nbsp;计算机:&nbsp;'+	_store2.getAt(_index).get('devname')+'&nbsp;&nbsp;&nbsp;用户:&nbsp;'+	_store2.getAt(_index).get('udisp')+'&nbsp;&nbsp;&nbsp;IP: ' + 	_store2.getAt(_index).get('sip')+'&nbsp;&nbsp;&nbsp;MAC: '+ 	_store2.getAt(_index).get('mac')+'&nbsp;&nbsp;&nbsp;时间: '+ 	_store2.getAt(_index).get('stime')+'</font></center>';
+							win10.setTitle(_title);
+							Ext.getCmp('_playTime').setValue(_playTime/1000);
+							Ext.getCmp('imageLabel').update(_imagehtml);
+							Ext.getCmp('_win10Btn').setText(_win10BtnText);
+							Ext.getCmp('win10Position').setValue('当前位置: '+_currentRec+'/'+sliderMax+"  ");
+							slider2.setValue(_currentRec);
+}
+
+//显示屏幕日志窗口
+function showWin10(){
+	 
+			if(!win10){
+			//	alert("33333333333" + _imagehtml)
+			win10 = new Ext.Window ({
+                          //   id:"userwindow",
+                             title:_title,
+                             x:0,
+                             y:0,
+                             width:1240,
+                             height:680,
+							closable:false,
+					//		expandOnShow:true, 
+					//		draggable:true, //可拖动的
+					//		maximizable:true, //可最大化的
+						//	minimizable:true, //可最小化
+							autoScroll:true, 
+						//	collapsed  :true,//伸缩
+						//	collapsible  :true,
+							resizable: true, //可改变大小
+							modal: false,//后面的内容可以操作
+						//	plain：true,//则主体背景透明
+						//	items: fp2
+							constrain:true, //限制窗口只能在其容器内移动
+							buttonAlign:'center',  
+							alwaysOnTop: true,
+				
+                            // html:htmlvar,
+							items:[{
+					baseCls:"x-plain",
+					id:'imageLabel',
+					xtype:'label',	  
+					html:_imagehtml
+				//	html: '<iframe  id="lay_rzck_screenlog" name="lay_rzck_screenlog" src="/v8/rzck/pingmurizhi_img.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+				},	],
+				buttons:[{xtype:'displayfield',
+							id:'win10Position',
+							value:'当前位置: '+_currentRec+'/'+sliderMax+"  "},
+						{text:'上一张',
+							handler: function()
+                         	{	
+							
+							if(_currentRec <= 1)
+							{
+						//	Ext.MessageBox.alert('第一张');
+							alert("第一张");
+							}
+							else{
+							if(_index <= 0){
+							store3.currentPage = store3.currentPage - 1;
+						//	reflash();
+							parent.updateImgStore(store3.currentPage);
+						//	_store2 = store3;
+						//	alert('_store2.currentPage'+_store2.currentPage);
+						//	alert(_store2.getAt(0).get('stime'));
+							_index = store3PageSize - 1; //加载数量-1
+							_currentRec = _currentRec -1;
+							setTimeout("updateWin10()",300);
+							}
+							else
+							{
+								_currentRec = _currentRec - 1;
+								_index = _index-1;
+								updateWin10();
+							}
+						//	slider2.setValue(_index+1);
+							
+						//	win10.close();
+						//	showWin10();
+                        // 	_store2.currentPage=1;
+                         	}	
+                         		//	reflash();
+                         		
+                         	}
+						},slider2,
+						
+						{text:'下一张',
+							handler: function(){
+						//	alert("_index"+_index);
+							
+							if(_currentRec >= sliderMax){//判断当前图片是否大于最大数
+							alert('最后一张');
+							clearInterval(_intervalNumber);
+							}
+							else{
+							if(_index >= store3PageSize - 1){//判断STORE3里的数据是否是最后一个，如果是接着加载后面的数据
+							store3.currentPage = store3.currentPage + 1;
+							//reflash();
+							parent.updateImgStore(store3.currentPage);
+						//	_store2 = store3;
+						//	alert('_store2.currentPage'+_store2.currentPage);
+						//	alert(_store2.getAt(0).get('stime'));
+							_index = 0; 
+							_currentRec = _currentRec +1;
+							setTimeout("updateWin10()",300);
+						//	updateWin10();
+							}
+							else{
+								_index = _index+1;
+								_currentRec = _currentRec +1;
+								updateWin10();
+							}
+							
+						//	alert("11111111111");
+						//	slider2.setValue(_index+1);
+							
+							}
+							//win10.close();
+							//showWin10();
+			
+                        // 	_store2.currentPage=1;
+                         		
+									}
+						},
+						
+						{
+						text:_win10BtnText,
+						id:'_win10Btn',
+						handler: function(){
+						_playTime= 1000 * Ext.getCmp('_playTime').value; //1000*毫秒
+					//	alert(_playTime);
+						
+						
+						if(this.getText() == "继续播放"){
+						if(_intervalNumber == 0){
+						_intervalNumber = setInterval('autoPlay()',_playTime); 	
+						//	_store2.currentPage=1;
+							this.setText('停止播放');
+							_win10BtnText = "停止播放";	
+						}						
+                         
+                         //	reflash();
+                         	}
+						//	else if(Ext.getCmp('btn1').getText() == "停止播放"){
+						else if(this.getText() == "停止播放"){
+						
+							clearInterval(_intervalNumber); 	
+							_intervalNumber = 0;
+                       //  	_store2.currentPage=1;
+							this.setText('继续播放');
+                            _win10BtnText = "继续播放";	
+                         	//reflash();
+							}
+							else if(this.getText() == "自动播放"){
+							
+							if(_index >= sliderMax ){
+							alert('最后一张');
+							clearInterval(_intervalNumber); 
+							_intervalNumber = 0;
+							}
+							else{
+								if(_intervalNumber == 0){
+								_intervalNumber = setInterval('autoPlay()',_playTime); 
+								this.setText('停止播放');
+								_win10BtnText = "停止播放";		
+								}	
+						
+							//	_store2.currentPage=1;
+							
+							 //	reflash();
+								}						 
+							}		
+						}
+					},
+					{
+						fieldLabel:'时间间隔(秒)',
+						width:150,
+						xtype:'textfield',
+						value:_playTime/1000,
+						id:'_playTime'
+					}
+					
+					],
+				listeners:{
+				'close':function(){
+						//	alert("close");
+							clearInterval(_intervalNumber); 	
+							_intervalNumber = 0;
+                       //  	_store2.currentPage=1;
+							_win10BtnText = "自动播放";	
+							this.setText('自动播放');
+				}
+			
+				}			
+					
+						               
+         }
+        )
+		}
+        win10.show();
+		}      
+        
+       
+        
+         Ext.onReady(function(){
+        	
+        	Ext.QuickTips.init();
+			_show_screenlog();
+		//	showWin10();
+		
+        });
+		
+		function clear(){
+		//	alert("clearInterval")
+			clearInterval(_intervalNumber); 	
+							_intervalNumber = 0;
+                       //  	_store2.currentPage=1;
+							_win10BtnText = "自动播放";	
+							//this.setText('自动播放');
+		}
+		
+		function autoPlay(){
+			//	alert("autoPlay")
+				if(_currentRec >= sliderMax){
+				alert('最后一张');
+				//alert('清楚');
+							clearInterval(_intervalNumber); 
+							_intervalNumber = 0;
+							_win10BtnText = "自动播放";	
+							Ext.getCmp('_win10Btn').setText(_win10BtnText);
+				}else{
+				if(_index >= store3PageSize - 1){//判断STORE3里的数据是否是最后一个，如果是接着加载后面的数据
+							store3.currentPage = store3.currentPage + 1;
+							parent.updateImgStore(store3.currentPage);
+							//reflash();
+					//		_store2 = store3;
+					//		alert('_store2.currentPage'+_store2.currentPage);
+					//		alert(_store2.getAt(0).get('stime'));
+							_index = 0;
+							_currentRec = _currentRec +1;
+							setTimeout("updateWin10()",300);
+						//	updateWin10();
+				}
+				else{
+					_index = _index+1;
+					_currentRec = _currentRec + 1;
+					updateWin10();	
+				//	alert("_index" + _index);
+					}	
+									
+				}
+		
+					//win10.close();
+					//showWin10();
+	}
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

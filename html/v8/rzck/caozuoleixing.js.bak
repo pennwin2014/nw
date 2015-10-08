@@ -1,0 +1,13 @@
+{
+"success":true,
+"data": 
+[{
+	"groupid" : 1,
+	"groupname":"插入"
+},
+{
+	"groupid" : 2,
+	"groupname":"拔出"
+},
+]
+}

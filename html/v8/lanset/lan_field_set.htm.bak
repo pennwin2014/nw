@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>设置显示字段</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+		Ext.QuickTips.init();
+		Ext.form.Field.prototype.msgTarget = 'side';
+
+    Ext.define('globparm', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'filedname',type: 'string'}
+        ]
+    });
+ 
+
+    var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        title   : '设置电脑树显示字段',
+        frame:true,
+        id:'form_glob',
+        autoHeight: true,
+        width   : 400,
+        height:220,
+        bodyPadding: 10,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items:[{                              
+          width:          50,
+          xtype:          'combo',
+          mode:           'local',
+          value:          'mrs',
+          triggerAction:  'all',
+          forceSelection: true,
+          editable:       false,
+          fieldLabel:     '显示字段',
+          name:           'filedname',
+          displayField:   'name',
+          valueField:     'value',
+          queryMode: 'local',
+          store: Ext.create('Ext.data.Store', {
+            fields : ['name', 'value'],
+            data   : [
+                {name : '计算机名',   value: 'compname'},
+                {name : '设备使用者',  value: 'devname'},
+                {name : 'IP地址', value: 'ip'},
+                {name:'MAC地址',value:'mac'}
+            ]
+          })
+        },{
+        	xtype: 			'textfield',
+          fieldLabel: '卸载密码',
+          name:       'unstall_key',
+        	minLength: 	6,
+        	regexText:  "密码至少输入6位"
+        },{
+        	xtype:'label',
+        	html:'<p style="line-height:22px;"><br><br>根据选择的字段，左边电脑树中的计算机可以以"计算名，IP地址，使用者或MAC地址"形式显示，显示字段在用户重新登录后生效。</p>'
+        }],
+        buttons: [{
+          text   : '保存',
+          handler: function() {
+          	var form = this.up('form').getForm();
+          	if(form.isValid()){
+               form.doAction('submit',{
+	               url:'/pronline/Msg',
+	               method:'post',
+	               params:{FunName:'lanParmSet_Save'},   
+	                success:function(form,action){
+	           //   	var msgaa=action.result.reason;
+	               		alert(action.result.success);
+               		}   
+               })
+
+            }else{
+            	alert("请确认输入的密码不小于6位");
+            }
+          }
+        }]
+    });
+    //初始化  
+       var store = Ext.create('Ext.data.Store', {
+        model: 'globparm',
+        autoLoad: true,
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanParmSet',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        listeners:{'load':function(){      
+        	form.loadRecord(this.getAt(0));
+        	}}
+    });
+    
+    
+});
+
+</script>
+    
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

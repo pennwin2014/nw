@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>在线计算机</title>
+		<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+		<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	</head>
+	
+	<body>
+		<p align = "center"><b>部门:</b>[#gname#],<b>IP:</b>[#sip#],<b>用户名:</b>[#compname#]</p>
+		<img id="imaget" hspace="2" vspace="5" width = "[#width#]" height = "[#height#]" src = "[#path#]">
+		
+		<form id="form1">
+			<input type="hidden" name="compid" value="[#compid#]">	
+		</form>
+		
+		<script>
+			function reflash(){
+				var form2 = Ext.create('Ext.form.Panel').getForm();
+				var compid = document.getElementById("form1").compid.value;
+				form2.submit({
+          url: '/pronline/Msg?FunName@lan_setScreenHeart',
+					clientValidation: true,
+    			//waitMsg: '正在连接，请稍候...',
+          params: {
+		        compid: compid
+			    },
+			    method: 'get',
+          success: function(fp, o) {
+          	var img=document.getElementById("imaget");
+						var src = img.src.split("&n@");
+						img.src = src[0]+"&n@"+Math.random();
+						//alert(img.src);
+          }
+        });
+			}
+			setInterval('reflash()',3000);
+		</script>
+	</body>
+	
+</html>

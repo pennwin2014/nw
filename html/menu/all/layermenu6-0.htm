@@ -1,0 +1,120 @@
+
+
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link REL=stylesheet HREF="/css/runmit.css" TYPE='text/css'>
+</head>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#000066";
+	o.style.borderColor= "#cccccc";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+parent.parent.clearTimeout(parent.parent.popTimer);
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+parent.parent.popOut()		
+	
+}
+function menu_frame_onmouseover()
+{
+	parent.clearTimeout(parent.popTimer);
+	document.body.className='highlight_container'}
+function menu_frame_onmouseout()
+{
+	document.body.className="menu_container";
+	parent.popOut()}
+
+function goto(t){
+  parent.sbpm_right.location.href=t
+}
+
+function goto2(t){
+  parent.sbpm_left.location.href=t
+}
+function dono() {
+}
+
+
+
+</script>
+<body topMargin=0 leftmargin=0 marginheight="0" class=menu_space style='cursor:default;border:0' fixed oncontextmenu="return false">
+<table class=3dtable_notop1 border=0 width=100% cellspacing=0 cellpadding=0 style='padding:2px'>
+<!--   -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0');goto2('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebLim_Dispmenu&plate@tree/tree_menu_lim.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">上网控制规则设定</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimShowDefault');goto2('/no.htm');parent.go_hide()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">上网综合参数设置</td>
+  </tr>
+<!--      -->
+  <tr id="3"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebWebPolClass');goto2('/pronline/Msg?FunName@ncWebWebPolClass&plate@tree/nc_tree_limwebpol_top.htm&rownum@999');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">网址库访问策略定义</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimIpPolList&plate@nc/nc_limippolgroup.htm');goto2('/pronline/Msg?FunName@ncWebLimIpPolList&plate@nc/nc_limippoltree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">网络服务策略定义</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimRuleGroup&plate@nc/nc_limrulegroup.htm');goto2('/pronline/Msg?FunName@ncWebLimRuleGroup&plate@nc/nc_limruletree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">上网控制策略定义</td>
+  </tr>
+<!--      -->
+  <tr id="7"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimWebClass');goto2('/pronline/Msg?FunName@ncWebReplace&plate@tree/nc_tree_limweblist_menu.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">网址库分类维护</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimIpList&CurPg@1');goto2('/pronline/Msg?FunName@ncWebLimIpGroup&plate@nc/nc_limiptree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">网络服务定义</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebLimDateList&CurPg@1&name@全部日期');goto2('/pronline/Msg?FunName@ncWebLimDateGroup&plate@nc/nc_limdatetree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">访问日期分类</td>
+  </tr>
+<!--      -->
+  <tr id="11"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@test/nc_test_vcontrol.htm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@test/nc_lim_testtree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">上网控制测试</td>
+  </tr>
+<!--   -->
+</table>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+<meta name="ProgId" content="VisualStudio.HTML">
+<meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+
+
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+
+
+
+<style>
+.conts{visibility:hidden}
+
+
+</style>
+
+
+<script>
+	
+		function openreport(t,gname){
+
+		self.location='/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_deptbandonline_lab.htm&groupid@'+t+'&gname@'+gname; 
+//		window.open(t,'open_reportf','height=600, width=900, top=90, left=100,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+	
+	 function getColor(){
+		   return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+    };
+ function maxs(mm){
+   var max1 = 0;
+     for(var i=0; i<mm.length; i++){
+     	
+      if(parseInt(mm[i]) > max1) max1 = mm[i];
+    }
+
+ return max1;
+ }
+  var tb_left=50;
+	var tb_top=120;
+	var tb_width=600;
+	var tb_height=250; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+	var unit="bps"
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+	
+
+	
+		var dev_color=new Array();
+	    dev_color[0]='#00FA9A';
+	    dev_color[1]='#FF0000';
+	    dev_color[2]='#00EBCD';
+	    dev_color[3]='#A52A2A';
+	    dev_color[4]='#778899';
+	    dev_color[5]='#e2691E';
+	    dev_color[6]='#800080';
+	    dev_color[7]='#6B8E23';
+		  dev_color[8]='#C0C0C0';
+	    dev_color[9]='#FFFF00';    
+	    dev_color[10]='#ffFA9A';
+	    dev_color[11]='#FF0000';
+	    dev_color[12]='#ffEBCD';
+	    dev_color[13]='#ff2A2A';
+	    dev_color[14]='#ff8899';
+	    dev_color[15]='#ff691E';
+	    dev_color[16]='#ff0080';
+	    dev_color[17]='#ff8E23';
+		  dev_color[18]='#ffC0C0';
+	    dev_color[19]='#FFFF00';
+	    
+	    dev_color[20]='#ffFA9A';
+	    dev_color[21]='#FF0000';
+	    dev_color[22]='#ffEBCD';
+	    dev_color[23]='#ff2A2A';
+	    dev_color[24]='#ff8899';
+	    dev_color[25]='#ff691E';
+	    dev_color[26]='#ff0080';
+	    dev_color[27]='#ff8E23';
+		  dev_color[28]='#ffC0C0';
+	    dev_color[29]='#FFFF00';
+	
+	function drawzzt()
+  {
+
+ 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+	y_max=(Math.round(maxs(sdate)/100)+2)*100;
+
+
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#333333' />";
+   //写日期
+//	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+//	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+//	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+//	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-100)+";top:"+parseInt(tb_top-8)+";width:100px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+   //画X轴刻度和柱状图
+   		var t_color;
+	for(i=0;i<x_tot;i++){
+		if(i>19){
+	   t_color=getColor();
+	   }
+	   else{
+	   t_color=dev_color[i];
+	   }
+	
+		temp_html=temp_html+"<v:rect   onclick=openreport('"+uid[i]+"','"+sdate_desc[i]+"') title='"+sdate_desc[i]+"' style='cursor:hand;position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:14px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-15)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+					
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+
+		temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sdate_xh[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+		
+		
+		
+		//画图例
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+22)+";top:"+parseInt(tb_top+i*20)+";width:16;height:12;z-index:2' fillcolor='"+t_color+"' strokecolor='"+t_color+"' strokeweight='1' stroked='t'></v:rect>";
+    
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+42)+";top:"+parseInt(tb_top+i*20-3)+";width:180px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+//		  temp_html=temp_html+"<tr><td align='left'>"+i+":&nbsp;"+sdate_desc[i]+"</td></tr>"; 
+		  
+		  temp_html=temp_html+"<tr><td align='left'> <a href='#xxs' onclick=openreport('"+uid[i]+"','"+sdate_desc[i]+"') >"+parseInt(i+1)+":&nbsp;"+sdate_desc[i]+"</a></td></tr>";
+		  
+		  
+		  
+		  temp_html=temp_html+"</table></v:shape>";
+		 
+		
+	}
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-38)+";width:80px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='right'>单位："+unit+"</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+
+
+   
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+260)+";top:"+parseInt(tb_top-32)+";width:190px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"部门即时带宽"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+150)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' >"+"(X轴刻度为部门序号)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+  document.getElementById("ff").innerHTML=temp_html;
+   
+    
+   
+}
+    
+        
+	</script>
+
+
+
+
+
+
+
+
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+function setscrollvaue()
+{
+	form1.sctop.value=document.all.tC.scrollTop;
+
+}
+
+function sx()
+{
+//	drawzzt();
+ 	form1.submit();	
+}
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+self.location.href=t
+}
+	function opendet(t){
+
+		window.open(t,'open_report','height=600, width=900, top=0, left=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function gotoPage(nun)
+{
+	if(nun<1){
+	 form1.CurPg.value=1;
+	 return;
+	}
+	if(nun>form1.TotPg.value){
+		form1.CurPg.value=form1.TotPg.value;
+		return;
+	}
+	form1.CurPg.value=nun;
+	form1.submit();
+}
+var dfd1="0"
+
+
+</script>
+<style>
+.conts  {visibility:hidden}
+
+.selTabBase{border-top:solid thin #dfdfdf }
+.TabBase{border-top:solid thin #DEE8FA}
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+	
+	function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+	
+	
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="1" topmargin="0"   style="overflow:hidden" onload="setInterval('sx()',7000);">
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main_dept">
+
+<input type="hidden" name="FunName" value="ncWebOnlieDeptBand">
+
+<input type="hidden" name="userid" value="[#userid#]">
+<input type="hidden" name="service" value="[#service#]">
+<input type="hidden" name="refresh_flag" value="2">
+
+<input type="hidden" name="sctop" value="0">
+
+
+<input type="hidden" name="expvalue" value="">
+
+    <table border="0" width="100%"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#E1E5E8 >
+
+		<tr >
+			<td colspan="2" valign="top" width="100%" style="position:relative;top:-2px">			
+
+				        <table width="100%" height="26" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/images2/table_bg8.jpg">
+				          <tr height="30"> 
+				        
+				          	<td class="tabtitle">
+				          		  部门即时带宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				          		
+				          		</td>
+				         <td  background="/images/images2/chaxun2-1.gif">&nbsp;</td>
+				           
+				        <td width="32%" background="/images/images2/chaxun2-1.gif"> 
+              <table align=right border=0 cellpadding=0 cellspacing=0 class=main>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)-1);' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=CurPg size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 30px" value=0 onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+						    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=5 name=TotPg size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=8 name=TotRec size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+						                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)+1);' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage(form1.TotPg.value);' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>
+            </td>
+				            	
+				    </tr>    
+				</table>	
+		</td>
+		</tr>	
+		
+		
+		<tr> 	
+      <td colspan="2" height="30" bgcolor="#DEE8FA">
+      	      &nbsp;部门&nbsp;<input type="text" name="bname" value="点击选择部门" size="14" onclick="showtree('nbm','bname')" readonly >
+      	      排序&nbsp;
+              <select name="sortby">                
+                    <option value='1'selected >总带宽</option>
+                    <option value='2' >上行带宽</option>
+                    <option value='3'>下行带宽</option>
+                  
+              </select>
+                 <select name="orderby">
+                    <option value='1'>升</option>
+                    <option value='0' selected>降</option>
+         
+              </select>
+              显示方式
+              <select name="flag">
+                    <option value='1'>柱状图</option>
+                    <option value='0' >表格</option>
+         
+              </select>
+              
+              
+                 <input name="search" type="button" class="an3" value="确认" onclick="sx()">
+            <input type="hidden" name="nbm" value="">
+      	</td>
+    </td>
+
+    </tr>
+		
+		
+		
+		
+<tr> 	
+<td HEIGHT="*"  colspan="2" ID="tabContents" align="left" valign="top"> 
+<div id="ff" name='ff' >
+</div>
+
+</td>
+
+</tr></table>
+
+	</form>	
+
+
+
+	<iframe name="main_dept" id="data1" style="display:none" src="/pronline/Msg?FunName@ncWebOnlieDeptBand&flag@1&service@[#service#]" > </iframe>
+
+</body>
+</html>

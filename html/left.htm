@@ -1,0 +1,537 @@
+<html>
+<head>
+<title>Left</title>
+<meta http-equiv='Content-Type' content='text/html; charset=gb2312'>
+<script language='JavaScript'>
+<!--
+var headHeight = 22;
+var bodyHeight = 612;
+var objcount = 3;
+var step = 59;
+var moving = false;
+
+function showme(obj1, obj2)
+{
+	if (moving)
+		return;
+	moving = true;
+	for(i=0;i<document.all.tags('td').length;i++)
+		if (document.all.tags('td')[i].className.indexOf('headtd') == 0)
+			document.all.tags('td')[i].className = 'headtd1';
+	obj2.className = 'headtd2';
+	moveme(obj1);
+}
+function moveme(obj)
+{
+	idnumber = parseInt(obj.id.substr(4));
+	objtop = headHeight * (idnumber - 1);
+	objbuttom = bodyHeight + headHeight * (idnumber - 2);
+	currenttop = parseInt(obj.style.top);
+	if (currenttop >= objbuttom)
+	{
+		countid = 1;
+		for(i=0;i<document.all.tags('div').length;i++)
+			if (document.all.tags('div')[i].id == 'item'+countid+'body')
+			{
+				obj = document.all.tags('div')[i];
+				objtop = headHeight * (countid - 1);
+				if (countid == idnumber)
+				{
+					moveup(obj,objtop,false);
+					break;
+				}
+				else
+					moveup(obj,objtop,true);
+				countid++;
+			}
+	}
+	else if ((currenttop <= objtop) && (idnumber < objcount))
+	{
+		idnumber++;
+		countid = objcount;
+		for(i=document.all.tags('div').length-1;i>=0;i--)
+			if (document.all.tags('div')[i].id == 'item'+countid+'body')
+			{
+				obj = document.all.tags('div')[i];
+				objbuttom = bodyHeight + headHeight * (countid - 2);
+				if (countid == idnumber)
+				{
+					movedown(obj,objbuttom,false);
+					break;
+				}
+				else
+					movedown(obj,objbuttom,true);
+				countid--;
+			}
+	}
+	else
+	{
+		moving = false;
+	}
+}
+function moveup(obj,objtop,ismove)
+{
+	currenttop = parseInt(obj.style.top);
+	if (currenttop > objtop)
+	{
+		obj.style.top = currenttop - step;
+		setTimeout('moveup('+obj.id+','+objtop+','+ismove+')',1)
+		return;
+	}
+	moving = ismove;
+}
+function movedown(obj,objbuttom,ismove)
+{
+	currenttop = parseInt(obj.style.top);
+	if (currenttop < objbuttom)
+	{
+		obj.style.top = currenttop + step;
+		setTimeout('movedown('+obj.id+','+objbuttom+','+ismove+')',1)
+		return;
+	}
+	moving = ismove;
+}
+function mouseovertd2 (o){
+dff=o.style.backgroundColor
+	o.style.border="1"
+	o.style.borderStyle="solid"
+	o.style.borderColor="#000000"
+	o.style.color="#ffffff"
+o.style.backgroundColor="#dfdfdf"
+o.style.cursor="hand";	
+}
+function goto(a)
+{
+parent.frames.crm_right.location.href=a;
+}
+function mouseouttd2 (o){
+	o.style.backgroundColor=dff
+	o.style.color="#000000"
+	o.style.borderColor="#ffffff"
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type='text/css'>
+.headtd1 {  background: menu; border: 2px outset; border-color: #dfdfdf #cccccc #cccccc #dfdfdf; cursor: hand; font-size: 9pt}
+.headtd2 {  background: menu; border: 2px outset; border-color: #dfdfdf #cccccc #cccccc #dfdfdf; cursor: hand; font-size: 9pt}
+.bodytd  {  background: #999999; border: 2px solid; border-color: #dfdfdf #cccccc #cccccc #dfdfdf; font-size: 9pt}
+td {  font-size: 9pt}
+</style>
+</head>
+<body bgcolor='menu' text='#000000' oncontextmenu="return false" onLoad="MM_preloadImages('images/_cal.gif','images/_guidang.gif','images/_check.gif','images/_memo.gif','images/_proj.gif','images/_gongxiong.gif')">
+<span id='mainboard' style='position:absolute; left:2px; top:0px; width:120px; height:656px; z-index:1; overflow: hidden; background: #cccccc;'> 
+<div id='item1body' style='position:absolute; left:0; top:0; width:120px; height:612px; z-index:2; overflow: hidden'>
+	<table width='120px' border='0' height='612' cellpadding='2' cellspacing='0'>
+		<tr>
+			
+      <td id='item1head' height='20' class='headtd2' onclick='showme(item1body,this)' align='center'> 
+        客户服务</td>
+		</tr>
+		<tr>
+			
+      <td class='bodytd' align='center' valign="top">
+        <table width="100%" border="0" cellspacing="0" bgcolor="#FFFFFF" height="100%">
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image1','','images/_check.gif',1)" onclick=goto('/crm_cod/cpdmFrm.htm')><img name="Image1" border="0" src="images/check.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">产品代码</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image2','','images/_cal.gif',1)" onclick=goto('/crm_cod/sernoFrm.htm')><img name="Image2" border="0" src="images/cal.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">产品序列号管理 </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3','','images/_guidang.gif',1)" onclick=goto('/crm_cod/licenceFrm.htm')><img name="Image3" border="0" src="images/guidang.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">Licence管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image81','','images/_proj.gif',1)" onclick=goto('/crm_cod/khzlFrm.htm')><img name="Image81" border="0" src="images/proj.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">客户资料</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image8','','images/_gongxiong.gif',1)" onclick=goto('/crm_khcp/azplanFrm.htm')><img name="Image8" border="0" src="images/gongxiong.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">安装计划</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image7','','images/_memo.gif',1)" onclick=goto('/crm_khcp/yjFrm.htm')><img name="Image7" border="0" src="images/memo.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">样机管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image71','','images/_memo.gif',1)" onclick=goto('/crm_khcp/azFrm.htm')><img name="Image71" border="0" src="images/memo.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">安装信息管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+           <tr>
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image71','','images/_memo.gif',1)" onclick=goto('/crm_khcp/wtFrm.htm')><img name="Image71" border="0" src="images/memo.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">客户问题跟踪</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+		</tr>
+	</table>
+	</div>
+	<div id='item2body' style='position:absolute; left:0; top:612; width:120px; height:612px; z-index:3; overflow: hidden'>
+	<table width='120px' border='0' height='612' cellpadding='2' cellspacing='0'>
+		<tr>
+			
+      <td id='item2head' height='20' class='headtd1' onclick='showme(item2body,this)' align='center'> 
+        订单管理</td>
+		</tr>
+	 <tr>			
+      <td class='bodytd' align='center'> 
+        <table width="100%" border="0" cellspacing="0" bgcolor="#FFFFFF" height="590">
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image1','','images/_check.gif',1)" onclick=goto('/crm_cod/ryFrm.htm')><img name="Image1" border="0" src="images/check.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">人员资料</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image2','','images/_cal.gif',1)" onclick=goto('/crm_cod/khzlFrm.htm')><img name="Image2" border="0" src="images/cal.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">客户资料 </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3','','images/_guidang.gif',1)" onclick=goto('/crm_khcp/ddFrm.htm')><img name="Image3" border="0" src="images/guidang.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">订单/合同管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image81','','images/_proj.gif',1)" onclick=goto('/crm_sf/ysFrm.htm')><img name="Image81" border="0" src="images/proj.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">应收款管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image8','','images/_gongxiong.gif',1)" onclick=goto('/crm_sf/yfFrm.htm')><img name="Image8" border="0" src="images/gongxiong.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">应付款管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+		</tr>
+	</table>
+	</div>
+	<div id='item3body' style='position:absolute; left:0; top:634; width:120px; height:612px; z-index:4; overflow: hidden'>
+
+	<table width='120px' border='0' height='612' cellpadding='2' cellspacing='0'>
+		<tr>
+			
+      <td id='item3head' height='20' class='headtd1' onclick='showme(item3body,this)' align='center'> 
+        仓库管理</td>
+		</tr>
+		<tr>
+			
+      <td class='bodytd' align='center'> 
+        <table width="100%" border="0" cellspacing="0" bgcolor="#FFFFFF" height="590">
+
+
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image1','','images/_check.gif',1)" onclick=goto('/crm_ck/rkdjFrm.htm')><img name="Image1" border="0" src="images/check.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">进货登记</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image2','','images/_cal.gif',1)" onclick=goto('/crm_ck/yjrkFrm.htm')><img name="Image2" border="0" src="images/cal.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">样机入库 </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3','','images/_guidang.gif',1)" onclick=goto('/crm_ck/ckczFrm.htm')><img name="Image3" border="0" src="images/guidang.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">出库操作</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70"> 
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image81','','images/_proj.gif',1)" onclick=goto('/crm_ck/ckFrm.htm')><img name="Image81" border="0" src="images/proj.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">仓库管理</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    <div align="center"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image8','','images/_gongxiong.gif',1)" onclick=goto('/crm_ck/pdFrm.htm')><img name="Image8" border="0" src="images/gongxiong.gif" width="32" height="32"></a></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center">盘点记录</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td height="70">
+              <table width="100%" border="0" height="100%">
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    &nbsp;
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+
+        </table>
+      </td>
+		</tr>
+	</table>
+	</div>
+</span>
+</body>
+</html>

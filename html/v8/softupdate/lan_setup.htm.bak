@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>安装包生成</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	<style type="text/css"  >     
+       .classDiv1{font-size: 25px; color: #808000;}   
+       .classDiv2{font-size: 18px;margin-left: auto; margin-right: auto;}   
+   </style>
+	<script>
+		Ext.onReady(function(){
+			
+			var systemStore = Ext.create('Ext.data.Store', {
+	  		fields:['id','text'],
+	  		data:[{id:'1',text:'win7 32bit及老版本'},
+	  					{id:'2',text:'win8 32bit'},
+	  					{id:'3',text:'win7、win8 64bit'}]
+	  	});
+			
+			Ext.create('Ext.form.Panel',{
+  			renderTo:'div1',
+				width: "100%",
+				height: 160,
+				items:[{
+					xtype: 'label',
+					html: '<div align = "center">配置安装包<br></div>',
+					cls:  'classDiv1'
+				},{
+					xtype: 'label',
+					text: "  "
+				},{
+					xtype: 'checkboxfield',
+					boxLabel  : '静默安装',
+	        name      : 'setupType',
+	        checked: false,
+	        margin: "10 0 20 200",
+	        inputValue: 0,
+					cls:  'classDiv2'
+				},{
+					xtype: 'combobox',
+	      	fieldLabel: '系统版本',
+	      	labelWidth: 60,
+	      	width: 200,
+	      	id:		'id',
+	      	triggerAction: 'all',
+	      	valueField:'id',
+	    		displayField: 'text',
+	    		store: systemStore,
+					name : 'sysVersion',
+					allowBlank: false,
+				  cls:  'classDiv2'
+				}],
+				buttons:[{
+					text: "下载",
+					handler:function(){
+						var form1 = this.up('form').getForm();
+            if(form1.isValid()){
+							if(form1.getValues().setupType != 0){
+								document.getElementById("form1").setupType.value = 1;
+							}else{
+								document.getElementById("form1").setupType.value = 0;
+							}
+							document.getElementById("form1").sysVersion.value = form1.getValues().sysVersion;
+							
+							document.getElementById("form1").submit();
+							
+					/*		Ext.Ajax.request({
+								url:'/pronline/Msg?FunName@lan_setupUpload',
+								method: 'post',
+								params: {
+						    	setupType: form1.getValues().setupType,
+						    	sysVersion: form1.getValues().sysVersion
+						    }, 
+						    success:function(response,opts){
+						    	
+						    },
+								failure: function(response,opts){
+									Ext.Msg.show({
+			      				title:"下载失败",
+			      				msg:action.result.msg,
+			      				buttons:Ext.Msg.OK,
+			      				icon: Ext.Msg.ERROR
+			      			}).setPosition(300,100);
+								}
+							});
+							*/
+						}
+					}
+				},{
+					text:"重置",
+					handler:function(){
+						this.up('form').getForm().reset();
+					}
+				}]
+			});
+		});
+	
+	</script>
+	</head>
+	<body>
+		<div id="div1" style="margin-left:auto; margin-right:auto; margin-top:50px;width:50%";></div>
+		
+		
+		<form name="form1" id="form1" action="/pronline/Msg">	
+			<input type="hidden" name="FunName" value='lan_setupUpload'>
+			<input type="hidden" name="setupType" value=''>
+			<input type="hidden" name="sysVersion" value=''>
+		</form>
+  	
+	</body>
+</html>

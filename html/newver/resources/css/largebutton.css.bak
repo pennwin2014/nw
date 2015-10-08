@@ -1,0 +1,7 @@
+
+
+/*buttons*/
+.x-btn-default-large .largeman {
+    background-image: url(/images/large/add.gif) !important;
+}
+

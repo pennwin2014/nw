@@ -1,0 +1,108 @@
+   
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>系统设定菜单</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-size: 12px;
+	color: #FFFFFF;
+}
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.style2 {
+	font-size: 12px;
+color: #00FFFF;
+font-weight:bold;
+
+}
+-->
+</style>
+<script>
+	function chcol(flag)
+	{
+		var tdname,i;
+
+		for(i=1;i<5;i++){
+			tdname="document.all.m"+i;
+			if(i==flag)
+				 eval(tdname).className="style2";
+  	  else if(eval(tdname).className=="style2")
+  	     eval(tdname).className="style1";
+		}
+
+
+	}
+	function goleft(t)
+	{
+	parent.frames.sbpm_left.location=t;
+	}
+	
+function go_hide()
+{
+	parent.index_left.style.display='none';
+}
+function go_show()
+{
+	parent.index_left.style.display='block';
+}	
+	
+</script>
+
+</head>
+
+<body  bgcolor="#eeeeee" text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" >
+ 
+<form name="form1" id="form1" method="post" action="/pronline/Msg"> 
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr bgcolor="#006B92">
+        <td width="56" nowrap bgcolor="#006B92"><div align="left"><img src="images/arr.gif" width="55" height="20"></div></td>
+        <td width="10" nowrap bgcolor="#006B92"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="58" nowrap bgcolor="#006B92" class="style1"><a href="/nc_networkset.htm" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(1)"><div id="m1" class="style2">网络设定</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="58" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebUserSearch" target="sbpm_right" onclick="goleft('/nc_usermgr_left.htm');go_show();chcol(2)"><div id="m2" class="style1">用户管理</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="58" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebSystemSet_par" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_syssettree.htm');go_show();chcol(3)"><div id="m3" class="style1" >参数设置</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="58" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebWait&plate@nc/ncmsg_goto.htm" target="sbpm_right" onclick="chcol(4)"><div id="m4" class="style1">系统更新</div></a></td>
+        <td width="10" nowrap><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="680" nowrap bgcolor="#006B92"><div align="center"></div></td>
+      </tr>
+    </table>
+    </form>
+</body>
+
+</html>  

@@ -1,0 +1,283 @@
+<html>
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.tab{
+	border-top:thin solid #FFFFFF;
+	border-right:thin solid gray;
+	border-left:thin solid #FFFFFF;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+	border-bottom-width: thin;
+	border-bottom-style: double;
+	border-bottom-color: gray;
+}
+.tab1{
+	border-top:thin none #FFFFFF;
+	border-right:thin solid gray;
+	border-left:thin none #FFFFFF;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+	border-bottom-width: thin;
+	border-bottom-style: none;
+	border-bottom-color: gray;
+}
+.selTab{border-left:solid thin white;
+border-top:solid thin white;
+border-right:solid thin black;
+font-weight:bold;
+text-align:center}
+
+.tScroll2 {
+    overflow: scroll;  
+    height:575px;
+    width:873px;
+    cursor: default;
+    }
+</style>
+
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+
+var currentTab;
+var tabBase;
+var firstFlag = true;
+
+function changeTabs(){
+
+alert('fff');
+
+
+}
+
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+
+</script>
+<style>
+.conts  {visibility:hidden}
+.tab{border-top:solid thin #E0E0E0;border-right:solid thin gray;border-left:solid thin #E0E0E0;font-family:Verdana;font-size:10pt;text-align:center;font-weight:normal;background-color:dfdfdf;cursor:default}
+.selTab{border-left:solid thin white;border-top:solid thin white;border-right:solid thin black;font-weight:bold;text-align:center;background-color:Dfdfdf;cursor:default}
+.selTabBase{border-top:solid thin #dfdfdf }
+.TabBase{border-top:solid thin #DEE8FA}
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="1" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main">
+
+<input type="hidden" name="FunName" value="ncProxySet">
+<input type="hidden" name="opmsg" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="id" value="">
+<input type="hidden" name="cheID" value="">
+<input type="hidden" name="dvname" value="">
+<input type="hidden" name="con_flag" value="2">
+<input type="hidden" name="temp_id" value="">
+
+
+<input type="hidden" name="refresh_flag" value="1">
+	<iframe name="main" id="data1" style="display:none" src="/pronline/Msg?FunName@ncProxySet"> </iframe>
+
+    <table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#DEE8FA STYLE="width:100%; " >
+      <tr height="22">
+	    <td ID="t0" CLASS="seltab"    width="250">代理服务器检测基本参数设置</td>
+	    <td ID="t1" CLASS="tab"     width="200">在线用户代理服务器信息</td>
+	    <td ID="t2"   width="650" #DEE8FA></td>	   
+      </tr> 
+			<tr > 
+			<td ID="t0base"  STYLE="height:1; border-left:solid thin white" ></td>
+			<td ID="t1base" STYLE="height:1; border-left:solid thin white" ></td>
+			<td ID="t2base" STYLE="height:1; border-left:solid thin white" > </td>
+		
+			</tr> 
+		<tr>
+			<td colspan="4" valign="top">			
+				<table  cellspacing=0   cellpadding="0" bgcolor="#DEE8FA" border="0" align="center" width="100%" background="/images/table_bg9.jpg">
+				    <tr >
+				      <td colspan="7" height="25">
+				      &nbsp;
+				     </td>
+				    </tr>    
+				</table>	
+		</td>
+		</tr>	
+<tr > 
+<td HEIGHT="*" COLSPAN="4" ID="tabContents" align="left" valign="top" >
+<div id="ff2" name="ff2" valign="top">
+	<table width="70%" height="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">
+  <tr><td valign="top"><table width="100%" cellpadding="0" cellspacing="0"> 
+  <tr height="35">
+  <td   width="17%">&nbsp;&nbsp;&nbsp;定时检测</td>
+  <td   width="23%" ><select name="autoflag" style="width:200"><option value="[#auto#]">[#autodesc#]</option><option value="Yes">启用</option><option value="No">不启用</option></select></td>
+  <td   width="17%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检查间隔</td>
+  <td   width="23%"><input name="ProxyCheckTime" type="text"  value="[#ProxyCheckTime#]" size="16"  maxlength="8" >&nbsp;秒</td>
+  </tr>
+  <tr height="35">
+
+  <td  >&nbsp;&nbsp;&nbsp;自动禁用代理</td>
+  <td  ><select name="ProxyForbit" style="width:200"><option value="[#ProxyForbit#]">[#Forbitdesc#]</option><option value="Yes">是</option><option value="No">不</option></select></td>
+   
+  <td  >&nbsp;&nbsp;&nbsp;</td>
+  <td   > &nbsp;</td>
+  </tr>
+
+  </table></td>
+  </tr>
+  <tr height="30">
+  <td align="center">不检测代理服务的IP地址<td>
+  </tr>
+  
+  <tr><td align="center"><textarea name="nocheckip" cols="100%" rows="16">[#nocheckip#]</textarea></td></tr>
+  <tr height="40">
+  <td align="center">
+  <input type="submit" name="ok" value="保存" class="an3">&nbsp;
+  <input type="submit" name="app" value="应用" class="an3-1" onClick="history.back()">
+   
+  </td></tr>
+  <tr height="130">
+  <td >
+  &nbsp;&nbsp;1.定时检测设置为"启动"，系统将按设定的检查间隔定时对用户是否安装代理服务器进行检测。<br><br>
+  &nbsp;&nbsp;2.自动禁用代理设置为"是",系统将自动禁止装有代理服务器的用户上网。<br><br>
+  
+  &nbsp;&nbsp;3.系统不对在"不检测代理服务的IP地址"列表中的电脑，进行代理服务检测，该列表中的IP地址每行一条记录。<br><br>
+  &nbsp;&nbsp;4.按"应用"后设置才启作用。
+      
+  </td></tr></table>
+</div>
+<div id="ff" name='ff' valign="top">
+	<table width="70%" height="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">
+		<tr><td valign="top"><table width="100%" cellpadding="0" cellspacing="0">
+			<tr height="35">
+				<td   width="17%">&nbsp;&nbsp;&nbsp;定时检测</td>
+				<td   width="23%" ><select name="autoflag" style="width:200"><option value="Yes">启用</option><option value="No">不启用</option></select></td>
+				<td   width="17%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检查间隔</td>
+				<td   width="23%"><input name="" type="text"  value="" size="16"  maxlength="8" >&nbsp;秒</td>
+			</tr>
+			<tr height="35">
+				<td   >&nbsp;&nbsp;&nbsp;自动禁用代理</td>
+				<td    ><select name="ProxyForbit" style="width:200"><option value="Yes">是</option><option value="No">不</option></select></td>
+				<td   >&nbsp;&nbsp;&nbsp;</td>
+				<td   > &nbsp;</td>
+			</tr>
+
+		 </table></td>
+		</tr>
+		
+		<tr height="30">
+				<td align="center">不检测代理服务的IP地址<td>
+		</tr>
+		
+			<tr><td align="center"><textarea name="nocheckip" cols="100%" rows="16"></textarea></td></tr>
+		<tr height="40">
+				<td align="center">
+           <input type="submit" name="ok" value="保存" class="an3">
+           &nbsp; 
+          <input type="reset" name="cancel" value="应用" class="an3-1" onClick="history.back()">
+        </td>
+		</tr>	
+		
+		<tr height="130">
+				<td >
+          &nbsp;&nbsp;1.定时检测设置为"启动"，系统将按设定的检查间隔定时对用户是否安装代理服务器进行检测。<br><br>
+          &nbsp;&nbsp;2.自动禁用代理设置为"是",系统将自动禁止装有代理服务器的用户上网。<br><br>
+          &nbsp;&nbsp;3.系统不对在"不检测代理服务的IP地址"列表中的电脑，进行代理服务检测，该列表中的IP地址每行一条记录。<br><br>
+          &nbsp;&nbsp;4.按"应用"后设置才启作用。
+        </td>
+		</tr>	
+			
+	</table>
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+
+</body>
+</html>

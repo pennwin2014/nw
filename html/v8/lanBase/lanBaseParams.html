@@ -1,0 +1,162 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>工作时间定义</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+  </style>
+  <script type="text/javascript">
+  	
+  	Ext.onReady(function() {
+  		
+  		var baseParamsStore = Ext.create('Ext.data.Store',{
+  			fields:['recno','keyname','keyvalue','detail'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanparamsType',
+          reader: {
+            type:'json',
+            root: 'data'
+          }
+        }
+  		});
+  		
+  		var paramsTypeStore = Ext.create('Ext.data.Store',{
+  			fields:['id','paramtype'],
+        data: [
+       		{id:1,paramtype:'用户权限等级'},
+       		{id:2,paramtype:'敏感进程'}
+       	]
+  		});
+  		var addwin;
+  		
+  		function addParams(record){
+  			if(addwin){
+  				addwin.destroy();
+  			}
+  			addwin = Ext.create('Ext.window.Window',{
+  				width: 240,
+  				height:160,
+  				items:[{
+  					xtype: 'textfield',
+  					width: 200,
+  					margin:"10 10 5 10",
+  					id: "keyname",
+						labelWidth:70,
+  					fieldLabel:"名称",
+  					value: record?record.get('keyname'):''
+  				},{
+  					xtype: 'textfield',
+  					width: 200,
+  					margin:"5 10 5 10",
+  					id: "keyvalue",
+						labelWidth:70,
+  					fieldLabel:"值",
+  					value: record?record.get('keyvalue'):''
+  				},{
+  					xtype: 'textfield',
+  					width: 200,
+  					margin:"5 10 10 10",
+  					id: "detail",
+						labelWidth:70,
+  					fieldLabel:"详细信息",
+  					value: record?record.get('detail'):''
+  				}],
+  				buttons:[{
+  					text: "保存",
+  					handler: function(btn){
+  						baseParamsStore.load({params:{deal:record?'update':'insert',paramtype:Ext.getCmp('paramtype').getValue(),recno:record?record.get('recno'):'',keyname:Ext.getCmp('keyname').getValue(),keyvalue:Ext.getCmp('keyvalue').getValue(),detail:Ext.getCmp('detail').getValue()}});
+  						btn.up('window').close();
+  					}
+  				},{
+  					text: "取消",
+  					handler: function(btn){
+  						btn.up('window').close();
+  					}
+  				}]
+  			});
+  			
+  			addwin.showAt(300,100);
+  		}
+  		
+  		var grid = Ext.create('Ext.grid.Panel',{
+  			renderTo:Ext.getBody(),
+  			height: 950,
+  			store: baseParamsStore,
+  			tbar:  ['-','-',{
+					xtype: 'combobox',
+					fieldLabel: '类型',
+					id: 'paramtype',
+					width: 160,
+					labelWidth:40,
+					value:1,
+			    store: paramsTypeStore,
+			    queryMode: 'remote',
+      		triggerAction: 'all',
+			    displayField: 'paramtype',
+			    valueField: 'id',
+			    listeners:{
+			    	'select':function(combo,records,eOpts){
+			    		baseParamsStore.load({params:{paramtype:Ext.getCmp('paramtype').getValue()}});
+			    	}
+			    }
+				},'-',{
+					text: "增加",
+					iconCls:"add",
+					handler: function(){
+						addParams();
+					}
+				},{
+					text: "修改",
+					iconCls:'',
+					handler: function(){
+						var selection = grid.getSelectionModel().getLastSelected();
+						addParams(selection);
+					}
+				},{
+					text: "删除",
+					iconCls:'remove',
+					handler: function(){
+						var selection = grid.getSelectionModel().getLastSelected();
+						if(selection){
+							Ext.MessageBox.confirm('确认', '确定删除该记录？', function(btn){
+								if(btn=='yes'){
+									baseParamsStore.load({params:{deal:"delete",recno:selection.get('recno'),paramtype:Ext.getCmp('paramtype').getValue()}});
+								}
+							});
+						}else{
+							alert("请选择你要删除的记录");
+						}
+					}
+				}],
+  			columns: [{
+          header: "名称",
+          width: 200,
+					dataIndex:	'keyname'
+				},{
+          header: "值",
+          width:200,
+					dataIndex:	'keyvalue'
+				},{
+				  header: "详细信息",
+				  width: 500,
+				  dataIndex:  'detail'
+				}]
+  		});
+  		baseParamsStore.load({params:{paramtype:Ext.getCmp('paramtype').getValue()}});
+  	});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

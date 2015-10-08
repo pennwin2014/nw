@@ -1,0 +1,31 @@
+/**
+ 定义策略tab
+ */
+ 
+Ext.define('ncViewer.lanDeptment',{
+    extend: 'Ext.tab.Panel',
+
+    initComponent : function(){
+        Ext.apply(this,{
+        layout : 'border',
+        id:'lay_dept',
+        margins: '0 0 0 0',
+ //       frames:true,
+        forceFit: true,
+        activeTab: 0,        
+         defaults :{
+ 
+            bodyPadding: 0
+ 
+        },
+        items: [{
+            title: '部门管理', 
+            id:'deptment',           
+            html: '<iframe  id="lay_dept_deptment" name="lay_dept_deptment" src="/v8/lanBase/lanBaseSoft.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+        ]
+          
+        });
+        this.callParent(arguments);
+    }
+})

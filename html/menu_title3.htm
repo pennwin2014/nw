@@ -1,0 +1,120 @@
+   
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>内容监控</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-size: 12px;
+	color: #FFFFFF;
+}
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.style2 {
+	font-size: 12px;
+color: #00FFFF;
+font-weight:bold;
+}
+-->
+</style>
+<script>
+	function chcol(flag)
+	{
+		var tdname,i;
+
+		for(i=1;i<8;i++){
+			tdname="document.all.m"+i;
+			if(i==flag)
+				 eval(tdname).className="style2";
+  	  else if(eval(tdname).className=="style2")
+  	     eval(tdname).className="style1";
+		}
+
+
+
+	}
+	function goleft(t)
+	{
+	parent.frames.sbpm_left.location=t;
+	}
+	
+function go_hide()
+{
+	parent.index_left.style.display='none';
+}
+function go_show()
+{
+	parent.index_left.style.display='block';
+}	
+</script>
+</head>
+
+<body  bgcolor="#eeeeee" text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" >
+ 
+<form name="form1" id="form1" method="post" action="/pronline/Msg"> 
+    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr bgcolor="#006B92">
+        <td width="56" nowrap bgcolor="#006B92"><div align="left"><img src="images/arr.gif" width="55" height="20"></div></td>
+        <td width="7" nowrap bgcolor="#006B92"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebReplace&plate@nc/ncimmon_00.htm" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_msgmon_left.htm');go_show();chcol(1)"><div id="m1" class="style1" >即时通讯内容</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebMailMonList&flags@0&CurPg@1" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebUserTree&flags@0&CurPg@1&var@flags,CurPg,&fname@ncWebMailMonList&plate@tree/tree_menu_nogroup.htm');go_show();chcol(2)"><div id="m2" class="style2" >监控邮件内容</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebMailGroupEdit&hj_flag@1" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(3)"><div id="m3" class="style1" >邮件分类定义</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncMailMonFl_list&tid@1&tname@&CurPg@1" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebSetMailGroup&plate@mail/nc_tree_mailmonfl.htm');go_show();chcol(4)"><div id="m4" class="style1" >邮件分类查看</div></a></td>
+        <td width="6" nowrap class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="76" nowrap bgcolor="#006B92" class="style1">
+          <a href="/pronline/Msg?FunName@ncWebUploadList&CurPg@1" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebUserTree&flags@0&CurPg@1&var@flags,CurPg,&fname@ncWebUploadList&plate@tree/tree_menu_nogroup.htm');chcol(5)"><div id="m5" class="style1" >WEB表单内容</div></a></div>
+        </div></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebFrmGroupEdit&hj_flag@1" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(6)"><div id="m6" class="style1" >表单分类定义</div></a></td>
+        <td width="7" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncMailFrmFl_list&tid@1&tname@&CurPg@1" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebSetFrmGroup&plate@mail/nc_tree_formmonfl.htm');go_show();chcol(7)"><div id="m7" class="style1" >表单分类查看</div></a></td>
+        <td width="7" nowrap bgcolor="#006B92" class="style1"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="88" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td width="8" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td width="128" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td width="8" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td width="135" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+        <td nowrap bgcolor="#006B92" class="style1"><div align="center"></div></td>
+      </tr>
+    </table>
+</form>
+</body>
+
+</html>  

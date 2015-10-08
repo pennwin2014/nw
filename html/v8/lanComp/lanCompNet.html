@@ -1,0 +1,159 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>联网单位安全监控系统</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script> 
+	<style type="text/css">
+		.netLink{
+			float:left;
+			width: 20%;
+			margin: 30px 8px 0px 30px;
+			font-size:12px;
+			margin-right:10%;
+		}
+		.type_1{
+			color:#999;
+			font-size:15px;
+		}
+		.state{
+			color:#666;
+			font-size:12px;
+		}
+		.netLink-hover {
+	    background-color: #eee;
+		}
+		.x-item-selected {
+    background-color: #D3E1F1 !important;
+		}
+	</style>
+	
+  <script type="text/javascript">		
+  
+		var compId = "";
+		//防止未加载完用户点击树时出错
+		var ready = 0;
+		var storeEmpty = 0;
+		oldCompid = 0;
+		
+		Ext.define('EimData', {
+      extend: 'Ext.data.Model',
+      fields: ['netName','netType','netStatus']
+    });
+		
+		var netInfoStore = Ext.create('Ext.data.Store', {
+      model: 'EimData',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_comp_net_search',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+ 		});
+		
+		function SetPage(){
+		}
+  
+  	function reflash(){
+  		var title = "";
+			if(ready == 1){
+				if(parent.compidTmp != null && parent.compidTmp.substring(parent.compidTmp.length - 4,parent.compidTmp.length) == "comp"){
+				groupId = "";
+				compId = parent.compidTmp.substring(0,parent.compidTmp.length - 4);
+				title = "计算机："+parent.compNameTmp;
+			}else{
+				groupId=parent.groupid;
+				compId=parent.compid;
+				title = parent.dxtitle;
+			} 
+  			
+  			if(title != ""){
+  				netInfoStore.load({params:{compId:compId}});
+  				Ext.getCmp('compNetPanel').setTitle(title);
+				}else{
+					netInfoStore.removeAll();
+					Ext.getCmp('compNetPanel').setTitle("计算机：未选");
+				}
+  		}
+  	}
+  	
+  	Ext.onReady(function() {
+  		//html界面
+			var resultTpl = Ext.create('Ext.XTemplate',
+				'<tpl for=".">',
+					'<div class= "netLink">',
+		      '<table border = "0">',
+			      '<tr><td rowspan = "3" width = "50" heigth = "50" style=" margin-right:5px;"><img align = "center" src = "/v8/images/deviceIcon/netLink.png"/></td><td><strong>{netName}</strong></td></tr>',
+			      '<tr><td class="type_1">{netType}</td></tr>',
+			      '<tr><td class="state">{netStatus}</td></tr>',
+		      '</table>',
+		      '</div>',
+	      '</tpl>'
+			);
+  		Ext.create('Ext.panel.Panel', {
+  			renderTo:Ext.getBody(),
+  			layout: 'fit',
+  			height: '100%',
+				title:	'计算机：(未选)',
+				id:			'compNetPanel',
+				items: [{
+					xtype: 'dataview',
+					tpl: 		resultTpl,
+	  			itemSelector: 'div.netLink',
+	  			overItemCls: 'netLink-hover',
+		  		store:	netInfoStore,
+	  			loadMask: false/*,
+	  			listeners:{
+	  				'itemcontextmenu': function(thisView, record, item, index, e, eOpts ){
+	  					thisView.fireEvent('itemclick',thisView, record, item, index, e, eOpts );
+	  					e.stopEvent();
+	  					
+	  					var netStatusArr = record.get('netStatus').split(':');
+	  					
+	  					if(netStatusArr[1] == '禁用'){
+	  						Ext.create('Ext.menu.Menu', {
+									floating:	true,
+									items: [{
+										text: '启用',
+										handler: function(){
+											Ext.Msg.show({
+										  	title:'启用成功',
+										    msg: '启用成功',
+										    buttons: Ext.Msg.CANCEL,
+										    icon: Ext.Msg.QUESTION
+											});
+										}
+									}]	
+								}).showAt(e.getXY());
+	  					}else{
+	  						Ext.create('Ext.menu.Menu', {
+									floating:	true,
+									items: [{
+										text: '禁用',
+										handler: function(){
+											Ext.Msg.show({
+										  	title:'禁用成功',
+										    msg: '禁用成功',
+										    buttons: Ext.Msg.CANCEL,
+										    icon: Ext.Msg.QUESTION
+											});
+										}
+									}]	
+								}).showAt(e.getXY());
+	  					}
+	  				}
+	  			}*/
+				}]
+			});
+  		ready = 1;
+  		reflash();
+  	});
+  </script>
+</head>
+<body></body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>文件策略</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var flag = 0;
+var store;
+var  store_comp2;
+var  store_comp;
+var root_flag = false;
+ function reflash(){
+  
+  var tid=parent.pid;
+  store.load({params: {pid:tid}});  
+  
+  }
+	var compname_flag = "";
+	var compname_flag1 = "";
+	 var store_comp_flag;
+  var compnames = '';
+	var tree;	
+	var pid_flag =0;
+Ext.onReady(function(){
+
+    Ext.tip.QuickTipManager.init();
+
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'pid','ctype','id','stime','etime','dataid','modtime','createuser','sid','dataid_desc','ctype_desc','pid_desc','datename','stime_desc','etime_desc','lawname','compname','id_desc','compname1'
+        ],
+      idProperty: 'sid'
+    });
+
+    // create the Data Store
+//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+       store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_Procy_Obj2',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'sid',
+            direction: 'ASC'
+        }]
+    });
+
+	
+ Ext.define('treedata',{
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'text',     type: 'string'},
+            {name: 'id',     type: 'string'},
+            {name: 'compid', type: 'string'}
+
+        ]
+    });
+    	store_comp = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanTree_depComp2'
+        },
+        root: {
+            text: '全部',
+            id: '0',
+            checked:false,
+            expanded: true
+        },
+		
+        folderSort: true,
+        sorters: [{
+ //           property: 'text',
+ //           direction: 'ASC'
+        }]
+		,listeners:{
+		load:function(store,  node, records,  successful,  eOpts ){
+		var i;
+		var j;
+		for(i=0;i<records.length;i++){
+		var id = records[i].get('id')+ records[i].get('compid');
+	//	alert(id);
+			if(compnames.length == 0){
+			records[i].set('checked',false);
+			}
+			else{
+				for(j=0; j < compnames.length; j++){
+					if( id == compnames[j]){
+						records[i].set('checked',true);
+						break;
+					}
+					else{
+						records[i].set('checked',false);
+						}
+					}
+				}
+			}
+		
+		}
+		}
+    });
+	
+		store_comp2 = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanTree_depComp2'
+        },
+        root: {
+            text: '全部',
+            id: '0',
+            checked:true,
+            expanded: true
+        },
+		
+        folderSort: true,
+        sorters: [{
+ //           property: 'text',
+//            direction: 'ASC'
+        }]
+		,listeners:{
+		load:function(  store,  node,  records,  successful,  eOpts ){
+		var i;
+		var j;
+		for(i=0;i<records.length;i++){
+		var id = records[i].get('id')+ records[i].get('compid');
+			if(compnames.length == 0){
+			records[i].set('checked',false);
+			}
+			else{
+				for(j=0; j < compnames.length; j++){
+					if(id == compnames[j]){
+						records[i].set('checked',true);
+						break;
+					}
+					else{
+						records[i].set('checked',false);
+						}
+					}
+				}
+			}
+		
+		}
+		}
+    });
+	
+	
+	
+    // pluggable renders
+ Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'long', name: 'id'},
+            {type: 'string', name: 'name'}
+        ]
+    });
+ 
+ Ext.define('State2', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+ 
+   var  store_mainprocy = Ext.create('Ext.data.Store', {
+        model: 'State',
+	//	autoLoad:true,
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_MainProcy',
+            reader: {
+                type:'json',
+                root: 'data'              
+            },         
+            simpleSortMode: true
+        }
+    });
+  store_mainprocy.load();
+  
+   var  store_datedes = Ext.create('Ext.data.Store', {
+        model: 'State',
+	//	autoLoad:true,
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_Datedes',
+            reader: {
+                type:'json',
+                root: 'data'              
+            },         
+            simpleSortMode: true
+        }
+    });
+  store_datedes.load();
+    var pluginExpanded = true;
+    
+ 
+ 
+     var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {           
+           grid.down('#removeEmployee').setDisabled(selections.length == 0);
+                
+            }
+        }
+    
+    });
+ 
+ 
+ var compstate = [
+        {"groupid":"","groupname":"状态"},
+        {"groupid":"1","groupname":"在线"},
+        {"groupid":"2","groupname":"离线"}
+     
+    ];
+    var store_compstate = Ext.create('Ext.data.Store', {
+        model: 'State2',
+        data: compstate
+    })
+	
+ 
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){
+    
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}}
+       
+});
+
+
+   
+	function getKeywordData(record) {
+		var temp_check='';
+	     if(record!=''){
+	     temp_check=record.data.lawname;
+	     }
+		//	alert(temp_check);
+			var dataStr = "["; 
+		    var i=0;
+     
+           var bCheck;
+		       store_mainprocy.each(function(item){
+				bCheck=false;
+			    if(temp_check == item.get('name')){
+				bCheck="true";
+		       }
+				if(i==0){
+		       	 dataStr=dataStr+"{boxLabel: '"+item.get('name')+"' ,name:'" +item.get('id')+"',checked:"+bCheck+"}";
+		       }
+		       else{
+		       	 dataStr=dataStr+",{boxLabel: '"+item.get('name')+"' ,name:'" +item.get('id')+"',checked:"+bCheck+"}";
+		       }
+		       i++;
+		    });
+        dataStr=dataStr+"]";
+			return eval(dataStr); 
+     
+ 
+   };
+
+     				
+
+function openAdd(record,mark){
+	store_mainprocy.load(function(records, operation, success){
+ //var aaa=getKeywordData();
+ //alert(aaa);
+     var optype_flag=0;
+     var snap_flag=0;
+     var lx_flag=0;
+	 var dataid_flag = '';
+	 pid_flag =0;
+     var temp_stime='08:00:00';
+     var temp_etime='18:00:00';
+	 store_comp_flag = store_comp;
+	compname_flag1 = "";
+	compname_flag = "";
+	compnames = "";
+  if(record!=''){
+		flag = 0;
+   	optype_flag=record.get('optype');
+   	snap_flag=record.get('snap');
+   	lx_flag=record.get('lxtype');
+   	temp_stime=record.get('stime_desc');
+   	temp_etime=record.get('etime_desc');
+		pid_flag = record.get('pid');
+		dataid_flag = record.get('dataid');
+		compname_flag1 = record.get('compname1');
+		compname_flag = record.get('compname');
+		compnames = compname_flag1.split(',');
+		var i =0;
+		for(i=0; i<compnames.length; i++){
+			if(compnames[i] == 0){
+				store_comp_flag = store_comp2;
+				break;
+			}
+		}
+	}
+		
+		
+		store_comp_flag.load({params:{compnames:pid_flag}}); 
+		
+		var rightcheckGroup={
+			xtype:'fieldset',
+			title:'选择主策略',
+			layout: 'form',
+			defaults: {
+				labelStyle: 'padding-left:4px;'
+			},
+			collapsible: false,
+			items: [{
+				xtype: 'checkboxgroup',
+				name:'rightgroup',
+				id:'keygroup',
+				columns: 6,
+				items: getKeywordData(record)
+			}]
+		}; 
+   
+   
+      var fp2=Ext.create('Ext.FormPanel', {
+        frame: true,
+        fieldDefaults: {
+            labelWidth: 110
+        },
+        width: '100%',
+        bodyPadding: 10,
+        items: [{
+		xtype:'combo',
+        fieldLabel: '时间对象',
+        labelWidth: 110,
+     //   width: 300,
+        valueField:'id',
+        value:dataid_flag,
+        displayField: 'name',
+        id: 'except_time',  
+		name:'except_time',		
+        allowBlank: true,
+		
+//      forceSelection: true,
+        store:  store_datedes,
+        triggerAction: 'all',
+		queryMode:'remote',
+//      queryMode: 'local',
+		emptyText : '---无---',
+	//	multiSelect:true, 		
+         typeAhead: true,
+                listeners: {
+			          	'change':function(){
+			          }
+			        },
+					listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+  
+		},
+        ,rightcheckGroup
+        ]
+      });
+		tree = Ext.create('Ext.tree.Panel', {
+			autoScroll:true,
+	    title: '部门电脑',
+    	margins: '0 0 0 0',
+    	id:'tree_comp',
+      store: store_comp_flag,
+      border:false,
+			animate:false,
+			forceFit: true,
+      useArrows: false
+    });
+	  
+		
+	
+	
+         var win2 = new Ext.Window ({
+                             id:"addwindow",
+                             title:"策略下发窗口",
+                             x:0,
+                             y:0,
+                             width:1000,
+                             height:600,
+							 layout:'border',  
+                             bodyPadding: 10,
+                             modal:true,
+                             resizable:true,
+                             items: [
+							 {
+							 
+							baseCls:"x-plain",
+							region:'south',	
+							split:true,
+							autoScroll:true,
+							width:250,
+							height:'50%',
+						//	minWidth:100,
+						//	title:'策略下发对象',
+						//	collapsible: true, 
+						//	layout:'accordion',
+						//	layoutConfig:{animate:true},
+							items: tree}
+							 ,
+							 {
+							 height:'50%',
+							  baseCls:"x-plain",
+							  autoScroll:true,
+							 region:'center',
+							// title:'选择主策略',
+							 id:'ContentPage',
+							 items:fp2}
+						]
+                              ,
+        buttons: [{
+            text: '保存',
+            handler: function(){
+		//	tree.expandAll();
+            	var optype_id='';
+//获取check框里的关键字ID
+            var kid='';
+            var i=0;
+            var gcheck=Ext.getCmp('keygroup');
+            gcheck.items.each(function(item){
+               if(item.checked){
+                  if(i==0){
+                     kid=item.name+',';
+                   }
+                   else{
+                     kid=kid+item.name+',';
+                   }
+                     i++;
+               }
+           
+            }
+            );
+		//	alert("kid:"+kid);
+		//	alert(Ext.getCmp('starttimehour').getValue());
+		//	alert(Ext.getCmp('starttimemin').getValue());
+			var records = tree.getView().getChecked();
+    
+						       var temps=''; 
+							   var ctype='';
+						       var iNum=0;            
+                    Ext.Array.each(records, function(rec){
+                   // alert(rec.isLeaf());
+					
+					if(iNum==0){
+					//alert(rec.get('id'));
+                    temps=rec.get('id');
+                    temps=temps+''+rec.get('compid')+',';
+					
+					if(rec.isLeaf()){
+					ctype='2,';
+					}else if(rec.get('id') == 0){
+					ctype='0,';
+					}else{
+					ctype='1,';
+					}
+                    }
+                    else{
+                    temps=temps+rec.get('id')+''+rec.get('compid')+',';
+					if(rec.isLeaf()){
+					ctype=ctype+'2,';
+					}else if(rec.get('id') == 0){
+					ctype=ctype+'0,';
+					}else{
+					ctype=ctype+'1,';
+					}
+                    }
+                     iNum++;
+ 
+                    });
+				//	alert("ctype:"+ctype);
+				//	alert("temps:"+temps);
+					
+
+/*	
+            var gcheck=Ext.getCmp('optype');
+            gcheck.items.each(function(item){
+               if(item.checked){
+               	 if(item.name=='optypeu'){
+               	 	optype_id=optype_id|0x01;
+               	}
+               	else if(item.name=='optypen'){
+               		optype_id=optype_id|0x02;
+               	}
+               	else if(item.name='optypey'){
+               		optype_id=optype_id|0x04;
+               	}
+                 
+               }
+           
+            }
+            );
+           */
+         
+            // var snap_id=Ext.getCmp('snap').getGroupValue();
+           //  var lx_id=Ext.getCmp('lxtype').getGroupValue();
+           //  var filename=fp2.getForm().getValues().filename;
+			 var sdate=fp2.getForm().getValues().sdate;
+			 var edate=fp2.getForm().getValues().edate;
+			 var  except_time= fp2.getForm().getValues().except_time;
+			// alert(except_time);
+			// alert(except_time);
+			 //var dataid=document.getElementById('form1').id.value;
+			//  alert(sdate+" - "+edate + "dataid:" + dataid);
+            //var temp_id=parent.pid;
+				if(kid == ''){
+				alert('请选择主策略');
+				}
+				if(temps == ''){
+				alert('请选择下发对象');
+				}
+				else{
+	           store.load({params:{update:mark,pid:kid,stime:sdate,etime:edate,dataid:except_time,id:temps,ctype:ctype}});
+			   document.getElementById('form1').id.value='';
+	            Ext.getCmp('addwindow').close();
+				}
+            }
+        },{
+            text: '关闭',
+            handler: function(){
+              Ext.getCmp('addwindow').close();
+				store.load();
+				store_mainprocy.load();
+				store_datedes.load();
+            }
+         }],
+			 listeners:{
+				'beforeshow':function(){
+			//	alert("修改");
+			//	tree.expandAll();
+
+				}
+			}	
+         }
+        )
+		
+        win2.show();
+		
+	
+	});
+}
+
+    var grid = Ext.create('Ext.grid.Panel', {
+ 
+        height: 980,
+         stripeRows: true,
+        store: store,
+        selModel: sm,
+     //  forceFit: true,
+        scrollOffset: 0,
+        frame:true,
+       
+        // grid columns
+        columns:[{
+            text: "策略名",
+            dataIndex: 'lawname',
+			id:'lawname_id',
+            hidden: false,
+            flex: 2,
+            sortable: false
+        },
+		{
+            text: "下发对象",
+            dataIndex: 'compname',  
+            flex: 2,
+          
+            hidden:false,
+            sortable: false
+
+        },
+		/*
+        {
+            text: "起始时间",
+            dataIndex: 'stime_desc',
+            hidden: false,
+            width: 90,
+            sortable: false
+        },
+        {
+            text: "终止时间",
+            dataIndex: 'etime_desc',
+            hidden: false,
+            width: 90,
+            sortable: false
+        },
+		*/
+		 {
+            text: "时间对象",
+            dataIndex: 'datename',
+            hidden: false,
+            flex: 2,
+            sortable: false
+        },
+        {
+            text: "修改时间",
+            dataIndex: 'modtime',
+            hidden: false,
+            flex: 2,
+            sortable: false
+        },
+        {
+            text: "操作人",
+            dataIndex: 'createuser',
+            hidden: false,
+            flex: 2,
+            sortable: false
+        },
+ 
+        {
+			header: '修改',
+            xtype: 'actioncolumn',
+            dataIndex: 'userid',
+            icon: '/images/v8/edit_task.png',
+            tooltip: '点击该图标进入修改界面。',
+            flex: 1,
+            align: 'center',
+            sortable: false,
+            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+        //        gotoedit1(record.get('userid'));
+			var mark = "update";
+			openAdd(record,mark)
+            }
+
+      },{
+      	flex: 0.5
+      }
+        ],
+        
+        columnLines: true,
+                                        
+        // paging bar on the bottom
+ 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",
+                                       
+            items: [
+             {               
+                text:'添加',
+                iconCls:'add',
+                handler: function(){
+                //	if(parent.pid==''){
+                //		alert('请先点击左侧策略树，选取主策略');
+                //		return;
+                //	}
+				var mark = "add";
+                openAdd('',mark);
+              
+                }
+            },
+             {
+            itemId: 'removeEmployee',
+            text: '删除',
+            iconCls: 'remove',
+
+                handler:function(){
+             
+							   if(confirm('您真的要执行删除操作吗？')){                  
+                 var selsid;  
+                 var rows=sm.getSelection();
+                   selsid='';
+                  for(var i=0;i<rows.length;i++){
+                  	if(i==0){
+                  	 selsid=rows[i].get('pid');
+                  	}
+                  	else{
+                       selsid=selsid+","+rows[i].get('pid');
+                    }
+                   //  alert(rows[i].getId());
+					//  alert(rows[i].get('pid'));
+					
+                   }
+				 
+				   
+                 //  var temp_id=parent.pid;
+                     store.load({params: {del: "del",selsid:selsid}});
+                  
+                
+              }
+                
+            },
+            disabled: true
+        }
+            
+            
+            ]
+       
+
+        })
+        
+
+        ,
+        renderTo: 'grid-corp'
+    });
+
+    // trigger the data store load
+       reflash();
+    
+    
+ //    store.loadPage(1);
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_Procy_Obj2">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">	
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="field_flag" value="1">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="cname" value="">
+		<input type="hidden" name="position" value="">
+		<input type="hidden" name="servicecode" value="">
+		<input type="hidden" name="idno" value="">
+		<input type="hidden" name="dispname" value="">
+		<input type="hidden" name="id" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

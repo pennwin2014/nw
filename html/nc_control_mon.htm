@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title></title>
+<script>
+		function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13){
+		form1.FunName.value='ncWebMon_cmd';
+
+	  }
+	 }
+	
+	function shutdown(flag){
+	if(confirm('您真的要进行该操作吗？')){
+	var temp='/pronline/Msg?FunName@ncWebShutdown&option@'+flag;
+	
+	self.location.href=temp;
+	 }
+	}
+</script>
+
+
+<style type="text/css">
+<!--
+.tScrollw {
+        SCROLLBAR-FACE-COLOR: #9FC8D4;
+        scrollbar-highlight-color: #DFF0F7;
+        SCROLLBAR-SHADOW-COLOR: #9FC8D4;
+        SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+        SCROLLBAR-ARROW-COLOR: #000000;
+        SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+        scrollbar-track-color: #C4DEEA;
+        OVERFLOW: auto;
+        height:500px;
+        width:100%;
+        cursor: default;
+}
+.title{  height:23px;font-size: 12px; font-weight: bold; color: #FFFFFF; letter-spacing: 2px; line-height: 20px; padding-right: 5px; padding-left: 5px;}
+.gdt-bg-04{background-color: #3186A9;border-top: 1px solid #0000ff;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #006699;}
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DFF0F7" style="overflow:hidden" >
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" target="pingd">  
+
+		<input type="hidden" name="add" value="">
+		<input type="hidden" name="modi" value="">
+	<input type="hidden" name="FunName" value="ncWebMon_cmd">
+	<input type="hidden" name="UploadPath" value="/home/ncmysql/nc/upload">
+  <input type="hidden" name="num" value="1">
+  <input type="hidden" name="start" value="0">
+  <Input type="hidden" name="commd" value="">
+  <input type="hidden" name="lastdir" value="">
+  <input type="hidden" name="refresh_flag" value="1">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+    <tr >
+      <td valign="top" class="gdt-bg-04" height="22" >
+        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr class="title">
+         
+            <td >工具&gt;&gt;模拟控制台</td>
+            <td >&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+   
+  </table>
+	
+	
+  <table border="0" width=100%  cellspacing="0" cellpadding="0" align=center>
+    <tr> 
+      <td width="100%" valign="top" class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+         
+          <tr bgcolor="#DFF0F7"> 
+          	 <td  height="34">
+          	&nbsp;输入命令
+          	<input type="text" name="command" size="40" onKeyPress="ss(event)">
+          	<input name="cok" type="submit" class="an3" value="确认" Onclick="document.all.ff.innerHTML='<br>&nbsp;<font size=3><strong>正在执行命令，请稍等...</strong></font>';form1.FunName.value='ncWebMon_cmd';form1.submit();">
+          	
+           &nbsp;上传文件
+           <input type="file" name="fname" style="width:400px">
+            <input name="cmd"  id="cmd1" type="submit" class="an3" value="上传" Onclick="if(form1.fname.value=='') {alert('请先上传文件');return false;};document.all.ff.innerHTML='<br>&nbsp;<font size=3><strong>正在上传，请稍等...</strong></font>';form1.start.value='1';form1.FunName.value='ncWebFile_upload';form1.refresh_flag.value='1';">
+
+            <input name="cl" type="button" class="an3" value="清屏" Onclick="document.all.ff.innerHTML='';">
+             <input name="cl" type="button" class="an3" value="重启系统" Onclick="shutdown('11')">
+
+                
+                
+             </td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr>
+    <td width="100%"  valign=top align=left bgcolor="#ffffff"> 
+
+     <div id="ff" name='ff' class="tScrollw">
+ 
+     </div>
+    	        
+    	
+    </td>
+  </tr>
+     <iframe id="pingd" name="pingd" height="0" style="display:none;" src="" width=0  FrameBorder=0 scrolling="auto"></iframe>
+  </form>
+</body>
+</html>

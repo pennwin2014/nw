@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>开关机日志统计</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<style type="text/css">
+		.option {
+    	background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+    }
+    .exp {
+    	background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+	 .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	  }
+	</style>
+      
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	<script> 
+	  var panel;
+	  var firstGrid,runTimeGrid,useTimeGrid,idleRateGrid,dayGrid,lastingGrid;
+	  
+	  var sdate,edate;
+	  
+	  function SetPage(){
+		}
+		
+		function reflash(){
+  		
+		}
+		
+		var firstGridStore = Ext.create('Ext.data.Store',{
+		  fields:['rank','lasttime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanFirstCompStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+		
+		var runTimeGridStore = Ext.create('Ext.data.Store',{
+		  fields:['rank','lasttime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanRuntimeCompStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+
+		var useTimeGridStore = Ext.create('Ext.data.Store',{
+		  fields:['rank','lasttime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanUsetimeCompStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+		
+		var idleRateGridStore = Ext.create('Ext.data.Store',{
+		  fields:['rank','lasttime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanIdleRateCompStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+		
+		var dayGridStore = Ext.create('Ext.data.Store',{
+		  fields:['lasttime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanDayCompStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+		
+		var lastingGridStore = Ext.create('Ext.data.Store',{
+		  fields:['rank','lasttime','lastingtime','groupname','devname','sip','compname','stime'],
+		  proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanLastingTimeStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+		});
+				
+		function newFirstGrid(){
+		  try{
+  		  Ext.getCmp('edate').hide();
+  		  Ext.getCmp('timeFlag').hide();
+  		  Ext.getCmp('bdate').setDisabled(false);
+  		}catch(e){}
+  		  
+		  firstGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: firstGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'排名',         dataIndex:'rank',     width:50},
+		      {header:'最早开机时间', dataIndex:'stime',    width:100},
+		      {header:'设备名',       dataIndex:'compname', width:200},
+		      {header:'用户名',       dataIndex:'devname',  width:120},
+		      {header:'部门',         dataIndex:'groupname',width:100},
+		      {header:'IP地址',       dataIndex:'sip',      width:130},
+		      {header:'最近活动时间', dataIndex:'lasttime', width:100}
+		    ]
+		  });
+		  
+		}
+		
+		function newRunTimeGrid(){
+		  try{
+  		  Ext.getCmp('edate').show();
+  		  Ext.getCmp('timeFlag').show();
+  		  Ext.getCmp('edate').setDisabled(true);
+  		  Ext.getCmp('bdate').setDisabled(true);
+  		}catch(e){}
+  		  
+		  runTimeGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: runTimeGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'排名',         dataIndex:'rank',     width:50},
+		      {header:'运行时间',     dataIndex:'stime',  width:140},
+		      {header:'设备名',       dataIndex:'compname', width:200},
+		      {header:'用户名',       dataIndex:'devname',  width:120},
+		      {header:'部门',         dataIndex:'groupname',width:100},
+		      {header:'IP地址',       dataIndex:'sip',      width:130},
+		      {header:'最近活动时间', dataIndex:'lasttime', width:150}
+		    ]
+		  });
+		  
+		}
+		
+		function newUseTimeGrid(){
+		  try{
+  		  Ext.getCmp('edate').show();
+  		  Ext.getCmp('timeFlag').show();
+  		  Ext.getCmp('edate').setDisabled(true);
+  		  Ext.getCmp('bdate').setDisabled(true);
+  		}catch(e){}
+  		  
+		  useTimeGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: useTimeGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'排名',         dataIndex:'rank',     width:50},
+		      {header:'使用时间',     dataIndex:'stime',    width:140},
+		      {header:'设备名',       dataIndex:'compname', width:200},
+		      {header:'用户名',       dataIndex:'devname',  width:120},
+		      {header:'部门',         dataIndex:'groupname',width:100},
+		      {header:'IP地址',       dataIndex:'sip',      width:130},
+		      {header:'最近活动时间', dataIndex:'lasttime', width:150}
+		    ]
+		  });
+		}
+		
+		function newIdleRateGrid(){
+		  try{
+  		  Ext.getCmp('edate').show();
+  		  Ext.getCmp('timeFlag').show();
+  		  Ext.getCmp('edate').setDisabled(true);
+  		  Ext.getCmp('bdate').setDisabled(true);
+  		}catch(e){}
+  		  
+		  idleRateGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: idleRateGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'排名',         dataIndex:'rank',     width:50},
+		      {header:'空闲比率',     dataIndex:'stime',    width:80},
+		      {header:'设备名',       dataIndex:'compname', width:200},
+		      {header:'用户名',       dataIndex:'devname',  width:120},
+		      {header:'部门',         dataIndex:'groupname',width:100},
+		      {header:'IP地址',       dataIndex:'sip',      width:130},
+		      {header:'最近活动时间', dataIndex:'lasttime', width:150}
+		    ]
+		  });
+		}
+	  
+		function newDayGrid(){
+		  try{
+  		  Ext.getCmp('edate').show();
+  		  Ext.getCmp('timeFlag').show();
+  		  Ext.getCmp('edate').setDisabled(true);
+  		  Ext.getCmp('bdate').setDisabled(true);
+  		}catch(e){}
+  		  
+		  dayGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: dayGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'开机时间', dataIndex:'stime',    width:150},
+		      {header:'关机时间', dataIndex:'lasttime', width:150},
+		      {header:'设备名',   dataIndex:'compname', width:200},
+		      {header:'用户名',   dataIndex:'devname',  width:120},
+		      {header:'部门',     dataIndex:'groupname',width:100},
+		      {header:'IP地址',   dataIndex:'sip',      width:130}
+		    ]
+		  });
+		}
+		
+		function newLastingGrid(){
+		  try{
+  		  Ext.getCmp('edate').show();
+  		  Ext.getCmp('timeFlag').show();
+  		  Ext.getCmp('edate').setDisabled(true);
+  		  Ext.getCmp('bdate').setDisabled(true);
+  		}catch(e){}
+  		  
+		  lastingGrid = Ext.create('Ext.grid.Panel',{
+		    height:900,
+		    store: lastingGridStore,
+		    columnLines: true,
+		    columns:[
+		      {header:'排名',     dataIndex:'rank',     width:50},
+		      {header:'开机时间', dataIndex:'stime',    width:150},
+		      {header:'关机时间', dataIndex:'lasttime', width:150},
+		      {header:'最长连续运行时间', dataIndex:'lastingtime',width:120},
+		      {header:'设备名',   dataIndex:'compname', width:200},
+		      {header:'用户名',   dataIndex:'devname',  width:120},
+		      {header:'部门',     dataIndex:'groupname',width:100},
+		      {header:'IP地址',   dataIndex:'sip',      width:130}
+		    ]
+		  });
+		}
+		
+		Ext.onReady(function(){
+		  var now = new Date();
+		  sdate = now.setHours(0,0,0,0)/1000;
+	    edate = sdate+86400;
+		  
+		  var styleStore = Ext.create('Ext.data.Store',{
+		    fields:['id','text'],
+		    data:[
+		      {id:1,text:'最早开机排行榜'},
+	  			{id:2,text:'运行时间排行榜'},
+	  			{id:3,text:'使用时间排行榜'},
+	  			//{id:4,text:'空闲比例排行榜'},
+	  			{id:5,text:'每日开关机时间'},
+	  			{id:6,text:'连续运行时间排行榜'}
+	  	  ]
+		  });
+		  var timeStore = Ext.create('Ext.data.Store',{
+		    fields:['id','text'],
+		    data:[
+		      {id:1,text:'今天'},
+		      {id:2,text:'近三天'},
+		      {id:3,text:'近一周'},
+		      {id:4,text:'近一个月'},
+		      {id:5,text:'近三个月'},
+		      {id:6,text:'近半年'},
+		      {id:7,text:'自定义'}
+		    ]
+		  });
+		  
+		  newFirstGrid();
+		  //newRunTimeGrid();
+		  //newUseTimeGrid();
+		  //newIdleRateGrid();
+		  //newDayGrid();
+		  //newLastingGrid();
+		  panel = Ext.create('Ext.panel.Panel',{
+		    renderTo:Ext.getBody(),
+		    height:900,
+		    tbar:[{
+		      xtype: 'combo',
+		      fieldLabel: '统计类型',
+          id : 'styleFlag',
+          labelWidth: 60,
+          width: 200,
+          valueField:'id',
+          value:1,
+          displayField: 'text',
+          allowBlank: true,
+          store: styleStore,
+          triggerAction: 'all',
+  				queryMode: 'local',
+  				typeAhead: true,
+  				listeners:{
+  				  change: function(thisField,newValue,oldValue,eOpts){
+  				    panel.removeAll();
+  				    switch(newValue){
+  		          case 1: 
+  		            newFirstGrid();
+  		            panel.add(firstGrid);
+  		            break;
+  		          case 2: 
+  		            newRunTimeGrid();
+  		            panel.add(runTimeGrid);
+  		            break;
+  		          case 3: 
+  		            newUseTimeGrid();
+  		            panel.add(useTimeGrid);
+  		            break;
+  		          case 4: 
+  		            newIdleRateGrid();
+  		            panel.add(idleRateGrid);
+  		            break;
+  		          case 5: 
+  		            newDayGrid();
+  		            panel.add(dayGrid);
+  		            break;
+  		          case 6: 
+  		            newLastingGrid();
+  		            panel.add(lastingGrid);
+  		            break;
+  		        }
+		        }
+  				}
+		    },'-','-',{
+		      xtype: 'combo',
+		      fieldLabel: '时间类型',
+		      hidden: true,
+          id : 'timeFlag',
+          labelWidth: 60,
+          width: 140,
+          valueField:'id',
+          value:1,
+          displayField: 'text',
+          allowBlank: true,
+          store: timeStore,
+          triggerAction: 'all',
+  				queryMode: 'local',
+  				typeAhead: true,
+  				listeners:{
+	        	change: function(thisField,newValue,oldValue,eOpts){
+	        	  var now = new Date();
+	        		var thisMon = now.getMonth();
+	        		var sdateCmp = Ext.getCmp('bdate');
+	        		var edateCmp = Ext.getCmp('edate');
+	        		
+	        		var years = now.getFullYear();
+	        		
+      		    sdateCmp.setDisabled(true);
+      		    edateCmp.setDisabled(true);
+	        		
+	        		edate = now.setHours(23,59,59,0)/1000;
+	        		
+	        		switch(newValue){
+	        		  case 1: 
+	        		    sdate = edate-86400;
+	        		    break;
+	        		  case 2:
+	        		    sdate = edate-86400*3;
+	        		    break;
+	        		  case 3:
+	        		    sdate = edate-86400*7;
+	        		    break;
+	        		  case 4:
+	        		    sdate = thisMon-1>0?now.setMonth(thisMon-1)/1000:now.setFullYear(years-1,10)/1000;
+	        		    break;
+	        		  case 5:
+	        		    sdate = thisMon-3>0?now.setMonth(thisMon-3)/1000:now.setFullYear(years-1,thisMon+9)/1000;
+	        		    break;
+	        		  case 6:
+	        		    sdate = thisMon-6>0?now.setMonth(thisMon-6)/1000:now.setFullYear(years-1,thisMon+6)/1000;
+	        		    break;
+	        		  case 7:
+	        		    sdateCmp.setDisabled(false);
+	        		    edateCmp.setDisabled(false);
+	        		    break; 
+	        		}
+	        		if(newValue!=7){
+        		    sdateCmp.setValue(new Date(sdate*1000));
+        		    edateCmp.setValue(new Date(edate*1000));
+        		  }
+	        	}
+	        }
+		    },'-',{
+	        xtype: 'datefield',
+	        anchor: '100%',
+					width: 160,
+					labelWidth:40,
+	        fieldLabel: '时间',
+	        id: 'bdate',
+	        maxValue: new Date(),
+	        value:new Date(),
+	        format:"Y/m/d",
+	        listeners:{
+	        	change: function(thisField,newValue,oldValue,eOpts){
+	        	  if(Ext.getCmp('timeFlag').getValue() == 7 || Ext.getCmp('styleFlag').getValue()==1){
+	        	    sdate = thisField.getValue().setHours(0,0,0,0)/1000;
+	        	  }
+	        	}
+	        }
+		    },{
+	        xtype: 'datefield',
+	        anchor: '100%',
+		      hidden: true,
+					width: 160,
+					labelWidth:20,
+	        fieldLabel: '至',
+	        id: 'edate',
+	        format:"Y/m/d",
+	        value:new Date(),
+	        maxValue: new Date(),
+	        listeners:{
+	        	change: function(thisField,newValue,oldValue,eOpts){
+	        	  if(Ext.getCmp('timeFlag').getValue() == 7){
+  	        		edate = thisField.getValue().setHours(23,59,59,0)/1000;
+  	        	}
+	        	}
+	        }
+		    },'-',{
+		      text: '统计',
+		      iconCls: 'accept',
+		      handler: function(btn){
+		        var style = Ext.getCmp('styleFlag').getValue();
+		        panel.removeAll();
+		        
+		        switch(style){
+		          case 1: 
+		            edate1 = sdate+86400;
+		            firstGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate1}});
+		            newFirstGrid();
+		            panel.add(firstGrid);
+		            break;
+		          case 2: 
+		            runTimeGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+		            newRunTimeGrid();
+		            panel.add(runTimeGrid);
+		            break;
+		          case 3: 
+		            useTimeGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+		            newUseTimeGrid();
+		            panel.add(useTimeGrid);
+		            break;
+		          case 4: 
+		            idleRateGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+		            newIdleRateGrid();
+		            panel.add(idleRateGrid);
+		            break;
+		          case 5: 
+		            dayGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+		            newDayGrid();
+		            panel.add(dayGrid);
+		            break;
+		          case 6: 
+		            lastingGridStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+		            newLastingGrid();
+		            panel.add(lastingGrid);
+		            break;
+		        }
+		      }
+		    }],
+		    items:[firstGrid]
+		  });
+		});
+
+</script>
+</head>
+
+<body>
+
+</body>
+</html>

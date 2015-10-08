@@ -1,0 +1,16 @@
+Ext.define('Fileout.view.common.UsbCombo' ,{
+  extend: 'Ext.form.field.ComboBox',
+  alias : 'widget.usbcombo',
+  name:this.name,
+	fieldLabel: 'USB¿‡–Õ',
+  store: 'UsbCombo',
+  queryMode: 'local',
+  displayField: 'text',
+  valueField: 'id',
+  labelWidth: 70,
+  width: 180,
+
+  initComponent: function() {
+    this.callParent(arguments);
+  }
+});

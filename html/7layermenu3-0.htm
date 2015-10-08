@@ -1,0 +1,118 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link REL=stylesheet HREF="/css/runmit.css" TYPE='text/css'>
+</head>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#4189DD";
+	o.style.borderColor= "#cccccc";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+parent.parent.clearTimeout(parent.parent.popTimer);
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+parent.parent.popOut()		
+	
+}
+function menu_frame_onmouseover()
+{
+	parent.clearTimeout(parent.popTimer);
+	document.body.className='highlight_container'}
+function menu_frame_onmouseout()
+{
+	document.body.className="menu_container";
+	parent.popOut()}
+
+function goto(t){
+  parent.sbpm_right.location.href=t
+}
+
+function goto2(t){
+  parent.sbpm_left.location.href=t
+}
+function dono() {
+}
+</script>
+<body topMargin=0 leftmargin=0 marginheight="0" class=menu_space style='cursor:default;border:0' fixed oncontextmenu="return false">
+<table class=3dtable_notop1 border=0 width=100% cellspacing=0 cellpadding=0 style='padding:2px'>
+<!--   -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowServiceDeptCx');goto2('/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_dep.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">服务流量分布图表</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebServiceFirstDet');goto2('/pronline/Msg?FunName@ncWebTreeDispService&plate@nc75/tree_service_flow.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">用户使用服务图表</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowTrendsBytime');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@0&var@opt,&fname@ncWebCountIp&plate@tree/tree_menu_trends.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">服务流量趋势图表</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowServiceDisCx');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@0&var@opt,&fname@ncWebCountIp&plate@tree/tree_menu_webdis.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站访问分布图表</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowSelfWeb');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">自定义网站访问统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowWebsiteBytime');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@0&var@opt,&fname@ncWebCountIp&plate@tree/tree_menu_website.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站访问趋势图表</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowUserFlowBytime');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@0&var@opt,&fname@ncWebShowUserFlowBytime&plate@tree/tree_menu.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">用户上网流量趋势图</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/nc_allreport.htm');goto2('/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_all_report_menu.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网行为分析报告</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/main_netflow.htm');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网络接口速率趋势图</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailMon&opt@1&way@1');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@1&way@1&var@opt,way,&fname@ncWebCountMailMon&plate@tree/tree_menu.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">邮件收发数量分析</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailMon&opt@0&way@2');goto2('/pronline/Msg?FunName@ncWebUserTree&opt@0&way@1&var@opt,way,&fname@ncWebCountMailMon&plate@tree/tree_menu.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">邮件收发流量分析</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebShowAllFlowStat');goto2('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/allflowgroup.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">流量综合统计报表</font></td>
+  </tr>
+<!--   -->
+</table>
+</body>
+</html>

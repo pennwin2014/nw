@@ -1,0 +1,43 @@
+Ext.define('Fileout.view.tab.Advance' ,{
+  extend: 'Ext.form.Panel',
+  alias : 'widget.advance',
+  
+  title: "优先策略",
+  height : 550,
+  padding: "5 20 20 20",
+  frame: true,
+  
+  defaults: {labelWidth: 120},
+  
+  initComponent: function() {
+    this.tbar = ['->',
+      {text:"应用到当前",action:'change'},
+      {text:"应用到其他",action:'insert'}
+    ];
+      	
+  	this.items = [{
+    	xtype: 'hidden',
+    	name: 'type',
+    	value:'advance'
+	  },{
+      xtype: 'checkboxgroup',
+      name: 'forbidden',
+      margin: '30 0 0 0',
+      columns: 2,
+      vertical: true,
+      items: [
+        { boxLabel: '禁止HTTP外发', name: 'forbidden', inputValue: 1 },
+        { boxLabel: '禁止SMTP外发', name: 'forbidden', inputValue: 2 },
+        { boxLabel: '禁止FTP外发', name: 'forbidden', inputValue: 4 },
+        { boxLabel: '禁止聊天软件外发', name: 'forbidden', inputValue: 16 },
+        { boxLabel: '禁止云盘外发', name: 'forbidden', inputValue: 32 },
+        { boxLabel: '禁止U盘外发', name: 'forbidden', inputValue: 64 },
+        { boxLabel: '禁止共享目录外发', name: 'forbidden', inputValue: 128 },
+        { boxLabel: '禁止其他软件外发', name: 'forbidden', inputValue: 256 }
+      ]
+    }];
+	  
+  	this.callParent(arguments);
+  }
+  
+});

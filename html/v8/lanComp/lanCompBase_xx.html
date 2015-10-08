@@ -1,0 +1,149 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>联网单位安全监控系统</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+    <style type="text/css">
+		#content_news{
+			margin:0 auto;
+			width:800px;
+		}
+		#content_news table{
+			margin:10 auto 0;
+			border:#C8C8C8 1px solid;
+			font-family:黑体;
+		}
+		.odd_tr{
+			border:#C8C8C8 1px solid;
+			background-color:#F0F0F0;
+			height:20px;
+			line-height:20px;
+			padding-left:10px;
+		}
+		.even_tr{
+			height:20px;
+			line-height:20px;
+			padding-left:10px;
+		}
+	</style>
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script> 
+
+  <script type="text/javascript">		
+  
+		var compId = "";
+		//防止未加载完用户点击树时出错
+		var ready = 0;
+		var storeEmpty = 0;
+		
+		Ext.define('EimData', {
+      extend: 'Ext.data.Model',
+      fields: ['compid','devname','groupid','userid','ip','compname','mac','os','ie','addtime','lasttime','version','authkey','status','htime','stime','ctime']
+    });
+		
+		var baseInfoStore = Ext.create('Ext.data.Store', {
+      model: 'EimData',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_RTC_base_info_search',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+ 		});
+		
+	  function SetPage(){
+	  
+	  }
+  
+  	function reflash(){
+			if(ready == 1){
+  			compId = parent.compid;
+  			
+  			if(compId != ""){
+					Ext.getCmp('compBasePanel').setTitle(parent.dxtitle);
+  				baseInfoStore.load({params:{compId:compId}});
+  				storeEmpty = 1;
+				}else{
+					Ext.getCmp('compBasePanel').setTitle("计算机：(未选)");
+  				baseInfoStore.load({params:{compId:0}});
+					storeEmpty = 0;
+				}
+  		}
+  	}
+  	
+  	Ext.onReady(function() {
+  		//html界面
+			var resultTpl = Ext.create('Ext.XTemplate',
+				'<br>',
+				'<tpl for=".">',
+					'<tpl if="this.isNotNull()">',
+			      '<div id="content_news">',
+			      '<table>',
+			      '<tr class="odd_tr"><td>计算机ID：</td><td>{compid}</td></tr>',
+			      '<tr class="even_tr"><td>机器名：</td><td>{devname}</td></tr>',
+			      '<tr class="odd_tr"><td>所属组名：</td><td>{groupid}</td></tr>',
+			      '<tr class="even_tr"><td>用户ID：</td><td>{userid}</td></tr>',
+			      '<tr class="odd_tr"><td>客户端IP地址：</td><td>{ip}</td></tr>',
+			      '<tr class="even_tr"><td>计算机名：</td><td>{compname}</td></tr>',
+			      '<tr class="odd_tr"><td>MAC地址：</td><td>{mac}</td></tr>',
+			      '<tr class="even_tr"><td>操作系统版本：</td><td>{os}</td></tr>',
+			      '<tr class="odd_tr"><td>IE版本：</td><td>{ie}</td></tr>',
+			      '<tr class="even_tr"><td>加入时间：</td><td>{addtime}</td></tr>',
+			      '<tr class="odd_tr"><td>最后上线时间：</td><td>{lasttime}</td></tr>',
+			      '<tr class="even_tr"><td>客户端版本号：</td><td>{version}</td></tr>',
+			      '<tr class="odd_tr"><td>验证Key：</td><td>{authkey}</td></tr>',
+			      '<tr class="even_tr"><td>状态：</td><td>{status}</td></tr>',
+			      '<tr class="odd_tr"><td>硬件更新时间：</td><td>{htime}</td></tr>',
+			      '<tr class="even_tr"><td>软件时间：</td><td>{stime}</td></tr>',
+			      '<tr class="odd_tr"><td>控制信息更新时间：</td><td>{ctime}</td></tr>',
+			      '</table>',
+			      '</div>',
+		      '</tpl>',
+		      '<tpl if="this.isNull()">',
+			      '<div>',
+			      '<p>请选择您要查看的计算机</p>',
+			      '</div>',
+		      '</tpl>',
+	      '</tpl>',
+	      {
+	      	isNotNull: function(){
+	        	if(storeEmpty == 1){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        },
+	        isNull: function(){
+	        	if(storeEmpty == 0){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        }
+				}
+			);
+  		Ext.create('Ext.panel.Panel', {
+  			renderTo:Ext.getBody(),
+  			layout: 'fit',
+  			height: '100%',
+				title:	'计算机：(未选)',
+				id:			'compBasePanel',
+				items: [{
+					xtype: 'dataview',
+					tpl: 		resultTpl,
+	  			itemSelector: 'div.thumb-wrap',
+		  		store:	baseInfoStore,
+	  			loadMask: false
+				}]
+			});
+  		ready = 1;
+  		reflash();
+  	});
+  </script>
+</head>
+<body></body>
+</html>

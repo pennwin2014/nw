@@ -1,0 +1,47 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> save Control, version 0.1 </TITLE>
+</HEAD>
+
+<BODY >
+<OBJECT ID="RemoteMg"  CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="http://192.168.20.190/RemoteMg.CAB"  Height="100%" Width="100%">
+<param name="port" value="5000" />
+</OBJECT>
+<SCRIPT LANGUAGE="JavaScript">
+
+    function init() {
+      
+        alert("init");
+        document.getElementById("what").value = "start";
+
+        var x = 0;
+        x = RemoteMg.SaveData("324","324");
+        if(x >0)
+        {
+            document.getElementById("what").value = "调用成功";
+        }
+        else
+        {
+            document.getElementById("what").value = "调用失败";
+        }
+        
+    }
+
+    function remote(){
+
+	
+    }
+
+</SCRIPT>
+<p> 数据：大熊猫  （保存到G://111.txt）</p>
+    <input type="button" onclick="init()" size=200 value="显示界面"/>
+    <input type="text"   id="what" value="start" >
+
+<OBJECT ID="RemoteMg"  CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="http://192.168.20.190/RemoteMg.CAB"  Height="100%" Width="100%">
+<param name="port" value="5001" />
+</OBJECT>
+</BODY>
+</HTML>
+

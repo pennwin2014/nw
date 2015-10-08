@@ -1,0 +1,293 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>上网排行榜</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style type="text/css">
+<!--
+
+.bord1 {  font-size:9pt;border: #999999 solid; border-width: 0px 0px 1px 1px}
+.bord3 { font-size:9pt;border: #999999 solid; border-width: 0px 1px 1px}
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:450px;
+    cursor: default;
+    }
+tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }      
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden">
+<table  border=0 cellspacing=0 width="100%" cellpadding=0 align="center">
+	<tr><td>
+		<div class="tScrollw" id="tC">
+		<table border=0 cellspacing=0 width="100%" cellpadding=0>          
+   <tr bgcolor="#dfdfdf" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)">  	
+       <td width="165" height="22" align="center" class="bord1">网络服务名称</td>                
+       <td class="bord1"  align="center">本日</td>  
+       <td class="bord1"  align="center">本周</td>
+       <td class="bord3"  align="center">本月</td> 
+     
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">POP3</font></td>         
+       <td class="bord1" align="right">25023&nbsp;</td>  
+       <td class="bord1" align="right">112020&nbsp;</td>
+       <td class="bord3" align="right">779221&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">网站</font></td>         
+       <td class="bord1" align="right">3473&nbsp;</td>  
+       <td class="bord1" align="right">5162&nbsp;</td>
+       <td class="bord3" align="right">410795&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">迅雷</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">224685&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">SSH</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">59&nbsp;</td>
+       <td class="bord3" align="right">143595&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">ICQ</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">35266&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">SMTP</font></td>         
+       <td class="bord1" align="right">26&nbsp;</td>  
+       <td class="bord1" align="right">1126&nbsp;</td>
+       <td class="bord3" align="right">19003&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">联众游戏</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">4590&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">MSN</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">1722&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">HttpProxy</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">569&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">QQ</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">238&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">QQ游戏</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">154&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">FTP</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">95&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">Telnet</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">55&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000"></font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">6&nbsp;</td>
+      
+    </tr>
+    
+   <tr  bgcolor="#ffffff">  	
+       <td  height="20"  class="bord1" >&nbsp;<font color="#000000">Gnutella</font></td>         
+       <td class="bord1" align="right">0&nbsp;</td>  
+       <td class="bord1" align="right">0&nbsp;</td>
+       <td class="bord3" align="right">1&nbsp;</td>
+      
+    </tr>
+       
+        
+   <tr height="20" bgcolor="#ffffff" id="16">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="17">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="18">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="19">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="20">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="21">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="22">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="23">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="24">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="25">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="26">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="27">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="28">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="29">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+   <tr height="20" bgcolor="#ffffff" id="30">  	
+       <td   class="bord1" >&nbsp;</td>         
+       <td class="bord1" >&nbsp;</td>  
+       <td class="bord1" >&nbsp;</td>
+       <td class="bord3" >&nbsp;</td>
+      
+    </tr>
+    
+                                                 
+          </table>
+    </div>
+        </td>
+      </tr>
+          
+</table>
+                   
+</body>
+</html>

@@ -1,0 +1,4 @@
+Ext.define('LanProcy.model.List', {
+    extend: 'Ext.data.Model',
+    fields: ['recno','groupname','ip','timeid','softid','timename','usbid','usbname','softname','procytype','levelremain','levelname','modtime','text','controlmark','controlmark1','controlmark2','snap','type']
+});

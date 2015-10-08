@@ -1,0 +1,511 @@
+ 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>未知网址分类设置</title>
+<script> 
+    function goto(t){
+        self.location.href=t;
+    }
+	
+    
+	function setuflags(t){
+       j=form1.usertype.options.length;
+       for(i=0;i<j;i++) { 
+           gv = form1.usertype.options[i].value;
+           if(gv == t) {
+               form1.usertype.selectedIndex = i;
+           }
+       }
+    }
+      
+	function setsave(t){
+       j=form1.save.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.save.options[i].value;
+           if(gv == t) {
+               form1.save.selectedIndex = i;
+           }
+       }
+    }
+ 
+	function settzflags(t){
+       j=form1.tz.options.length; 
+	   for(i=0;i<j;i++) { 
+           gv = form1.tz.options[i].value;
+           if(gv == t) {
+               form1.tz.selectedIndex = i;
+           }
+       }
+    }
+	  
+	
+	  
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#003399";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#ffffff";
+        }	
+    }
+    function setinit()
+	{
+        setuflags('');
+		settzflags('');
+		setsave('');
+//		setstype('');
+	}
+ 
+    function showf(sid,uflags,uname,host,url,cont,aname,msize,asize,save,tzflags,tzmail) {
+        form1.rid.value=sid;
+        form1.uname.value=uname;
+		form1.host.value=host;
+		form1.url.value=url;
+		form1.cont.value=cont;
+		form1.aname.value=aname;
+		form1.msize.value=msize;
+		form1.asize.value=asize;
+		form1.tzmail.value=tzmail;
+        setuflags(uflags);
+		settzflags(tzflags);
+		setsave(save);
+	}
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+ 
+    var dfd1="0"
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+    
+	function fh()
+	{
+	self.location.href="/pronline/Msg?FunName@ncWebFrmGroupEdit";
+	}
+ 
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+<!-- Hide
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+ 
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css"> 
+<!--
+.ttt {
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-bottom-color: #000000;
+}
+.anniu_1 {  background-color: #6382BD; height: 18px; width: 51px;font-size: 9pt; font-style: normal; font-weight: normal;BORDER-BOTTOM: 1px solid #6382BD; BORDER-LEFT:1px solid  #6382BD; BORDER-RIGHT: 1px solid #266AA8; BORDER-TOP: 1px solid  #6382BD; COLOR: #ffffff; top: 20px; clip:   rect(   )}
+.nnoo {  filter: Gray}
+.tScrollw {
+ 
+      overflow: scroll;
+    overflow-x:hidden;
+    height:340px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    }   
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" onload="setinit()" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center>
+    <tr> 
+      <td width="100%"  valign=middle align=center class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td ><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" >
+                <tr > 
+                  <td > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">未知网址智能分类设定</div></td>
+                </tr>
+              </table> </td>
+        </tr>
+          <tr> 
+            <td > 
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" bordercolorlight=#89ACED   bordercolordark=#ffffff>
+                <tr> 
+                  <td height="139" colspan="2"> 
+                    <table width="100%" border="0">
+ 
+                      <tr> 
+                        <td colspan="6">&nbsp; </td>
+                      </tr>
+                      <tr> 
+                        <td width="8%">&nbsp;规则状态</td>
+                        <td width="15%"> 
+                          <select name="usertype">
+                            <option value="1" selected>启用</option>
+                            <option value="2">停用</option>
+                          </select>
+                        </td>
+                        <td width="8%"> 网址类别                         
+                        </td>
+                        <td width="54%"> 
+                        	<select name="usertype">
+                            <option value="1" selected>综合门户</option>
+                            <option value="2">音乐视频</option>
+                          </select>
+                        </td>
+                      
+                      </tr>
+                     
+                      <tr> 
+                        <td width="8%">&nbsp;关键字一</td>
+                        <td width="15%"> 
+                         <input type="text" name="key1" size="20">
+                        </td>
+                        <td width="8%"> 触发次数                         
+                        </td>
+                        <td width="54%"> 
+                        	 <input type="text" name="key1" size="8">
+                        </td>
+                      
+                      </tr>
+                      <tr> 
+                        <td width="8%">&nbsp;关键字二</td>
+                        <td width="15%"> 
+                         <input type="text" name="key1" size="20">
+                        </td>
+                        <td width="8%"> 触发次数                         
+                        </td>
+                        <td width="54%"> 
+                        	 <input type="text" name="key1" size="8">
+                        </td>
+                      
+                      </tr>
+                      <tr> 
+                        <td width="8%">&nbsp;关键字三</td>
+                        <td width="15%"> 
+                         <input type="text" name="key1" size="20">
+                        </td>
+                        <td width="8%"> 触发次数                         
+                        </td>
+                        <td width="54%"> 
+                        	 <input type="text" name="key1" size="8">
+                        </td>
+                      
+                      </tr>
+
+
+                      <tr> 
+                        <td colspan="3">&nbsp; </td>
+                      </tr>
+                      <tr> 
+                        <td colspan="3" height="20"> 
+                          <div align="center"> 
+                            <input name="add" type="submit" class="an3" value="添 加" >
+                            &nbsp; 
+                            <input name="modi" type="submit" class="an3" value="修 改" >
+                            &nbsp; 
+                            <input name="del" type="submit" class="an3" value="删 除" >
+                            &nbsp; 
+                            <input name="app" type="submit" class="an3" value="导 入" >
+ 
+                            <input type="hidden" name="FunName" value="ncMailFrmTypeList">
+                            <input type="hidden" name="rid"   value="">
+                            <input type="hidden" name="tid"   value="2">
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+      	
+  <div class="tScrollw"  id="tC">    	
+        <table  id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          <tr bgcolor="#6382BD"  class="tableHead" height="21" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="51" class="bord2"><div align="center"><font color="#FFFFFF"><input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()">
+                </font></div></td>
+            <td width="153"  class="bord2"><div align="center"><font color="#FFFFFF">网址类别</font></div></td>
+            <td width="700"  class="bord2"><div align="center"><font color="#FFFFFF">智能识别内容 
+             </font></div></td>
+                         <td width="100"  class="bord2"><div align="center"><font color="#FFFFFF">状态 
+             </font></div></td>
+             
+             
+          </tr>
+          <!--  -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('4','1','','','','方案' ,'','0','0','1','0','')"> 
+            <td class="bord1" width="51"> <input type="checkbox" name="ch1" value="4"> 
+            </td>
+            <td class="bord1" width="153">&nbsp;反华</td>
+            <td class="bord1" width="799">法轮功[3],迫害[1],民主[2]</td>
+            <td class="bord1" width="100">启用</td>
+          </tr>
+         
+     
+         
+          <!--  -->
+          <!--  -->
+          <tr id=3> 
+            <td class="bord1" height="2">&nbsp; </td>
+            <td class="bord1"  height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+            <td class="bord1" width="100">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=4> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=5> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=6> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=7> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=8> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=9> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=10> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=11> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=12> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=13> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=14> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=15> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=16> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=17> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=18> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=19> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+                        
+          </tr>
+          <!--  -->
+          <tr id=20> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=21> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=22> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+          <tr id=23> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=24> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+          </tr>
+          <!--  -->
+          <tr id=25> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+          <tr id=26> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+          <tr id=27> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+          <tr id=28> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+          <tr id=29> 
+            <td class="bord1" width="51" height="2">&nbsp; </td>
+            <td class="bord1" width="153" height="2">&nbsp;</td>
+            <td class="bord1"  height="2">&nbsp;</td>
+                        <td class="bord1"  height="2">&nbsp;</td>
+            
+          </tr>
+          <!--  -->
+        </table>
+      </div>
+       </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

@@ -1,0 +1,141 @@
+
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>产品信息</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<style>
+.tab{border-top:solid thin #E0E0E0;border-right:solid thin gray;border-left:solid thin #E0E0E0;font-family:Verdana;font-size:10pt;text-align:center;font-weight:normal;cursor:default}
+.selTab{border-left:solid thin white ;border-top:solid thin white;border-right:solid thin black;font-weight:bold;text-align:center;background-color:D8E1E7;cursor:default}
+.selTabBase{border-top:solid thin #dfdfdf}
+.TabBase{border-top:solid thin #ffffff}
+ .an308 { font-size: 9pt; background-color: #cccccc; 
+  vertical-align: middle; height: 20px; width: 60px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand; background-repeat: no-repeat}
+</style>
+
+<script>
+
+
+function search()
+{
+	frames.list.form1.cond.value=form1.cond.value;
+	frames.list.form1.order.value=form1.order.value;
+	frames.list.form1.sort.value=form1.sort.value;		
+	frames.list.form1.CurPg.value='1';
+	frames.list.form1.submit();
+}
+function ss()
+{
+	if(window.event.keyCode==13)
+	{
+	frames.list.form1.cond.value=form1.cond.value;
+	frames.list.form1.order.value=form1.order.value;
+	frames.list.form1.sort.value=form1.sort.value;
+	frames.list.form1.CurPg.value='1';
+	frames.list.form1.submit();
+	}
+}
+function delRecord()
+{
+frames.list.form1.del.value='del';
+frames.list.form1.submit();
+}
+</script>
+
+<link rel="stylesheet" href="/publiccss/css.css" type="text/css">
+</head>
+
+<body  bgcolor=Menu text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" >
+
+<form name="form1" id="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="FunName" value="">
+
+  <table width="98%"  border="0" cellspacing="0" cellpadding="0" align="center" height="100%"> 
+    <tr valign="top"> 
+    <td width="100%" valign="top">
+     <table width="100%"  border=1 bordercolordark=#ffffff bordercolorlight=#999999 cellspacing="0" cellpadding="5">
+     
+      <tr height="25">
+       <td  valign="top">
+         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+         <tr>
+           <td height="25" width="100"> 
+              <table width="140" height="25" border=1 cellpadding="0" cellspacing="0"    bordercolorlight=#000000 bordercolordark=#ffffff background="/images/pic_3.gif"   >
+                <tr> 
+                  <td width="74" height="22"  > 
+                    <div align="center">
+                      <table width="140" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="20">&nbsp;</td>
+                          <td width="100" > 
+ 				          <div align="center" style="font-size: 11pt">客户产品信息
+                            </div></td>
+                          <td width="20">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </div></td>
+                </tr>
+              </table>
+            </td>
+           <td  align="right">
+              <input name="r" type="text" value="" style="width:0px;">
+              关键字：
+              <input type="text"     name="cond"  size="25" maxlength="31" value="" onkeydown="ss()">
+              
+              排序:<select name="order">
+              	 <option value="sid">录入时间</option>
+              	   <option value="sn">产品序列号</option>
+              	   <option value="instdate">安装日期</option>
+              	   <option value="status">产品状态</option>
+              	    <option value="modtime">最后修改时间</option>
+              	    <option value="serdate">服务期限</option>
+              	    <option value="version">版本号</option>
+              	   </select>
+              	   <select name="sort">
+              	   <option value="0">倒序</option>
+              	   <option value="1">升序</option>
+              	   </select>
+              	   
+              	<input type="button" name="sear" value="&nbsp;查找&nbsp;" onclick="search()">
+              <input type="button" name="del"    value="&nbsp;删除&nbsp;" onclick="delRecord()">
+             
+           </td>
+          </tr>
+          </table>
+         </td>
+      </tr>      
+       <tr>
+	      <td height="280"  valign="top" width="60%">
+	       <iframe  height="280" name="list" id="list" width="100%"  border="0" frameborder="0" src="/pronline/Msg?FunName@crmWebProdListDisp" scrolling="yes"> </iframe>      
+	      </td>	      	      	      
+      </tr>
+       <tr>
+	      <td height="290"  valign="top" width="60%">
+	       <iframe  height="290" name="list2" id="list2" width="100%"  border="0" frameborder="0" src="/pronline/Msg?FunName@crmWebProdDisp" scrolling="yes"> </iframe>      
+	      </td>
+	      	      	      
+      </tr>
+		 </table>
+      </td>
+      </tr>
+
+  </table>
+   
+</form>
+</body>
+
+</html>  
+                                       

@@ -1,0 +1,849 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>文件日志任务下发</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+  <script>  
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+var temp_id='';
+var preid='';
+var store;
+ function reflash(){
+	 var compid;
+	 if(parent.compidTmp != null && parent.compidTmp.substring(parent.compidTmp.length - 4,parent.compidTmp.length) == "rzck"){
+			gid = "";
+			compid= parent.compidTmp.substring(0,parent.compidTmp.length - 4);
+	 }
+	compid=parent.compid;
+	var taskname=document.getElementById('form1').taskname.value;
+	var importantword=document.getElementById('form1').importantword.value; 
+	var groupname=document.getElementById('form1').groupname.value; 
+	var PCname=document.getElementById('form1').PCname.value; 
+	var doneUser=document.getElementById('form1').doneUser.value; 
+	var sdate=document.getElementById('form1').sdate.value; 
+  	var edate=document.getElementById("form1").edate.value;
+  	var time_flag=document.getElementById("form1").time_flag.value;
+	var type=document.getElementById("form1").type.value;
+  	var gid=document.getElementById("form1").groupid.value;
+ 	var delid=document.getElementById("form1").delid.value;
+	var listCom=document.getElementById("form1").listCom.value;
+ 	 var keyword1=Ext.getCmp('keyword1').value;
+  	if(keyword1=='输入任务名称/关键词/下发用户'){
+   		 keyword1='';
+  	}
+ 	 store.load({params: {
+	  type:type,
+	  compid:compid,
+	  groupid: gid,
+	  taskname:taskname,
+	  time_flag:time_flag,
+	  importantword:importantword,
+	  groupname:groupname,
+	  PCname:PCname,
+	  doneUser:doneUser,
+	  sdate:sdate,
+	  edate:edate,
+  	  keyword:keyword1,
+	  delid:delid,
+	  listCom:listCom}});  
+  }
+
+
+Ext.onReady(function(){
+   Ext.tip.QuickTipManager.init();
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: ['sid', 'taskname', 'taskid', 'taskkey', 'Begtime','Endtime','Gpid','Computerid','stime','userer'],
+        idProperty: 'sid'
+    });
+    //重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    	reflash();
+    }
+   store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_log_outfile_task',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        sorters: [{
+            property: 'id',
+            direction: 'DESC'
+        }]
+    });
+
+
+
+
+
+
+    var pluginExpanded = true;
+    
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+           var str = parent.right_fun;
+			if(str.indexOf('7120')!=-1){
+	            grid.down('#removeButton').setDisabled(selections.length == 0);
+		   		grid.down('#sendTask').setDisabled(selections.length == 0);
+	          }  
+            }
+        }
+    
+    });
+  Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+	//加载时间
+var timeFlagStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'timeFlagStore.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+});
+ var timeFlagCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'timeFlagCombo',
+				fieldLabel: '时间',
+		        labelWidth: 40,
+		        width: 150,
+		        valueField:'groupid',
+		        value:'1',
+		        displayField: 'groupname',
+		        name : 'time_flag',      
+		        allowBlank: true,
+		        store: timeFlagStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+									if(this.value ==0){
+									Ext.getCmp('sdate').show();
+									Ext.getCmp('edate').show();
+									document.getElementById("form1").sdate.value=Ext.getCmp('sdate').rawValue;
+									document.getElementById("form1").edate.value=Ext.getCmp('edate').rawValue;
+									document.getElementById('form1').time_flag.value=0;
+									}									
+									else{
+									document.getElementById("form1").sdate.value = "";
+				        			document.getElementById("form1").edate.value = "";
+									Ext.getCmp('sdate').hide();
+									Ext.getCmp('edate').hide(); 
+									document.getElementById('form1').time_flag.value=this.value;
+										}
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+ 		var myDate = new Date();
+  		var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  		var mm=myDate.getMonth()+1;
+  		if(mm<10)
+  		{
+  			mm='0'+mm;
+  		}
+  		var dd=myDate.getDate();
+  		if(dd<10)
+  		{
+  			dd='0'+dd;
+  		}
+  		var today=yy+'/'+mm+'/'+dd;
+		
+//树窗口
+ Ext.define('treedata',{
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'text',     type: 'string'},
+            {name: 'id',     type: 'string'},
+            {name: 'compid', type: 'string'},
+            {name:'ctext',   type:'string'}
+
+        ]
+    });
+ 
+  	  store_comp = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanTree_depComp&plate@lan/ncs_depcompute_check_tree.htm'
+        },
+        root: {
+            text: '全部',
+            id: '',
+            checked:false,
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+        }]
+    });
+    	store_comp.on('beforeload', function (store, options) {
+
+       var new_params = { state: Ext.getCmp('compstate').getValue() };
+        Ext.apply(store.proxy.extraParams, new_params);
+       });
+ 
+   var compstate = [
+        {"groupid":"","groupname":"状态"},
+        {"groupid":"1","groupname":"在线"},
+        {"groupid":"2","groupname":"离线"}
+     
+    ];
+
+var store_compstate = Ext.create('Ext.data.Store', {
+        model: 'State',
+        data: compstate
+    });
+function openAdd()
+{
+	var compstateCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '',
+         labelWidth: 100,
+         width: 100,
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'compstate',      
+        value:'',
+        id:'compstate',
+        allowBlank: true,
+        forceSelection: false,
+        store: store_compstate,
+        queryMode: 'local',
+        typeAhead: true,
+        listeners: {
+			          'change':function(){			     
+			          	var vkeyword=Ext.getCmp('keyword').value;				                
+                    if(vkeyword=='计算机名/IP/MAC'){
+                    	vkeyword='';
+                    }
+			          	   store_comp.load({params: {keyword:vkeyword}});
+			            }
+			        }
+    });
+    tree=Ext.create('Ext.tree.Panel', {
+    	  title: '选择下发对象',
+    	  margins: '0 0 0 0',
+    	  id:'tree_comp',
+        store: store_comp,
+        autoScroll: true,
+        rootVisible: false,
+         border:true,
+        height: 440,
+      forceFit: true,
+        useArrows: false,
+        
+        
+         dockedItems: [{
+            xtype: 'toolbar',
+            items: [compstateCombo,
+            {
+               xtype:'textfield',
+               id:'keyword',
+               name:'keyword',
+               style:'color:#7aa7d5',
+               width:110,
+               value:'计算机名/IP/MAC',
+               enableKeyEvents:true,
+               listeners:{
+                 'focus':function(){
+                 if(this.value=='计算机名/IP/MAC'){                
+                    this.setValue('');
+                  }
+                 },
+         
+                 'keydown' : function(i,e){
+                var aae=e.getKey() ; 
+                if(aae==13){
+                    var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                    	  var vkeyword=Ext.getCmp('keyword').value;			         
+						         store_comp.load({params: {keyword:vkeyword}});
+		                   }
+                }
+               }
+               }
+             },
+             
+              {
+                text:'',
+                itemId: 'moveButton',
+                iconCls:'accept',
+                handler:function(){
+                	  var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                        var vkeyword=Ext.getCmp('keyword').value;			         
+						     store_comp.load({params: {keyword:vkeyword}});
+					}
+                }
+            }
+
+             ]}]
+        ,
+        
+         listeners:{itemclick:function(view, rcd, item, idx, event, eOpts){
+         }
+        } 
+ 
+    });
+        var fp2=Ext.create('Ext.FormPanel', {
+        frame: true,
+        fieldDefaults: {
+            labelWidth: 110
+        },
+        width: 600,
+        bodyPadding: 10,
+        items: [
+      	  tree
+        ],
+        buttons: [{
+            text: '保存',
+            handler: function(){
+          var records = tree.getView().getChecked();
+    
+					var temps=''; 
+					var gid,compid,id1;
+					var iNum=0;            
+                    Ext.Array.each(records, function(rec){
+                    gid=rec.get('id');
+                    compid=rec.get('compid');
+                    if(gid==''&&compid==''){
+                    	dtype='0';
+                    	id1='0';
+                    	
+                    }
+                    else if(compid==''){
+                    	dtype='1';
+                    	id1=gid;
+                    }
+                    else if(compid!=''){
+                    	dtype='2';
+                    	id1=compid;
+                    }
+                 
+                    if(iNum==0){
+                       temps=dtype+'_'+id1;
+
+                    }
+                    else{
+                        temps=temps+','+dtype+'_'+id1;
+                    }
+                     iNum++;
+ 
+                    });
+			 
+             if(temps==''){
+	             alert('请选择下发对象');
+	             return ;
+             }
+   
+            if(temps.indexOf('0_0')!=-1){
+            	temps='0_0';
+            }
+      		   document.getElementById("form1").type.value=4;//下发任务
+			   document.getElementById("form1").listCom.value=temps;
+			   if(confirm('您真的要下发这些任务到选择的机器吗？')){ 
+			   		reflash();
+	           		Ext.getCmp('addwindow').close();
+			   }
+            }
+        },{
+            text: '关闭',
+            handler: function(){
+              Ext.getCmp('addwindow').close();
+
+            }
+         }]
+      });
+    	store_comp.load();
+    
+         var win2 = new Ext.Window ({
+                       id:"addwindow",
+                       title:"任务下发",
+                       x:0,
+                       y:0,
+                       width:630,
+                       height:600,
+                       bodyPadding: 10,
+                       modal:true,
+                       resizable:true,
+                       items: fp2
+                                               
+         }
+        )
+        win2.show();
+}		
+		
+		
+ //添加任务窗口
+	var win3 = null;
+	var fp3 = null;
+	function showCxForm() 
+	{
+		if (!win3) //判断如果不存在就创建新的
+		{
+    	win3 = new Ext.Window({
+        title:'文件外发增加任务窗口',
+        closeAction: 'hide',
+        x:310,
+        y:32,
+        layout:'form',  
+        width:300,
+        draggable:true, //可拖动的
+        modal: true,//后面的内容可以操作
+        constrain:true, //限制窗口只能在其容器内移动
+
+
+    items:[fp3 = new Ext.FormPanel({  
+            layout:"form",  
+	baseCls:"x-plain",
+
+      		bodyPadding: 5,
+            items:[ 
+			timeFlagCombo,//时间下拉菜单 
+				{   						
+                	fieldLabel:'起始日期',
+                	xtype: 'datefield',
+                	format: "Y/m/d",
+                	value:today,
+                	name:'sdate',
+					hidden: true,
+	      			id: 'sdate'
+            	},
+            	{
+                	fieldLabel:'结束日期',
+                	xtype: 'datefield',
+                	format: "Y/m/d",
+                	value:today,
+                	name:'edate',
+					hidden: true,
+	      			id: 'edate'
+            	},
+            	{
+                	fieldLabel:'任务名称',
+                	xtype: 'textfield',
+                	name:'taskname'
+			
+            	},
+            	{
+                	fieldLabel:'关键词',
+                	xtype: 'textfield',
+                	name:'importantword'
+            	}
+            ]  
+        })]  
+,
+buttons:[  
+{text:"保存",
+handler: function()
+                 	{
+					document.getElementById("form1").type.value=1;
+					document.getElementById("form1").sdate.value=fp3.getForm().getValues().sdate; 
+					document.getElementById("form1").edate.value=fp3.getForm().getValues().edate;
+					var data1=fp3.getForm().getValues().taskname;
+					if(data1==''){
+						alert('任务名称不能为空');
+						return;
+					}
+					document.getElementById("form1").taskname.value=fp3.getForm().getValues().taskname;
+					var data2=fp3.getForm().getValues().importantword;
+					if(data2==''){
+						alert('关键词不能为空');
+						return;
+					}
+					document.getElementById("form1").importantword.value=fp3.getForm().getValues().importantword;  
+			
+                 	store.currentPage=1;
+                 		
+                 	reflash();
+					fp3.getForm().reset();
+                 	win3.close();	
+                 	}
+
+},
+{text:"清除",
+handler: function(){
+				Ext.getCmp('timeFlagCombo').clearValue();
+				fp3.getForm().reset();
+					}
+},
+{text:"取消",
+handler: function(){
+				Ext.getCmp('timeFlagCombo').clearValue();
+				fp3.getForm().reset();
+				win3.close();
+					}
+}   
+]  
+
+		});
+		
+}
+
+		
+		win3.show();
+} 
+ 
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){  
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}},
+      
+      
+      onPagingKeyDown:function(i,h){
+     var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+     if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+        if(g!==false){
+         g=Math.min(Math.max(1,g),c.pageCount);
+         if(d.fireEvent("beforechange",d,g)!==false){
+         d.store.currentPage=g;
+         reflash();
+        }        
+      }
+    }
+    else{
+       if(b==h.HOME||b==h.END){
+    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+       }
+       else{
+         if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+          h.stopEvent();g=d.readPageFromInput(c);
+           if(g){
+             if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+             g+=a;
+             if(g>=1&&g<=c.pages){i.setValue(g)}
+             }
+            }
+           }
+         }  
+      }
+
+      
+      
+       
+});
+  var grid = Ext.create('Ext.grid.Panel', {
+        scrollOffset: 0,
+        height: 1000,        
+        store: store,
+        selModel: sm,
+        frame:true,
+        columns:[{
+          header: '编辑',
+            xtype: 'actioncolumn',
+            dataIndex: 'sid',
+             icon: '/v8/images/edit_task.png',
+            tooltip: '点击该图标进入修改系统用户界面。',
+            width: 40,
+            align: 'center',
+            sortable: false,
+            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            }
+        },{
+            id: 'softname',
+            text: "任务名称",
+            dataIndex: 'taskname',
+            hidden: false,
+            width: 130,
+            sortable: false
+        },{
+            text: "任务ID",
+            dataIndex: 'taskid', 
+           width: 120,
+            sortable: false
+        },{
+            text: "关键词",
+            dataIndex: 'taskkey', 
+           width: 100,
+            sortable: false
+        },
+        {
+            text: "开始时间",
+            dataIndex: 'Begtime',
+            hidden: false,
+            width:180,
+            sortable: false
+        },
+        {
+            text: "结束时间",
+            dataIndex: 'Endtime',
+
+            hidden: false,
+            width:180,
+            sortable: false
+        },
+        {
+            text:"下发部门",
+            dataIndex: 'Gpid',
+            hidden: true,
+            width: 120,
+            sortable: false
+        },
+        {
+            text: "下发机器",
+            dataIndex: 'Computerid',
+            hidden: true,
+            width: 100,
+            sortable: false
+        },
+        {
+            text: "操作时间",
+            dataIndex: 'stime',
+            hidden: false,
+            width:180,
+            sortable: false
+        },
+        {
+            text: "操作用户",
+            dataIndex: 'userer',
+            hidden: false,
+            width: 100,
+            sortable: false
+        }
+        ],
+        
+        columnLines: true,
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示",
+                                       
+            items: [
+             {
+               xtype:'textfield',
+               id:'keyword1',
+               name:'keyword1',
+               style:'color:#7aa7d5',
+               width:'180px',
+               value:'输入任务名称/关键词/下发用户',
+               enableKeyEvents:true,
+               listeners:{
+                 'focus':function(){
+                 if(this.value=='输入任务名称/关键词'){                
+                    this.setValue('');
+                  }
+                 },
+         
+                 'keydown' : function(i,e){
+                var aae=e.getKey() ; 
+                if(aae==13){
+                    var aa=Ext.getCmp('keyword1').value;
+       
+		                  document.getElementById("form1").groupid.value='';
+						  document.getElementById("form1").type.value=2;
+		                  store.currentPage=1;      		                  
+		                   reflash();
+                }
+               }
+               }
+             },
+             {
+                text:'确认',
+                iconCls:'accept',
+                handler: function(){
+                 var aa=Ext.getCmp('keyword1').value;
+                if(aa!='输入任务名称/关键词'){
+                   document.getElementById("form1").groupid.value='';
+				   document.getElementById("form1").type.value=2;//查询任务
+                   store.currentPage=1;         
+                   reflash();
+                }
+                }
+            },
+            '-',
+            {
+                text:'添加任务',
+                iconCls:'add',
+                id: "softupdate",
+               handler : function() {
+       			showCxForm();
+            }
+            }, '-',{
+				text:'下发任务',
+                itemId: 'sendTask',
+                iconCls:'add',
+              	disabled: true,
+                handler:function(){
+					
+				var selsid1;  
+                 var rows1=sm.getSelection();
+                   selsid1='';
+                  for(var i=0;i<rows1.length;i++){
+                  	
+                  	if(i==0){
+                  	 selsid1=rows1[i].getId();
+                  	}
+                  	else{
+                       selsid1=selsid1+","+rows1[i].getId();
+                    }
+                   
+                   }
+		
+            			document.getElementById("form1").delid.value=selsid1;
+									if(selsid1==''){
+										alert('请选择需要下发的任务');
+										return;
+									}
+								document.getElementById("form1").delid.value=selsid1;
+								openAdd();
+								
+				}
+				
+			}, '-',{
+                text:'删除',
+                itemId: 'removeButton',
+                iconCls:'remove',
+              disabled: true,
+                handler:function(){
+			alert('请选择需要下发的任务');
+			if(confirm('选中的任务在策略表的会同时删除!')){                  
+                 var selsid;  
+                 var rows=sm.getSelection();
+                   selsid='';
+                  for(var i=0;i<rows.length;i++){
+                  	
+                  	if(i==0){
+                  	 selsid=rows[i].getId();
+                  	}
+                  	else{
+                       selsid=selsid+","+rows[i].getId();
+                    }
+                   
+                   }
+                  // alert(selsid);
+		   		   document.getElementById("form1").type.value=3;//删除任务
+            	   document.getElementById("form1").delid.value=selsid;
+				   reflash();
+                 }  
+                 
+                }
+            }
+                        
+        ]
+       
+
+        }),
+       
+        
+        renderTo: 'grid-corp'
+    });
+
+			var str = parent.right_fun;
+			if(str.indexOf('7110')==-1){
+				Ext.getCmp('softupdate').setDisabled(true);
+			}
+    reflash();
+});
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_log_outfile_task">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="keyword" value="">
+        <input type="hidden" name="taskname" value="">
+        <input type="hidden" name="importantword" value="">
+        <input type="hidden" name="groupname" value="">
+        <input type="hidden" name="PCname" value="">
+        <input type="hidden" name="doneUser" value="">
+        <input type="hidden" name="sdate" value="">
+        <input type="hidden" name="edate" value="">
+        <input type="hidden" name="time_flag" value="1">
+        <input type="hidden" name="type" value="">
+        <input type="hidden" name="delid" value="">
+        <input type="hidden" name="listCom" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

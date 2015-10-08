@@ -1,0 +1,1662 @@
+Function OnTime {
+    Dispname:OnTime;
+    Auth:None;
+    MaxRunTime:7200;
+}
+
+Function ncWebDispNetwork {
+    Dispname:显示网络设置;
+    Auth:CheckRight;
+}
+
+Function ncWebSetNetwork {
+    Dispname:网络设置;
+    Auth:CheckRight;
+}
+
+Function ncWebDelSomeUser {
+    Dispname:删除部分用户;
+    Auth:CheckRight;
+}
+
+Function ncWebAuth {
+    Dispname:用户验证;
+    Auth:None;
+}
+
+Function ncWebModiPass {
+    Dispname:修改口令;
+    Auth:Auth;
+}
+
+Function ncWebDispModiPass {
+    Dispname:修改口令;
+    Auth:Auth;
+}
+
+Function ncWebListUserTree {
+    Dispname:显示用户树;
+    Auth:Auth;
+}
+
+Function ncWebDispUserAddForm {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebUserAdd {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebDeptModi {
+    Dispname:用户管理;
+    Auth:None;
+    MaxRunTime:300;
+}
+
+Function ncWebDispDeptForm {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebDeptDel {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebDeptAdd {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebShowUserStatus {
+    Dispname:在线用户;
+    Auth:CheckRight;
+}
+
+Function ncWebReplace {
+    Dispname:替换;
+    Auth:None;
+}
+
+Function ncWebQyeIp {
+    Dispname:日志查询;
+    Auth:CheckRight;
+}
+
+Function ncWebCountIp {
+    Dispname:数据统计;
+    Auth:CheckRight;
+}
+
+Function ncWebUserSearch {
+    Dispname:用户管理;
+    Auth:CheckRight;
+}
+
+Function ncWebFlowCount {
+    Dispname:ncWebFlowCount;
+    Auth:CheckRight;
+}
+
+Function ncWebShowNewvister {
+    Dispname:ncWebShowNewvister;
+    Auth:CheckRight;
+}
+
+Function ncWebShowNewweb {
+    Dispname:ncWebShowNewweb;
+    Auth:CheckRight;
+}
+
+Function ncWebQyehttp {
+    Dispname:ncWebQyehttp;
+    Auth:CheckRight;
+}
+
+Function ncWebAssignUser {
+    Dispname:ncWebAssignUser;
+    Auth:None;
+}
+
+Function ncWebDispBindUserForm {
+    Dispname:ncWebDispBindUserForm;
+    Auth:None;
+}
+
+Function ncWebUserBindAdd {
+    Dispname:ncWebUserBindAdd;
+    Auth:None;
+}
+
+Function ncWebUserAddMyaddress {
+    Dispname:ncWebUserAddMyaddress;
+    Auth:None;
+}
+
+Function ncWebDispMyaddress {
+    Dispname:ncWebDispMyaddress;
+    Auth:None;
+}
+
+Function ncWebSortUserByFlow {
+    Dispname:ncWebSortUserByFlow;
+    Auth:CheckRight;
+}
+
+Function ncWebSortWeb {
+    Dispname:ncWebSortWeb;
+    Auth:CheckRight;
+}
+
+Function ncWebSortIp {
+    Dispname:ncWebSortIp;
+    Auth:CheckRight;
+}
+
+Function ncWebSortService {
+    Dispname:ncWebSortService;
+    Auth:CheckRight;
+}
+
+Function ncWebCount {
+    Dispname:ncWebCount;
+    Auth:CheckRight;
+}
+
+Function ncWebShowUserRandWidth {
+    Dispname:ncWebShowUserRandWidth;
+    Auth:CheckRight;
+}
+
+Function ncWebDispBandWidthForm {
+    Dispname:ncWebDispBandWidthForm;
+    Auth:CheckRight;
+}
+
+Function ncWebBandWidthSave {
+    Dispname:ncWebBandWidthSave;
+    Auth:CheckRight;
+}
+
+Function ncWebAdminUserList {
+    Dispname:ncWebAdminUserList;
+    Auth:CheckRight;
+}
+
+Function ncWebAdminDispUserForm {
+    Dispname:ncWebAdminDispUserForm;
+    Auth:CheckRight;
+}
+
+Function ncWebAdminRoleList {
+    Dispname:ncWebAdminRoleList;
+    Auth:CheckRight;
+}
+
+Function ncAdminRoleModi {
+    Dispname:ncAdminRoleModi;
+    Auth:CheckRight;
+}
+
+Function ncWebAdminRole {
+    Dispname:ncWebAdminRole;
+    Auth:CheckRight;
+}
+
+Function ncAdminUserSave {
+    Dispname:ncAdminUserSave;
+    Auth:CheckRight;
+}
+
+Function ncWebCountTotalFlow {
+    Dispname:ncWebCountTotalFlow;
+    Auth:CheckRight;
+}
+
+Function ncWebShutdown {
+    Dispname:ncWebShutdown;
+    Auth:CheckRight;
+}
+
+Function ncWebInternetLogin {
+    Dispname:ncWebInternetLogin;
+    Auth:None;
+}
+
+Function ncWebInternetLogout {
+    Dispname:ncWebInternetLogout;
+    Auth:None;
+}
+
+Function ncWebBackList {
+    Dispname:ncWebBackList;
+    Auth:CheckRight;
+}
+
+Function ncWebBackDelete {
+    Dispname:ncWebBackDelete;
+    Auth:CheckRight;
+}
+
+Function ncWebBackDownload {
+    Dispname:ncWebBackDownload;
+    Auth:CheckRight;
+}
+
+Function ncWebInternetModpass {
+    Dispname:ncWebInternetModpass;
+    Auth:None;
+}
+
+Function ncMailShowRule {
+    Dispname:ncMailShowRule;
+    Auth:CheckRight;
+}
+
+Function ncMailDispOneRule {
+    Dispname:ncMailDispOneRule;
+    Auth:CheckRight;
+}
+
+Function ncMailModiOneRule {
+    Dispname:ncMailModiOneRule;
+    Auth:CheckRight;
+}
+
+Function ncMailDelSomeRule {
+    Dispname:ncMailDelSomeRule;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlList {
+    Dispname:ncWebMailCtlList;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlRead {
+    Dispname:ncWebMailCtlRead;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlDownload {
+    Dispname:ncWebMailCtlDownload;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlOutHtm {
+    Dispname:ncWebMailCtlOutHtm;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlDel {
+    Dispname:ncWebMailCtlDel;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlAuditlst {
+    Dispname:ncWebMailCtlAuditlst;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlAudit {
+    Dispname:ncWebMailCtlAudit;
+    Auth:CheckRight;
+}
+
+Function ncWebListGroupTree {
+    Dispname:ncWebListGroupTree;
+    Auth:Auth;
+}
+
+Function ncWebUserBindWidthSet {
+    Dispname:ncWebUserBindWidthSet;
+    Auth:CheckRight;
+}
+
+Function ncWebOutFlowChart {
+    Dispname:ncWebOutFlowChart;
+    Auth:CheckRight;
+}
+
+Function ncWebCountIpChart {
+    Dispname:ncWebCountIpChart;
+    Auth:CheckRight;
+}
+
+Function ncWebPrintWebUse {
+    Dispname:ncWebPrintWebUse;
+    Auth:CheckRight;
+}
+
+Function ncMailMonListRule {
+    Dispname:ncMailMonListRule;
+    Auth:CheckRight;
+}
+
+Function ncMailMonDispOne {
+    Dispname:ncMailMonDispOne;
+    Auth:CheckRight;
+}
+
+Function ncMailMonModiOne {
+    Dispname:ncMailMonModiOne;
+    Auth:CheckRight;
+}
+
+Function ncMailMonDelSome {
+    Dispname:ncMailMonDelSome;
+    Auth:CheckRight;
+}
+
+Function ncWebTimeControl {
+    Dispname:ncWebTimeControl;
+    Auth:None;
+    MaxRunTime:300;
+}
+
+Function ncWebTimeCtlSet {
+    Dispname:ncWebTimeCtlSet;
+    Auth:None;
+}
+
+Function ncWebDispUserInfo {
+    Dispname:ncWebDispUserInfo;
+    Auth:Auth;
+    MaxRunTime:300;
+}
+
+Function ncWebBackupBaseInfo {
+    Dispname:ncWebBackupBaseInfo;
+    Auth:CheckRight;
+}
+
+Function ncWebShowBackup {
+    Dispname:ncWebShowBackup;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebBackFileDownload {
+    Dispname:ncWebBackFileDownload;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebDelBackFile {
+    Dispname:ncWebDelBackFile;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlSearch {
+    Dispname:ncWebMailCtlSearch;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlDispSform {
+    Dispname:ncWebMailCtlDispSform;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncMailCtlCheck {
+    Dispname:ncMailCtlCheck;
+    Auth:None;
+}
+
+Function ncMailAudit1 {
+    Dispname:ncMailAudit1;
+    Auth:None;
+}
+
+Function ncWebTimeCtlReSet {
+    Dispname:ncWebTimeCtlReSet;
+    Auth:CheckRight;
+}
+
+Function ncWebDispLogin {
+    Dispname:ncWebDispLogin;
+    Auth:None;
+}
+
+Function ncWebPopSearch {
+    Dispname:ncWebPopSearch;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebDispPopForm {
+    Dispname:ncWebDispPopForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebPopAdd {
+    Dispname:ncWebPopAdd;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebDelSomePop {
+    Dispname:ncWebDelSomePop;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMail {
+    Dispname:ncWebCountMail;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMailByStatus {
+    Dispname:ncWebCountMailByStatus;
+    Auth:CheckRight;
+}
+
+Function ncWebIpDispSform {
+    Dispname:ncWebIpDispSform;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebIpHSearch {
+    Dispname:ncWebIpHSearch;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebHttpDispSform {
+    Dispname:ncWebHttpDispSform;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebHttpHSearch {
+    Dispname:ncWebHttpHSearch;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailDispImport {
+    Dispname:ncWebMailDispImport;
+    Auth:CheckRight;
+}
+
+Function ncWebMailSaveImport {
+    Dispname:ncWebMailSaveImport;
+    Auth:CheckRight;
+}
+
+Function ncWebMailDoImport2 {
+    Dispname:ncWebMailDoImport2;
+    Auth:CheckRight;
+}
+
+Function ncWebMailDoImport {
+    Dispname:ncWebMailDoImport;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebUseListGroupTree {
+    Dispname:ncWebUseListGroupTree;
+    Auth:Auth;
+}
+
+Function ncWebuseDispForm {
+    Dispname:ncWebuseDispForm;
+    Auth:None;
+}
+
+Function ncWebMailCtlHlist {
+    Dispname:ncWebMailCtlHlist;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlHistorySearch {
+    Dispname:ncWebMailCtlHistorySearch;
+    Auth:CheckRight;
+}
+
+Function ncWebMailDispHSform {
+    Dispname:ncWebMailDispHSform;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlHistoryDel {
+    Dispname:ncWebMailCtlHistoryDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlRead2 {
+    Dispname:ncWebMailCtlRead2;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet_base {
+    Dispname:ncWebSystemSet_base;
+    Auth:CheckRight;
+}
+
+Function ncWebSystemSave_base {
+    Dispname:ncWebSystemSave_base;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet_par {
+    Dispname:ncWebSystemSet_par;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSave_par {
+    Dispname:ncWebSystemSave_par;
+    Auth:CheckRight;
+}
+
+Function ncWebSystemSet_fun {
+    Dispname:ncWebSystemSet_fun;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSave_fun {
+    Dispname:ncWebSystemSave_fun;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet_back {
+    Dispname:ncWebSystemSet_back;
+    Auth:CheckRight;
+}
+
+Function ncWebSystemSave_back {
+    Dispname:ncWebSystemSave_back;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet_clean {
+    Dispname:ncWebSystemSet_clean;
+    Auth:CheckRight;
+}
+
+Function ncWebSystemSave_clean {
+    Dispname:ncWebSystemSave_clean;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet_port {
+    Dispname:ncWebSystemSet_port;
+    Auth:CheckRight;
+}
+
+Function ncWebSystemSave_port {
+    Dispname:ncWebSystemSave_port;
+    Auth:CheckRight;
+}
+
+Function ncWebLimShowDefault {
+    Dispname:ncWebLimShowDefault;
+    Auth:CheckRight;
+}
+
+Function ncWebLimSaveDefault {
+    Dispname:ncWebLimSaveDefault;
+    Auth:CheckRight;
+}
+
+Function ncWebShowSystemInfo {
+    Dispname:ncWebShowSystemInfo;
+    Auth:CheckRight;
+}
+
+Function ncMailMonFl_list {
+    Dispname:ncMailMonFl_list;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonDel_fl {
+    Dispname:ncWebMailMonDel_fl;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonFw_fl {
+    Dispname:ncWebMailMonFw_fl;
+    Auth:CheckRight;
+}
+
+Function ncMailFrmFl_list {
+    Dispname:ncMailFrmFl_list;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailFrmDel_fl {
+    Dispname:ncWebMailFrmDel_fl;
+    Auth:CheckRight;
+}
+
+Function ncWebShowMailBack {
+    Dispname:ncWebShowMailBack;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebDelMailBack {
+    Dispname:ncWebDelMailBack;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMailMon {
+    Dispname:ncWebCountMailMon;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncMailCtlFl_list {
+    Dispname:ncMailCtlFl_list;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlDel_fl {
+    Dispname:ncWebMailCtlDel_fl;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlFw_fl {
+    Dispname:ncWebMailCtlFw_fl;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMailCtl {
+    Dispname:ncWebCountMailCtl;
+    Auth:CheckRight;
+}
+
+Function ncMailAuditOne {
+    Dispname:ncMailAuditOne;
+    Auth:None;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonList {
+    Dispname:ncWebMailMonList;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonList_h {
+    Dispname:ncWebMailMonList_h;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonHsear {
+    Dispname:ncWebMailMonHsear;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonHsear_h {
+    Dispname:ncWebMailMonHsear_h;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonDel {
+    Dispname:ncWebMailMonDel;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonDel_h {
+    Dispname:ncWebMailMonDel_h;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonFw {
+    Dispname:ncWebMailMonFw;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonFw_h {
+    Dispname:ncWebMailMonFw_h;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonDispSform {
+    Dispname:ncWebMailMonDispSform;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonDispSform_h {
+    Dispname:ncWebMailMonDispSform_h;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonRead {
+    Dispname:ncWebMailMonRead;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonFwOne {
+    Dispname:ncWebMailMonFwOne;
+    Auth:CheckRight;
+}
+
+Function ncWebUploadList {
+    Dispname:ncWebUploadList;
+    Auth:CheckRight;
+}
+
+Function ncWebUploadRead {
+    Dispname:ncWebUploadRead;
+    Auth:CheckRight;
+}
+
+Function ncWebUploadDel {
+    Dispname:ncWebUploadDel;
+    Auth:CheckRight;
+}
+
+Function ncWebMailExportDelete {
+    Dispname:ncWebMailExportDelete;
+    Auth:CheckRight;
+}
+
+Function ncWebMailDispExport {
+    Dispname:ncWebMailDispExport;
+    Auth:CheckRight;
+}
+
+Function ncWebMailDoExport {
+    Dispname:ncWebMailDoExport;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailShowExpStatus {
+    Dispname:ncWebMailShowExpStatus;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlSaveDefSet {
+    Dispname:ncWebMailCtlSaveDefSet;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlDispDefSet {
+    Dispname:ncWebMailCtlDispDefSet;
+    Auth:CheckRight;
+}
+
+Function ncWebRefreshUser {
+    Dispname:ncWebRefreshUser;
+    Auth:Auth;
+}
+
+Function ncWebUserBandModi {
+    Dispname:ncWebUserBandModi;
+    Auth:CheckRight;
+}
+
+Function ncWebDispUserBandForm {
+    Dispname:ncWebDispUserBandForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebUserModify {
+    Dispname:ncWebUserModify;
+    Auth:CheckRight;
+}
+
+Function ncWebDispUserModiForm {
+    Dispname:ncWebDispUserModiForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebDispUserInfo_c {
+    Dispname:ncWebDispUserInfo_c;
+    Auth:CheckRight;
+}
+
+Function ncWebUserSave_c {
+    Dispname:ncWebUserSave_c;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMailMonByU {
+    Dispname:ncWebCountMailMonByU;
+    Auth:CheckRight;
+}
+
+Function ncWebCountMailMonByBm {
+    Dispname:ncWebCountMailMonByBm;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonCountChart {
+    Dispname:ncWebMailMonCountChart;
+    Auth:CheckRight;
+}
+
+Function ncWebCountMailCtlByU {
+    Dispname:ncWebCountMailCtlByU;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebCountMailCtlByBm {
+    Dispname:ncWebCountMailCtlByBm;
+    Auth:CheckRight;
+}
+
+Function ncWebMailCtlCountChart {
+    Dispname:ncWebMailCtlCountChart;
+    Auth:CheckRight;
+}
+
+Function ncMailMonTypeList {
+    Dispname:ncMailMonTypeList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailGroupEdit {
+    Dispname:ncWebMailGroupEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebSetMailGroup {
+    Dispname:ncWebSetMailGroup;
+    Auth:CheckRight;
+}
+
+Function ncMailFrmTypeList {
+    Dispname:ncMailFrmTypeList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSetFrmGroup {
+    Dispname:ncWebSetFrmGroup;
+    Auth:CheckRight;
+}
+
+Function ncWebFrmGroupEdit {
+    Dispname:ncWebFrmGroupEdit;
+    Auth:CheckRight;
+}
+
+Function ncMailCtlTypeList {
+    Dispname:ncMailCtlTypeList;
+    Auth:CheckRight;
+}
+
+Function ncWebMailMonSaveDefault {
+    Dispname:ncWebMailMonSaveDefault;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailMonDispDefault {
+    Dispname:ncWebMailMonDispDefault;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncMailCtlFlList {
+    Dispname:ncMailCtlFlList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlFl {
+    Dispname:ncWebMailCtlFl;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebMailCtlFlEdit {
+    Dispname:ncWebMailCtlFlEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebLimWebTypeTree {
+    Dispname:ncWebLimWebTypeTree;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimWebList {
+    Dispname:ncWebLimWebList;
+    Auth:CheckRight;
+}
+
+Function ncWebLimWebGroup {
+    Dispname:ncWebLimWebGroup;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimWebGroupEdit {
+    Dispname:ncWebLimWebGroupEdit;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLim_SetWebPol {
+    Dispname:ncWebLim_SetWebPol;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimWebPolEdit {
+    Dispname:ncWebLimWebPolEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebLimWebPolList {
+    Dispname:ncWebLimWebPolList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSet {
+    Dispname:ncWebSystemSet;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebSystemSetSave {
+    Dispname:ncWebSystemSetSave;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimWebListSearch {
+    Dispname:ncWebLimWebListSearch;
+    Auth:CheckRight;
+}
+
+Function ncWebLimIpList {
+    Dispname:ncWebLimIpList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimIpGroup {
+    Dispname:ncWebLimIpGroup;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimIpGroupEdit {
+    Dispname:ncWebLimIpGroupEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebLimDateList {
+    Dispname:ncWebLimDateList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimDateGroup {
+    Dispname:ncWebLimDateGroup;
+    Auth:CheckRight;
+}
+
+Function ncWebLimDateGroupEdit {
+    Dispname:ncWebLimDateGroupEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_Dispmenu {
+    Dispname:ncWebLim_Dispmenu;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_Listout {
+    Dispname:ncWebLim_Listout;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_Listbase {
+    Dispname:ncWebLim_Listbase;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimRuleGroup {
+    Dispname:ncWebLimRuleGroup;
+    Auth:CheckRight;
+}
+
+Function ncWebLimRuleGroupEdit {
+    Dispname:ncWebLimRuleGroupEdit;
+    Auth:CheckRight;
+}
+
+Function ncWebLimApp {
+    Dispname:ncWebLimApp;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLim_TestProcess {
+    Dispname:ncWebLim_TestProcess;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_TestIpService {
+    Dispname:ncWebLim_TestIpService;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_TestIplist {
+    Dispname:ncWebLim_TestIplist;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_TestLimit {
+    Dispname:ncWebLim_TestLimit;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebTestUpload {
+    Dispname:ncWebTestUpload;
+    Auth:CheckRight;
+}
+
+Function ncWeb_TestMailRule {
+    Dispname:ncWeb_TestMailRule;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLim_SetIpPol {
+    Dispname:ncWebLim_SetIpPol;
+    Auth:CheckRight;
+}
+
+Function ncWebLimIpPolList {
+    Dispname:ncWebLimIpPolList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLimIpPolEdit {
+    Dispname:ncWebLimIpPolEdit;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLim_SetWebPol1 {
+    Dispname:ncWebLim_SetWebPol1;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function ncWebLim_SetWebPol2 {
+    Dispname:ncWebLim_SetWebPol2;
+    Auth:CheckRight;
+}
+
+Function ncWebLim_DispWebPo {
+    Dispname:ncWebLim_DispWebPo;
+    Auth:CheckRight;
+}
+
+Function ncWebUpgrade_1 {
+    Dispname:ncWebUpgrade_1;
+    Auth:None;
+}
+
+Function ncWebUpgrade_2 {
+    Dispname:ncWebUpgrade_2;
+    Auth:None;
+}
+
+Function ncWebUpgrade_Inst {
+    Dispname:ncWebUpgrade_Inst;
+    Auth:None;
+    MaxRunTime:300;
+}
+
+Function dsCltWebLogin {
+    Dispname:dsCltWebLogin;
+    Auth:CheckRight;
+}
+
+Function dsCltWebMyStatus {
+    Dispname:dsCltWebMyStatus;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictList {
+    Dispname:dsCltWebDictList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictForm {
+    Dispname:dsCltWebDictForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDictModi {
+    Dispname:dsCltWebDictModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictDel {
+    Dispname:dsCltWebDictDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebGroupList {
+    Dispname:dsCltWebGroupList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebGroupForm {
+    Dispname:dsCltWebGroupForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebGroupModi {
+    Dispname:dsCltWebGroupModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebGroupDel {
+    Dispname:dsCltWebGroupDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserList {
+    Dispname:dsCltWebUserList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebUserForm {
+    Dispname:dsCltWebUserForm;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserModi {
+    Dispname:dsCltWebUserModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserDel {
+    Dispname:dsCltWebUserDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerList {
+    Dispname:dsCltWebServerList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerForm {
+    Dispname:dsCltWebServerForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerModi {
+    Dispname:dsCltWebServerModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebServerDel {
+    Dispname:dsCltWebServerDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleList {
+    Dispname:dsCltWebDsroleList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleForm {
+    Dispname:dsCltWebDsroleForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsroleModi {
+    Dispname:dsCltWebDsroleModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleDel {
+    Dispname:dsCltWebDsroleDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDispDsright {
+    Dispname:dsCltWebDispDsright;
+    Auth:CheckRight;
+}
+
+Function dsCltWebRightSave {
+    Dispname:dsCltWebRightSave;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsPasRoleList {
+    Dispname:dsCltWebDsPasRoleList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsRoleList_main {
+    Dispname:dsCltWebDsRoleList_main;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsPasRoleAdd {
+    Dispname:dsCltWebDsPasRoleAdd;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsPasRoleDel {
+    Dispname:dsCltWebDsPasRoleDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDispUsrRole {
+    Dispname:dsCltWebDispUsrRole;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebUserRoleSave {
+    Dispname:dsCltWebUserRoleSave;
+    Auth:CheckRight;
+}
+
+Function dsCltWebTestCookies {
+    Dispname:dsCltWebTestCookies;
+    Auth:CheckRight;
+}
+
+Function dsCltWebFunlist {
+    Dispname:dsCltWebFunlist;
+    Auth:Auth;
+    MaxRunTime:300;
+}
+
+Function dsCltWebFunGen {
+    Dispname:dsCltWebFunGen;
+    Auth:Auth;
+}
+
+Function fireWebDispDefault {
+    Dispname:fireWebDispDefault;
+    Auth:CheckRight;
+}
+
+Function fireWebModiDefault {
+    Dispname:fireWebModiDefault;
+    Auth:CheckRight;
+}
+
+Function fireWebListBaseInfo {
+    Dispname:fireWebListBaseInfo;
+    Auth:CheckRight;
+}
+
+Function fireWebRuleEdit {
+    Dispname:fireWebRuleEdit;
+    Auth:CheckRight;
+}
+
+Function fireWebRunScript {
+    Dispname:fireWebRunScript;
+    Auth:CheckRight;
+}
+
+Function fireWebUnRunScript {
+    Dispname:fireWebUnRunScript;
+    Auth:CheckRight;
+}
+
+Function fireWebSnatEdit {
+    Dispname:fireWebSnatEdit;
+    Auth:CheckRight;
+}
+
+Function fireWebNatipEdit {
+    Dispname:fireWebNatipEdit;
+    Auth:CheckRight;
+}
+
+Function fireWebNatportEdit {
+    Dispname:fireWebNatportEdit;
+    Auth:CheckRight;
+}
+
+Right 网络设置 {
+    Dispname: 网络设置;
+    FunName: ncWebDispNetwork;
+    FunName: ncWebSetNetwork;
+}
+
+Right 用户管理 {
+    Dispname: 用户管理;
+    FunName: ncWebDelSomeUser;
+    FunName: ncWebDispUserAddForm;
+    FunName: ncWebUserAdd;
+    FunName: ncWebDeptModi;
+    FunName: ncWebDispDeptForm;
+    FunName: ncWebDeptDel;
+    FunName: ncWebDeptAdd;
+    FunName: ncWebUserSearch;
+    FunName: ncWebUserModify;
+    FunName: ncWebDispUserModiForm;
+    FunName: ncWebDispUserInfo_c;
+    FunName: ncWebUserSave_c;
+}
+
+Right 在线信息 {
+    Dispname: 在线信息;
+    FunName: ncWebShowUserStatus;
+    FunName: ncWebShowNewvister;
+    FunName: ncWebShowNewweb;
+}
+
+Right 网络访问查询 {
+    Dispname: 网络访问查询;
+    FunName: ncWebQyeIp;
+    FunName: ncWebIpDispSform;
+    FunName: ncWebIpHSearch;
+    FunName: ncWebHttpDispSform;
+    FunName: ncWebHttpHSearch;
+}
+
+Right 网络访问统计 {
+    Dispname: 网络访问统计;
+    FunName: ncWebCountIp;
+    FunName: ncWebFlowCount;
+    FunName: ncWebQyehttp;
+    FunName: ncWebSortUserByFlow;
+    FunName: ncWebSortWeb;
+    FunName: ncWebSortIp;
+    FunName: ncWebSortService;
+    FunName: ncWebCount;
+    FunName: ncWebCountTotalFlow;
+    FunName: ncWebShutdown;
+    FunName: ncWebOutFlowChart;
+    FunName: ncWebCountIpChart;
+    FunName: ncWebPrintWebUse;
+}
+
+Right 带宽管理 {
+    Dispname: 带宽管理;
+    FunName: ncWebShowUserRandWidth;
+    FunName: ncWebDispBandWidthForm;
+    FunName: ncWebBandWidthSave;
+    FunName: ncWebUserBindWidthSet;
+    FunName: ncWebUserBandModi;
+    FunName: ncWebDispUserBandForm;
+}
+
+Right 系统管理 {
+    Dispname: 系统管理;
+    FunName: ncWebAdminUserList;
+    FunName: ncWebAdminDispUserForm;
+    FunName: ncWebAdminRoleList;
+    FunName: ncAdminRoleModi;
+    FunName: ncWebAdminRole;
+    FunName: ncAdminUserSave;
+    FunName: ncWebBackList;
+    FunName: ncWebBackDelete;
+    FunName: ncWebBackDownload;
+    FunName: ncWebBackupBaseInfo;
+    FunName: ncWebShowBackup;
+    FunName: ncWebBackFileDownload;
+    FunName: ncWebDelBackFile;
+    FunName: ncWebMailDispImport;
+    FunName: ncWebMailSaveImport;
+    FunName: ncWebMailDoImport2;
+    FunName: ncWebMailDoImport;
+    FunName: ncWebSystemSet_base;
+    FunName: ncWebSystemSave_base;
+    FunName: ncWebSystemSet_par;
+    FunName: ncWebSystemSave_par;
+    FunName: ncWebSystemSet_fun;
+    FunName: ncWebSystemSave_fun;
+    FunName: ncWebSystemSet_back;
+    FunName: ncWebSystemSave_back;
+    FunName: ncWebSystemSet_clean;
+    FunName: ncWebSystemSave_clean;
+    FunName: ncWebSystemSet_port;
+    FunName: ncWebSystemSave_port;
+    FunName: ncWebShowSystemInfo;
+    FunName: ncWebShowMailBack;
+    FunName: ncWebDelMailBack;
+    FunName: ncWebUpgrade_1;
+    FunName: ncWebUpgrade_2;
+    FunName: ncWebUpgrade_Inst;
+    FunName: dsCltWebLogin;
+    FunName: dsCltWebMyStatus;
+    FunName: dsCltWebDictList;
+    FunName: dsCltWebDictForm;
+    FunName: dsCltWebDictModi;
+    FunName: dsCltWebDictDel;
+    FunName: dsCltWebGroupList;
+    FunName: dsCltWebGroupForm;
+    FunName: dsCltWebGroupModi;
+    FunName: dsCltWebGroupDel;
+    FunName: dsCltWebUserList;
+    FunName: dsCltWebUserForm;
+    FunName: dsCltWebUserModi;
+    FunName: dsCltWebUserDel;
+    FunName: dsCltWebServerList;
+    FunName: dsCltWebServerForm;
+    FunName: dsCltWebServerModi;
+    FunName: dsCltWebServerDel;
+    FunName: dsCltWebDsroleList;
+    FunName: dsCltWebDsroleForm;
+    FunName: dsCltWebDsroleModi;
+    FunName: dsCltWebDsroleDel;
+    FunName: dsCltWebDispDsright;
+    FunName: dsCltWebRightSave;
+    FunName: dsCltWebDsPasRoleList;
+    FunName: dsCltWebDsRoleList_main;
+    FunName: dsCltWebDsPasRoleAdd;
+    FunName: dsCltWebDsPasRoleDel;
+    FunName: dsCltWebDispUsrRole;
+    FunName: dsCltWebUserRoleSave;
+    FunName: dsCltWebTestCookies;
+}
+
+Right 内容监控设置 {
+    Dispname: 内容监控设置;
+    FunName: ncMailShowRule;
+    FunName: ncMailDispOneRule;
+    FunName: ncMailModiOneRule;
+    FunName: ncMailDelSomeRule;
+    FunName: ncMailMonListRule;
+    FunName: ncMailMonDispOne;
+    FunName: ncMailMonModiOne;
+    FunName: ncMailMonDelSome;
+    FunName: ncMailMonTypeList;
+    FunName: ncWebMailGroupEdit;
+    FunName: ncWebSetMailGroup;
+    FunName: ncMailFrmTypeList;
+    FunName: ncWebSetFrmGroup;
+    FunName: ncWebFrmGroupEdit;
+    FunName: ncWebMailMonSaveDefault;
+    FunName: ncWebMailMonDispDefault;
+}
+
+Right 邮件拦截查看 {
+    Dispname: 邮件拦截查看;
+    FunName: ncWebMailCtlList;
+    FunName: ncWebMailCtlRead;
+    FunName: ncWebMailCtlDownload;
+    FunName: ncWebMailCtlOutHtm;
+    FunName: ncWebMailCtlSearch;
+    FunName: ncWebMailCtlDispSform;
+    FunName: ncMailCtlCheck;
+    FunName: ncMailAudit1;
+    FunName: ncWebMailCtlHlist;
+    FunName: ncWebMailCtlHistorySearch;
+    FunName: ncWebMailDispHSform;
+    FunName: ncWebMailCtlHistoryDel;
+    FunName: ncWebMailCtlRead2;
+    FunName: ncMailCtlFl_list;
+    FunName: ncWebMailCtlDel_fl;
+    FunName: ncWebMailCtlFw_fl;
+    FunName: ncWebCountMailCtl;
+    FunName: ncWebCountMailCtlByU;
+    FunName: ncWebCountMailCtlByBm;
+    FunName: ncWebMailCtlCountChart;
+}
+
+Right 邮件拦截审计 {
+    Dispname: 邮件拦截审计;
+    FunName: ncWebMailCtlDel;
+    FunName: ncWebMailCtlAuditlst;
+    FunName: ncWebMailCtlAudit;
+}
+
+Right 时间控制 {
+    Dispname: 时间控制;
+    FunName: ncWebTimeControl;
+    FunName: ncWebTimeCtlSet;
+    FunName: ncWebTimeCtlReSet;
+}
+
+Right 内容监控查看 {
+    Dispname: 内容监控查看;
+    FunName: ncWebCountMail;
+    FunName: ncWebCountMailByStatus;
+    FunName: ncMailMonFl_list;
+    FunName: ncWebMailMonDel_fl;
+    FunName: ncWebMailMonFw_fl;
+    FunName: ncMailFrmFl_list;
+    FunName: ncWebMailFrmDel_fl;
+    FunName: ncWebCountMailMon;
+    FunName: ncWebMailMonList;
+    FunName: ncWebMailMonList_h;
+    FunName: ncWebMailMonHsear;
+    FunName: ncWebMailMonHsear_h;
+    FunName: ncWebMailMonDispSform;
+    FunName: ncWebMailMonDispSform_h;
+    FunName: ncWebMailMonRead;
+    FunName: ncWebUploadList;
+    FunName: ncWebUploadRead;
+    FunName: ncWebCountMailMonByU;
+    FunName: ncWebCountMailMonByBm;
+    FunName: ncWebMailMonCountChart;
+}
+
+Right 网络访问控制 {
+    Dispname: 网络访问控制;
+    FunName: ncWebLimShowDefault;
+    FunName: ncWebLimSaveDefault;
+    FunName: ncWebLimWebTypeTree;
+    FunName: ncWebLimWebList;
+    FunName: ncWebLimWebGroup;
+    FunName: ncWebLimWebGroupEdit;
+    FunName: ncWebLim_SetWebPol;
+    FunName: ncWebLimWebPolEdit;
+    FunName: ncWebLimWebPolList;
+    FunName: ncWebSystemSet;
+    FunName: ncWebSystemSetSave;
+    FunName: ncWebLimWebListSearch;
+    FunName: ncWebLimIpList;
+    FunName: ncWebLimIpGroup;
+    FunName: ncWebLimIpGroupEdit;
+    FunName: ncWebLimDateList;
+    FunName: ncWebLimDateGroup;
+    FunName: ncWebLimDateGroupEdit;
+    FunName: ncWebLim_Dispmenu;
+    FunName: ncWebLim_Listout;
+    FunName: ncWebLim_Listbase;
+    FunName: ncWebLimRuleGroup;
+    FunName: ncWebLimRuleGroupEdit;
+    FunName: ncWebLimApp;
+    FunName: ncWebLim_TestProcess;
+    FunName: ncWebLim_TestIpService;
+    FunName: ncWebLim_TestIplist;
+    FunName: ncWebLim_TestLimit;
+    FunName: ncWebTestUpload;
+    FunName: ncWeb_TestMailRule;
+    FunName: ncWebLim_SetIpPol;
+    FunName: ncWebLimIpPolList;
+    FunName: ncWebLimIpPolEdit;
+    FunName: ncWebLim_SetWebPol1;
+    FunName: ncWebLim_SetWebPol2;
+    FunName: ncWebLim_DispWebPo;
+}
+
+Right 内容监控处理 {
+    Dispname: 内容监控处理;
+    FunName: ncWebMailMonDel;
+    FunName: ncWebMailMonDel_h;
+    FunName: ncWebMailMonFw;
+    FunName: ncWebMailMonFw_h;
+    FunName: ncWebMailMonFwOne;
+    FunName: ncWebUploadDel;
+    FunName: ncWebMailExportDelete;
+    FunName: ncWebMailDispExport;
+    FunName: ncWebMailDoExport;
+    FunName: ncWebMailShowExpStatus;
+}
+
+Right 邮件拦截设置 {
+    Dispname: 邮件拦截设置;
+    FunName: ncWebMailCtlSaveDefSet;
+    FunName: ncWebMailCtlDispDefSet;
+    FunName: ncMailCtlTypeList;
+    FunName: ncMailCtlFlList;
+    FunName: ncWebMailCtlFl;
+    FunName: ncWebMailCtlFlEdit;
+}
+
+Right 防火墙 {
+    Dispname: 防火墙;
+    FunName: fireWebDispDefault;
+    FunName: fireWebModiDefault;
+    FunName: fireWebListBaseInfo;
+    FunName: fireWebRuleEdit;
+    FunName: fireWebRunScript;
+    FunName: fireWebUnRunScript;
+    FunName: fireWebSnatEdit;
+    FunName: fireWebNatipEdit;
+    FunName: fireWebNatportEdit;
+}
+

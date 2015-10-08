@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; ">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+self.location.href=t
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+</script>
+<link REL=stylesheet HREF="runmit.css" TYPE="text/css">
+<script src="rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" oncontextmenu="return false">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1" height="16">&nbsp;转发</td>
+    <td class="bord3" height="16">&nbsp;允许</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;输入</td>
+    <td class="bord3">&nbsp;允许</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;输出</td>
+    <td class="bord3">&nbsp;允许</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;</td>
+    <td class="bord3">&nbsp;</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;</td>
+    <td class="bord3">&nbsp;</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;</td>
+    <td class="bord3">&nbsp;</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+    <td class="bord1">&nbsp;</td>
+    <td class="bord3">&nbsp;</td>
+  </tr>
+  <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"> 
+    <td class="bord1">&nbsp;</td>
+    <td class="bord3">&nbsp;</td>
+  </tr>
+</table>
+</body>
+
+</html>

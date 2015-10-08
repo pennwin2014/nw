@@ -1,0 +1,221 @@
+/**
+ 定义部门树
+ */
+ 
+ Ext.define('ncViewer.lanGroupCheckTree', {
+    extend: 'Ext.tree.Panel',
+    alias: 'widget.lanGroupCheckTree',
+   
+    change: function(val) {
+        if (val > 0) {
+            return '<span style="color:green;">' + val + '</span>';
+        } else if (val < 0) {
+            return '<span style="color:red;">' + val + '</span>';
+        }
+        return val;
+    },
+    initComponent: function(){
+        	var cstate='';
+    	    Ext.define('treedata',{
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'text',     type: 'string'},
+            {name: 'id',     type: 'string'},
+            {name: 'compid', type: 'string'},
+            {name:'ctext',   type:'string'}
+
+        ]
+       });
+       store_comp = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanTree_depComp&state@1&plate@lan/lan_depcompute_check_tree.htm'
+        },
+        root: {
+            text: '全部',
+            id: '',
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+ //           property: 'text',
+//            direction: 'ASC'
+        }]
+    });
+    	store_comp.on('beforeload', function (store, options) {
+	
+ //      var new_params = { state: Ext.getCmp('compstate').getValue() };
+  //      Ext.apply(store.proxy.extraParams, new_params);
+       });
+    
+    Ext.apply(this, {
+        title: '',
+    	  margins: '0 0 0 0',
+    	  id:'tree_ck',
+        store: store_comp,
+        autoScroll: true,
+         border:false,
+      forceFit: true,
+   //     width: 110,
+        useArrows: false,
+            dockedItems: [{
+            xtype: 'toolbar',
+            items: [
+            {
+               xtype:'textfield',
+               id:'keyword',
+               name:'keyword',
+               style:'color:#7aa7d5',
+               width:150,
+               value:'计算机名/IP/MAC',
+               enableKeyEvents:true,
+               listeners:{
+                 'focus':function(){
+                 if(this.value=='计算机名/IP/MAC'){                
+                    this.setValue('');
+                  }
+                 },
+         
+                 'keydown' : function(i,e){
+                var aae=e.getKey() ; 
+                if(aae==13){
+                    var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                    	  var vkeyword=Ext.getCmp('keyword').value;			         
+						          	store_comp.load({params: {keyword:vkeyword}});
+
+		                   }
+                }
+               }
+               }
+             },
+             
+              {
+                text:'',
+                itemId: 'moveButton',
+                iconCls:'accept',
+ //               disabled: true,
+                handler:function(){
+                	  var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                        var vkeyword=Ext.getCmp('keyword').value;			         
+						          	store_comp.load({params: {keyword:vkeyword}});
+						          }
+   
+                }
+ 
+                
+            }
+             
+             
+             
+             ]}]
+        
+        ,
+        
+         listeners:{
+         	itemclick:function(view, rcd, item, idx, event, eOpts){
+     //    	 var records = view.getChecked();
+         	 
+     //    	  Ext.Array.each(records, function(rec){
+     //    	  	ckcompid=rec.get('id');
+     //    	  	alert(ckcompid);
+     //    	  }
+     //    	  );
+         	
+         	
+         	
+        	groupid=rcd.get('id');        
+        	compid=rcd.get('compid');
+        	if(groupid!=''){
+        	dxtitle='部门：'+rcd.get('text');
+        	dxtitle_c='部门：'+rcd.get('ctext');
+          }
+          if(compid!=''){
+          	dxtitle='计算机：'+rcd.get('text');
+          	dxtitle_c='计算机：'+rcd.get('ctext');
+          }
+          if(groupid==''&&compid==''){
+          	dxtitle='';
+          	dxtitle_c='';
+          }
+          
+        	var tabs_center=Ext.getCmp("layout_center");
+        	var active = tabs_center.getActiveTab();        	
+        	var active_id='lay_'+active.id;
+        	var tabs_if=Ext.getCmp(active_id).getActiveTab();
+        	var tabframe=active_id+'_'+tabs_if.id;
+
+      //    eval(tabframe).SetPage();
+	//		eval(tabframe).reflash();
+
+         },
+         checkchange:function(node, checked, eOpts){
+			
+
+
+		  compid_ck='';
+		  name_ck='';
+         	 var records=Ext.getCmp('tree_ck').getView().getChecked(); 
+			
+		
+         	 var gid,compid;
+         	 var i=0;
+         	 Ext.Array.each(records, function(rec){
+                    gid=rec.get('id');
+                    compid=rec.get('compid');
+					
+                    if(compid!=''){
+                    	if(i==0){
+                    		compid_ck=compid;
+						
+					}
+                    	else{
+                    		compid_ck=compid_ck+','+compid;
+							
+						}
+                    	i++;
+                    
+                  }
+                  });
+					
+					var tabs_center=Ext.getCmp("layout_center");
+        	      var active = tabs_center.getActiveTab();        	
+        	      var active_id='lay_'+active.id;
+        	      var tabs_if=Ext.getCmp(active_id).getActiveTab();
+        	      var tabframe=active_id+'_'+tabs_if.id;
+			//	alert('checkchange');
+	//		if(checked){
+	//		var sid=node.get('text');
+	//		var sidhtml = '<span style="color:red;">'+sid+'</span>';	
+	//		node.set('text', sidhtml);
+	//		}else{
+	//		var name1 = node.get('text');
+	//		var name2 = name1.split('>');
+	//		var name3 = name2[1].split('<');
+	
+	//		node.set('text', name3[0]);
+	//		alert(node.get('text'));
+			//alert(Ext.getDom("'"+compid+"'").innerHTML);
+		//	node.set('text', Ext.getDom(node.get('compid')).innerHTML);
+			
+		//	}
+			
+
+                eval(tabframe).SetPage();
+        	    eval(tabframe).reflash(compid,gid,i); 
+           
+				  
+         }
+        } 
+   
+   
+   
+   
+   
+        });
+
+        this.callParent(arguments);
+    }
+});

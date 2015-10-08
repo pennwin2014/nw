@@ -1,0 +1,52 @@
+Ext.define('Fileout.view.tab.Upan',{
+  extend: 'Ext.form.Panel',
+  alias : 'widget.upan',
+  
+  title: "U盘外发",
+  padding: "5 15 5 15",
+  frame: true,
+  
+  defaults: {labelWidth: 120},
+  
+  initComponent: function() {
+    this.tbar = ['->',
+      {text:"应用到当前",action:'change'},
+   		{text:"应用到其他",action:'insert'}
+    ];
+      	
+  	this.items = [{
+    	xtype: 'hidden',
+    	name: 'type',
+    	value:'upan'
+	  },{
+	    layout: 'hbox',
+	    xtype: 'fieldcontainer',
+	    combineErrors: true,
+	    items:[
+	      {xtype:'file',title:"文件内容控制",comboLabel:"文件类型"},
+	      {
+	        xtype: 'fieldset',
+	        title: '设置项',
+	        width: 222,
+          height: 250,
+          items:[{
+            xtype: 'usbcombo',
+            name: 'usbid'
+          },{
+          	xtype: 'radiogroup',
+          	margin: "0 0 0 10",
+            name: 'mode_usb',
+          	columns: 1,
+            items: [
+              { boxLabel: '禁止模式', name: 'mode_usb', inputValue: 1, checked: true},
+              { boxLabel: '只允许模式', name: 'mode_usb', inputValue: 2}
+            ]
+          }]
+	      }
+	    ]
+    }];
+	  
+  	this.callParent(arguments);
+  }
+  
+});

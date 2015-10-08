@@ -1,0 +1,171 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>工作时间定义</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+  </style>
+  <script type="text/javascript">
+    var keywords = "";
+  	
+  	Ext.onReady(function() {
+  	  
+  	  var ignoreStore = Ext.create('Ext.data.Store',{
+  	    pageSize: 40,
+  	    fields:["id","name","detail"],
+  	    proxy:{
+  	      type: 'ajax',
+          url: '/pronline/Msg?FunName@lanIgnoreProc',
+          reader: {
+            type:'json',
+            root: 'data',
+            totalProperty: 'totalCount'
+          }
+  	    }
+  	  });
+  	  function refresh(){
+  	    ignoreStore.load({params:{keywords:keywords}});
+  	  }
+  	  Ext.create('Ext.grid.Panel',{
+  	    width: "100%",
+  	    height: 950,
+  	    renderTo:Ext.getBody(),
+  	    store: ignoreStore,
+  	    tbar: [{
+        	xtype: 'pagingtoolbar',
+        	width: "100%",
+        	store: ignoreStore,
+        	border: 0,
+        	displayInfo: true,
+        	items:['-','-',{
+        	  xtype:"textfield",
+        	  fieldLabel: "关键字",
+        	  labelWidth: 50,
+        	  width: 180,
+        	  id: 'keywords',
+					  enableKeyEvents:true,
+        	  listeners:{
+        	    'keydown' : function(i,e){
+  							var aae=e.getKey() ; 
+  							if(aae==13){
+  						    keywords=i.getValue();
+  					      refresh();
+  							}
+					    }
+        	  }
+        	},{
+        	  xtype: "button",
+        	  text: "确定",
+        	  iconCls:'accept',
+        	  handler:function(){
+        	    keywords = Ext.getCmp('keywords').getValue();
+        	    refresh();
+        	  }
+        	},'-',{
+        	  text:'还原',
+        	  handler:function(){
+        	    var grid = Ext.ComponentQuery.query('grid')[0];
+              var gridSelection = grid.getSelectionModel().getLastSelected();
+        	    if(gridSelection){
+        	      ignoreStore.load({params:{deal:'delete',id:gridSelection.get('id'),keywords:keywords}});
+        	    }else{
+        	      alert("未选择要恢复程序");
+        	    }
+        	  }
+        	}],
+          displayMsg: '显示{0} - {1}条记录 共{2}条',
+          emptyMsg: '没有记录可显示',
+          doRefresh:function(){  
+			    	refresh();
+			    },
+			    moveLast:function(){
+			    	var b=this,a=b.getPageData().pageCount;
+			    	if(b.fireEvent("beforechange",b,a)!==false){
+			    		ignoreStore.currentPage=a;
+			    		refresh();
+			      }
+			    },
+			    moveFirst:function(){
+				    if(this.fireEvent("beforechange",this,1)!==false){
+				     	ignoreStore.currentPage=1;
+				    	refresh();
+				    }
+				  }, 
+			   	movePrevious:function(){
+			   		var b=this,a=b.store.currentPage-1;
+			   		if(a>0){
+			   			if(b.fireEvent("beforechange",b,a)!==false){
+			   				ignoreStore.currentPage=a;
+			   				refresh();
+			   			}
+			   		}
+			   	},
+			   	moveNext:function(){
+			   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+			   		if(a<=b){
+			   			if(c.fireEvent("beforechange",c,a)!==false){
+			   				ignoreStore.currentPage=a;
+			   				refresh();
+			   			}
+			   		}
+			   	},  
+			    onPagingKeyDown:function(i,h){
+			    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			    	if(b==h.RETURN){
+			    		h.stopEvent();
+			    		g=d.readPageFromInput(c);
+			        if(g!==false){
+			        	g=Math.min(Math.max(1,g),c.pageCount);
+			         	if(d.fireEvent("beforechange",d,g)!==false){
+					        //d.ignoreStore.loadPage(g)
+					        d.store.currentPage=g;
+				         	refresh();
+				        }        
+				      }
+				    }else{
+			      	if(b==h.HOME||b==h.END){
+			    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+			       	}else{
+			        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+				          h.stopEvent();g=d.readPageFromInput(c);
+				          if(g){
+				            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+				            g+=a;
+				            if(g>=1&&g<=c.pages){
+				            	i.setValue(g)
+				            }
+				          }
+			         	}
+			        }
+			      }  
+			    } 
+        }],
+  	    columns:[
+  	      {width:20},
+  	      {header:"进程名称",dataIndex:"name",width:350},
+  	      {header:"进程描述",dataIndex:"detail",width:400}
+  	    ]
+  	  });
+  	  refresh();
+		});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

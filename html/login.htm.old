@@ -1,0 +1,37 @@
+<html>
+<head>
+<META content="text/html; charset="gb2312" http-equiv=Content-Type>
+<title>新网程网络督察V5.0-(管理员)</title>
+<style type="text/css">
+<!--
+table {  font-size: 9pt}
+.coolButton2 {
+	HEIGHT: 20px; MARGIN: 1px; WIDTH: 20px
+}
+.gray1{filter:gray
+}
+.anniu {  background-color: #dfdfdf; height: 22px; width: 80px; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px; padding-top: 1px; padding-right: 1px; padding-bottom: 1px; padding-left: 1px;  font-size: 9pt; font-style: normal; font-weight: normal; color: #000000; top: 20px; clip:   rect(   )}
+-->
+
+</style>
+
+<script language="JavaScript">
+
+//-->
+</script>
+<style type="text/css">
+<!--
+.handme {  cursor: hand}
+-->
+</style>
+<link href="css/runmit.css" rel="stylesheet" type="text/css">
+</head>
+<body topMargin=0 leftmargin=0 marginheight="0" bgColor=Menu  oncontextmenu="return false" style='overflow-y:hidden;overflow-x:hidden;'>
+<script>window.status="网络督察 Version 5.0";
+    a=360;
+    b=300;
+    openwinflag=window.open('/login2.htm','RUNMIT_sbpm','left=200,top=200,width='+a+',height='+b+',fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+</script>
+</body>
+
+</html>

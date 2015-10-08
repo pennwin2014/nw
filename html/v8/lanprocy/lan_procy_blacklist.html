@@ -1,0 +1,1363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>进程日志</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<style type="text/css">
+		.option {
+    	background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+    }
+    .exp {
+    	background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+	 .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	  }
+	</style>
+      
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	<script> 
+		var blackListStore;
+		var nameListStore;
+		var blackStore;
+		var whiteStore;
+		var nameListChatStore;
+		var blackChatStore;
+		var whiteChatStore;
+		
+		var groupid = "";
+		var compid = "";
+		
+		function SetPage(){}
+		
+		function reflash(){
+			groupid = parent.groupid;
+			compid = parent.compid;
+			
+			Ext.getCmp('webgrid').setTitle(parent.dxtitle+"   黑白名单列表");
+			
+			blackListStore.load({params:{deal:"select",computeid:compid,groupid:groupid}});
+		}
+
+
+		Ext.onReady(function(){
+			function daoru(num){
+				var str = "";
+				if(num==1){
+					str = "白";
+				}else if(num==2){
+					str = "黑";
+				}
+				
+				var blackname = Ext.getCmp('webname').getRawValue();
+				if(blackname.length>0){
+					
+					var fp = Ext.create('Ext.form.Panel',{
+						items:[{
+							xtype: 'fileuploadfield',
+							name: 'filename',
+							margin: 8,
+				      fieldLabel: str+'名单文件',
+				      labelWidth: 70,
+				      msgTarget: 'side',
+				      //allowBlank: false,
+				      anchor: '100%',
+				      allowBlank: false,
+				      buttonText: '浏览'
+						}],
+						buttons:[{
+							text: "保存",
+							handler:function(btn){
+								if(fp.form.isValid()){
+  								fp.form.doAction('submit',{
+  									url:'/pronline/upload',
+  									method:'post',
+  									enctype:'multipart/form-data',
+  									waitMsg: '正在上传文件...',
+  									params:{FunName:'lan_webfileUp',UploadPath:'/home/ncmysql/nw/upload',status:num,blackname:blackname},
+  									success:function(form,action){
+  										Ext.Msg.alert('成功', '导入文件成功');
+  										btn.up('form').up('window').close();
+  										if(num==1){
+  											whiteStore.load({params:{blackname:blackname}});
+  										}else if(num==2){
+  											blackStore.load({params:{blackname:blackname}});
+  										}
+  									},
+  									failure:function(form,action){
+  										Ext.Msg.alert('失败', '导入文件失败');
+  										btn.up('form').up('window').close();
+  									}
+  								});
+  							}
+							}
+						},{
+						  text: "取消",
+						  handler:function(btn){
+						    btn.up('form').up('window').close();
+						  }
+						}]
+					});
+	
+					var win = Ext.create('Ext.window.Window',{
+						title: "导入数据",
+						layout: 'fit',
+						width: 300,
+						height:100,
+						modal: true,
+						items:fp
+					});
+					win.show();
+				}else{
+					alert("请选择黑白名单名称");
+				}
+		  }
+			
+			
+			
+			blackListStore = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['id','blackType','blackName','groupId','groupName','computeId','IP','levelremain','levelvalue'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanSearchBlackProcy',
+          reader: {
+            type:'json',
+            root: 'data'
+          },         
+		      simpleSortMode: true
+        }
+	    });
+	    
+	    nameListStore = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['id','blackName'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanSearchNameList&blacktype@web',
+          reader: {
+            type:'json',
+            root: 'data'
+          }
+        }
+	    });
+	    
+	    whiteStore = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['id','blackValue'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanSearchBlackList&blacktype@web&blackstatus@1',
+          reader: {
+            type:'json',
+            root: 'data'
+          }
+        }
+	    });
+	    
+	    blackStore = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['id','blackValue'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanSearchBlackList&blacktype@web&blackstatus@2',
+          reader: {
+            type:'json',
+            root: 'data'
+          }
+        }
+	    });
+	    
+	    nameListChatStore = Ext.create('Ext.data.Store', {
+			pageSize: 40,
+			fields:['id','blackName'],
+			proxy: {
+			  type: 'ajax',
+			  url: '/pronline/Msg?FunName@lanChatSearchNameList&blacktype@chat',
+			  reader: {
+				type:'json',
+				root: 'data'
+			  }
+			}
+	    });
+	    
+	    whiteChatStore = Ext.create('Ext.data.Store', {
+			pageSize: 40,
+			fields:['id','blackValue'],
+			proxy: {
+			  type: 'ajax',
+			  url: '/pronline/Msg?FunName@lanChatSearchBlackList&blacktype@chat&blackstatus@1',
+			  reader: {
+				type:'json',
+				root: 'data'
+			  }
+			}
+	    });
+	    
+	    blackChatStore = Ext.create('Ext.data.Store', {
+			pageSize: 40,
+			fields:['id','blackValue'],
+			proxy: {
+			  type: 'ajax',
+			  url: '/pronline/Msg?FunName@lanChatSearchBlackList&blacktype@chat&blackstatus@2',
+			  reader: {
+				type:'json',
+				root: 'data'
+			  }
+			}
+	    });
+			nameListStore.load();
+			nameListChatStore.load();
+			
+			Ext.create('Ext.panel.Panel',{
+				renderTo: Ext.getBody(),
+				layout: 'hbox',
+				width: '100%',
+				height: 570,
+				items:[{
+					xtype: 'grid',
+					title: "黑白名单列表",
+					width: '45%',
+					id: "webgrid",
+					height: '100%',
+					store: blackListStore,
+					tbar:['-','-',{
+						text: "删除",
+						handler:function(){
+							var selection =Ext.getCmp('webgrid').getSelectionModel().getLastSelected();
+							if(selection.get('levelremain')<0){
+								alert("您没有权限删除该记录");
+							}else{
+								Ext.MessageBox.confirm('确认', '确定删除该记录？', function(btn){
+									if(btn=='yes'){
+										blackListStore.load({params:{deal:"delete",id:selection.get('id'),computeid:parent.compid,groupid:parent.groupid}});
+										Ext.getCmp('webname').setRawValue("");
+										whiteStore.load({params:{blackname:"no"}});
+										blackStore.load({params:{blackname:"no"}});
+									}
+								});
+							}
+						}
+					}],
+					columns:[{
+						header: '部门',
+						dataIndex: 'groupName'
+					},{
+						header: 'IP',
+						dataIndex: 'IP'
+					},{
+						header: '名称',
+						dataIndex: 'blackName'
+					},{
+						header: '类型',
+						dataIndex: 'blackType',
+						renderer: function(value,metaData,record){
+							if(value == 'web'){
+								return "网址黑白名单";
+							}else if(value == 'chat'){
+								return "聊天黑白名单";
+							}
+						}
+					},{
+						header: '用户等级',
+						dataIndex: 'levelvalue'
+					}],
+					listeners:{
+						'select':function(thisRM,record,index,eOpts){
+							var selType = record.get('blackType');
+							//alert('您选择了'+selType);
+							if(selType == 'web'){
+								Ext.getCmp('tabBlacklist').setActiveTab('webBlacklist');
+								nameListStore.each(function(rec){
+									if(rec.get('blackName') == record.get('blackName')){
+										Ext.getCmp('webname').select(rec.get('id'));
+										var recs = new Array(rec);　
+										Ext.getCmp('webname').fireEvent('select',Ext.getCmp('webname'),recs,7);
+									}
+								});
+							}else{
+								Ext.getCmp('tabBlacklist').setActiveTab('chatBlacklist');
+								nameListChatStore.each(function(rec){
+									if(rec.get('blackName') == record.get('blackName')){
+										Ext.getCmp('chatname').select(rec.get('id'));
+										var recs = new Array(rec);　
+										Ext.getCmp('chatname').fireEvent('select',Ext.getCmp('chatname'),recs,7);
+									}
+								});
+							}							
+						}
+					}
+				},{
+					id : 'tabBlacklist',
+					xtype: 'tabpanel',
+					width: '55%',
+					height: '100%',
+					items:[{
+						id : 'webBlacklist',
+						title: "网址黑白名单",
+						layout: 'vbox',
+						width: '100%',
+						height: '100%',
+						autoScroll:true,
+						items:[{
+							xtype: 'toolbar',
+							width: '100%',
+							items:[{
+								xtype: 'combobox',
+								fieldLabel: '名称',
+								id: 'webname',
+								width: 160,
+								labelWidth:40,
+						    store: nameListStore,
+						    queryMode: 'remote',
+		        		triggerAction: 'all',
+						    displayField: 'blackName',
+						    valueField: 'id',
+						    listeners:{
+						    	'select':function(combo,records,eOpts){
+						    		whiteStore.load({params:{blackname:records[0].get('blackName')}});
+						    		blackStore.load({params:{blackname:records[0].get('blackName')}});
+						    	}
+						    }
+							},{
+								text:"增加",
+								handler: function(){
+									Ext.create('Ext.window.Window',{
+										title: "添加黑白名单名称",
+										width: 200,
+										height: 100,
+										items:[{
+											width: 160,
+											margin: 10,
+											labelWidth:40,
+											xtype: "textfield",
+											fieldLabel: '名称'
+										}],
+										buttons:[{
+											text: "保存",
+											handler: function(btn){
+											Ext.Ajax.request({
+														url: '/pronline/Msg',
+														params: {
+															FunName: "lanDealBlackList",
+															blacktype:'web',
+															deal:"insert",
+															blackname:btn.up('window').down('textfield').getValue()
+														},
+														success: function(response){
+															var text = Ext.decode(response.responseText); 
+															
+															//alert(text.value);
+															if(text.value=='failure'){
+																alert("该名称已经存在！");
+															}else{
+															  nameListStore.load();
+																alert("添加成功！");
+															}
+														}
+														});
+														
+														btn.up('window').close();
+													}
+												},{
+													text: "关闭",
+													handler: function(btn){
+														btn.up('window').close();
+													}
+												}]
+									}).show();
+								}
+							},"->",{
+							xtype: 'button',
+							margin: 5,
+							text: "应用到当前",
+							id: 'applythis',
+							handler: function(){
+								var blackname =Ext.getCmp('webname').getRawValue();
+								
+								if(blackname.length>0){
+									var selection =Ext.getCmp('webgrid').getSelectionModel().getLastSelected();
+									var flag = 0;
+									if(parent.groupid!="" || parent.compid !=""){
+										
+										blackListStore.each(function(rec){
+											if(rec.get('groupId')!="" && rec.get('groupId')==parent.groupid){
+												if(rec.get('levelremain')<0){
+													alert('您没有权限修改该黑白名单');
+													flag = 1;
+													return ;
+												}
+											}else if(rec.get('computeId')!="" && rec.get('computeId')==parent.groupid){
+												if(rec.get('levelremain')<0){
+													alert('您没有权限修改该黑白名单');
+													flag = 1;
+													return ;
+												}
+											}
+										});
+										if(flag!=1)
+											blackListStore.load({params:{deal:"update",blacktype:'web',id:selection? selection.get('id'): 0,groupid: parent.groupid,computeid:parent.compid,blackname:blackname}});
+									}else{
+										alert("当前未选中部门或机器");
+									}
+								}else{
+									alert("黑白名单名称不能为空");
+								}
+							}
+						},{
+							xtype: 'button',
+							margin: 5,
+							apply:'applyother',
+							text: "应用到其他部门",
+							handler: function(){
+								var blackname =Ext.getCmp('webname').getRawValue();
+								if(blackname){
+									Ext.create('Ext.window.Window',{
+										title: "选择部门",
+										width: 300,
+										height: 400,
+										items:[{
+											xtype: "treepanel",
+											height: 400,
+	        						rootVisible: false,
+	        						id:"webtree",
+											store: Ext.create('Ext.data.TreeStore',{
+												fields:['id','text'],
+								        proxy: {
+								          type: 'ajax',
+								          url: '/pronline/Msg?FunName@lan_group_tree_search'
+								        },
+								        root: {
+								          text: '全部',
+								          id: '0',
+								          expanded: true
+								        }
+											})
+										}],
+										buttons:[{
+											text: '保存',
+											handler: function(){
+												var blackname =Ext.getCmp('webname').getRawValue();
+												var flag = 0;
+								
+												if(blackname.length>0){
+													var selection = Ext.getCmp('webtree').getSelectionModel().getLastSelected();
+													if(selection){														
+														blackListStore.each(function(rec){
+															if(rec.get('groupId')!="" && rec.get('groupId')==selection.get('id')){
+																if(rec.get('levelremain')<0){
+																	alert('您没有权限修改该黑白名单');
+																	flag = 1;
+																	return ;
+																}
+															}
+														});
+														if(flag!=1)
+															blackListStore.load({params:{deal:"update",blacktype:'web',id: 0,groupid: selection.get('id'),computeid:"",blackname:blackname}});
+													}else{
+														alert("当前未选中部门或机器");
+													}
+												}else{
+													alert("黑白名单名称不能为空");
+												}
+											}
+										},{
+											text: '关闭',
+											handler: function(btn){
+												btn.up('window').close();
+											}
+										}]
+									}).show();
+								}else{
+									alert("黑白名单名称不能为空");
+								}
+							}
+						},'-','-']
+						},{
+							xtype: 'grid',
+							width: '100%',
+							height: 170,
+							margin: 25,
+							title: "白名单",
+							rbar:[{
+								text: "增加",
+								handler: function(){
+									var blackname =Ext.getCmp('webname').getRawValue();
+									if(blackname.length>0){
+										Ext.create('Ext.window.Window',{
+											title: "添加白名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '网址关键字'
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanDealBlackList",
+												    	blacktype:'web',
+												    	deal:"insert",
+												    	blackstatus: 1,
+												    	blackname:Ext.getCmp('webname').getRawValue(),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      whiteStore.load({params:{blackname:blackname}});
+												    		alert("添加成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("黑白名单名称不能为空");
+									}
+								}
+							},{
+								text: "修改",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.create('Ext.window.Window',{
+											title: "修改白名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '网址关键字',
+												value: selection.get('blackValue')
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanDealBlackList",
+												    	blacktype:'web',
+												    	deal:"update",
+												    	recno: selection.get('id'),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+												    	  whiteStore.load({params:{blackname:Ext.getCmp('webname').getRawValue()}});
+													      alert("修改成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("请选择要修改项");
+									}
+								}
+							},{
+								text: "删除",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.MessageBox.confirm('确认', '确定删除么', function(btn){
+											if(btn=='yes'){
+												Ext.Ajax.request({
+											    url: '/pronline/Msg',
+											    params: {
+											    	FunName: "lanDealBlackList",
+											    	blacktype:'web',
+											    	deal:"delete",
+											    	recno: selection.get('id')
+											    },
+											    success: function(response){
+											    	var text = Ext.decode(response.responseText); 
+											    	
+											    	//alert(text.value);
+											    	if(text.value=='failure'){
+											    	 	alert("该名称已经存在！");
+											    	}else{
+											    	  whiteStore.load({params:{blackname:Ext.getCmp('webname').getRawValue()}});
+											    		alert("删除成功！");
+											    	}
+											    }
+												});
+											}
+										});
+										
+									}else{
+										alert("请选择要删除项");
+									}
+								}
+							},'-',{
+								text: "导出",
+								handler:function(){
+									document.getElementById("form").deal.value='out';
+									document.getElementById("form").blackname.value=Ext.getCmp('webname').getRawValue();
+									document.getElementById("form").blackstatus.value='1';
+									document.getElementById("form").submit();
+								}
+							},{
+								text: "导入",
+								handler:function(){
+									daoru(1);
+								}
+							}],
+							store: whiteStore,
+							columns:[{
+								header: '网址关键字',
+								dataIndex: 'blackValue',
+								flex:1
+							}]
+						},{
+							xtype: 'grid',
+							width: '100%',
+							height: 170,
+							margin: "0 25 25 25",
+							title: "黑名单",
+							rbar:[{
+								text: "增加",
+								handler: function(btn){
+									var blackname =Ext.getCmp('webname').getRawValue();
+									if(blackname.length>0){
+			            	Ext.create('Ext.window.Window',{
+											title: "添加黑名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '网址关键字'
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanDealBlackList",
+												    	blacktype:'web',
+												    	deal:"insert",
+												    	blackstatus: 2,
+												    	blackname:Ext.getCmp('webname').getRawValue(),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      blackStore.load({params:{blackname:Ext.getCmp('webname').getRawValue()}});
+												    		alert("添加成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("黑白名单名称不能为空");
+									}
+								}
+							},{
+								text: "修改",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.create('Ext.window.Window',{
+											title: "修改黑名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '网址关键字',
+												value: selection.get('blackValue')
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanDealBlackList",
+												    	blacktype:'web',
+												    	deal:"update",
+												    	recno: selection.get('id'),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      blackStore.load({params:{blackname:Ext.getCmp('webname').getRawValue()}});
+												    		alert("修改成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("请选择要修改项");
+									}
+								}
+							},{
+								text: "删除",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.MessageBox.confirm('确认', '确定删除么', function(btn){
+											if(btn=='yes'){
+												Ext.Ajax.request({
+											    url: '/pronline/Msg',
+											    params: {
+											    	FunName: "lanDealBlackList",
+											    	blacktype:'web',
+											    	deal:"delete",
+											    	recno: selection.get('id')
+											    },
+											    success: function(response){
+											    	var text = Ext.decode(response.responseText); 
+											    	
+											    	//alert(text.value);
+											    	if(text.value=='failure'){
+											    	 	alert("该名称已经存在！");
+											    	}else{
+												      blackStore.load({params:{blackname:Ext.getCmp('webname').getRawValue()}});
+											    		alert("删除成功！");
+											    	}
+											    }
+												});
+											}
+										});
+									}else{
+										alert("请选择要删除项");
+									}
+								}
+							},'-',{
+								text: "导出",
+								handler:function(){
+									document.getElementById("form").deal.value='out';
+									document.getElementById("form").blackname.value=Ext.getCmp('webname').getRawValue();
+									document.getElementById("form").blackstatus.value='2';
+									document.getElementById("form").submit();
+								}
+							},{
+								text: "导入",
+								handler:function(){
+									daoru(2);
+								}
+							}],
+							store: blackStore,
+							columns:[{
+								header: '网址关键字',
+								flex: 1,
+								dataIndex: 'blackValue'
+							}]
+						}]
+					},{
+						id: 'chatBlacklist',
+						title: "聊天黑白名单",
+						hidden :true,
+						layout: 'vbox',
+						width: '100%',
+						height: '100%',
+						autoScroll:true,
+						items:[{
+							xtype: 'toolbar',
+							width: '100%',
+							items:[{
+									xtype: 'combobox',
+									fieldLabel: '名称',
+									id: 'chatname',
+									width: 160,
+									labelWidth:40,
+									store: nameListChatStore,
+									queryMode: 'remote',
+									triggerAction: 'all',
+									displayField: 'blackName',
+									valueField: 'id',
+									listeners:{
+										'select':function(combo,records,eOpts){
+											whiteChatStore.load({params:{blackname:records[0].get('blackName')}});
+											blackChatStore.load({params:{blackname:records[0].get('blackName')}});
+										}
+									}
+							},{
+								text:"增加",
+								handler: function(){
+									Ext.create('Ext.window.Window',{
+										title: "添加黑白名单名称",
+										width: 200,
+										height: 100,
+										items:[{
+											width: 160,
+											margin: 10,
+											labelWidth:40,
+											xtype: "textfield",
+											fieldLabel: '名称'
+										}],
+										buttons:[{
+											text: "保存",
+											handler: function(btn){
+											Ext.Ajax.request({
+														url: '/pronline/Msg',
+														params: {
+															FunName: "lanChatDealBlackList",
+															blacktype:'chat',
+															deal:"insert",
+															blackname:btn.up('window').down('textfield').getValue()
+														},
+														success: function(response){
+															var text = Ext.decode(response.responseText); 
+															
+															//alert(text.value);
+															if(text.value=='failure'){
+																alert("该名称已经存在！");
+															}else{
+															  nameListChatStore.load();
+																alert("添加成功！");
+															}
+														}
+														});
+														
+														btn.up('window').close();
+													}
+												},{
+													text: "关闭",
+													handler: function(btn){
+														btn.up('window').close();
+													}
+												}]
+									}).show();
+								}
+							},"->",{
+							xtype: 'button',
+							margin: 5,
+							text: "应用到当前",
+							id: 'applyChatthis',
+							handler: function(){
+								var blackname =Ext.getCmp('chatname').getRawValue();
+								
+								if(blackname.length>0){
+									var selection =Ext.getCmp('webgrid').getSelectionModel().getLastSelected();
+									var flag = 0;
+									if(parent.groupid!="" || parent.compid !=""){
+										
+										blackListStore.each(function(rec){
+											if(rec.get('groupId')!="" && rec.get('groupId')==parent.groupid){
+												if(rec.get('levelremain')<0){
+													alert('您没有权限修改该黑白名单');
+													flag = 1;
+													return ;
+												}
+											}else if(rec.get('computeId')!="" && rec.get('computeId')==parent.groupid){
+												if(rec.get('levelremain')<0){
+													alert('您没有权限修改该黑白名单');
+													flag = 1;
+													return ;
+												}
+											}
+										});
+										if(flag!=1)
+											blackListStore.load({params:{deal:"update",blacktype:'chat',id:selection? selection.get('id'): 0,groupid: parent.groupid,computeid:parent.compid,blackname:blackname}});
+									}else{
+										alert("当前未选中部门或机器");
+									}
+								}else{
+									alert("黑白名单名称不能为空");
+								}
+							}
+						},{
+							xtype: 'button',
+							margin: 5,
+							apply:'applyChatother',
+							text: "应用到其他部门",
+							handler: function(){
+								var blackname =Ext.getCmp('chatname').getRawValue();
+								if(blackname){
+									Ext.create('Ext.window.Window',{
+										title: "选择部门",
+										width: 300,
+										height: 400,
+										items:[{
+											xtype: "treepanel",
+											height: 400,
+	        						rootVisible: false,
+	        						id:"chattree",
+											store: Ext.create('Ext.data.TreeStore',{
+												fields:['id','text'],
+								        proxy: {
+								          type: 'ajax',
+								          url: '/pronline/Msg?FunName@lan_group_tree_search'
+								        },
+								        root: {
+								          text: '全部',
+								          id: '0',
+								          expanded: true
+								        }
+											})
+										}],
+										buttons:[{
+											text: '保存',
+											handler: function(){
+												var blackname =Ext.getCmp('chatname').getRawValue();
+												var flag = 0;
+								
+												if(blackname.length>0){
+													var selection = Ext.getCmp('chattree').getSelectionModel().getLastSelected();
+													if(selection){														
+														blackListStore.each(function(rec){
+															if(rec.get('groupId')!="" && rec.get('groupId')==selection.get('id')){
+																if(rec.get('levelremain')<0){
+																	alert('您没有权限修改该黑白名单');
+																	flag = 1;
+																	return ;
+																}
+															}
+														});
+														if(flag!=1)
+															blackListStore.load({params:{deal:"update",blacktype:'chat',id: 0,groupid: selection.get('id'),computeid:"",blackname:blackname}});
+													}else{
+														alert("当前未选中部门或机器");
+													}
+												}else{
+													alert("黑白名单名称不能为空");
+												}
+											}
+										},{
+											text: '关闭',
+											handler: function(btn){
+												btn.up('window').close();
+											}
+										}]
+									}).show();
+								}else{
+									alert("黑白名单名称不能为空");
+								}
+							}
+						},'-','-']
+						},{
+							xtype: 'grid',
+							width: '100%',
+							height: 170,
+							margin: 25,
+							title: "白名单",
+							rbar:[{
+								text: "增加",
+								handler: function(){
+									var blackname =Ext.getCmp('chatname').getRawValue();
+									if(blackname.length>0){
+										Ext.create('Ext.window.Window',{
+											title: "添加白名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '聊天关键字'
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanChatDealBlackList",
+												    	blacktype:'chat',
+												    	deal:"insert",
+												    	blackstatus: 1,
+												    	blackname:Ext.getCmp('chatname').getRawValue(),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      whiteChatStore.load({params:{blackname:blackname}});
+												    		alert("添加成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("黑白名单名称不能为空");
+									}
+								}
+							},{
+								text: "修改",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.create('Ext.window.Window',{
+											title: "修改白名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '聊天关键字',
+												value: selection.get('blackValue')
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanChatDealBlackList",
+												    	blacktype:'chat',
+												    	deal:"update",
+												    	recno: selection.get('id'),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+												    	  whiteChatStore.load({params:{blackname:Ext.getCmp('chatname').getRawValue()}});
+													      alert("修改成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("请选择要修改项");
+									}
+								}
+							},{
+								text: "删除",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.MessageBox.confirm('确认', '确定删除么', function(btn){
+											if(btn=='yes'){
+												Ext.Ajax.request({
+											    url: '/pronline/Msg',
+											    params: {
+											    	FunName: "lanChatDealBlackList",
+											    	blacktype:'chat',
+											    	deal:"delete",
+											    	recno: selection.get('id')
+											    },
+											    success: function(response){
+											    	var text = Ext.decode(response.responseText); 
+											    	
+											    	//alert(text.value);
+											    	if(text.value=='failure'){
+											    	 	alert("该名称已经存在！");
+											    	}else{
+											    	  whiteChatStore.load({params:{blackname:Ext.getCmp('chatname').getRawValue()}});
+											    		alert("删除成功！");
+											    	}
+											    }
+												});
+											}
+										});
+										
+									}else{
+										alert("请选择要删除项");
+									}
+								}
+							},'-',{
+								text: "导出",
+								handler:function(){
+									document.getElementById("form").deal.value='out';
+									document.getElementById("form").blackname.value=Ext.getCmp('chatname').getRawValue();
+									document.getElementById("form").blackstatus.value='1';
+									document.getElementById("form").submit();
+								}
+							},{
+								text: "导入",
+								handler:function(){
+									daoru(1);
+								}
+							}],
+							store: whiteChatStore,
+							columns:[{
+								header: '聊天关键字',
+								dataIndex: 'blackValue',
+								flex:1
+							}]
+						},{
+							xtype: 'grid',
+							width: '100%',
+							height: 170,
+							margin: "0 25 25 25",
+							title: "黑名单",
+							rbar:[{
+								text: "增加",
+								handler: function(btn){
+									var blackname =Ext.getCmp('chatname').getRawValue();
+									if(blackname.length>0){
+			            	Ext.create('Ext.window.Window',{
+											title: "添加黑名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '聊天关键字'
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanChatDealBlackList",
+												    	blacktype:'chat',
+												    	deal:"insert",
+												    	blackstatus: 2,
+												    	blackname:Ext.getCmp('chatname').getRawValue(),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      blackChatStore.load({params:{blackname:Ext.getCmp('chatname').getRawValue()}});
+												    		alert("添加成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("黑白名单名称不能为空");
+									}
+								}
+							},{
+								text: "修改",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.create('Ext.window.Window',{
+											title: "修改黑名单",
+											width: 240,
+											height: 100,
+											items:[{
+												width: 200,
+												margin: 10,
+												labelWidth:70,
+												xtype: "textfield",
+												fieldLabel: '聊天关键字',
+												value: selection.get('blackValue')
+											}],
+											buttons:[{
+												text: "保存",
+												handler: function(btn){
+						            	Ext.Ajax.request({
+												    url: '/pronline/Msg',
+												    params: {
+												    	FunName: "lanChatDealBlackList",
+												    	blacktype:'chat',
+												    	deal:"update",
+												    	recno: selection.get('id'),
+												    	blackvalue:btn.up('window').down('textfield').getValue()
+												    },
+												    success: function(response){
+												    	var text = Ext.decode(response.responseText); 
+												    	
+												    	//alert(text.value);
+												    	if(text.value=='failure'){
+												    	 	alert("该名称已经存在！");
+												    	}else{
+													      blackChatStore.load({params:{blackname:Ext.getCmp('chatname').getRawValue()}});
+												    		alert("修改成功！");
+												    	}
+												    }
+													});
+													btn.up('window').close();
+												}
+											},{
+												text: "关闭",
+												scope: this,
+	                			handler: function(btn){
+	                				btn.up('window').close();
+	                			}
+											}]
+										}).show();
+									}else{
+										alert("请选择要修改项");
+									}
+								}
+							},{
+								text: "删除",
+								handler: function(btn){
+									var selection = btn.up('grid').getSelectionModel().getLastSelected();
+									if(selection){
+										Ext.MessageBox.confirm('确认', '确定删除么', function(btn){
+											if(btn=='yes'){
+												Ext.Ajax.request({
+											    url: '/pronline/Msg',
+											    params: {
+											    	FunName: "lanChatDealBlackList",
+											    	blacktype:'chat',
+											    	deal:"delete",
+											    	recno: selection.get('id')
+											    },
+											    success: function(response){
+											    	var text = Ext.decode(response.responseText); 
+											    	
+											    	//alert(text.value);
+											    	if(text.value=='failure'){
+											    	 	alert("该名称已经存在！");
+											    	}else{
+												      blackChatStore.load({params:{blackname:Ext.getCmp('chatname').getRawValue()}});
+											    		alert("删除成功！");
+											    	}
+											    }
+												});
+											}
+										});
+									}else{
+										alert("请选择要删除项");
+									}
+								}
+							},'-',{
+								text: "导出",
+								handler:function(){
+									document.getElementById("form").deal.value='out';
+									document.getElementById("form").blackname.value=Ext.getCmp('chatname').getRawValue();
+									document.getElementById("form").blackstatus.value='2';
+									document.getElementById("form").submit();
+								}
+							},{
+								text: "导入",
+								handler:function(){
+									daoru(2);
+								}
+							}],
+							store: blackChatStore,
+							columns:[{
+								header: '聊天关键字',
+								flex: 1,
+								dataIndex: 'blackValue'
+							}]
+						}]
+					}]
+				}]
+			});
+			
+			reflash();
+		});
+
+</script>
+</head>
+	<body>
+		<form id="form" action="/pronline/Msg">
+			<input type="hidden" name="FunName" value='lanSearchBlackList'>
+			<input type="hidden" name="deal" value="">
+			<input type="hidden" name="blacktype" value="web">
+			<input type="hidden" name="groupid" value="">
+			<input type="hidden" name="blackname" value="">
+			<input type="hidden" name="blackstatus" value="">
+		</form>
+	</body>
+</html>

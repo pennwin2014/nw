@@ -1,0 +1,122 @@
+   
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>网络监视菜单</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-size: 12px;
+	color: #FFFFFF;
+}
+.style2 {
+	font-size: 12px;
+color: #00FFFF;
+font-weight:bold;
+
+}
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+-->
+</style>
+<script>
+	function chcol(flag)
+	{
+		var tdname,i;
+
+		for(i=1;i<13;i++){
+			tdname="document.all.m"+i;
+			if(i==flag)
+				 eval(tdname).className="style2";
+  	  else if(eval(tdname).className=="style2")
+  	     eval(tdname).className="style1";
+		}
+
+	}
+	
+	function goleft(t)
+	{
+	parent.frames.sbpm_left.location=t;
+	}
+	
+function go_hide()
+{
+	parent.index_left.style.display='none';
+}
+function go_show()
+{
+	parent.index_left.style.display='block';
+}
+</script>
+</head>
+
+<body  bgcolor="#eeeeee" text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" >
+ 
+<form name="form1" id="form1" method="post" action="/pronline/Msg"> 
+    <table width="100%"  border="0" align="left" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#006B92">
+        <td width="25" nowrap bgcolor="#006B92"><div align="left"><img src="images/arr.gif" width="25" height="20"></div></td>
+        <td width="3" nowrap bgcolor="#006B92"><div align="center"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="56" nowrap bgcolor="#006B92" ><a href="/pronline/Msg?FunName@ncWebShowUserStatus" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(1)"><div id="m1" class="style2">在线用户</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="78" nowrap bgcolor="#006B92" class="style1"><a href="/nc_list_onlineuser_lab.htm" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(2)"><div id="m2" class="style1">用户即时流量</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="78" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebTimeControl" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(3)"><div id="m3" class="style1">时间流量控制</div></a></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="70" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_ipmon_left.htm');go_show();chcol(4)"><div id="m4" class="style1">即时IP连接</div></a></td>
+        <td width="6" nowrap class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="76" nowrap bgcolor="#006B92" class="style1">
+          <a href="/pronline/Msg?FunName@ncWebReplace&plate@ncnewweb_00.htm" target="sbpm_right"><div id="m5" class="style1" onclick="goleft('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_webmon_left.htm');go_show();chcol(5)">即时WEB连接</div></a>
+        </div></td>
+        <td width="6" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="82" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebReplace&plate@ncwarn_mon.htm" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(6)"><div id="m6" class="style1">即时封锁信息</div></a></td>
+        <td width="7" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="80" nowrap bgcolor="#006B92" class="style1"><a href="/nc_msgwarn_lab.htm" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(7)"><div id="m7" class="style1">即时告警讯息</div></a></td>
+        <td width="7" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="78" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebCountTotalFlow&unit@日&ctype@1" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(8)"><div id="m8" class="style1">即时网络流量</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="90" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebQyeIp&userid@0" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebQyeIp&plate@tree/tree_menu.htm');go_show();chcol(9)"><div id="m9" class="style1">IP连接历史记录</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="90" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebQyehttp&userid@0" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebQyehttp&plate@tree/tree_menu.htm');go_show();chcol(10)"><div id="m10" class="style1">WEB连接历史记录</div></a></td>
+        <td width="10" nowrap bgcolor="#006B92" class="style1"><div align="left"><img src="images/whi.gif" width="1" height="28"></div></td>
+        <td width="60" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebErrNewLog&plate1@nc/nc_error_listnow.htm" target="sbpm_right" onclick="goleft('no.htm');go_hide();chcol(11)"><div id="m11" class="style1">封锁日志</div></a></td>
+        
+<td width="80" nowrap bgcolor="#006B92" class="style1"><a href="/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebNetSesLog&plate1@nc/nc_netses_listnow.htm" target="sbpm_right" onclick="goleft('/pronline/Msg?FunName@ncWebUserTree&fname@ncWebNetSesLog&plate@tree/tree_menu.htm');go_show();chcol(12)"><div id="m12" class="style1">网络会话</div></a></td>
+      </tr>
+  </table>
+</form>
+</body>
+
+</html>  

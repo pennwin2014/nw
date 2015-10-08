@@ -1,0 +1,3 @@
+cp $1/layer*.* /home/ncmysql/nc/html/
+cp $1/menu.js    /home/ncmysql/nc/html/js/
+

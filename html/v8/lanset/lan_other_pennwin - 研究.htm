@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>设置显示字段</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+	.cls_hint_area_div{
+		margin-top:2%;
+		left:0;
+		width:100%;
+		position:relative;
+	}
+	
+	.cls_hint_area{
+		text-align: left;
+		color: red;
+		font-size:11pt;
+		font-color: #ff0000;
+		left:20%;
+		width:60%;
+		position:absolute;
+	}	
+}   
+</style>
+      
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script>
+
+	<script type="text/javascript">  
+
+		function getRandom(n){
+			return Math.floor(Math.random()*n+1);
+        }
+	
+		function getTimeStr(){
+			var mydate = new Date();
+			return mydate.toLocaleString();
+		}
+		
+		function showMsg(msg){
+			var newmsg = $("#ta_hint_area").val() + '\r\n' + getTimeStr()+ '   ' + msg;
+			$("#ta_hint_area").attr("value", newmsg); 
+		}
+	
+		function insertData(){
+			Ext.Ajax.request({     
+				url: '/pronline/Msg?FunName@pennwin_set_data&num@'+getRandom(300)+'&msg@penn',  
+				method: 'GET',
+				success: function(resp,opts) {   
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					showMsg("插入数据成功");
+				},   
+				failure: function(resp,opts) {   
+					var respText = eval("("+respText+")");  
+					alert('错误', respText.error);   
+				}   				 
+			});
+		}
+		
+		$(function () { 	
+		var chart = new Highcharts.Chart({ 
+			chart: { 
+				type: 'spline',
+				renderTo: 'container'  
+			}, 
+			title: { 
+				text: '实施人流分布情况' 
+			}, 
+			xAxis: { 
+				type: 'datetime', 
+				labels: { 
+					formatter: function() { 
+						return Highcharts.dateFormat('%H:%M', this.value); 
+					} 
+				} 
+			}, 
+			yAxis: { 
+				title: { 
+					text: '采集人数（人）' 
+				}, 
+				min: 0 
+			}, 
+			tooltip: { 
+			//这种模式下，每点的tooltip单独显示 
+				shared: false, 
+				formatter: function() { 
+					var s = '<b>'+ this.point.name +'</b>'+'<br/>'+ Highcharts.dateFormat("%m/%d %H:%M:%S", this.point.x) +'   '+this.point.y +'人<br/>'; 
+					return s; 
+				}  
+			}, 
+			series: [{ 
+				name: '实时人数', 
+				data: [ 
+					{x:Date.UTC(1970, 9, 27, 0, 0, 0), y:55, name:'第1次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 0, 1, 5), y:60, name:'第2次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,5,15), y:70, name:'第3次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,5,25), y:80, name:'第4次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,5,35), y:60, name:'第5次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,15,5), y:60, name:'第6次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,25,5), y:67, name:'第7次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,35,5), y:81, name:'第8次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 1,55,5), y:78, name:'第9次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 2,5,5), y:98, name:'第10次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 3,5,5), y:84, name:'第11次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 4,5,5), y:80, name:'第12次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 5,5,5), y:80, name:'第13次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 6,5,5), y:92, name:'第14次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 7,5,5), y:49, name:'第15次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 8,5,5), y:79, name:'第16次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 9,5,5), y:73, name:'第17次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 10,5,5), y:61, name:'第18次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 11,5,5), y:76, name:'第19次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 12,5,5), y:82, name:'第20次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 13,5,5), y:84, name:'第21次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 14,5,5), y:10, name:'第22次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 15,5,5), y:19, name:'第23次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 16,5,5), y:25, name:'第24次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 17,5,5), y:55, name:'第25次采集'},
+					{x:Date.UTC(1970, 9, 27, 18,5,5), y:84, name:'第26次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 19,5,5), y:10, name:'第27次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 20,5,5), y:19, name:'第28次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 21,5,5), y:25, name:'第29次采集'}, 
+					{x:Date.UTC(1970, 9, 27, 22,5,5), y:55, name:'第30次采集'} 
+				] 
+				//,type:'column' 
+			}] 
+		}); 
+		
+		$("#btnGetData").click(function(){
+			Ext.Ajax.request({     
+						url: '/pronline/Msg?FunName@pennwin_get_data&userid@1',  
+						method: 'GET',
+						success: function(resp,opts) {   
+							var respText = resp.responseText; 
+							var respRecord = eval("("+respText+")");
+							var tmpData = [];
+							var colNum = 0;
+							var colTime = Date.UTC(1970, 9, 27, 0, getRandom(59), getRandom(59));
+							for(var i in respRecord.data){
+								colNum = parseInt(respRecord.data[i].collect_number);
+								colTime = parseInt(respRecord.data[i].collect_time);
+								var unixTimestamp = new Date(colTime * 1000);
+								var commonTime = unixTimestamp.getTime();
+								var commonOffset = unixTimestamp.getTimezoneOffset()*60000;
+								commonTime = commonTime - commonOffset;
+								//var commonTime = unixTimestamp.toLocaleString();
+								tmpData.push({x:commonTime, y:colNum, name:'第'+i+'次采集'});
+								showMsg("获取数据成功:"+respRecord.data[i].collect_number+","+respRecord.data[i].collect_time+" "+unixTimestamp+"->"+commonTime);
+							}
+							chart.series[0].setData(tmpData); 							
+						},   
+						failure: function(resp,opts) {   
+							var respText = eval("("+respText+")");
+							alert('错误', respText.error);   
+						}   				 
+					});
+		});
+	}); 
+	/*
+		$(function () {
+			// Get the CSV and create the chart
+			$.getJSON('http://www.hcharts.cn/datas/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
+
+				$('#container').highcharts({
+
+					data: {
+						csv: csv
+					},
+
+					title: {
+						text: 'Daily visits at www.highcharts.com'
+					},
+
+					subtitle: {
+						text: 'Source: Google Analytics'
+					},
+
+					xAxis: {
+						tickInterval: 7 * 24 * 3600 * 1000, // one week
+						tickWidth: 0,
+						gridLineWidth: 1,
+						labels: {
+							align: 'left',
+							x: 3,
+							y: -3
+						}
+					},
+
+					yAxis: [{ // left y axis
+						title: {
+							text: null
+						},
+						labels: {
+							align: 'left',
+							x: 3,
+							y: 16,
+							format: '{value:.,0f}'
+						},
+						showFirstLabel: false
+					}, { // right y axis
+						linkedTo: 0,
+						gridLineWidth: 0,
+						opposite: true,
+						title: {
+							text: null
+						},
+						labels: {
+							align: 'right',
+							x: -3,
+							y: 16,
+							format: '{value:.,0f}'
+						},
+						showFirstLabel: false
+					}],
+
+					legend: {
+						align: 'left',
+						verticalAlign: 'top',
+						y: 20,
+						floating: true,
+						borderWidth: 0
+					},
+
+					tooltip: {
+						shared: true,
+						crosshairs: true
+					},
+
+					plotOptions: {
+						series: {
+							cursor: 'pointer',
+							point: {
+								events: {
+									click: function (e) {
+										hs.htmlExpand(null, {
+											pageOrigin: {
+												x: e.pageX || e.clientX,
+												y: e.pageY || e.clientY
+											},
+											headingText: this.series.name,
+											maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+												this.y + ' visits',
+											width: 200
+										});
+									}
+								}
+							},
+							marker: {
+								lineWidth: 1
+							}
+						}
+					},
+
+					series: [{
+						name: 'All visits',
+						lineWidth: 4,
+						marker: {
+							radius: 4
+						}
+					}, {
+						name: 'New visitors'
+					}]
+				});
+			});
+
+		});
+	*/
+	/*
+		$(function () {			
+			var chart = new Highcharts.Chart({  
+				chart: {  
+						//将报表对象渲染到层上  
+					renderTo: 'container'  
+				},  
+				title: {
+					text: '实施人流分布情况',
+					x: -20 //center
+				},
+				xAxis: {
+					categories: ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00',
+						'07:00', '08:00', '09:00', '10:00', '11:00', '12:00']
+				},
+				yAxis: {
+					title: {
+						text: '采集人数 (人)'
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				series: [{ 
+					name: 'mac',
+					data: [29, 71, 106, 122, 140, 176, 135, 148, 216, 194, 95, 54]          
+				}]  
+			}); 
+			var time_data = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00',
+						'07:00', '08:00', '09:00', '10:00', '11:00', '12:00'];
+			function getForm(){  
+				Ext.Ajax.request({     
+						url: '/pronline/Msg?FunName@pennwin_get_data&userid@1',  
+						method: 'GET',
+						success: function(resp,opts) {   
+							var respText = resp.responseText; 
+							var respRecord = eval("("+respText+")");
+							var tmpData = [];
+							var tmpCount = 0;
+							for(var obj in respRecord.data){
+								if(tmpCount>chart.series[0].data.length){
+									break;
+								}
+								chart.series[0].removePoint(0);
+								chart.series[0].addPoint([time_data[tmpCount], respRecord.data[obj].collect_number]);
+								//tmpData.push(respRecord.data[obj].collect_number);
+								showMsg("获取数据成功:"+respRecord.data[obj].collect_number+","+respRecord.data[obj].collect_time);
+								tmpCount = tmpCount + 1;
+							}
+							//chart.series[0].setData([29, 71, 122, 140, 176, 135, 148, 216, 194, 95, 106, 34]);
+							chart.series[0].setData(tmpData); 
+							
+						},   
+						failure: function(resp,opts) {   
+							var respText = eval("("+respText+")");//Ext.util.JSON.decode(resp.responseText);   
+							alert('错误', respText.error);   
+						}   				 
+					});
+			}  
+	  
+			$("#btnGetData").click(function(){
+				getForm();
+			});
+		});  
+  */
+		Ext.require([
+			'Ext.form.*',
+			'Ext.data.*',
+			'Ext.tip.QuickTipManager'
+		]);
+
+		Ext.onReady(function() {
+			Ext.QuickTips.init();    
+		});
+
+	</script>
+    
+    
+</head>
+<body style="background-color:#DEE8FA">
+	<script src="/newver/chart/highcharts.js"></script>
+	<script src="/newver/chart/modules/funnel.js"></script>
+	<script src="/newver/chart/modules/exporting.js"></script>
+
+	<div id="container" style="min-width: 600px; max-width: 700px; height: 500px; margin: 0 auto"></div>
+	<input id="btnInsert" type="button" onclick="insertData()" value="插入数据"/>
+	<input id="btnGetData" type="button" value="获取数据"/>
+	<div class="cls_hint_area_div">
+		<textarea id="ta_hint_area" class="cls_hint_area" rows="15" cols="150" readonly="true">
+		</textarea>
+	</div>
+</body>
+</html>

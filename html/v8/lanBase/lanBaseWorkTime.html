@@ -1,0 +1,475 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>工作时间定义</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+  </style>
+  <script type="text/javascript">
+  	var timeFlag = "";
+  	var timeFreq = "";
+  	
+  	Ext.onReady(function() {
+
+  		function findIdByText(store,text){
+	    	var id = text;
+	    	
+	    	store.each(function(rec){
+	    		if(rec.get('text')==text){
+	    			id = rec.get('id');
+	    			return;
+	    		}
+	    	});
+	    	return id;
+	    }
+	    
+		  var timeFlagStore = Ext.create('Ext.data.Store', {
+	  		fields: ['id','text'],
+	  		data:[{id:'0',text:'上班'},{id:'1',text:'不上班'}]
+	  	});
+	  	
+	  	var timeFlagStore2 = Ext.create('Ext.data.Store', {
+	  		fields: ['id','text'],
+	  		data:[{id:'0',text:'上班'},{id:'1',text:'不上班'},{id:'2',text:'全部'}]
+	  	});
+	  	
+	   	var timeFreqStore = Ext.create('Ext.data.Store', {
+	  		fields: ['id','text','lower','upper'],
+	  		data:[{id:'1',text:'某天',lower:Ext.Date.format(new Date(),"Y/m/d"),upper:Ext.Date.format(new Date(),"Y/m/d")},{id:'2',text:'每周',lower:'0',upper:'6'},{id:'3',text:'每月',lower:'1',upper:'31'},{id:'4',text:'每年',lower:'1/1',upper:'12/31'}]
+	  	});
+	 
+	    var timeFreqStore2 = Ext.create('Ext.data.Store', {
+	  		fields: ['id','text','lower','upper'],
+	  		data:[{id:'0',text:'全部'},{id:'1',text:'某天',lower:Ext.Date.format(new Date(),"Y/m/d"),upper:Ext.Date.format(new Date(),"Y/m/d")},{id:'2',text:'每周',lower:'0',upper:'6'},{id:'3',text:'每月',lower:'1',upper:'31'},{id:'4',text:'每年',lower:'1/1',upper:'12/31'}]
+	  	});
+	
+			var str = parent.right_fun;
+			
+			var sm = Ext.create('Ext.selection.CheckboxModel',{
+	      listeners: {
+	        selectionchange: function(sm, selections) {
+	        	
+						if(str.indexOf('5332')!=-1){
+	        		Ext.getCmp('baseWorkTimeGrid').down('#baseWorkTimeRemove').setDisabled(selections.length == 0);   
+	        	}
+	        }
+	      }
+		  });
+			
+			Ext.define('EimData2', {
+	      extend: 'Ext.data.Model',
+	      fields: ['sid','timeFreq','timeLower','timeUpper','startTime','stopTime','timeFlag']
+	    });
+	    
+		 	var timeStore = Ext.create('Ext.data.Store', {
+	      pageSize: 40,
+	      model: 'EimData2',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_work_time_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      },
+	      listeners:{
+	      	'load':function(thisStore,records,successful,operation,eOpts){
+	      		thisStore.each(function(rec){
+	      				if(timeFreqStore.getById(rec.get('timeFreq'))!=null)
+	      					rec.set('timeFreq',timeFreqStore.getById(rec.get('timeFreq')).get('text'));
+	      				if(timeFlagStore.getById(rec.get('timeFlag'))!=null)
+	      					rec.set('timeFlag',timeFlagStore.getById(rec.get('timeFlag')).get('text'));
+	      		});
+      			thisStore.commitChanges();
+	      	}
+	      }
+	    });
+	    
+	    timeStore.load();
+	    
+    	function timeStoreReflash(){
+	    	timeFlag = Ext.getCmp('timeFlag2').getValue();
+	    	timeFreq  = Ext.getCmp('timeFreq2').getValue();
+	    	
+	    	if(timeFlag == '2' || timeFlag == '全部'){
+	    		timeFlag = "";
+	    	}
+	    	if(timeFreq == '0'){
+	    		timeFreq = "";
+	    	}
+	    	
+	    	timeStore.load({params:{
+	      	deal: "select",
+	      	timeFlag:timeFlag,
+	      	ltype:timeFreq
+	      }});
+	    }
+	    
+	    var timeRowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+	      clicksToMoveEditor: 1,
+	      autoCancel: false,
+	      saveBtnText: '保存',   
+		    cancelBtnText: '取消',   
+		    errorsText: '错误信息',   
+		    dirtyText: '已修改,你需要提交或取消变更',
+		    completeEdit: function() {   
+	        var me = this;   
+	        
+	        var sid = "";
+	        var deal = "";
+	        var ltype = "";
+	        var timeLower = "";
+	        var timeUpper = "";
+	        var startTime = "";
+	        var stopTime = "";
+	        var flag = "";
+	        
+	        flag = findIdByText(timeFlagStore,Ext.getCmp('timeFlag').getValue());
+	        //alert('flag'+flag);
+	        ltype = findIdByText(timeFreqStore,Ext.getCmp('timeFreq').getValue());
+	        timeLower = Ext.getCmp('timeLower').getValue();
+	        timeUpper = Ext.getCmp('timeUpper').getValue();
+	        startTime = Ext.getCmp('startTime').getValue();
+	        stopTime  = Ext.getCmp('stopTime').getValue();
+	        
+	        if (me.editing && me.validateEdit()) {
+	        	  
+	          me.editing = false;   
+	          me.fireEvent('edit', me.context);   
+	        }   
+	        me.adding = false;
+	        
+	        if(me.context.record.data.sid==""){
+	        	deal = "insert";
+	        }else{
+	        	deal = "update";
+	        	sid = me.context.record.data.sid;
+	        }
+	        timeStore.currentPage=1; 
+	        timeStore.load({params:{
+	        	deal: deal,
+	        	sid:sid,
+	        	ltype:ltype,
+	        	llower:timeLower,
+	        	lupper:timeUpper,
+	        	startTime:startTime,
+	        	stopTime:stopTime,
+	        	timeFlag:flag
+	        }});
+	        Ext.getCmp('timeFlag2').select('2');
+	        Ext.getCmp('timeFreq2').select('0');
+				},
+				cancelEdit: function(){
+	        var me = this; 
+	 
+	        if (me.editing) {   
+	          me.getEditor().cancelEdit();   
+	          me.editing = false;   
+	          me.fireEvent('canceledit', me.context);    
+	          if (me.autoRecoverOnCancel){ 
+	            var tmpid=me.context.record.data.sid;
+	            if((!tmpid)){  	 
+	                me.context.record.store.remove(me.context.record);   
+	                me.adding = false;
+	            }else{   
+	                //不需要reject,因为Editor没有更改record.   
+	                //me.context.record.reject()   
+	            }   
+	          }
+	        	timeStore.load();   
+	        }    
+	    	}   
+	    });
+	    
+		  Ext.create('Ext.grid.Panel',{
+				width: '100%',
+				height: '100%',
+				id:     'baseWorkTimeGrid',
+				renderTo:Ext.getBody(),
+				store: timeStore,
+				selModel: sm,
+				plugins: timeRowEditing,
+				columns:[{
+          text: "sid",
+					dataIndex:	'sid'	,
+					hidden:			true
+				},{
+          text:"时间频率",
+          dataIndex: 'timeFreq',
+          hidden: false,
+          sortable: true,
+          editor: {
+          	xtype: 'combobox',
+          	id : 'timeFreq',
+          	triggerAction: 'all',
+          	value: '1',
+          	valueField:'id',
+        		displayField: 'text',
+        		store: timeFreqStore,
+        		blankText: '时间频率为必选项',
+        		allowBlank: false,
+        		listeners:{
+        			'change': function(thisField,newValue,oldValue,eOpts){
+        				Ext.getCmp('timeLower').setValue(timeFreqStore.getById(newValue).get('lower'));
+        				Ext.getCmp('timeUpper').setValue(timeFreqStore.getById(newValue).get('upper'));
+        			}
+        		}
+          }
+        },{
+          text: "时间下限",
+          dataIndex: 'timeLower',
+          sortable: true,
+          flex:1,
+          editor: {
+          	xtype: 'textfield',
+          	id:   'timeLower'
+          }
+        },{
+          text: "时间上限",
+          dataIndex: 'timeUpper',
+          sortable: true,
+          flex:1,
+          editor: {
+          	xtype: 'textfield',
+          	id:   'timeUpper'
+          }
+        },{
+          text: "上班时间",
+          dataIndex: 'startTime',
+          sortable: true,
+          flex:1,
+          editor: {
+          	xtype: 'textfield',
+          	id:   'startTime',
+            allowBlank:false,
+          	regex: /^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+          	regexText: "请输入正确的时间格式：8:30:00"
+          }
+        },{
+          text: "下班时间",
+          dataIndex: 'stopTime',
+          sortable: true,
+          flex:1,
+          editor: {
+          	xtype: 'textfield',
+          	id:   'stopTime',
+            allowBlank:false,
+        		regex: /^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+        		regexText: "请输入正确的时间格式：17:30:00"
+          }
+        },{
+          text:"上下班状态",
+          dataIndex: 'timeFlag',
+          hidden: false,
+          sortable: true,
+          flex:1,
+          editor: {
+          	xtype: 'combobox',
+          	id : 'timeFlag',
+          	triggerAction: 'all',
+          	valueField:'id',
+          	value:  '1',
+        		displayField: 'text',
+        		store: timeFlagStore,
+        		allowBlank: false
+          }
+        }],
+        tbar: [{
+        	xtype: 'pagingtoolbar',
+        	store: timeStore,
+        	border: 0,
+        //	displayInfo: true,
+        //  displayMsg: '显示{0} - {1}条记录 共{2}条',
+        //  emptyMsg: '没有记录可显示',
+          doRefresh:function(){  
+			    	timeStoreReflash();
+			    },
+			    moveLast:function(){
+			    	var b=this,a=b.getPageData().pageCount;
+			    	if(b.fireEvent("beforechange",b,a)!==false){
+			    		timeStore.currentPage=a;
+			    		timeStoreReflash();
+			      }
+			    },
+			    moveFirst:function(){
+				    if(this.fireEvent("beforechange",this,1)!==false){
+				     	timeStore.currentPage=1;
+				    	timeStoreReflash();
+				    }
+				  }, 
+			   	movePrevious:function(){
+			   		var b=this,a=b.store.currentPage-1;
+			   		if(a>0){
+			   			if(b.fireEvent("beforechange",b,a)!==false){
+			   				timeStore.currentPage=a;
+			   				timeStoreReflash();
+			   			}
+			   		}
+			   	},
+			   	moveNext:function(){
+			   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+			   		if(a<=b){
+			   			if(c.fireEvent("beforechange",c,a)!==false){
+			   				timeStore.currentPage=a;
+			   				timeStoreReflash();
+			   			}
+			   		}
+			   	},  
+			    onPagingKeyDown:function(i,h){
+			    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			    	if(b==h.RETURN){
+			    		h.stopEvent();
+			    		g=d.readPageFromInput(c);
+			        if(g!==false){
+			        	g=Math.min(Math.max(1,g),c.pageCount);
+			         	if(d.fireEvent("beforechange",d,g)!==false){
+					        //d.timeStore.loadPage(g)
+					        d.store.currentPage=g;
+				         	timeStoreReflash();
+				        }        
+				      }
+				    }else{
+			      	if(b==h.HOME||b==h.END){
+			    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+			       	}else{
+			        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+				          h.stopEvent();g=d.readPageFromInput(c);
+				          if(g){
+				            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+				            g+=a;
+				            if(g>=1&&g<=c.pages){
+				            	i.setValue(g)
+				            }
+				          }
+			         	}
+			        }
+			      }  
+			    } 
+        },{
+        	xtype: 'combobox',
+        	id:   'timeFreq2',
+        	width: 150,
+        	fieldLabel: '时间',
+        	labelWidth: 40,
+        	triggerAction: 'all',
+        	value :'0',
+        	valueField:'id',
+        	displayField: 'text',
+        	store:timeFreqStore2,
+      		listeners:{
+      			'change': function(thisField,newValue,oldValue,eOpts){
+      				//Ext.getCmp('timeLower2').setValue(timeFreqStore2.getById(newValue).get('lower'));
+      				//Ext.getCmp('timeUpper2').setValue(timeFreqStore2.getById(newValue).get('upper'));
+      				timeFreq = newValue;
+      				timeStore.currentPage=1;
+      				timeStoreReflash();
+        		}
+      		}
+        },{
+        	xtype: 'combobox',
+        	fieldLabel: '上班',
+        	id:				'timeFlag2',
+        	labelWidth: 60,
+        	triggerAction: 'all',
+        	valueField:'id',
+        	value: '全部',
+        	queryMode: 'local',
+      		displayField: 'text',
+      		store: timeFlagStore2,
+      		listeners:{
+      			'change': function(thisField,newValue,oldValue,eOpts){
+      				timeFlag = newValue;
+      				timeStore.currentPage=1;
+      				timeStoreReflash();
+      			}
+      		}
+        },{
+        	xtype: 'button',
+        	text:  '添加',
+					iconCls:'add',
+					id: "addworktime",
+        	handler: function(){
+        	//添加时间数据方法
+        		var timeLower = timeFreqStore.getById('1').get('lower');
+        		var timeUpper = timeFreqStore.getById('1').get('upper');
+        		var startTime = "";
+        		var stopTime = "";
+        		timeFlag = "上班";
+        		timeFreq = "某天";
+      			startTime = "08:30:30";
+      			stopTime = "17:30:30";
+        		timeRowEditing.cancelEdit();
+        		
+        		timeCell = Ext.create('EimData2', {
+        			timeFreq:	 timeFreq,
+        			timeLower: timeLower,
+        			timeUpper: timeUpper,
+        			startTime: startTime,
+        			stopTime:  stopTime,
+        			timeFlag: timeFlag
+        		});
+        		timeStore.insert(0, timeCell)
+        		timeRowEditing.startEdit(0, 0);
+        	}
+        },{
+        	xtype: 'button',
+        	text:  '删除',
+					iconCls:'remove',
+					id: 'baseWorkTimeRemove',
+					disabled: true,
+        	handler: function(){
+        	//删除时间数据方法
+        		Ext.Msg.show({
+      				title:"提示",
+      				msg:"您确定要删除这个工作时间？",
+      				modal:true,
+      				buttons:Ext.Msg.YESNO,	      				
+      				fn:function(btn){
+      					if(btn == 'yes'){
+      						var rows=sm.getSelection();
+									for(var i=0;i<rows.length;i++){
+		              	if(i==0){
+		              		selsid=rows[i].get('sid');
+		              	}else{
+		                	selsid=selsid+","+rows[i].get('sid');
+		                }
+									}
+									//Ext.Msg.alert('删除','删除了'+selsid);
+									timeStore.currentPage=1;
+									timeStore.load({params:{
+					        	deal: 'delete',
+					        	sid:selsid
+					        }});
+					      }
+      				},
+      				icon: Ext.Msg.QUESTION
+      			}).setPosition(300,100);
+        	}
+        }]
+			});
+			
+			if(str.indexOf('5331')==-1){
+		  	Ext.getCmp('addworktime').setDisabled(true);
+	    }
+		});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>Tabs Example</title>
+    <style type="text/css">
+  
+ .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+    .check1 {
+    background-image: url(/images/large/leaf2.png) !important;
+} 	 
+	.check2 {
+    background-image: url(/images/large/leaf4.png) !important;
+} 	
+    
+      *{font-size:12px!important;}
+    .page{margin:0 auto;width:[#swidth#]px;background-color:#E9F2FC;overflow:hidden; border:1px solid #D4E0F5;}
+  </style>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+        <script type="text/javascript">
+        	var tabs_gdrz;
+        	function clicknode(id,did,fcod,lb,i){
+			//		alert("number"+number);
+					parent.passid(id,did,i);
+					if(fcod!=''||lb!=''){
+						parent.passcode(fcod,lb);
+				  }
+					parent.doreflashTab();				
+		 	 		
+				}
+        	
+    Ext.require(['Ext.tab.*']);
+
+	var number=0;
+	var name = new Array();
+			
+    Ext.onReady(function(){
+	Ext.define("TreeTest",{
+	extend:"Ext.data.Model",
+	fields:["text","url"]
+	});
+	var treeStore = Ext.create("Ext.data.TreeStore",{
+		model:'TreeTest',
+		proxy:{type:'ajax',
+				url:'/v4/neiwang/tree.js'},		
+		root:{
+			text:'部门',
+			id:'0',
+			expanded:true
+			},
+		folderSort: true
+		/*
+		,
+        sorters: [{
+            property: 'url',
+            direction: 'ASC'
+        }]
+			*/
+	});	
+	var sid;
+	var ip;
+	var gid;
+	var gip;
+	var i;
+	var mainTree = Ext.create("Ext.tree.Panel",{
+		//title:'部门树',
+		width:400,
+		height:900,
+		renderTo:'keytree',
+	//	expanded:true,
+		rootVisible:false,
+	//	selModel:Ext.tree.MultiSelectionModel, 
+		//useArrows:true,
+		store:treeStore,
+		
+		 listeners:{
+		 checkchange:function(node, checked, eOpts){
+        // 	alert(checked);
+		//	number++;
+		//	alert("number = "+number);
+			
+		//	number--;
+			if(node.isLeaf()){
+			sid=node.get('text');
+		//	alert("text"+sid);
+			ip = node.get('url');
+		//	alert("url"+ip);
+			
+			if(checked){ 
+				if(number >= 9){
+				node.set('checked',false);
+				node.set('iconCls', 'check1');
+				//number--;
+				alert('最多选择九个');
+				}
+				else{
+				
+			//	sidhtml = '<font  id = "name'+ i+'"color = "red">'+sid+'</font>';	
+			//	node.set('text', sidhtml);
+				node.set('iconCls', 'check2');
+					for(i=0;i<number;i++){
+					if(name[i] == ''){
+					name[i]=sid;
+				//	alert("name" + name[i]);
+					break;
+					}
+					}
+					if(i==number){
+					name[number]=sid;
+					}
+					number++;
+					clicknode(sid,ip,'','',i);
+				
+				}
+				}
+			else{
+			
+		//	alert(Ext.getDom('name1').innerHTML);
+		//	node.set('text', Ext.getDom('name1').innerHTML);
+			node.set('iconCls', 'check1');
+				for(i=0;i<number;i++){
+				if(name[i] == sid){
+					name[i]='';
+				//	alert('delete name');
+					break;
+				}
+				}
+				number--;
+				clicknode('0','0','','',i);
+			}
+			
+         	//  clicknode(sid,ip,'','');
+			}  
+			
+			if(node.isExpandable()){
+			var gid=node.get('text');
+		//	alert("text"+sid);
+			var gip = node.get('url');
+		//	alert("url"+ip);
+			
+			if(checked){
+			if(number >= 9){
+			node.set('checked',false);
+			node.set('iconCls', 'check1');
+			number--;
+			alert('最多选择九个');
+			}
+			else{			
+			gidhtml = '<font  id = "department" color = "red">'+gid+'</font>';	
+			node.set('text', gidhtml);
+		//	node.set('iconCls', 'check2');
+			}
+			}
+			else{
+			
+		//	alert(Ext.getDom('name1').innerHTML);
+			node.set('text', Ext.getDom('department').innerHTML);
+		//	node.set('iconCls', 'check1');
+		//	clicknode('','',gid,gip);
+		
+			}	 
+			}	
+
+		 }
+        },  
+		
+		/*
+		 listeners:{selectionchange:function (abc, selected, eOpts){ 
+		// alert("number"+number);
+		 if(selected[number].isLeaf()){
+			sid=selected[number].get('text');
+		//	alert("text"+sid);
+			ip = selected[number].get('url');
+		//	alert("url"+ip);
+		 
+		 }
+		 }
+		 
+		 },
+		 */
+			columns:[{xtype:'treecolumn',dataIndex:'text',text:'部门', width: 120},
+					{dataIndex:'url',text:'IP',width: 120}]	
+	});
+
+});
+
+        </script> 
+</head>
+<body>
+    <div id="keytree">
+
+    </div>
+    	    
+  
+   
+</body>
+</html>

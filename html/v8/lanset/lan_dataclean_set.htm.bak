@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>设置显示字段</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+
+      Ext.define('globparm', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'StartClean',type: 'string'},
+            {name: 'CleanupTime',type: 'string'},
+            {name: 'InstantKeepMon',type: 'string'},
+            {name: 'InstantBakKeep',type: 'string'},
+            {name: 'ScreenKeepMon',type: 'string'},
+            {name: 'ScreenBakKeep',type: 'string'},
+            {name: 'WebKeepMon',type: 'string'},
+            {name: 'WebBakKeep',type: 'string'},
+            {name: 'ProcKeepMon',type: 'string'},
+            {name: 'ProcBakKeep',type: 'string'},
+            {name: 'DevKeepMon',type: 'string'},
+            {name: 'DevBakKeep',type: 'string'},
+            {name: 'FileKeepMon',type: 'string'},
+            {name: 'FileBakKeep',type: 'string'},
+            {name: 'WarnKeepMon',type: 'string'},
+            {name: 'WarnBakKeep',type: 'string'}
+        ]
+    });
+
+    var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        title   : '数据存储参数设置',
+        autoHeight: true,
+        width   : 600,
+        height:400,
+        bodyPadding: 10,
+        frame:true,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items   : [
+           
+            {
+                xtype: 'fieldset',
+                title:'',
+                layout: 'hbox',
+                defaults: {
+                    flex: 1,
+                    labelWidth: 110,
+                   
+                    hideLabel: false
+                },
+                items: [
+                       {                              
+                                width:          50,
+                                xtype:          'combo',
+                                mode:           'local',
+                                value:          'mrs',
+                                triggerAction:  'all',
+                                forceSelection: true,
+                                editable:       false,
+                                fieldLabel:     '启动自动整理功能',
+                                name:           'StartClean',
+                                displayField:   'name',
+                                valueField:     'value',
+                                queryMode: 'local',
+                                store:          Ext.create('Ext.data.Store', {
+                                    fields : ['name', 'value'],
+                                    data   : [
+                                        {name : '启动',   value: 'Yes'},
+                                        {name : '停止',  value: 'No'}
+                                    ]
+                                })
+                            },
+                    {
+                        xtype     : 'textfield',
+                        name      : 'CleanupTime',
+                        margins: '0 0 0 10',
+                        fieldLabel: '每天整理时间',
+                       labelWidth: 80,
+                        allowBlank: false
+                    }
+                ]
+            },
+            {
+                xtype: 'fieldset',
+                title: '数据保存时间',
+                collapsible: true,
+                defaults: {
+                    labelWidth: 89,
+                    anchor: '100%',
+                    layout: {
+                        type: 'hbox',
+                        defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+                    }
+                },
+                items: [
+                    {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '聊天记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '聊天日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'InstantKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '聊天备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'InstantBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    },
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '屏幕记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '屏幕日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'ScreenKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '屏幕备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'ScreenBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }
+                    
+                    ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '网站访问记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '网站日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'WebKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '网站备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'WebBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }                    
+                     ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '进程使用记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '进程日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'ProcKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '进程备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'ProcBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }
+                     ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '外设使用记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '外设日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'DevKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '外设备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'DevBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }
+                     ,                   ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '文件操作记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '文件日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'FileKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '文件备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'FileBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }
+                   ,                      ,                   ,                   ,
+                     {
+                        xtype: 'fieldcontainer',
+                       fieldLabel: '告警记录',
+                        defaults: {
+                            hideLabel: true
+                        },
+                        items: [
+                            {xtype: 'displayfield', value: '告警日志'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'WarnKeepMon', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20},
+                            {xtype: 'displayfield', width:90,value: '告警备份文件', margin:'0 0 0 20'},
+                            {xtype: 'numberfield',    fieldLabel: '', name: 'WarnBakKeep', width: 60},
+                            {xtype: 'displayfield', value: '(月)',width:20}
+                           
+                        ]
+                    }
+                ]
+            }
+
+            
+            
+            
+            
+            
+            
+        ],
+        buttons: [
+            {
+                text   : '保存',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanCleanParmSet_Save'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                 alert(action.result.success);
+                 }   
+                 })
+
+                }
+            },
+            {
+                text   : '手动立即执行',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanCleanParmSet_Save',app:'app'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+      //           store.load();
+                
+                 }   
+                 })
+
+                }
+            }
+        ]
+    });
+    
+       //初始化  
+       var store = Ext.create('Ext.data.Store', {
+        model: 'globparm',
+        autoLoad: true,
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanCleanParmSet',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        listeners:{'load':function(){      
+        	form.loadRecord(this.getAt(0));
+        	}}
+    });
+    
+    
+    
+});
+</script>
+    
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

@@ -1,0 +1,651 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>实时聊天</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+        background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+	    
+	 .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+	  height: 16px !important;
+	  line-height: 16px;
+	  }
+	</style>
+  <script type="text/javascript">
+		var bStart=1;
+		var compId ="";
+		var groupId = "";
+		var keyWords = ""
+		var chatStore,chatDetail;
+		
+		var myAccount = "";
+		var oldMyAccount = "gh";
+		var friendAccount = "";
+		var oldFriendAccount = "gh";
+		var styleId = "";
+		var oldTime = "1900/12/21&12:56:55";
+		
+		var server = "";
+		
+	  function SetPage(){
+    	chatStore.currentPage=1;
+  		keyWords = ""
+			myAccount = "";
+			friendAccount = "";
+								
+			oldMyAccount = "gh";
+			oldFriendAccount = "gh";
+    }
+    
+    Ext.define('EimData', {
+      extend: 'Ext.data.Model',
+      fields: ['sip','myAccount','friendAccount','myAccount16','friendAccount16','server','mfrom','mto','stime','mesg']
+    });
+    
+   	chatStore = Ext.create('Ext.data.Store', {
+      pageSize: 40,
+      model: 'EimData',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_chat_search',
+        reader: {
+          type:'json',
+          root: 'eimdata',
+          totalProperty: 'totalCount'
+        },         
+        simpleSortMode: true
+      }
+    });
+    
+		function reflash(){
+			groupId=parent.groupid;
+			compId=parent.compid;
+			chatRefresh();
+			chatDetailRefresh();
+			Ext.getCmp('chatDetail').setTitle("聊天内容");			  					
+		}
+		
+		function chatDetailRefresh(){
+			oldTime = "1900/12/21 12:56:55";
+			chatDetail.load({params:{myAccount:myAccount,friendAccount:friendAccount}});
+		}
+		
+		function chatRefresh(){
+			chatStore.load({params:{groupId:groupId,compId:compId,keywords:keyWords,styleId:styleId,server:server}});
+		}
+
+	Ext.onReady(function() { 
+
+		Ext.define('Image', {
+   		extend: 'Ext.data.Model',
+    	fields: ['color','account','time','mesg']
+		});
+	 chatDetail = Ext.create('Ext.data.Store', {
+			pageSize: 30,
+    	id:'imagesStore',
+	    remoteSort: true,
+	    model: 'Image', 
+	    proxy: {
+	      type: 'ajax',
+	      url: '/pronline/Msg?FunName@lan_chat_detail_search',
+	      reader: {
+	        type:'json',
+	        root: 'eimdata',
+	        totalProperty: 'totalCount'
+	      }
+	    }
+		});
+
+		var imageTpl = new Ext.XTemplate(
+    	'<br>',
+      '<tpl for=".">',
+      '<div>',
+      '<tpl if="this.isSame(time)">',
+      '<p align = "center">------------{[this.cutStr(values.time)]}------------</p><br>',
+      '</tpl>',
+      '<p><font color="{color}">&nbsp&nbsp{account} &nbsp&nbsp{time}</font></p>',
+      '<p>&nbsp&nbsp&nbsp&nbsp·&nbsp{mesg}</p><br>',
+      '</div></tpl>',
+      {
+        isSame: function(time){
+        	var ot = oldTime.split(' ');
+        	var t = time.split(' ');
+        	if(ot[0] == t[0]){
+        		return 0>1;
+        	}
+        	else{
+        		oldTime = time;
+        		return 0<1;
+        	}
+        },
+        cutStr:function(time){
+        	var t = time.split(' ');
+        	return t[0];	
+        }
+      }
+		);
+
+		var myView = Ext.create('Ext.view.View', {
+	    store: Ext.data.StoreManager.lookup('imagesStore'),
+	    tpl: imageTpl,
+	    itemSelector: 'div.thumb-wrap',
+	    loadMask: false
+		});
+
+		var chatListStore = Ext.create('Ext.data.TreeStore', {
+      proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lan_RTC_monitor_node_search'
+      },
+     	fields:["id","text"]
+  	});
+  	//chatRefresh();
+  	
+  	
+  	var toolStore = Ext.create('Ext.data.Store', {
+  		fields:['id','text'],
+  		data:[
+  			{id: 0,text:"全部"},
+  			{id: 1001,text:"QQ"},
+  			{id: 1002,text:"阿里旺旺"},
+  			{id: 1003,text:"SKYPE"},
+  			{id: 1004,text:"飞信"},
+  			{id: 1005,text:"新浪UC"}
+  		]
+  	});
+
+		Ext.create('Ext.tab.Panel', {
+			renderTo:Ext.getBody(),
+      height: '100%',
+      split: 	true,
+  		items:	[{
+  			title: '聊天窗口方式',
+  			id:		'style1',
+  			height: '100%',
+  			layout:'hbox',
+  			items:[{
+  				xtype: 'grid',
+	      	id:		 'chatGrid',
+  				width:	'55%',
+	  			scrollOffset: 0,
+	        height: '100%',
+	        margins: '0',
+	        store: chatStore,
+	        tbar:[{
+	        	xtype: 'pagingtoolbar',
+	          store: chatStore,
+	          border: '0',
+	        //  displayInfo: true,
+	        //  displayMsg: '显示{0} - {1}条记录 共{2}条',
+	        //  emptyMsg: '没有记录可显示',
+	          doRefresh:function(){  
+				    	chatRefresh();
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		chatStore.currentPage=a;
+				    		chatRefresh();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	chatStore.currentPage=1;
+					    	chatRefresh();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				chatStore.currentPage=a;
+				   				chatRefresh();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				chatStore.currentPage=a;
+				   				chatRefresh();
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.chatStore.loadPage(g)
+						        d.store.currentPage=g;
+					         	chatRefresh();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+					},"-",{
+						xtype: 'combobox',
+						fieldLabel: '聊天工具',
+						labelWidth: 60,
+						width: 150,
+						valueField:'id',
+						value: 0,
+						displayField: 'text',
+						allowBlank: true,
+						editable: false,
+						store: toolStore,
+						triggerAction: 'all',
+						typeAhead: true,
+						listeners:{
+							'change':function(thisField,newValue,oldValue,eOpts){
+								if(newValue==0){
+									server = "";
+								}else{
+									server = newValue;
+								}
+								chatRefresh();
+							}
+						}
+					},"-",{
+        		width:  150,
+        		labelWidth: 35,
+            fieldLabel:'搜索',
+            xtype: 'textfield',
+            id:   'keyWords',
+            emptyText: '输入账号/内容/ip关键字'
+          },{
+            iconCls:'accept',
+            handler: function(){
+          	//加载函数
+          	//	alert(Ext.getCmp('keyWords').value);
+          		keyWords = Ext.getCmp('keyWords').value;
+          		myAccount = "";
+							friendAccount = "";
+							oldMyAccount = "gh";
+							oldFriendAccount = "gh";
+							
+          		chatRefresh();
+          		chatDetailRefresh();
+          	}
+          }],
+	        columns:[{
+            dataIndex: 'server',           
+            width: "5%",
+            renderer: function(value,metaData,record){
+            	if(value == 1001){
+            		value='<img src="/v8/images/icon/QQ.jpg"/>';
+            	}else if(value == 1002){
+            		value='<img src="/v8/images/icon/WW.jpg"/>';
+            	}
+            	return value;
+            }
+	        },{
+            text: "IP地址",
+            dataIndex: 'sip',           
+            width: "33%",
+            sortable: true
+	        },{
+            text:"我的账号",
+            dataIndex: 'myAccount',
+            hidden: false,           
+            width: "33.5%",
+            sortable: true
+	        },{
+            text: "好友账号",
+            dataIndex: 'friendAccount',           
+            width: "33%",
+            sortable: true
+	        }],
+	        columnLines: true,
+	        viewConfig:{
+	        	loadMask : false
+	        },
+	  			listeners:{
+	  				'selectionchange': function(sm, selectedRecord) {
+			        if (selectedRecord.length) {
+			        	myAccount = selectedRecord[0].get('myAccount16');
+			        	friendAccount = selectedRecord[0].get('friendAccount16');
+			        	Ext.getCmp('chatDetail').setTitle(selectedRecord[0].get('myAccount')+" 与 "+selectedRecord[0].get('friendAccount')+" 聊天内容");
+			  //      	chatDetail.currentPage = 1;
+			  //      	chatDetailRefresh(); 
+			        	if(oldMyAccount != myAccount || oldFriendAccount != friendAccount){
+			        		chatDetail.currentPage = 1;
+			        		oldMyAccount = myAccount;
+			        		oldFriendAccount = friendAccount;
+			        		chatDetailRefresh();
+			        	}	  	
+			        }
+			      }
+	  			}
+  			},{
+  				xtype: 'panel',
+  				width:	'45%',
+  				height: '100%',
+		      layout:	'fit',
+		  		title:	'聊天内容',
+		  		id:			'chatDetail',
+		  		autoScroll: true,
+		      margins: '0',
+		      tbar:		[{
+		  			xtype: 'pagingtoolbar',
+		  			border: '0',
+		        store: chatDetail,
+		    //    displayInfo: true,
+		    //    displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+		    //    emptyMsg: '没有记录可显示',
+		        doRefresh:function(){  
+				    	chatDetailRefresh();	
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		chatDetail.currentPage=a;
+				    		chatDetailRefresh();	
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	chatDetail.currentPage=1;
+					    	chatDetailRefresh();	
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				chatDetail.currentPage=a;
+				   				chatDetailRefresh();	
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				chatDetail.currentPage=a;
+				   				chatDetailRefresh();	
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.chatDetail.loadPage(g)
+						        d.store.currentPage=g;
+					         	chatDetailRefresh();	
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();
+					          g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+		  		}],
+		  		items:	myView
+  			}]
+  		},{
+      	title: '聊天列表方式',
+      	xtype: 'grid',
+      	id:		 'style2',
+        height: '100%',
+        margins: '0',
+        store: chatStore,
+        tbar:[{
+        	xtype: 'pagingtoolbar',
+        	border: '0',
+          store: chatStore,
+        //  displayInfo: true,
+        //  displayMsg: '显示{0} - {1}条记录 共{2}条',
+        //  emptyMsg: '没有记录可显示',
+          doRefresh:function(){  
+			    	chatRefresh();
+			    },
+			    moveLast:function(){
+			    	var b=this,a=b.getPageData().pageCount;
+			    	if(b.fireEvent("beforechange",b,a)!==false){
+			    		chatStore.currentPage=a;
+			    		chatRefresh();
+			      }
+			    },
+			    moveFirst:function(){
+				    if(this.fireEvent("beforechange",this,1)!==false){
+				     	chatStore.currentPage=1;
+				    	chatRefresh();
+				    }
+				  }, 
+			   	movePrevious:function(){
+			   		var b=this,a=b.store.currentPage-1;
+			   		if(a>0){
+			   			if(b.fireEvent("beforechange",b,a)!==false){
+			   				chatStore.currentPage=a;
+			   				chatRefresh();
+			   			}
+			   		}
+			   	},
+			   	moveNext:function(){
+			   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+			   		if(a<=b){
+			   			if(c.fireEvent("beforechange",c,a)!==false){
+			   				chatStore.currentPage=a;
+			   				chatRefresh();
+			   			}
+			   		}
+			   	},  
+			    onPagingKeyDown:function(i,h){
+			    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			    	if(b==h.RETURN){
+			    		h.stopEvent();
+			    		g=d.readPageFromInput(c);
+			        if(g!==false){
+			        	g=Math.min(Math.max(1,g),c.pageCount);
+			         	if(d.fireEvent("beforechange",d,g)!==false){
+					        //d.chatStore.loadPage(g)
+					        d.store.currentPage=g;
+				         	chatRefresh();
+				        }        
+				      }
+				    }else{
+			      	if(b==h.HOME||b==h.END){
+			    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+			       	}else{
+			        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+				          h.stopEvent();g=d.readPageFromInput(c);
+				          if(g){
+				            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+				            g+=a;
+				            if(g>=1&&g<=c.pages){
+				            	i.setValue(g)
+				            }
+				          }
+			         	}
+			        }
+			      }  
+			    } 
+				},"-",{
+						xtype: 'combobox',
+						fieldLabel: '聊天工具',
+						labelWidth: 60,
+						width: 150,
+						valueField:'id',
+						value: 0,
+						editable: false,
+						displayField: 'text',
+						allowBlank: true,
+						store: toolStore,
+						triggerAction: 'all',
+						typeAhead: true,
+						listeners:{
+							'change':function(thisField,newValue,oldValue,eOpts){
+								if(newValue==0){
+									server = "";
+								}else{
+									server = newValue;
+								}
+								chatRefresh();
+							}
+						}
+				},{
+      		width:  200,
+      		labelWidth: 40,
+          fieldLabel:'搜索',
+          xtype: 'textfield',
+          id:   'keyWords2',
+          emptyText: '输入员工名/ip关键字',
+				enableKeyEvents:true,
+					listeners:{
+					  'keydown' : function(i,e){
+							var aae=e.getKey() ; 
+							if(aae==13){
+						    keywords=Ext.getCmp('keyword').value;
+					      chatRefresh();
+							}
+					  }
+					}           
+        },{
+          text:'确认',
+          iconCls:'accept',
+          handler: function(){
+        	//加载函数
+        	//	alert(Ext.getCmp('keyWords').value);
+        		keyWords = Ext.getCmp('keyWords2').value;
+        		myAccount = "";
+						friendAccount = "";
+						oldMyAccount = "gh";
+						oldFriendAccount = "gh";
+						
+        		chatRefresh();
+        		chatDetailRefresh();
+        	}
+        }],
+        columns:[{
+          dataIndex: 'server',           
+          width: 30,
+          renderer: function(value,metaData,record){
+          	if(value == 1001){
+          		value='<img src="/v8/images/icon/QQ.jpg"/>';
+          	}else if(value == 1002){
+          		value='<img src="/v8/images/icon/WW.jpg"/>';
+          	}
+          	return value;
+          }
+        },{
+          text:"发送账号",
+          dataIndex: 'mfrom',
+          hidden: false, 
+          flex:1,
+          sortable: true
+        },{
+          text: "接收账号",
+          dataIndex: 'mto',   
+          flex:1,
+          sortable: true
+        },{
+          text: "IP地址",
+          dataIndex: 'sip',
+          width:110,
+          sortable: true
+        },{
+          text: "时间",
+          dataIndex: 'stime',           
+          width: 130,
+          sortable: true
+        },{
+          text: "聊天内容",
+          dataIndex: 'mesg', 
+          flex:2,
+          sortable: true
+        }],
+        columnLines: true,
+        viewConfig:{
+	        	loadMask : false
+	      }
+			}],
+			listeners:{
+				'beforetabchange':function(tp, p){
+					chatStore.removeAll();
+					switch(p.getId()){
+						case 'style1':
+							styleId = '';
+							break;
+						case 'style2':
+							styleId = 'style';
+							break;
+					}
+					chatRefresh();
+				}
+			}
+  	});
+  	
+  	var updateStore = function(){
+  		if(parent.bStartim==1){
+			 chatRefresh();
+			 chatDetailRefresh();
+		 }
+		}
+		reflash();
+		var task = {
+			run: updateStore,
+			interval: 10000 //300 second
+		}
+		var runner = new Ext.util.TaskRunner();
+		runner.start(task);
+ 	});
+  
+  </script>
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">	
+			<input type="hidden" name="FunName" value='lan_chat_detail_search'>
+			<input type="hidden" name="export" value="exp">
+			<input type="hidden" name="myAccount" value="">
+			<input type="hidden" name="friendAccount" value="">
+	</form>
+	
+</body>
+</html>

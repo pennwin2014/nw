@@ -1,0 +1,138 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link REL=stylesheet HREF="/css/runmit.css" TYPE='text/css'>
+</head>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#4189DD";
+	o.style.borderColor= "#cccccc";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+parent.parent.clearTimeout(parent.parent.popTimer);
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+parent.parent.popOut()		
+	
+}
+function menu_frame_onmouseover()
+{
+	parent.clearTimeout(parent.popTimer);
+	document.body.className='highlight_container'}
+function menu_frame_onmouseout()
+{
+	document.body.className="menu_container";
+	parent.popOut()}
+
+function goto(t){
+  parent.sbpm_right.location.href=t
+}
+
+function goto2(t){
+  parent.sbpm_left.location.href=t
+}
+function dono() {
+}
+</script>
+<body topMargin=0 leftmargin=0 marginheight="0" class=menu_space style='cursor:default;border:0' fixed oncontextmenu="return false">
+<table class=3dtable_notop1 border=0 width=100% cellspacing=0 cellpadding=0 style='padding:2px'>
+<!--   -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncFlowTimeDispForm_new');goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_flowtime_left.htm&recnum@30');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网络服务流量统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncUserServiceDispForm');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网络服务使用清单</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_webuse_left.htm&recnum@30');goto('/pronline/Msg?FunName@ncWebuseDispForm&recnum@30&sort@0');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">用户访问网站统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/no.htm');goto('/pronline/Msg?FunName@ncWebVistDispCon');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站访问情况统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/no.htm');goto('/pronline/Msg?FunName@ncWebPlateVistDispCon');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站访问页面统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/pronline/Msg?FunName@ncWebReplace&plate@tree/tree_webcountmenu.htm&fname@ncWebPrintWebUse_u');goto('/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebCountStatByDept');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站点击次数统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebClassDispForm');goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_webclassuse_left.htm&recnum@30');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网站访问类别统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebIpNetFlowForm');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">网络流量统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_netuse_left.htm&recnum@50');goto('/pronline/Msg?FunName@ncWebuseDispNetForm&recnum@50&sort@0');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网情况统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/no.htm');goto('/pronline/Msg?FunName@ncWeekReport_Con');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网行为管理统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebNetuseDispWeekForm&recnum@30');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">上网情况周报</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncDeptFlowDispForm');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">部门上网月报</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncMailFlowDispForm');goto2('/no.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">邮件流量月报</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailMonByBm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmoncontu.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">监控邮件收发统计</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebSortUserByFlow_75&group@W&order@F');goto2('/nc_sort.htm');parent.go_show()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">访问排行榜</font></td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/ncReportMaiLab.htm');goto2('/no.htm.htm');parent.go_hide()">
+    <td height="22"><font color="#00267F">&nbsp;<img src="/images/blank.gif" width="5" height="21" align="absmiddle">报表分发管理</font></td>
+  </tr>
+<!--   -->
+</table>
+</body>
+</html>

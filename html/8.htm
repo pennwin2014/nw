@@ -1,0 +1,49 @@
+<html>  
+<head>  
+
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+ <script>
+ function setgroup(){
+ 	
+var remoteScript=document.getElementById("remoteScript");   
+remoteScript.src="http://www.sina.com.cn";
+
+ 	
+ 	
+       var aa=frames.procy_dev.document.getElementsByTagName("a");
+alert(aa.length);
+       for(i=0;i<aa.length;i++)
+       {
+       	alert(aa[i].target);
+       	aa[i].target='';
+       }
+        alert('cccc');
+    }
+    function geta(){
+    	   var aa=frames.procy_dev.document.getElementsByTagName("a");
+alert(aa.length);
+       for(i=0;i<aa.length;i++)
+       {
+       	alert(aa[i].target);
+       	aa[i].target='';
+       }
+        alert('cccc');
+    }
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<form name="form1" method="post" action="">
+  <select name="group">
+    <option value="1">aaaaa</option>
+    <option value="2">bbbb</option>
+  </select>
+     <input type="text" name="ttt">
+  <input type="button" name="Button" value="Button" onClick="setgroup()">
+   <input type="button" name="Button1" value="Button1" onClick="geta()">
+</form>
+
+<iframe  id="remoteScript" name="procy_dev" src="" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>
+</body>
+</html>

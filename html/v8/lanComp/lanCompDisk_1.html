@@ -1,0 +1,128 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>联网单位安全监控系统</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script> 
+	<style type="text/css">
+		.disk{
+			float:left;
+			width: 350px;
+			margin: 8px 8px 8px 8px;
+			font-size:14px;
+		}
+		.news{
+			font-size:12px;
+			color:#999;
+		}
+		.disk-hover {
+	    background-color: #eee;
+		}
+		.x-item-selected {
+    background-color: #D3E1F1 !important;
+		}
+	</style>
+  <script type="text/javascript">		
+  
+		var compId = "";
+		var ready = 0;
+		var storeEmpty = 0;
+				
+	 	function SetPage(){
+		}
+		
+		Ext.define('EimData', {
+      extend: 'Ext.data.Model',
+      fields: ['diskName','diskType','diskCapacity','use','remain']
+    });
+		
+		var diskInfoStore = Ext.create('Ext.data.Store', {
+      model: 'EimData',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_comp_disk_search',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+ 		});
+  
+  	function reflash(){
+			if(ready == 1){
+  			compId = parent.compid;
+  			
+  			if(compId != ""){
+  				storeEmpty = 1;
+  				diskInfoStore.load({params:{compId:compId}});
+  				Ext.getCmp('compDiskPanel').setTitle(parent.dxtitle);
+				}else{
+					storeEmpty = 0;
+					diskInfoStore.removeAll();
+					Ext.getCmp('compDiskPanel').setTitle("计算机：未选");
+				}
+  		}
+  	}
+  	
+  	Ext.onReady(function() {
+  		
+  		//html界面
+			var resultTpl = Ext.create('Ext.XTemplate',
+				'<tpl for=".">',
+					'<tpl if="this.isNotNull()">',
+						'<div class = "disk">',
+			      '<table border = "0">',
+				      '<tr><td rowspan = "3" background = "/v8/images/deviceIcon/HardDisk.png" width = "56"></td><td colspan = "2"><strong>{diskName}&nbsp;{diskType}</strong></td></tr>',
+				      '<tr width = "300" height = "20"><td width = "{use}" bgcolor="#31A8CC"></td><td width = "{remain}" bgcolor="#000" border="1px;#333;soild;"></td></tr>',
+				      '<tr><td colspan = "2" class="news">{diskCapacity}</td></tr>',
+			      '</table>',
+			      '</div>',
+	      	'</tpl>',
+	      	'<tpl if="this.isNull()">',
+			      '<div>',
+			      '<p>无信息显示</p>',
+			      '</div>',
+		      '</tpl>',
+	      '</tpl>',
+	      {
+	      	isNotNull: function(){
+	        	if(storeEmpty == 1){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        },
+	        isNull: function(){
+	        	if(storeEmpty == 0){
+	        		return 1>0;
+	        	}else{
+	        		return 0>1;
+	        	}
+	        }
+				}
+			);
+  		Ext.create('Ext.panel.Panel', {
+  			renderTo:Ext.getBody(),
+  			layout: 'fit',
+  			height: '100%',
+				title:	'计算机：(未选)',
+				id:			'compDiskPanel',
+				items: [{
+					xtype: 'dataview',
+					tpl: 		resultTpl,
+					overItemCls : 'disk-hover',
+	  			itemSelector: 'div.disk',
+		  		store:	diskInfoStore,
+	  			loadMask: false
+				}]
+			});
+  		ready = 1;
+  		reflash();
+  	});
+  </script>
+</head>
+<body></body>
+</html>

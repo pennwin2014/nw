@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title></title>
+  <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+  <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+  <style>
+  	.addCls{
+			background-image:url(/v8/images/icon/right.gif) !important;
+			margin-top:110px;
+  	}
+  	.removeCls{
+			background-image:url(/v8/images/icon/left.gif) !important;
+			margin-top:180px;
+			margin-left:-20px;
+  	}
+  	.accept {
+			background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+    .add {
+    	background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+  </style>
+	
+	<script type="text/javascript">
+		var compNum = 0;
+		var compids="";
+		var compids_tmp="";
+		var screenStore;
+		var store_comp;
+		var keyword = "";
+		var groupid = "";
+		var pathTmp = "";
+		
+		function SetPage(){
+		}
+		
+		function reflash(){
+			groupid = parent.groupid;
+			compids = parent.compid;
+			var	title = parent.dxtitle;
+			if(groupid=="" && compids==""){
+				compids = "1";
+			}
+			
+			try{
+			  Ext.getCmp('screenPanel').setTitle(title==''?'全部':title);
+			}catch(e){}
+			
+			if(parent.bStartim == 2 && parent.bStartcomp == 0){
+					compNum = compids.split(',').length;
+					if(compNum){
+						screenStore.load({params:{compids:compids,keyword:keyword,groupid:groupid}});
+					}else{
+						if(screenStore){
+							screenStore.removeAll();
+							Ext.getCmp('screenView').refresh();
+						}
+					}
+			}
+		}
+		
+		function captureScreen(compid,path1,gname,sip,compname){
+			//alert(compid,"+",path1,"+",gname,"+",sip,"+",compname)
+			var w=window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+			
+			var h=window.innerHeight
+			|| document.documentElement.clientHeight
+			|| document.body.clientHeight;
+			
+			var str = path1.split('@');
+			//alert(str[str.length-1]);
+			Ext.create('Ext.window.Window',{
+				width:'100%',
+				height:'100%',
+				id: 'bigWin',
+				modal: true,
+				title: "<b>部门:</b>"+gname+",<b>IP:</b>"+sip+",<b>用户名:</b>"+compname,
+//				html:'<img align = "center" width = "'+(document.body.clientWidth-10)+'" src="'+path1+'">',
+				html: '<iframe width = "'+w+'" height="'+h+'" src="/pronline/Msg?FunName@lan_getOnlineSreen2&gname@'+gname+'&sip@'+sip+'&compname@'+compname+'&path@'+str[str.length-1]+'&width@'+w+'&height@'+h+'&compid@'+compid+'">'
+			}).show();
+		}
+		
+		function closeThis(){
+  	  var win = Ext.getCmp('bigWin');
+  	  if(win){
+  	    win.close();
+  	  }
+  	}
+		
+		function imgClose(compid){
+			var reg1=new RegExp(compid+",","g");
+			var reg2=new RegExp(compid+"","g");
+			//alert("old"+compids);
+			compids = compids.replace(reg1,""); 
+			compids = compids.replace(reg2,""); 
+			
+			screenStore.load({params:{compids:compids,keyword:keyword,groupid:groupid}});
+			store_comp.load();
+			//alert("new"+compids);
+		}
+		
+		Ext.onReady (function(){
+			var resultTpl = new Ext.XTemplate(
+				'<tpl for=".">',
+					'<div style = "float:left;width:{width};height:{height};padding-left:50px;margin-top:10px;margin-bottom: 10px;">',
+						'<iframe scrolling="no" frameborder="no" width="{width}" height="{height}" src="/pronline/Msg?FunName@lan_getOnlineSreen&gname@{gname}&sip@{sip}&compname@{compname}&path@{file}&width@{width}&height@{height}&compid@{compid}"></iframe>',
+					'</div>',
+	      '</tpl>'
+ 			);
+			
+			Ext.define('screenModel', {
+      	extend: 'Ext.data.Model',
+      	fields:['gname','sip','compname','file','mac','compid','height','width','path']
+      });
+			
+			screenStore = Ext.create('Ext.data.Store', {
+				id: 'screenStore',
+	      model: 'screenModel',
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_ssjk_getScreen2',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata'
+	        }
+	      },
+	      listeners:{
+	      	'load':function(thisStore,records,successful,operation,eOpts){
+	      		if(records){
+	      			var path;
+							var screenWidth = document.body.clientWidth;
+							var screenHeight = window.screen.availHeight;
+	      			
+	      			var compids_t = "";
+	      			
+      				thisStore.each(function(rec){
+      					compids_t = compids_t + rec.get('compid')+",";
+      					if(records.length<2){
+      						rec.set('width',screenWidth - 100);
+      						rec.set('height',screenHeight - 350);
+      					}else if(records.length<5){
+      						rec.set('width',screenWidth/2 - 100);
+      						rec.set('height',screenHeight/2 - 170);
+      					}else{
+      						rec.set('width',screenWidth/3 - 100);
+      						rec.set('height',screenHeight/3 - 110);
+      					}
+      				});
+      				compids = compids_t.substr(0,compids_t.length-1);
+      				//alert(compids);
+      				Ext.getCmp("screenPanel").hide();
+	      			setTimeout('Ext.getCmp("screenView").refresh()',50);
+	      			setTimeout('Ext.getCmp("screenPanel").show()',50);
+	      		}
+	      	}
+	      }
+	 		});
+	 		
+	 		Ext.define('treedata',{
+        extend: 'Ext.data.Model',
+        fields: [
+          {name: 'text',   type: 'string'},
+          {name: 'id',     type: 'string'},
+          {name: 'compid', type: 'string'},
+          {name:'ctext',   type:'string'}
+        ]
+      });
+	 		
+	 		store_comp = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanTree_depComp&state@1&plate@lan/lan_depcompute_check_tree.htm'
+        },
+        root: {
+          text: '全部',
+          id: ''
+        },
+        folderSort: true,
+        listeners:{
+					load:function(  store,  node,  records,  successful,  eOpts ){
+						var i;
+						//alert("asdfa");
+						for(i=0;i<records.length;i++){
+							var id = records[i].get('compid');
+							//alert(compids+","+compids.indexOf(id));
+							if(id.length > 0 && compids.indexOf(id)>=0){
+								records[i].set('checked',true);
+							}
+						}
+					}
+				}
+    	});
+    	var compidsOld
+			var addWin = Ext.create('Ext.window.Window',{
+				width: 270,
+				height: 400,
+				title: "选择要显示的计算机(最多选择9台)",
+				modal:true,
+				layout: 'hbox',
+				id: "addWin",
+				items:[{
+					xtype:"treepanel",
+					id:"onlinecmpTree",
+					width: 2570,
+					height: 380,
+					store:store_comp
+				}],
+				buttons:[{
+					text: "保存",
+					handler:function(){
+						//store_comp.load();
+						var records=Ext.getCmp('onlinecmpTree').getView().getChecked();
+						var i=0;
+						var compid;
+   	 				Ext.Array.each(records, function(rec){
+              compid=rec.get('compid');
+		
+              if(compid!=''){
+              	if(i==0){
+              		compids=compid;
+								}else{
+              		compids=compids+','+compid;
+								}
+              	i++;
+            	}
+            });
+            
+           // alert(compidsOld +","+ compids)
+            if(compidsOld != compids){
+							screenStore.load({params:{compids:compids,keyword:keyword}});
+						}
+						addWin.hide();
+					}
+				}]
+			});
+			Ext.create('Ext.panel.Panel',{
+		  	renderTo:Ext.getBody(),
+		  	title: '全部',
+		  	width: '100%',
+		  	height: 950,
+		  	id:"screenPanel",
+		  	tbar:[{
+		  		text: "添加计算机",
+					iconCls:'add',
+		  		handler:function(){
+		  			//alert(compids);
+		  			//store_comp.load();
+
+		  			compidsOld = compids;
+		  			Ext.getCmp('onlinecmpTree').getRootNode().expand();
+	      		setTimeout('Ext.getCmp("addWin").showAt(400,50)',100);
+		  		}
+		  	},'-',{
+					xtype:'textfield',
+					id:'keyword1',
+					name:'keyword1',
+					width:'150px',
+					style:'color:#7aa7d5',
+					emptyText:'输入计算机名/IP查询',
+					enableKeyEvents:true,
+					listeners:{
+					  'keydown' : function(i,e){
+							var aae=e.getKey() ; 
+							if(aae==13){
+						    keyword=Ext.getCmp('keyword1').value;
+					      reflash();
+							}
+					  }
+					}
+				},{
+					text:'确认',
+					iconCls:'accept',
+					handler: function(){
+						keyword=Ext.getCmp('keyword1').value;
+						reflash();
+					}
+		    }],
+				items: [{
+					xtype: 'dataview',
+					id: 'screenView',
+					tpl: 		resultTpl,
+	  			itemSelector: 'div.thumb-wrap',
+		  		store:Ext.data.StoreManager.lookup('screenStore'),
+    			//emptyText: '<p align = "center">请在右边部门列表里，选择您要查看的计算机</p>',
+	  			loadMask: false
+				}]
+			});
+			compids = "1";
+			reflash();
+/*			Ext.create('Ext.tip.ToolTip', {
+        target: 'screenPanel',
+        width: 120,
+        trackMouse: true,
+        showDelay: 3000,
+        dismissDelay : 10000,
+        html: '在右边部门里可勾选或去除观察的屏幕'
+    	});*/
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>

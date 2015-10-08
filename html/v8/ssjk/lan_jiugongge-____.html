@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title></title>
+  <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+  <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	
+	<script type="text/javascript">
+		var compNum = 0;
+		var compids;
+		var screenStore;
+		
+		function SetPage(){
+		}
+		
+		function reflash(){
+			if(parent.bStartim == 2 && parent.bStartcomp == 0){
+				compids = parent.compid_ck;
+				if(compids){
+					compNum = compids.split(',').length;
+					if(compNum){
+						screenStore.load({params:{compids:compids}});
+					}else{
+						if(screenStore){
+							screenStore.removeAll();
+							Ext.getCmp('screenView').refresh();
+						}
+					}
+				}
+			}
+		}
+		
+		var sh = setInterval('reflash()',3000);
+		
+		function captureScreen(path1,gname,sip,compname){
+			Ext.create('Ext.window.Window',{
+				width:'100%',
+				height:'100%',
+				modal: true,
+				title: "<b>部门:</b>"+gname+",<b>IP:</b>"+sip+",<b>用户名:</b>"+compname,
+				html:'<img align = "center" width = "'+(document.body.clientWidth-10)+'" src="'+path1+'">'
+			}).show();
+		}
+		
+		Ext.onReady (function(){
+			var resultTpl = new Ext.XTemplate(
+				'<tpl for=".">',
+					'<div style = "float:left;width:{width};height:{height};padding-left:50px;margin-top:10px;margin-bottom: 10px;" ondblclick = "captureScreen(\'{path}\',\'{gname}\',\'{sip}\',\'{compname}\')">',
+						'<p align = "center"><b>部门:</b>{gname},<b>IP:</b>{[this.convertIP(values.sip)]},<b>用户名:</b>{compname}</p>',
+						'<img align = "center" width = "{width}" height = "{height}" src = "{path}"></td>',
+					'</div>',
+	      '</tpl>',
+	      {
+	      	convertIP:function(number){
+	      		return (Math.floor(number/(256*256*256))) + "." +   
+            	(Math.floor(number%(256*256*256)/(256*256))) + "." +   
+           		(Math.floor(number%(256*256)/256)) + "." +
+           		(Math.floor(number%256));
+	      	}
+	      }
+ 			);
+			
+			Ext.define('screenModel', {
+      	extend: 'Ext.data.Model',
+      	fields:['gname','sip','compname','file','mac','compid','height','width','path']
+      });
+			
+			screenStore = Ext.create('Ext.data.Store', {
+				id: 'screenStore',
+	      model: 'screenModel',
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_ssjk_getScreen2',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata'
+	        }
+	      },
+	      listeners:{
+	      	'load':function(thisStore,records,successful,operation,eOpts){
+	      		if(records){
+	      			var path;
+							var screenWidth = document.body.clientWidth;
+							var screenHeight = window.screen.availHeight;
+	      	
+      				thisStore.each(function(rec){
+      					if(records.length<2){
+      						rec.set('width',screenWidth - 100);
+      						rec.set('height',screenHeight - 350);
+      					}else if(records.length<5){
+      						rec.set('width',screenWidth/2 - 100);
+      						rec.set('height',screenHeight/2 - 170);
+      					}else{
+      						rec.set('width',screenWidth/3 - 100);
+      						rec.set('height',screenHeight/3 - 110);
+      					}
+      					rec.set('path',"/pronline/Msg?FunName@nwWeb_ShowScreenJpg&file@"+rec.get('file')+"&n@"+Math.random());
+      				});
+      				Ext.getCmp("screenPanel").hide();
+	      			setTimeout('Ext.getCmp("screenView").refresh()',50);
+	      			setTimeout('Ext.getCmp("screenPanel").show()',50);
+	      		}
+	      	}
+	      }
+	 		});
+			
+			Ext.create('Ext.panel.Panel',{
+		  	renderTo:Ext.getBody(),
+		  	width: '100%',
+		  	height: 950,
+		  	id:"screenPanel",
+				items: [{
+					xtype: 'dataview',
+					id: 'screenView',
+					tpl: 		resultTpl,
+	  			itemSelector: 'div.thumb-wrap',
+		  		store:Ext.data.StoreManager.lookup('screenStore'),
+    			emptyText: 'No images available',
+	  			loadMask: false
+				}]
+			});
+			Ext.create('Ext.tip.ToolTip', {
+        target: 'screenPanel',
+        width: 120,
+        trackMouse: true,
+        showDelay: 3000,
+        dismissDelay : 10000,
+        html: '在右边部门里可勾选或去除观察的屏幕'
+    	});
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>软件升级日志</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+    <style type="text/css">
+      .icon-grid {
+        background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+      }
+      .add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+      }
+      .option {
+        background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+      }
+      .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+      }
+      .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+      }
+      .accept {
+        background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+      }
+      .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+			  height: 16px !important;
+			  line-height: 16px;
+	    }
+
+    </style>
+		<style type="text/css">   
+		  .x-selectable, .x-selectable * {   
+			  -moz-user-select: text!important;   
+			  -khtml-user-select: text!important;   
+			}   
+		</style>
+	  <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	  <script>
+	  	var softId = "";
+	  	var status = "";
+	  	var keywords = "";
+	  	var groupId = "";
+	  	
+	  	function SetPage(){
+	  		
+			}
+			function reflash(){
+			
+			}
+			Ext.define('TreeCombox', {  
+			  extend: 'Ext.form.field.Picker',  
+			  xtype: 'treecombox',  
+			  triggerCls: Ext.baseCSSPrefix + 'form-arrow-trigger',  
+			  config: {  
+			    displayField: null,  
+			    columns: null,  
+			    rootVisible: false,  
+			    selectOnTab: true,  
+			    firstSelected: false,  
+			    maxPickerWidth: 160,  
+			    maxPickerHeight: 360,  
+			    minPickerHeight: 100  
+			  },  
+			  editable: false,  
+			  initComponent: function() {  
+			    var me = this;  
+			    me.callParent(arguments);  
+			    this.addEvents('select');  
+			    me.store.on('load', me.onLoad, me);  
+			  },  
+			  createPicker: function() {  
+			    var me = this,  
+			    picker = Ext.create('Ext.tree.Panel', {  
+			      store: me.store,  
+			      floating: true,  
+			      hidden: true,  
+			      width: me.maxPickerWidth,  
+			      displayField: me.displayField,  
+			      columns: me.columns,  
+			      maxHeight: me.maxTreeHeight,  
+			      shadow: false, 
+			      rootVisible:false,  
+			      manageHeight: false,  
+			      listeners: {  
+			      	itemclick: Ext.bind(me.onItemClick, me)  
+			      },  
+			      viewConfig: {  
+			        listeners: {  
+			          render: function(view) {  
+			          	view.getEl().on('keypress', me.onPickerKeypress, me);  
+			          }  
+			        }  
+			      }  
+			    }),  
+			    view = picker.getView();  
+			
+			    view.on('render', me.setPickerViewStyles, me);  
+			    if (Ext.isIE9 && Ext.isStrict) {  
+			      view.on('highlightitem', me.repaintPickerView, me);  
+			      view.on('unhighlightitem', me.repaintPickerView, me);  
+			      view.on('afteritemexpand', me.repaintPickerView, me);  
+			      view.on('afteritemcollapse', me.repaintPickerView, me);  
+			    }  
+			    return picker;  
+			  },  
+			  setPickerViewStyles: function(view) {  
+			    view.getEl().setStyle({  
+			      'min-height': this.minPickerHeight + 'px',  
+			      'max-height': this.maxPickerHeight + 'px'  
+			    });  
+			  },  
+			  repaintPickerView: function() {  
+			    var style = this.picker.getView().getEl().dom.style;  
+			    style.display = style.display;  
+			  },  
+			  alignPicker: function() {  
+			    var me = this,  
+			        picker;  
+			
+			    if (me.isExpanded) {  
+			      picker = me.getPicker();  
+			      if (me.matchFieldWidth) {  
+			      	picker.setWidth(this.picker.getWidth());  
+			      }  
+			      if (picker.isFloating()) {  
+			      	me.doAlign();  
+			      }  
+			    }  
+			  },  
+			  onItemClick: function(view, record, node, rowIndex, e) {  
+			//    	alert(record.data.id);
+			    this.selectItem(record);  
+			  },  
+			  onPickerKeypress: function(e, el) {  
+			    var key = e.getKey();  
+			
+			    if(key === e.ENTER || (key === e.TAB && this.selectOnTab)) {  
+			    	this.selectItem(this.picker.getSelectionModel().getSelection()[0]);  
+			    }  
+			  },  
+			  selectItem: function(record) {      
+			    var me = this; 
+			    document.getElementById("form1").mid.value=record.get('id');
+			    me.setValue(record.get('text'));  
+			    me.picker.hide();  
+			    me.inputEl.focus();  
+			    me.fireEvent('select', me, record);
+			  },  
+			  onExpand: function() {  
+			    var me = this,  
+			    picker = me.picker,  
+			    store = picker.store,  
+			    value = me.value;  
+			    if(value) {  
+			      var node = store.getNodeById(value);  
+			      if(node)  
+			      	picker.selectPath(node.getPath());  
+			    } else {  
+			      var hasOwnProp = me.store.hasOwnProperty('getRootNode');  
+			      if(hasOwnProp)  
+			      	picker.getSelectionModel().select(store.getRootNode());  
+			    }  
+			
+			    Ext.defer(function() {  
+			    	picker.getView().focus();  
+			    }, 1);  
+			  },  
+			  setValue: function(value) {  
+			    var me = this,record;  
+			    me.value = value;  
+			    if (me.store.loading) {  
+			    	return me;  
+			    }  
+			    try{  
+			      //var hasOwnProp = me.store.hasOwnProperty('getRootNode');  
+			      //record = value ? me.store.getNodeById(value) : (hasOwnProp ? me.store.getRootNode() : null);  
+			      //me.setRawValue(record ? record.get(this.displayField) : '');  
+			      var i = value.indexOf(">");
+			      var j = value.indexOf("</");
+			      if(i != -1 && j != -1){
+			      	me.setRawValue(value.substring(i+1,j));
+			      }
+			      else{
+			      	me.setRawValue(value);
+			      }
+			    }catch(e){  
+			    	me.setRawValue('');  
+			    }  
+			
+			    return me;  
+			  },  
+			  getValue: function() {  
+			  	return this.value;  
+			  },  
+			  onLoad: function(store,node,records) {  
+			    var value = this.value;  
+			    if (value) {  
+			    	this.setValue(value);  
+			    }else{  
+			      if(this.firstSelected){  
+			        if(records && records.length > 0){  
+			          var record = records[0];  
+			          this.setValue(record.get(this.valueField));  
+			        }  
+			      }  
+			    }  
+			  },  
+			  getSubmitData: function() {  
+			    var me = this,  
+			    	data = null;  
+			    if (!me.disabled && me.submitValue) {  
+			      data = {};  
+			      data[me.getName()] = '' + me.getValue();  
+			    }  
+			    return data;  
+			  },  
+			  onTriggerClick: function() {  
+			    var me = this;  
+			    //me.store.load();  
+			    if (!me.readOnly && !me.disabled) {  
+			      if (me.isExpanded) {  
+			      	me.collapse();  
+			      } else {  
+			      	me.expand();  
+			      }  
+			      me.inputEl.focus();  
+			    }  
+			  }  
+			});
+	  	Ext.onReady(function(){
+	  		
+		  	Ext.define('treedata',{
+		      extend: 'Ext.data.Model',
+		      fields: [
+	          {name: 'text',  	type: 'string'},
+	          {name: 'id',     	type: 'int'},
+	          {name: 'begip',  	type: 'string'},
+	          {name: 'endip',  	type: 'string'},
+	          {name: 'content', type: 'string'}
+		      ]
+	    	});
+	    	
+				var deptStore = Ext.create('Ext.data.TreeStore', {
+	   	    model:'treedata',
+	        proxy: {
+	            type: 'ajax',
+	            url: '/pronline/Msg?FunName@lan_group_tree_search'
+	        },
+	        root: {
+	          text: '全部',
+	          id: '0',
+	          checked:false,
+	          expanded: true
+	        },
+	        folderSort: true
+    		});
+    	
+		  	Ext.define('EimData', {
+		      extend: 'Ext.data.Model',
+		      fields: ['softId','softName','fileName','totalNum','successNum','failedNum','unUpdateNum']
+		    });
+		    Ext.define('EimData2', {
+		      extend: 'Ext.data.Model',
+		      fields: ['groupName','compName','stime','status']
+		    });
+		    
+		  	var softUpdateLogStore = Ext.create('Ext.data.Store', {
+		      pageSize: 40,
+		      model: 'EimData',
+		      remoteSort: true,
+		      proxy: {
+		        type: 'ajax',
+		        url: '/pronline/Msg?FunName@lan_softUpdateLog_search',
+		        reader: {
+		          type:'json',
+		          root: 'eimdata',
+		          totalProperty: 'totalCount'
+		        },         
+		        simpleSortMode: true
+		      }
+		    });
+		    
+		    function softUpdateLogStoreReflash(){
+		    	softUpdateLogStore.load();
+		    }
+		    
+		    Ext.data.Store.prototype.doSort = function() {
+		    	softUpdateDetailLogStore.load({params:{softId:softId}});
+		    }
+    		var softUpdateDetailLogStore = Ext.create('Ext.data.Store', {
+		      pageSize: 10,
+		      model: 'EimData2',
+		      remoteSort: true,
+		      proxy: {
+		        type: 'ajax',
+		        url: '/pronline/Msg?FunName@lan_softUpdateDetailLog_search',
+		        reader: {
+		          type:'json',
+		          root: 'eimdata',
+		          totalProperty: 'totalCount'
+		        },         
+		        simpleSortMode: true
+		      }
+		    });
+		    function detailLogStoreReflash(){
+		    	softUpdateDetailLogStore.load({params:{softId:softId,groupId:groupId,status:status}});
+		    }
+		    
+		    function softUpdateLogStoreReflash(){
+		    	detailLogStoreReflash();
+		    }
+		    
+				Ext.create('Ext.grid.Panel', {
+	  			renderTo:Ext.getBody(),
+	  			width: '100%',
+	  			height: 900,
+	  			store: softUpdateLogStore,
+	  			columns:[{
+	  				text: 			"软件名",
+						flex:1,
+	  				dataIndex:	'softName',
+	  			},{
+	  				text: 			"文件名",
+						flex:2,
+	  				dataIndex:	'fileName',
+	  			},{
+	  				text: 			"应升级数",
+						flex:1,
+	  				dataIndex:	'totalNum',
+	  			},{
+	  				text: 			"成功数",
+						flex:1,
+	  				dataIndex:	'successNum',
+	  			},{
+	  				text: 			"失败数",
+						flex:1,
+	  				dataIndex:	'failedNum',
+	  			},{
+	  				text: 			"未升级数",
+						flex:1,
+	  				dataIndex:	'unUpdateNum',
+	  			}],
+	  			tbar:[{
+	        	xtype: 'pagingtoolbar',
+	        	store: softUpdateLogStore,
+	        	border: 0,
+	        	displayInfo: true,
+	          displayMsg: '显示{0} - {1}条记录 共{2}条',
+	          emptyMsg: '没有记录可显示',
+	          doRefresh:function(){ 
+	      			softUpdateLogStoreReflash();
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		softUpdateLogStore.currentPage=a;
+				    		softUpdateLogStoreReflash();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	softUpdateLogStore.currentPage=1;
+					    	softUpdateLogStoreReflash();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				softUpdateLogStore.currentPage=a;
+				   				softUpdateLogStoreReflash();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				softUpdateLogStore.currentPage=a;
+				   				softUpdateLogStoreReflash();
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.softUpdateLogStore.loadPage(g)
+						        d.store.currentPage=g;
+					         	softUpdateLogStoreReflash();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+	        }],
+	        listeners:{
+	        	'itemdblclick':function(thisView,record,item,index,e,eOpts){
+					    softId = record.get('softId');
+					    softUpdateDetailLogStore.load({params:{softId:softId}});
+					    var win1 = Ext.create('Ext.window.Window',{
+					    	title: record.get('softName')+" 升级详细",
+					    	width: 650,
+					    	height: 600,
+					    	items:[{
+						    	xtype: 'grid',
+						    	width: '100%',
+						    	store: softUpdateDetailLogStore,
+						    	columns:[{
+						    		text: '部门',
+										flex:1,
+						    		dataIndex: 'groupName'
+						    	},{
+						    		text: '计算机名',
+										flex:2,
+						    		dataIndex: 'compName'
+						    	},{
+						    		text: '安装时间',
+										flex:2,
+						    		dataIndex: 'stime'
+						    	},{
+						    		text: '安装状态',
+										flex:2,
+						    		dataIndex: 'status'
+						    	}]
+					    	}],
+					    	buttonAlign: 'center',
+					    	buttons:[{
+					    		text: '关闭',
+					    		handler:function(){
+					    			win1.close();
+					    		}
+					    	}],
+				  			tbar:[{
+				        	xtype: 'pagingtoolbar',
+				        	store: softUpdateDetailLogStore,
+				        	border: 0,
+				        //	displayInfo: true,
+				        //  displayMsg: '显示{0} - {1}条记录 共{2}条',
+				        //  emptyMsg: '没有记录可显示',
+				          doRefresh:function(){ 
+				      			softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+							    },
+							    moveLast:function(){
+							    	var b=this,a=b.getPageData().pageCount;
+							    	if(b.fireEvent("beforechange",b,a)!==false){
+							    		softUpdateDetailLogStore.currentPage=a;
+							    		softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+							      }
+							    },
+							    moveFirst:function(){
+								    if(this.fireEvent("beforechange",this,1)!==false){
+								     	softUpdateDetailLogStore.currentPage=1;
+								    	softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+								    }
+								  }, 
+							   	movePrevious:function(){
+							   		var b=this,a=b.store.currentPage-1;
+							   		if(a>0){
+							   			if(b.fireEvent("beforechange",b,a)!==false){
+							   				softUpdateDetailLogStore.currentPage=a;
+							   				softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+							   			}
+							   		}
+							   	},
+							   	moveNext:function(){
+							   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+							   		if(a<=b){
+							   			if(c.fireEvent("beforechange",c,a)!==false){
+							   				softUpdateDetailLogStore.currentPage=a;
+							   				softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+							   			}
+							   		}
+							   	},  
+							    onPagingKeyDown:function(i,h){
+							    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+							    	if(b==h.RETURN){
+							    		h.stopEvent();
+							    		g=d.readPageFromInput(c);
+							        if(g!==false){
+							        	g=Math.min(Math.max(1,g),c.pageCount);
+							         	if(d.fireEvent("beforechange",d,g)!==false){
+									        //d.softUpdateDetailLogStore.loadPage(g)
+									        d.store.currentPage=g;
+								         	softUpdateDetailLogStore.load({params:{softId:record.get('softId')}});
+								        }        
+								      }
+								    }else{
+							      	if(b==h.HOME||b==h.END){
+							    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+							       	}else{
+							        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+								          h.stopEvent();g=d.readPageFromInput(c);
+								          if(g){
+								            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+								            g+=a;
+								            if(g>=1&&g<=c.pages){
+								            	i.setValue(g)
+								            }
+								          }
+							         	}
+							        }
+							      }  
+							    },
+							    items:['-',{
+							    	xtype:'treecombox',
+					        		labelWidth: 40,
+					        		fieldLabel: '部门',
+							      	width: 200,
+							      	valueField: 'id',  
+						  				displayField: 'text',
+							      	store:deptStore,
+							      	listeners:{
+							      		'select':function(){
+							      			groupId = document.getElementById("form1").mid.value;
+							      			detailLogStoreReflash();
+							      		}
+							      	}
+							    },{
+							    	xtype: 'combobox',
+					        	fieldLabel: '安装状态',
+					        	id:				'instStatus',
+					        	labelWidth: 60,
+					        	width:	150,
+					        	triggerAction: 'all',
+					        	valueField:'id',
+					        	value: '全部',
+					        	queryMode: 'local',
+					      		displayField: 'text',
+					      		store: {
+					      			xtype: 'store',
+					      			fields:['id','text'],
+					      			data:[{id:0,text:'全部'},{id:1,text:'成功'},{id:2,text:'失败'},{id:3,text:'未升级'}]					      			
+					      		},
+					      		listeners:{
+					      			'change':function(thisField,newValue,oldValue,eOpts){
+					      				if(newValue == 0){
+					      					status = "";
+					      				}else{
+					      					status = newValue;	
+					      				}
+					      				detailLogStoreReflash();
+					      			}
+					      		}
+							    }] 
+				        }]
+							});
+					    win1.showAt(250,50);
+	        	}
+	        }
+	  		});
+	  		
+	  		softUpdateLogStore.load();
+	  	});
+		</script>
+	</head>
+	<body>
+	<form name="form1" id="form1" action="/pronline/Msg">	
+		<input type="hidden" name="mid" value="">
+	</form>
+	</body>
+</html>

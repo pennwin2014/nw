@@ -1,0 +1,34 @@
+{
+	"success":true,
+	"data":[{
+		"groupid":0,
+		"groupname":"全部"
+	},{
+		"groupid":12289,
+		"groupname":"HTTP文件外发"
+	},{
+		"groupid":12290,
+		"groupname":"SMTP文件外发"
+	},{
+		"groupid":12291,
+		"groupname":"FTP文件外发"
+	},{
+		"groupid":12293,
+		"groupname":"聊天文件外发"
+	},{
+		"groupid":12294,
+		"groupname":"云盘文件外发"
+	},{
+		"groupid":12295,
+		"groupname":"U盘外发"
+	},{
+		"groupid":12296,
+		"groupname":"共享目录外发"
+	},{
+		"groupid":12297,
+		"groupname":"其他程序外发"
+	},{
+		"groupid":12298,
+		"groupname":"https外发"
+	}]
+}

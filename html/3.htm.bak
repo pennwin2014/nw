@@ -1,0 +1,779 @@
+
+<html>
+<head>
+	<title>JavaScript Navigation Tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">	
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">	
+	<style>
+	/* Style for tree item text */
+	.t0i {
+		font-family: Tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		color: #000000;
+		background-color: #ffffff;
+		text-decoration: none;
+	}
+	/* Style for tree item image */
+	.t0im {
+		border: 0px;
+		width: 19px;
+		height: 16px;
+	}
+	</style>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="1" marginheight="2" marginwidth="15" topmargin="2">
+<script>
+var TREE_ITEMS = [
+	['整个公司', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm',
+	
+		['未知部门', null,
+		     ['未知内部邮件', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@1'], 
+		     ['外部邮件', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@2'], 
+		     ['李云明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@12183'], 
+		     ['Card', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@12186'], 
+		     ['postmaster', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@12192'], 
+		     ['kevinlin', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@12194'], 
+		     ['THREAD', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820000'], 
+		     ['C92004', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820001'], 
+		     ['GC93060', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820002'], 
+		     ['GC93499', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820003'], 
+		     ['GC94507', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820004'], 
+		     ['GC94509', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820005'], 
+		     ['GC94531', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820006'], 
+		     ['GC94540', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820007'], 
+		     ['GC94633', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820008'], 
+		     ['GC94922', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820009'], 
+		     ['GC95309', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820010'], 
+		     ['GC95618', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820011'], 
+		     ['GC95658', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820012'], 
+		     ['GC95845', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820013'], 
+		     ['GC95873', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820014'], 
+		     ['GC95898', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820015'], 
+		     ['GC96055', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820016'], 
+		     ['GC97275', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820017'], 
+		     ['GC97288', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820018'], 
+		     ['GC97415', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820019'], 
+		     ['IANT_USER', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820020'], 
+		     ['PD_USER', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820021'], 
+		     ['NC_IT巨大资讯', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820022'], 
+		     ['NCTC_USER', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820023'], 
+		     ['INLAND', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820024'], 
+		     ['EXCHANGE-THREAD', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820025'], 
+		     ['ERITAS_BACKUP', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820026'], 
+		     ['WBHONG', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@63820027'], 
+		    
+		],
+    
+		['总管理室', null,
+		     ['lymtest', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@12190'], 
+		     ['郑宝堂', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92001'], 
+		     ['石静安', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92011'], 
+		     ['何广晓', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93038'], 
+		     ['凌芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93292'], 
+		     ['陈昂', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93585'], 
+		     ['钟宁', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93677'], 
+		     ['陆晓山', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95897'], 
+		     ['卢凤娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96073'], 
+		     ['丁艳艳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97325'], 
+		    
+		],
+    
+		['关务', null,
+		     ['程艳华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93958'], 
+		     ['李留玉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94271'], 
+		     ['陈芳芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95338'], 
+		     ['吴颖君', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95401'], 
+		     ['邹敏亚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97283'], 
+		     ['杜娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97337'], 
+		     ['王小琴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97403'], 
+		     ['洪艳云', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97414'], 
+		    
+		],
+    
+		['产销企划', null,
+		     ['冯晶', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93209'], 
+		     ['周希珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94792'], 
+		     ['许乐菲', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95688'], 
+		     ['许晶芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95906'], 
+		     ['王志刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97138'], 
+		     ['伦文娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97340'], 
+		    
+		],
+    
+		['人事课', null,
+		     ['王岚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94114'], 
+		     ['王宏波', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96931'], 
+		     ['戴晓燕', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97280'], 
+		     ['俞静娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97379'], 
+		    
+		],
+    
+		['MEA事业部', null,
+		     ['陈惠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93155'], 
+		     ['许静芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93162'], 
+		     ['高海光', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93561'], 
+		    
+		],
+    
+		['GCDS协理室', null,
+		     ['黄菁婵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92034'], 
+		     ['朱雄瑜', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93205'], 
+		     ['王晓侠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93520'], 
+		     ['王明玺', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96246'], 
+		     ['唐秋珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97407'], 
+		    
+		],
+    
+		['MASS&EB事业处', null,
+		     ['雷春刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93680'], 
+		     ['严林训', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94006'], 
+		     ['武丽', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95524'], 
+		     ['龚玉屏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95628'], 
+		     ['顾秋生', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95739'], 
+		     ['朱新华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96788'], 
+		     ['沈尊磊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96983'], 
+		     ['秦磊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97341'], 
+		     ['汪洋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97411'], 
+		    
+		],
+    
+		['营业处', null,
+		     ['张彬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93921'], 
+		    
+		],
+    
+		['广宣处', null,
+		     ['孙惠琴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93198'], 
+		    
+		],
+    
+		['PA&R课', null,
+		     ['赵文娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93096'], 
+		     ['卢功元', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94028'], 
+		     ['林桂聪', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97412'], 
+		    
+		],
+    
+		['储运课', null,
+		     ['费千', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93386'], 
+		     ['邵高兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93895'], 
+		     ['李长新', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93896'], 
+		     ['陈学能', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93959'], 
+		     ['许加村', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94200'], 
+		     ['何凤军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94256'], 
+		     ['张雪娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95297'], 
+		     ['刘千光', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95336'], 
+		     ['张晓华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95374'], 
+		     ['杨红刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95649'], 
+		     ['魏斌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95731'], 
+		     ['马赢', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96776'], 
+		     ['宋合坯', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96925'], 
+		     ['谷远志', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97485'], 
+		    
+		],
+    
+		['品牌推广', null,
+		     ['来文艳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96258'], 
+		    
+		],
+    
+		['公关媒体广告', null,
+		     ['卢伟伟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95686'], 
+		     ['张敏华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95710'], 
+		    
+		],
+    
+		['客服专线', null,
+		     ['胥锦学', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93378'], 
+		     ['胡利萍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93588'], 
+		     ['朱菊红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94318'], 
+		     ['夏建刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95231'], 
+		     ['孙国强', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97029'], 
+		    
+		],
+    
+		['产品企划课', null,
+		     ['张国祥', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93597'], 
+		     ['许民', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95373'], 
+		    
+		],
+    
+		['营业课', null,
+		     ['王东林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93948'], 
+		     ['邹叶青', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94384'], 
+		     ['仝成东', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95656'], 
+		     ['徐惠刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96211'], 
+		     ['龚喜芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96237'], 
+		     ['马艳琴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96255'], 
+		     ['任翠萍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97028'], 
+		     ['张慧明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97030'], 
+		     ['李宏艳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97031'], 
+		    
+		],
+    
+		['市场&POS课', null,
+		     ['耿蕾', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93738'], 
+		     ['蒋敏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94424'], 
+		    
+		],
+    
+		['副总室', null,
+		     ['邓天赐', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92004'], 
+		     ['刘义昭', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92007'], 
+		     ['古荣生', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92032'], 
+		     ['廖煌辉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92033'], 
+		     ['张进明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93001'], 
+		    
+		],
+    
+		['生产部', null,
+		     ['马晓勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93414'], 
+		    
+		],
+    
+		['生产企划', null,
+		     ['巴海峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95770'], 
+		     ['雷蕾', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96214'], 
+		     ['张成焱', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96709'], 
+		     ['蔡建兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97406'], 
+		     ['陈丽', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97416'], 
+		     ['李小军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97418'], 
+		    
+		],
+    
+		['GPS事务局', null,
+		     ['蔡祖良', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93041'], 
+		     ['李霞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97417'], 
+		    
+		],
+    
+		['B线', null,
+		     ['徐雪弟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93685'], 
+		     ['樊书伟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94048'], 
+		     ['徐荣军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94378'], 
+		     ['赵衍军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94712'], 
+		     ['陈育新', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95173'], 
+		    
+		],
+    
+		['C线', null,
+		     ['顾学明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93135'], 
+		     ['缪兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95775'], 
+		    
+		],
+    
+		['A线', null,
+		     ['孙会强', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93495'], 
+		     ['高勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93753'], 
+		     ['张亚辉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94034'], 
+		     ['张旭东', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94125'], 
+		     ['陈勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95155'], 
+		     ['朱松', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97036'], 
+		    
+		],
+    
+		['D线', null,
+		     ['谷荣', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93227'], 
+		     ['李华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93372'], 
+		     ['宋建新', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94309'], 
+		     ['王世兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94771'], 
+		    
+		],
+    
+		['E线', null,
+		     ['王永明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93233'], 
+		     ['朱荣香', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93555'], 
+		     ['王友林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93604'], 
+		     ['徐建岗', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93787'], 
+		     ['范磊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95220'], 
+		     ['祁兆金', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97035'], 
+		    
+		],
+    
+		['F线', null,
+		     ['谭勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94456'], 
+		     ['何泽水', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95531'], 
+		    
+		],
+    
+		['G线', null,
+		     ['蔡冬荣', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93232'], 
+		     ['杨光进', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94563'], 
+		    
+		],
+    
+		['H线', null,
+		     ['年光', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94008'], 
+		     ['顾剑峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96220'], 
+		    
+		],
+    
+		['技术关系', null,
+		     ['屈齐英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93392'], 
+		     ['李卫忠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93665'], 
+		     ['徐敏玉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94986'], 
+		    
+		],
+    
+		['维护群', null,
+		     ['胡九英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93721'], 
+		     ['白永生', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94014'], 
+		     ['饶迎春', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94534'], 
+		     ['许高云', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95169'], 
+		     ['朱卫星', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95332'], 
+		     ['林小冬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95586'], 
+		     ['鲁子立', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95913'], 
+		     ['党贞贞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96248'], 
+		     ['李曙春', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96783'], 
+		     ['江安红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97044'], 
+		     ['苑文国', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97273'], 
+		     ['王书朋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97274'], 
+		     ['蔡昆', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97486'], 
+		     ['夏宇效', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97487'], 
+		     ['藏其树', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97488'], 
+		     ['邱超', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97489'], 
+		    
+		],
+    
+		['电动车专案', null,
+		     ['张辉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95236'], 
+		     ['周进宏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96225'], 
+		     ['丁亚峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97049'], 
+		    
+		],
+    
+		['产品技术群', null,
+		     ['徐建', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93130'], 
+		     ['徐斌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93143'], 
+		     ['陈雪林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93145'], 
+		     ['许卫勤', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93391'], 
+		     ['沈小红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93562'], 
+		     ['唐永珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93962'], 
+		     ['唐弘', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94142'], 
+		     ['陆健', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94265'], 
+		     ['沈方平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94391'], 
+		     ['戴吉柱', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95057'], 
+		     ['宋小亮', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96045'], 
+		     ['周金倩', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96409'], 
+		     ['金骏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97041'], 
+		     ['陶志军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97294'], 
+		     ['卢雷', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97298'], 
+		    
+		],
+    
+		['A_TEAM', null,
+		     ['刘刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94181'], 
+		     ['段道斌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95654'], 
+		     ['李泽红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95742'], 
+		     ['郭卫东', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95876'], 
+		     ['轩红光', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96081'], 
+		     ['陈永平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96242'], 
+		     ['张尧', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96926'], 
+		     ['任开锋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97050'], 
+		     ['顾宗新', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97057'], 
+		     ['赵春花', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97284'], 
+		     ['姜春燕', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97339'], 
+		    
+		],
+    
+		['B_TEAM', null,
+		     ['沈玉英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93157'], 
+		     ['金红华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93432'], 
+		     ['崔爱民', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95734'], 
+		     ['晏有暑', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95740'], 
+		     ['金晓宇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96210'], 
+		     ['赵伟锋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96224'], 
+		     ['解玉周', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96349'], 
+		     ['毕成', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96927'], 
+		     ['吴国华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97054'], 
+		     ['高志亮', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97291'], 
+		    
+		],
+    
+		['C_TEAM', null,
+		     ['施美芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93834'], 
+		     ['刘凤兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93914'], 
+		     ['强克兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95337'], 
+		     ['陈冬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95660'], 
+		     ['闫国柱', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95870'], 
+		     ['王开明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96043'], 
+		     ['王爱刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96712'], 
+		     ['朱文学', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97056'], 
+		     ['王圣兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97278'], 
+		     ['夷健', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97290'], 
+		     ['黄春兰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97338'], 
+		    
+		],
+    
+		['D_TEAM', null,
+		     ['陆雪琴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93159'], 
+		     ['陈如实', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93433'], 
+		     ['廖小易', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94245'], 
+		     ['王祎', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95539'], 
+		     ['吴邦付', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95678'], 
+		     ['刘会义', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96070'], 
+		     ['王玉锦', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96713'], 
+		     ['包进峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96787'], 
+		     ['郭书存', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97051'], 
+		     ['陆忠良', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97289'], 
+		     ['华娴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97331'], 
+		    
+		],
+    
+		['资材关系', null,
+		     ['张秋红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93156'], 
+		     ['康菊平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93851'], 
+		     ['崔悦峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93922'], 
+		     ['杨学平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95923'], 
+		     ['杨忠娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96774'], 
+		     ['何威', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97270'], 
+		    
+		],
+    
+		['产销服务部', null,
+		     ['刘彦旭', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93596'], 
+		     ['陈彦', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93751'], 
+		    
+		],
+    
+		['物管组', null,
+		     ['占筱', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93211'], 
+		     ['徐建华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93536'], 
+		     ['黄建峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93786'], 
+		     ['殷金喜', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94022'], 
+		     ['周锴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94079'], 
+		     ['彭春洲', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94562'], 
+		     ['周永刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94917'], 
+		     ['郑志卫', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95139'], 
+		     ['唐兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95503'], 
+		     ['杨尚波', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95627'], 
+		     ['黄庆花', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95634'], 
+		     ['王权利', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95724'], 
+		     ['司传付', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95725'], 
+		     ['龙生松', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96051'], 
+		     ['高圣业', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96252'], 
+		     ['龚祥明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97281'], 
+		     ['陈辉强', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97282'], 
+		     ['邓家敏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97404'], 
+		    
+		],
+    
+		['出货组', null,
+		     ['周金年', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93533'], 
+		     ['朱月娥', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93581'], 
+		     ['程林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94421'], 
+		     ['王春荣', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94645'], 
+		     ['谈振华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94823'], 
+		     ['肖志红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95150'], 
+		     ['许昌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95170'], 
+		     ['汤凤弟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95881'], 
+		     ['左海友', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95882'], 
+		     ['李威威', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95883'], 
+		     ['程俊飞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95884'], 
+		     ['汤其泽', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95885'], 
+		     ['韩香明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95886'], 
+		     ['周中华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95887'], 
+		     ['赵兴保', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95888'], 
+		     ['王建中', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95905'], 
+		     ['王峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96046'], 
+		     ['韩建国', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96049'], 
+		     ['刘顺', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96057'], 
+		     ['曹罡', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96059'], 
+		     ['徐莉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97032'], 
+		    
+		],
+    
+		['收料组', null,
+		     ['张美芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93321'], 
+		     ['张建军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93511'], 
+		     ['朱雪良', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94214'], 
+		     ['魏安付', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94977'], 
+		     ['黄俊丽', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95115'], 
+		     ['周光', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95911'], 
+		     ['汪成锁', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95912'], 
+		     ['胡大学', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96052'], 
+		     ['赵军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96058'], 
+		     ['袁和平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96236'], 
+		     ['赵文超', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96250'], 
+		    
+		],
+    
+		['生管课', null,
+		     ['俞秋芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93137'], 
+		     ['汤琴妹', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93139'], 
+		     ['夏静芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93158'], 
+		     ['冀晓云', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93941'], 
+		     ['黄丽梅', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94031'], 
+		     ['高正义', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95713'], 
+		     ['柳俊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95743'], 
+		     ['卢爱斌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96041'], 
+		     ['王进', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96080'], 
+		     ['吴勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96213'], 
+		     ['计建中', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96232'], 
+		     ['汤龙海', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96244'], 
+		     ['王小东', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97140'], 
+		     ['俞学芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97141'], 
+		     ['戴萍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97143'], 
+		     ['刘金龙', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97287'], 
+		     ['涂云珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97296'], 
+		     ['陈最勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97410'], 
+		     ['张晓亮', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97422'], 
+		     ['张汝闯', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97490'], 
+		     ['刁围菊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97491'], 
+		     ['施德标', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97495'], 
+		    
+		],
+    
+		['工程部', null,
+		     ['吴诚华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93098'], 
+		    
+		],
+    
+		['机械开发群', null,
+		     ['黄丽云', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93088'], 
+		     ['赵汉昌', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93539'], 
+		     ['唐文潮', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94009'], 
+		     ['宋兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95744'], 
+		     ['张小惠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95992'], 
+		     ['李和平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96054'], 
+		     ['陈金鑫', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96062'], 
+		     ['罗海平', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96072'], 
+		     ['唐杰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96666'], 
+		     ['庾建国', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96786'], 
+		     ['陈彬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96984'], 
+		     ['陈耿', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97042'], 
+		     ['李红松', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97285'], 
+		     ['王恒', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97286'], 
+		     ['柳正龙', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97293'], 
+		    
+		],
+    
+		['工业工程', null,
+		     ['戴惠珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93950'], 
+		     ['赵江宏', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95151'], 
+		     ['李华克', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96047'], 
+		     ['杨密娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96207'], 
+		     ['葛利秋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96233'], 
+		     ['舒长生', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97299'], 
+		    
+		],
+    
+		['品保部', null,
+		     ['刘晓雨', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93889'], 
+		     ['胡彩霞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95111'], 
+		    
+		],
+    
+		['制程品保课', null,
+		     ['夏增英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94893'], 
+		    
+		],
+    
+		['品质服务群', null,
+		     ['赵娟红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97333'], 
+		    
+		],
+    
+		['品保一组', null,
+		     ['陈国华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93336'], 
+		     ['陈建珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94693'], 
+		     ['程丽华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95310'], 
+		     ['李圆圆', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95528'], 
+		     ['周生华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95530'], 
+		     ['蒋惠明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95720'], 
+		     ['耿春林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95864'], 
+		     ['何广芝', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95899'], 
+		     ['董传泉', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96084'], 
+		     ['范业花', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96262'], 
+		     ['俞贵贞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97142'], 
+		     ['轩建华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97271'], 
+		     ['闵燕', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97332'], 
+		    
+		],
+    
+		['检测组', null,
+		     ['陆友芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94629'], 
+		     ['胡秋英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94976'], 
+		     ['潘静', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95168'], 
+		     ['余丹', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97335'], 
+		    
+		],
+    
+		['品保二组', null,
+		     ['顾建国', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93932'], 
+		     ['周金龙', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94491'], 
+		     ['杨于民', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94696'], 
+		     ['詹先学', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94959'], 
+		     ['傅美', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95080'], 
+		     ['吴建伟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95527'], 
+		     ['汤存国', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95895'], 
+		     ['王冠军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96053'], 
+		     ['刘方兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96056'], 
+		     ['郝义', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96729'], 
+		     ['陈友良', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96779'], 
+		     ['魏兆桃', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97024'], 
+		     ['吕建强', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97027'], 
+		     ['姚勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97189'], 
+		     ['张剑锋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97277'], 
+		     ['于志龙', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97492'], 
+		     ['胡弦', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97493'], 
+		    
+		],
+    
+		['物检组', null,
+		     ['顾建英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93430'], 
+		    
+		],
+    
+		['SQA群', null,
+		     ['张栋梁', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93595'], 
+		     ['陈军', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95234'], 
+		     ['周群', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96066'], 
+		     ['张叶忠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96212'], 
+		     ['丁凌志', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97026'], 
+		     ['赵西涛', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97334'], 
+		    
+		],
+    
+		['改善事务局', null,
+		     ['沈红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96204'], 
+		     ['陈银霞', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97326'], 
+		    
+		],
+    
+		['物料品保课', null,
+		     ['袁兴启', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95535'], 
+		    
+		],
+    
+		['保卫队', null,
+		     ['宋文堂', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93606'], 
+		     ['石洪宝', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94570'], 
+		     ['倪林荣', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94698'], 
+		     ['孙庆坤', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95534'], 
+		     ['李宏伟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95689'], 
+		     ['韦井兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95722'], 
+		     ['李明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95733'], 
+		     ['陈天长', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96060'], 
+		     ['莫其林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96068'], 
+		     ['陶海波', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96226'], 
+		     ['王宝富', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96227'], 
+		     ['孟祥胜', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96228'], 
+		     ['郭晓伟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97297'], 
+		    
+		],
+    
+		['ART事业部', null,
+		     ['柳金镇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92010'], 
+		     ['叶惠娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93154'], 
+		     ['王正冬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93164'], 
+		     ['徐梅英', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95920'], 
+		    
+		],
+    
+		['人事行政部', null,
+		     ['刘兵', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93652'], 
+		    
+		],
+    
+		['财务部', null,
+		     ['霍芝林', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93020'], 
+		    
+		],
+    
+		['会计课', null,
+		     ['刘恩庆', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94402'], 
+		     ['徐惠翠', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94577'], 
+		     ['李琴', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95589'], 
+		     ['李艺江', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95894'], 
+		     ['吴晓云', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95916'], 
+		     ['干嵇淼', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95930'], 
+		     ['孙璇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96040'], 
+		     ['蔡敏锋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96048'], 
+		     ['李勇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96238'], 
+		     ['姜在刚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96781'], 
+		     ['曾朝阳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96782'], 
+		     ['朱正义', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97037'], 
+		     ['丁银', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97295'], 
+		     ['戴园', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97300'], 
+		     ['顾燕峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97328'], 
+		     ['徐忠实', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97329'], 
+		     ['黄萍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97408'], 
+		     ['杜金浩', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97409'], 
+		     ['朱少岩', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97421'], 
+		    
+		],
+    
+		['资讯中心', null,
+		     ['江琼', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93911'], 
+		     ['蔡磊', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94392'], 
+		     ['卢元璋', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94580'], 
+		     ['李海雄', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95540'], 
+		     ['江春', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95921'], 
+		     ['包立峰', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96038'], 
+		    
+		],
+    
+		['财务组', null,
+		     ['李红', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93006'], 
+		     ['倪玉娟', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97413'], 
+		    
+		],
+    
+		['总务课', null,
+		     ['姚秀芬', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@10977'], 
+		     ['陈银花', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@10979'], 
+		     ['赵雁', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@20001'], 
+		     ['陆学明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93040'], 
+		     ['王选成', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93208'], 
+		     ['吴玉贤', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93250'], 
+		     ['蔡燕', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93442'], 
+		     ['黄献珍', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93449'], 
+		     ['陶白妹', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93592'], 
+		     ['汤家声', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93898'], 
+		     ['孙庆彩', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93901'], 
+		     ['潘雅芳', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94226'], 
+		     ['赵建华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@94444'], 
+		     ['陈淑贤', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95070'], 
+		     ['马雪明', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95175'], 
+		     ['吴永世', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95648'], 
+		     ['吴双妹', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95874'], 
+		    
+		],
+    
+		['GCTC', null,
+		     ['林国华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@92019'], 
+		     ['徐志航', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93002'], 
+		     ['任波', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@93745'], 
+		     ['陈旭', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95670'], 
+		     ['张天宇', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@95674'], 
+		     ['张瀚', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96234'], 
+		     ['秦梽人', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@96261'], 
+		     ['陶陶', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97038'], 
+		     ['李中华', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97055'], 
+		     ['王喜龙', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97059'], 
+		     ['胡亮', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97188'], 
+		     ['金健', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97321'], 
+		     ['巩洪聘', '/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm&userid@97322'], 
+		    
+		],
+    
+    ],
+];
+
+
+
+
+</script>
+
+<script language="JavaScript" src="/js/tree_tpl.js"></script>
+<script language="JavaScript" src="/js/tree.js"></script>
+<script language="JavaScript">
+	new tree (TREE_ITEMS, tree_tpl);
+</script>
+</body>
+</html>

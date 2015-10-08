@@ -1,0 +1,577 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>网络策略</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+ function reflash(){
+  var tid=parent.pid;
+  store.load({params: {pid:tid}});  
+  }
+
+
+
+Ext.onReady(function(){
+
+    Ext.tip.QuickTipManager.init();
+
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'sport','optype','eport','lxtype','modtime','createuser','sid','optype_desc','type_desc','trantype','trantype_desc','snap','snap_desc'
+        ],
+      idProperty: 'sid'
+    });
+
+    // create the Data Store
+//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+       store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_Procy_Net',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'sid',
+            direction: 'ASC'
+        }]
+    });
+
+
+
+    // pluggable renders
+ 
+  
+    var pluginExpanded = true;
+    
+ 
+ 
+     var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+            	var str = parent.right_fun;
+            	if(str.indexOf('2630')!=-1){           
+           			grid.down('#removeEmployee').setDisabled(selections.length == 0);
+              }
+            }
+        }
+    
+    });
+ 
+ 
+  
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){
+    
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}}
+       
+});
+
+
+ 
+	function getRadioOptype(flag) { 
+
+			var dataStr = "["; 
+		    var i=0; 
+          var bCheck=false;
+          var sCheck=false;
+          if(flag==2){
+          	sCheck=true;
+          }
+          else{
+          	bCheck=true;
+          }
+		    dataStr=dataStr+"{boxLabel:'禁止',name:'optype',id:'optype',inputValue:1,checked:"+bCheck+"}";
+		    dataStr=dataStr+",{boxLabel:'允许',name:'optype',inputValue:2,checked:"+sCheck+"}";
+			dataStr=dataStr+"]";
+
+		return eval(dataStr); 
+     
+   };
+   
+    function getRadioSnap(flag) { 
+
+				var dataStr = "["; 
+		     var i=0; 
+          var bCheck=false;
+          var sCheck=false;
+          if(flag==2){
+          	sCheck=true;
+          }
+          else{
+          	bCheck=true;
+          }
+
+		    dataStr=dataStr+"{boxLabel:'不截屏',name:'snap',id:'snap',inputValue:0,checked:"+bCheck+"}";
+		    dataStr=dataStr+",{boxLabel:'截屏',name:'snap',id:'snap2',inputValue:2,checked:"+sCheck+"}";
+        dataStr=dataStr+"]";
+
+		return eval(dataStr); 
+
+				
+   };
+   
+   
+		function getRadioTrantype(flag) { 
+
+			var dataStr = "["; 
+		   var i=0; 
+          var bCheck=false;
+          var sCheck=false;
+          if(flag==6){
+          	bCheck=true;
+          }
+          else{
+          	sCheck=false;
+          }
+
+		    dataStr=dataStr+"{boxLabel:'TCP',name:'trantype',id:'trantype',inputValue:6,checked:"+bCheck+"}";
+		    dataStr=dataStr+",{boxLabel:'UDP',name:'trantype',inputValue:17,checked:"+sCheck+"}";
+        dataStr=dataStr+"]";
+
+		return eval(dataStr); 
+     
+   };
+
+		function getRadiolx(flag) { 
+
+				var dataStr = "["; 
+		     var i=0;
+     
+          var bCheck=false;
+          var lxCheck=false;
+          if(flag==1){
+          	lxCheck=true;
+          }
+          else{
+          	bCheck=true;
+          }
+
+		      dataStr=dataStr+"{boxLabel:'离线有效',name:'lxtype',id:'lxtype',inputValue:0,checked:"+bCheck+"}";
+		      dataStr=dataStr+",{boxLabel:'离线无效',name:'lxtype',inputValue:1,checked:"+lxCheck+"}";
+
+        dataStr=dataStr+"]";
+		return eval(dataStr); 
+     
+   };
+
+
+
+function openAdd(rcd)
+{
+
+ //var aaa=getKeywordData();
+ //alert(aaa);
+	 var snap_flag=0;
+     var trantype_flag=0;
+     var lx_flag=0;
+     var temp_sport='';
+	 var temp_eport='';
+     var temp_sid='';
+     if(rcd!=''){
+     	if(rcd.get('optype')){
+     		optype_flag=true;
+    	}
+     	trantype_flag=rcd.get('trantype');
+	//	alert("trantype: "+trantype_flag);
+     	lx_flag=rcd.get('lxtype');
+     	temp_sport=rcd.get('sport');
+		temp_eport=rcd.get('eport');
+     	temp_sid=rcd.get('sid');
+    }
+   
+        var fp2=Ext.create('Ext.FormPanel', {
+        	frame : true,
+        	border: 0,
+        width: 590,
+        items: [
+        	{
+            xtype: 'textfield',
+            name: 'sport',
+            fieldLabel: '起始端口',
+             value:temp_sport
+        	}
+        	,
+			{
+            xtype: 'textfield',
+            name: 'eport',
+            fieldLabel: '终止端口',
+             value:temp_eport
+        	},
+			{
+             xtype: 'radiogroup',
+             fieldLabel: '网络类型',
+             name:'trantype',
+             
+             columns: 3,
+                items: getRadioTrantype(trantype_flag)
+            },{
+            xtype: 'radiogroup',
+						fieldLabel: '截屏快照',
+						name:'snap',
+						id:'net_snap',
+						columns: 3,
+						items: getRadioSnap(snap_flag)
+          },{
+             xtype: 'radiogroup',
+             fieldLabel: '离线是否有效',
+             name:'lxtype',
+            
+             columns: 3,
+                items: getRadiolx(lx_flag)
+            }
+          //  ,
+        	//rightcheckGroup
+      	// ,tree
+        ]
+      });
+    
+    
+         var win2 = new Ext.Window ({
+                             id:"addwindow",
+                             title:"网络控制策略",
+                             x:0,
+                             y:0,
+                             width:630,
+                             modal:true,
+                             resizable:true,
+                             items: {
+                             	xtype:'fieldset',
+                    					anchor: '100%',
+                             	collapsible: false,
+                             	title:"禁止网络端口：",
+                             	items:fp2
+                             }
+							 ,
+        buttons: [{
+            text: '保存',
+            handler: function(){
+            	var optype_id='';
+//获取check框里的关键字ID
+
+			var trantype_id=Ext.getCmp('trantype').getGroupValue();
+			//alert(trantype_id);
+             var lx_id=Ext.getCmp('lxtype').getGroupValue();
+             var sport_id=fp2.getForm().getValues().sport;
+			 var eport_id=fp2.getForm().getValues().eport;
+			
+								var optype_id = 1;
+								
+			var snap_id=Ext.getCmp('snap').getGroupValue();
+            
+             var temp_id=parent.pid;
+            
+	           store.load({params:{update:"update",pid:temp_id,optype:optype_id,snap:snap_id,sport:sport_id,eport:eport_id,lxtype:lx_id,trantype:trantype_id,sid:temp_sid}});
+	            Ext.getCmp('addwindow').close();
+       
+            }
+        },{
+            text: '关闭',
+            handler: function(){
+              Ext.getCmp('addwindow').close();
+
+            }
+         }]
+							 
+                                               
+         }
+        )
+        win2.show();
+   
+}
+
+
+
+
+
+
+    var grid = Ext.create('Ext.grid.Panel', {
+ 
+        height: 980,
+         stripeRows: true,
+        store: store,
+        selModel: sm,
+     //  forceFit: true,
+        scrollOffset: 0,
+        frame:true,
+       
+        // grid columns
+        columns:[{
+          header: '修改',
+            xtype: 'actioncolumn',
+            dataIndex: 'userid',
+             icon: '/images/v8/edit_task.png',
+            tooltip: '点击该图标进入修改界面。',
+            flex:1,
+            id:"procynetadd"'
+            align: 'center',
+            sortable: false,
+            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+        //        gotoedit1(record.get('userid'));
+       			 openAdd(record)
+            }
+
+        },{
+            text: "网络类型",
+            dataIndex: 'trantype_desc',
+            hidden: false,
+            flex:4,
+            sortable: false
+        },
+		{
+            text: "起始端口",
+            dataIndex: 'sport',
+            hidden: false,
+            flex:4,
+            sortable: false
+        },
+		{
+            text: "终止端口",
+            dataIndex: 'eport',
+            hidden: false,
+            flex:4,
+            sortable: false
+        },
+		{
+            text: "截屏快照",
+            dataIndex: 'snap_desc', 
+            flex:4,
+            hidden:false,
+            sortable: true
+        },
+        {
+            text: "离线是否有效",
+            dataIndex: 'type_desc',
+            hidden: false,
+            flex:4,
+            sortable: false
+        },
+        {
+            text: "修改时间",
+            dataIndex: 'modtime',
+            hidden: false,
+            flex:4.5,
+            sortable: false
+        },
+        {
+            text: "操作人",
+            dataIndex: 'createuser',
+            hidden: false,
+            flex:4,
+            sortable: false
+        },{
+            flex:1,
+            sortable: false
+        }],
+        
+        columnLines: true,
+                                        
+        // paging bar on the bottom
+ 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",
+                                       
+            items: [
+             {               
+                text:'添加',
+                iconCls:'add',
+                id: "procynetadd",
+                handler: function(){
+                	if(parent.pid==''){
+                		alert('请先点击左侧策略树，选取主策略');
+                		return;
+                	}
+                  openAdd('');
+              
+                }
+            },
+             {
+            itemId: 'removeEmployee',
+            text: '删除',
+            id: "procynetdel",
+            iconCls: 'remove',
+
+                handler:function(){
+             
+							   if(confirm('您真的要执行删除操作吗？')){                  
+                 var selsid;  
+                 var rows=sm.getSelection();
+                   selsid='';
+                  for(var i=0;i<rows.length;i++){
+                  	if(i==0){
+                  	 selsid=rows[i].getId();
+                  	}
+                  	else{
+                       selsid=selsid+","+rows[i].getId();
+                    }
+                   
+                   }
+                   var temp_id=parent.pid;
+                      store.load({params: {del: "del",selsid:selsid,pid:temp_id}});
+                  
+                
+              }
+                
+            },
+            disabled: true
+        },{
+      		text: "应用",
+      		iconCls:'accept',
+      		handler: function(){
+      			parent.ncapp.onItemReflash();
+      		}
+      	}]
+       
+
+        })
+        
+
+        ,
+        renderTo: 'grid-corp'
+    });
+    
+    var str = parent.right_fun;
+		//console.info(str,",",str.indexOf('1110'))
+		if(str.indexOf('2610')==-1){
+			Ext.getCmp('procynetadd').setDisabled(true);
+		}
+		if(str.indexOf('2620')==-1){
+			Ext.getCmp('procynetchg').setDisabled(true);
+		}
+
+		if(str.indexOf('2630')==-1){
+			Ext.getCmp('procynetdel').setDisabled(true);
+		}
+
+    // trigger the data store load
+       reflash();
+    
+    
+ //    store.loadPage(1);
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_Procy_Net">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">	
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="field_flag" value="1">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="cname" value="">
+		<input type="hidden" name="position" value="">
+		<input type="hidden" name="servicecode" value="">
+		<input type="hidden" name="idno" value="">
+		<input type="hidden" name="dispname" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

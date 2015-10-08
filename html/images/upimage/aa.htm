@@ -1,0 +1,233 @@
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+  <HTML>
+  <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="Microsoft FrontPage 5.0">
+  <META NAME="Author" CONTENT="zhaoweiwei">
+  <META NAME="Keywords" CONTENT="birthday_input">
+  <META NAME="Description" CONTENT="日起输入控件">
+  <script>
+  function showdb()  //显示控件/隐藏空间
+  {
+    var CurrentDate=new Date();
+    var CYear=CurrentDate.getFullYear();
+    var CMonth=CurrentDate.getMonth();
+    var CDay=CurrentDate.getDay();
+  
+    var a=document.getElementById("input_birth");
+  
+    var obj_year=document.getElementById("year");  //当展开控件时自动取到当前时间（客户端）
+    obj_year.innerText=CYear;
+    var obj_month=document.getElementById("month");
+    obj_month.innerText=CMonth+1;
+  
+    var s=new Date(CYear,CMonth,1);
+    var startDay=s.getDay();   //日期起始数字
+    var numDays=numberOfDays(CMonth,CYear);  //本月天数
+    var day=document.getElementsByName("day");
+    for(var j=1;j<=numDays;j++)  //插入日期
+  {
+    day[startDay+j-1].innerText=j;
+  }
+
+    if(a.style.visibility=='visible')
+    {
+     a.style.visibility='hidden';
+    }
+  else
+  {
+    a.style.visibility='visible';
+  }
+  
+  }
+  function addyear()
+   {
+   var obj_year=document.getElementById("year");
+   var obj_month=document.getElementById("month");
+
+   var num_year=obj_year.innerText;
+
+   obj_year.innerText=parseInt(num_year)+1;  //年数增加
+   
+   displayCalendar(obj_month.innerText-1,obj_year.innerText);
+  }
+  function plusyear()
+   {
+   
+   var obj_year=document.getElementById("year");
+   var obj_month=document.getElementById("month");
+   
+   var num_year=obj_year.innerText;
+   obj_year.innerText=parseInt(num_year)-1;  //年数减少
+   
+   displayCalendar(obj_month.innerText-1,obj_year.innerText);
+  }
+  function addmonth()
+  {
+   
+     var obj_month=document.getElementById("month");
+     var obj_year=document.getElementById("year");
+     
+     if(parseInt(obj_month.innerText)>=12)        //月数增加到12时，年数相应增加1，月数从1开始
+     {
+      obj_month.innerText="0";
+      obj_year=document.getElementById("year");
+      var num_year=obj_year.innerText;
+      obj_year.innerText=parseInt(num_year)+1;
+     }
+   
+       var num_month=obj_month.innerText;
+      obj_month.innerText=parseInt(num_month)+1;  //月数增加
+   
+     displayCalendar(obj_month.innerText-1,obj_year.innerText);
+    }
+    function plusmonth()
+    {
+   
+     var obj_month=document.getElementById("month");
+     var obj_year=document.getElementById("year");
+   
+    if(parseInt(obj_month.innerText)<=1)    //月数减少到1时，年数相应减少1，月数从12开始
+   {
+      obj_month.innerText="13";
+      obj_year=document.getElementById("year");
+      var num_year=obj_year.innerText;
+      obj_year.innerText=parseInt(num_year)-1;
+     }
+   
+     var num_month=obj_month.innerText;
+   obj_month.innerText=parseInt(num_month)-1;  //月数减少
+
+     displayCalendar(obj_month.innerText-1,obj_year.innerText);
+  }
+
+  function numberOfDays(month,year)  //取得每月天数，判断平年闰年
+  {
+    var numDays=new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+    n=numDays[month];
+    if(month==1&&year%4==0) ++n;
+    return n;
+  }
+
+  function displayCalendar(month,year)
+  {
+
+    var d=new Date(year,month,1);
+    var startDay=d.getDay();   //日期起始数字
+    var numDays=numberOfDays(month,year);  //本月天数
+  
+    var day=document.getElementsByName("day");
+    for(var i=0;i<day.length;i++)
+    {
+     day[i].innerText="";
+    }
+    for(var j=1;j<=numDays;j++)  //插入日期
+    {
+      day[startDay+j-1].innerText=j;
+    }
+  
+  }
+  function writeDate(n)
+  {
+     document.writeln("<H3 ALIGN='CENTER'>"+n+"</H3>");
+   }
+
+  function add_day(year,month,day)
+  {
+     bd.birthdate.value=year+"-"+month+"-"+day;
+  }
+  </script>
+  </HEAD>
+   <BODY>
+  <form name="bd">
+  <input type="text" name="birthdate" size="20" readOnly><input type="button" value="..." onclick="showdb()">
+  </form>
+  <div id="input_birth" name="input_birth" style="visibility:hidden; width:239; height:128">
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" style="cursor:hand" bordercolor="#111111" width="100%"  height="26">
+    <tr>
+    <td width="100%" colspan="3" height="26">&nbsp;&nbsp; <input type="button" value="&lt;&lt;" onclick="plusyear()" name="plusyear"> 
+      <input type="button" value="&lt;" onclick="plusmonth()" name="plusmonth">&nbsp; <font id="year">
+      </font>年<font id="month"></font>月 
+      <input type="button" value="&gt;" onclick="addmonth()" name="addmonth"> 
+      <input type="button" value="&gt;&gt;" name="addyear" onclick="addyear()"></td>
+    </tr>
+     <tr>
+      <td width="100%" colspan="3" height="119" valign="top">
+     <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
+        <tr>
+        <td width="14%" align="center"><b><font color="#FF0000">日</font></b></td>
+        <td width="14%" align="center"><b>一</b></td>
+        <td width="14%" align="center"><b>二</b></td>
+        <td width="14%" align="center"><b>三</b></td>
+        <td width="14%" align="center"><b>四</b></td>
+        <td width="15%" align="center"><b>五</b></td>
+        <td width="15%" align="center"><b><font color="#FF0000">六</font></b></td>
+      </tr>
+      <tr>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)"></td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        </tr>
+        <tr>
+          <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+      </tr>
+      <tr>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+      </tr>
+      <tr>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+      </tr>
+      <tr>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+      </tr>
+      <tr>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="14%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+        <td width="15%" align="center" id="day" onclick="add_day(year.innerText,month.innerText,this.innerText)">　</td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" height="1"></td>
+    <td width="33%" height="1"></td>
+    <td width="34%" height="1"></td>
+    </tr>
+  </table>
+   </div>
+  </BODY>
+  </HTML>
+
+ 

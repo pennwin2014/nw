@@ -1,0 +1,1363 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>按对象查看</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+		.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+		}
+	</style>
+  <script type="text/javascript">
+  	var procyMainStore = "";
+  	var procyFileStore = "";
+  	var procyProcStore = "";
+  	var procyNetStore = "";
+  	var procyDevStore = "";
+  	var procyWebAddrStore = "";
+  	var procyOtherStore = "";
+  	var procyOutStore = "";
+  	var procyAppStore = "";
+  	var procyStore = "";
+  	
+  	var keywords = "";
+  	
+  	function SetPage(){
+		}
+  
+  	function reflash(){
+  		compid = parent.compid;
+  		groupid = parent.groupid;
+  		
+  		procyStore.load({params:{compid:compid,groupid:groupid,keywords:keywords}});
+  	}
+  	
+  	function showCompProcy(compid,compName){
+  		procyMainStore.load({params:{compid:compid,slave:0}});
+  		procyFileStore.load({params:{compid:compid,slave:1}});
+  		procyProcStore.load({params:{compid:compid,slave:2}});
+  		procyNetStore.load({params:{compid:compid,slave:3}});
+  		procyAppStore.load({params:{compid:compid,slave:4}});
+  		procyDevStore.load({params:{compid:compid,slave:5}});
+  		procyWebAddrStore.load({params:{compid:compid,slave:6}});
+  		procyOtherStore.load({params:{compid:compid,slave:7}});
+  		procyOutStore.load({params:{compid:compid,slave:8}});
+  		
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":所有策略详细",
+  			width: 1034,
+  			height: 800,
+				constrain:true, //限制窗口只能在其容器内移动
+  			layout: {
+  				type: "table",
+  				columns: 2
+  			},
+  			modal:true,
+  			items:[{
+  				colspan: 2,
+  				title: "主策略",
+	  			xtype: 'grid',
+	  			width: 1024,
+	  			height: 160,
+	  			store:procyMainStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "策略名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "创建时间",
+	          dataIndex: 'createtime',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			},{
+	  				text: "创建人",
+	          dataIndex: 'createuser',
+	          flex: 1,
+	          sortable: false
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "文件控制策",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyFileStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "文件名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p>',
+		            value&1?"禁止文件复制到U盘 ":"",
+		            value&2?"禁止文件复制到网络 ":"",
+		            value&4?"禁止文件复制到云盘 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else if(value == 2){
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "进程控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyProcStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "进程名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p>',
+		            value&1?"禁止运行 ":"",
+		            value&2?"启动截屏 ":"",
+		            value&4?"禁止导出文件 ":"",
+		            value&8?"记录导出文件 ":""
+	            );
+	          }
+	  			},{
+	  				text: "限制运行时间",
+	          dataIndex: 'stamp',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不限制";
+	          	}else{
+	          		return value;
+	          	}
+	          }
+	        },{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else if(value == 2){
+	          		return "截屏";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "网络控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyNetStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "连接类型",
+	          dataIndex: 'trantype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 17){
+	          		return "TCP";
+	          	}else if(value == 6){
+	          		return "UDP";
+	          	}
+	          }
+	  			},{
+	  				text: "起始端口",
+	          dataIndex: 'sport',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "终止端口",
+	          dataIndex: 'eport',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p><p>{4}</p>',
+		            value&1?"禁止增加网络连接 ":"",
+		            value&2?"禁止WIFI ":"",
+		            value&4?"禁止ADSL ":"",
+		            value&8?"禁止VPN ":"",
+		            value&16?"禁止离线网络连接 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "应用程序控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store: procyAppStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "程序类别",
+	          dataIndex: 'gtype',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p>',
+		            value&1?"禁止运行 ":"",
+		            value&2?"启动截屏":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "外设控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyDevStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p>',
+		            value&1?"禁止U盘 ":"",
+		            value&2?"禁止U盘读 ":"",
+		            value&4?"禁止U盘写 ":"",
+		            value&8?"禁止光盘刻录 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "放行U盘库",
+	          dataIndex: 'freehaordid',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不限制";
+	          	}else{
+	          		return value;
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "网址控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyWebAddrStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "网址",
+	          dataIndex: 'url',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "网址库",
+	          dataIndex: 'urlclass',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 1){
+	          		return "禁止";
+	          	}else if(value == 2){
+	          		return "允许";
+	          	}
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "非法外连控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyOutStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p><p>{4}</p>',
+		            value&1?"禁止增加网络连接 ":"",
+		            value&2?"禁止WIFI ":"",
+		            value&4?"禁止ADSL ":"",
+		            value&8?"禁止VPN ":"",
+		            value&16?"禁止离线网络连接 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			},{
+	  			xtype: 'grid',
+	  			title: "屏幕、聊天监控控制策略",
+	  			width: 512,
+	  			height: 160,
+	  			store:procyOtherStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "类型",
+	          dataIndex: 'ctype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 1){
+	          		return "屏幕监控";
+	          	}else if(value == 2){
+	          		return "聊天监控";
+	          	}
+	          }
+	  			},{
+	  				text: "截屏间隔",
+	          dataIndex: 'ftime',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return value + "分钟";
+	          }
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(record.get('ctype') == 2){
+	          		if(value == 0){
+	          			return "记录";
+	          		}else{
+	          			return "不记录";
+	          		}
+	          	}else{
+	          		if(value == 0){
+	          			return "停用";
+	          		}else{
+	          			return "启用";
+	          		}
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(100,100);
+  	}
+  	
+  	function showMainProcy(compid,compName){
+  		procyMainStore.load({params:{compid:compid,slave:0}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":主策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyMainStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "策略名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "创建时间",
+	          dataIndex: 'createtime',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			},{
+	  				text: "创建人",
+	          dataIndex: 'createuser',
+	          flex: 1,
+	          sortable: false
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+  	function showFileProcy(compid,compName){
+  		procyFileStore.load({params:{compid:compid,slave:1}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":文件控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyFileStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "文件名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p>',
+		            value&1?"禁止文件复制到U盘 ":"",
+		            value&2?"禁止文件复制到网络 ":"",
+		            value&4?"禁止文件复制到云盘 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else if(value == 2){
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+  	function showProcProcy(compid,compName){
+  		procyProcStore.load({params:{compid:compid,slave:2}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":进程控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyProcStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "进程名",
+	          dataIndex: 'name',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p>',
+		            value&1?"禁止运行 ":"",
+		            value&2?"启动截屏 ":"",
+		            value&4?"禁止导出文件 ":"",
+		            value&8?"记录导出文件 ":""
+	            );
+	          }
+	  			},{
+	  				text: "限制运行时间",
+	          dataIndex: 'stamp',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不限制";
+	          	}else{
+	          		return value;
+	          	}
+	          }
+	        },{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else if(value == 2){
+	          		return "截屏";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+  	function showNetProcy(compid,compName){
+  		procyNetStore.load({params:{compid:compid,slave:3}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":网络控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyNetStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "连接类型",
+	          dataIndex: 'trantype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 17){
+	          		return "TCP";
+	          	}else if(value == 6){
+	          		return "UDP";
+	          	}
+	          }
+	  			},{
+	  				text: "起始端口",
+	          dataIndex: 'sport',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "终止端口",
+	          dataIndex: 'eport',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p><p>{4}</p>',
+		            value&1?"禁止增加网络连接 ":"",
+		            value&2?"禁止WIFI ":"",
+		            value&4?"禁止ADSL ":"",
+		            value&8?"禁止VPN ":"",
+		            value&16?"禁止离线网络连接 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+   	function showAppProcy(compid,compName){
+  		procyAppStore.load({params:{compid:compid,slave:4}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":应用程序控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store: procyAppStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "程序类别",
+	          dataIndex: 'gtype',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p>',
+		            value&1?"禁止运行 ":"",
+		            value&2?"启动截屏":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+   	function showDevProcy(compid,compName){
+  		procyDevStore.load({params:{compid:compid,slave:5}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":外设控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyDevStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p>',
+		            value&1?"禁止U盘 ":"",
+		            value&2?"禁止U盘读 ":"",
+		            value&4?"禁止U盘写 ":"",
+		            value&8?"禁止光盘刻录 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "放行U盘库",
+	          dataIndex: 'freehaordid',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不限制";
+	          	}else{
+	          		return value;
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+ 
+    function showWebAddrProcy(compid,compName){
+  		procyWebAddrStore.load({params:{compid:compid,slave:6}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":网址控制策略详细",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyWebAddrStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "网址",
+	          dataIndex: 'url',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "网址库",
+	          dataIndex: 'urlclass',
+	          flex: 1,
+	          sortable: false
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 1){
+	          		return "禁止";
+	          	}else if(value == 2){
+	          		return "允许";
+	          	}
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+  	
+  	function showOtherProcy(compid,compName){
+  		procyOtherStore.load({params:{compid:compid,slave:7}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":屏幕、聊天控制策略",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyOtherStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "类型",
+	          dataIndex: 'ctype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 1){
+	          		return "屏幕监控";
+	          	}else if(value == 2){
+	          		return "聊天监控";
+	          	}
+	          }
+	  			},{
+	  				text: "截屏间隔",
+	          dataIndex: 'ftime',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return value + "分钟";
+	          }
+	  			},{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(record.get('ctype') == 2){
+	          		if(value == 0){
+	          			return "记录";
+	          		}else{
+	          			return "不记录";
+	          		}
+	          	}else{
+	          		if(value == 0){
+	          			return "停用";
+	          		}else{
+	          			return "启用";
+	          		}
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}
+
+  	function showOutProcy(compid,compName){
+  		procyOutStore.load({params:{compid:compid,slave:8}});
+  		Ext.create('Ext.window.Window',{
+  			title: compName+":非法外联控制策略",
+  			width: 800,
+  			height: 400,
+  			modal:true,
+				constrain:true, //限制窗口只能在其容器内移动
+  			items:[{
+	  			xtype: 'grid',
+	  			width: 800,
+	  			height: 400,
+	  			store:procyOutStore,
+	  			columnLines:true,
+	  			columns:[{
+	  				text: "控制状态",
+	          dataIndex: 'optype',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	return Ext.String.format(
+		            '<p>{0}</p><p>{1}</p><p>{2}</p><p>{3}</p><p>{4}</p>',
+		            value&1?"禁止增加网络连接 ":"",
+		            value&2?"禁止WIFI ":"",
+		            value&4?"禁止ADSL ":"",
+		            value&8?"禁止VPN ":"",
+		            value&16?"禁止离线网络连接 ":""
+	            );
+	          }
+	  			},{
+	  				text: "截屏快照",
+	          dataIndex: 'snap',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "不截屏";
+	          	}else{
+	          		return "截屏";
+	          	}
+	          }
+	  			},{
+	  				text: "离线控制",
+	          dataIndex: 'type',
+	          flex: 1,
+	          sortable: false,
+	          renderer: function(value, metaData, record){
+	          	if(value == 0){
+	          		return "离线有效";
+	          	}else{
+	          		return "离线无效";
+	          	}
+	          }
+	  			}]
+  			}]
+  		}).showAt(50,100);
+  	}  	
+  	
+ 		Ext.onReady(function() {
+ 			Ext.define('procyMod', {
+	      extend: 'Ext.data.Model',
+	      fields: ['name','createtime','type','createuser','optype','snap','stamp','trantype','sport','eport','gtype','freehaordid','url','urlclass','ctype','ftime']
+	    });
+ 			
+ 			procyMainStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });
+	    
+ 			procyFileStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	    
+
+ 			procyProcStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	 
+	       
+ 			procyNetStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	
+	        
+ 			procyAppStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	
+	        
+ 			procyDevStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	
+	        
+ 			procyWebAddrStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	
+	        
+ 			procyOtherStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	
+	        
+ 			procyOutStore = Ext.create('Ext.data.Store', {
+	      model: 'procyMod',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procyInfo_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });	    
+	    
+ 			Ext.define('EimData', {
+	      extend: 'Ext.data.Model',
+	      fields: ['compid','compName','ip','mac','mainProcy','slaveProcy']
+	    });
+ 			
+ 			procyStore = Ext.create('Ext.data.Store', {
+	      model: 'EimData',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_procy_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });
+ 			
+ 			Ext.create('Ext.grid.Panel',{
+		  	renderTo:Ext.getBody(),
+		  	width: '100%',
+		  	height: '100%',
+		  	store:  procyStore,
+	  		columnLines:true,
+		  	columns:[{
+          text:"计算机名",
+          dataIndex: 'compName',
+          flex:1.7,
+          sortable: false,
+          renderer: function(value, p, record){
+          	return Ext.String.format(
+	            '<b><a href="#sss" onclick="showCompProcy({1},\'计算机:{2}\')">{0}</a></b>',
+	            value,record.get('compid'),record.get('compName')
+        		);
+          }
+        },{
+          text:"IP",
+          dataIndex: 'ip',
+          flex:1.2,
+          sortable: false
+        },{
+          text:"MAC",
+          dataIndex: 'mac',
+          flex:1,
+          hidden:true,
+          sortable: false
+        },{
+          text:"主策略",
+          dataIndex: 'mainProcy',
+          flex:0.5,
+          sortable: false,
+          renderer: function(value, p, record){
+          	return Ext.String.format(
+	            '<b><a href="#sss" onclick="showMainProcy({1},\'计算机:{2}\')">{0}</a></b>',
+	            value,record.get('compid'),record.get('compName')
+        		);
+          }
+        },{
+          text:"子策略",
+          dataIndex: 'slaveProcy',
+          flex:9,
+          sortable: false,
+          renderer: function(value, p, record){
+          	var slave = value.split("、");
+          	return Ext.String.format(
+	            '<b><a href="#sss" onclick="showFileProcy({8},\'计算机:{9}\')">{0}</a>、</b><b><a href="#sss" onclick="showDevProcy({8},\'计算机:{9}\')">{1}</a>、</b><b><a href="#sss" onclick="showOutProcy({8},\'计算机:{9}\')">{2}</a>、</b><b><a href="#sss" onclick="showAppProcy({8},\'计算机:{9}\')">{3}</a>、</b><b><a href="#sss" onclick="showProcProcy({8},\'计算机:{9}\')">{4}</a>、</b><b><a href="#sss" onclick="showNetProcy({8},\'计算机:{9}\')">{5}</a>、</b><b><a href="#sss" onclick="showWebAddrProcy({8},\'计算机:{9}\')">{6}</a>、</b><b><a href="#sss" onclick="showOtherProcy({8},\'计算机:{9}\')">{7}</a></b>',
+	            slave[0],slave[1],slave[2],slave[3],slave[4],slave[5],slave[6],slave[7],record.get('compid'),record.get('compName')
+        		);
+          }
+        }],
+        listeners:{
+        	'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+						event.stopEvent();
+						Ext.create('Ext.menu.Menu', {
+							floating:	true,
+							items: [{
+								text: '刷新',
+								handler: function(){
+ 									reflash();
+								}
+							}]	
+						}).showAt(event.getXY());
+					}
+        },
+        tbar:[{
+	    		labelWidth: 50,
+	    		width: 200,
+	        fieldLabel:'关键字',
+	        xtype: 'textfield',
+	        emptyText: '输入计算机名/IP/MAC',
+	        id:'keyword2'                    
+	    	},{
+	    		xtype: 'button',
+	    		text: '确定',
+	    		iconCls:'accept',
+	    		handler: function(){
+	    			keywords = Ext.getCmp('keyword2').getValue();
+ 						reflash();
+	    		}
+	    	}]
+ 			});
+ 			reflash();
+ 		});
+ 	</script>
+</head>
+<body>
+	
+</body>
+</html>

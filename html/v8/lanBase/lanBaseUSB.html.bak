@@ -1,0 +1,719 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>USB类型定义</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+  </style>
+  <script type="text/javascript">
+  	var USBClass = "";
+  	
+  	Ext.onReady(function() {  
+  				
+  		function findIdByText(store,text){
+	    	var id = text;
+	    	
+	    	store.each(function(rec){
+	    		if(rec.get('text')==text){
+	    			id = rec.get('id');
+	    			return;
+	    		}
+	    	});
+	    	return id;
+	    }
+			Ext.define('EimData', {
+	      extend: 'Ext.data.Model',
+	      fields: ['id','text','leaf']
+	    });
+	  	var USBClassStore3 = Ext.create('Ext.data.Store', {
+	      model: 'EimData'
+	  	});
+			var USBClassStore2 = Ext.create('Ext.data.Store', {
+	      model: 'EimData'
+	  	});
+	  	var USBClassStore = Ext.create('Ext.data.TreeStore', {
+	      model: 'EimData',
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_USB_class_search'
+	      },
+	      listeners: {
+	      	'load': function(thisStore,node,records,successful,eOpts){
+	      		USBClassStore2.removeAll();
+	      		USBClassStore3.removeAll();
+	      		USBClassStore2.add(records);
+	      		USBClassStore2.insert(0,{id:'1',text:'全部'});
+	      		USBClassStore3.add(records);
+	      		USBClassStore3.removeAt(0);
+			    }
+	      }
+	  	});
+	  	Ext.define('EimData4', {
+	      extend: 'Ext.data.Model',
+	      fields: ['sid','usbClass','usbName','prodName','volName','stime','hardId','bindUser','createUser']
+	    });
+	    
+	   	var USBStore = Ext.create('Ext.data.Store', {
+	      pageSize: 40,
+	      model: 'EimData4',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_USB_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });
+	    USBStore.load();
+	    
+	    function USBStoreReflash(){
+	    	USBClass = Ext.getCmp('USBClass2').getValue();
+	    	
+	    	if(USBClass == '1' || USBClass == '全部'){
+	    		USBClass = "";
+	    	}
+	    	
+	    	USBStore.load({params:{
+	      	deal: "select",
+	      	id:USBClass
+	      }});
+	    }
+	    
+	    var USBRowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+	      clicksToMoveEditor: 1,
+	      autoCancel: false,
+	      saveBtnText: '保存',   
+		    cancelBtnText: '取消',   
+		    errorsText: '错误信息',   
+		    dirtyText: '已修改,你需要提交或取消变更',
+		    completeEdit: function() {   
+	        var me = this;   
+	        
+	        var sid = "";
+	        var deal = "";
+	        var id = "";
+	        var prodName = "";
+	        var USBName = "";
+	        var volName = "";
+	        var hardId = "";
+	        var bindUser = "";
+	        var createUser = "";
+	        
+	        if (me.editing && me.validateEdit()) {
+	          me.editing = false;   
+	          me.fireEvent('edit', me.context);   
+	        }   
+	        me.adding = false;
+	        
+	        id = findIdByText(USBClassStore3,Ext.getCmp('USBClass').getValue());
+	        prodName = Ext.getCmp('prodName').getValue();
+	        USBName = Ext.getCmp('USBName').getValue();
+	        volName = Ext.getCmp('volName').getValue();
+	        hardId = Ext.getCmp('hardId').getValue();
+	        bindUser = Ext.getCmp('bindUser').getValue();
+	        createUser = Ext.getCmp('createUser').getValue();
+	        
+	        
+	        if(me.context.record.data.sid==""){
+	        	deal = "insert";
+	        }else{
+	        	deal = "update";
+	        	sid = me.context.record.data.sid;
+	        }
+	        USBStore.currentPage=1; 
+	        USBStore.load({params:{
+	        	deal: deal,
+	        	sid:sid,
+	        	id:id,
+	        	USBName:USBName,
+	        	prodName:prodName,
+	        	volName:volName,
+	        	hardId:hardId,
+	        	bindUser:bindUser,
+	        	createUser:createUser
+	        }});
+	        Ext.getCmp('USBClass2').select('0');
+				},
+				cancelEdit: function(){
+	        var me = this; 
+	 
+	        if (me.editing) {   
+	          me.getEditor().cancelEdit();   
+	          me.editing = false;   
+	          me.fireEvent('canceledit', me.context);    
+	          if (me.autoRecoverOnCancel){ 
+	            var tmpid=me.context.record.data.sid;
+	            if((!tmpid)){  	 
+	                me.context.record.store.remove(me.context.record);   
+	                me.adding = false;
+	            }else{   
+	                //不需要reject,因为Editor没有更改record.   
+	                //me.context.record.reject()   
+	            }   
+	          }
+	        	USBStore.load();   
+	        }    
+	    	}   
+	    });
+	    
+			var USBsm = Ext.create('Ext.selection.CheckboxModel',{
+	      listeners: {
+	        selectionchange: function(sm, selections) { 
+	        	Ext.getCmp('baseUSBGrid').down('#baseUSBRemove').setDisabled(selections.length == 0);  
+	        	Ext.getCmp('baseUSBGrid').down('#baseUSBMove').setDisabled(selections.length == 0);  
+	        }
+	      }
+		  });   
+			  
+		  Ext.create('Ext.panel.Panel',{
+				renderTo:Ext.getBody(),
+				width: '100%',
+				height: '100%',
+				layout: 'hbox',
+				items:[{
+					xtype: 'treepanel',
+					id:		'USBClassTree',
+					title: 'USB类型',
+					width: '20%',
+					height: '100%',
+					rootVisible: true,
+					store: USBClassStore,
+					animate:false,
+					root: {
+	          text: '全部USB类型',
+	          id: '0',
+	          expanded: true
+		      },
+		      tbar:[{
+		      		xtype: 'button',
+		      		text:	'添加USB类型',
+							iconCls:'add',
+							id:  "addusbclass1",
+		      		handler: function(btn, e){
+		      			//添加时间组方法
+		      			Ext.create('Ext.window.Window', {
+							    xtype: 'form',
+							    title: '添加USB类型',
+							    id:    'USBAddWin',
+							    height: 130,
+							    width: 200,
+					      	modal:true,
+							    buttonAlign:'center',
+							    bodyStyle: 'padding:10px 0px 0px 15px',
+								  items: [{  
+						        xtype: 'label',
+						        text: '请输入USB类型名：'
+						      },{
+						      	xtype: 'textfield',
+						      	id:   'addUSBClassText'
+						      }],
+						      buttons:[{
+						      	text:  '确定',
+						      	handler: function(btn, e){
+						      	//	Ext.Msg.alert('添加成功！');
+						      		USBClassStore.load({params:{deal:"insert",text:Ext.getCmp('addUSBClassText').getValue()}});
+						      		Ext.getCmp('USBAddWin').close();
+						      	}
+						      },{
+						      	text:  '取消',
+						      	handler: function(btn, e){
+						      		Ext.getCmp('USBAddWin').close();
+						      	}
+						      }]
+								}).showAt(e.getX()+100,e.getY()+30);
+		      		}	
+      		},{
+      		xtype: 'button',
+      		text:	'删除USB类型',
+					iconCls:'remove',
+					disabled: true,
+					id: 'baseUSBTreeRemove',
+      		handler: function(){
+      			//删除时间组方法
+      			Ext.Msg.show({
+      				title:"提示",
+      				msg:"该软件类型可能在策略中引用,您仍要删除该USB类别？",
+					    modal:true,
+      				buttons:Ext.Msg.YESNO,	      				
+      				fn:function(btn){
+      					if(btn == 'yes'){
+      						var deleteSelect = Ext.getCmp('USBClassTree').getSelectionModel().getLastSelected();
+			      				//Ext.Msg.alert('删除USB类型',deleteSelect.get('id')+'被选中！');
+			    				USBClassStore.load({params:{deal:"delete",treeId:deleteSelect.get('id')}});
+			    				USBStore.load({params:{deal:"delete",id:deleteSelect.get('id')}});
+			    				if(Ext.getCmp('USBClass2').getValue() == deleteSelect.get('id')){
+			    					Ext.getCmp('USBClass2').select('1');
+			    				}
+      					}
+      				},
+      				icon: Ext.Msg.QUESTION
+      			}).setPosition(300,100);
+      		}
+      		}],
+		      listeners:{
+		      	'itemdblclick':function(thisView,record,item,index,e,eOpts){
+		      		Ext.create('Ext.window.Window', {
+						    xtype: 'form',
+						    title: '修改USB类型',
+						    id:    'USBUpdateWin',
+						    height: 130,
+						    width: 200,
+					      modal:true,
+						    buttonAlign:'center',
+						    bodyStyle: 'padding:10px 0px 0px 15px',
+							  items: [{  
+					        xtype: 'label',
+					        text: '请输入新的USB类型：'
+					      },{
+					      	xtype: 'textfield',
+					      	id:   'updateUSBClassText'
+					      }],
+					      buttons:[{
+					      	text:  '确定',
+					      	handler: function(btn, e){
+					      		USBClassStore.load({params:{deal:"update",text:Ext.getCmp('updateUSBClassText').getValue(),treeId:record.get('id')}});
+					      		Ext.getCmp('USBUpdateWin').close();
+					      	}
+					      },{
+					      	text:  '取消',
+					      	handler: function(btn, e){
+					      		Ext.getCmp('USBUpdateWin').close();
+					      	}
+					      }]
+							}).showAt(e.getX()+100,e.getY()+30);
+		      	},
+		      	'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+		      		event.stopEvent();
+			      	if(rcd.get('id')!=0){
+			      		if(rcd.isLeaf()){
+									Ext.create('Ext.menu.Menu', {
+										floating:	true,
+										items: [{
+											text: '修改',
+											handler: function(){
+												Ext.create('Ext.window.Window', {
+										    xtype: 'form',
+										    title: '修改USB类型',
+										    id:    'USBUpdateWin',
+										    height: 130,
+										    width: 200,
+					      				modal:true,
+										    buttonAlign:'center',
+										    bodyStyle: 'padding:10px 0px 0px 15px',
+											  items: [{  
+									        xtype: 'label',
+									        text: '请输入新的USB类型：'
+									      },{
+									      	xtype: 'textfield',
+									      	id:   'updateUSBClassText'
+									      }],
+									      buttons:[{
+									      	text:  '确定',
+									      	handler: function(btn, e){
+									      	//	Ext.Msg.alert('添加成功！');
+									      		USBClassStore.load({params:{deal:"update",text:Ext.getCmp('updateUSBClassText').getValue(),treeId:rcd.get('id')}});
+									      		Ext.getCmp('USBUpdateWin').close();
+									      	}
+									      },{
+									      	text:  '取消',
+									      	handler: function(btn, e){
+									      		Ext.getCmp('USBUpdateWin').close();
+									      	}
+									      }]
+											}).showAt(event.getX()+100,event.getY()+30);
+											}
+										},{
+											text: '删除',
+											handler: function(){
+												Ext.Msg.show({
+						      				title:"提示",
+						      				msg:"该软件类型可能在策略中引用,您仍要删除该USB类别？",
+					      					modal:true,
+						      				buttons:Ext.Msg.YESNO,	      				
+						      				fn:function(btn){
+						      					if(btn == 'yes'){
+						      						USBClassStore.load({params:{deal:"delete",treeId:rcd.get('id')}});
+								      				USBStore.load({params:{deal:"delete",id:rcd.get('id')}});
+								      				if(Ext.getCmp('USBClass2').getValue() == rcd.get('id')){
+								      					Ext.getCmp('USBClass2').select('1');
+								      				}
+						      					}
+						      				},
+						      				icon: Ext.Msg.QUESTION
+						      			}).setPosition(300,100);
+					      				
+											}
+										}]	
+									}).showAt(event.getXY());
+								}
+							}
+	  				},
+	  				'selectionchange':function(thisModele,selected,eOpts){
+	  					if(selected.length){
+	  						if(selected[0].isLeaf()){
+	  							USBClass = selected[0].get('id');
+	  							Ext.getCmp('USBClass2').select(USBClass);
+	  							if(selected[0].get('id') != 0){
+	  								var str = parent.right_fun;
+										if(str.indexOf('5342')==-1){
+	  									Ext.getCmp('baseUSBTreeRemove').setDisabled(false);
+	  								}
+	  							}else{
+	  								Ext.getCmp('baseUSBTreeRemove').setDisabled(true);
+	  							}
+	  						}else{
+	  							Ext.getCmp('baseUSBTreeRemove').setDisabled(true);
+	  							timeGroup = "";
+	  							Ext.getCmp('USBClass2').setValue('1');
+	  						}
+	  						USBStore.currentPage=1;
+	  						USBStoreReflash();
+	  					}
+	  				}
+		      }
+				},{
+					xtype: 'grid',
+					width: '80%',
+					height: '100%',
+					store: USBStore,
+					selModel: USBsm,
+					id:    'baseUSBGrid',
+					plugins: USBRowEditing,
+					columns:[{
+	          text: "sid",
+						dataIndex:	'sid'	,
+						hidden:			true
+					},{
+	          text: "USB类型",
+	          dataIndex: 'usbClass', 
+	          sortable: false,
+	          flex:2,
+	          editor: {
+	          	xtype: 'combobox',
+	          	id:    'USBClass',
+	          	triggerAction: 'all',
+	          	valueField:'id',
+	        		displayField: 'text',
+	        		store: USBClassStore3,
+	        		allowBlank: false,
+	        		blankText: 'USB类型为必选项',
+	        		queryMode: 'local'
+	          }
+	        },{
+	          text:"显示名称",
+	          dataIndex: 'usbName',
+	          hidden: false,
+	          sortable: false,
+	          flex:2,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'USBName'
+	          }
+	        },{
+	          text: "产品名称",
+	          dataIndex: 'prodName',
+	          sortable: false,
+	          flex:2
+	        },{
+	          text: "卷名",
+	          dataIndex: 'volName',
+	          sortable: false,
+	          flex:1,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'volName'
+	          }
+	        },{
+	          text: "硬件ID",
+	          dataIndex: 'hardId',
+	          sortable: false,
+	          	flex:3
+	        },{
+	          text: "使用者",
+	          dataIndex: 'createUser',
+	          sortable: false,
+	          flex:1,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'createUser'
+	          }
+	        },{
+	          text: "插入时间",
+	          dataIndex: 'stime',
+	          sortable: true,
+	          flex:2
+	        },{
+	          text: "备注",
+	          dataIndex: 'bindUser',
+	          sortable: false,
+	          flex:3,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'bindUser'
+	          }
+	        }],
+	        tbar: [{
+	        	xtype: 'pagingtoolbar',
+	        	border: 0,
+	        	store: USBStore,
+	        //	displayInfo: true,
+	        //  displayMsg: '显示{0} - {1}条记录 共{2}条',
+	        //  emptyMsg: '没有记录可显示',
+	          doRefresh:function(){ 
+	      			USBStoreReflash();
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		USBStore.currentPage=a;
+				    		USBStoreReflash();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	USBStore.currentPage=1;
+					    	USBStoreReflash();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				USBStore.currentPage=a;
+				   				USBStoreReflash();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				USBStore.currentPage=a;
+				   				USBStoreReflash();
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.USBStore.loadPage(g)
+						        d.store.currentPage=g;
+					         	USBStoreReflash();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+	        },{
+	        	xtype: 'combobox',
+	        	fieldLabel: 'USB类型',
+	        	id:				'USBClass2',
+	        	labelWidth: 60,
+	        	width: 150,
+	        	triggerAction: 'all',
+	        	valueField:'id',
+	        	value: '全部',
+	        	queryMode: 'local',
+	      		displayField: 'text',
+	      		store: USBClassStore2,
+	      		listeners:{
+	      			'change': function(thisField,newValue,oldValue,eOpts){
+	      				USBClass = newValue;
+	      				USBStore.currentPage=1;
+	      				USBStoreReflash();
+	      			}
+	      		}
+	        },{
+	        	xtype: 'button',
+	        	text:  '添加',
+	        	iconCls:'add',
+	        	id:"addusb",
+	        	handler: function(){
+	        	//添加USB数据方法
+	        		USBRowEditing.cancelEdit();
+	        		if(Ext.getCmp('USBClass2').getRawValue()!='全部'){
+	        			USBClass=Ext.getCmp('USBClass2').getRawValue();
+	      			}
+	        		
+	        		USBCell = Ext.create('EimData4', {
+	        			USBClass: USBClass,
+	        			USBName:	 "",
+	        			prodName: "",
+	        			volName: "",
+	        			hardId: "",
+	        			bindUser: ""
+	        		});
+	        		USBStore.insert(0, USBCell)
+	        		USBRowEditing.startEdit(0, 0);
+	        	}
+	        },{
+	        	xtype: 'button',
+	        	text:  '删除',
+						iconCls:'remove',
+						id:     'baseUSBRemove',
+						disabled: true,
+	        	handler: function(){
+	        	//删除时间数据方法
+	        		Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要删除这些USB吗？",
+					      modal:true,
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+	      						var rows=USBsm.getSelection();
+				        		if(confirm('您真的要执行删除操作吗？')){
+											for(var i=0;i<rows.length;i++){
+				              	if(i==0){
+				              		selsid=rows[i].get('sid');
+				              	}else{
+				                	selsid=selsid+","+rows[i].get('sid');
+				                }
+											}
+											//Ext.Msg.alert('删除','删除了'+selsid);
+											USBStore.currentPage=1;
+											USBStore.load({params:{
+							        	deal: 'delete',
+							        	sid:selsid
+							        }});
+							      }
+	      					}
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+	        	}
+	        },{
+	        	text: '移动到分组',
+	        	id : 'baseUSBMove',
+	        	disabled: true,
+	        	handler:function(){
+	        		var rows=USBsm.getSelection();
+	        		Ext.create('Ext.window.Window',{
+	        			title: '移动分组',
+	        			id:   'usbMoveGroup',
+	        			width: 250,
+	        			height:200,
+					      modal:true,
+	        			padding: '10 10 10 10',
+	        			xtype: 'form',
+	        			items:[{
+	        				xtype: 'combobox',
+	        				id: 'usbMoveTo',
+	        				fieldLabel: '移动到',
+	        				width: 150,
+	        				labelWidth: 45,
+	        				triggerAction: 'all',
+			          	valueField:'id',
+			        		displayField: 'text',
+	        				store: USBClassStore3,
+	        				queryMode: 'local'
+	        			}],
+	        			buttons:[{
+	        				text: "确定",
+	        				handler:function(){
+	        					var selsid;
+	        					for(var i=0;i<rows.length;i++){
+			              	if(i==0){
+			              		selsid=rows[i].get('sid');
+			              	}else{
+			                	selsid=selsid+","+rows[i].get('sid');
+			                }
+										}
+										if(Ext.getCmp('usbMoveTo').getValue() != null){
+		        					USBStore.load({params:{
+								      	deal: "update",
+								      		id:Ext.getCmp('usbMoveTo').getValue(),
+								      		oldId:selsid
+								      	}
+								      });
+	        					}else{
+	        						Ext.Msg.alert("提示","您未选中要移入的USB类别");
+	        					}
+	        					
+	        					Ext.getCmp('usbMoveGroup').close();
+	        				}
+	        			},{
+	        				text: "取消",
+	        				handler:function(){
+	        					Ext.getCmp('usbMoveGroup').close();
+	        				}
+	        			}]
+	        		}).showAt(400,100);
+	        	}
+	        }]
+				}]
+			});
+			
+			Ext.create('Ext.tip.ToolTip', {
+        target: 'USBClassTree',
+        width: 120,
+        trackMouse: true,
+        showDelay: 3000,
+        dismissDelay : 10000,
+        html: '右击USB类型，可对该类型进行修改和删除'
+    	});
+    	
+    	Ext.create('Ext.tip.ToolTip', {
+        target: 'baseUSBGrid',
+        width: 120,
+        trackMouse: true,
+        showDelay: 3000,
+        dismissDelay : 10000,
+        html: '双击某行，可对该行进行编辑'
+    	});
+    	
+    	var str = parent.right_fun;
+			//console.info(str,",",str.indexOf('1110'))
+			if(str.indexOf('5341')==-1){
+		  	Ext.getCmp('addusbclass1').setDisabled(true);
+	    }
+	    
+	    if(str.indexOf('5312')==-1){
+		  	Ext.getCmp('delsoftclass2').setDisabled(true);
+	    }
+	    if(str.indexOf('5343')==-1){
+		  	Ext.getCmp('addusb').setDisabled(true);
+	    }
+
+		});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

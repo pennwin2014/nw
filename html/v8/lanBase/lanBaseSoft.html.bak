@@ -1,0 +1,679 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>软件类型定义</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+  </style>
+  <script type="text/javascript">
+  	var softClass = "";
+  	var keywords = "";
+  	
+  	Ext.onReady(function() {
+  		function findIdByText(store,text){
+	    	var id = text;
+	    	
+	    	store.each(function(rec){
+	    		if(rec.get('text')==text){
+	    			id = rec.get('id');
+	    			return;
+	    		}
+	    	});
+	    	return id;
+	    }
+  		Ext.define('EimData', {
+	      extend: 'Ext.data.Model',
+	      fields: ['id','text','leaf']
+	    });
+  	
+	  	var softClassStore = Ext.create('Ext.data.TreeStore', {
+	      model: 'EimData',
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_soft_class_search_base'
+	      },
+	      listeners: {
+	      	'load': function(thisStore,node,records,successful,eOpts){
+	      		softClassStore2.removeAll();
+	      		softClassStore3.removeAll();
+	      		softClassStore2.add(records);
+	      		softClassStore2.insert(0,{id:'0',text:'全部'});
+	      		softClassStore3.add(records);
+			    }
+	      }
+	  	});
+	  	
+	  	var softClassStore3 = Ext.create('Ext.data.Store', {
+	      model: 'EimData'
+	  	});
+			var softClassStore2 = Ext.create('Ext.data.Store', {
+	      model: 'EimData'
+	  	});
+	  	
+	  	Ext.define('EimData2', {
+	      extend: 'Ext.data.Model',
+	      fields: ['sid','softClass','softName','procName','createuser']
+	    });
+	    
+	   	var softStore = Ext.create('Ext.data.Store', {
+	      pageSize: 40,
+	      model: 'EimData2',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_soft_search',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });
+	    softStore.load();
+	    
+	    function softStoreReflash(){
+	    	if(softClass == '0' || softClass == '全部'){
+	    		softClass = "";
+	    	}
+	    	
+	    	softStore.load({params:{
+	      	deal: "select",
+	      	id:softClass,
+	      	keywords:keywords
+	      }});
+	    }
+	    
+	    var softRowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+	      clicksToMoveEditor: 1,
+	      autoCancel: false,
+	      saveBtnText: '保存',   
+		    cancelBtnText: '取消',   
+		    errorsText: '错误信息',   
+		    dirtyText: '已修改,你需要提交或取消变更',
+		    completeEdit: function(){
+	        var me = this;   
+	        
+	        var sid = "";
+	        var deal = "";
+	        var id = "";
+	        var procName = "";
+	        var softName = "";
+	        
+	        id = findIdByText(softClassStore3,Ext.getCmp('softClass').getValue());
+	        procName = Ext.getCmp('procName').getValue();
+	        softName = Ext.getCmp('softName').getValue();
+	        
+	        if (me.editing && me.validateEdit()) {
+	          me.editing = false;   
+	          me.fireEvent('edit', me.context);   
+	        }   
+	        me.adding = false;
+	        
+	        if(me.context.record.data.sid==""){
+	        	deal = "insert";
+	        }else{
+	        	deal = "update";
+	        	sid = me.context.record.data.sid;
+	        }
+	        softStore.currentPage=1; 
+	        softStore.load({params:{
+	        	deal: deal,
+	        	sid:sid,
+	        	id:id,
+	        	softName:softName,
+	        	procName:procName
+	        }});
+	       // Ext.getCmp('softClass2').select('0');
+				},
+				cancelEdit: function(){
+	        var me = this; 
+	 
+	        if (me.editing) {   
+	          me.getEditor().cancelEdit();   
+	          me.editing = false;   
+	          me.fireEvent('canceledit', me.context);    
+	          if (me.autoRecoverOnCancel){ 
+	            var tmpid=me.context.record.data.sid;
+	            if((!tmpid)){  	 
+	                me.context.record.store.remove(me.context.record);   
+	                me.adding = false;
+	            }else{   
+	                //不需要reject,因为Editor没有更改record.   
+	                //me.context.record.reject()   
+	            }   
+	          }
+	        	softStore.load();   
+	        }    
+	    	}   
+	    });
+	    
+			var softsm = Ext.create('Ext.selection.CheckboxModel',{
+	      listeners: {
+	        selectionchange: function(sm, selections) {
+	        	if(str.indexOf('5314')!=-1){
+	        		Ext.getCmp('basesoftGrid').down('#baseSoftRemove').setDisabled(selections.length == 0);  
+	        	}
+	        }
+	      }
+		  });
+		  
+		  Ext.create('Ext.panel.Panel',{
+		  	renderTo:Ext.getBody(),
+				layout: 'hbox',
+				width: '100%',
+				height: '100%',
+				items:[{
+					xtype: 'treepanel',
+					id:		'softClassTree',
+					width: '20%',
+					height: '100%',
+					rootVisible: true,
+					store: softClassStore,
+					animate:false,
+					root: {
+	          text: '软件类型',
+	          id: '0',
+	          expanded: true
+		      },
+		      tbar:[{
+		      		xtype: 'button',
+		      		text:	'添加软件类型',
+						  iconCls:'add',
+						  id: "addsoftclass1",
+		      		handler: function(btn, e){
+		      			//添加时间组方法
+		      			Ext.create('Ext.window.Window', {
+							    xtype: 'form',
+							    title: '添加软件类型',
+							    id:    'softAddWin',
+							    height: 130,
+							    width: 200,
+							    buttonAlign:'center',
+							    bodyStyle: 'padding:10px 0px 0px 15px',
+								  items: [{  
+						        xtype: 'label',
+						        text: '请输入软件类型：'
+						      },{
+						      	xtype: 'textfield',
+						      	id:   'addSoftClassText'
+						      }],
+						      buttons:[{
+						      	text:  '确定',
+						      	handler: function(btn, e){
+						      	//	Ext.Msg.alert('添加成功！');
+						      		softClassStore.load({params:{deal:"insert",text:Ext.getCmp('addSoftClassText').getValue()}});
+						      		Ext.getCmp('softAddWin').close();
+						      	}
+						      },{
+						      	text:  '取消',
+						      	handler: function(btn, e){
+						      		Ext.getCmp('softAddWin').close();
+						      	}
+						      }]
+								}).showAt(e.getX()+100,e.getY()+30);
+		      		}	
+	      	},{
+	      		xtype: 'button',
+	      		text:	'删除软件类型',
+	      		iconCls:'remove',
+	      		disabled: true,
+	      		id:  'baseSoftTreeRemove',
+	      		handler: function(){
+	      			//删除时间组方法
+	      			Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"该软件类型可能在策略中引用,您仍要删除该软件类型？",
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+	      						var deleteSelect = Ext.getCmp('softClassTree').getSelectionModel().getLastSelected();
+			      				//Ext.Msg.alert('删除软件类型',deleteSelect.get('id')+'被选中！');
+			      				softClassStore.load({params:{deal:"delete",treeId:deleteSelect.get('id')}});
+			      				softStore.load({params:{deal:"delete",id:deleteSelect.get('id')}});
+			      				if(Ext.getCmp('softClass2').getValue() == deleteSelect.get('id')){
+			      					Ext.getCmp('softClass2').select('0');
+			      				}
+	      					}
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+	      		}	
+	      	}],
+		      listeners:{
+		      	'itemdblclick':function(thisView,record,item,index,e,eOpts){
+		      		Ext.create('Ext.window.Window', {
+						    xtype: 'form',
+						    title: '修改软件类型',
+						    id:    'softUpdateWin',
+						    height: 130,
+						    width: 200,
+		   				  modal:true,
+						    buttonAlign:'center',
+						    bodyStyle: 'padding:10px 0px 0px 15px',
+							  items: [{  
+					        xtype: 'label',
+					        text: '请输入新的软件类型：'
+					      },{
+					      	xtype: 'textfield',
+					      	id:   'updateSoftClassText'
+					      }],
+					      buttons:[{
+					      	text:  '确定',
+					      	handler: function(btn, e){
+					      		softClassStore.load({params:{deal:"update",text:Ext.getCmp('updateSoftClassText').getValue(),treeId:record.get('id')}});
+					      		Ext.getCmp('softUpdateWin').close();
+					      	}
+					      },{
+					      	text:  '取消',
+					      	handler: function(btn, e){
+					      		Ext.getCmp('softUpdateWin').close();
+					      	}
+					      }]
+							}).showAt(e.getX()+100,e.getY()+30);
+		      	},
+		      	'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+		      		event.stopEvent();
+		      		if(rcd.isLeaf()){
+								Ext.create('Ext.menu.Menu', {
+									floating:	true,
+									items: [{
+										text: '修改',
+										handler: function(){
+											Ext.create('Ext.window.Window', {
+										    xtype: 'form',
+										    title: '修改软件类别',
+										    id:    'softUpdateWin',
+										    height: 130,
+										    width: 200,
+			   				  			modal:true,
+										    buttonAlign:'center',
+										    bodyStyle: 'padding:10px 0px 0px 15px',
+											  items: [{  
+									        xtype: 'label',
+									        text: '请输入新的软件类别：'
+									      },{
+									      	xtype: 'textfield',
+									      	id:   'updateSoftClassText'
+									      }],
+									      buttons:[{
+									      	text:  '确定',
+									      	handler: function(btn, e){
+									      	//	Ext.Msg.alert('添加成功！');
+									      		softClassStore.load({params:{deal:"update",text:Ext.getCmp('updateSoftClassText').getValue(),treeId:rcd.get('id')}});
+									      		Ext.getCmp('softUpdateWin').close();
+									      	}
+									      },{
+									      	text:  '取消',
+									      	handler: function(btn, e){
+									      		Ext.getCmp('softUpdateWin').close();
+									      	}
+									      }]
+											}).showAt(event.getX()+100,event.getY()+30);
+										}
+									},{
+										text: '删除',
+										id: "delsoftclass2",
+										handler: function(){
+											Ext.Msg.show({
+					      				title:"提示",
+					      				msg:"该软件类型可能在策略中引用,您仍要删除该软件类型？",
+					      				buttons:Ext.Msg.YESNO,	      				
+					      				fn:function(btn){
+					      					if(btn == 'yes'){
+					      						softClassStore.load({params:{deal:"delete",treeId:rcd.get('id')}});
+							      				softStore.load({params:{deal:"delete",id:rcd.get('id')}});
+							      				if(Ext.getCmp('softClass2').getValue() == rcd.get('id')){
+							      					Ext.getCmp('softClass2').select('0');
+							      				}
+					      					}
+					      				},
+					      				icon: Ext.Msg.QUESTION
+					      			}).setPosition(300,100);
+										}
+									}]	
+								}).showAt(event.getXY());
+							}else{
+								Ext.create('Ext.menu.Menu', {
+									floating:	true,
+									items: [{
+										text: '添加',
+										id: "addsoftclass2",
+										handler: function(){
+											Ext.create('Ext.window.Window', {
+										    xtype: 'form',
+										    title: '添加软件类别',
+										    id:    'softAddWin',
+										    height: 130,
+										    width: 200,
+										    buttonAlign:'center',
+										    bodyStyle: 'padding:10px 0px 0px 15px',
+											  items: [{  
+									        xtype: 'label',
+									        text: '请输入软件类别：'
+									      },{
+									      	xtype: 'textfield',
+									      	id:   'addsoftClassText'
+									      }],
+									      buttons:[{
+									      	text:  '确定',
+									      	handler: function(btn, e){
+									      	//	Ext.Msg.alert('添加成功！');
+									      		softClassStore.load({params:{deal:"insert",text:Ext.getCmp('addsoftClassText').getValue()}});
+									      		Ext.getCmp('softAddWin').close();
+									      	}
+									      },{
+									      	text:  '取消',
+									      	handler: function(btn, e){
+									      		Ext.getCmp('softAddWin').close();
+									      	}
+									      }]
+											}).showAt(event.getX()+100,event.getY()+30);
+										}
+									}]	
+								}).showAt(event.getXY());
+							}	
+	  				},
+	  				'selectionchange':function(thisModele,selected,eOpts){
+	  					if(selected.length){
+	  						if(selected[0].isLeaf()){
+									var str = parent.right_fun;
+									if(str.indexOf('5312')!=-1){
+	  								Ext.getCmp('baseSoftTreeRemove').setDisabled(false);
+	  							}
+	  							softClass = selected[0].get('id');
+	  							//Ext.getCmp('softClass2').select(softClass);
+	  						}else{
+	  							softClass = "";
+	  							Ext.getCmp('baseSoftTreeRemove').setDisabled(true);
+	  							timeGroup = "";
+	  							//Ext.getCmp('softClass2').setValue('0');
+	  						}
+	  						softStore.currentPage=1;
+	  						softStoreReflash();
+	  					}
+	  				}
+		      }
+				},{
+					xtype: 'grid',
+					width: '80%',
+					height: '100%',
+					id:     'basesoftGrid',
+					store: softStore,
+					selModel: softsm,
+					plugins: softRowEditing,
+					columns:[{
+	          text: "sid",
+						dataIndex:	'sid'	,
+						hidden:			true
+					},{
+	          text: "软件类型",
+	          dataIndex: 'softClass', 
+	          sortable: true,
+          	flex:1,
+	          editor: {
+	          	xtype: 'combobox',
+	          	id:    'softClass',
+	          	triggerAction: 'all',
+	          	valueField:'id',
+	        		displayField: 'text',
+	        		store: softClassStore3,
+	        		allowBlank: false,
+	        		queryMode: 'local'
+	          },
+	          renderer: function(value,metaData,record){
+	          	if(record.get('createuser')!='0'){
+	          		return "<font color='red'>"+value+"</font>"
+	          	}
+	          	return value;
+	          }
+	        },{
+	          text:"软件名称",
+	          dataIndex: 'softName',
+	          hidden: false,
+	          sortable: true,
+          	flex:1,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'softName'
+	          },
+	          renderer: function(value,metaData,record){
+	          	if(record.get('createuser')!='0'){
+	          		return "<font color='red'>"+value+"</font>"
+	          	}
+	          	return value;
+	          }
+	        },{
+	          text: "进程名",
+	          dataIndex: 'procName',
+	          sortable: true,
+          	flex:1,
+	          editor: {
+	          	xtype: 'textfield',
+	          	id:   'procName'
+	          },
+	          renderer: function(value,metaData,record){
+	          	if(record.get('createuser')!='0'){
+	          		return "<font color='red'>"+value+"</font>"
+	          	}
+	          	return value;
+	          }
+	        }],
+	        tbar: [{
+	        	xtype: 'pagingtoolbar',
+	        	width: '100%',
+	        	store: softStore,
+	        	border: 0,
+	        	displayInfo: true,
+	          displayMsg: '显示{0} - {1}条记录 共{2}条',
+	          emptyMsg: '没有记录可显示',
+	          doRefresh:function(){ 
+	      			softStoreReflash();
+				    },
+				    moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		softStore.currentPage=a;
+				    		softStoreReflash();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+					     	softStore.currentPage=1;
+					    	softStoreReflash();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				   				softStore.currentPage=a;
+				   				softStoreReflash();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				   				softStore.currentPage=a;
+				   				softStoreReflash();
+				   			}
+				   		}
+				   	},  
+				    onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+						        //d.softStore.loadPage(g)
+						        d.store.currentPage=g;
+					         	softStoreReflash();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    },
+				    items:[/*{
+	        	xtype: 'combobox',
+	        	fieldLabel: '软件类型',
+	        	id:				'softClass2',
+	        	labelWidth: 60,
+	        	width:	150,
+	        	triggerAction: 'all',
+	        	valueField:'id',
+	        	value: '全部',
+	        	queryMode: 'local',
+	      		displayField: 'text',
+	      		store: softClassStore2,
+	      		listeners:{
+	      			'change': function(thisField,newValue,oldValue,eOpts){
+	      				softClass = newValue;
+	      				softStore.currentPage=1;
+	      				softStoreReflash();
+	      			}
+	      		}
+	        }*/{
+		       		xtype: "textfield",
+		       		id: 'keywords',
+		       		fieldLabel: '关键字',
+		       		labelWidth: 50,
+							enableKeyEvents:true,
+							listeners:{
+							  'keydown' : function(i,e){
+									var aae=e.getKey() ; 
+									if(aae==13){
+								    keywords=Ext.getCmp('keywords').value;
+			          		softStore.currentPage=1;
+			          		softStoreReflash();
+									}
+							  }
+							}        
+		       },{
+		       		text:"确认",
+	        		iconCls: "accept",
+		       		xtype: "button",
+		       		handler: function(){
+		       			keywords=Ext.getCmp('keywords').value;
+	          		softStore.currentPage=1;
+	          		softStoreReflash();
+		       		}
+		       },'-',{
+	        	xtype: 'button',
+	        	text:  '添加',
+	        	id: "addsoft1",
+	        	iconCls:'add',
+	        	handler: function(){
+	        	//添加时间数据方法
+	        		softRowEditing.cancelEdit();
+	        		var softClass = "";
+	        		var softName = "";
+	        		var procName = "";	        		
+	        		
+	        		/*if(Ext.getCmp('softClass2').getRawValue()!='全部'){
+	        			softClass=Ext.getCmp('softClass2').getRawValue();
+	      			}*/
+	        		
+	        		var softCell = Ext.create('EimData2', {
+	        			softClass: softClass,
+	        			softName:	 softName,
+	        			procName: procName
+	        		});
+	        		softStore.insert(0, softCell)
+	        		softRowEditing.startEdit(0, 0);
+	        	}
+	        },{
+	        	xtype: 'button',
+	        	text:  '删除',
+	        	iconCls:'remove',
+	        	disabled: true,
+	        	id:     'baseSoftRemove',
+	        	handler: function(){
+	        	//删除时间数据方法
+	        		Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要移除这些软件吗？",
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+	      						var rows=softsm.getSelection();
+				        		if(confirm('您真的要执行删除操作吗？')){
+											for(var i=0;i<rows.length;i++){
+				              	if(i==0){
+				              		selsid=rows[i].get('sid');
+				              	}else{
+				                	selsid=selsid+","+rows[i].get('sid');
+				                }
+											}
+											//Ext.Msg.alert('删除','删除了'+selsid);
+											softStore.currentPage=1;
+											softStore.load({params:{
+							        	deal: 'delete',
+							        	sid:selsid
+							        }});
+							      }
+	      					}
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+	        		
+	        	}
+	        }]
+	        }]
+				}]
+			});
+			
+			var str = parent.right_fun;
+			//console.info(str,",",str.indexOf('1110'))
+			if(str.indexOf('5311')==-1){
+		  	Ext.getCmp('addsoftclass1').setDisabled(true);
+		  	Ext.getCmp('addsoftclass2').setDisabled(true);
+	    }
+	    
+	    if(str.indexOf('5312')==-1){
+		  	Ext.getCmp('delsoftclass2').setDisabled(true);
+	    }
+	    if(str.indexOf('5313')==-1){
+		  	Ext.getCmp('addsoft1').setDisabled(true);
+	    }
+	    
+	    
+		});
+  </script>
+</head>
+<body>
+	
+</body>
+</html>

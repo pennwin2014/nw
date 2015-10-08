@@ -1,0 +1,372 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>网页日志</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.option {
+    	background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+    }
+    .exp {
+    	background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+		.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+		}
+	</style>
+  <script>
+  	var groupid;
+  	var compid;
+	  var panel;
+  	var sdate=edate=Ext.Date.format(new Date(),"Y-m-d");
+  	
+  	
+			
+		var webStaticsStore = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['ranking','host','clickNum'],
+        proxy: {
+          type: 'ajax',
+          url: '/pronline/Msg?FunName@lanWebStatics',
+          reader: {
+            type:'json',
+            root: 'data'
+          }
+        }
+    });
+    
+    var pesStaticsStore = Ext.create('Ext.data.Store', {
+      pageSize: 100,
+      //remoteGroup: true,
+      fields:['compname','ranking','host','clickNum'],
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanPesWebStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      },
+      groupField: 'compname'
+    });
+    
+    var pesChartStore = Ext.create('Ext.data.Store', {
+      pageSize: 100,
+      //remoteGroup: true,
+      fields:['compname','ranking','host','clickNum'],
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanPesWebStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+    });
+    
+    var webGrid,pesGrid;
+			
+  	function SetPage(){}
+  	
+  	function newWebGrid(){
+  		webGrid = Ext.create('Ext.panel.Panel',{
+				//width: 400,
+				height: 900,
+	    	layout: "hbox",
+	    	items:[{
+	    		xtype: "grid",
+					margin: 20,
+	    		store: webStaticsStore,
+		    	columnLines : true,
+	  			columns:[{
+						header: '排名',
+						width: 40,
+						dataIndex: 'ranking'
+					},{
+						header: '网站',
+						width: 300,
+						dataIndex: 'host'
+					},{
+						header: '点击数',
+						width: 50,
+						dataIndex: 'clickNum'
+					}]
+	    	},{
+          xtype: 'chart',
+          width: 600,
+					height: 300,
+					margin: 20,
+          style: 'background:#fff',
+          animate: true,
+          shadow: true,
+          store: webStaticsStore,
+          axes: [{
+            type: 'Numeric',
+            position: 'left',
+            fields: ['clickNum'],
+            label: {
+            	renderer: Ext.util.Format.numberRenderer('0,0')
+            },
+            title: '网站点击数',
+            grid: true,
+            minimum: 0,
+            maximum: webStaticsStore.getAt(0)?webStaticsStore.getAt(0).get('clickNum'):10
+          }, {
+            type: 'Category',
+            position: 'bottom',
+            fields: ['host'],
+            title: '网站名称'
+          }],
+          series: [{
+            type: 'column',
+            axis: 'left',
+            highlight: true,
+            tips: {
+              trackMouse: true,
+              width: 200,
+              height: 28,
+              renderer: function(storeItem, item) {
+                this.setTitle(storeItem.get('host') + ': ' + storeItem.get('clickNum') + '次');
+              }
+            },
+            label: {
+              display: 'insideEnd',
+              'text-anchor': 'middle',
+              field: 'clickNum',
+              renderer: Ext.util.Format.numberRenderer('0'),
+              orientation: 'horizontal',//'vertical',
+              color: '#333'
+            },
+            xField: 'host',
+            yField: 'clickNum'
+          }]
+        }]
+	    });
+    }
+	    
+    function newPesGrid(){
+      pesChartStore.load({
+        params:{deal:"1",groupid:parent.groupid,compid:parent.compid,sdate:sdate,edate:edate},
+        callback:function(records, operation, success){
+          pesGrid = Ext.create('Ext.panel.Panel',{
+    				width: "100%",
+    				height: 900,
+    	    	layout: "hbox",
+    				items:[{
+    					xtype: 'grid',
+    					store: pesStaticsStore,
+    					//width: w,
+    					margin: 20,
+    					border: 0,
+    					height: 900,
+    					features: Ext.create('Ext.grid.feature.Grouping',{
+    				    groupHeaderTpl: '{name} ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})'
+    					}),
+    					columns:[{
+    						header: '排名',
+    						width: 60,
+    						dataIndex: 'ranking'
+    					},{
+    						text: "网址",
+    						width: 250,
+    						dataIndex: 'host'
+    					},{
+    				    header: '点击数',
+    						width:80,
+    				    dataIndex: 'clickNum'
+    					}]
+    				},{
+              xtype: 'chart',
+              width: 500,
+    					height: 300,
+    					margin: 20,
+              style: 'background:#fff',
+              animate: true,
+              shadow: true,
+              store: pesChartStore,
+              axes: [{
+                type: 'Numeric',
+                position: 'left',
+                fields: ['clickNum'],
+                label: {
+                	renderer: Ext.util.Format.numberRenderer('0,0')
+                },
+                title: '网站点击数',
+                grid: true,
+                minimum: 0,
+                maximum: pesChartStore.getAt(0)?pesChartStore.getAt(0).get('clickNum'):10
+              }, {
+                type: 'Category',
+                position: 'bottom',
+                fields: ['compname'],
+                title: '计算机名称'
+              }],
+              series: [{
+                type: 'column',
+                axis: 'left',
+                highlight: true,
+                tips: {
+                  trackMouse: true,
+                  width: 200,
+                  height: 28,
+                  renderer: function(storeItem, item) {
+                    this.setTitle(storeItem.get('compname') + ': ' + storeItem.get('clickNum') + '次');
+                  }
+                },
+                label: {
+                  display: 'insideEnd',
+                  'text-anchor': 'middle',
+                  field: 'clickNum',
+                  renderer: Ext.util.Format.numberRenderer('0'),
+                  orientation: 'horizontal',//'vertical',
+                  color: '#333'
+                },
+                xField: 'compname',
+                yField: 'clickNum'
+              }]
+            }]
+    			});
+        }
+      });
+    }
+    
+  	function reflash(){
+  	  //alert("here");
+  	  groupid=parent.groupid;
+			compid=parent.compid;
+			title = parent.dxtitle;
+  	  
+  	  try{
+  	    Ext.getCmp('webgrid').setTitle(title);
+  	  }catch(e){}
+  	  
+  	  var showStyle = Ext.getCmp('showStyle').getValue();
+  	  if(showStyle == 1){
+  			panel.remove(webGrid);
+  			webStaticsStore.load({
+  				params:{groupid:parent.groupid,compid:parent.compid,sdate:sdate,edate:edate},
+  				callback: function(){
+  					newWebGrid();
+  					panel.add(webGrid);
+  				}
+  			});
+  		}else if(showStyle == 2){
+  			panel.remove(pesGrid);
+  			pesStaticsStore.load({
+  				params:{groupid:parent.groupid,compid:parent.compid,sdate:sdate,edate:edate},
+  				callback: function(){
+  					newPesGrid();
+  					panel.add(pesGrid);
+  				}
+  			});
+  		}
+  	}
+  	
+  	Ext.onReady(function(){
+  		
+  		webStaticsStore.load({
+  			params:{groupid:parent.groupid,compid:parent.compid,sdate:sdate,edate:edate},
+  			callback: function(records, operation, success){
+		  		newWebGrid();
+					newPesGrid();
+					
+					panel = Ext.create('Ext.panel.Panel',{
+		  			title: "全部",
+		  			id:"webgrid",
+		  			width: "100%",
+		  			height: 750,
+		  			renderTo:Ext.getBody(),
+		  			tbar: ['-','-',{
+							xtype: 'combobox',
+							fieldLabel: '统计方式',
+							id: 'showStyle',
+							width: 190,
+							labelWidth:60,
+							value:1,
+					    store: Ext.create('Ext.data.Store',{
+					    	fields:['id','text'],
+					    	data:[
+					    		{id:1,text:"网站点击排名"},
+					    		{id:2,text:"个人访问站点排名"}
+					    	]
+					    }),
+					    queryMode: 'local',
+					    displayField: 'text',
+					    valueField: 'id'
+		  			},'-',{
+			        xtype: 'datefield',
+			        anchor: '100%',
+							width: 160,
+							labelWidth:40,
+			        fieldLabel: '时间',
+			        id: 'bdate',
+			        maxValue: new Date(),
+			        value:new Date(),
+			        format:"Y/m/d",
+			        listeners:{
+			        	change: function(thisField,newValue,oldValue,eOpts){
+			        		sdate = thisField.getValue();
+			        	}
+			        }
+				    },{
+			        xtype: 'datefield',
+			        anchor: '100%',
+							width: 160,
+							labelWidth:20,
+			        fieldLabel: '至',
+			        id: 'edate',
+			        format:"Y/m/d",
+			        value:new Date(),
+			        maxValue: new Date(),
+			        listeners:{
+			        	change: function(thisField,newValue,oldValue,eOpts){
+			        		edate = thisField.getValue();
+			        	}
+			        }
+				    },'-',{
+				      text: '统计',
+				      iconCls: 'accept',
+				      handler: function(btn){
+				        btn.setDisabled(true);
+				        var showStyle = Ext.getCmp('showStyle').getValue();
+				        panel.removeAll();
+				        if(showStyle == 1){
+			        			webStaticsStore.load({
+			        				params:{groupid:parent.groupid,compid:parent.compid,sdate:sdate,edate:edate},
+			        				callback: function(){
+			        					newWebGrid();
+			        					panel.add(webGrid);
+			        					btn.setDisabled(false);
+			        				}
+			        			});
+			        		}else if(showStyle == 2){
+			        			pesStaticsStore.load({params:{compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate}});
+			        			pesChartStore.load({
+			        				params:{deal:"1",compid:parent.compid,groupid:parent.groupid,sdate:sdate,edate:edate},
+			        				callback: function(){
+			        					newPesGrid();
+			        					panel.add(pesGrid);
+			        					btn.setDisabled(false);
+			        				}
+			        			});
+			        		}
+				      }
+				    }],
+				    items:webGrid
+		  		});
+  			}
+  		});
+	    
+  	});
+  </script>
+</head>
+<body>
+</body>
+</html>

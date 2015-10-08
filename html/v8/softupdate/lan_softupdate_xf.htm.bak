@@ -1,0 +1,641 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>单位管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+var cid='[#cid#]';
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+ function reflash(){
+
+  store.load({params: {cid:cid}});  
+  }
+
+
+
+Ext.onReady(function(){
+
+//    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'softname','filename','obj','os','stime','sid'
+        ],
+      idProperty: 'sid'
+    });
+
+    // create the Data Store
+//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+       store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_softupdate_procy',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'sid',
+            direction: 'ASC'
+        }]
+    });
+
+
+
+    // pluggable renders
+ 
+  
+    var pluginExpanded = true;
+    
+ 
+ 
+     var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+            	var str = parent.right_fun;
+							if(str.indexOf('7220')!=-1){         
+           			grid.down('#removeEmployee').setDisabled(selections.length == 0);
+              }
+            }
+        }
+    
+    });
+ 
+ 
+  
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){
+    
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}}
+       
+});
+
+
+
+   Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+
+
+    	    Ext.define('treedata',{
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'text',     type: 'string'},
+            {name: 'id',     type: 'string'},
+            {name: 'compid', type: 'string'},
+            {name:'ctext',   type:'string'}
+
+        ]
+    });
+ 
+  	  store_comp = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanTree_depComp&plate@lan/ncs_depcompute_check_tree.htm'
+        },
+        root: {
+            text: '全部',
+            id: '',
+            checked:false,
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+ //           property: 'text',
+//            direction: 'ASC'
+        }]
+    });
+    	store_comp.on('beforeload', function (store, options) {
+
+       var new_params = { state: Ext.getCmp('compstate').getValue() };
+        Ext.apply(store.proxy.extraParams, new_params);
+       });
+ 
+   var compstate = [
+        {"groupid":"","groupname":"状态"},
+        {"groupid":"1","groupname":"在线"},
+        {"groupid":"2","groupname":"离线"}
+     
+    ];
+    var store_compstate = Ext.create('Ext.data.Store', {
+        model: 'State',
+        data: compstate
+    });
+
+
+
+function openAdd()
+{
+
+      var compstateCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '',
+         labelWidth: 50,
+         width: 50,
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'compstate',      
+        value:'',
+        id:'compstate',
+        allowBlank: true,
+        forceSelection: false,
+        store: store_compstate,
+        queryMode: 'local',
+        typeAhead: true,
+        listeners: {
+			          'change':function(){			     
+			          	var vkeyword=Ext.getCmp('keyword').value;				                
+                    if(vkeyword=='计算机名/IP/MAC'){
+                    	vkeyword='';
+                    }
+		//	          	var vstate=Ext.getCmp('compstate').value;
+			          	   store_comp.load({params: {keyword:vkeyword}});
+			            }
+			        }
+    });
+    	
+    	 Ext.define('SoftData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'softname', 'filename', 'filesize', 'version', 'opertor','uploadtime','lasttime','status_desc','flags_desc','status','flags'
+        ],
+        idProperty: 'sid'
+    });
+    	var store_soft = Ext.create('Ext.data.Store', {
+		        model: 'SoftData',
+		        autoLoad:true,
+						proxy:{
+						type:'ajax',
+						url:'/pronline/Msg?FunName@lanSoftlist_v4&status@0',
+						 reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+						}
+		    });
+  		    var softCombo = Ext.create('Ext.form.field.ComboBox', {
+		        fieldLabel: '选择下发软件',
+		        labelWidth: 100,
+		        width: 250,
+		        valueField:'sid',
+		        value:'',
+		        displayField: 'softname',
+		        id : 'softid',
+		        name : 'softid',      
+		        allowBlank: false,
+		        store: store_soft,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+					          	
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    });  	
+
+tree=Ext.create('Ext.tree.Panel', {
+    	  title: '选择软件下发对象',
+    	  margins: '0 0 0 0',
+    	  id:'tree_comp',
+        store: store_comp,
+        autoScroll: true,
+         border:true,
+        height: 440,
+      forceFit: true,
+   //     width: 110,
+        useArrows: false,
+        
+        
+         dockedItems: [{
+            xtype: 'toolbar',
+            items: [compstateCombo,
+            {
+               xtype:'textfield',
+               id:'keyword',
+               name:'keyword',
+               style:'color:#7aa7d5',
+               width:110,
+               value:'计算机名/IP/MAC',
+               enableKeyEvents:true,
+               listeners:{
+                 'focus':function(){
+                 if(this.value=='计算机名/IP/MAC'){                
+                    this.setValue('');
+                  }
+                 },
+         
+                 'keydown' : function(i,e){
+                var aae=e.getKey() ; 
+                if(aae==13){
+                    var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                    	  var vkeyword=Ext.getCmp('keyword').value;			         
+						      //    	var vstate=Ext.getCmp('compstate').value;
+						          	store_comp.load({params: {keyword:vkeyword}});
+
+		                   }
+                }
+               }
+               }
+             },
+             
+              {
+                text:'',
+                itemId: 'moveButton',
+                iconCls:'accept',
+ //               disabled: true,
+                handler:function(){
+                	  var aa=Ext.getCmp('keyword').value;
+                    if(aa!='计算机名/IP/MAC'){
+                        var vkeyword=Ext.getCmp('keyword').value;			         
+						  //        	var vstate=Ext.getCmp('compstate').value;
+						          	store_comp.load({params: {keyword:vkeyword}});
+						          }
+   
+                }
+ 
+                
+            }
+             
+             
+             
+             ]}]
+        
+        ,
+        
+         listeners:{itemclick:function(view, rcd, item, idx, event, eOpts){
+  //      	groupid=rcd.get('id');        
+
+         }
+        } 
+ 
+    });
+
+
+   
+  	  
+        var fp2=Ext.create('Ext.FormPanel', {
+        frame: true,
+        fieldDefaults: {
+            labelWidth: 110
+        },
+        width: 600,
+        bodyPadding: 10,
+        items: [
+					softCombo,
+      	 ,tree
+        ],
+        buttons: [{
+            text: '保存',
+            handler: function(){
+//
+           
+         
+            
+          var records = tree.getView().getChecked();
+    
+						       var temps=''; 
+						       var gid,compid,id1;
+						       var iNum=0;            
+                    Ext.Array.each(records, function(rec){
+                    gid=rec.get('id');
+                    compid=rec.get('compid');
+                    if(gid==''&&compid==''){
+                    	dtype='0';
+                    	id1='0';
+                    	
+                    }
+                    else if(gid!=''&&compid==''){
+                    	dtype='1';
+                    	id1=gid;
+                    }
+                    else if(gid==''&&compid!=''){
+                    	dtype='2';
+                    	id1=compid;
+                    }
+                    else{
+                    	dtype='0';
+                    	id1='0';
+                    }
+                 
+                    if(iNum==0){
+                       temps=dtype+'_'+id1;
+
+                    }
+                    else{
+                        temps=temps+','+dtype+'_'+id1;
+                    }
+                     iNum++;
+ 
+                    });
+
+             kid=Ext.getCmp('softid').value;
+            
+          
+             if(temps==''){
+	             alert('请选择下发对象');
+	             return ;
+             }
+             if(kid==''){
+	             alert('请选择下发的软件');
+	             return;
+             }
+      
+            
+            if(temps.indexOf('0_0')!=-1){
+            	temps='0_0';
+            }
+      
+	           store.load({params:{update:"update",kid:kid,seid:temps}});
+	            Ext.getCmp('addwindow').close();
+           
+            }
+        },{
+            text: '关闭',
+            handler: function(){
+              Ext.getCmp('addwindow').close();
+
+            }
+         }]
+      });
+    store_comp.load();
+    
+         var win2 = new Ext.Window ({
+                             id:"addwindow",
+                             title:"软件下发",
+                             x:0,
+                             y:0,
+                             width:630,
+                             height:600,
+                             bodyPadding: 10,
+                             modal:true,
+                             resizable:true,
+                             items: fp2
+                                               
+         }
+        )
+        win2.show();
+   
+}
+
+
+
+
+
+
+    var grid = Ext.create('Ext.grid.Panel', {
+ 
+        height: 980,
+         stripeRows: true,
+        store: store,
+        selModel: sm,
+       forceFit: true,
+        scrollOffset: 0,
+        frame:true,
+       
+        // grid columns
+        columns:[{
+            text: "软件名称",
+            dataIndex: 'softname',
+            hidden: false,
+            width: 80,
+            sortable: false
+        },{
+            text: "文件名",
+            dataIndex: 'filename',           
+            width: 120,        
+            hidden:false,
+            sortable: true
+
+        },{
+            text: "适用操作系统",
+            dataIndex: 'os',           
+            width: 110,
+            hidden:false,
+            sortable: true
+
+        },
+        {
+            text: "下发对象",
+            dataIndex: 'obj',
+            hidden: false,
+            width: 440,
+            sortable: false
+        },
+        {
+            text: "下发时间",
+            dataIndex: 'stime',
+            hidden: false,
+            width: 90,
+            sortable: false
+        }
+       
+        ],
+        
+        columnLines: true,
+                                        
+        // paging bar on the bottom
+ 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",
+                                       
+            items: [
+             {               
+                text:'添加',
+                iconCls:'add',
+                id: "softxf",
+                handler: function(){
+                  openAdd();
+              
+                }
+            },
+             {
+            itemId: 'removeEmployee',
+            text: '删除',
+            iconCls: 'remove',
+
+                handler:function(){
+             
+							   if(confirm('您真的要执行删除操作吗？')){                  
+                 var selsid;  
+                 var rows=sm.getSelection();
+                   selsid='';
+                  for(var i=0;i<rows.length;i++){
+                  	if(i==0){
+                  	 selsid=rows[i].getId();
+                  	}
+                  	else{
+                       selsid=selsid+","+rows[i].getId();
+                    }
+                   
+                   }
+ 
+                      store.load({params: {del: "del",selsid:selsid}});
+                  
+                
+              }
+                
+            },
+            disabled: true
+        },
+           {               
+                text:'应用',
+                iconCls:'accept',
+                id: "softapply",
+                handler: function(){
+                 store.load({params: {app: "app"}});
+              
+                }
+            } 
+            
+            ]
+       
+
+        })
+        
+
+        ,
+        renderTo: 'grid-corp'
+    });
+
+    // trigger the data store load
+       reflash();
+    
+    
+ //    store.loadPage(1);
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncsWarnInfoOnline_v4">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">	
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="field_flag" value="1">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="cname" value="">
+		<input type="hidden" name="position" value="">
+		<input type="hidden" name="servicecode" value="">
+		<input type="hidden" name="idno" value="">
+		<input type="hidden" name="dispname" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

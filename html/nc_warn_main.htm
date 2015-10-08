@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>告警信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form name="form1" method="post" action="/pronline/Msg">
+  <table align="center" width="103%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="28" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2" valign="middle"> <div align="center"><strong><font color="#FFFFFF">当前告警信息</font></strong></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center" >
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>
+            <td valign="top">             	
+            	<iframe name="warn_top" src="/pronline/Msg?FunName@nc_warn_md&flag@1" width=100% height=270 FrameBorder=0 scrolling="Yes" style="display:"></iframe>
+            </td>
+          </tr>
+          
+          <tr>
+            <td valign="top"> 
+            	<iframe name="warn_bottom" src="/pronline/Msg?FunName@nc_warn_hist" width=100% height=315 FrameBorder=0 scrolling="Yes" style="display:"></iframe>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>

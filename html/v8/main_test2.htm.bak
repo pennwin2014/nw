@@ -1,0 +1,211 @@
+ <head>
+ 	
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+ <title>互联网安全审计系统</title>
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+ <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+    <style type="text/css">
+ .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+	.x-statusbar .x-status-busy {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 0;
+}
+  .x-statusbar .x-status-busy {
+    background-image: url(/images/loading.gif);
+}
+  .add_dw {
+    background-image: url(/images/v8/gman.gif) !important;
+}	 
+  .add_sf {
+    background-image: url(/images/v8/customers.png) !important;
+}	
+ .dhs {
+    background-image: url(/images/v8/earth.png) !important;
+}	
+ .mggd {
+    background-image: url(/images/v8/info.png) !important;
+}
+ .refresh {
+    background-image: url(/images/v8/refresh.png) !important;
+}
+ .unlock {
+    background-image: url(/images/v8/unlock.png) !important;
+}
+
+ .search {
+    background-image: url(/images/v8/search.png) !important;
+}
+ .lamp {
+    background-image: url(/images/v8/lamp.png) !important;
+}
+ .bk {
+    background-image: url(/images/v8/bk.png) !important;
+}
+
+ .sitemap {
+    background-image: url(/images/v8/sitemap.png) !important;
+}
+ .pencil {
+    background-image: url(/images/v8/pencil.png) !important;
+}
+ .address {
+    background-image: url(/images/v8/address.png) !important;
+}
+ .dvd {
+    background-image: url(/images/v8/dvd.png) !important;
+}
+ .edit {
+    background-image: url(/images/v8/edit.png) !important;
+}
+ .static {
+    background-image: url(/images/v8/pie-chart_graph.png) !important;
+}
+ .group {
+    background-image: url(/images/v8/category.png) !important;
+}
+
+ .users {
+    background-image: url(/images/v8/user_friend.png) !important;
+}
+ .macs {
+    background-image: url(/images/v8/help_ring-buoy.png) !important;
+}
+ .calculator {
+    background-image: url(/images/v8/calculator.png) !important;
+}
+ .szhtj {
+    background-image: url(/images/v8/statistics.png) !important;
+}
+ .xtyh {
+    background-image: url(/images/v8/add.gif) !important;
+}
+ .mark_flag {
+    background-image: url(/images/v8/flag_mark_green.png) !important;
+}
+.ssjk {
+
+    background-image: url(/images/large/ssjk.png) !important;
+
+}	 
+
+.rzck{
+
+    background-image: url(/images/large/rzck.png) !important;
+
+}	 
+
+.xtfx{
+
+    background-image: url(/images/large/xtfx.png) !important;
+
+}	
+
+
+
+.xtgl{
+
+    background-image: url(/images/large/xtgl.png) !important;
+
+}	
+
+.kzcl{
+
+    background-image: url(/images/large/kzcl.png) !important;
+
+}	
+
+.cssz{
+
+    background-image: url(/images/large/cssz.png) !important;
+
+}	
+
+.gjxx{
+
+    background-image: url(/images/large/gjxx.png) !important;
+
+}	
+
+.bz{
+
+    background-image: url(/images/large/bz.png) !important;
+
+}	
+.treecls {  
+background-image:url(/images/large/bz.png) !important;  
+}  
+.treecompt {  
+background-image:url(/images/large/application_view_list.png) !important;  
+}  
+
+#toolbarBackground{
+
+    background-image: url(/images/large/toolbarbackground.png) !important;
+
+}
+
+
+   *{font-size:12px!important;}
+  </style>
+  
+
+    <script type="text/javascript">
+     var ncapp;
+     function dhsrc(url,title,id){
+      var obj = {
+      	srcurl:url,
+      	text:title,
+      	itemid:id
+      };
+      
+     	ncapp.onItemClick(obj);
+     
+    }
+     
+     
+     
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+ 
+   //     Ext.Loader.setPath('Ext.app', 'classes');
+        Ext.require([
+    'Ext.tip.QuickTipManager',
+    'Ext.container.Viewport',
+    'Ext.layout.*',
+    'Ext.form.Panel',
+    'Ext.form.Label',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.tree.*',
+     'Ext.panel.*',
+    'Ext.toolbar.*',
+    'Ext.button.*',
+    'Ext.selection.*',
+    'Ext.tab.Panel',
+    'Ext.tab.*',
+    'Ext.ux.TabCloseMenu',
+    'Ext.ux.layout.Center',
+     'Ext.chart.*',
+    'Ext.ux.statusbar.StatusBar'
+
+        ]);
+        Ext.onReady(function(){
+        	Ext.QuickTips.init();
+           ncapp = new ncViewer.App();
+        });
+    </script>
+
+    <script type="text/javascript" src="/v8/js/ncViewer.js"></script> 
+    <script type="text/javascript">
+//   var now=new Date();
+//   var number = now.getYear().toString()+now.getMonth().toString()+now.getDate().toString()+now.getHours().toString()+now.getMinutes().toString()+now.getSeconds().toString(); 
+//   document.write("\<script language=\"javascript\" type=\"text/javascript\" src=\"/pronline/Msg?FunName@ncWebShowNetflowJs&time@"+number+"\"><\/script\>"); 
+   </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>文件策略</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+function SetPage(){
+	
+		}
+		
+ function reflash(){
+  var compid=parent.compid;
+  var groupid=parent.groupid;
+ // alert("compid = " + compid);
+  //alert("groupid = " + groupid);
+  if(compid != ""){
+  store.load({params: {id:compid}});
+  }
+	else if(groupid != ""){
+	store.load({params: {gid:groupid}});
+	}
+	else{
+	store.load({params: {id:0}});
+	}
+  }
+
+		
+Ext.onReady(function(){
+
+    Ext.tip.QuickTipManager.init();
+
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'pid','ctype','id','stime','etime','dataid','modtime','createuser','sid','dataid_desc','ctype_desc','pid_desc','datename','stime_desc','etime_desc','lawname','compname','id_desc'
+        ],
+      idProperty: 'sid'
+    });
+
+    // create the Data Store
+//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+       store = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_Procy_TimeObj',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'sid',
+            direction: 'ASC'
+        }]
+    });
+	
+    // pluggable renders
+ Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'long', name: 'id'},
+            {type: 'string', name: 'name'}
+        ]
+    });
+ 
+    var pluginExpanded = true;
+    
+ 
+ 
+     var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {           
+           grid.down('#removeEmployee').setDisabled(selections.length == 0);
+                
+            }
+        }
+    
+    });
+ 
+ 
+  
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){
+    
+     reflash();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store.currentPage=a;
+    	reflash();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store.currentPage=1;
+      reflash();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}}
+       
+});
+
+
+    var grid = Ext.create('Ext.grid.Panel', {
+ 
+        height: 980,
+         stripeRows: true,
+        store: store,
+        selModel: sm,
+     //  forceFit: true,
+        scrollOffset: 0,
+        frame:true,
+       
+        // grid columns
+        columns:[
+		{
+            text: "下发对象",
+            dataIndex: 'id_desc',           
+            width: 200,
+          
+            hidden:false,
+            sortable: false
+
+        },	
+		{
+            text: "策略名",
+            dataIndex: 'lawname',
+            hidden: false,
+            width: 200,
+            sortable: true
+        },
+        {
+            text: "起始时间",
+            dataIndex: 'stime_desc',
+            hidden: true,
+            width: 90,
+            sortable: false
+        },
+        {
+            text: "终止时间",
+            dataIndex: 'etime_desc',
+            hidden: true,
+            width: 90,
+            sortable: false
+        },
+		 {
+            text: "例外时间",
+            dataIndex: 'datename',
+            hidden: false,
+            width: 90,
+            sortable: true
+        },
+        {
+            text: "修改时间",
+            dataIndex: 'modtime',
+            hidden: false,
+            width: 140,
+            sortable: true
+        },
+        {
+            text: "操作人",
+            dataIndex: 'createuser',
+            hidden: false,
+            width: 60,
+            sortable: true
+        },
+        {
+            flex:1,
+            width: 60,
+            sortable: false
+        }
+        ],
+        
+        columnLines: true,
+                                        
+        // paging bar on the bottom
+ 
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            
+            displayInfo: true,
+            displayMsg: '共<font color=red>{2}</font>条记录',
+            emptyMsg: "共0条记录",
+  
+
+        })
+        
+
+        ,
+        renderTo: 'grid-corp'
+    });
+
+    // trigger the data store load
+       reflash();
+    
+    
+ //    store.loadPage(1);
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_Procy_TimeObj">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">	
+		<input type="hidden" name="export2" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="field_flag" value="1">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="cname" value="">
+		<input type="hidden" name="position" value="">
+		<input type="hidden" name="servicecode" value="">
+		<input type="hidden" name="idno" value="">
+		<input type="hidden" name="dispname" value="">
+		<input type="hidden" name="id" value="">
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

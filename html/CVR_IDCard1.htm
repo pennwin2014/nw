@@ -1,0 +1,531 @@
+<!--
+-------------------------------------------
+版权声明：
+    第二代公民身份证B/S阅读控件
+    (c) 版权所有   深圳华视电子读写设备有限公司 
+    版本：V3.0.3.3
+    
+    作者：吴为龙
+    http://www.chinaidcard.com
+    tel: 0755-2695 5558    
+    2008.02.25
+    
+历史发布记录：
+    V3.0.3.1  2007.05.16
+--------------------------------------------
+-->
+
+<!--#include file="asp/nocache.asp"-->
+<HTML>
+<head>
+
+<script language="JavaScript">
+<!--
+function HideActiveX() {
+   //CVR_IDCard.Visible=false; 
+   ClearIDCard();
+   ClearForm(); 
+   document.all['ReadResult'].value ="等待验证";
+   return true;
+}
+
+function ClearIDCard() {
+   CVR_IDCard.Name="";
+   CVR_IDCard.NameL="";
+   CVR_IDCard.Sex="";   
+   //CVR_IDCard.SexL="";   
+   CVR_IDCard.Nation="";
+   //CVR_IDCard.NationL="";
+   CVR_IDCard.Born="";
+   //CVR_IDCard.BornL="";
+   CVR_IDCard.Address="";
+   CVR_IDCard.CardNo="";
+   CVR_IDCard.Police="";
+   CVR_IDCard.Activity="";
+   CVR_IDCard.NewAddr="";
+  
+   return true;
+}
+
+function ClearForm() {
+   document.all['Name'].value = ""; 
+   document.all['Sex'].value = ""; 
+   document.all['Nation'].value = ""; 
+   document.all['Born'].value = ""; 
+   document.all['Address'].value = ""; 
+   document.all['CardNo'].value = ""; 
+   document.all['Police'].value = ""; 
+   document.all['Activity'].value = ""; 
+   document.all['NewAddr'].value = "";    
+   document.all['ActivityLFrom'].value = ""; 
+   document.all['ActivityLTo'].value = ""; 
+   document.all['PhotoBuffer'].value = ""; 
+      
+   return true;
+}
+
+function FillForm() {
+  var pName=CVR_IDCard.NameL; //var pNameL=CVR_IDCard.NameL;
+  var pSex=CVR_IDCard.SexL;   //var pSexL=CVR_IDCard.SexL;
+  var pNation=CVR_IDCard.NationL;  //var pNationL=CVR_IDCard.NationL;
+  var pBorn=CVR_IDCard.BornL;      //var pBornL=CVR_IDCard.BornL;
+  var pAddress=CVR_IDCard.Address;
+  var pCardNo=CVR_IDCard.CardNo;
+  var pPolice=CVR_IDCard.Police;
+  var pActivity=CVR_IDCard.Activity;
+  var pNewAddr=CVR_IDCard.NewAddr;  
+  var pActivityLFrom=CVR_IDCard.ActivityLFrom; 
+  var pActivityLTo=CVR_IDCard.ActivityLTo; 
+  var pPhotoBuffer=CVR_IDCard.GetPhotoBuffer; 
+
+  document.all['Name'].value = pName;  //document.all['Name'].value = pNameL;
+  document.all['Sex'].value = pSex;    // document.all['Sex'].value = pSexL; 
+  document.all['Nation'].value = pNation; //document.all['Nation'].value = pNationL;
+  document.all['Born'].value = pBorn;     //document.all['Born'].value = pBornL; 
+  document.all['Address'].value = pAddress; 
+  document.all['CardNo'].value = pCardNo; 
+  document.all['Police'].value = pPolice;  
+  document.all['Activity'].value = pActivity; 
+  document.all['NewAddr'].value = pNewAddr;  
+  document.all['ActivityLFrom'].value = pActivityLFrom; 
+  document.all['ActivityLTo'].value = pActivityLTo; 
+  document.all['PhotoBuffer'].value = pPhotoBuffer; 
+
+  
+  //显示照片Servlet
+
+  return true;
+}
+
+
+function ReadIDCard() {   
+ //  CVR_IDCard.PhotoPath=document.all['PhotoPath'].value;
+   CVR_IDCard.PhotoPath='c:/';
+   CVR_IDCard.TimeOut=3;
+   ClearIDCard(); 
+//   ClearForm(); 
+   document.all['ReadResult'].value ="请放卡...";
+   var strReadResult=CVR_IDCard.ReadCard;  
+  
+   FillForm();  
+   document.all['ReadResult'].value ="返回值:"+strReadResult;
+   //alert(strReadResult);  
+ //  if (strReadResult=="0"){
+   	//if (confirm("需要查询黑名单吗？")) 
+   	//{ 
+//   	    var windowX = (window.screen.width - 640) / 2 ;
+//		var windowY = (window.screen.height - 100) / 2 ;
+//		var newWin=window.open("asp/SearchBlacklist.asp?CardNo="+document.all['CardNo'].value+"&Name="+document.all['Name'].value,"newwindow", "top="+windowY+",left="+windowX+",width=640,height=100"); 
+ 		//newWin.moveTo(windowX,windowY);
+   	    //window.location="asp/SearchBlacklist.asp?CardNo="+document.all['CardNo'].value;
+   	//}   	
+//   } 
+
+   return true;
+}
+
+function DoStopRead() {
+   CVR_IDCard.DoStopRead; 
+   ClearIDCard(); 
+   ClearForm();
+   document.all['ReadResult'].value ="用户已取消读卡"
+   return true;
+}
+
+function DoCheckReader() {
+   var State=CVR_IDCard.GetState; 
+   document.all['ReadResult'].value =State;   
+   
+   return true;
+}
+
+function Save_IDCard() {   
+  var pName=CVR_IDCard.Name; 
+  var pSex=CVR_IDCard.Sex;
+  var pNation=CVR_IDCard.Nation;
+  var pBorn=CVR_IDCard.Born;
+  var pAddress=CVR_IDCard.Address;
+  var pCardNo=CVR_IDCard.CardNo;
+  var pPolice=CVR_IDCard.Police;
+  var pActivity=CVR_IDCard.Activity;
+  var pNewAddr=CVR_IDCard.NewAddr;
+  var pActivityLFrom=CVR_IDCard.ActivityLFrom; 
+  var pActivityLTo=CVR_IDCard.ActivityLTo; 
+  var pPhotoBuffer=CVR_IDCard.GetPhotoBuffer; 
+
+  if (pName == "") {    
+      ClearForm();
+      alert('读卡内容为空，无法保存数据！请先读卡，再保存。'); 
+      return false;
+  }
+  document.all['Name'].value = pName; 
+  document.all['Sex'].value = pSex; 
+  document.all['Nation'].value = pNation; 
+  document.all['Born'].value = pBorn; 
+  document.all['Address'].value = pAddress; 
+  document.all['CardNo'].value = pCardNo; 
+  document.all['Police'].value = pPolice;  
+  document.all['Activity'].value = pActivity; 
+  document.all['NewAddr'].value = pNewAddr;
+  document.all['ActivityLFrom'].value = pActivityLFrom; 
+  document.all['ActivityLTo'].value = pActivityLTo; 
+  document.all['PhotoBuffer'].value = pPhotoBuffer; 
+
+  //相片文件默认保存在 CVR_IDCard.PhotoPath
+
+  ClearIDCard(); 
+  return true;
+}
+
+function Addto_BlackList(){
+  if (document.all['CardNo'].value == "") {
+     alert('身份证号内容为空，无法添加黑名单数据,请输入身份证号及姓名!'); 
+     return false;       
+  }   
+  window.location="asp/post.asp?CardNo=" + document.all['CardNo'].value+"&Name="+document.all['Name'].value; 
+  return true;
+}
+
+function All_BlackList(){
+  window.location="asp/ALLBlacklist.asp";
+  return true;
+}
+
+function Search_BlackList(){
+   if (document.all['CardNo'].value == "") {
+     alert('请输入 身份证号 及 姓名 查询黑名单数据!'); 
+     return false;       
+   } 
+   var windowX = (window.screen.width - 640) / 2 ;
+   var windowY = (window.screen.height - 100) / 2 ;
+   var newWin=window.open("asp/SearchBlacklist.asp?CardNo="+document.all['CardNo'].value+"&Name="+document.all['Name'].value,"newwindow", "top="+windowY+",left="+windowX+",width=640,height=100"); 
+  
+   return true;
+}
+//-->
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>第二代居民身份证阅读软件——深圳华视电子读写设备有限公司(c)版权所有</title>
+<link rel="stylesheet" href="pic/style3.css"  type="text/css">
+</head>
+
+<body  topmargin="0" bgcolor="#D2F0FF">
+
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="100%" colspan="3">
+      <p align="center"><b><font color="#5555FF" size="6"> 深圳华视电子读写设备有限公司</font></b></td>
+  </tr>
+  <tr>
+    <td width="33%"></td>
+    <td width="33%">
+<p align="center"><font color="#FF0000">第二代居民身份证阅读软件</font>
+    </td>
+    <td width="34%"></td>
+  </tr>
+  <tr>
+    <td width="33%" bgcolor="#FF9900">　</td>
+    <td width="33%" bgcolor="#FF9900">
+      <p align="center"><font color="#FF0000">(For                                                                                             
+RS232/USB Reader)</font></td> 
+    <td width="34%" bgcolor="#FF9900">　</td>
+  </tr>
+</table>
+<p>   
+<OBJECT
+	  classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
+	  codebase="CVR100.cab#version=3,0,3,3"
+	  id="CVR_IDCard"
+          name="CVR_IDCard"
+	  width=119
+	  height=136
+	  align=center
+	  hspace=0
+	  vspace=0 	 	  
+>
+</OBJECT>   
+
+      
+</center><form name="MyForm" action="asp/SaveIDCard.asp" method=post onSubmit="return Save_IDCard()"><table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>       
+              
+          <td width="21%"></td>
+          <td  width="51%" colspan="3">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td width="33%">
+              <p align="right">
+ 		<input type="button" name="ReadCard" value="读身份证" onclick="return ReadIDCard()">
+            </td>
+            <td width="33%">
+              <p align="center"><input type="button" name="StopRead" value="停止读卡" onclick="return DoStopRead()">
+            </td>
+            <td width="34%">
+              <p align="left">              
+              <input type="button" name="StopRead1" value="检测设备" onclick="return DoCheckReader()">    
+            </td>
+          </tr>
+        </table>
+          </td>
+
+          <td width="28%"></td>
+    </tr>
+        <tr>
+          <td width="21%"></td>
+          <td width="51%" colspan="3">
+            <HR>
+          </td>
+          <td width="28%"></td>
+        </tr>
+        <tr>
+          <td width="21%"></td>
+          <td width="11%">
+        </td>
+          <td width="18%"> </td>
+          <td width="23%" valign="top">
+ 	</td>
+
+          <td width="28%"></td>
+        </tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">姓名：</p>
+        </td>
+        <center>
+          <td width="18%"><input type="text" name="Name" size="20" class=Input3> </td>
+        </center>
+      
+          <td width="23%" valign="top">         
+    
+          
+    
+ </td>
+
+<center>
+<center>
+        <center>
+          <td width="28%"></td>
+        </center></center></center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">性别：</p>
+        </td>
+        <center>
+          <td width="18%"><input type="text" name="Sex" size="20" class=Input3></td>
+        </center>
+      
+          <td width="23%" valign="top">         
+    
+          
+    
+ </td>
+
+    </tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">民族：</p>
+        </td>
+        <center>
+          <td width="18%"><input type="text" name="Nation" size="20" class=Input3></td>
+        </center>
+      
+          <td width="23%" valign="top">         
+    
+          
+    
+ </td>
+
+    </tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">出生：</p>
+        </td>
+        <center>
+          <td width="18%"><input type="text" name="Born" size="20" class=Input3></td>
+        </center>
+      
+          <td width="23%" valign="top">         
+    
+          
+    
+ </td>
+
+    </tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">地址：</p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="Address" size="49" class=Input2></td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right"><font color="#FF0000"><b>身份证号：</b></font></p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="CardNo" size="49" class=Input2 style="color: #FF0000"></td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">签发机关：</p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="Police" size="49" class=Input2></td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">有效期限：</p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="Activity" size="49" class=Input2></td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">期限起始：</p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="ActivityLFrom" size="49" class=Input2> </td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+      
+          <td width="11%">
+            <p align="right">期限失效：
+        </td>
+<center>
+<center>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="ActivityLTo" size="49" class=Input2> </td>
+          <td width="28%"></td>
+        </center></center></center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right">最新地址：</p>
+        </td>
+        <center>
+          <td width="41%" colspan="2"><input type="text" name="NewAddr" size="49" class=Input2> </td>
+          <td width="28%"></td>
+        </center></tr>
+        <tr>
+          <td width="21%"></td>
+        
+
+          <td width="11%">
+            <p align="right">照片路径：</p>
+        </td>
+          <td width="41%" colspan="2"><input type="text" name="PhotoPath" value="C:\" size="49" class=Input2> </td>
+<center>
+<center>
+        <center>
+          <td width="28%"></td>
+        </center></center></center></tr>        
+        <tr>
+          <td width="21%"></td>
+        
+
+          <td width="11%" valign="top">
+            <p align="right">
+            照片编码：</p>
+            <p align="center">
+            　</p>
+        </td>
+<center>
+<center>
+        <center>
+          <td width="41%" colspan="2"><textarea rows="4" name="PhotoBuffer" cols="47" class=MultiEditBox></textarea> </td>
+          <td width="28%"></td>
+        </center></center></center></tr>        
+        <tr>
+          <td width="21%"></td>
+          <td width="11%">
+          </td>
+          <td width="41%" colspan="2">  </td>
+          <td width="28%"></td>
+        </tr>        
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+            <p align="right"><font color="#0000FF">操作提示:</font></p>
+        </td>
+
+          
+      <td width="41%" colspan="2"> 
+          <input type="text" name="ReadResult" value="等待验证" size="32"><input type=submit name="submit" value="保存读卡结果"> 
+  </td>    
+          <td width="28%"></td>          
+    </tr>  
+            
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+        </td>
+
+          
+      <td width="41%" colspan="2"> 
+        <p align="left">
+          <input type="button" name="BtnAddBlackList" value="加入黑名单" onClick="return Addto_BlackList()">&nbsp;&nbsp;  
+          <input type="button" name="BtnAllBlackList" value="全部黑名单" onClick="return All_BlackList()">         
+        </p> 
+        <p align="left">
+          <input type="button" name="BtnSearchBlackList" value="查询黑名单" onClick="return Search_BlackList()">     
+        </p>
+        <p>　
+  </td>    
+
+          
+          <td width="28%"></td>          
+    </tr>  
+            
+        <tr>
+          <td width="21%"></td>
+        
+          <td width="11%">
+        </td>
+
+          
+      <td width="41%" colspan="2"> 
+  </td>    
+        <center>
+
+          
+          <td width="28%"></td>          
+        </center></tr>  
+            
+      </table>
+       
+      </form>
+     
+              
+ 
+              
+</body>
+</HTML>

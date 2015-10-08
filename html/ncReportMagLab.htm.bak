@@ -1,0 +1,253 @@
+<html>
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.bbtitle{
+	border-bottom:1px solid #888888;
+	border-left:0px solid #FFFFFF;
+	font-size:11pt;
+	text-align:center;
+
+}
+
+.tab{
+	border-top:1px solid #8cb4e8;
+	border-right:1px solid gray;
+	border-left:1px solid #FFFFFF;
+	color:gray;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+
+	cursor: default;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+.selTab{border-left:solid thin white;
+border-top:solid thin white;
+border-right:solid thin black;
+border-bottom-color:#B4DEEA;
+border-bottom-width: 0px;
+border-bottom-style: solid;
+font-weight:bold;
+text-align:center;
+cursor: default}
+
+.tScroll2 {
+    overflow: scroll;  
+    height:575px;
+    width:873px;
+    cursor: default;
+    }
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+self.location.href=t
+}
+
+
+var currentTab;
+var tabBase;
+var firstFlag = true;
+
+function changeTabs(){
+if(firstFlag == true){
+currentTab = t0;
+tabBase = t0base;
+firstFlag = false;
+}
+
+
+if(window.event.srcElement.className == "tab"){
+	
+	currentTab.className="tab"; 	
+	currentTab = window.event.srcElement;
+	currentTab.className = "selTab";
+  tabContentID = currentTab.id + "Contents";
+  tabContent = document.all(tabContentID);
+
+
+//tabContents.innerHTML = tabContent.innerHTML;
+	if(tabContent.id=="t0Contents"){
+		document.all.ff2.innerHTML='<iframe name="main3" id="data1" width="100%" height="600" frameborder="no" src="/pronline/Msg?FunName@ncReportReceiver"> </iframe>';	
+	}
+	else if(tabContent.id=="t1Contents"){
+  	document.all.ff2.innerHTML='<iframe name="main3" id="data1" width="100%" height="600" frameborder="no" src="/pronline/Msg?FunName@ncReportTypeSet"> </iframe>';
+	}
+	else if(tabContent.id=="t2Contents"){
+    document.all.ff3.innerHTML='<iframe name="main" id="data1" width="100%" height="600" frameborder="no" src="/pronline/Msg?FunName@ncProxCheckLog"> </iframe>';
+		document.all.ff2.style.display="none";
+		document.all.ff.style.display="none";
+		document.all.wlj3.style.display="none";
+		form1.refresh_flag.value='2';
+		form1.FunName.value='ncProxCheckLog';
+	  form1.target='main'
+	}
+	
+ }
+}
+
+function sx()
+{
+	if(form1.refresh_flag.value=='1'){
+ 		form1.submit();
+  }
+}
+setInterval('sx()',7000);
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+
+var dfd1="0"
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+
+
+
+</script>
+<style>
+.conts  {visibility:hidden}
+
+.selTabBase{border-top:solid thin #dfdfdf }
+.TabBase{border-top:solid thin #DEE8FA}
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg">
+
+<input type="hidden" name="FunName" value="ncProxySetSave">
+<input type="hidden" name="opmsg" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="id" value="">
+<input type="hidden" name="cheID" value="">
+<input type="hidden" name="dvname" value="">
+<input type="hidden" name="con_flag" value="2">
+<input type="hidden" name="temp_id" value="">
+
+
+<input type="hidden" name="refresh_flag" value="2">
+
+    <table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#DEE8FA STYLE="width:101%; " >
+    	<tr height="27" bgcolor="#8cb4e8">
+    		<td colspan="3" class="bbtitle" align="center" style="font-size:11pt;color:#00237e;"><b>报表分发管理</b></td>
+    	</tr>
+      <tr height="27" bgcolor=#DEE8FA>
+      	<td colspan="3" height="24">
+      		<table width="100%" CELLSPACING="0">
+      			<tr height="24" >
+					    <td ID="t0" CLASS="selTab" >报表发送对象</td>									    
+					    <td ID="t1" CLASS="tab" >报表定义</td>
+					    <td ID="t2" CLASS="tab" >报表分发日志</td>
+					    <td ID="t3" CLASS="tab10" >&nbsp;</td>	
+					  </tr>
+					</table>
+				</td>   
+      </tr> 
+			<tr > 
+			<td ID="t0base"  STYLE="height:0; border-left:solid thin white" ></td>
+			<td ID="t1base" STYLE="height:0; border-left:solid thin white" ></td>
+			<td ID="t2base" STYLE="height:0; border-left:solid thin white" > </td>
+			<td ID="t3base" STYLE="height:0; border-left:solid thin white" > </td>
+
+			</tr> 
+	<tr height="5"><td colspan="10"></td></tr>
+<tr > 
+<td HEIGHT="*" COLSPAN="4" ID="tabContents" align="left" valign="top" >
+<div id="ff2" name="ff2" valign="top">
+<iframe name="main3" id="data1" width="100%" height="600" frameborder="no" src="/pronline/Msg?FunName@ncReportReceiver"> </iframe>
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+
+</body>
+</html>

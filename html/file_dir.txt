@@ -1,0 +1,72 @@
+在线用户  					/home/ncmysql/nc/plate/nc/nc_list_onlineuser.htm
+用户即时流量        /home/ncmysql/nc/html/nc_list_onlineuser_lab.htm
+当前ip访问          /home/ncmysql/nc/html/main_right1.htm
+当前web访问         /home/ncmysql/nc/html/main_web.htm
+当前封锁信息        /home/ncmysql/nc/plate/ncwarn_mon.htm     /ncwarn_label.htm
+即时告警信息        /home/ncmysql/nc/html//nc_msgwarn_lab.htm
+即时告警信息        /home/ncmysql/nc/html/nc_msgwarn_lab.htm
+ip访问历史记录查询  /home/ncmysql/nc/html/main_iphis.htm 
+                    /home/ncmysql/nc/plate/tree/tree_menu.htm
+                    /home/ncmysql/nc/plate/nc/nc_iplog_hsear.htm
+web访问历史记录查询 /home/ncmysql/nc/html/main_webhis.htm
+										/home/ncmysql/nc/plate/tree/tree_menu.htm
+										/home/ncmysql/nc/plate/nc/nc_httplog_hsear.htm
+封锁日志查询        /home/ncmysql/nc/plate/nc/nc_error_listnow.htm
+
+网络设定            /home/ncmysql/nc/html/nc_networkset.htm
+用户管理            /home/ncmysql/nc/plate/nc/nc_list_user.htm
+参数设定            /home/ncmysql/nc/plate/nc/nc_syssettree.htm
+部门ip地址段设置    /home/ncmysql/nc/plate/nc/ncipdepset.htm
+licence申请         /home/ncmysql/nc/plate/nc/nc_sys_licenseinfo.htm
+输入licence申请     /home/ncmysql/nc/plate/nc/nc_sys_license.htm
+
+即时通讯            /home/ncmysql/nc/html/main_im.htm
+										/home/ncmysql/nc/plate/nc/nc_msgmon_left.htm
+										/home/ncmysql/nc/plate/nc/ncimmon_00.htm
+										/home/ncmysql/nc/plate/nc/ncimnewlog.htm
+										/home/ncmysql/nc/html/nc_im_bot.htm
+										/home/ncmysql/nc/html/nc_im_label.htm
+			
+邮件内容监控        /home/ncmysql/nc/plate/tree/tree_menu_nogroup.htm
+
+监控邮件分类查看    /home/ncmysql/nc/html/main_mailmonfl.htm
+										/home/ncmysql/nc/plate/mail/nc_tree_mailmonfl.htm
+										
+表单内容
+										/home/ncmysql/nc/plate/tree/tree_menu_nogroup.htm
+										/home/ncmysql/nc/html/main_form.htm
+										/home/ncmysql/nc/plate/mail/nc_upload_mlist.htm
+
+表单分类查看        /home/ncmysql/nc/html/main_formfl.htm
+										/home/ncmysql/nc/plate/mail/nc_tree_formmonfl.htm
+										/home/ncmysql/nc/plate/mail/nc_formmon_fllist.htm
+										
+网址库分类管理      /home/ncmysql/nc/html/main_webclass.htm
+										/home/ncmysql/nc/plate/tree/nc_tree_limweblist_menu.htm
+										/home/ncmysql/nc/plate/tree/nc_tree_limweblist_top.htm
+										/home/ncmysql/nc/plate/tree/nc_tree_limweblist_bot.htm
+										/home/ncmysql/nc/plate/ncnc_limwebclasscx.htm
+										
+网址库策略定义      /home/ncmysql/nc/plate/tree/nc_tree_limwebpol_top.htm
+
+网络服务定义        /home/ncmysql/nc/plate/nc/nc_limiptree.htm
+									  /home/ncmysql/nc/plate/nc/nc_limiplist.htm
+									  
+上网控制策略        /home/ncmysql/nc/plate/nc/nc_limrulegroup.htm
+										/home/ncmysql/nc/plate/nc/nc_limruletree.htm
+										
+时间分类定义        /home/ncmysql/nc/plate/nc/nc_limdatetree.htm
+
+拦截邮件规则定义    /home/ncmysql/nc/plate/tree/tree_menu_mctl.htm
+
+拦截邮件内容查看    /home/ncmysql/nc/plate/tree/tree_menu_nogroup.htm
+
+拦截邮件分类定义    /home/ncmysql/nc/plate/mail/nc_tree_mailctlfl.htm
+
+拦截邮件收发统计    /home/ncmysql/nc/plate/mail/nc_tree_mailctlcontu.htm
+
+拦截邮件数量分析   /home/ncmysql/nc/plate/tree/tree_menu.htm
+
+上网排行榜         /home/ncmysql/nc/plate/nc/ncsortip.htm
+									 /home/ncmysql/nc/plate/nc/ncsortservice.htm
+									 /home/ncmysql/nc/plate/nc/ncsortweb.htm

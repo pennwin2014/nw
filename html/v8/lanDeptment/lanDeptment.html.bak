@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>部门管理</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	<script>  
+		Ext.define('TreeCombox', {  
+		  extend: 'Ext.form.field.Picker',  
+		  xtype: 'treecombox',  
+		  triggerCls: Ext.baseCSSPrefix + 'form-arrow-trigger',  
+		  config: {  
+		    displayField: null,  
+		    columns: null,  
+		    rootVisible: false,  
+		    selectOnTab: true,  
+		    firstSelected: false,  
+		    maxPickerWidth: 150,  
+		    maxPickerHeight: 360,  
+		    minPickerHeight: 100  
+		  },  
+		  editable: false,  
+		  initComponent: function() {  
+		    var me = this;  
+		    me.callParent(arguments);  
+		    this.addEvents('select');  
+		    me.store.on('load', me.onLoad, me);  
+		  },  
+		  createPicker: function() {  
+		    var me = this,  
+		    picker = Ext.create('Ext.tree.Panel', {  
+		      store: me.store,  
+		      floating: true,  
+		      hidden: true,  
+		      width: me.maxPickerWidth,  
+		      displayField: me.displayField,  
+		      columns: me.columns,  
+		      maxHeight: me.maxTreeHeight,  
+		      shadow: false, 
+		      rootVisible:false,  
+		      manageHeight: false,  
+		      listeners: {  
+		      	itemclick: Ext.bind(me.onItemClick, me)  
+		      },  
+		      viewConfig: {  
+		        listeners: {  
+		          render: function(view) {  
+		          	view.getEl().on('keypress', me.onPickerKeypress, me);  
+		          }  
+		        }  
+		      }  
+		    }),  
+		    view = picker.getView();  
+		
+		    view.on('render', me.setPickerViewStyles, me);  
+		    if (Ext.isIE9 && Ext.isStrict) {  
+		      view.on('highlightitem', me.repaintPickerView, me);  
+		      view.on('unhighlightitem', me.repaintPickerView, me);  
+		      view.on('afteritemexpand', me.repaintPickerView, me);  
+		      view.on('afteritemcollapse', me.repaintPickerView, me);  
+		    }  
+		    return picker;  
+		  },  
+		  setPickerViewStyles: function(view) {  
+		    view.getEl().setStyle({  
+		      'min-height': this.minPickerHeight + 'px',  
+		      'max-height': this.maxPickerHeight + 'px'  
+		    });  
+		  },  
+		  repaintPickerView: function() {  
+		    var style = this.picker.getView().getEl().dom.style;  
+		    style.display = style.display;  
+		  },  
+		  alignPicker: function() {  
+		    var me = this,  
+		        picker;  
+		
+		    if (me.isExpanded) {  
+		      picker = me.getPicker();  
+		      if (me.matchFieldWidth) {  
+		      	picker.setWidth(this.picker.getWidth());  
+		      }  
+		      if (picker.isFloating()) {  
+		      	me.doAlign();  
+		      }  
+		    }  
+		  },  
+		  onItemClick: function(view, record, node, rowIndex, e) {  
+		//    	alert(record.data.id);
+		    this.selectItem(record);  
+		  },  
+		  onPickerKeypress: function(e, el) {  
+		    var key = e.getKey();  
+		
+		    if(key === e.ENTER || (key === e.TAB && this.selectOnTab)) {  
+		    	this.selectItem(this.picker.getSelectionModel().getSelection()[0]);  
+		    }  
+		  },  
+		  selectItem: function(record) {      
+		    var me = this; 
+		    document.getElementById("form1").mid.value=record.get('id');
+		    me.setValue(record.get('text'));  
+		    me.picker.hide();  
+		    me.inputEl.focus();  
+		    me.fireEvent('select', me, record);
+		  },  
+		  onExpand: function() {  
+		    var me = this,  
+		    picker = me.picker,  
+		    store = picker.store,  
+		    value = me.value;  
+		    if(value) {  
+		      var node = store.getNodeById(value);  
+		      if(node)  
+		      	picker.selectPath(node.getPath());  
+		    } else {  
+		      var hasOwnProp = me.store.hasOwnProperty('getRootNode');  
+		      if(hasOwnProp)  
+		      	picker.getSelectionModel().select(store.getRootNode());  
+		    }  
+		
+		    Ext.defer(function() {  
+		    	picker.getView().focus();  
+		    }, 1);  
+		  },  
+		  setValue: function(value) {  
+		    var me = this,record;  
+		    me.value = value;  
+		    if (me.store.loading) {  
+		    	return me;  
+		    }  
+		    try{  
+		      //var hasOwnProp = me.store.hasOwnProperty('getRootNode');  
+		      //record = value ? me.store.getNodeById(value) : (hasOwnProp ? me.store.getRootNode() : null);  
+		      //me.setRawValue(record ? record.get(this.displayField) : '');  
+		      var i = value.indexOf(">");
+		      var j = value.indexOf("</");
+		      if(i != -1 && j != -1){
+		      	me.setRawValue(value.substring(i+1,j));
+		      }
+		      else{
+		      	me.setRawValue(value);
+		      }
+		    }catch(e){  
+		    	me.setRawValue('');  
+		    }  
+		
+		    return me;  
+		  },  
+		  getValue: function() {  
+		  	return this.value;  
+		  },  
+		  onLoad: function(store,node,records) {  
+		    var value = this.value;  
+		    if (value) {  
+		    	this.setValue(value);  
+		    }else{  
+		      if(this.firstSelected){  
+		        if(records && records.length > 0){  
+		          var record = records[0];  
+		          this.setValue(record.get(this.valueField));  
+		        }  
+		      }  
+		    }  
+		  },  
+		  getSubmitData: function() {  
+		    var me = this,  
+		    	data = null;  
+		    if (!me.disabled && me.submitValue) {  
+		      data = {};  
+		      data[me.getName()] = '' + me.getValue();  
+		    }  
+		    return data;  
+		  },  
+		  onTriggerClick: function() {  
+		    var me = this;  
+		    //me.store.load();  
+		    if (!me.readOnly && !me.disabled) {  
+		      if (me.isExpanded) {  
+		      	me.collapse();  
+		      } else {  
+		      	me.expand();  
+		      }  
+		      me.inputEl.focus();  
+		    }  
+		  }  
+		});
+		
+		Ext.onReady(function(){
+		
+			Ext.define('treedata',{
+	      extend: 'Ext.data.Model',
+	      fields: [
+          {name: 'text',  	type: 'string'},
+          {name: 'id',     	type: 'int'},
+          {name: 'begip',  	type: 'string'},
+          {name: 'endip',  	type: 'string'},
+          {name: 'content', type: 'string'}
+	      ]
+    	});
+    	
+			var deptStore = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_group_tree_search'
+        },
+        root: {
+          text: '全部',
+          id: '0',
+          checked:false,
+          expanded: true
+        },
+        folderSort: true
+    	});
+    	var deptStore2 = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lan_group_tree_search'
+        },
+        root: {
+          text: '全部',
+          id: '0',
+          checked:false,
+          expanded: true
+        },
+        folderSort: true
+    	});
+    	
+    	var addDepart = Ext.create('Ext.window.Window', {
+		    xtype: 'form',
+		    title: '添加部门',
+		    height: 250,
+		    width: 400,
+		    modal:true,
+		    buttonAlign:'center',
+		    closeAction: 'hide',
+		    bodyStyle: 'padding:10px 0px 0px 15px',
+			  items: [{
+			  	xtype:'treecombox',
+	      	fieldLabel:'上级部门',
+	      	labelWidth: 130,
+	      	valueField: 'id',  
+  				displayField: 'text', 
+  				value:	'0',
+	      	id:   'addToDept',
+	      	store:deptStore2
+			  },{
+	      	xtype: 'textfield',
+	      	fieldLabel:'请输入新的部门名',
+	      	labelWidth: 130,
+	      	id:   'addDeptNameText'
+	      },{
+	      	xtype: 'textfield',
+	      	fieldLabel:'请输入新的部门起始IP',
+          regex: /^((2[0-4]\d|25[0-5]|[1-9]?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/,
+	      	labelWidth: 130,
+	      	id:   'addDeptSipText'
+	      },{
+	      	xtype: 'textfield',
+	      	fieldLabel:'请输入新的部门终止IP',
+          regex: /^((2[0-4]\d|25[0-5]|[1-9]?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/,
+	      	labelWidth: 130,
+	      	id:   'addDeptEipText'
+	      },{
+	      	xtype     : 'textareafield',
+					grow      : true,
+					fieldLabel: '部门备注',
+					anchor    : '100%',
+	      	labelWidth: 130,
+	      	id:   'addDeptContentText'
+	      }],
+	      buttons:[{
+	      	text:  '确定',
+	      	handler: function(btn, e){
+	      		if(document.getElementById("form1").mid.value == -1){
+	      			alert("请选择上级部门");
+	      			return ;
+	      		}
+	      		if(Ext.getCmp('addDeptNameText').getValue()==""){
+	      			alert("请输入部门名称");
+	      			return ;
+	      		}
+	      		
+		      	deptStore.load({params:{
+	      			deal:"insert",
+	      			gid: document.getElementById("form1").mid.value,
+	      			gname: Ext.getCmp('addDeptNameText').getValue(),
+	      			sip:Ext.getCmp('addDeptSipText').getValue(),
+	      			eip:Ext.getCmp('addDeptEipText').getValue(),
+	      			content:Ext.getCmp('addDeptContentText').getValue(),
+	      		}});
+	      		parent.ncapp.onItemReflash();
+	      		
+      			Ext.getCmp('addToDept').setRawValue("");
+      			Ext.getCmp('addDeptNameText').setValue("");
+      			Ext.getCmp('addDeptSipText').setValue("");
+      			Ext.getCmp('addDeptEipText').setValue("");
+      			Ext.getCmp('addDeptContentText').setValue("");
+	      		addDepart.hide();
+	      	}
+	      },{
+	      	text:  '取消',
+	      	handler: function(btn, e){
+	      		Ext.getCmp('addToDept').setRawValue("");
+      			Ext.getCmp('addDeptNameText').setValue("");
+      			Ext.getCmp('addDeptSipText').setValue("");
+      			Ext.getCmp('addDeptEipText').setValue("");
+      			Ext.getCmp('addDeptContentText').setValue("");
+	      		addDepart.hide();
+	      	}
+	      }]
+			});
+			
+			Ext.create('Ext.tree.Panel',{
+				renderTo:Ext.getBody(),
+	  	  margins: '0 0 0 0',
+	  	  id:'deptTree',
+	      store: deptStore,
+	      autoScroll: true,
+        rootVisible: false,
+	      border:true,
+	      height: 950,
+	    	forceFit: true,
+	      useArrows: false,
+	      columnLines:true,
+	      stripeRows:true,
+	      columns: [{
+	      	xtype: 'treecolumn',
+	      	text: '部门名',
+	      	flex:2,
+	      	dataIndex: 'text'
+	      },{
+	      	text: '起始IP',
+	      	dataIndex: 'begip',
+	      	flex:1,
+	      	renderer:function(value,metaDate,record){
+	      		if(value == "255.255.255.255"){
+	      			return "";
+	      		}else{
+	      			return value;
+	      		}
+	      	}
+	      },{
+	      	text: '终止IP',
+	      	dataIndex: 'endip',
+	      	flex:1,
+	      	renderer:function(value,metaDate,record){
+	      		if(value == "255.255.255.255"){
+	      			return "";
+	      		}else{
+	      			return value;
+	      		}
+	      	}
+	      },{
+	      	text: '备注',
+	      	flex:3,
+	      	dataIndex: 'content'
+	      }],
+	      tbar:[{
+	      	text:"添加部门",
+	      	id: "adddep1",
+	      	handler:function(){
+	      		Ext.getCmp('addToDept').setRawValue('');
+	      		document.getElementById("form1").mid.value = -1;
+	      		addDepart.showAt(100,30);
+	      	}
+	      },{
+	      	text:"删除部门",
+	      	id: 'deldep1',
+	      	handler:function(){
+	      		var records = Ext.getCmp('deptTree').getView().getChecked();
+	      		
+	      		if(records.length){
+	      			Ext.Msg.show({
+	      				title:"提示",
+	      				msg:"您确定要删除这些部门和子部门？",
+	      				modal:true,
+	      				buttons:Ext.Msg.YESNO,	      				
+	      				fn:function(btn){
+	      					if(btn == 'yes'){
+	      						var selsid;
+	      						for(var i=0;i<records.length;i++){
+			              	if(i==0){
+			              		selsid=records[i].get('id');
+			              	}else{
+			                	selsid=selsid+","+records[i].get('id');
+			                }
+										}
+	      						deptStore.load({params:{
+					      			deal:"delete",
+					      			gid: selsid
+				      			}});
+	      						parent.ncapp.onItemReflash();
+	      					}
+	      				},
+	      				icon: Ext.Msg.QUESTION
+	      			}).setPosition(300,100);
+	      		}
+	      	}
+	      }],
+	      listeners:{
+	      	'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+	      		event.stopEvent();
+						Ext.create('Ext.menu.Menu', {
+							floating:	true,
+							items: [{
+								text: '添加',
+								handler: function(){
+									Ext.getCmp('addToDept').setRawValue(rcd.get('text'));
+									document.getElementById("form1").mid.value = rcd.get('id');
+									addDepart.showAt(event.getX()+100,event.getY()+30);
+								}	
+							},{
+								text: '修改',
+								handler: function(){
+									Ext.create('Ext.window.Window', {
+							    xtype: 'form',
+							    title: '修改部门名',
+							    id:    'deptUpdateWin',
+							    height: 250,
+							    width: 400,
+							    modal:true,
+							    buttonAlign:'center',
+							    bodyStyle: 'padding:10px 0px 0px 15px',
+								  items: [{
+						      	xtype: 'textfield',
+						      	fieldLabel:'请输入新的部门名:',
+						      	labelWidth: 130,
+						      	id:   'updatedeptNameText'
+						      },{
+						      	xtype: 'textfield',
+						      	fieldLabel:'请输入新的部门起始IP:',
+						      	labelWidth: 130,
+            				regex: /^((2[0-4]\d|25[0-5]|[1-9]?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/,
+						      	id:   'updatedeptSipText'
+						      },{
+						      	xtype: 'textfield',
+						      	fieldLabel:'请输入新的部门终止IP:',
+						      	labelWidth: 130,
+            				regex: /^((2[0-4]\d|25[0-5]|[1-9]?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/,
+						      	id:   'updatedeptEipText'
+						      },{
+							      	xtype     : 'textareafield',
+											grow      : true,
+											fieldLabel: '部门备注:',
+											anchor    : '100%',
+							      	labelWidth: 130,
+							      	id:   'updateDeptContentText'
+							    }],
+						      buttons:[{
+						      	text:  '确定',
+						      	handler: function(btn, e){
+						      		deptStore.load({params:{
+						      			deal:"update",
+						      			gid: rcd.get('id'),
+						      			gname: Ext.getCmp('updatedeptNameText').getValue(),
+						      			sip:Ext.getCmp('updatedeptSipText').getValue(),
+						      			eip:Ext.getCmp('updatedeptEipText').getValue(),
+						      			content:Ext.getCmp('updateDeptContentText').getValue(),
+						      		}});
+	      							parent.ncapp.onItemReflash();
+						      		Ext.getCmp('deptUpdateWin').close();
+						      	}
+						      },{
+						      	text:  '取消',
+						      	handler: function(btn, e){
+						      		Ext.getCmp('deptUpdateWin').close();
+						      	}
+						      }],
+							      listeners:{
+							      	'beforeshow':function(thisCmp,eOpts){
+							      		Ext.getCmp('updatedeptNameText').setValue(rcd.get('text'));
+							      		Ext.getCmp('updatedeptSipText').setValue(rcd.get('begip'));
+							      		Ext.getCmp('updatedeptEipText').setValue(rcd.get('endip'));
+							      		Ext.getCmp('updateDeptContentText').setValue(rcd.get('content'));
+							      	}
+							      }
+								}).showAt(event.getX()+100,event.getY()+30);
+								}
+							},{
+								text: '移动部门',
+								handler: function(){
+									Ext.create('Ext.window.Window', {
+								    xtype: 'form',
+								    title: '移动部门',
+								    id:    'deptMoveWin',
+								    height: 250,
+								    width: 400,
+								    modal:true,
+								    buttonAlign:'center',
+								    bodyStyle: 'padding:10px 0px 0px 15px',
+									  items: [{
+									  	xtype: 'label',
+									  	text: '请选择移动到的部门:'
+									  },{
+							      	xtype:'treecombox',
+							      	width: 150,
+							      	valueField: 'id',  
+						  				displayField: 'text', 
+							      	id:   'moveToDept',
+							      	store:deptStore2,
+							      	listeners:{
+							      		'select':function(){
+							      			Ext.getCmp('notSelect').setText("");
+							      		}
+							      	}
+							      },{
+							      	xtype: 'label',
+							      	id:  'notSelect',
+							      	text:""
+							      }],
+							      buttons:[{
+							      	text:  '确定',
+							      	handler: function(btn, e){
+							      		if(Ext.getCmp('moveToDept').getValue()!=""){
+								      		deptStore.load({params:{
+								      			deal:"move",
+								      			gid: rcd.get('id'),
+								      			toid: document.getElementById("form1").mid.value
+								      		}});
+								      		deptStore2.load();
+								      		Ext.getCmp('deptMoveWin').close();
+								      	}else{
+								      		Ext.getCmp('notSelect').setText("您还未选择要移动到的部门！");
+								      	}
+								      	
+	      								parent.ncapp.onItemReflash();
+							      	}
+							      },{
+							      	text:  '取消',
+							      	handler: function(btn, e){
+							      		Ext.getCmp('deptMoveWin').close();
+							      	}
+							      }]
+									}).showAt(event.getX()+100,event.getY()+30);
+								}
+							},{
+								text: '删除',
+								id: 'deldep2',
+								handler: function(){
+									Ext.Msg.show({
+			      				title:"提示",
+			      				msg:"您确定要删除这些部门和子部门？",
+			      				modal: true,
+			      				buttons:Ext.Msg.YESNO,	      				
+			      				fn:function(btn){
+			      					if(btn == 'yes'){
+												deptStore.load({params:{
+							      			deal:"delete",
+							      			gid: rcd.get('id')
+							      		}});
+		      							parent.ncapp.onItemReflash();
+		      						}
+										}
+									}).setPosition(300,100);
+								}
+							}]	
+						}).showAt(event.getXY());						
+  				}
+	      }
+			});
+			var str = parent.right_fun;
+			//console.info(str,",",str.indexOf('1110'))
+			if(str.indexOf('5210')==-1){
+		  	Ext.getCmp('adddep1').setDisabled(true);
+		  //	Ext.getCmp('adddep2').setDisabled(true);
+	    }
+	    if(str.indexOf('5220')==-1){
+		  	Ext.getCmp('deldep1').setDisabled(true);
+		  	Ext.getCmp('deldep2').setDisabled(true);
+	    }
+			
+		});
+	</script>
+</head>
+
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">	
+		<input type="hidden" name="mid" value="">
+	</form>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css.css" type="text/css">
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<style type="text/css">
+<!--
+body {  font-size: 9pt}
+table {  font-size: 9pt}
+.anuse3 { font-size: 9pt; background-color: E7F3FF; 
+  vertical-align: middle; height: 18px; width: 45px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+-->
+</style>
+
+<script>
+function goto(t){
+self.location.href=t
+}
+function init()
+{
+ document.all.nexpg.disabled=1;
+}
+function gotopag(nun)
+{
+	var num=parseInt(frames.main.form1.CurPg.value)+nun;
+	if(num<=1) 
+	{
+	    num=1;
+		document.all.nexpg.disabled=1;
+	}
+	else
+	  document.all.nexpg.disabled=0;
+	  
+	if(num>=frames.main.form1.TotPg.value)
+	{
+	   document.all.prepg.disabled=1;
+	}
+	else
+	   document.all.prepg.disabled=0;
+
+
+frames.main.form1.submit();
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#80538D";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+
+}
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:no;dialogHeight:270px');
+}
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#B6D8F5";
+}
+	
+	
+}
+</script>
+</head>
+
+<body bgcolor="#12538D" topmargin="0"  leftmargin="0" onload="init()">
+ <form name="form1" method="post" action="/pronline/Msg" target="main">
+<table  cellspacing=0   cellpadding="0" bordercolor="#DFDFDF" border="0" align="center" width="100%">
+  <tr bgcolor="#E7F3FF" height="23"> 
+    <td colspan="12" bgcolor="#E7F3FF" class="bord1"  onyes="head" valign="bottom"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr>        
+          <td width="400">&nbsp;
+              <input name="hsear" type="button" class="an3"  onclick="goto1('/pronline/Msg?FunName@ncWebWarnDispSform')" value="查 询">
+             </td>
+             <td><div align="center" style="font-size: 10pt"><font color="#000000"><strong>告警信息查询</strong></font> </td>
+             <td><div align="right">           
+		      <input name="FunName" type="hidden" value="ncWebImList">
+		      <input name="plate" type="hidden" value="nc/nc_im_listnow.htm">
+         
+              <input type="button" name="prepg" value="上一页" class="anuse3" onclick="gotopag(1)" >
+              <input type="button" name="nexpg" value="下一页" class="anuse3" onclick="gotopag(-1)" >
+           
+          </div> </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tbody>
+    <tr height="20"> 
+    
+     
+      <td width="100" bgcolor="#6382BD" class="bord2"><p align="center"><font color="#FFFFFF">用户名</font></p>      </td>
+      <td width="100" bgcolor="#6382BD" class="bord2"><div align="center"><font color="#FFFFFF">部门</font></div></td>
+      <td width="100" bgcolor="#6382BD" class="bord2"> 
+        <div align="center"><font color="#FFFFFF">时间</font></div></td>
+      <td width="60"center" bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">告警类别</font></div></td>
+      <td width="580" bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">内容</font></td> 
+    </tr>
+  </tbody>
+</table>
+</form>
+<div style="position:relative;left:0px;top:-15px;">
+<form id="ff" name='ff'>
+</form>
+</div>
+<iframe name="main" id="data" style="display:none" src="/pronline/Msg?FunName@ncWebWarnNewLog"> 
+</body>
+</html>

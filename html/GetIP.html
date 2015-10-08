@@ -1,0 +1,42 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> save Control, version 0.1 </TITLE>
+</HEAD>
+
+<BODY >
+<OBJECT ID="GetIP"  CLASSID="CLSID:BD873FC9-704D-4403-BFAB-DEA6B6B1DF6A" codebase="http://192.168.20.190/GetIP.CAB" Height="50%" width="50%">
+</OBJECT>
+<SCRIPT LANGUAGE="JavaScript">
+
+    function init() {
+      
+        alert("init");
+        document.getElementById("what").value = "start";
+
+        var x = 0;
+        x = GetIP.GetIP3();
+        if(x >0)
+        {
+            document.getElementById("what").value = "保存成功";
+        }
+        else
+        {
+            document.getElementById("what").value = "保存失败";
+        }
+        
+    }
+
+    function remote(){
+
+	
+    }
+
+</SCRIPT>
+<p> 数据：大熊猫  （保存到G://111.txt）</p>
+    <input type="button" onclick="init()" size=200 value="保存数据"/>
+    <input type="text"   id="what" value="start0000" >
+</BODY>
+</HTML>
+

@@ -1,0 +1,130 @@
+
+
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link REL=stylesheet HREF="/css/runmit.css" TYPE='text/css'>
+</head>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#000066";
+	o.style.borderColor= "#cccccc";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+parent.parent.clearTimeout(parent.parent.popTimer);
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+parent.parent.popOut()		
+	
+}
+function menu_frame_onmouseover()
+{
+	parent.clearTimeout(parent.popTimer);
+	document.body.className='highlight_container'}
+function menu_frame_onmouseout()
+{
+	document.body.className="menu_container";
+	parent.popOut()}
+
+function goto(t){
+  parent.sbpm_right.location.href=t
+}
+
+function goto2(t){
+  parent.sbpm_left.location.href=t
+}
+function dono() {
+}
+
+
+
+</script>
+<body topMargin=0 leftmargin=0 marginheight="0" class=menu_space style='cursor:default;border:0' fixed oncontextmenu="return false">
+<table class=3dtable_notop1 border=0 width=100% cellspacing=0 cellpadding=0 style='padding:2px'>
+<!--   -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_mailbak_tree.htm');goto('/pronline/Msg?FunName@ncWebMailCtlList&userid@0');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件内容查看</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncMailCtlFl_list&flags@0&CurPg@1');goto2('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_tree_mailctlfl.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件分类查看</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebShowMailBack&cond@mailctl');goto2('/no.htm');parent.go_hide()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件备份记录</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebMailCtlAuditlst&flags@4');goto2('/no.htm');parent.go_hide()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件审计</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebMailCtlAuditlst&flags@5');goto2('/no.htm');parent.go_hide()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件审计日志</td>
+  </tr>
+<!--      -->
+  <tr id="6"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailCtlByBm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcontu.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件收发统计</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailByStatus');goto2('/no.htm');parent.go_hide()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件状态统计</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailCtl&opt@1&way@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcharc.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件数量分析</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebCountMailCtl&opt@0&way@2');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcharf.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件流量分析</td>
+  </tr>
+<!--      -->
+  <tr id="11"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--    -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncMailCtlTypeList&usertype@0&gid@0&gname@全部');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_mailctl_tree1.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">邮件拦截规则设置</td>
+  </tr>
+<!--     -->
+  <tr onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)"
+     onClick="goto('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_mail_ctlgroup.htm');goto2('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_mailctlsettree.htm');parent.go_show()">
+    <td height="22">&nbsp;<img src="/images/blank.gif" width="21" height="21" align="absmiddle">拦截邮件分类定义</td>
+  </tr>
+<!--      -->
+  <tr id="14"> 
+    <td height="2"><img src="/images/hr.gif" width="100%" height="2"></td>
+  </tr>
+<!--  -->
+</table>
+</body>
+</html>

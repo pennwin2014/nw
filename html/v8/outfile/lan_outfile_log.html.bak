@@ -1,0 +1,962 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>文件日志</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+      <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+   
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+  <script>  
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+
+function SetPage()
+ {
+    	store2.currentPage=1;
+ }
+
+var store;
+var temp_id='';
+var preid='';
+var store2;
+ function reflash(){
+ 
+ 	var groupid;
+	var compid;
+	
+  document.getElementById("form1").mark1.value="";
+  document.getElementById('form1').BlockType.value="";
+
+	document.getElementById("form1").department1.value="";  
+	document.getElementById("form1").procname1.value="";  
+	document.getElementById("form1").filename1.value=""; 
+	document.getElementById("form1").sip1.value="";
+	
+	var title="";
+	
+	
+	if(parent.compidTmp != null && parent.compidTmp.substring(parent.compidTmp.length - 4,parent.compidTmp.length) == "rzck"){
+		groupid = "";
+		compid = parent.compidTmp.substring(0,parent.compidTmp.length - 4);
+	}else{
+		groupid=parent.groupid;
+		compid=parent.compid;
+		title = parent.dxtitle;
+	}
+	try{
+	  Ext.getCmp('wenjiangrid').setTitle(title);
+  }catch(e){}
+//	Ext.getCmp('departmentCombo').select(groupid); //改变外面的下拉菜单
+//	alert(compid);
+ 	document.getElementById("form1").department1.value = groupid;
+ 	document.getElementById('form1').compid.value = compid; //用户
+	reflash2();
+  }
+  
+ function reflash2(){
+		var did1=document.getElementById("form1").did.value;
+		var gid=document.getElementById("form1").groupid.value;
+		var ip1=document.getElementById("form1").ip1.value;
+
+		var keyword1;
+		//  var keyword1=Ext.getCmp('keyword').value; 
+		// if(keyword1!='输入单位编码/名称查询'){
+		keyword1=document.getElementById('form1').keyword5.value;
+		//  }
+  
+		var fcod1=document.getElementById('form1').fcode.value; //部门
+		var servicestate1=document.getElementById('form1').servicestate1.value;
+		var clb=document.getElementById('form1').lb.value;
+		
+		var sdate=document.getElementById("form1").sdate.value;//起始日期
+		var edate=document.getElementById("form1").edate.value;//结束日期
+		var stime1=document.getElementById("form1").stime1.value;//起始日期
+		var etime1=document.getElementById("form1").etime1.value;//结束日期
+		var time_flag=document.getElementById("form1").time_flag.value;
+		var compid1 = document.getElementById('form1').compid1.value;
+		var compid = document.getElementById('form1').compid.value;
+		var mac1=document.getElementById('form1').mac1.value; //序号
+		var sid1=document.getElementById('form1').sid1.value; //序号
+		var mark1=document.getElementById('form1').mark1.value; //类型
+		var BlockType=document.getElementById('form1').BlockType.value;
+		var department1=document.getElementById('form1').department1.value; //备注
+		var devname1=document.getElementById('form1').devname1.value; //用户
+		var sip1=document.getElementById('form1').sip1.value; //IP
+		var filename1=document.getElementById('form1').filename1.value; //文件名
+		var procname1=document.getElementById('form1').procname1.value; //进程名
+		var soupath1=document.getElementById('form1').soupath1.value; //源路径
+		var destpath1=document.getElementById('form1').destpath1.value; //目的路径
+		var content1=document.getElementById('form1').content1.value; //备注
+ 
+  store2.load({params:{
+    sid1:sid1,
+    mark1:mark1,
+    BlockType:BlockType,
+    department1:department1,
+    devname1:devname1,
+    sip1:sip1,
+    filename1:filename1,
+    procname1:procname1,
+    soupath1:soupath1,
+    destpath1:destpath1,
+    content1:content1,
+    time_flag:time_flag,
+    sdate:sdate, 
+    edate:edate,
+    stime1:stime1, 
+    etime1:etime1,
+    ip1:ip1,
+
+    compid1:compid1,
+    compid:compid,
+    mac1:mac1
+  }});
+}
+	/*
+  callback:function(records, options ,success)
+  {
+  		if(success)
+  		{
+  			alert(records.length);
+  			
+  		alert(records[0].get("sid"));
+  		}
+  }*/
+function pastime(){
+  		parent.document.getElementById("form1").time_flag.value=document.getElementById("time_flag").value;
+  	  document.getElementById("form1").time_flag.value=document.getElementById("time_flag").value;
+  	}
+  	function gettime(){
+  	var aa=parent.document.getElementById('form1').time_flag.value;
+  	document.getElementById('time_flag').value=aa;
+  	document.getElementById('form1').time_flag.value=aa;
+  	}
+
+
+Ext.onReady(function(){
+   Ext.tip.QuickTipManager.init();
+//    Ext.tip.QuickTipManager.init();
+
+	
+	
+	  // create the Data Store
+    //重写排序函数，解决远程条件查询问题
+        store2 = Ext.create('Ext.data.Store', {
+        pageSize: 40,
+        fields:['sid','compid','userid','mac','groupid','devname','udisp','webIp','procname','mark','indexid','mywebtime','souPath','destPath','content','filename','Blacktype','Backtype'],
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+			      url:'/pronline/Msg?FunName@lan_log_getFileLogTest',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            }, 
+			  simpleSortMode: true
+			},
+			sorters: [{
+            property: 'mywebtime',
+            direction: 'DESC'
+        }]	
+             
+    });
+	
+    
+ //查询  
+ 
+     Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+   
+        Ext.define('State2', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'id'},
+            {type: 'string', name: 'name'}
+        ]
+    });
+ 
+     Ext.define('State3', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'blocktypeID'},
+            {type: 'string', name: 'blocktypeName'}
+        ]
+    });
+    //文件操作类型
+    var store_fac = Ext.create('Ext.data.Store', {
+        model: 'State',
+		autoLoad:true,
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: 'lan_log_file_mark.js',
+            reader: {
+                type:'json',
+                root: 'data'              
+            },         
+            simpleSortMode: true
+			
+        }
+    });
+ var blacktype_store = Ext.create('Ext.data.Store', {
+        model: 'State3',
+		autoLoad:true,
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: 'lan_log_file_blocktype.js',
+            reader: {
+                type:'json',
+                root: 'data'              
+            },         
+            simpleSortMode: true
+			
+        }
+    });
+    
+    var BlockComo=Ext.create('Ext.form.field.ComboBox',{
+    	id:'BlockComo',
+    	fieldLabel:'阻挡类型',
+    	labelWidth:80,
+    	width:220,
+    	valueField:'blocktypeID',
+    	value:'0',
+    	displayField:'blocktypeName',
+    	name:'fcode2',
+    	allowBlank:true,
+    	store:blacktype_store,
+    	triggerAction:'all',
+    	queryMode:'local',
+    	typeAhead:true,
+    	listeners:{
+    		'change':function(){
+    			document.getElementById('form1').BlockType.value=this.value;
+					store2.currentPage = 1;
+					reflash2()
+    		}
+    	}
+    });
+  //  store_fac.load(); 
+      var facCombo = Ext.create('Ext.form.field.ComboBox', {
+        id:'facCombo',
+				fieldLabel: '文件操作类型',
+        labelWidth: 80,
+        width: 220,
+        valueField:'groupid',
+        value:'0',
+        displayField: 'groupname',
+        name : 'fcode1',      
+        allowBlank: true,
+        store: store_fac,
+        triggerAction: 'all',
+         queryMode: 'local',
+         typeAhead: true,
+              listeners: {
+			          'change':function(){
+						
+			              document.getElementById('form1').mark1.value=this.value;
+						  			store2.currentPage = 1;
+										reflash2()
+			            }
+			        }
+    });
+		
+      
+  	var myDate = new Date();
+  		var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  		var mm=myDate.getMonth()+1;
+  		if(mm<10)
+  		{
+  			mm='0'+mm;
+  		}
+  		var dd=myDate.getDate();
+  		if(dd<10)
+  		{
+  			dd='0'+dd;
+  		}
+  		var today=yy+'/'+mm+'/'+dd;
+  		var startday=yy+'/'+mm+'/'+'01';
+		
+	//加载时间
+	   var timeFlagStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'timeFlagStore.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+    var timeFlagCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'timeFlagCombo',
+				fieldLabel: '时间',
+		        labelWidth: 40,
+		        width: 150,
+		        valueField:'groupid',
+		        value:'1',
+		        displayField: 'groupname',
+		        name : 'time_flag',      
+		        allowBlank: true,
+		        store: timeFlagStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+									if(this.value ==0){ //不是自定义时间清空开始，终止事件
+									Ext.getCmp('sdate2').show();
+									Ext.getCmp('edate2').show();
+									document.getElementById("form1").sdate.value=Ext.getCmp('sdate2').rawValue;
+									document.getElementById("form1").edate.value=Ext.getCmp('edate2').rawValue;
+									}									
+									else{
+									document.getElementById("form1").sdate.value = "";
+				        			document.getElementById("form1").edate.value = "";
+									Ext.getCmp('sdate2').hide();
+									Ext.getCmp('edate2').hide(); 
+									document.getElementById('form1').time_flag.value=this.value;
+										}
+									
+					
+									reflash2()
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+   
+    
+	
+	//加载department数据 
+    var store_department = Ext.create('Ext.data.Store', {
+        model: 'State2',
+        autoLoad:true,
+		proxy:{
+		type:'ajax',
+		url:'/pronline/Msg?FunName@lan_Groups',
+		reader:{
+		type:'json',
+		root:'data'
+		}
+		}
+    });
+	//store_department.load();
+	
+	var groupStore = Ext.create('Ext.data.Store', {
+	  fields: ['id','text'],
+    proxy: {
+      type: 'ajax',
+      url: '/pronline/Msg?FunName@lan_group_search',
+      reader: {
+        type:'json',
+        root: 'data',
+        idProperty: 'id'
+      }
+    }
+  });
+    
+			groupStore.load();
+
+	 var temp_stime='00:00:00';
+   var temp_etime='23:59:59';
+  	//高级查询窗口
+	var win3 = null;
+	var fp3 = null;
+	function showCxForm() 
+	{
+		if (!win3) //判断如果不存在就创建新的
+		{
+    	win3 = new Ext.Window({
+        title:'高级查询窗口',
+        closeAction: 'hide',
+        x:310,
+        y:32,
+        layout:'form',  
+        width:300,
+        draggable:true, //可拖动的
+        modal: true,//后面的内容可以操作
+        constrain:true, //限制窗口只能在其容器内移动
+
+
+    items:[fp3 = new Ext.FormPanel({  
+            layout:"form",  
+        //    defaults:{xtype:"textfield", width:140},  
+	baseCls:"x-plain",
+
+      		bodyPadding: 5,
+            items:[  
+			{   						
+                	fieldLabel:'起始日期',
+                	xtype: 'datefield',
+                	format: "Y/m/d",
+                	value:today,
+                	name:'sdate'
+            	},
+		{   						
+                	fieldLabel:'起始时间',
+                	xtype: 'textfield',
+                	value:temp_stime,
+                	name:'stime1',
+				regex : 
+				/^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,    
+				regexText : "只能够输入数字,例如:00:00:00"
+            	},
+            	{
+                	fieldLabel:'结束日期',
+                	xtype: 'datefield',
+                	format: "Y/m/d",
+                	value:today,
+                	name:'edate'
+            	},
+            	{
+                	fieldLabel:'结束时间',
+			xtype: 'textfield',
+                	value:temp_etime,
+                	name:'etime1',
+				regex : 
+				/^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+				regexText : "只能够输入数字,例如:23:59:59" 
+            	},
+		
+		{
+  		xtype: 'combobox',
+    	fieldLabel: '部门',
+    	triggerAction: 'all',
+    	valueField:'id',
+  		displayField: 'text',
+  		store: groupStore,
+			name : 'depart2',
+			value: '0',					
+  		listeners: {
+  		  'change':function(){
+  		    if(this.value!='undefined')
+  			    document.getElementById('form1').department1.value=this.value;
+  			  else
+  			    document.getElementById('form1').department1.value='';
+  			//reflash2()
+  			}
+			}
+		},{fieldLabel:'阻挡类型',
+			xtype:'combo',
+			mode:"local", //由于数据已定义所以必须写成local
+			queryMode: 'local', //数据加载方式，不设本地，会一直LODAING
+			triggerAction: 'all', //想要加载所有项就要这么写，网上这么说的，我没试过不写
+			editable: false,//是否允许输入
+	    store: blacktype_store,//填充数据
+			displayField: 'groupname',  //不写这项的话，发现下拉项是空的没内容
+			valueField:'groupid',	
+			value:'',	
+			name : 'BlockType'
+		},
+		
+		{fieldLabel:'文件操作类型',
+		xtype:'combo',
+		mode:"local", //由于数据已定义所以必须写成local
+		queryMode: 'local', //数据加载方式，不设本地，会一直LODAING
+		triggerAction: 'all', //想要加载所有项就要这么写，网上这么说的，我没试过不写
+		editable: false,//是否允许输入
+   	store: store_fac,//填充数据
+		displayField: 'groupname',  //不写这项的话，发现下拉项是空的没内容
+		valueField:'groupid',	
+		value:'',	
+		name : 'mark1'
+		},
+		
+            	{
+                	fieldLabel:'IP地址',
+                	xtype: 'textfield',
+                	name:'sip1',
+			regex : /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/ , //正则表达式　这里假设只允许输入数字　如果输入的不是数字　就会出现下面定义的提示信息          
+			regexText : "IP：只能够输入数字,例如:192.168.20.81"
+			
+            	},
+            	{
+                	fieldLabel:'计算机名',
+                	xtype: 'textfield',
+                	name:'compid1'
+			
+            	},
+		{
+                	fieldLabel:'文件名',
+                	xtype: 'textfield',
+                	name:'filename1'
+            	},
+            	{
+                	fieldLabel:'进程名',
+                	xtype: 'textfield',
+                	name:'procname1'
+            	}
+		/*
+		{
+                	fieldLabel:'计算机ID',
+                	xtype: 'textfield',
+                	name:'compid1'
+            	}
+		*/
+            ]  
+        })]  
+,  
+buttons:[  
+{text:"查询",
+handler: function()
+                 	{	
+		//	Ext.getCmp('departmentCombo').select(fp3.getForm().getValues().department1); //改变外面的下拉菜单
+			Ext.getCmp('facCombo').select(fp3.getForm().getValues().mark1);
+			Ext.getCmp('BlockComo').select(fp3.getForm().getValues().BlockType);
+			Ext.getCmp('timeFlagCombo').select("0"); 
+		//	document.getElementById("form1").compid1.value=fp3.getForm().getValues().compid1; 
+			document.getElementById("form1").sdate.value=fp3.getForm().getValues().sdate; 
+			document.getElementById("form1").edate.value=fp3.getForm().getValues().edate;
+			Ext.getCmp('sdate2').setRawValue(document.getElementById("form1").sdate.value);
+			Ext.getCmp('edate2').setRawValue(document.getElementById("form1").edate.value);
+			Ext.getCmp('sdate2').show();
+			Ext.getCmp('edate2').show(); 
+			
+			
+			document.getElementById("form1").stime1.value=fp3.getForm().getValues().stime1; 
+			document.getElementById("form1").etime1.value=fp3.getForm().getValues().etime1;
+
+			document.getElementById("form1").mark1.value=fp3.getForm().getValues().mark1;
+			document.getElementById("form1").BlockType.value=fp3.getForm().getValues().BlockType;
+
+			document.getElementById("form1").department1.value=fp3.getForm().getValues().department1;  
+			document.getElementById("form1").procname1.value=fp3.getForm().getValues().procname1;  
+			document.getElementById("form1").filename1.value=fp3.getForm().getValues().filename1; 
+			document.getElementById("form1").compid1.value=fp3.getForm().getValues().compid1; 
+			document.getElementById("form1").sip1.value=fp3.getForm().getValues().sip1; 
+			Ext.getCmp('ip1').setValue("");
+			
+			if(document.getElementById("form1").department1.value=='undefined'){
+			  document.getElementById("form1").department1.value="";
+			}
+			//alert(document.getElementById("form1").department1.value);
+                 	store2.currentPage=1;
+                 		
+                 	reflash2();
+                 	win3.close();	
+                 	}
+
+},  
+{text:"重置",
+handler: function(){
+				//document.getElementById("departmentCombo").clearValue(); 
+			//	Ext.getCmp('departmentCombo').clearValue();  //清空外面的下拉菜单
+				Ext.getCmp('sdate2').hide();
+				Ext.getCmp('edate2').hide();  	
+				Ext.getCmp('facCombo').clearValue();
+				Ext.getCmp('BlockComo').clearValue();
+				Ext.getCmp('timeFlagCombo').clearValue();
+				Ext.getCmp('ip1').setValue("");
+
+				document.getElementById("form1").ip1.value="";
+			//	var bb=Ext.getCmp('ip1').value;
+			//	console.log(bb);
+				var aa=Ext.getCmp('ip1').value="";
+			//	console.log(aa);
+			//	Ext.getCmp('ip1').setRawValue\"";
+				//Ext.getCmp('ip1')="";
+			//	Ext.get('ip1').getValues="";	
+			//	Ext.getDom('ip1').value="";	
+				fp3.getForm().reset();
+					}
+}  
+]  
+
+		});
+		
+}
+
+		
+		win3.show();
+} 
+  
+  
+//对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+     doRefresh:function(){  
+     reflash2();
+    },
+    moveLast:function(){
+    	var b=this,a=b.getPageData().pageCount;
+    	if(b.fireEvent("beforechange",b,a)!==false){
+    	store2.currentPage=a;
+    	reflash2();
+       }},
+     moveFirst:function(){
+      if(this.fireEvent("beforechange",this,1)!==false){
+      store2.currentPage=1;
+      reflash2();}}, 
+     movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store2.currentPage=a;reflash2();}}},
+     moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store2.currentPage=a;reflash2();}}},
+      
+      
+      onPagingKeyDown:function(i,h){
+     var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+     if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+        if(g!==false){
+         g=Math.min(Math.max(1,g),c.pageCount);
+         if(d.fireEvent("beforechange",d,g)!==false){
+        //d.store.loadPage(g)
+         d.store.currentPage=g;
+         reflash2();
+        }        
+      }
+    }
+    else{
+       if(b==h.HOME||b==h.END){
+    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+       }
+       else{
+         if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+          h.stopEvent();g=d.readPageFromInput(c);
+           if(g){
+             if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+             g+=a;
+             if(g>=1&&g<=c.pages){i.setValue(g)}
+             }
+            }
+           }
+         }  
+      }
+
+      
+      
+       
+});
+
+    var aaa=screen.width;
+    if(aaa>1440) aaa=1440;
+    if(aaa<1024) aaa=1024;
+    aaa=aaa-241;
+
+	
+  var grid = Ext.create('Ext.grid.Panel', {
+
+        scrollOffset: 0,
+        height: 950,
+ //       title: '&nbsp;联网单位管理',
+ //       iconCls: 'icon-grid',
+         margins: '0 0 0 0',
+        store: store2,
+        frame:true,
+       
+
+        // grid columns
+        columns:[{
+					text: "时间",
+					dataIndex: 'mywebtime',
+					flex:1.5,
+					sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+					text: '操作',
+					dataIndex: 'mark',
+					sortable: false,
+					align:'center',
+					flex:1.5
+        },{
+          text: "部门",
+          dataIndex: 'groupid',
+          hidden: false,
+					flex:1.5,
+          sortable: false
+        },{
+          id: 'username',
+          text: "计算机",
+          dataIndex: 'devname',
+          hidden: false,
+					flex:2,
+          sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+          text: "文件名",
+          dataIndex: 'filename',
+          hidden: false,
+					flex:4,
+          sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+          text: "操作进程",
+          dataIndex: 'procname',
+          hidden: false,
+					flex:4,
+          sortable: true,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+          text: "IP",
+          dataIndex: 'webIp', 
+					flex:2,
+          sortable: false
+        },{
+          text: "源路径",
+          dataIndex: 'souPath',
+          hidden: false,
+					flex:2,
+          sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+          text: "阻挡描述",
+          dataIndex: 'destPath',
+          hidden: false,
+					flex:2,
+          sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        },{
+          text: "MD5",
+          dataIndex: 'content',
+          hidden: true,
+	  flex:2,
+          sortable: false,
+        	renderer: function(value, metaData, data) {
+          	metaData.tdAttr = 'data-qtip="'+value+'"';
+            return value;
+          }
+        }],
+        columnLines: true,
+              
+        // paging bar on the bottom
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store2,
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示",
+                                       
+            items: [
+            {
+                text:'高级',
+                anchor: 'right',
+                handler: showCxForm, //高级查询函数
+                iconCls:'option'
+            },{
+                text:'导出',
+                iconCls:'exp',
+                id: "fileexp",
+                handler:function(){
+
+                document.getElementById('form1').export2.value='exp';
+                document.getElementById("form1").submit();
+		document.getElementById("form1").export2.value="";
+                }
+            }]
+       
+
+        })
+    });
+			var str = parent.right_fun;
+			//console.info(str,",",str.indexOf('1110'))
+			if(str.indexOf('3610')==-1){
+		  	Ext.getCmp('fileexp').setDisabled(true);
+	    }
+    reflash();
+
+
+    var panel = Ext.create('Ext.panel.Panel', {
+        id:'wenjiangrid',
+		    title: '全部',
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+//        border:false,
+        frame: false,
+        layout: 'fit',
+        items: grid,
+        dockedItems: [{
+            dock: 'top',
+ //           margins: '0 0 0 0',
+            border:false,
+            xtype: 'toolbar',
+            items: ['-',
+				timeFlagCombo,//时间下拉菜单
+				
+			{   						
+	      	fieldLabel:'起始日期',
+	      	labelWidth: 60,
+	      	width:	170,
+	      	xtype: 'datefield',
+	      	format: "Y/m/d",
+	      	value: today,
+	      	hidden: true,
+	      	id: 'sdate2'
+	  		},{
+	      	fieldLabel:'结束日期',
+	      	labelWidth: 60,
+	      	width:	170,
+	      	xtype: 'datefield',
+	      	format: "Y/m/d",
+	      	value: today,
+	      	hidden: true,
+	      	id: 'edate2'
+	    	},
+			//	departmentCombo,//部门下拉菜单
+				facCombo,//文件操作类型下拉菜单
+				BlockComo,
+				//groupCombo,
+				//groupCombo,单位属组
+            {
+            
+            labelWidth: 60,
+          fieldLabel:'关键词', //原来的IP地址
+          xtype: 'textfield',
+	        emptyText: '文件名/ip关键字',
+          id:'ip1',
+          name:'ip1' ,
+				enableKeyEvents:true,
+					listeners:{
+					  'keydown' : function(i,e){
+							var aae=e.getKey() ; 
+							if(aae==13){
+						    document.getElementById("form1").ip1.value=Ext.getCmp('ip1').value;
+	          		store2.currentPage=1;
+					      reflash2();
+							}
+					  }
+					}                                
+             },          
+             {
+                text:'确认',
+                iconCls:'accept',
+                handler: function(){
+					
+                  var bb=Ext.getCmp('ip1').value;
+                 
+                  if(bb){         
+                   document.getElementById("form1").ip1.value=bb;
+                  }
+                  else{
+                    document.getElementById("form1").ip1.value='';
+                  }
+
+					store2.currentPage=1;         
+                   reflash2();
+                
+                }
+            }
+            ]
+        }]
+    });
+
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+
+
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_log_getFileLogTest">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">
+		<input type="hidden" name="ip1" value="">
+
+		<input type="hidden" name="groupid1" value="">		
+		<input type="hidden" name="export2" value="">	
+		<input type="hidden" name="fcode" value="">
+		<input type="hidden" name="servicestate1" value="">
+		<input type="hidden" name="lb" value="">	
+		<input type="hidden" name="keyword5" value="">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="stime1" value="">
+		<input type="hidden" name="etime1" value="">
+		<input type="hidden" name="time_flag" value="1">
+		
+	<input type="hidden" name="sid1" value="">
+	<input type="hidden" name="mark1" value="">
+	<input type="hidden" name="BlockType" value="">
+	<input type="hidden" name="mac1" value="">
+	<input type="hidden" name="department1" value="">
+	<input type="hidden" name="devname1" value="">
+	<input type="hidden" name="sip1" value="">
+	<input type="hidden" name="filename1" value="">
+	<input type="hidden" name="procname1" value="">
+	<input type="hidden" name="soupath1" value="">
+	<input type="hidden" name="destpath1" value="">
+	<input type="hidden" name="content1" value="">
+	<input type="hidden" name="compid" value="">
+	<input type="hidden" name="compid1" value="">
+	
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

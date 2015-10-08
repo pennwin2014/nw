@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>设置显示字段</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+
+  
+    var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        title   : '系统关机或重启',
+        frame:true,
+        id:'form_glob',
+        autoHeight: true,
+        width   : 400,
+        height:200,
+        bodyPadding: 10,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items   : [
+                           {                              
+                                width:          50,
+                                xtype:          'combo',
+                                mode:           'local',
+                                value:          '0',
+                                triggerAction:  'all',
+                                forceSelection: true,
+                                editable:       false,
+                                fieldLabel:     '操作',
+                                name:           'filedname',
+                                displayField:   'name',
+                                valueField:     'value',
+                                queryMode: 'local',
+                                store:          Ext.create('Ext.data.Store', {
+                                    fields : ['name', 'value'],
+                                    data   : [
+                                        {name : '系统关机',   value: '0'},
+                                        {name : '系统重启',  value: '6'}
+                                      
+                                    ]
+                                })
+                            },
+                            {
+                            	xtype:'label',
+                            	html:'<p style="line-height:22px;"><br><br>选择操作类型，按“确认”完成操作，此过程可能需要几秒到几分钟时间。。</p>'
+                            }
+           
+           
+        ],
+        buttons: [
+          
+            {
+                text   : '确认',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanShutDown'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                 alert(action.result.success);
+                 }   
+                 })
+
+                }
+            }
+        ]
+    });
+
+    
+    
+});
+
+</script>
+    
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

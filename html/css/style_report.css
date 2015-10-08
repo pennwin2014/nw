@@ -1,0 +1,233 @@
+
+form {
+ padding:0px;
+ margin:0px;
+}
+
+.bodybg{
+ background-color:#DEE8FA;
+ margin:0 0 10px 0;
+ padding:0px;
+ color:#000000;
+ SCROLLBAR-FACE-COLOR: #6399DC;
+ SCROLLBAR-TRACK-COLOR:#CCE3FB;
+ SCROLLBAR-SHADOW-COLOR: #CCE3FB;
+ SCROLLBAR-3DLIGHT-COLOR: #CCE3FB;
+ SCROLLBAR-HIGHLIGHT-COLOR: #CCE3FB;
+ SCROLLBAR-DARKSHADOW-COLOR: #CCE3FB;
+ SCROLLBAR-ARROW-COLOR: #fff;
+}
+
+
+.errorinfo {
+ font-size: 12px;
+ color:red;
+}
+
+
+/*输入框样式*/
+/*不检查是否输入非法字符*/
+.input {
+ background-color: #FFFFFF;
+ border: 1px solid #6396CD;
+ font-size: 12px;
+ clip:rect( );
+}
+
+a.operate:link {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:none
+}
+a.operate:visited {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:none
+}
+a.operate:hover {
+ font-size:12px;
+ color:#0066FF;
+ text-decoration:none
+}
+a.operate:active {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:none
+}
+/*错误信息链接*/
+a.errorlink:link {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline;
+}
+a.errorlink:visited {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline;
+}
+a.errorlink:hover {
+ font-size:12px;
+ color:#0066FF;
+ text-decoration:underline;
+}
+a.errorlink:active {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline;
+}
+/*按钮链接*/
+a.button:link {
+ font-size:12px;
+ color:#000000;
+ text-decoration:none;
+}
+a.button:visited {
+ font-size:12px;
+ color:#000000;
+ text-decoration:none;
+}
+a.button:hover {
+ font-size:12px;
+ color:#0066FF;
+ text-decoration:none;
+}
+a.button:active {
+ font-size:12px;
+ color:#000000;
+ text-decoration:none;
+}
+
+a.down:link {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline
+}
+a.down:visited {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline
+}
+a.down:hover {
+ font-size:12px;
+ color:#0066FF;
+ text-decoration:underline
+}
+a.down:active {
+ font-size:12px;
+ color:#0159A4;
+ text-decoration:underline
+}
+/*缺省链接*/
+a:link {
+ color: #000000;
+ text-decoration: none
+}
+a:visited {
+ color: #000000;
+ text-decoration: none
+}
+a:hover {
+ color:#0066FF;
+ text-decoration: none
+}
+a:active {
+ color: #000000;
+ text-decoration: none
+}
+
+.white {
+ font-size: 12.8px;
+ color:#FFFFFF
+}
+
+.text {
+ font-size: 12px;
+ line-height: 16px;
+ color: #000000;
+ text-decoration: none;
+ clip:   rect( );
+ padding-top: 2px
+}
+.version {
+ font-size: 11px;
+ color: #0159A4;
+ letter-spacing: -1px;
+ word-spacing: -2px
+}
+
+.title {
+ font-size: 12px;
+ font-weight: bold;
+ color: #000000;
+ text-decoration: none;
+ letter-spacing: 2px;
+ line-height: 20px;
+ padding-right: 5px;
+ padding-left: 5px
+}
+
+.tip {
+ font-size: 12px;
+ color:red;
+}
+
+BODY, UL, td, th, select {
+ font-size: 12px;
+ font-family: "宋体";
+ SCROLLBAR-FACE-COLOR: #709CDE; /*为滚动条表面颜色设定*/
+ SCROLLBAR-TRACK-COLOR:#CCE3FB; /*为滚动条底板颜色设定*/
+ SCROLLBAR-SHADOW-COLOR: #CCE3FB; /*为滚动条下斜面和右斜面颜色设定*/
+ SCROLLBAR-3DLIGHT-COLOR: #CCE3FB; /*为滚动条上边和左边的边沿颜色设定*/
+ SCROLLBAR-HIGHLIGHT-COLOR: #175AB3; /*为滚动条上斜面和左斜面颜色设定*/
+ SCROLLBAR-DARKSHADOW-COLOR: #175AB3;/*为滚动条下边和右边边沿颜色设定*/
+ SCROLLBAR-ARROW-COLOR: #fff;/*为滚动条两端箭头颜色设定*/
+}
+fieldset, radio { font-size:12px; }
+.form {
+ BORDER-BOTTOM: #000000 1px solid;
+ BORDER-LEFT: #000000 1px solid;
+ BORDER-RIGHT: #000000 1px solid;
+ BORDER-TOP: #000000 1px solid;
+ FONT-SIZE: 12px
+}
+BR { font-size: 6px }
+/*svpn*/
+.tablebg { background-color: #ECECEC; }
+.notebox {
+ border:0px;
+ width:100%;
+ background-color: #ECECEC;
+}
+.buttons {
+ border: 1px #666666 solid;
+ font-size: 12px;
+ clip:rect( );
+ height: 22px;
+ cursor: hand;
+ FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#FDFDFD,endColorStr=#D7D7D7); 
+ background: #E3EFF9;
+ margin: 1px;
+ color: #0E275D;
+}
+
+.table_top {
+ border-right: 1px solid #4183D3;
+ border-top: 1px solid #4183D3;
+ border-left: 1px solid #4183D3;
+ margin:10px 10px 0 10px;
+}
+
+.title_nei_top_1px {
+ border-top: 1px solid #4183D3;
+ margin:0px 10px;
+}
+.table_new {
+ margin:0px 10px;
+ padding: 10px;
+ background-color: #DEE8FA;
+ width:auto !important; /* Moz */
+ width:100%;
+ border-right: 1px solid #4183D3;
+ border-left: 1px solid #4183D3;
+}
+

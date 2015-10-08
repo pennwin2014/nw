@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script language="javascript">
+
+
+function restore(){
+	if(confirm('执行本操作将丢失所有的数据，您真的要将系统恢复成出厂状态吗?')){
+		return true;
+	}
+	return false;
+}
+
+function testlink(){
+	var temp_src='/main_connecttip.htm';
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:450px;scroll:yes;dialogHeight:300px');
+}
+
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center" oncontextmenu="return false" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+	
+	
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr><td height="10">&nbsp;</td></tr>
+    <tr> 
+      <td >
+      	
+        <table width="100%" border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td> <table width="100%" border="0" align="center">
+               
+                <tr> 
+                  <td width="10%" height="25">&nbsp;</td>
+                 <td>&nbsp;<font color="red"><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;重要提示：</font></td>
+                  <td width="7%">&nbsp;</td>
+                </tr>
+                 <tr> 
+                  <td width="10%" height="25">&nbsp;</td>
+                 <td style="padding-left:5px;padding-right:1px;line-height:13pt;">&nbsp;执行本操作后，系统将删除所有的上网记录和所设置的上网规则，对于新出厂的产品，可以跳过本步骤，直接执行下一步。执行本操作可能需要一些时间，请耐心等待。</td>
+                  <td width="7%">&nbsp;</td>
+                </tr>
+             
+             
+             
+                <tr><td height="300" colspan="3"></td></tr>
+              
+    <tr>
+      <td height="85" colspan="3"> <table width="100%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebSystemSave_fun_adt">
+                <input type="submit" name="next" value="恢复出厂状态" class="an3-1" onclick="return restore()">
+                &nbsp; 
+                
+              </div></td>
+          </tr>
+        </table>
+</td>
+    </tr>
+                
+                
+                
+              </table></td>
+          </tr>
+        </table>
+    
+      </td>
+    </tr>
+
+  </table>
+</form>
+</body>
+</html>

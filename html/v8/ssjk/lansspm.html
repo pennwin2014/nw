@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>实时屏幕</title>
+</head>
+<body>
+	
+		<script>
+			var w=window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+			
+			var h=window.innerHeight
+			|| document.documentElement.clientHeight
+			|| document.body.clientHeight;
+
+			w = w - 20;
+			h = h - 60;
+			//alert('宽度：'+w+' 高度：'+h);
+			document.write(
+				'<OBJECT ID="RemoteMg"  CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="/RemoteMg.CAB"  Height="100%" Width="100%"><Param name="funtion" value="OnlineScreen" /><Param name="port" value="5000" /><Param name="Width" value="'+w+'" /><Param name="Height" value="'+h+'" /></OBJECT>'
+			);
+		</script>
+	
+</body>
+</html>

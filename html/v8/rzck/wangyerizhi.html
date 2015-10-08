@@ -1,0 +1,673 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>文件日志</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script> 
+	<style type="text/css">
+	  .icon-grid {
+	  	background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+	  }
+	  .add {
+	  	background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+	  }
+	  .option {
+	  	background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+	  }
+	  .remove {
+	  	background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+	  }
+	  .exp {
+	  	background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+	  }
+	  .accept {
+			background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+	  }
+	  .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+      height: 16px !important;
+      line-height: 16px;
+	  }
+	
+	</style>
+	<style type="text/css">   
+		.x-selectable, .x-selectable * {   
+			-moz-user-select: text!important;   
+			-khtml-user-select: text!important;   
+		}   
+	</style>
+      
+    
+<script>  
+	var store;
+	var temp_id='';
+	var preid='';
+	
+	var compid1;
+	var gid; 
+	
+	function SetPage(){
+		store.currentPage=1;
+	}
+	
+	function reflash(){
+		var title = "";
+		
+		document.getElementById("form1").sip.value=""; //IP地址
+		document.getElementById("form1").compName.value="";
+		document.getElementById('form1').webaddr.value=""; //网址
+		document.getElementById('form1').mac.value=""; //mac地址
+		document.getElementById('form1').udisp.value=""; //用户名
+		
+		if(parent.compidTmp != null && parent.compidTmp.substring(parent.compidTmp.length - 4,parent.compidTmp.length) == "rzck"){
+			gid = "";
+			compid1 = parent.compidTmp.substring(0,parent.compidTmp.length - 4);
+			title = "计算机："+parent.compNameTmp;
+		}else{
+			gid=parent.groupid;
+			compid1=parent.compid;
+			title = parent.dxtitle;
+		}
+		try{
+  		Ext.getCmp('wangyegrid').setTitle(title);
+  	}catch(e){}
+		var sdate=document.getElementById("form1").sdate.value ;//起始日期
+		var edate=document.getElementById("form1").edate.value ;//结束日期
+		var keywordd=document.getElementById('form1').keyword.value; //关键字
+		
+		store.load({params:{
+			sdate:sdate, 
+			edate:edate,
+			groupid: gid,
+			keyword:keywordd,
+			compid:compid1
+		}});   
+	}
+	function reflash2(){		
+		var title = "";
+
+		try{
+  		Ext.getCmp('wangyegrid').setTitle(title);
+  	}catch(e){}
+		var sdate=document.getElementById("form1").sdate.value ;//起始日期
+		var edate=document.getElementById("form1").edate.value ;//结束日期
+		var sip1=document.getElementById("form1").sip.value; //IP地址
+		var compName = document.getElementById("form1").compName.value;
+		var keywordd=document.getElementById('form1').keyword.value; //关键字
+		var webaddr1=document.getElementById('form1').webaddr.value; //网址
+		var mac1=document.getElementById('form1').mac.value; //mac地址
+		var udisp1=document.getElementById('form1').udisp.value; //用户名
+		
+		store.load({params:{
+		  compid: compid1,
+		  groupid: gid,
+			sdate:sdate, 
+			edate:edate,
+			sip:sip1,
+			compName:compName,
+			keyword:keywordd,
+			webaddr:webaddr1,
+			mac:mac1,
+			udisp:udisp1
+		}});   
+	}
+
+	//网址超链接	
+	function gotourl(value,p,record){
+		if((record.data.webaddr.indexOf("https://")>0) || (record.data.webaddr.indexOf("http://")>0)){
+			return Ext.String.format('<a href="{0}" target="new">{1}</a>',record.data.webaddr, record.data.webaddr);
+		}else{
+			return Ext.String.format('<a href="http://{0}" target="new">{1}</a>',record.data.webaddr, record.data.webaddr);
+		}
+	}
+    
+	Ext.onReady(function(){
+    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+      extend: 'Ext.data.Model',
+      fields: ['sid','compid','userid','mac','groupid','devname','udisp','sip','procname','stime','urlclass','webaddr','subject','content']
+      // idProperty: 'sid'
+    });
+
+    // create the Data Store
+    // 重写排序函数，解决远程条件查询问题
+ 	  Ext.data.Store.prototype.doSort = function() {
+    	reflash2();
+    }
+    store = Ext.create('Ext.data.Store', {
+      pageSize: 40,
+      model: 'EimData',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_log_web',
+        reader: {
+          type:'json',
+          root: 'eimdata',
+          totalProperty: 'totalCount'
+        },         
+        simpleSortMode: true
+      }
+    });
+    
+    
+    //查询  
+    Ext.define('State', {
+      extend: 'Ext.data.Model',
+      fields: [
+        {type: 'string', name: 'groupid'},
+        {type: 'string', name: 'groupname'}
+      ]
+    });
+   
+    Ext.define('State2', {
+      extend: 'Ext.data.Model',
+      fields: [
+        {type: 'string', name: 'id'},
+        {type: 'string', name: 'text'}
+      ]
+    });
+    
+  	var myDate = new Date();
+  	var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  	var mm=myDate.getMonth()+1;
+  	if(mm<10){
+  		mm='0'+mm;
+  	}
+  	var dd=myDate.getDate();
+  	if(dd<10){
+  		dd='0'+dd;
+  	}
+  	var today=yy+'/'+mm+'/'+dd;
+  	var startday=yy+'/'+mm+'/'+'01';
+  	var ntime = myDate.getHours() +':'+ myDate.getMinutes() +':'+ myDate.getSeconds();
+  	
+    document.getElementById("form1").sdate.value = today+"T00:00:00";
+    document.getElementById("form1").edate.value = today+"T23:59:59";
+		
+    //加载时间
+  	var timeFlagStore = Ext.create('Ext.data.Store', {
+  		fields:['id','text'],
+  		data:[{id:'1',text:'今天'},
+  					{id:'2',text:'近三天'},
+  					{id:'3',text:'近一周'},
+  					{id:'4',text:'近一月'},
+  					{id:'5',text:'近三月'},
+  					{id:'6',text:'近半年'},
+  					{id:'7',text:'自定义'}]
+  	});
+    var timeFlagCombo = Ext.create('Ext.form.field.ComboBox', {
+			id:'timeFlag',
+			fieldLabel: '时间',
+      labelWidth: 40,
+      width: 180,
+      valueField:'id',
+      value:'1',
+      displayField: 'text',
+      name : 'time_flag',      
+      allowBlank: true,
+      store: timeFlagStore,
+      triggerAction: 'all',
+      queryMode: 'local',
+      typeAhead: true,
+      listeners:{
+        'select':function(combo,records,eOpts){
+        	
+  				document.getElementById("form1").sip.value = "";
+  				document.getElementById("form1").webaddr.value = "";
+  				document.getElementById("form1").mac.value = "";
+    			document.getElementById("form1").compName.value = "";
+        	
+        	var nowDate = new Date();
+					var sdateTmp = new Date();
+								
+  				switch(records[0].getId()){
+  					case '1':
+  						break;
+  					case '2':
+  						sdateTmp.setDate(nowDate.getDate()-2);
+  						break;
+  					case '3':
+  						sdateTmp.setDate(nowDate.getDate()-6);
+  						break;
+  					case '4':
+  						sdateTmp.setMonth(nowDate.getMonth()-1);
+  						break;
+  					case '5':
+  						sdateTmp.setMonth(nowDate.getMonth()-2);
+  						break;
+  					case '6':
+  						sdateTmp.setMonth(nowDate.getMonth()-5);
+  						break;
+						default: ;
+							break;
+  				}
+  				document.getElementById("form1").sdate.value = Ext.Date.format(sdateTmp,"Y/m/d")+ "T00:00:00";
+  				document.getElementById("form1").edate.value = Ext.Date.format(nowDate,"Y/m/d")+ "T23:59:59";
+  				
+  				Ext.getCmp('procSdate').setRawValue(document.getElementById("form1").sdate.value);
+					Ext.getCmp('procEdate').setRawValue(document.getElementById("form1").edate.value);
+					
+					if(records[0].getId() != '7'){
+  					Ext.getCmp('procSdate').hide();
+  					Ext.getCmp('procEdate').hide(); 				
+  				}else{
+  					Ext.getCmp('procSdate').show();
+  					Ext.getCmp('procEdate').show(); 
+  				}
+  				
+          reflash();
+        }
+      },
+      listConfig:{
+  			loadingText: 'Searching...',
+  			emptyText: 'No matching found.'
+      }
+		});
+    
+	  //加载department数据 
+    Ext.define('EimData2', {
+      extend: 'Ext.data.Model',
+      fields: ['id','text']
+    });
+  
+  	var groupStore = Ext.create('Ext.data.Store', {
+  		model: 'EimData2',
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lan_group_search',
+        reader: {
+          type:'json',
+          root: 'data',
+          idProperty: 'id'
+        }
+      }
+    });
+  
+		groupStore.load();
+    var departmentCombo = Ext.create('Ext.form.field.ComboBox', {
+      fieldLabel: '部门',
+      labelWidth: 40,
+      width: 180,
+      valueField:'id',
+      value:'',
+      displayField: 'text',
+      allowBlank: true,
+      store: groupStore,
+      triggerAction: 'all',
+      queryMode: 'local',
+      typeAhead: true,
+      listeners: {
+        'change':function(){
+          document.getElementById('form1').groupid.value=this.value;
+          reflash()
+        }
+      },
+      listConfig: {
+  			loadingText: 'Searching...',
+  			emptyText: 'No matching found.'
+      }
+    });
+  
+  //高级查询窗口
+	var win3 = null;
+	//var fp3 = null;
+  function showCxForm() {
+    if (!win3){ //判断如果不存在就创建新的
+      win3 = new Ext.Window({
+		    title:'高级查询窗口',
+		    closeAction: 'hide',
+		    x:310,
+        y:32,
+	      //plain:false,
+		    layout:'form', 
+		    width:300,
+		    height:400,
+		    draggable:true, //可拖动的
+        modal: true,//后面的内容可以操作
+		    constrain:true, //限制窗口只能在其容器内移动
+        items:[{
+					id:'form2', 
+					xtype:"form",
+					baseCls:"x-plain",
+					bodyPadding: 5,
+					items:[{   						
+          	fieldLabel:'起始日期',
+          	xtype: 'datefield',
+          	format: "Y/m/d",
+          	value:startday,
+          	name:'sdate'
+					},{   						
+          	fieldLabel:'起始时间',
+          	xtype: 'textfield',
+          	value: "00:00:00",
+          	regex: /^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+          	regexText: "请输入正确的时间格式：如17:30:00",
+          	name:'stime'
+        	},{
+				  	fieldLabel:'结束日期',
+				  	xtype: 'datefield',
+				  	format: "Y/m/d",
+				  	value:today,
+				  	name:'edate'
+					},{   						
+          	fieldLabel:'结束时间',
+          	xtype: 'textfield',
+          	value: ntime,
+        		regex: /^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+        		regexText: "请输入正确的时间格式：如17:30:00",
+          	name:'etime'
+        	},{
+					  fieldLabel:'部门',
+						xtype:'combo',
+						triggerAction: 'all', //想要加载所有项就要这么写，网上这么说的，我没试过不写
+						editable: false,//是否允许输入
+				    store: groupStore,//填充数据
+						displayField: 'text',  //不写这项的话，发现下拉项是空的没内容
+						valueField:'id',
+						allowBlank : false,//不允许为空
+						value:'',
+						name : 'groupid2'
+					},{
+				  	fieldLabel:'计算机名',
+				  	xtype: 'textfield',
+				  	name:'compName'
+					},{
+				  	fieldLabel:'IP地址',
+				  	xtype: 'textfield',
+				  	name:'sip2'
+					}/*,{
+						fieldLabel:'用户名',
+				  	xtype: 'textfield',
+				  	name:'udisp'
+					}*/,{
+				  	fieldLabel:'网址',
+				  	xtype: 'textfield',
+				  	name:'webaddr2'
+					}]  
+        }],  
+		    buttons:[{
+				  text:"确定",
+				  handler:function(){
+				    compid1="";
+				    
+				    document.getElementById('form1').keyword.value = "";
+				    
+      			var objectTmp = Ext.getCmp("form2").getForm().getValues();
+	          gid=objectTmp.groupid2;
+      			document.getElementById("form1").sdate.value = objectTmp.sdate+" "+ objectTmp.stime;
+      			document.getElementById("form1").edate.value = objectTmp.edate+" "+ objectTmp.etime;
+      			document.getElementById("form1").sip.value = objectTmp.sip2;
+        		document.getElementById("form1").compName.value = objectTmp.compName;
+        		document.getElementById('form1').webaddr.value = objectTmp.webaddr2;
+			  		
+			  		store.currentPage=1;
+            reflash2();
+            Ext.getCmp('timeFlag').setRawValue('自定义');
+      				
+    				Ext.getCmp('procSdate').setRawValue(objectTmp.sdate);
+						Ext.getCmp('procEdate').setRawValue(objectTmp.edate);
+						Ext.getCmp('procSdate').show();
+						Ext.getCmp('procEdate').show();
+    				win3.close();
+				  }
+				},{
+					text:"Cancel",
+					handler: function(){
+						win3.close();
+					}
+				}]
+			});
+		}
+    win3.show();
+  } 
+  
+  //对翻页工具条重新构建，替换翻页函数    
+  Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+		doRefresh:function(){  
+			reflash2();
+		},
+		moveLast:function(){
+			var b=this,
+			a=b.getPageData().pageCount;
+			if(b.fireEvent("beforechange",b,a)!==false){
+				store.currentPage=a;
+				reflash2();
+		}},
+		moveFirst:function(){
+		if(this.fireEvent("beforechange",this,1)!==false){
+	    store.currentPage=1;
+	    reflash2();
+		}}, 
+		movePrevious:function(){
+			var b=this,a=b.store.currentPage-1;
+			if(a>0){
+				if(b.fireEvent("beforechange",b,a)!==false){
+					store.currentPage=a;
+					reflash2();
+				}
+			}
+		},
+		moveNext:function(){
+			var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){
+				if(c.fireEvent("beforechange",c,a)!==false){
+					store.currentPage=a;
+					reflash2();
+				}
+			}
+		},
+		onPagingKeyDown:function(i,h){
+			var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			if(b==h.RETURN){
+				h.stopEvent();
+				g=d.readPageFromInput(c);
+				if(g!==false){
+					g=Math.min(Math.max(1,g),c.pageCount);
+					if(d.fireEvent("beforechange",d,g)!==false){
+					//d.store.loadPage(g)
+						d.store.currentPage=g;
+						reflash2();
+			  	}        
+				}
+			}else{
+				if(b==h.HOME||b==h.END){
+					h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				}else{
+	        if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+	          h.stopEvent();g=d.readPageFromInput(c);
+						if(g){
+							if(b==h.DOWN||b==h.PAGEDOWN){
+								a*=-1
+							}
+							g+=a;
+							if(g>=1&&g<=c.pages){
+								i.setValue(g)
+							}
+						}
+		      }
+			  }
+			}  
+		}  
+  });
+
+  var aaa=screen.width;
+  if(aaa>1440) aaa=1440;
+  if(aaa<1024) aaa=1024;
+  aaa=aaa-241;
+
+  var grid = Ext.create('Ext.grid.Panel', {
+    scrollOffset: 0,
+    height: 950,
+    margins: '0 0 0 0',
+    store: store,
+    frame:true,
+    columns:[{
+      text: "部门",
+      dataIndex: 'groupid',
+      hidden: false,
+      flex:1,
+      sortable: true
+    },{
+      text: "计算机名",
+      dataIndex: 'devname', 
+      flex:1,
+      sortable: true
+    }/*,{
+      text: "用户名",
+      dataIndex: 'udisp',
+      hidden: false,
+      flex:1,
+      sortable: false
+    }*/,{
+      text: "IP",
+      dataIndex: 'sip',
+      hidden: false,
+      flex:1,
+      sortable: true
+    },{
+      text: "访问时间",
+      dataIndex: 'stime',
+      flex:1,
+      sortable: true
+    },{
+      text: "网址",
+      dataIndex: 'webaddr',
+      flex:2,
+      sortable: false,
+      renderer: gotourl
+    },{
+      text: "网址标题",
+      dataIndex: 'subject',
+      hidden: false,
+      flex:2,
+      width: 100,
+      sortable: false
+    }],
+    columnLines: true,
+		tbar: Ext.create('Ext.PagingToolbar1', {
+      store: store,
+      displayInfo: true,
+      displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+      emptyMsg: "没有记录可显示",                     
+      items: [{
+        text:'高级',
+        anchor: 'right',
+        handler: showCxForm, //高级查询函数
+        iconCls:'option'
+      },{
+        text:'导出',
+        iconCls:'exp',
+        id: "netexp",
+        handler:function(){
+					document.getElementById('form1').caExport.value='exp';
+					document.getElementById('form1').submit();
+					document.getElementById('form1').caExport.value='';
+        }
+      }]
+  	})
+  });
+  var str = parent.right_fun;
+	//console.info(str,",",str.indexOf('1110'))
+	if(str.indexOf('3310')==-1){
+  	Ext.getCmp('netexp').setDisabled(true);
+  }
+  reflash();
+
+  var panel = Ext.create('Ext.panel.Panel', {
+    title: "全部",
+    id:"wangyegrid",
+    margins: '0 0 0 0',
+    width: '100%',
+    renderTo: 'grid-corp',
+    forceFit: true,
+    frame: false,
+    items:grid,
+    dockedItems: [{
+      dock: 'top',
+      // margins: '0 0 0 0',
+      border:false,
+      xtype: 'toolbar',
+      items: [
+      timeFlagCombo,//时间下拉菜单
+			{   						
+      	fieldLabel:'起始日期',
+      	labelWidth: 60,
+      	width:	170,
+      	xtype: 'datefield',
+      	format: "Y/m/d",
+      	value: today,
+      	hidden: true,
+      	id: 'procSdate'
+  		},{
+      	fieldLabel:'结束日期',
+      	labelWidth: 60,
+      	width:	170,
+      	xtype: 'datefield',
+      	format: "Y/m/d",
+      	value: today,
+      	hidden: true,
+      	id: 'procEdate'
+    	},{
+		    labelWidth: 60,
+        fieldLabel:'关键字',
+        xtype: 'textfield',
+        emptyText: '输入IP地址/网址',
+        id:'keyword',
+        name:'keyword' ,
+				enableKeyEvents:true,
+				listeners:{
+				  'keydown' : function(i,e){
+						var aae=e.getKey() ; 
+						if(aae==13){
+					    document.getElementById("form1").keyword.value=Ext.getCmp('keyword').value;
+          		store.currentPage=1;
+				      reflash2();
+						}
+				  }
+				}            
+			},{
+        text:'确认',
+        iconCls:'accept',
+        handler: function(){
+					var bb=Ext.getCmp('keyword').value;
+					if(bb){         
+					  document.getElementById("form1").keyword.value=bb;
+					}
+					else{
+					  document.getElementById("form1").keyword.value='';
+					}
+					store.currentPage=1;         
+					reflash2();
+        }
+      }]
+    }]
+  });
+});
+
+</script>
+   
+</head>
+<body>
+
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="lan_log_web">
+		<input type="hidden" name="time_flag" value="">
+		<input type="hidden" name="sip" value="">
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="webaddr" value="">
+		<input type="hidden" name="compid" value="">
+		<input type="hidden" name="compName" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="udisp" value="">
+		<input type="hidden" name="caExport" value="">
+	</form>
+	
+  <div id="grid-corp"></div>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>联网单位安全监控系统</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script> 
+	<style type="text/css">
+		.displayIcon{
+			background-image: url(/v8/images/deviceIcon/display.jpg) !important;
+		}
+		.CDROMIcon{
+			background-image: url(/v8/images/deviceIcon/cdRom.jpg) !important;
+		}
+		.USBIcon{
+			background-image: url(/v8/images/deviceIcon/usb.jpg) !important;
+		}
+		.mouseIcon{
+			background-image: url(/v8/images/deviceIcon/mouse.jpg) !important;
+		}
+		.soundIcon{
+			background-image: url(/v8/images/deviceIcon/sound.jpg) !important;
+		}
+		.IDEIcon{
+			background-image: url(/v8/images/deviceIcon/IDE.jpg) !important;
+		}
+		.displayAdapterIcon{
+			background-image: url(/v8/images/deviceIcon/displayAdapter.jpg) !important;
+		}
+		.displayAdapterIcon{
+			background-image: url(/v8/images/deviceIcon/displayAdapter.jpg) !important;
+		}
+		.systemIcon{
+			background-image: url(/v8/images/deviceIcon/system.jpg) !important;
+		}
+		.netAdapterIcon{
+			background-image: url(/v8/images/deviceIcon/netAdapter.jpg) !important;
+		}
+		.DISKIcon{
+			background-image: url(/v8/images/deviceIcon/DISK.jpg) !important;
+		}
+		.floppyIcon{
+			background-image: url(/v8/images/deviceIcon/floppy.jpg) !important;
+		}
+		.CPUIcon{
+			background-image: url(/v8/images/deviceIcon/CPU.jpg) !important;
+		}
+		.COMIcon{
+			background-image: url(/v8/images/deviceIcon/COM.jpg) !important;
+		}
+		.keyboardIcon{
+			background-image: url(/v8/images/deviceIcon/keyboard.jpg) !important;
+		}
+		.computeIcon{
+			background-image: url(/v8/images/deviceIcon/compute.jpg) !important;
+		}
+		.storeIcon{
+			background-image: url(/v8/images/deviceIcon/store.jpg) !important;
+		}
+		.humanInputIcon{
+			background-image: url(/v8/images/deviceIcon/humanInput.jpg) !important;
+		}
+		.otherIcon{
+			background-image: url(/v8/images/deviceIcon/other.jpg) !important;
+		}
+  </style>
+  <script type="text/javascript">
+  	
+		var compId = "";
+		var compIdOld = "";
+		var oldCompid = 0;
+		
+		function SetPage(){
+  	}
+  
+  	function reflash(){
+  		var title = "";
+			var title = "";
+			
+			if(parent.compidTmp != null && parent.compidTmp.substring(parent.compidTmp.length - 4,parent.compidTmp.length) == "comp"){
+				groupId = "";
+				compId = parent.compidTmp.substring(0,parent.compidTmp.length - 4);
+				title = "计算机："+parent.compNameTmp;
+			}else{
+				groupId=parent.groupid;
+				compId=parent.compid;
+				title = parent.dxtitle;
+			}
+  		
+  		if(compIdOld != compId){
+	  		if(title != ""){
+					Ext.getCmp('compHardPanel').setTitle(title);
+				}else{
+					Ext.getCmp('compHardPanel').setTitle("计算机：未选");
+					compId = 999999999;
+				}
+				hardInfoStore.load({params:{compId:compId}});
+				compIdOld = compId;
+			}
+  	}
+		
+		var hardInfoStore = Ext.create('Ext.data.TreeStore', {
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@lan_RTC_hard_info_search'
+	      },
+	      root:{
+	      	text: '计算机',
+	      	iconCls: 'displayIcon',
+					expanded: true
+	      }
+	  	});
+  
+  	Ext.onReady(function() {
+  		Ext.create('Ext.tree.Panel', {
+  			renderTo:Ext.getBody(),
+  			width: '100%',
+  			height: '100%',
+  			id:   'compHardPanel',
+  			title: '计算机：(未选)',
+				store: 	hardInfoStore,
+				animate:false/*,
+				listeners:{
+					'itemcontextmenu' : function(view, rcd, item, idx, event, eOpts){
+						event.stopEvent();
+						if(rcd.isLeaf()){
+							Ext.create('Ext.menu.Menu', {
+								floating:	true,
+								items: [{
+									text: '更新程序驱动软件',
+									handler: function(){
+										Ext.Msg.show({
+									  	title:'更新成功',
+									    msg: '更新成功',
+									    buttons: Ext.Msg.CANCEL,
+									    icon: Ext.Msg.QUESTION
+										});
+									}
+								},{
+									text: '卸载',
+									handler: function(){
+										Ext.Msg.show({
+									  	title:'卸载',
+									    msg: '确定要卸载?',
+									    buttons: Ext.Msg.YESNO,
+									    icon: Ext.Msg.QUESTION,
+									    fn:function(btnId,textValue){
+									    	if(btnId=='yes'){
+									    		Ext.Msg.alert('卸载',rcd.get('text')+'成功！');											    		
+									    	}else if(btnId=='no'){
+									    		Ext.Msg.alert('卸载',rcd.get('text')+'放弃！');
+									    	}
+									    }
+										});
+									}
+								},{
+									text: '扫描检测硬件改动',
+									handler: function(){
+										hardInfoStore.load({params:{compId:compId}});
+									}
+								}]	
+							}).showAt(event.getXY());
+						}else{
+							Ext.create('Ext.menu.Menu', {
+								floating:	true,
+								items: [{
+									text: '扫描检测硬件改动',
+									handler: function(){
+										hardInfoStore.load({params:{compId:compId}});
+									}
+								}]	
+							}).showAt(event.getXY());
+						}
+					}
+				}*/
+			});
+			reflash();
+  	});
+  </script>
+</head>
+<body></body>
+</html>

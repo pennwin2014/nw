@@ -1,0 +1,739 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>联网单位安全监控系统</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.option {
+    	background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+    }
+    .exp {
+    	background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+    .accept {
+    	background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+    }
+		.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+		}
+		.reportTitle{
+		  font-size:25px;
+		  margin: 10px 10px 10px 180px;
+		}
+		.compuse{
+		  font-size:20px;
+		  margin: 10px 10px 10px 100px;
+		}
+		.move{
+		  font-family:黑体;
+		  font-size:15px;
+		  margin: 0 0 0 30;
+		}
+	</style>
+  <script>
+    
+    var sdate = new Date().setHours(0,0,0,0)/1000;
+    var edate = new Date().setHours(23,59,59,0)/1000;
+    var style = 1;
+    var runtime = 0;
+    
+    Ext.define('processparam',{
+      extend: "Ext.window.Window",
+      alias : 'processparam',
+      
+      modal: true,
+      width: 800,
+      height:500,
+      title: "参数设置",
+      layout: "hbox",
+      
+      initComponent:function(){
+        
+        var paramStore = Ext.create('Ext.data.Store',{
+          fields: ['id','name','detail','statstype'],
+          proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanSearchProc',
+            reader: {
+              type:'json',
+              root: 'data'
+            }
+          }
+        });
+        
+        var procTypeStore = Ext.create('Ext.data.TreeStore',{
+          fields: ['id','text'],
+          proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanSearchProcType'
+          }
+        });
+        paramStore.load({params:{statstype:8500}});
+	      this.items = [{
+	        xtype: 'treepanel',
+	        title: "程序类型",
+          width: 200,
+          height:500,
+	        store: procTypeStore,
+	        root:{
+	          text: "统计类型",
+            expanded: true
+	        },
+	        tbar:[{
+	          text: "增加",
+	          handler: function(){
+	            var win = Ext.create('Ext.window.Window',{
+	              title: "应用程序类别添加",
+	              width: 280,
+	              height: 130,
+	              items:[{
+	                xtype: "form",
+	                items:[{
+	                  xtype: 'textfield',
+	                  fieldLabel: "应用程序类别名称",
+	                  margin: 10,
+	                  name: "name"
+	                }],
+	                buttons:[{
+	                  text: "保存",
+	                  handler: function(btn){
+	                    var values = btn.up('form').getForm().getValues();
+	                    procTypeStore.load({params:{deal:"insert",name:values.name}});
+	                    win.close();
+	                  }
+	                },{
+	                  text: "关闭",
+	                  scope: this,
+	                  handler: this.close
+	                }]
+	              }]
+	            });
+	            
+	            win.show();
+	          }
+	        },{
+	          text: "修改",
+	          handler: function(btn){
+	            var tree = Ext.ComponentQuery.query('treepanel')[0];
+	            var selection = tree.getSelectionModel().getLastSelected();
+	            if(selection){
+	              var id = selection.get('id');
+	              if(id==0 || id==8100 || id==8200 || id==8300 || id==8400 || id==8500){
+	                alert("系统默认项，不能修改！");
+	                return;
+	              }
+	              
+	              var win = Ext.create('Ext.window.Window',{
+	              title: "应用程序类别修改",
+	              width: 280,
+	              height: 130,
+	              items:[{
+	                xtype: "form",
+	                items:[{
+	                  xtype: 'textfield',
+	                  fieldLabel: "应用程序类别名称",
+	                  margin: 10,
+	                  value: selection.get('name'),
+	                  name: "name"
+	                }],
+	                buttons:[{
+	                  text: "保存",
+	                  handler: function(btn){
+	                    var values = btn.up('form').getForm().getValues();
+	                    procTypeStore.load({params:{deal:"update",name:values.name}});
+	                    win.close();
+	                  }
+	                },{
+	                  text: "关闭",
+	                  scope: this,
+	                  handler: this.close
+	                }]
+	              }]
+  	            });
+  	            
+  	            win.show();
+	            }
+	          }
+	        },{
+	          text: "删除",
+	          handler: function(btn){
+	            var tree = Ext.ComponentQuery.query('treepanel')[0];
+	            var selection = tree.getSelectionModel().getLastSelected();
+	            if(selection){
+	              var id = selection.get('id');
+	              if(id==0 || id==8100 || id==8200 || id==8300 || id==8400 || id==8500){
+	                alert("系统默认项，不能删除！");
+	                return;
+	              }
+	              
+	              Ext.MessageBox.confirm('确认', '确定删除该记录？', function(btn){
+									if(btn=='yes'){
+										procTypeStore.load({params:{deal:"delete",id:id}});
+									}
+								});
+	            }else{
+	              alert("请选择删除项");
+	            }
+	          }
+	        }],
+	        listeners:{
+	          select : function(thisRM, record, index, eOpts){
+	            paramStore.load({params:{statstype:record.get('id')}});
+	            if(record.get('id')==0){
+  	            Ext.getCmp('procChg').setDisabled(true);
+  	            Ext.getCmp('procRm').setDisabled(true);
+  	          }else{
+  	            Ext.getCmp('procChg').setDisabled(false);
+  	            Ext.getCmp('procRm').setDisabled(false);
+  	          }
+	          }
+	        }
+	      },{
+	        xtype: "grid",
+	        title: "程序详细",
+          width: 590,
+          height:470,
+	        store: paramStore,
+	        columns:[
+	          {header: "进程名",  dataIndex:'name',   width:"35%"},
+	          {header: "内容描述",dataIndex:'detail', width:"64%"}
+	        ],
+	        tbar:[{
+	          text: "增加",
+	          handler: function(){
+              var tree = Ext.ComponentQuery.query('treepanel')[0];
+              var treeSelection = tree.getSelectionModel().getLastSelected();
+	            var grid = Ext.ComponentQuery.query('grid')[1];
+        	    var gridSelection = grid.getSelectionModel().getLastSelected();
+              
+	            var win = Ext.create('Ext.window.Window',{
+	              title: "应用程序添加",
+	              width: 250,
+	              height: 140,
+	              modal: true,
+	              items:[{
+	                xtype: "form",
+	                items:[{
+	                  xtype: 'textfield',
+	                  margin: '10 10 5 10',
+	                  fieldLabel: "应用程序名称",
+	                  name: "name"
+	                },{
+	                  xtype: 'textfield',
+	                  margin: '0 10 5 10',
+	                  fieldLabel: "内容描述",
+	                  name: "detail"
+	                }],
+	                buttons:[{
+	                  text: "保存",
+	                  handler: function(btn){
+	                    var values = btn.up('form').getForm().getValues();
+        	            if(treeSelection){
+  	                    paramStore.load({params:{deal:"insert",statstype:treeSelection.get('id'),name:values.name,detail:values.detail}});
+  	                  }else{
+  	                    alert("未选中程序类别");
+  	                  }
+	                    win.close();
+	                  }
+	                },{
+	                  text: "关闭",
+	                  scope: this,
+	                  handler: function(){
+	                    win.close();
+	                  }
+	                }]
+	              }]
+	            });
+	            
+	            win.showAt(300,50);
+	          }
+	        },{
+	          text: "修改",
+	          id: 'procChg',
+	          handler: function(){
+	            var grid = Ext.ComponentQuery.query('grid')[1];
+        	    var gridSelection = grid.getSelectionModel().getLastSelected();
+	            if(gridSelection){
+  	            var win = Ext.create('Ext.window.Window',{
+  	              title: "应用程序修改",
+  	              width: 250,
+  	              height: 140,
+  	              modal: true,
+  	              items:[{
+  	                xtype: "form",
+  	                items:[{
+  	                  xtype: 'textfield',
+  	                  fieldLabel: "应用程序名称",
+  	                  name: "name",
+	                    margin: '10 10 5 10',
+  	                  value: gridSelection.get('name')
+  	                },{
+  	                  xtype: 'textfield',
+  	                  fieldLabel: "内容描述",
+  	                  name: "detail",
+	                    margin: '0 10 5 10',
+  	                  value: gridSelection.get('detail')
+  	                }],
+  	                buttons:[{
+  	                  text: "保存",
+  	                  handler: function(btn){
+          	            if(treeSelection){
+    	                    var values = btn.up('form').getForm().getValues();
+    	                    paramStore.load({params:{deal:"update",statstype:gridSelection.get('statstype'),id:gridSelection.get('id'),name:values.name,detail:values.detail}});
+    	                    win.close();
+    	                  }
+  	                  }
+  	                },{
+  	                  text: "关闭",
+  	                  handler: function(){
+  	                    win.close();
+  	                  }
+  	                }]
+  	              }]
+  	            });
+  	            win.showAt(300,50);
+  	          }else{
+  	            alert("请选择要修改的记录");
+  	          }
+	          }
+	        },{
+	          text: "删除",
+	          id: 'procRm',
+	          handler: function(){
+	            var grid = Ext.ComponentQuery.query('grid')[1];
+        	    var gridSelection = grid.getSelectionModel().getLastSelected();     	    
+        	    
+        	    if(gridSelection){
+	              Ext.MessageBox.confirm('确认', '确定删除该记录？', function(btn){
+									if(btn=='yes'){
+										paramStore.load({params:{deal:"delete",statstype:gridSelection.get('statstype'),id:gridSelection.get('id')}});
+									}
+								});
+	            }else{
+	              alert("请选择删除项");
+	            }
+	          }
+	        }],
+	        listeners:{
+	          'itemcontextmenu': function(thisView,record,item,index,e,eOpts){
+	            e.stopEvent();
+	            var tree = Ext.ComponentQuery.query('treepanel')[0];
+              var treeSelection = tree.getSelectionModel().getLastSelected();
+	           
+	            Ext.create('Ext.menu.Menu', {
+                width: 100,
+                margin: '0 0 10 0',
+                floating: true,
+                items: [{
+                  xtype: "label",
+                  text: '移动到',
+                  cls: 'move',
+                  disabled: true,
+                  handler: function(){
+                    Ext.create('Ext.window.Window',{
+      	              width: 180,
+      	              height:100,
+      	              title: "移动",
+      	              modal: true,
+      	              items: [{
+      	                xtype: "combo",
+              	        fieldLabel: '移到',
+                        id : 'softTypeCom',
+                        margin: 10,
+                        labelWidth: 30,
+                        width: 150,
+                        valueField:'id',
+                        displayField: 'text',
+                        allowBlank: false,
+                        store: Ext.create('Ext.data.Store',{
+                          fields: ['id','text'],
+                          proxy: {
+                            type: 'ajax',
+                            url: '/pronline/Msg?FunName@lanSearchProcType'
+                          }
+                        }),
+                        triggerAction: 'all',
+                				queryMode: 'remote',
+                				typeAhead: true
+      	              }],
+      	              buttons:[{
+      	                text: "确认",
+      	                handler:function(btn){
+      	                  var softType=Ext.getCmp('softTypeCom').getValue();
+      	                  if(softType){
+      	                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:softType,oldtype:record.get('statstype')}});
+      	                    btn.up('window').close();
+      	                  }else{
+      	                    alert("请选择目的软件类型");
+      	                  }
+      	                }
+      	              },{
+      	                text: "取消",
+      	                handler:function(btn){
+      	                  btn.up('window').close();
+      	                }
+      	              }]
+      	            }).showAt(300,100);
+                  }
+                },'-',{
+                  text: "办公软件",
+                  margin: "0 0 0 10",
+                  handler: function(){
+                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:8500,oldtype:record.get('statstype')}});
+                  }
+                },{
+                  text: "邮件处理",
+                  margin: "0 0 0 10",
+                  handler: function(){
+                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:8400,oldtype:record.get('statstype')}});
+                  }
+                },{
+                  text: "网页浏览",
+                  margin: "0 0 0 10",
+                  handler: function(){
+                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:8300,oldtype:record.get('statstype')}});
+                  }
+                },{
+                  text: "视频查看",
+                  margin: "0 0 0 10",
+                  handler: function(){
+                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:8200,oldtype:record.get('statstype')}});
+                  }
+                },{
+                  text: "聊天活动",
+                  margin: "0 0 0 10",
+                  handler: function(){
+                    paramStore.load({params:{deal:"move",id:record.get('id'),statstype:8100,oldtype:record.get('statstype')}});
+                  }
+                },'-',{
+                  text: '修改',
+                  disabled: record.get('statstype')==0,
+                  handler: function(){
+      	            var win = Ext.create('Ext.window.Window',{
+      	              title: "应用程序修改",
+      	              width: 400,
+      	              height: 300,
+      	              items:[{
+      	                xtype: "form",
+      	                items:[{
+      	                  xtype: 'textfield',
+      	                  fieldLabel: "应用程序名称",
+      	                  name: "name",
+      	                  value: record.get('name')
+      	                },{
+      	                  xtype: 'textfield',
+      	                  fieldLabel: "内容描述",
+      	                  name: "detail",
+      	                  value: record.get('detail')
+      	                }],
+      	                buttons:[{
+      	                  text: "保存",
+      	                  handler: function(btn){
+      	                    var values = btn.up('form').getForm().getValues();
+      	                    paramStore.load({params:{deal:"update",statstype:record.get('statstype'),id:record.get('id'),name:values.name,detail:values.detail}});
+      	                    win.close();
+      	                  }
+      	                },{
+      	                  text: "关闭",
+      	                  handler: function(){
+      	                    win.close();
+      	                  }
+      	                }]
+      	              }]
+      	            });
+      	            win.show();
+                  }
+                }]
+              }).showAt(e.getXY());
+	          }
+	        }
+	      }];
+    	  
+        this.callParent(arguments);
+      }
+    });
+    function SetPage(){}
+    
+    function reflash(){
+      Ext.getCmp('reportTitle').setText(parent.dxtitle.replace('<font color=#bbbbbb>','').replace('(离线)</font>',''));
+      updateUse();
+      procStoreLoad();
+    }
+    function switchRemainTime(time){
+      var timeTmp = new Number(time);
+      var mod;
+      var res;
+      var des = "";
+      
+      //显示剩余天数
+      res = parseInt(timeTmp/86400);
+      mod = timeTmp%86400;
+      if(res>0){
+        des+=res+"天";
+      }
+      //显示剩余小时数
+      res = parseInt(mod/3600);
+      mod = mod%3600;
+      if(res>0){
+        des+=res+"时";
+      }
+      //显示剩余分钟数
+      res = parseInt(mod/60);
+      mod = mod%60;
+      if(res>0){
+        des+=res+"分";
+      }
+      //显示剩余秒数
+      mod = mod%60;
+      des+=mod+"秒";
+      
+      return des;
+    }
+    
+    
+    function updateUse(){
+      Ext.Ajax.request({
+		    url: '/pronline/Msg',
+		    params: {
+		    	FunName: "lanSearchCompStatus",
+		    	sdate:sdate,
+		    	edate:edate,
+		    	compid:parent.compid,
+		    	groupid:parent.groupid
+		    },
+		    success: function(response){
+		    	var text = Ext.decode(response.responseText);
+		    	runtime = new Number(text.runtime);
+		    	Ext.getCmp('compuse').setText("电脑使用 运行时间："+switchRemainTime(text.runtime)+" 空闲时间："+switchRemainTime(text.idletime));
+		    }
+			});
+    }
+    var processStore = Ext.create('Ext.data.Store',{
+      pageSize: 100,
+      fields: ['type','name','runtime','runtimetype','activetime','activetimetype','nettime'],
+      groupField: 'type',
+      remoteSort: true,
+      proxy: {
+        type: 'ajax',
+        url: '/pronline/Msg?FunName@lanProcessStatics',
+        reader: {
+          type:'json',
+          root: 'data'
+        }
+      }
+    });
+    function procStoreLoad(){
+      processStore.load({params:{style:style,sdate:sdate,edate:edate,compid:parent.compid,groupid:parent.groupid}});
+    }
+    
+  	Ext.onReady(function(){
+  	  
+  	  //processStore.load();
+  	  var panel = Ext.create('Ext.panel.Panel',{
+  	    renderTo:Ext.getBody(),
+  	    width: "100%",
+  	    height: 950,
+  	    layout: "vbox",
+  	    items:[{
+  	      width:"100%",
+  	      tbar: [{
+  	        xtype: "combo",
+  	        fieldLabel: '时间范围',
+            id : 'timeFlag',
+            labelWidth: 60,
+            width: 150,
+            valueField:'id',
+            value:1,
+            displayField: 'text',
+            allowBlank: true,
+            store: Ext.create('Ext.data.Store',{
+              fields:['id','text'],
+              data:[
+                {id:1,text:"日报表"},
+                {id:2,text:"周报表"},
+                {id:3,text:"月报表"},
+                {id:4,text:"自定义"}
+              ]
+            }),
+            triggerAction: 'all',
+    				queryMode: 'local',
+    				typeAhead: true,
+    				listeners:{
+    				  'change': function(thisField,newValue,oldValue,eOpts){
+    				    var now = new Date();
+    				    var nown = now.setHours(0,0,0,0)/1000;
+    				    edate = nown+86400;
+    				    
+    				    switch(newValue){
+    				      case 1: 
+    				        sdate = nown;
+    				        break;
+    				      case 2: 
+    				        sdate = nown-86400*now.getDay();
+    				        break;
+    				      case 3: 
+    				        sdate = nown - 86400*now.getDate()
+    				        break;
+    				    }
+    				    
+    				    if(newValue != 4){
+        					Ext.getCmp('sdate').hide();
+        					Ext.getCmp('edate').hide();
+        				}else{
+        					Ext.getCmp('sdate').show();
+        					Ext.getCmp('edate').show();	
+        				}
+    				    
+    				    updateUse(sdate,edate,parent.compid,parent.groupid);
+    				    procStoreLoad();
+    				  }
+    				}
+  	      },'-',{
+  	        xtype:"datefield",
+  	        fieldLabel:"自定义时间",
+            labelWidth: 80,
+            width: 200,
+            hidden: true,
+            id: 'sdate',
+            listeners:{
+              'change':function(thisField,newValue,oldValue,eOpts){
+                sdate = newValue.setHours(0,0,0,0)/1000;
+                updateUse(sdate,edate,parent.compid,parent.groupid);
+                procStoreLoad();
+              }
+            }
+  	      },{
+  	        xtype:"datefield",
+  	        fieldLabel:"到",
+            id: 'edate',
+            hidden: true,
+            labelWidth: 20,
+            width: 140,
+            listeners:{
+              'change':function(thisField,newValue,oldValue,eOpts){
+                edate = newValue.setHours(0,0,0,0)/1000+86400;
+                updateUse(sdate,edate,parent.compid,parent.groupid);
+                procStoreLoad();
+              }
+            }
+  	      },'-',{
+  	        xtype: "combo",
+  	        fieldLabel: '排序方式',
+            labelWidth: 60,
+            width: 180,
+            valueField:'id',
+            value:1,
+            displayField: 'text',
+            allowBlank: true,
+            store: Ext.create('Ext.data.Store',{
+              fields:['id','text'],
+              data:[
+                {id:1,text:"按运行时间"},
+                {id:2,text:"按活动时间"},
+                {id:3,text:"按网络活动时间"}
+              ]
+            }),
+            triggerAction: 'all',
+    				queryMode: 'local',
+    				typeAhead: true,
+    				listeners:{
+    				  'change': function(thisField,newValue,oldValue,eOpts){
+    				    style = newValue;
+    				    procStoreLoad();
+    				  }
+    				}
+  	      },'->',{
+  	        xtype: "button",
+  	        text:"参数设置",
+  	        handler: function(){
+  	          Ext.create('processparam').showAt(150,50);
+  	        }
+  	      }]
+  	    },{
+	        layout: "hbox",
+	        border: 0,
+	        width: "100%",
+	        items:[{
+	          xtype: 'label',
+	          id:"reportTitle",
+	          cls: "reportTitle",
+	          text: "部门: 全部"
+	        },{
+	          xtype: "button",
+	          width: 100,
+	          height: 35,
+	          margin: "10 10 10 50",
+	          text: "打印报表"
+	        },{
+	          xtype: "button",
+	          width: 100,
+	          height: 35,
+	          margin: "10 10 10 10",
+	          text: "刷 新",
+	          handler: function(){
+	            updateUse(sdate,edate,parent.compid,parent.groupid);
+              procStoreLoad();
+	          }
+	        }]
+	      },{
+	        xtype:'label',
+	        id: "compuse",
+	        cls: "compuse",
+	        listeners:{
+	          render:function(thisCmp, eOpts){
+	            var now = (new Date()).setHours(0,0,0,0)/1000;
+	            updateUse(now,now+86400,parent.compid,parent.groupid);
+	          }
+	        }
+	      },{
+	        xtype: "grid",
+	        store: processStore,
+	        features: Ext.create('Ext.grid.feature.Grouping',{
+				    groupHeaderTpl: '{name} ({rows.length} 条记录)'
+					}),
+	        columns:[{
+            header: '进程名称',
+            dataIndex: 'name',
+            width:200
+	        },{
+	          header: '运行时间',
+	          dataIndex: 'runtime',
+	          width:150,
+            renderer:switchRemainTime
+	        },{
+	          header: '占百分比',
+	          dataIndex: 'runtimepre',
+	          renderer: function(value,metaData,record){
+	            return parseInt(new Number(record.get('runtime'))*100/runtime)+"%";
+	          }
+	        },{
+	          header: '窗口活动时间',
+	          dataIndex: 'activetime',
+	          width:150,
+            renderer:switchRemainTime
+	        },{
+	          header: '占百分比',
+	          dataIndex: 'activetimepre',
+	          renderer: function(value,metaData,record){
+	            return parseInt(new Number(record.get('activetime'))*100/runtime)+"%";
+	          }
+	        },{
+	          header: '网络活动时间',
+	          dataIndex: 'nettime',
+	          width:100,
+            renderer:switchRemainTime
+	        }
+	        ]
+	      }]
+  	  });
+  	  procStoreLoad();
+  	});
+  </script>
+</head>
+<body>
+</body>
+</html>

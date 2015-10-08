@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title></title>
+<script>
+	function sx()
+	{	
+	if((form1.start.value=='1')&&(form1.refresh_flag.value=='1')){
+		   form1.submit();	
+
+		   }
+		  form1.refresh_flag.value='0'; 	
+	}
+</script>
+
+
+<style type="text/css">
+<!--
+.tScrollw {
+        SCROLLBAR-FACE-COLOR: #9FC8D4;
+        scrollbar-highlight-color: #DFF0F7;
+        SCROLLBAR-SHADOW-COLOR: #9FC8D4;
+        SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+        SCROLLBAR-ARROW-COLOR: #000000;
+        SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+        scrollbar-track-color: #C4DEEA;
+        OVERFLOW: auto;
+        height:500px;
+        width:100%;
+        cursor: default;
+}
+.title{  height:23px;font-size: 12px; font-weight: bold; color: #FFFFFF; letter-spacing: 2px; line-height: 20px; padding-right: 5px; padding-left: 5px;}
+.gdt-bg-04{background-color: #3186A9;border-top: 1px solid #0000ff;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #006699;}
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DFF0F7" style="overflow:hidden" onload="setInterval('sx()',2000);">
+<form name="form1" method="post" action="/pronline/Msg" target="pingd"> 
+
+		<input type="hidden" name="add" value="">
+		<input type="hidden" name="modi" value="">
+	<input type="hidden" name="FunName" value="ncToolPing">
+  <input type="hidden" name="num" value="1">
+  <input type="hidden" name="start" value="0">
+  <input type="hidden" name="refresh_flag" value="1">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+    <tr >
+      <td valign="top" class="gdt-bg-04" height="22" >
+        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr class="title">
+         
+            <td >工具&gt;&gt;Ping</td>
+            <td >&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+   
+  </table>
+	
+	
+  <table border="0" width=100%  cellspacing="0" cellpadding="0" align=center>
+    <tr> 
+      <td width="100%" valign="top" class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+         
+          <tr bgcolor="#DFF0F7"> 
+            <td width="28%" height="34">&nbsp;Ping
+            <input name="dip" type="text" size=16>
+
+            <input name="cmd" type="submit" class="an3" value="确定" Onclick="form1.start.value='1';form1.num.value='0';form1.refresh_flag.value='1';">
+            <input name="del" type="button" class="an3" value="停止" Onclick="form1.start.value='0';form1.refresh_flag.value='0';">
+            <input name="del" type="button" class="an3" value="清屏" Onclick="form1.num.value='0';document.all.ff.innerHTML='';">
+                </td>
+                
+             </td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr>
+    <td width="100%"  valign=top align=left bgcolor="#ffffff"> 
+
+     <div id="ff" name='ff' class="tScrollw">
+ 
+     </div>
+    	        
+    	
+    </td>
+  </tr>
+     <iframe id="pingd" name="pingd" height="0" style="display:none;" src="" width=0  FrameBorder=0 scrolling="auto"></iframe>
+  </form>
+</body>
+</html>
