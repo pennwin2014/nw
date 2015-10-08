@@ -106,9 +106,9 @@ int lan_log_peri(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     //取数据
     //增加where 条件的标识
     
-    printf("peri before modi==%s,%s\n", sdate_in, edate_in);
+   // printf("peri before modi==%s,%s\n", sdate_in, edate_in);
     modifyDates(sdate_in, edate_in);
-    printf("peri after modi==%s,%s\n", sdate_in, edate_in);
+   // printf("peri after modi==%s,%s\n", sdate_in, edate_in);
 
     int stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     int etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);

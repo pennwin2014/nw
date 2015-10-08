@@ -839,7 +839,7 @@ extern struct ncPltMenu_s
 extern int mItem;
 
 //用户名密码公司简称验证
-int dsCltUserLogin3(caUsername, caPassword, caShortname)
+int dsCltUserLogin3(char* caUsername, char* caPassword, char* caShortname)
 {
     if(caUsername == NULL && caPassword == NULL && caShortname == NULL)
     {
@@ -861,7 +861,7 @@ int dsCltUserLogin3(caUsername, caPassword, caShortname)
     sprintf(caKey0, "%s%s", caUsername, caPassword);
 
     utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey);
-    sprintf(sql, "select count(*) from dsuser where name='%s' and lkey='%s' and groupid=(select groupid from dsuser where name ='%sadmin')", caUsername, caKey, caShortname);
+    sprintf(sql, "select count(*) from dsuser where name='%s' and lkey='%s' and groupid=(select groupid from dsuser where name ='%sadmin')",caUsername, caKey,caShortname);
     printf("sql=%s\n", sql);
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &count);
 
@@ -961,7 +961,6 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     // printf("pid=%d\n",getpid());
     // sleep(20);
 
-
     iReturn = utMsgGetSomeNVar(psMsgHead, 8,
                                "ModiPass",  UT_TYPE_STRING, 16, caModi,
                                "shortname",  UT_TYPE_STRING, 31, caShortname,
@@ -1055,8 +1054,6 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         return 0;
     }
 
-
-
     utStrDelSpaces(caUsername);
     //    utStrToLower(caUsername);
     utStrDelSpaces(caPassword);
@@ -1079,6 +1076,7 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(iReturn == 0)
     {
+    	printf("验证%s,%s\n", caUsername, caPassword);
         iReturn = dsCltUserLogin(caUsername, caPassword, caIp);
 
     }
@@ -1135,12 +1133,8 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             iReturn = dsCltUserModi(lId, 2, "name", UT_TYPE_STRING, caUsername,
                                     "lkey", UT_TYPE_STRING, caPassword_t);
             sprintf(caTemp, "由于您使用了默认密码，因为安全的原因，系统自动把您的密码修改为：%s,请及时修改您的密码", caPassword_t);
-
             utPltPutVarF(psDbHead, "message", caTemp);
-
-
             utPltOutToHtml(iFd, psMsgHead, psDbHead, "nc/login2.htm");
-
             printf("aaaaaaa\n");
         }
 
@@ -1148,7 +1142,6 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utPltPutVarF(psDbHead, "height", "%d", atol(caScreen) - 200);
         ncAdmSetAdmIp(psShmHead, caUsername, lIp);
         //        ncAdmWriteLog(caUsername,caIp,ncLang("0173成功登录到网络督察"));
-
         if(strcasecmp(utComGetVar_sd(psShmHead, "secondpasswd", "No"), "YES") == 0)
         {
             utPltPutVarF(psDbHead, "username", caUsername);
@@ -1156,16 +1149,9 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             //双密码验证
             utPltOutToHtml(iFd, psMsgHead, psDbHead, "ds/ds_secondauth.htm");
             return 0;
-
         }
 
-
-
-
-
-
         lDefCon = atol(utComGetVar_sd(psShmHead, "MbContDef", "0"));
-
         lDef = atol(utComGetVar_sd(psShmHead, "MbLoginDef", "0"));
         memset(caMbserno, 0, sizeof(caMbserno));
         sprintf(caSql, "select mbserno,logflag,flag from ncuserbindmb where userid=%d ", lUserid);
@@ -1204,82 +1190,7 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             }
         }
         writeSysLog(psMsgHead, "01", "Success", ncLang("0173完成登录到系统"));
-        /*
-          sprintf(caTemp,"select id,usrlevel from dsuser where name='%s' ",caUsername);
-          pasDbOneRecord(caTemp,0,UT_TYPE_LONG,4,&lUserid,
-
-                                UT_TYPE_LONG,4,&lUsrlevel);
-         //对于日志管理员只显示日志管理界面
-         if(lUsrlevel==0){
-            utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main_logadmin.htm");
-            return 0;
-         }
-         else if(lUsrlevel==8){
-            utPltOutToHtml(iFd,psMsgHead,psDbHead,"vpn/main_vpn.htm");
-            return 0;
-         }
-         else if(lUsrlevel==9){
-            utPltOutToHtml(iFd,psMsgHead,psDbHead,"vpn/main_hotel.htm");
-            return 0;
-         }
-         else if(lUsrlevel==10){
-            utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main_2.htm");             //烟台公安
-            return 0;
-         }
-         sprintf(caTemp,"%s/hotel/main_group.htm",utComGetVar_sd(psShmHead,"PlatePath","/home/ncmysql/nc/plate"));
-
-         if(((lUsrlevel==3)||(lUsrlevel==2))&&(strcasecmp(utComGetVar_sd(psShmHead,"HotelVesion","No"),"Yes")==0)){
-             ncsCltInfo *psServer;
-             psServer = (ncsCltInfo *)utShmArray(psShmHead,NC_LNK_NCSRVINFO);
-            if(psServer!=NULL){
-                if(psServer->nStatus==1){
-                    utPltPutVar(psDbHead,"ljstatus",ncLang("1517已连接"));
-                }
-                else{
-                    utPltPutVar(psDbHead,"ljstatus",ncLang("1837未连接"));
-                }
-            }
-            else
-              utPltPutVar(psDbHead,"ljstatus",ncLang("1837未连接"));
-
-        //printf("cccccccccccccccc\n");
-                utPltOutToHtml(iFd,psMsgHead,psDbHead,"hotel/main_hotel.htm");
-                return 0;
-            }
-         else if(((lUsrlevel==3)||(lUsrlevel==2))&&(utFileIsExist(caTemp)==1)){
-        //printf("dddddddddd\n");
-           utPltOutToHtml(iFd,psMsgHead,psDbHead,"hotel/main_group.htm");
-           return 0;
-          }
-         else{
-            char caConfFile[64];
-            long lCount=0;
-
-            sprintf(caTemp,"select count(*) from dsrole a,dsuserrole b where a.id=b.roleid and b.id=%d and (a.name='all' or a.name='全部权限') ",lUserid);
-            pasDbOneRecord(caTemp,0,UT_TYPE_LONG,4,&lCount);
-            if(lCount>0&&lGroupid==0){
-        //printf("eeeeeeeeeeeeeeeeeeee\n");
-
-                utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main.htm");
-                return 0;
-            }
-        //根据用户角色动态生成菜单
-            else if(strcasecmp(utComGetVar_sd(psShmHead,"menubyrole","No"),"Yes")==0){
-
-                utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main_1.htm");
-                return 0;
-            }
-        }
-
-         if(lGroupid==0){
-             utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main.htm");
-         }
-         else{
-             utPltOutToHtml(iFd,psMsgHead,psDbHead,"nc/main_group.htm");
-        }
-
-        }
-        */
+        
     }
     if(strcmp(caUsername, "admin"))
     {

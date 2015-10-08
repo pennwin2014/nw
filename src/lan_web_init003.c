@@ -980,14 +980,14 @@ int modifyDates(char* sdate, char* edate)
     //找到第一个/和第二个/之间的字符串
     char* p = NULL;
     p = strtok(ssdate, "/");
-    if(p)
-        printf("first %s\n", p);
+  //  if(p)
+     //   printf("first %s\n", p);
     p = strtok(NULL, "/");
-    if(p)
-        printf("second %s\n", p);
+   // if(p)
+       // printf("second %s\n", p);
     if(strlen(p) == 1)
     {
-		printf("add 0 in pos 5\n");
+		//printf("add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             sdate[i + 1] = sdate[i];
@@ -996,11 +996,11 @@ int modifyDates(char* sdate, char* edate)
     }
     //找到第二个/和T之间的字符串
     p = strtok(NULL, "T");
-    if(p)
-        printf("T %s\n", p);
+   // if(p)
+      //  printf("T %s\n", p);
     if(strlen(p) == 1)
     {
-		printf("add 0 in pos 8\n");
+		//printf("add 0 in pos 8\n");
         for(i = 18; i > 7; i--)
         {
             sdate[i + 1] = sdate[i];
@@ -1010,14 +1010,14 @@ int modifyDates(char* sdate, char* edate)
 
     //结束时间
     p = strtok(eedate, "/");
-    if(p)
-        printf("efirst %s\n", p);
+   // if(p)
+        //printf("efirst %s\n", p);
     p = strtok(NULL, "/");
-    if(p)
-        printf("esecond %s\n", p);
+    //if(p)
+        //printf("esecond %s\n", p);
     if(strlen(p) == 1)
     {
-		printf("e add 0 in pos 5\n");
+		//printf("e add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             edate[i + 1] = edate[i];
@@ -1026,11 +1026,11 @@ int modifyDates(char* sdate, char* edate)
     }
 	//找到第二个/和T之间的字符串
     p = strtok(NULL, "T");
-    if(p)
-        printf("eT %s\n", p);
+   // if(p)
+       // printf("eT %s\n", p);
     if(strlen(p) == 1)
     {
-		printf("e add 0 in pos 8\n");
+		//printf("e add 0 in pos 8\n");
         for(i = 18; i > 7; i--)
         {
             edate[i + 1] = edate[i];
@@ -1143,9 +1143,9 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(!utStrIsSpaces(sdate))
     {
-        printf("before modi==%s,%s\n", sdate, edate);
+      //  printf("before modi==%s,%s\n", sdate, edate);
         modifyDates(sdate, edate);
-        printf("after modi==%s,%s\n", sdate, edate);
+      //  printf("after modi==%s,%s\n", sdate, edate);
 
         lStartTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate);
         lTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate);
@@ -1733,9 +1733,9 @@ int lan_log_getAlarmLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(strlen(sdate) > 0 && strlen(edate) > 0)
     {
-    	printf("alarm before modi==%s,%s\n", sdate, edate);
+    	//printf("alarm before modi==%s,%s\n", sdate, edate);
         modifyDates(sdate, edate);
-        printf("alarm after modi==%s,%s\n", sdate, edate);
+       //printf("alarm after modi==%s,%s\n", sdate, edate);
         ptmp = ncsUtlGetTable2(sdate, edate, "nwwarnlog_", &lStartTime, &lTime, &lCount);
         ptmp2 = ncsUtlGetTable2(sdate, edate, "nwwarnscreen_", &lStartTime, &lTime, &lCount);
     }

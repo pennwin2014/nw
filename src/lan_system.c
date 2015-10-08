@@ -197,6 +197,7 @@ int writeSysLog(utMsgHead *psMsgHead, char *action, char *result, char *msg)
 
     iReturn = utMsgGetSomeNVar(psMsgHead, 1, "clientip",  UT_TYPE_STRING, sizeof(caIp) - 1, caIp);
     memset(caMsg, 0, sizeof(caMsg));
+	
 
     if(strlen(msg) != 0)
     {
@@ -205,10 +206,10 @@ int writeSysLog(utMsgHead *psMsgHead, char *action, char *result, char *msg)
         strcpy(caDate, utTimFormat("%Y-%m-%d %H:%M:%S", time(0)));
         strcpy(caMsg_t, (char *)pasDbReplaceQuote1(caMsg));
         lSid = pasGetSid("ncadminlog", "sid");
-        dsCltGetMyInfo(1, "USERNAME", username);
+        dsCltGetMyInfo(1, "USERNAME", username);		
         username[31] = '\0';
 
-        iReturn = pasDbExecSqlF("insert into ncadminlog(sid,sdate,name,ipaddr,descr,action,result) values (%lu,'%s','%s','%s','%s','%s','%s')", lSid, caDate, username, caIp, caMsg_t, action, result);
+        iReturn = pasDbExecSqlF("insert into %s(sid,sdate,name,ipaddr,descr,action,result) values (%lu,'%s','%s','%s','%s','%s','%s')", getNewTable(getLoginShortName(),"ncadminlog"),lSid, caDate, username, caIp, caMsg_t, action, result);
         if(iReturn == 0)
         {
             pasDbCommit(NULL);

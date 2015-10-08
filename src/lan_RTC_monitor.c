@@ -208,9 +208,9 @@ int lan_chat_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         strcat(edate_in, " 23:59:59");
     }
 
-	printf("before modi==%s,%s\n", sdate_in, edate_in);
+	//printf("before modi==%s,%s\n", sdate_in, edate_in);
 	modifyDates(sdate_in, edate_in);
-	printf("after modi==%s,%s\n", sdate_in, edate_in);
+	//printf("after modi==%s,%s\n", sdate_in, edate_in);
 
     int stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     int etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);

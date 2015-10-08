@@ -24,12 +24,64 @@ static char *utf8convert(char *src)
     return src;
 }
 
+char* getLoginShortName()
+{
+    ulong lUserid = 0, lGroupid = 0;
+    ulong pid = 0;
+    char sql[1024] = "";
+    static char shortname[256] = "";
+    dsCltGetMyInfo(1, "Userid", &lUserid);
+    sprintf(sql, "select groupid from dsuser where id = %lu", lUserid);
+    pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &lGroupid);
+    pid = findCompanyByGroupid(lGroupid);
+    sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
+    memset(shortname, 0, sizeof(shortname));
+    pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname) - 1, shortname);
+	printf("get shortname=%s, pid=%lu", shortname, pid);
+    return shortname;
+}
+
+
+int checkTableExists(char* tableName)
+{
+    char sql[1024] = "";
+    int ret = 0;
+    pasDbCursor *psCur = NULL;
+    snprintf(sql, sizeof(sql), "select count(*) from %s", tableName);
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur != NULL)
+    {
+        ret = 1;
+        pasDbCloseCursor(psCur);
+    }
+    return ret;
+}
+
+
+char* getNewTable(char* shortName, char* tableName)
+{
+    static char newTable[256] = "";
+    memset(newTable, 0, sizeof(newTable));
+    char sql[1024] = "";
+    if(strlen(shortName) > 0)
+        snprintf(newTable, sizeof(newTable) - 1, "%s_%s", shortName, tableName);
+    else
+        snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);
+
+    printf("get newTable=%s\n", newTable);
+    //先查询是否有这张表
+    if(!checkTableExists(newTable))
+    {
+        snprintf(sql, sizeof(sql) - 1, "create table %s like %s", newTable, tableName);
+        printf("not exist newTable=%s, do sql=%s\n", newTable, sql);
+        pasDbExecSqlF(sql);
+    }
+    return newTable;
+}
 
 int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
-
     utMsgPrintMsg(psMsgHead);
-
     char deal_in[8] = "";
     char sid_in[16] = "";
     char compname_in[256] = "";
@@ -104,13 +156,13 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
         printf("sql:insert apply:%s\n", sql);
         pasDbExecSqlF(sql);
-
         if(strlen(shortname_in))
+        {
             sprintf(sql, "insert into nwgroup(gname,pid)values('%s',0)", shortname_gbk);
-
-        //添加超级管理员帐户
-        printf("sql:insert group:%s\n", sql);
-        pasDbExecSqlF(sql);
+            //添加超级管理员帐户
+            printf("sql:insert group:%s\n", sql);
+            pasDbExecSqlF(sql);
+        }
 
         unsigned int groupid = 0;
 
@@ -129,7 +181,7 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey); /* 口令加密  */
         unsigned long ltime = time(0);
 
-        sprintf(sql, "insert into dsuser (id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
+        sprintf(sql, "insert into dsuser(id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
         pasDbExecSqlF(sql);
 
         sprintf(sql, "insert into dsuserrole(id,roleid,addtime,addby) values(%lu,%lu,%lu,'%s')", lUserid, 102, ltime, "admin");
@@ -142,7 +194,7 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         sprintf(caKey0, "%s%s", temp, temp);
         utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey); /* 口令加密  */
 
-        sprintf(sql, "insert into dsuser (id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
+        sprintf(sql, "insert into dsuser(id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
         pasDbExecSqlF(sql);
 
         sprintf(sql, "insert into dsuserrole(id,roleid,addtime,addby) values(%lu,%lu,%lu,'%s')", lUserid, 103, ltime, "admin");
@@ -167,6 +219,7 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     {
         if(strlen(caSelShortNames) > 0)
         {
+            char *shortname_gbk = utf8convert(shortname_in);
             //1、得到nwgroup中gname in 简称的gid
             memset(sql, 0, sizeof(sql));
             sprintf(sql, "select gid from nwgroup where gname in (%s)", caSelShortNames);
@@ -221,8 +274,8 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 sprintf(sql, "delete from dsuser where groupid in (%s)", caGids);
                 printf("delete :sql %s\n", sql);
                 pasDbExecSqlF(sql);
-				//4.5、删除nwcompute中groupid in gids的数据
-				memset(sql, 0, sizeof(sql));
+                //4.5、删除nwcompute中groupid in gids的数据
+                memset(sql, 0, sizeof(sql));
                 sprintf(sql, "delete from nwcompute where groupid in (%s)", caGids);
                 printf("delete :sql %s\n", sql);
                 pasDbExecSqlF(sql);
@@ -237,7 +290,6 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             sprintf(sql, "delete from userapply where shortname in (%s)", caSelShortNames);
             printf("delete :sql %s\n", sql);
             pasDbExecSqlF(sql);
-
         }
 
     }
@@ -246,12 +298,12 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     int iNum = 0;
     int count = 0;
     utPltDbHead *psDbHead = utPltInitDb();
-	memset(sql, 0, sizeof(sql));
+    memset(sql, 0, sizeof(sql));
     sprintf(sql, "select count(*) from userapply where 1=1 %s", sqlTmp);
 
     pasDbOneRecord(sql, 0, UT_TYPE_LONG, sizeof(count), &count);
     utPltPutVarF(psDbHead, "TotRec", "%d", count);
-	memset(sql, 0, sizeof(sql));
+    memset(sql, 0, sizeof(sql));
     sprintf(sql, "select sid,compname,compaddr,compsize,compphone,compfax,compweb,compmail,compband,applname,applsex,appljob,appldepart,applphone,applmobile,applmail,applqq,bindmail,shortname,clientnum,datebeg,days from userapply where 1=1 %s order by modtime desc limit %s,%s", sqlTmp, start_in, limit_in);
 
     psCur = pasDbOpenSql(sql, 0);

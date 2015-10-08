@@ -10,8 +10,8 @@ static char *utf8convert(char *src)
     char *strutf8 = NULL;
     if(src != NULL)
     {
-        strutf8 = convert("UTF-8", "GBK", src);
-        
+        strutf8 = (char*)convert("UTF-8", "GBK", src);
+
         if(strutf8)
         {
             return strutf8;
@@ -24,6 +24,59 @@ static char *utf8convert(char *src)
     return src;
 }
 
+char * getLoginShortName()
+{
+	ulong lUserid = 0,lGroupid=0;
+	ulong pid = 0;
+	char sql[1024] = "";
+	static char shortname[256] = "";
+	dsCltGetMyInfo(1, "Userid", &lUserid);	
+	sprintf(sql, "select groupid from dsuser where id = %lu", lUserid);
+    pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &lGroupid);   
+	pid = findCompanyByGroupid(lGroupid);
+    sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
+	memset(shortname, 0, sizeof(shortname));
+    pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname)-1, shortname);
+	return shortname;
+}
+
+
+int checkTableExists(char* tableName)
+{
+    char sql[1024] = "";
+    int ret = 0;
+    pasDbCursor *psCur = NULL;
+    snprintf(sql, sizeof(sql), "select count(*) from %s", tableName);
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur != NULL)
+    {
+        ret = 1;
+        pasDbCloseCursor(psCur);
+    }
+    return ret;
+}
+
+
+char* getNewTable(char* shortName, char* tableName)
+{
+    static char newTable[256] = "";
+    memset(newTable, 0, sizeof(newTable));
+    char sql[1024] = "";
+	if(strlen(shortName) > 0)
+    	snprintf(newTable, sizeof(newTable) - 1, "%s_%s", shortName, tableName);
+	else
+		snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);
+		
+    printf("get newTable=%s\n", newTable);
+    //先查询是否有这张表
+    if(!checkTableExists(newTable))
+    {
+        snprintf(sql, sizeof(sql) - 1, "create table %s like %s", newTable, tableName);
+        printf("not exist newTable=%s, do sql=%s\n", newTable, sql);
+        pasDbExecSqlF(sql);
+    }
+    return newTable;
+}
 
 int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
@@ -56,61 +109,61 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char keywords_in[32] = "";
     char start_in[8] = "";
     char limit_in[8] = "";
-	char caSelShortNames[1024] = "";
-	char caGids[1024]="",caIds[1024]="";
+    char caSelShortNames[1024] = "";
+    char caGids[1024] = "", caIds[1024] = "";
 
     utMsgGetSomeNVar(psMsgHead, 29,
-                     "deal",             UT_TYPE_STRING, sizeof(deal_in)-1,            deal_in,
-                     "sid",              UT_TYPE_STRING, sizeof(sid_in)-1,             sid_in,
-                     "compname",     UT_TYPE_STRING, sizeof(compname_in)-1,    compname_in,
-                     "compaddr",     UT_TYPE_STRING, sizeof(compaddr_in)-1,    compaddr_in,
-                     "compsize",     UT_TYPE_STRING, sizeof(compsize_in)-1,    compsize_in,
-                     "compphone",  UT_TYPE_STRING, sizeof(compphone_in)-1, compphone_in,
-                     "compfax",      UT_TYPE_STRING, sizeof(compfax_in)-1,     compfax_in,
-                     "compweb",      UT_TYPE_STRING, sizeof(compweb_in)-1,     compweb_in,
-                     "compmail",     UT_TYPE_STRING, sizeof(compmail_in)-1,    compmail_in,
-                     "compband",     UT_TYPE_STRING, sizeof(compband_in)-1,    compband_in,
-                     "applname",     UT_TYPE_STRING, sizeof(applname_in)-1,    applname_in,
-                     "applsex",      UT_TYPE_STRING, sizeof(applsex_in)-1,     applsex_in,
-                     "appljob",      UT_TYPE_STRING, sizeof(appljob_in)-1,     appljob_in,
-                     "appldepart", UT_TYPE_STRING, sizeof(appldepart_in)-1, appldepart_in,
-                     "applphone",    UT_TYPE_STRING, sizeof(applphone_in)-1,   applphone_in,
-                     "applmobile", UT_TYPE_STRING, sizeof(applmobile_in)-1, applmobile_in,
-                     "applmail",     UT_TYPE_STRING, sizeof(applmail_in)-1,    applmail_in,
-                     "applqq",           UT_TYPE_STRING, sizeof(applqq_in)-1,      applqq_in,
-                     "bindmail",   UT_TYPE_STRING, sizeof(bindmail_in)-1,  bindmail_in,
-                     "shortname",  UT_TYPE_STRING, sizeof(shortname_in)-1, shortname_in,
-                     "clientnums",   UT_TYPE_STRING, sizeof(clientnums_in)-1, clientnums_in,
-                     "datebeg",      UT_TYPE_STRING, sizeof(datebeg_in)-1,     datebeg_in,
-                     "days",             UT_TYPE_STRING, sizeof(days_in)-1,            days_in,
-                     "keywords",     UT_TYPE_STRING, sizeof(keywords_in)-1,    keywords_in,
-                     "start",            UT_TYPE_STRING, sizeof(start_in)-1,           start_in,
-                     "limit",            UT_TYPE_STRING, sizeof(limit_in)-1,           limit_in,
-                     "selshortnames"          UT_TYPE_STRING, sizeof(caSelShortNames)-1, caSelShortNames);
+                     "deal",             UT_TYPE_STRING, sizeof(deal_in) - 1,            deal_in,
+                     "sid",              UT_TYPE_STRING, sizeof(sid_in) - 1,             sid_in,
+                     "compname",     UT_TYPE_STRING, sizeof(compname_in) - 1,    compname_in,
+                     "compaddr",     UT_TYPE_STRING, sizeof(compaddr_in) - 1,    compaddr_in,
+                     "compsize",     UT_TYPE_STRING, sizeof(compsize_in) - 1,    compsize_in,
+                     "compphone",  UT_TYPE_STRING, sizeof(compphone_in) - 1, compphone_in,
+                     "compfax",      UT_TYPE_STRING, sizeof(compfax_in) - 1,     compfax_in,
+                     "compweb",      UT_TYPE_STRING, sizeof(compweb_in) - 1,     compweb_in,
+                     "compmail",     UT_TYPE_STRING, sizeof(compmail_in) - 1,    compmail_in,
+                     "compband",     UT_TYPE_STRING, sizeof(compband_in) - 1,    compband_in,
+                     "applname",     UT_TYPE_STRING, sizeof(applname_in) - 1,    applname_in,
+                     "applsex",      UT_TYPE_STRING, sizeof(applsex_in) - 1,     applsex_in,
+                     "appljob",      UT_TYPE_STRING, sizeof(appljob_in) - 1,     appljob_in,
+                     "appldepart", UT_TYPE_STRING, sizeof(appldepart_in) - 1, appldepart_in,
+                     "applphone",    UT_TYPE_STRING, sizeof(applphone_in) - 1,   applphone_in,
+                     "applmobile", UT_TYPE_STRING, sizeof(applmobile_in) - 1, applmobile_in,
+                     "applmail",     UT_TYPE_STRING, sizeof(applmail_in) - 1,    applmail_in,
+                     "applqq",           UT_TYPE_STRING, sizeof(applqq_in) - 1,      applqq_in,
+                     "bindmail",   UT_TYPE_STRING, sizeof(bindmail_in) - 1,  bindmail_in,
+                     "shortname",  UT_TYPE_STRING, sizeof(shortname_in) - 1, shortname_in,
+                     "clientnums",   UT_TYPE_STRING, sizeof(clientnums_in) - 1, clientnums_in,
+                     "datebeg",      UT_TYPE_STRING, sizeof(datebeg_in) - 1,     datebeg_in,
+                     "days",             UT_TYPE_STRING, sizeof(days_in) - 1,            days_in,
+                     "keywords",     UT_TYPE_STRING, sizeof(keywords_in) - 1,    keywords_in,
+                     "start",            UT_TYPE_STRING, sizeof(start_in) - 1,           start_in,
+                     "limit",            UT_TYPE_STRING, sizeof(limit_in) - 1,           limit_in,
+                     "selshortnames",          UT_TYPE_STRING, sizeof(caSelShortNames) - 1, caSelShortNames);
 
 
     char sql[1024] = "";
     char sqlTmp[512] = "";
     unsigned long datebeg = utTimStrToLong("%Y/%m/%d %H:%M:%S", datebeg_in);
-       pasDbCursor *psCur = NULL;
+    pasDbCursor *psCur = NULL;
     int iret = 0;
     if(!strcmp(deal_in, "insert"))
     {
-    	printf("compname_in=[%s]\n", compname_in);
-        printf("insert '%s'\n",utf8convert(compname_in));
+        printf("compname_in=[%s]\n", compname_in);
+        printf("insert '%s'\n", utf8convert(compname_in));
         char *compname_gbk = utf8convert(compname_in);
-		char *shortname_gbk = utf8convert(shortname_in);
+        char *shortname_gbk = utf8convert(shortname_in);
         sprintf(sql, "insert into userapply(compname,compaddr,compsize,compphone,compfax,compweb,compmail,compband,applname,applsex,appljob,appldepart,applphone,applmobile,applmail,applqq,bindmail,shortname,clientnum,datebeg,days,modtime)values('%s','%s',%d,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%u,%s,%u)", utf8convert(compname_in), utf8convert(compaddr_in), atoi(compsize_in), compphone_in, compfax_in, compweb_in, compmail_in, compband_in, utf8convert(applname_in), utf8convert(applsex_in), utf8convert(appljob_in), utf8convert(appldepart_in), applphone_in, applmobile_in, utf8convert(applmail_in), applqq_in, utf8convert(bindmail_in), utf8convert(shortname_in), clientnums_in, datebeg, days_in, time(0));
 
         printf("sql:insert apply:%s\n", sql);
         pasDbExecSqlF(sql);
-
-		if(strlen(shortname_in))
-        sprintf(sql, "insert into nwgroup(gname,pid)values('%s',0)", shortname_gbk);
-
-        //添加超级管理员帐户
-        printf("sql:insert group:%s\n", sql);
-        pasDbExecSqlF(sql);
+        if(strlen(shortname_in))
+        {
+            sprintf(sql, "insert into nwgroup(gname,pid)values('%s',0)", shortname_gbk);
+            //添加超级管理员帐户
+            printf("sql:insert group:%s\n", sql);
+            pasDbExecSqlF(sql);
+        }
 
         unsigned int groupid = 0;
 
@@ -129,7 +182,7 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey); /* 口令加密  */
         unsigned long ltime = time(0);
 
-        sprintf(sql, "insert into dsuser (id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
+        sprintf(sql, "insert into dsuser(id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
         pasDbExecSqlF(sql);
 
         sprintf(sql, "insert into dsuserrole(id,roleid,addtime,addby) values(%lu,%lu,%lu,'%s')", lUserid, 102, ltime, "admin");
@@ -142,7 +195,7 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         sprintf(caKey0, "%s%s", temp, temp);
         utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey); /* 口令加密  */
 
-        sprintf(sql, "insert into dsuser (id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
+        sprintf(sql, "insert into dsuser(id,name,dispname,groupid,groupname,addtime,moditime,lkey,lasttime,logcount,useflags,status,usrlevel,email,opt) values(%lu,'%s','%s',%lu,'%s',%lu,%lu,'%s',%lu,0,0,0,1,'%s','%u')", lUserid, temp, compname_gbk, groupid, "", ltime, ltime, caKey, ltime, "", groupid);
         pasDbExecSqlF(sql);
 
         sprintf(sql, "insert into dsuserrole(id,roleid,addtime,addby) values(%lu,%lu,%lu,'%s')", lUserid, 103, ltime, "admin");
@@ -162,81 +215,96 @@ int lan_compuser(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             char *keywords_gbk = (char*)utf8convert(keywords_in);
             sprintf(sqlTmp, " and (compname like '%%%s%%' or shortname like '%%%s%%')", keywords_gbk, keywords_gbk);
         }
-    }else if(!strcmp(deal_in, "delete")){
-    	if(strlen(caSelShortNames)>0){
-				//1、得到nwgroup中gname in 简称的gid
-				memset(sql, 0, sizeof(sql));
-				sprintf(sql, "select gid from nwgroup where gname in (%s)", caSelShortNames);
-				psCur = pasDbOpenSql(sql, 0);
-				if(psCur != NULL)
-				{
-					unsigned long gid = 0;
-					while(0 == (iret = pasDbFetchInto(psCur,
-													  UT_TYPE_ULONG,  sizeof(gid), &gid)) || 1405 == iret)
-					{
-						if(strlen(caGids) == 0){
-							snprintf(caGids, sizeof(caGids)-1, "%lu", gid);
-						}else{
-							snprintf(caGids+strlen(caGids), sizeof(caGids)-1, ",%lu", gid);
-						}
-					}
-					pasDbCloseCursor(psCur);
-				}
-				//2、删除nwgroup中gname in 简称的数据
-				if(strlen(caGids)>0){
-					memset(sql, 0, sizeof(sql));
-					sprintf(sql, "delete from nwgroup where gname in (%s)", caGids);
-					printf("delete :sql %s\n", sql);
-					pasDbExecSqlF(sql);
-					//3、得到dsuser中groupid in gids的ids
-					memset(sql, 0, sizeof(sql));
-					sprintf(sql, "select id from dsuser where groupid in (%s)", caGids);
-					psCur = pasDbOpenSql(sql, 0);
-					if(psCur != NULL)
-					{
-						unsigned long lId = 0;
-						while(0 == (iret = pasDbFetchInto(psCur,
-														  UT_TYPE_ULONG,  sizeof(lId), &lId)) || 1405 == iret)
-						{
-							if(strlen(caIds) == 0){
-								snprintf(caIds, sizeof(caIds)-1, "%lu", lId);
-							}else{
-								snprintf(caIds+strlen(caIds), sizeof(caIds)-1, ",%lu", lId);
-							}
-						}
-						pasDbCloseCursor(psCur);
-					}
-					//4、删除dsuser中groupid in gids的数据
-					memset(sql, 0, sizeof(sql));
-					sprintf(sql, "delete from dsuser where groupid in (%s)", caGids);
-					printf("delete :sql %s\n", sql);
-					pasDbExecSqlF(sql);
-					//5、删除dsuserrole中id in ids的数据
-					memset(sql, 0, sizeof(sql));
-					sprintf(sql, "delete from dsuserrole where id in (%s)", caIds);
-					printf("delete :sql %s\n", sql);
-					pasDbExecSqlF(sql);
-				}
-				//6、删除userapply中shortname=简称的数据
-				memset(sql, 0, sizeof(sql));
-				sprintf(sql, "delete from userapply where shortname in (%s)", caSelShortNames);
-				printf("delete :sql %s\n", sql);
-				pasDbExecSqlF(sql);
+    }
+    else if(!strcmp(deal_in, "delete"))
+    {
+        if(strlen(caSelShortNames) > 0)
+        {
+        	char *shortname_gbk = utf8convert(shortname_in);
+            //1、得到nwgroup中gname in 简称的gid
+            memset(sql, 0, sizeof(sql));
+            sprintf(sql, "select gid from nwgroup where gname in (%s)", caSelShortNames);
+            psCur = pasDbOpenSql(sql, 0);
+            if(psCur != NULL)
+            {
+                unsigned long gid = 0;
+                while(0 == (iret = pasDbFetchInto(psCur,
+                                                  UT_TYPE_ULONG,  sizeof(gid), &gid)) || 1405 == iret)
+                {
+                    if(strlen(caGids) == 0)
+                    {
+                        snprintf(caGids, sizeof(caGids) - 1, "%lu", gid);
+                    }
+                    else
+                    {
+                        snprintf(caGids + strlen(caGids), sizeof(caGids) - 1, ",%lu", gid);
+                    }
+                }
+                pasDbCloseCursor(psCur);
+            }
+            //2、删除nwgroup中gname in 简称的数据
+            if(strlen(caGids) > 0)
+            {
+                memset(sql, 0, sizeof(sql));
+                sprintf(sql, "delete from nwgroup where gname in (%s)", caSelShortNames);
+                printf("delete :sql %s\n", sql);
+                pasDbExecSqlF(sql);
+                //3、得到dsuser中groupid in gids的ids
+                memset(sql, 0, sizeof(sql));
+                sprintf(sql, "select id from dsuser where groupid in (%s)", caGids);
+                psCur = pasDbOpenSql(sql, 0);
+                if(psCur != NULL)
+                {
+                    unsigned long lId = 0;
+                    while(0 == (iret = pasDbFetchInto(psCur,
+                                                      UT_TYPE_ULONG,  sizeof(lId), &lId)) || 1405 == iret)
+                    {
+                        if(strlen(caIds) == 0)
+                        {
+                            snprintf(caIds, sizeof(caIds) - 1, "%lu", lId);
+                        }
+                        else
+                        {
+                            snprintf(caIds + strlen(caIds), sizeof(caIds) - 1, ",%lu", lId);
+                        }
+                    }
+                    pasDbCloseCursor(psCur);
+                }
+                //4、删除dsuser中groupid in gids的数据
+                memset(sql, 0, sizeof(sql));
+                sprintf(sql, "delete from dsuser where groupid in (%s)", caGids);
+                printf("delete :sql %s\n", sql);
+                pasDbExecSqlF(sql);
+                //4.5、删除nwcompute中groupid in gids的数据
+                memset(sql, 0, sizeof(sql));
+                sprintf(sql, "delete from nwcompute where groupid in (%s)", caGids);
+                printf("delete :sql %s\n", sql);
+                pasDbExecSqlF(sql);
+                //5、删除dsuserrole中id in ids的数据
+                memset(sql, 0, sizeof(sql));
+                sprintf(sql, "delete from dsuserrole where id in (%s)", caIds);
+                printf("delete :sql %s\n", sql);
+                pasDbExecSqlF(sql);
+            }
+            //6、删除userapply中shortname=简称的数据
+            memset(sql, 0, sizeof(sql));
+            sprintf(sql, "delete from userapply where shortname in (%s)", caSelShortNames);
+            printf("delete :sql %s\n", sql);
+            pasDbExecSqlF(sql);
+        }
 
-		}
-    	
-	}
+    }
 
- 
+
     int iNum = 0;
     int count = 0;
     utPltDbHead *psDbHead = utPltInitDb();
-
+    memset(sql, 0, sizeof(sql));
     sprintf(sql, "select count(*) from userapply where 1=1 %s", sqlTmp);
 
     pasDbOneRecord(sql, 0, UT_TYPE_LONG, sizeof(count), &count);
     utPltPutVarF(psDbHead, "TotRec", "%d", count);
-
+    memset(sql, 0, sizeof(sql));
     sprintf(sql, "select sid,compname,compaddr,compsize,compphone,compfax,compweb,compmail,compband,applname,applsex,appljob,appldepart,applphone,applmobile,applmail,applqq,bindmail,shortname,clientnum,datebeg,days from userapply where 1=1 %s order by modtime desc limit %s,%s", sqlTmp, start_in, limit_in);
 
     psCur = pasDbOpenSql(sql, 0);

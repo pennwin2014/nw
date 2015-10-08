@@ -131,9 +131,9 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     //取数据
     //增加where 条件的标识
-    printf("proc before modi==%s,%s\n", sdate_in, edate_in);
+  //  printf("proc before modi==%s,%s\n", sdate_in, edate_in);
     modifyDates(sdate_in, edate_in);
-    printf("proc after modi==%s,%s\n", sdate_in, edate_in);
+  //  printf("proc after modi==%s,%s\n", sdate_in, edate_in);
 
     unsigned long stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);
