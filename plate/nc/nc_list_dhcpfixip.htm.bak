@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+self.location.href=t
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function showf(sid,name1,ip,mac) {
+    form1.sid.value=sid;
+    form1.name1.value=name1;
+    form1.ip.value=ip;
+    form1.mac.value=mac;
+}
+
+    
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function Add(){
+  if(form1.id.value==''){
+  alert('先保存DHCP基本参数');
+  return false;
+  }
+	if(form1.mac.value==''){
+		alert('Mac地址不能为空');
+		return false;
+	}
+	if(form1.ip.value==''){
+	alert('Ip地址不能为空');
+	return false;
+	}
+	return true;
+}
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+
+
+.Scrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:215px;
+    cursor: default;
+    }
+-->
+</style>
+
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" style="overflow:hidden">
+
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center >
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="id" value="[#id#]">
+	<input type="hidden" name="sid" value="[#sid#]">
+	<input type="hidden" name="sum" value="[#sum#]">
+ <tr> 
+    <td width="100%"  valign=middle align=center height="25"  >
+      <table width="100%" border="0" cellspacing="0">
+        <tr> 
+            <td height="35" > 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              	<tr height="30"><td colspan="2" style="font-size:10pt;color:#00237e;font-weight:bold;">&nbsp;
+              		(下面MAC地址的机器，IP地址将被DHCP分配为指定的IP)</td>
+            	  </tr>
+              	
+                <tr>
+                  <td >&nbsp;&nbsp;名称&nbsp;<input type="text" name="name1" size="8" >&nbsp;MAC地址 
+                    <input type="text" name="mac" size="16" value="">
+                    IP地址 
+                    <input type="text" name="ip" size="15" value="">
+                    
+                     
+                   </td>
+                  <td width="190"> <input type="submit" name="add" value="增 加" class="button" onclick="return Add()"> 
+				  
+                    <input type="submit" name="modi" value="修 改" class="button"> 
+					
+                    <input type="submit" name="del" value="删 除" class="button"> 
+                   
+                    <input type="hidden" name="FunName" value="ncWebDhcpFixIp"> 
+                </td>
+                </tr>
+              </table> 
+            </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center bgcolor="#DEE8FA">
+      <div class="Scrollw"  id="tC">
+        <table width="100%" border="0" cellspacing="0" leftmargin="10" cellpadding="0" bgcolor="#FFFFFF" height="100%">
+          <tr bgcolor="#6382BD" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td height="20"  class="bord2">&nbsp;</td>
+            <td height="18"  class="bord2">名称</td>
+            <td height="18"  class="bord2">MAC地址</td>
+            <td height="18"  class="bord4">IP地址</td>
+
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#sid#]','[#name#]','[#ip#]','[#mac#]')" > 
+            <td class="bord1" width="25"> <input type="checkbox" name="ch[#num#]" value="[#sid#]"> 
+            </td>
+            <td class="bord1">&nbsp;[#name#]</td>
+            <td class="bord1">&nbsp;[#mac#]</td>
+            <td class="bord3">&nbsp;[#ip#]</td>
+
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td class="bord1" width="25">&nbsp; </td>
+            <td class="bord1">&nbsp;</td>
+            <td class="bord1">&nbsp;</td>
+            <td class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+      </div>
+
+    </form>
+      
+</table>
+
+
+</body>
+
+</html>

@@ -1,0 +1,372 @@
+<html>
+<head>
+<title>访问控制综合设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function InitValue() {
+
+        setradio(form1.ipaccess,'[#ipaccess#]');
+        setradio(form1.httpaccess,'[#httpaccess#]');
+        setradio(form1.postsend,'[#postsend#]');
+          
+        setradio(form1.httpbyip,'[#httpbyip#]');
+        setcheck(form1.limitunit,'[#limitunit#]');
+        setradio(form1.ipbind,'[#ipbind#]');
+         
+        setradio(form1.macbind,'[#macbind#]');
+        setradio(form1.namebind,'[#namebind#]');
+  
+//        setradio(form1.overctl,'[#overctl#]');
+   
+        setradio(form1.onlyone,'[#onlyone#]');
+        setradio(form1.http80chk,'[#http80chk#]');
+        
+        
+        var temp1,temp2;
+    temp1='<select name="overid">';
+    temp1=temp1+'<option value="0">禁用</option>';
+[#SLPB#]
+    temp1=temp1+'<option value="[#pid#]">[#name#]</option>';
+[#SLPE#]
+    temp1=temp1+'</select>';
+
+   temp2='<select name="overid">';  
+[#SLPB#]
+    temp2=temp2+'<option value="[#wid#]">[#wname#]</option>';
+[#SLPE#]
+    temp2=temp2+'</select>';
+        if('[#overctl#]'=='0'){
+        	document.all.cel.innerHTML=temp1;
+        }
+        else{
+        	document.all.cel.innerHTML=temp2;
+        }
+        
+        form1.overctl.value="[#overctl#]";
+				form1.overid.value="[#overid2#]";
+	}
+
+    function SetDefault() {
+        setradio(form1.ipaccess,'9');
+        setradio(form1.httpaccess,'9');
+        setradio(form1.postsend,'9');
+        setradio(form1.httpbyip,'9');
+        setcheck(form1.limitunit,'9');
+        setradio(form1.ipbind,'9');
+        setradio(form1.macbind,'9');
+        setradio(form1.namebind,'9');
+//        setradio(form1.overctl,'9');
+        setradio(form1.onlyone,'9');
+        setcheck(form1.feeid,'9');
+        setcheck(form1.overid,'0');
+        setcheck(form1.http80chk,'0');
+	}
+
+ 	function setradio(ob,t){
+	   var j=ob.length;
+       if(t=='' || t == ' ') t = '9';
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+
+    function setcheck(ob,t){
+       j=ob.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = ob.options[i].value;
+           if(gv == t) {
+               ob.selectedIndex = i;
+           }
+       }
+    }
+    
+    function chanselect(){
+    var temp1,temp2;
+    temp1='<select name="overid">';
+    temp1=temp1+'<option value="0">禁用</option>';
+[#SLPB#]
+    temp1=temp1+'<option value="[#pid#]">[#name#]</option>';
+[#SLPE#]
+    temp1=temp1+'</select>';
+
+   temp2='<select name="overid">';  
+[#SLPB#]
+    temp2=temp2+'<option value="[#wid#]">[#wname#]</option>';
+[#SLPE#]
+    temp2=temp2+'</select>';
+
+
+    if(form1.overctl.value=='0')
+       document.all.cel.innerHTML=temp1;
+    else
+       document.all.cel.innerHTML=temp2;
+       
+    }
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"    onLoad="InitValue()" style="overflow:scroll">
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+    <tr> 
+      <td align="center"  ><br>
+        <table width="74%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>
+          	<td class="style1" align="center">缺<br>省<br>策<br>略</td>
+            <td valign="top"> 
+              <table width="90%" border="0" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0" align="center">
+                <tr>            
+                			<td width="5%">&nbsp;</td>
+		                  <td height="26">直接使用策略</td>
+		                  <td height="26">[#polid#]</td>
+		                 </tr>
+		                <tr>
+		                 <td >&nbsp;</td>
+		                  <td height="26" width="27%"><div align="left">缺省网络访问策略</div></td>
+		                  <td height="26"><input name="ipaccess" type="radio" value="1">允许 
+		                 <input name="ipaccess" type="radio" value="0"> 禁止
+		                 <input name="ipaccess" type="radio" value="9"> 未设置                  </td>
+		                </tr>
+
+                <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td height="26">缺省网站访问策略</td>
+                  <td height="26"><input name="httpaccess" type="radio" value="1">
+                    允许
+    								<input name="httpaccess" type="radio" value="0">
+  									禁止
+  									<input name="httpaccess" type="radio" value="9">
+ 								 未设置 </td></tr>
+                <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td height="26"><div align="left">在Web上发送表单
+                  </div></td>
+                  <td height="26"><input name="postsend" type="radio" value="1">
+									允许
+  								<input name="postsend" type="radio" value="0">
+									禁止
+										<input name="postsend" type="radio" value="9">
+										未设置 </td>
+                </tr>
+                <tr>
+                  <td width="5%">&nbsp;</td> 
+                  <td height="26" width="27%"><div align="left">用IP地址访问网站
+                  </div></td>
+                  <td width="62%" height="26"><input name="httpbyip" type="radio" value="1">                  
+                    允许
+  										<input name="httpbyip" type="radio" value="0">
+									禁止
+										<input name="httpbyip" type="radio" value="9">
+									未设置 </td></tr>	 
+									
+									
+				        <tr>
+                  <td width="5%">&nbsp;</td> 
+                  <td height="26" width="27%"><div align="left">80端口使用非http协议
+                  </div></td>
+                  <td width="62%" height="26"><input name="http80chk" type="radio" value="0">                  
+                    允许
+  										<input name="http80chk" type="radio" value="1">
+									禁止
+										<input name="http80chk" type="radio" value="9">
+									未设置 </td></tr>	 
+									
+									            
+              </table>
+            </tr>
+            <tr>
+            	<td class="style1" align="center">访<br>问<br>限<br>制</td>
+            	<td>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td >限制周期</td>
+                  <td ><select name="limitunit">
+                    <option value="1">每日</option>
+                    <option value="2">每周</option>
+                    <option value="3">每月</option>
+                    <option value="4">全部</option>
+                    <option value="9" selected>未设置</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td width="5%" >&nbsp;</td> 
+                  <td width="27%" >访问时间限制</td>
+                  <td width="62%" >                  <input type="text" name="timelimit" value="[#timelimit#]" size="12" maxlength="12">
+                    分钟</td></tr>
+                <tr>
+                  <td >&nbsp;</td>
+                  <td height="28" >访问流量限制</td>
+                  <td height="28">    <input type="text" name="flowlimit" value="[#flowlimit#]" size="12" maxlength="12">
+                    MBytes </td>
+                </tr>
+                <tr>
+                  <td  >&nbsp;</td> 
+                  <td width="27%" height="28" >超出后<select name="overctl" style="width:100" onchange="chanselect()"><option value="0">使用服务策略</option><option value="1">使用网址类别</option></select></td>
+                  <td width="62%" height="28" id="cel"><select name="overid">
+<option value="0">禁用</option>
+[#SLPB#]
+<option value="[#pid#]">[#name#]</option>
+[#SLPE#]
+</select></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+          	<td class="style1" align="center">计<br>算<br>机<br>绑<br>定</td>
+            <td>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td width="5%" >&nbsp;</td> 
+                  <td width="27%" ><div align="left">MAC地址和用户</div></td>
+                  <td width="62%" ><input name="macbind" type="radio" value="1">
+									绑定                    
+  								<input name="macbind" type="radio" value="0">
+									不绑定  
+									<input name="macbind" type="radio" value="9">
+									未设置 </td>
+                </tr>
+                <tr>
+                  <td >&nbsp;</td>
+                  <td >
+                    <div align="left">IP地址和用户                  </div></td>
+                  <td ><input name="ipbind" type="radio" value="1">
+								绑定
+  							<input name="ipbind" type="radio" value="0">
+								不绑定
+								<input name="ipbind" type="radio" value="9">
+								未设置 </td>
+                </tr>
+                <tr>
+                  <td >&nbsp;</td>
+                  <td >
+                    <div align="left">计算机名和用户                  </div></td>
+                  <td ><input name="namebind" type="radio" value="1">
+									绑定
+  								<input name="namebind" type="radio" value="0">
+								不绑定
+								<input name="namebind" type="radio" value="9">
+									未设置</td>
+                </tr>
+                <tr>
+                  <td >&nbsp;</td>
+                  <td >
+                    <div align="left">同一时间允许在线</div></td><td ><input name="onlyone" type="radio" value="1">
+一个                      
+  <input name="onlyone" type="radio" value="0">
+不限制
+<input name="onlyone" type="radio" value="9">
+未设置</td>
+                </tr>
+              </table>
+  <!--            <table width="90%" border="0" align="center">
+                <tr> 
+                  <td><div align="center"><span class="style1">费用策略</span></div></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td width="11%">&nbsp;</td> 
+                  <td width="27%" height="19">使用计费策略</td>
+                  <td width="62%">[#feeid#]</td>
+                </tr>
+              </table>
+ -->             
+              </td>
+          </tr>
+          
+          
+            <tr>
+            	<td class="style1" align="center"><br>异<br>常<br>阀<br>值<br>设<br>定<br>&nbsp;</td>
+            	<td>
+              <table width="90%" border="0" align="center">
+              	 <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td width="30%">告警标识
+                  <td width="50%"><select name="warntype">                   
+                    <option value="0">不告警</option>
+                    <option value="1">告警</option>
+                    <option value="2">禁用</option>
+                    <option value="9">未设置</option>
+                    </select></td>
+                  
+                </tr>
+                <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td width="30%"><select name="pkgflags">                   
+                    <option value="1">发送</option>
+                    <option value="2">接收</option>
+                    <option value="0">全部</option>
+                    </select>&nbsp;每分数据包数量大于</td>
+                  <td ><input type="text" name="pkgmax" value="[#pkgmax#]" size="12" maxlength="12">&nbsp;个</td>
+                </tr>
+                <tr>
+                  <td width="5%">&nbsp;</td>
+                  <td ><select name="flowflags">                   
+                    <option value="1">发送</option>
+                    <option value="2">接收</option>
+                    <option value="0">全部</option>
+                    </select>&nbsp;每分流量大于</td>
+                  <td ><input type="text" name="flowmax" value="[#flowmax#]" size="12" maxlength="12">&nbsp;bytes</td>
+                </tr>
+                <tr>
+                  <td >&nbsp;</td>
+                  <td height="28" >每分IP连接数大于</td>
+                  <td height="28" align="left"> <input type="text" name="ipmax" value="[#ipmax#]" size="12" maxlength="12">
+                    个 </td>
+                </tr>
+               
+              </table>
+            </td>
+          </tr>
+          
+          
+        </table></td>
+    </tr>
+    <tr>
+      <td  align="center"  height="35"><table width="50%" border="0" align="center">
+          <tr> 
+            <td height="26"> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebSetLimSummary">
+                <input type="hidden" name="gtype" value="[#gtype#]">
+                <input type="hidden" name="id" value="[#id#]">
+                <input type="hidden" name="sid" value="[#sid#]">
+                <input type="hidden" name="name" value="[#name#]">
+                <input type="submit" name="save" value="保 存" class="an3">
+&nbsp;                &nbsp; 
+                <input type="reset" name="cancel" value="取消" class="an3-1">
+                &nbsp;
+                <input type="button" name="cancel2" value="置为缺省" class="an3-1" onClick="SetDefault()"> 
+            &nbsp; </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+<script>form1.pkgflags.value="[#pkgflags#]";
+				form1.flowflags.value="[#flowflags#]";
+				form1.warntype.value="[#warntype#]";
+
+			</script>
+</body>
+</html>

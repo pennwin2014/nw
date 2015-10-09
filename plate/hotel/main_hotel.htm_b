@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>公共场所上网管理系统</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-size: 9pt;
+	color: #333333;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #0148b2;
+	;
+}
+a:link {
+	color: #333333;
+}
+a:visited {
+	color: #666666;
+}
+a:hover {
+	color: #333333;
+}
+a:active {
+	color: #333333;
+}
+-->
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+var currentTab;
+preTn="tabh0";
+function changeTabs(){
+	var lenstr;
+	var lenstr1;
+	var i;	
+	lenstr=window.event.srcElement.className;
+	if(lenstr.length==5){
+  eval(preTn).className=preTn;
+	lenstr1=lenstr+"_1";
+	eval(lenstr).className=lenstr1;
+	preTn=lenstr;
+ }
+}
+function goto2(t1,t2){
+	sbpm_left.location.href=t1;
+	sbpm_right.location.href=t2;
+	
+//	document.all.wlj3.innerHTML=temp_desc;
+}
+function tc(){
+	 if(confirm("你真得要退出系统吗?")) {
+	 	self.close();
+}
+}
+function wqp()
+{
+ a=screen.width-3;
+  b=screen.height;
+  window.moveTo(1,1);
+  window.resizeTo(a,b);
+}
+
+</script>
+</head>
+
+<body onclick="changeTabs()" onload="wqp();">
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="2" bgcolor="#013583"><div align="left"></div></td>
+  </tr>
+  <tr>
+    <td height="42">
+      <div align="right">
+        <table width="100%" height="42"  border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="75%"><div align="left">
+              <table width="850" height="42" border="0" cellpadding="0" cellspacing="1">
+                <tr>
+                  <td ID="tabh0" CLASS="tabh0_1" width="80" onclick=goto2("/pronline/Msg?FunName@ncWebShowFirstLeft","/pronline/Msg?FunName@ncWebShowFirstRight")></td>
+                  <td ID="tabh1" CLASS="tabh1" width="104" onclick=goto2("/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_syssettree2.htm","/pronline/Msg?FunName@ncWebSystemSet_par")> </td>
+                  <td ID="tabh2" CLASS="tabh2" width="114" onclick=goto2("/nc_usermgr_left.htm","/pronline/Msg?FunName@ncWebUserSearch")></td>
+                  <td ID="tabh3" CLASS="tabh3" width="104" onclick=goto2("/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm","/pronline/Msg?FunName@ncWebReplace&opmsg@1060&plate@nc/nc_ssjk_lab_hotel.htm")></td>
+                  <td ID="tabh4" CLASS="tabh4" width="114" onclick=goto2("/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm","/pronline/Msg?FunName@ncWebReplace&opmsg@1071&plate@nc/nc_gdrz_lab_hotel.htm")></td>
+                  <td ID="tabh9" CLASS="tabh9" width="104" onclick=goto2("/pronline/Msg?FunName@ncWebUserTree&fname@ncWebLim_Dispmenu&plate@tree/tree_menu_lim.htm","/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0")></td>
+              <td ID="tabh8" CLASS="tabh89" width="104" onclick=goto2("/nc_billoptor_tree.htm","/pronline/Msg?FunName@ncWebBilUserList")></td>
+
+                  <td ID="tabh5" CLASS="tabh5" width="104" onclick=goto2("/nc_sysqoptor_tree.htm","/pronline/Msg?FunName@ncWebShowSystemInfo")></td>
+                  <td ID="tabh6" CLASS="tabh6" width="80" onclick=goto2("/pronline/Msg?FunName@ncWebShowFirstLeft","/pronline/Msg?FunName@ncWebWait&plate@nc/ncmsg_goto.htm")></td>
+                 <td ID="tabh7" CLASS="tabh7" width="80" onclick="tc()"></td> 
+                  <td></td>
+                </tr>
+              </table>
+            </div></td>
+            <td width="25%"><div align="left"><img src="/images/logo.jpg" width="160" height="42"></div></td>
+          </tr>
+        </table>
+    </div></td>
+  </tr>
+  <tr>
+    <td height="4"><div align="left"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="15%" height="6" bgcolor="#8CB4E8"></td>
+        <td width="16" height="6"><img src="/images/yuanjiao.gif" width="16" height="6"></td>
+        <td width="84%" height="6" bgcolor="#8CB4E8"></td>
+      </tr>
+      <tr>
+        <td width="15%" bgcolor="#BFD7F9" valign="top">
+        	<iframe name="sbpm_left" src="/pronline/Msg?FunName@ncWebShowFirstLeft" width=154 height=612 frameborder="no"  ></iframe>
+        	</td>
+        <td width="16" height="610" align="center" valign="middle" background="/images/yuanjiao-1.gif"></td>
+        <td width="84%" bgcolor="#BFD7F9" valign="top">
+        	<iframe name="sbpm_right" src="/pronline/Msg?FunName@ncWebShowFirstRight" scrolling="no" width=100% height=632  FrameBorder=0></iframe>       	
+        	</td>
+      </tr>
+      <tr>
+        <td width="15%" bgcolor="#8CB4E8"></td>
+        <td width="16" height="6"><img src="/images/yuanjiao-2.gif" width="16" height="6"></td>
+        <td width="84%" bgcolor="#8CB4E8"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+     
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

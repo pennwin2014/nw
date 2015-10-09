@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<html >
+<head>
+<!-- Force IE9 Standards mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+
+<title>新网程内网管理系统 V3.0.1</title>
+	<style>
+		.bodyCls{
+			background-color:#E1F8FD;
+		}
+		.mainCls{
+			width: 1080px;
+			margin:100px auto;
+		}
+		.loginCls1{
+			width:1080px;
+			height:409px;
+			background-image:url(./v8/images/login/nw007.png) !important;
+			background-repeat: no-repeat;
+			padding: 11px;
+		}
+		.back1{
+			width:529px;
+			height:387px;
+			float:left;
+			background-image:url(./v8/images/login/nw002.jpg) !important;
+		}
+		.back2{
+			width:529px;
+			height:387px;
+			float:left;
+			background-image:url(./v8/images/login/nw003.jpg) !important;
+		}
+		.titleCls{
+			margin:0px 0px 0px 20px;
+		}
+		.footCls{
+			width:560px;
+			margin:0px auto;
+			height:44px;
+		}
+		.footCls1{
+			font-family:"创艺简黑体";
+			color:#01B6DE;
+			font-size:12px;
+			margin:0 0 0 10px;
+		}
+		.footCls2{
+			font-family:"微软雅黑";
+			color:#999999;
+			font-size:12px;
+			margin:15px 0 0 28px;
+		}
+		.formCls{
+			margin:160px 0 0 120px;
+		}
+		.labelCls{
+			padding: 2px 0 2px 0;
+			font-family:"微软雅黑";
+			color:#333333;
+			margin: 5px 0 0 0;
+		}
+		.inputCls{
+			border:1px solid #999999;
+			height:20px;
+			width:170px;
+			margin: 5px 0 0 0;
+		}
+		.btnCls{
+			margin:30px 0 0 10px;
+		}
+	</style>
+	
+	<script>
+		function checkValue(){
+		  //alert(document.getElementById("form1").setupType.checked);
+			if(document.getElementById("form1").setupType.checked==false){
+			  document.getElementById("form1").setupType.value = '0';
+			}
+			return true;
+		}
+	</script>
+</head>
+	<body class="bodyCls">
+	  <div style="width:400px;margin:80px auto;font-family:黑体;font-size:35px;">内网客户端安装包下载</div>
+	  <div style="width:800px;height:300px;margin:0 auto;border-style:solid;border-width:1px;">
+	    <form id="form1" action="/pronline/Msg" method="get" style="width:250px;height:200px;margin:50px auto;" onSubmit="checkValue()">
+	      <input type="hidden" name="FunName" value="lan_setupUpload" />
+	      
+	      <input type="checkbox" name="setupType" value='1'/>静默安装<br/><br/>
+        系统版本：<select name="sysVersion">
+          <option value="1" selected="selected">win7 32bit及老版本</option>
+          <option value="2">win8 32bit</option>
+          <option value="3">win7、win8 64bit</option>
+        </select>
+        <br/><br/>
+        <input type="submit" value="&nbsp;下&nbsp;&nbsp;&nbsp;载&nbsp;" style="margin:0 0 0 80px"/>
+      </form>
+	  </div>
+	</body>
+</html>

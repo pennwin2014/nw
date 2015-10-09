@@ -1,0 +1,190 @@
+<html>
+
+<head>
+<title>对比报表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<style>
+	.styletab {
+  font-size: 13px;
+  text-align:right;
+	color: black;	
+	font-weight: bold;
+}
+</style>
+<script src="/js/ajax.js"></script>
+<script>
+	
+function changreport(){
+callServer();
+
+}
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncReportPlateList_comp&reporttype@'+form1.reporttype.value+'&xx@'+Math.random()*999;
+   
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+
+ //   var response = xmlHttp.responseText;   
+
+  document.getElementById("replog").innerHTML =xmlHttp.responseText;
+
+
+   }
+ 
+ }
+	
+	
+function allChecked(){
+  
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+  			    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked){
+  			   form1.submit();
+  			   return;
+            }
+			
+        }
+       if(typeof(document.all.DataTable.rows[i].cells[1].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[1].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[1].childNodes[0].type=="checkbox") {
+  			    if(document.all.DataTable.rows[i].cells[1].childNodes[0].checked){
+  			    form1.submit();
+  			    return;
+            }
+			
+        }
+        
+        
+        
+        
+        }
+ 	
+ 	alert('请选择要对比的报表');
+
+}
+	
+	
+	
+
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  >
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+	  <input type="hidden" name="FunName" value="ncShowCompReport">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+
+              定义对比报表统计条件</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <div align="center"> <b>
+          </b></div>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+        <table width="90%" border="0" align="center" >
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 报表类型</td>
+                  <td width="33%"> <div align="left"><select name="reporttype" style="width:150px" onchange="changreport()">
+                  	<option value="">选择报表类型</option>
+                  	<option value="2">网站访问排行</option>
+                  	<option value="1">服务目标IP排行</option>
+                  </select>
+                  	
+                  	</div></td>
+                  <td colspan="3"> <div align="center"><font color="#000000"></font></div>
+                    <div align="center"><font color="#000000"> </font></div>
+                    <div id="plabel" align="center"><font color="#000000"> </font></div></td>
+                </tr>
+               
+              
+              </table>
+            </td>
+          </tr>
+          
+          <tr  >
+          	<td id="replog" style="height:320px;overflow-y:scroll" valign="top">
+          	</td>
+          </tr>
+          
+          
+          
+          
+          
+          
+          
+          
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td height="50" colspan="2">
+<table width="90%" border="0" align="center">
+        <tr> 
+          <td> <div align="center">
+              <input name="Buttonqr" type="button" class="an3" onClick="allChecked()" value="确 认">
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+ </form>
+
+</table>
+</body>
+</html>

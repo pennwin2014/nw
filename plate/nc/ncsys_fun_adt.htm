@@ -1,0 +1,271 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script language="javascript">
+function editpq(){
+	var temp_src='/main_confrm.htm';
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:470px');
+}
+
+function editsnpt(){
+	var temp_src='/main_snmpfrm.htm';
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:680px;scroll:yes;dialogHeight:470px');
+}
+function editdeny(){
+	var temp_src='/main_deny.htm';
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:680px;scroll:yes;dialogHeight:470px');
+}
+
+
+function trestart(){
+	if(confirm('重启系统需要等待几分钟，您真的要重启系统吗?')){
+		return true;
+	}
+	return false;
+}
+
+function testlink(){
+	var temp_src='/main_connecttip.htm';
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:450px;scroll:yes;dialogHeight:300px');
+}
+
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:auto">
+<form name="form1" method="post" action="/pronline/Msg">
+	
+	
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr><td height="10">&nbsp;</td></tr>
+    <tr> 
+      <td >
+      	
+        <table width="100%" border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td> <table width="95%" border="0" align="center">
+   <!--            
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                    <input type="checkbox" name="bandwidth" value="checkbox"  [#bandwidth#]>
+                    带宽管理</b>(可以管理用户的最大带宽)</td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+ -->
+                <tr> 
+                  <td width="17%" height="25"> <b> </b></td>
+                  <td width="71%"> <div align="left"><b> 
+                      <input type="checkbox" name="timecontrol" value="checkbox" [#timecontrol#]>
+                      时间控制</b>(可以控制每个用户在指定时间内最大上网时间)</div></td>
+                  <td width="12%"> <div align="left"></div></td>
+                </tr>
+                <tr>
+                  <td height="25">&nbsp;</td>
+                  <td height="19"><b>
+                    <input type="checkbox" name="flowcontrol" value="checkbox" [#flowcontrol#]>
+流量控制</b>(可以控制每个用户在指定时间内最大上网流量)</td>
+                  <td height="19">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="25">&nbsp;</td>
+                  <td height="19"><b>
+                    <input type="checkbox" name="mailmonitor" value="checkbox" [#mailmonitor#]>
+邮件内容监控 </b>(可以监控用户收发邮件的内容)</td>
+                  <td height="19">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%" height="19"><b> 
+                    <input type="checkbox" name="immonitor" value="checkbox" [#immonitor#]>
+                    即时通信内容</b>(可以监控ICQ、MSN、雅虎通等即时通信内容)</td>
+                  <td width="12%" height="19">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%" height="19"><b> 
+                    <input type="checkbox" name="GetQqContent" value="checkbox" [#GetQqContent#]>
+                    启用不装客户端监控QQ内容功能&nbsp;&nbsp;QQ号码最大数目&nbsp;<input type="text" name="MaxQqNumber" size="5" value="[#MaxQqNumber#]"></b></td>
+                  <td width="12%" height="19">&nbsp;</td>
+                </tr>
+                
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                    <input type="checkbox" name="formmonitor" value="checkbox"  [#formmonitor#]>
+                    WEB表单监控</b>(可以控制通过Web向外发送的表单)</td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                    <input type="checkbox" name="mailcontrol" value="checkbox" [#mailcontrol#]>
+                    邮件拦截</b>（可以拦截、过滤用户外发的邮件)</td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                    <input type="checkbox" name="webdatabase" value="checkbox" [#webdatabase#]>
+                    Web地址库</b>(根据Web地址库对网站访问进行控制)</td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                    <input type="checkbox" name="ntauth" value="checkbox"  [#ntauth#]>
+                    NT域验证</b>(使用NT域用户上网的管理)</td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                <input type="checkbox" name="StartVidOnline" value="checkbox"  [#StartVidOnline#]>&nbsp;搜集虚拟身份帐号</b>(对即时通讯、邮件、游戏、FTP等帐号进行整理)&nbsp;<b>超时时间</b>&nbsp;<input type="text" name="VidTimeOut" size="3" value="[#VidTimeOut#]">秒
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="StartCvtCont" value="checkbox"  [#StartCvtCont#]>&nbsp;启用内容查询功能</b>(用邮件、表单内容作为关键字进行查询)
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="StartProxyCheck" value="checkbox"  [#StartProxyCheck#]>&nbsp;启用代理服务器检测功能</b>(检测内网机器是否安装了代理服务器)
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="StartPortBase" value="checkbox"  [#StartPortBase#]>&nbsp;启用交换机端口管理</b>(启用后需在“网络设置”的“交换机端口”中设置管理的IP段)
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="GetVlanId" value="checkbox"  [#GetVlanId#]>&nbsp;启用VLANID管理</b>(启用后需在“网络设置”的“VlanID”中设置管理的IP段)
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+               <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td colspan="2"><b> 
+                <input type="checkbox" name="StartNcClient" value="checkbox"  [#StartNcClient#]>&nbsp;启用连接管理中心进程</b>&nbsp;&nbsp;<b>帐号</b>&nbsp;<input type="text" name="NcName" value="[#NcName#]" size="14"><b>场所名称</b>&nbsp;<input type="text" name="YourDispName" value="[#YourDispName#]" size="20">&nbsp;<b>配置文件</b>&nbsp;<input type="text" name="ProxyCnfFile" value="[#ProxyCnfFile#]" size="14">
+                    </td>
+                
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="next" value="编辑配置文件" class="an3-1" onclick="editpq()">
+                    &nbsp;&nbsp;&nbsp;<input type="button" name="next" value="测试" class="an3" onclick="testlink()">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>当前连接状态：[#ljstatus#]</b>
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="StartIntelNet" value="checkbox"  [#StartIntelNet#]>&nbsp;启用客户端管理进程</b>(桌面安装客户端软件)
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="menubyrole" value="checkbox"  [#menubyrole#]>&nbsp;启用根据系统角色动态生成菜单功能</b>
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                 <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                  <input type="checkbox" name="StartSnmpMac" value="checkbox"  [#StartSnmpMac#]>&nbsp;启用Snmp获取MAC地址&nbsp;配置文件名</b>&nbsp;<input type="text" name="ncswitch" value="[#ncswitch#]" size="16">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="next" value="编辑配置文件" class="an3-1" onclick="editsnpt()">
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                <input type="checkbox" name="FirstSendHtml" value="checkbox"  [#FirstSendHtml#]>&nbsp;首次上网浏览网站</b>&nbsp;&nbsp;<b>网站域名</b>&nbsp;<input type="text" name="Firstwebsite" value="[#Firstwebsite#]" size="18">&nbsp;<b>配置文件</b>&nbsp;<input type="text" name="FirstHtmlFile" value="[#FirstHtmlFile#]" size="12" readonly>
+                    </td>
+                  <td width="12%">&nbsp;<input type="button" name="next" value="测试" class="an3" onclick="testwebsite()"></td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                <input type="checkbox" name="SendDenyHtml" value="checkbox"  [#SendDenyHtml#]>&nbsp;启用阻断WEB提示</b>&nbsp;&nbsp;&nbsp;<input type="button" name="next" value="编辑提示信息" class="an3-1" onclick="editdeny()">
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="25">&nbsp;</td>
+                  <td width="71%"><b> 
+                <input type="checkbox" name="GetPostAccount" value="checkbox"  [#GetPostAccount#]>&nbsp;开启获取网站帐号功能</b>&nbsp;&nbsp;&nbsp;
+                    </td>
+                  <td width="12%">&nbsp;</td>
+                </tr>
+                
+                
+                <tr><td height="20" colspan="3"></td></tr>
+              
+    <tr>
+      <td height="30" colspan="3"> <table width="100%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebSystemSave_fun_adt">
+                <input type="submit" name="next" value="确 认" class="an3">
+                &nbsp; 
+                <input type="submit" name="app" value="应 用" class="an3">
+                
+                &nbsp; 
+              
+              </div></td>
+          </tr>
+        </table>
+</td>
+    </tr>
+                
+                
+                
+              </table></td>
+          </tr>
+        </table>
+    
+      </td>
+    </tr>
+
+  </table>
+</form>
+</body>
+</html>

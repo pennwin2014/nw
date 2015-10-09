@@ -1,0 +1,348 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>即时信息查询</title>
+<script>
+var dfd1="0"
+function goto(t){
+self.location.href=t;
+}
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#FFFF00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[1])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[1].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[1].checked="";
+            }
+        }
+ 	}
+}
+
+
+
+
+</script>
+
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<script src="/js/tablecssall.js"></script>
+<script src="/js/rmenu.js"></script>
+<script src="/js/calendar.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.style1 {
+	color: #00CCFF;
+	font-size: 10px;
+	font-weight: bold;
+}
+.tScrollw {
+
+    overflow: scroll;
+    overflow-x:hidden;
+    height:458px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+
+    height: 18px; 
+    text-align: center;
+    }
+ .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	}        
+-->
+</style>
+<script>
+	function mprint()
+	{
+//	window.open(t,'RUNMIT_New','left=100,top=200,width='+610+',height='+480+',fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0')
+	self.print();
+	}
+function passdate()
+{
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#333333;">[#title_name#] 聊天记录</b>';
+}
+
+function qr(){
+  if(form1.username.value!=form1.old_dispname.value){
+  form1.userid.value='';
+  }
+	parent.form1.userid.value=form1.userid.value;
+	parent.form1.groupid.value=form1.groupid.value;
+	parent.form1.sdate.value=form1.sdate.value;
+	parent.form1.sdate1.value=form1.sdate1.value;
+	parent.form1.edate.value=form1.edate.value;
+	parent.form1.edate1.value=form1.edate1.value;
+	parent.form1.to.value=form1.to.value;
+	parent.form1.funcode.value=form1.funcode.value;
+	parent.form1.username.value=form1.username.value;
+	parent.form1.idfyno.value=form1.idfyno.value;
+	parent.form1.from.value=form1.from.value;
+	parent.form1.service.value=form1.service.value;
+	parent.form1.ip.value=form1.ip.value;
+	parent.form1.mesg.value=form1.mesg.value;
+
+}
+
+function cleara(){
+form1.userid.value='';
+form1.groupid.value='';
+form1.sdate.value='';
+form1.edate.value='';
+form1.sdate1.value='';
+form1.edate1.value='';
+form1.username.value='';
+form1.idfyno.value='';
+form1.ip.value='';
+form1.old_dispname.value='';
+form1.to.value='';
+form1.from.value='';
+form1.funcode.value='';
+form1.service.value='';
+form1.mesg.value='';
+
+parent.form1.userid.value='';
+parent.form1.groupid.value='';
+parent.form1.sdate.value='';
+parent.form1.edate.value='';
+parent.form1.sdate1.value='';
+parent.form1.edate1.value='';
+
+parent.form1.username.value='';
+parent.form1.idfyno.value='';
+parent.form1.ip.value='';
+
+parent.form1.to.value='';
+
+parent.form1.from.value='';
+parent.form1.funcode.value='';
+parent.form1.service.value='';
+parent.form1.mesg.value='';
+
+}
+
+function dosort(flag){
+
+if(flag=='1'){
+ form1.osort.value='date';
+
+ }
+ else if(flag=='2'){
+ form1.osort.value='from';
+ }
+ else if(flag=='3'){
+ form1.osort.value='to';
+ }
+ else if(flag=='4'){
+ form1.osort.value='service';
+ }
+  else if(flag=='5'){
+ form1.osort.value='userid';
+ }
+ else{
+ form1.osort.value='';
+ }
+
+ qr();
+ form1.submit();
+}
+
+function showiminfo(from,to,sd){
+	var temp="/pronline/Msg?FunName@ncWebReplace&plate@nc/im_det_frm.htm&from@"+from+"&to@"+to+"&sdate@"+sd+"&edate@"+form1.edate.value+"&sdate1@"+form1.sdate1.value+"&edate1@"+form1.edate1.value;
+
+window.open(temp,'open_report','height=600, width=600, top=100, left=200,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+
+// showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:600px;scroll:no;dialogHeight:600px');
+}
+
+
+
+</script>
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#eaf3f5" style="overflow:hidden" onload="passdate()">
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="old_dispname" value="[#dispname#]">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebImHsearch">
+	<input type="hidden" name="plate2" value="nc/nc_im_listnow.htm">
+	<input type="hidden" name="del" value="">
+	<input type="hidden" name="plate"      value="nc/nc_im_listnow.htm">
+	<input type="hidden" name="where"      value="[#where#]">
+	<input type="hidden" name="userid" value="[#userid#]">
+	<input type="hidden" name="groupid" value="[#groupid#]">
+		<input type="hidden" name="osort" value="[#ordera#]">
+<table border="0" width=100% height=100% cellspacing="0"  cellpadding="0" align=center bgcolor="red" >
+  <tr> 
+      <td width="100%"  valign=top align=center height="30" bgcolor="#eaf3f5" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0">
+
+  <tr>
+      <td width="100%"  valign=top align=center bgcolor="#DEE8FA"> 
+     <div class="tScrollw" id="tC"> 	
+        <table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr height="18" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD"> 
+
+            <td width="92"   class="bord2" style="cursor:hand;" ondblclick="dosort('5')"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;姓名</font></div></td>
+            <td width="92"   class="bord2"> 
+            <div align="center"><font color="#FFFFFF" style="cursor:hand;" ondblclick="dosort('5')">&nbsp;源ip地址</font></div></td>
+            <td width="80"   class="bord2" style="cursor:hand;" ondblclick="dosort('5')"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;部门</font></div></td>
+            <td width="90"  class="bord2" style="cursor:hand;" ondblclick="dosort('1')"> <div align="center"><font color="#FFFFFF">&nbsp;时间</font></div></td>
+            <td width="45"  class="bord2" style="cursor:hand;" ondblclick="dosort('4')"><div align="center"><font color="#FFFFFF">服务</font></div></td>
+            <td width="92"   class="bord2" style="cursor:hand;" ondblclick="dosort('2')"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;发送者</font></div></td>
+            <td width="92"   class="bord2" style="cursor:hand;" ondblclick="dosort('3')"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;接收者</font></div></td>
+            <td width="55"   class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;消息类别</font></div></td>
+            <td   class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;内容</font></div>              </td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" )"> 
+
+            <td   class="bord1" title="&nbsp;[#username#]">&nbsp;<a href="#xxm" onclick="showiminfo('[#from1#]','[#to1#]','[#sdate#]','[#userid#]')">[#username#]</a></td>
+            <td   nowrap class="bord1" title="&nbsp;[#sip#]">&nbsp;[#sip#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#dept#]">&nbsp;[#dept#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#sdate#]">&nbsp;[#sdate#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#service#]">&nbsp;[#service#]</td>           
+            <td    class="bord1" title="&nbsp;[#from#] ">&nbsp;[#from#] </td>
+            <td    class="bord1"  title="&nbsp;[#to#] ">&nbsp;[#to#] </td>
+            <td   nowrap class="bord1" title="&nbsp;[#funcode_desc#]">&nbsp;[#funcode_desc#] </td>
+            <td    class="bord3"  title="&nbsp;[#mesg#] ">&nbsp;[#mesg1#]<font color="#0000ff">[#mesg#]</font> [#mesg2#]&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="18" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"> 
+            <td   class="bord1" title="[#snum#]" >&nbsp;</td>
+            <td   class="bord1">&nbsp;</td>
+            <td   class="bord1">&nbsp;</td>
+            <td   class="bord1">&nbsp;</td>
+            <td   class="bord1">&nbsp;</td>
+            <td   class="bord1">&nbsp; </td>
+            <td   class="bord1">&nbsp; </td>
+            <td   class="bord1">&nbsp;</td>
+            <td   class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+       </div>
+</td>
+  </tr>
+  
+  
+  
+    	  	       	  <tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td width="100" align="center">&nbsp;上网时间</td>
+          	  	     	<td width="150"><input type="text" name="sdate" value="[#sdate#]" size="11" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="sdate1" value="[#sdate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="75" align="center">&nbsp;到</td>
+          	  	     	<td width="155"><input type="text" name="edate" value="[#edate#]" size="11" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-19px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-17px;" name="edate1" value="[#edate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="60" align="center">&nbsp;发送者</td>
+          	  	     	<td ><input type="text" name="from" value="[#from#]" size="17"></td>
+          	  	     	<td width="80">&nbsp;服务类别</td>
+          	  	     	<td width="90"><select name="service" style="width:60">
+                      <option value="">全部</option>
+                      [#SLPB#]
+                      <option value="[#msid#]">[#mname#]</option>
+                      [#SLPE#]
+                     
+                    </select></td>
+          	  	     	<td width="110" align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td  align="center">&nbsp;用户名</td>
+          	  	     	<td ><input type="text" name="username" value="[#dispname#]" size="21" >
+
+          	  	     		</td>  
+          	  	     	<td  align="center" >&nbsp;证件号</td>
+          	  	     	<td ><input type="text" name="idfyno" value="[#idfyno#]" size="17"></td>
+          	  	     	<td  align="center">&nbsp;接收者</td>
+          	  	     	<td ><input type="text" name="to" value="[#to#]" size="17"></td>
+          	  	     	<td >&nbsp;消息类别</td>
+          	  	     	<td ><select name="funcode" style="width:60px"><option value="">全部</option><option value="1">登录</option><option value="2">退出</option><option value="3">发送消息</option><option value="4">发送文件</option><option value="5">接收文件</option><option value="6">接收消息</option></select></td>  
+          	  	     	<td  align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">	    
+          	  	     	<td  align="center">&nbsp;源IP</td>
+          	  	     	<td  ><input type="text" name="ip" value="[#ip#]" size="21"></td>
+          	  	     	<td  align="center">内容</td>
+          	  	     	<td colspan="5">
+                    <input type="text" name="mesg" size="46" maxlength="44" value="[#mesg#]" > 
+                   </td>
+ 
+          	  	     	<td  align="center">&nbsp;</td>	     	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  
+  
+  
+</table>
+</form>
+
+ <script>if('[#service#]'!='') form1.service.value='[#service#]';</script>	
+ <script>if('[#funcode#]'!='') form1.funcode.value='[#funcode#]';</script>	
+
+</body>
+
+</html>

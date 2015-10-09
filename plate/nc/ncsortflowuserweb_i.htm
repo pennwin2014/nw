@@ -1,0 +1,193 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>上网排行榜</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function lprint(){
+  MM_showHideLayers('mybut','','hide')
+  window.print()
+  MM_showHideLayers('mybut','','show')
+}
+function goto(t){
+self.location.href=t
+}
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:no;dialogHeight:500px');
+}
+</script>
+<script language="JavaScript">
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+//-->
+</script>
+<style type="text/css">
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:540px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }
+ -->   
+</style>  
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden">
+<table border=0 cellspacing=0 width="100%" cellpadding=0 align="center">
+  <tr> 
+    <td id=clearStart  valign="top"> 
+      <div align="center">
+        <input type="button" name="Button" value="[#title_name#]网络访问排行榜([#sdate1#]--[#sdate2#])" class="anniu100">
+      </div>
+    </td>
+  </tr>
+  <tbody> 
+  
+  <tr>
+    <td id=clearStart height="530" valign="top" width="50%"> 
+    <form method="post" name="form1" id='interip' action="/pronline/Msg" >
+
+      <input type="hidden" name="FunName" value="ncWebSortByWeb">
+      <input type="hidden" name="group" value="[#group#]">
+	 <input type="hidden" name="plate" value="ncmsg_tj.htm">
+	  <input type="hidden" name="tjfun" value="ncWebSortByWeb">
+	  <input type="hidden" name="groupid" value="[#groupid#]">
+	  <input type="hidden" name="userid" value="[#userid#]">
+          <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%" >
+            <tr> 
+              <td height="30" colspan="4" class="ttt"> <div id="mybut" >  
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="xxm">
+                  <tr> 
+                    <td width="100%" >                    
+                      			&nbsp;TOP<input name="sunrec" size="2" style="position:relative;top:2px;" value="[#sumrec#]">
+                      			排序<select name="order" style="position:relative;top:2px;">
+                      					  <option value="流量">流量</option>
+                                          <option value="时间">时间</option>
+                                          
+                                         </select>&nbsp;
+                     时间从&nbsp;<input type='text' name='sdate' value='[#sdate1#]' size='9' ><input type='text' name='stime' value='[#stime#]' size='1' maxlength='2' >
+                     &nbsp;到&nbsp;<input type='text' name='edate' value='[#sdate2#]' size='9' > <input type='text' name='etime' value='[#etime#]' size='1' maxlength='2' >
+                     每组前&nbsp;<input name="perrec" size="2" style="position:relative;top:2px;" value="[#perrec#]">&nbsp;
+                                    			排序&nbsp;<select name="order1" style="position:relative;top:2px;">
+                      					  <option value="流量">流量</option>
+                                          <option value="时间">时间</option>
+                                         
+                                          <option value="IP地址">IP地址</option> 
+                                          <option value="网址">网址</option> 
+                                      </select>
+                                &nbsp;
+                        <input type="button" name="Search" class="an3" value="统计" onclick="form1.FunName.value='ncWebReplace';form1.submit();form1.Search.disabled=1">
+                        <input name="cx" type="button" class="an3" onClick="goto1('/pronline/Msg?FunName@ncSortDispForm+sort_flag@6+group@[#group#]')"  value="高级查询">                   
+                      <input name="save1" type="button" class="an3" onClick="lprint()"  value="打 印">
+                      
+                    <input name="exp" type="submit" class="an3" value="导 出">
+                     
+                    </td>
+                  </tr>
+                </table></div>
+            </td>
+          </tr>
+
+
+          <tr> 
+            <td colspan="3" > 
+            	<div class="tScrollw"  id="tC">
+              <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr bgcolor="#6382BD" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+                    <td width="40" height="18" class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">序号</font></div></td>
+                    <td width="200" height="18" valign="bottom" class="bord2">
+					<div  align="center"><font color="#FFFFFF">&nbsp;网址/目标IP</font></div></td>
+					<td  width="160" height="18" valign="bottom" class="bord2">
+						<div  align="center"><font color="#FFFFFF">&nbsp;用户名</font></div></td>
+				
+					<td  bgcolor="#6382BD" valign="bottom" class="bord2">
+					<div align="center"><font color="#FFFFFF">&nbsp;用户IP</font></div></td>
+                    <td width="260" height="18" valign="bottom" bgcolor="#6382BD" class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">流量[MB]</font></div></td>
+                    <td width="300" height="18" valign="bottom" class="bord2">
+					<div align="center"><font color="#FFFFFF">&nbsp;时间</font></div></td>
+
+                  </tr>
+                  <!-- [#SLPB#]-->
+                  <tr bgcolor="#FFFFFF"> 
+                    <td  class="bord1"> 
+                      <div align="center"><strong>[#num#]</strong></div></td>
+                    <td  class="bord1">&nbsp;<strong>[#host#]</strong></td>
+                    <td  class="bord1">&nbsp;</td>
+                    <td class="bord1">&nbsp;</td>
+                    <td  class="bord1" align="right"><strong>[#bytes#]</strong>&nbsp;</td>
+                    <td  class="bord3" align="right"><strong>[#ctime#]</strong>&nbsp;</td>
+
+                  </tr>
+                  [#SLPB#]
+                  <tr bgcolor="#FFFFFF"> 
+                    <td  class="bord1"> 
+                      &nbsp;</td>
+                      <td  class="bord1"> 
+                      &nbsp;</td>
+                    <td  class="bord1">&nbsp;[#username#]</td>
+                    <td class="bord1">&nbsp;[#ip#]</td>
+                    <td  class="bord1" align="right">[#bytes#]&nbsp;</td>
+                    <td  class="bord3" align="right">[#ctime#]&nbsp;</td>
+
+                  </tr>
+                  [#SLPE#]
+                  <!-- [#SLPE#] -->
+                  <tr> 
+                    <td width="72">&nbsp;</td>
+                    <td width="302">&nbsp;</td>
+                    <td width="295">&nbsp;</td>
+
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <script>
+      form1.order.value='[#order#]';
+      form1.order1.value='[#order1#]';
+      </script>
+  </tr>
+  </tbody> 
+</table>
+                      
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<style type="text/css">
+	.ansc {
+	vertical-align: top;
+	width:88px;
+	background-image: url(/images/login7-3.gif);
+	height: 22px;
+	border: 1px none;
+} 
+	.antw {
+	vertical-align: top;
+	width:88px;
+	background-image: url(/images/login7-4.gif);
+	height: 22px;
+	border: 1px none;
+} 
+</style>
+<script>
+function goto2(t)
+{
+var temp="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebNewsShowAdd&flag@1&sid@"+t;
+
+
+    var oDia=showModalDialog(temp,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:700px;scroll:none;dialogHeight:450px;overflow:none");	
+
+}
+	function goto(y){
+window.open(y,"_self","")
+
+}
+</script>
+</head>
+<body background="/images/login7-1.gif">
+ <form name="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg">
+ 	<input type="hidden" name="FunName" value="ncWebInternetLogin">
+ 	<input type="hidden" name="url" value="[#url#]" >
+  <input type="hidden" name="sid" value="[#sid#]" >
+  <input type="hidden" name="ModiPass" value="">
+	<table width="1020" align="center">
+	<tr><td colspan="2"><img src="/images/login7-6.gif"><font style="font-size:11pt;font-weight:Normal;"><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://[#ip#]/soft/setup.exe" >下载客户端</a></font></td>		  
+		</tr>
+		
+	<tr><td >
+		<table align="center">
+			<tr height="20"><td colspan="6" align="center"><font color="red">[#message#]</font></td></tr>
+			<tr height="50">
+				<td align="right"><font color="#000080">用户：</font></td>
+				<td colspan="5"><input name="username" size="20"></td>
+			</tr>
+			<tr height="30">
+				<td  align="right"><font color="#000080">密码：</font></td>
+				<td colspan="4"><input name="password" type="password" size="21"></td>
+				
+			</tr>
+			<tr height="50">
+				<td colspan="6"><input name="auth1" type="image" value="确认" src="/images/login7-2.gif" onclick="nclogin.ModiPass.value=''">&nbsp;
+					<input name="Button" type="button" value=" " class="antw" onclick="nclogin.FunName.value='ncWebInternetLogout';nclogin.submit();">&nbsp;
+					<input name="Button3" type="button" value="&nbsp;" class="ansc" onClick="window.external.AddFavorite('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin','上网验证')">&nbsp;
+					<input name="ModiPass" type="image" value="修改密码" src="/images/login7-5.gif" onclick="nclogin.ModiPass.value='ModiPass'">
+				</td>
+			</tr>
+			[#SLPB#]
+			<tr height="30">
+				<td colspan="6"><font style="font-size:11pt;font-weight:Normal;">
+					<a href="#xxm" onclick="goto2('[#sid#]')">公告[#iNum#].[#news_title#]([#stime#])</a></font>
+				</td>
+			</tr>
+		  [#SLPE#]
+		</table>
+		</td>
+		
+		<td valign="top" align="left">
+			</td>
+		
+		</tr>
+	<tr><td colspan="2"><img src="/images/login7-8.gif" ></td></tr>
+	</table></form>
+</body></html>

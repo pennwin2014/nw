@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+</head>
+
+<style type="text/css">
+<!--
+
+a:link {
+	text-decoration: none;	color: #00237e;
+	cursor:hand;
+}
+a:visited {
+	text-decoration: none;	color: #00237e;
+	cursor:hand;
+}
+a:hover {
+	text-decoration: none;
+	color: #00237e;
+	cursor:hand;
+}
+a:active {
+	text-decoration: none;
+	color: #00237e;
+    font-weight: bold;
+    cursor:hand;
+}
+
+-->
+
+</style></head>
+<style>
+<!--
+.css1 {
+	border: 1px solid #C5C5C5;
+	height: 15px;
+	font-size: 12px;
+}
+table {
+	font-size: 12px;
+	font-family: "Arial", "Helvetica", "sans-serif";
+	 "Verdana", "Arial", "Helvetica", "sans-serif", "宋体"; 
+}
+
+
+-->
+</style>
+
+<script>
+   cp = [#CurPg#];
+   tp = [#TotPg#];
+   function gotoPage(t){
+       if(t==1) {
+           form1.app.value = "next";
+       }
+       else if(t == (-1)) {
+           form1.app.value = "prev";
+       }
+       cp = cp + t;
+       if(cp <= 0) cp = 1;
+       if(cp > tp) cp = tp;
+       
+       form1.CurPg.value = cp;
+       form1.submit();
+       return;
+   }
+   
+   function gotoRight(id){
+   top.frames.sbpm_right.form1.groupid.value='';
+   top.frames.sbpm_right.form1.userid.value=id;
+   top.frames.sbpm_right.form1.submit();
+   }   
+
+</script>
+
+
+<script>
+	function changeuser(gid,num){
+var temp="/pronline/Msg?FunName@ncWebTreeDispUserVid&plate@nc/nc_uservid.htm&userid@"+gid+"&num@"+num;
+
+document.all.xxs.src=temp;
+
+}
+
+   function gototot(userid,service,vid){
+ 
+   top.frames.sbpm_right.form1.userid.value=userid;
+   top.frames.sbpm_right.form1.vid.value=vid;
+   top.frames.sbpm_right.form1.service.value=service;
+   top.frames.sbpm_right.form1.FunName.value='ncWebImclientStatCont';
+  
+  
+   top.frames.sbpm_right.form1.submit();
+     
+   }
+function opim(num,gid){
+  if(eval('document.all.divu_'+num).style.display=='none'){  
+  eval('j_img_'+num).src='/images/minusbottom.gif';
+	eval('document.all.divu_'+num).style.display='';
+  changeuser(gid,num);
+  }
+  else{
+	 eval('document.all.divu_'+num).style.display='none';
+	 eval('j_img_'+num).src='/images/plusbottom.gif';
+	}	
+	}
+	
+   function gotoRight(uid){  
+      gototot(uid,'','');      
+   
+       
+   }
+
+ function gtu(userid,service,vid){
+
+      gototot(userid,service,vid);      
+      
+   }	
+   
+ function goto(t){
+       parent.treeBot.location.href=t;
+   }  	
+</script>
+
+<body leftmargin="0" bgcolor="#d0e1fa" topmargin="0" marginwidth="0" marginheight="0" style="SCROLLBAR-FACE-COLOR: #c1d8f9; OVERFLOW: scroll; SCROLLBAR-SHADOW-COLOR: #c1d8f9; SCROLLBAR-3DLIGHT-COLOR: #c1d8f9; SCROLLBAR-ARROW-COLOR: #5985ce; SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;">
+   <form action="/pronline/Msg" method="post" name="form1" id="form1">
+  <table  height="15" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td> <div align="left"> 
+              <input name="name" type="text"  value="[#name#]" class="css1" size="12" maxlength="31">
+              <input name="FunName" type="hidden" value="ncTreeDispImclientUser">
+              <input name="CurPg"   type="hidden" value="[#CurPg#]">
+              <input name="TotRec"  type="hidden" value="[#TotRec#]">
+              <input name="groupid"  type="hidden" value="[#groupid#]">
+              <input name="plate"   type="hidden"  value="[#plate#]">
+              <input name="app"   type="hidden"    value=" ">
+              <input name="fname"   type="hidden" value="[#fname#]">
+              <input name="bfname"   type="hidden" value="[#bfname#]">
+            </div></td>
+          <td><div align="left">
+            <script>
+                if(cp < tp) {
+                        document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 alt='转下页,共[#TotPg#]页 当前为第[#CurPg#]页' onClick='gotoPage(1);form1.submit()' class='hand'>");
+                }
+                else {
+                        document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 alt='已经是最后一页,共[#TotPg#]页 当前为第[#CurPg#]页' class='gray1'>");
+                }
+                if(cp > 1) {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 alt='转上页,共[#TotPg#]页 当前为第[#CurPg#]页' onClick='gotoPage(-1);form1.submit()' class='hand'>");
+                }
+                else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 alt='已是第一页,共[#TotPg#]页 当前为第[#CurPg#]页'  class='gray1'>");
+                }
+            </script>
+          </div></td>
+        </tr>
+        </form>
+      </table></td>
+  </tr>
+</table>
+
+<table cellSpacing=0 cellPadding=0 border=0>
+	  <tr> 
+    <td ><img src="/images/base.gif" > <a href="#xxm" onclick="gototot('','','')">聊天内容查询</a></td>
+  </tr>
+</table>
+[#SLPB#]
+<table cellSpacing=0 cellPadding=0 border=0>
+ <tr >
+  <td noWrap ><A ><img src="/images/plusbottom.gif" align=absBottom border="0" name=j_img_[#iNum#] onclick="opim('[#iNum#]','[#userid#]')"></A>
+  	<A href="#XXm" onclick=gotoRight('[#userid#]')>[#dispname#]</A>
+   </td>
+   </tr>
+  
+   </table>
+   <div id=divu_[#iNum#] style="display:none">  	
+   	</div>
+  [#SLPE#] 
+  
+      <iframe id="xxs" width="0" height="0" src="" display="no" ></iframe>
+  </body>
+ 
+</html>

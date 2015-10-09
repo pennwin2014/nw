@@ -1,0 +1,252 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+	function init(){
+		if('[#modflag#]'=='1'){
+		parent.sbpm_left.location.href='/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&fname@ncWebDispDeptForm_adt&plate@tree/tree_group_nolimit.htm';
+		}
+	}
+var dfd1="0"
+
+function DoSort(sname)
+{
+    form1.sort.value=sname;
+	form1.submit();
+}
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+    if(form1.CurPg.value>[#TotPg#])
+	    form1.CurPg.value=[#TotPg#];
+}
+
+function doexport(){
+	var temp="/pronline/Msg?FunName@ncWebUserExportCsv+cond@"+form1.cond.value;
+
+    self.location.href=temp;
+}
+
+
+function userdel()
+{
+    form1.FunName.value = "ncWebDelSomeDept";
+    form1.submit();
+}
+
+function doModiBm()
+{
+   var flag=0;
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+		{
+			flag=1;
+			break;
+		}
+	}
+	if(flag==0)
+	{
+		alert('请先选择要移动部门的用户');
+		return;
+	}
+    form1.FunName.value = "ncWebModiSomeUserBm";
+    form1.submit();
+}
+
+
+ function dispsearch()
+ {
+      window.open('/pronline/Msg?FunName@ncWebDispSuser','RUNMIT_New','left=100,top=200,width='+525+',height='+245+',fullscreen=0,toolbar=no,scrollbars=no,resizable=0,menubar=no,status=0');
+ }
+ 
+function goto(t){
+self.location.href=t+'&groupid0@[#groupid0#]&cond@[#cond#]&CurPg@[#CurPg#]'
+}
+function useradd(){
+goto('/pronline/Msg?FunName@ncWebDispUserAddForm&gid@[#groupid0#]');
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+function openDr()
+{
+    t = "/cust_dr_frm.htm";
+    
+    var oDia=showModalDialog(t,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:500px;scroll:none;dialogHeight:400px;overflow:none");	
+
+//    openwinflag=window.open(t,'address','left=200,top=300,width='+400+',height='+150+',fullscreen=0,toolbar=no,scrollbars=no,resizable=0,menubar=no,status=0');
+}
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.anuse3 { font-size: 9pt; background-color: dfdfdf; 
+  vertical-align: middle; height: 20px; width: 45px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand}
+-->
+</style>
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" style="overflow:hidden" onload="init()">
+<form name="form1" method="post" action="/pronline/Msg">
+      <input type="hidden" name="FunName" value="ncWebDeptlist">
+      <input type="hidden" name="TotPg"      value="[#TotPg#]">
+      <input type="hidden" name="CurPg"      value="[#CurPg#]"> 
+      <input type="hidden" name="groupid0" value="[#groupid0#]">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+    <tr >
+      <td valign="top" class="gdt-bg-04" height="22">
+        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr class="title">
+            <td  align="left">用户管理&gt;&gt;部门设置&gt;&gt;部门策略</td>
+            <td align="right"> 
+                <a href='#xxm' onClick='gotoPage(1);form1.submit()' class='operate'>首页</a>
+                <a href='#xxm' onClick='gotoPage([#CurPg#]-1);form1.submit()' class='operate'>上页</a>
+                <font style="font-weight:normal;">[#CurPg#]/[#TotPg#]</font>
+                <a href='#xxm' onClick='gotoPage([#CurPg#]+1);form1.submit()' class='operate'>下页</a>
+                <a href='#xxm' onClick='gotoPage([#TotPg#]);form1.submit()' class='operate'>末页</a>
+                <a href='#xxm' onClick="gotoPage(form1.browsdopage.value);form1.submit()" class='operate'>跳转到</a>
+                <input type=text onFocus="this.select()" class="input" name='browsdopage' id='pi' size="5" value="[#CurPg#]">
+                <font style="font-weight:normal;">页&nbsp;共[#TotRec#]条记录</font>
+	     </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+</table>
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+       <tr bgcolor="#DFF0F7" class="bord4_t">
+            <td width="100%" height="30" >
+              &nbsp;<input type="text"  name="cond"  size="16" maxlength="31" value="[#cond#]">
+              <input name="search" type="submit" class="an3" value="查找" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+              <input type="button" name="ba" value="添加" class="an3" onclick="self.location.href='/pronline/Msg?FunName@ncWebDispDeptAddFormProc&pid@'">
+              <input name="del" type="button" class="an3"   onclick="userdel()" value="删除" >
+             </td>
+       </tr>
+  
+  
+  
+  <tr>
+      <td width="100%" align=center  valign=top bgcolor="#DFF0F7" colspan="2"> 
+   	<div class="tScrollw"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr bgcolor="#3186A9" class="tableHead" > 
+            <td width="40" height="20"  class="bord2"> 
+              <input type="button" name="b1" value="全选" class="anniu_1"  onClick="allChecked()">
+            </td>
+            <td width="100"  class="bord2" >部门名称</td>
+            <td width="100"  class="bord2" >监视策略</td>
+            <td width="100"  class="bord2" >上网控制策略</td>
+            <td width="100"  class="bord2" >邮件拦截策略</td>
+  <!--          <td width="100"  class="bord2" >带宽管理策略</td>
+  -->
+            <td width="60"  class="bord4" align="center">编辑</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onmouseover="mouseovertr2(this)" onmouseout="mouseouttr2(this)" onDblclick="goto('/pronline/Msg?FunName@ncWebDispDeptFormProc_adt&groupid@[#groupid#]')"> 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#groupid#]"></td>
+            
+            <td   class="bord1">&nbsp;[#groupname#]</td>
+
+            <td   class="bord1">&nbsp;[#status#]</td>
+            <td   class="bord1">&nbsp;[#p_name#]&nbsp;</td>
+            <td   class="bord1">&nbsp;[#m_name#]&nbsp;</td>
+ <!--
+            <td   class="bord1">&nbsp;[#t_name#]&nbsp;</td>
+ -->
+            <td   class="bord3" align="center"><a href="/pronline/Msg?FunName@ncWebDispDeptFormProc_adt&groupid@[#groupid#]">编辑</a></td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="20" id=[#snum#]> 
+            <td   class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+ <!--
+            <td  class="bord1">&nbsp;</td>
+-->
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </div>
+
+      </td>
+  </tr>
+</table>
+ </form>
+</body>
+
+</html>

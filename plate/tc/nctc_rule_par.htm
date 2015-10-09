@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">访问控制带宽描述</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="70%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="411"> <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%">&nbsp;</td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+              
+                <tr> 
+                  <td width="17%" height="89">&nbsp;</td>
+                  <td height="89" width="67%" align="center"> <table width="100%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0">
+                      <tr height="22"> 
+                        <td width="25%"> &nbsp;</td>
+                        <td width="25%" align="center">使用带宽通道
+                        </td>
+                        <td width="25%" align="center"> 上传速率限制</td>
+                        <td width="25%" align="center"> 下传速率限制 
+                        </td>
+                        
+                      </tr>
+                      
+                       <tr height="22"> 
+                        <td width="25%" align="center"> 带宽1</td>
+                        <input type="hidden" name="name1" value="31">
+                        <td width="25%"> <select name="cname1" style="width:100%;height:100%"><option value="Default">非限制通道</option>[#SLPB#]<option value="[#cid#]">[#cname#]</option>[#SLPE#]</select>
+                        </td>
+                        <td width="25%"> <input type="text" name="urate1" size="8" value="[#urate1#]">&nbsp;Kbit</td>
+                        <td width="25%"> <input type="text" name="drate1" size="8" value="[#drate1#]">&nbsp;Kbit 
+                        </td>
+                        
+                      </tr>
+                      <tr height="22"> 
+                        <td width="25%" align="center"> 带宽2</td>
+                        <input type="hidden" name="name2" value="32">
+                        <td width="25%"> <select name="cname2" style="width:100%;height:100%"><option value="Default">非限制通道</option>[#SLPB#]<option value="[#cid#]">[#cname#]</option>[#SLPE#]</select>
+                        </td>
+                        <td width="25%"> <input type="text" name="urate2" size="8" value="[#urate2#]">&nbsp;Kbit</td>
+                        <td width="25%"> <input type="text" name="drate2" size="8" value="[#drate2#]">&nbsp;Kbit 
+                        </td>
+                        
+                      </tr>
+                      <tr height="22"> 
+                        <td width="25%" align="center"> 带宽3</td>
+                        <input type="hidden" name="name3" value="33">
+                        <td width="25%"> <select name="cname3" style="width:100%;height:100%"><option value="Default">非限制通道</option>[#SLPB#]<option value="[#cid#]">[#cname#]</option>[#SLPE#]</select>
+                        </td>
+                        <td width="25%"> <input type="text" name="urate3" size="8" value="[#urate3#]">&nbsp;Kbit</td>
+                        <td width="25%"> <input type="text" name="drate3" size="8" value="[#drate3#]">&nbsp;Kbit 
+                        </td>
+                        
+                      </tr>
+                    </table></td>
+                  <td width="16%" height="89">&nbsp;</td>
+                </tr>
+           
+                <tr> 
+                  <td width="17%"> <div align="right"><font color="#0000FF"><b></b></font></div></td>
+                  <td width="67%"><font color="#0000FF"><b></b></font></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%"> <p> 上面预定义的三个带宽参数供上网控制规则中网络服务限制使用,使用这几个参数,可以对网络服务实现带宽控制</p></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebTcRulePar">
+                <input type="submit" name="add" value="保 存" class="an3">
+                &nbsp; 
+                <input type="submit" name="app" value="应 用" class="an3">
+                &nbsp; 
+
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	if("[#cname1#]"=='')
+		form1.cname1.value="Default";
+	else
+		form1.cname1.value="[#cname1#]";
+		
+	if("[#cname2#]"=='')
+		form1.cname2.value="Default";
+	else
+		form1.cname2.value="[#cname2#]";
+		
+	if("[#cname3#]"=='')
+		form1.cname3.value="Default";
+	else
+		form1.cname3.value="[#cname3#]";
+</script>
+</body>
+</html>

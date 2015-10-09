@@ -1,0 +1,99 @@
+
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<STYLE type=text/css>
+
+</STYLE>
+<!-- .listDataTable //数据表的总风格 -->
+<!-- .listTableHead //数据表头的风格 -->
+<!-- .onMouseOnTr //鼠标移到时风格 -->
+<!-- .listTableHead0 //数据表头鼠标移到时的风格 -->
+<!-- .listHeadClicked //表头被选择时的风格 -->
+<!-- .listHeadClicked0 //表料再选择风格 -->
+
+
+<script language="JavaScript">
+<!--
+
+function goto(a)
+{
+self.location.href= a
+}
+
+
+ function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#FCF8E9";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }	
+    }
+
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+ 
+// -->
+
+</script>
+
+<style type="text/css">
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 8pt}
+.gray1 { filter:gray }
+.ddd {  font-size: 9pt; cursor: hand}
+-->
+ 
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" valign="top" >
+    <tr bgcolor="#6382BD">      
+      <td width="50" height="20" align="center" class="bord2"><font color="#FFFFFF">序号</font></td>
+      <td width="110" align="center" class="bord2"> <font color="#FFFFFF">用户名</font></td>
+      <td width="110" align="center" class="bord2"><font color="#FFFFFF"> 用户IP地址</font></td>
+      <td width="80" align="center" class="bord2"><font color="#FFFFFF"> 时间</font></td>
+      <td  align="center" class="bord2"> <font color="#FFFFFF">告警内容</font></td>        
+
+    </tr>
+
+[#SLPB#]
+    <tr bgcolor="[#bcolor#]" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"  > 
+      <td   align="center" height="18"> 
+        &nbsp;ww[#num#]</td>
+      <td > &nbsp;[#username#]</td>
+      <td >&nbsp;[#ip#]</td>
+      <td >&nbsp;[#lasttime#]</td>
+      <td> &nbsp;[#mesg#]</td>
+    </tr>
+[#SLPE#]
+ 
+  </table>
+
+</form>
+
+</body>
+
+<head>
+
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+</head>
+
+</html>                                                                                 

@@ -1,0 +1,4 @@
+序号,姓名,帐号,部门,IP地址,最近访问,进流量(字节),出流量(字节),总流量(字节),带宽(bps)
+[#SLPB#]
+[#num#],[#dispname#],[#username#],[#dept#],[#ip#],[#lasttime#],[#inbytes2#],[#outbytes2#],[#subytes2#],[#band2#]
+[#SLPE#]

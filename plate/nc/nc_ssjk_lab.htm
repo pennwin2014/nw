@@ -1,0 +1,581 @@
+<html>
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+
+
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+function setscrollvaue()
+{
+	form1.sctop.value=document.all.tC.scrollTop;
+
+}
+
+function sx()
+{
+	form1.opmsg.value='';
+
+ 	form1.submit();
+	
+}
+function openexp(){
+	window.open("/pronline/Msg?FunName@ncWebShowNewvister&expvalue@1");
+	
+}
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+self.location.href=t
+}
+
+
+var currentTab;
+var cno;
+var tabBase;
+var firstFlag = true;
+
+function changeTabs(){
+	
+if(firstFlag == true){
+currentTab = t0;
+cno=currentTab.id.substring(1);
+firstFlag = false;
+}
+
+
+if(window.event.srcElement.className == "tab4"||window.event.srcElement.className == "tab5"||window.event.srcElement.className == "tab7"||window.event.srcElement.className == "tab8"||window.event.srcElement.className == "tab9"){
+	var cno2=parseInt(cno)+1;
+	if(cno==0)
+		currentTab.className = "tab7";
+	else if(cno==8)
+		currentTab.className="tab8";
+	else
+		currentTab.className="tab5";
+
+  if(cno2<8)
+  	eval('document.all.t'+cno2).className="tab5";
+  else if(cno2==8)
+  	eval('document.all.t'+cno2).className="tab8";
+  	
+	currentTab = window.event.srcElement;
+	cno=currentTab.id.substring(1);
+	var cno1=parseInt(cno)+1;
+	if(cno==8){
+		currentTab.className = "tab6";
+	}
+  else if(cno==7){
+   currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab9";
+  }
+  else{
+	 currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab4";
+	}
+	 
+		
+	
+	
+tabContentID = currentTab.id + "Contents";
+
+//alert(currentTab.id.substring(1));
+
+tabContent = document.all(tabContentID);
+
+
+//currentTab.className = "selTab";
+
+
+var temp_desc;
+	if(tabContent.id=="t0Contents"){
+		document.all.wljtitle.innerHTML='';
+		temp_desc='<input type="text" name="cond"  size="14" maxlength="31" value="[#cond#]">';
+		temp_desc=temp_desc+'<select name="flow_flag" ><option value="">不限</option><option value="1" selected>有流量</option><option value="2">无流量</option></select>';     
+	  temp_desc=temp_desc+'排序&nbsp;<select name="sortby" style="width:60px"><option value="1">姓名</option><option value="2">部门</option><option value="3">IP地址</option><option value="4">MAC地址</option><option value="5">开始时间</option><option value="6">最后时间</option><option value="7">流量</option></select><select name="orderby" style="width:40px"><option value="1">升</option><option value="0">降</option></select>';
+	  temp_desc=temp_desc+'&nbsp;<input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value=1">';
+	  temp_desc=temp_desc+'&nbsp;<input name="del" type="submit" class="an3" value="踢&nbsp;出" onclick="return kick()">';
+	  temp_desc=temp_desc+'&nbsp;<input name="dd" class="an3" type="button"  value="同&nbsp;步" onClick="DoSave()">' ;
+
+    document.all.wlj.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='&nbsp;';
+    
+		form1.FunName.value='ncWebShowUserStatus';
+		form1.CurPg.value='1';
+		form1.opmsg.value='1061';
+		clearall();
+		form1.submit();
+	
+	}
+	else if(tabContent.id=="t1Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("1")>';
+	  document.all.wlj.innerHTML=temp_desc;
+	  temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时IP访问记录</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	 
+	  form1.opmsg.value='1062';
+		form1.FunName.value='ncWebShowNewvister';
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t2Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("3")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时网站访问监控</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='';
+     form1.opmsg.value='1063';
+		form1.FunName.value='ncWebShowNewweb';
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t3Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("4")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时表单监控</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='';
+	   form1.opmsg.value='1064';
+		form1.FunName.value='ncWebUploadList2';
+		form1.con_flag.value="1";
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t4Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("5")>';
+		temp_desc=temp_desc+'&nbsp;<select name="ccode"  ><option value="0" selected>&nbsp;简体</option><option value="1">繁体</option><option value="2">UTF8</option><option value="3">日文</option></select>';
+		temp_desc=temp_desc+'&nbsp;<input type="button" class="an3-0" value="确认" onclick="cvtcode()">';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时邮件收发监控</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='&nbsp;';
+	   form1.opmsg.value='1065';
+		form1.FunName.value='ncWebMailMonList';
+		form1.con_flag.value="5";
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t5Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("6")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时即时通讯信息监控</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='&nbsp;';
+	   form1.opmsg.value='1066';
+		form1.FunName.value='ncWebImHsearch';
+		form1.con_flag.value="6";
+	 form1.CurPg.value='1';
+	 		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t6Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("7")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时FTP/TELNET监控</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='';
+	   form1.opmsg.value='1067';
+		form1.FunName.value='ncWebNetSesLog';
+		form1.con_flag.value="7";
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t7Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("8")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时阻断信息</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='&nbsp;';
+    form1.opmsg.value='1068';
+		form1.FunName.value='nccWebShowNewWarn';
+    form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+	else if(tabContent.id=="t8Contents"){
+		temp_desc='&nbsp;<input type="button" class="an3-1" value="设置过滤条件" onclick=gotoselect("9")>';
+		document.all.wlj.innerHTML=temp_desc;
+		temp_desc='<b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实时告警信息</b>';
+	  document.all.wljtitle.innerHTML=temp_desc;
+	  document.all.wlj3.innerHTML='&nbsp;';
+	  form1.opmsg.value='1069';
+		form1.FunName.value='ncWebWarnNewLog';
+		form1.CurPg.value='1';
+		clearall();
+		form1.submit();
+	}
+}
+}
+
+
+function gotoselect(t){
+	var temp_src='/pronline/Msg?FunName@ncWebOnlineSearch&flag@'+t;
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:470px');
+}
+function showform(t)
+{
+	      window.open(t,'readpost','left=100,top=50,width=700,height=600,fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function gotoPage(nun)
+{
+	if(nun<1){
+	 form1.CurPg.value=1;
+	 return;
+	}
+	if(nun>form1.TotPg.value){
+		form1.CurPg.value=form1.TotPg.value;
+		return;
+	}
+	form1.CurPg.value=nun;
+	form1.submit();
+}
+var dfd1="0"
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+function kick()
+{ 
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要踢出的用户');
+	    	return false;
+	    }
+	    	return true;
+}
+function DoSave()
+{
+	if(confirm("真的要将在线的用户信息和数据库同步吗？")) {
+        form1.save.value = "save";
+        form1.submit();
+    }
+}
+function doSort(iSort)
+{
+    form1.sortby.value = iSort;
+	  form1.submit();
+}
+function doSortip(iSort)
+{
+    form1.sortbyip.value = iSort;
+
+	  form1.submit();
+}
+function cvtcode()
+{
+
+    form1.FunName.value = "ncWebMailMonCvtCode";
+    form1.submit();
+    form1.FunName.value="ncWebMailMonList";
+}
+</script>
+<style>
+.conts  {visibility:hidden}
+
+.selTabBase{border-top:solid thin #dfdfdf }
+.TabBase{border-top:solid thin #DEE8FA}
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+function clearall(){
+	form1.service.value='';
+form1.prot.value='';
+form1.slip.value='';
+form1.suip.value='';
+form1.sf.value='';
+form1.url.value='';
+form1.dlip.value='';
+form1.duip.value='';
+form1.df.value='';
+form1.dport.value='';
+form1.fl.value='';
+form1.fu.value='';
+form1.dr.value='';
+form1.host.value='';
+form1.sip.value='';
+form1.ysf.value='';
+form1.msize.value='';
+form1.asize.value='';
+form1.sub.value='';
+form1.from.value='';
+form1.to.value='';
+form1.fjflag.value='';
+form1.message.value='';
+form1.mfrom.value='';
+form1.mto.value='';
+form1.funcode.value='';
+form1.mesg.value='';
+form1.dip.value='';
+}
+
+function showiminfo(from,to,uid){
+	var temp="/pronline/Msg?FunName@ncWebReplace&plate@nc/im_det_frm.htm&from@"+from+"&to@"+to+"&userid@"+uid;
+window.open(temp,'open_report','height=600, width=600, top=100, left=200,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+ 
+// showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:600px;scroll:no;dialogHeight:600px');
+}
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="1" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" onload="setInterval('sx()',7000);">
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main">
+<input type="hidden" name="urlid" value="">
+<input type="hidden" name="webtitle" value="">
+<input type="hidden" name="FunName" value="ncWebShowUserStatus">
+<input type="hidden" name="where" value="">
+<input type="hidden" name="opmsg" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="userid" value="">
+<input type="hidden" name="service" value="">
+<input type="hidden" name="prot" value="">
+<input type="hidden" name="slip" value="">
+<input type="hidden" name="suip" value="">
+<input type="hidden" name="sf" value="">
+<input type="hidden" name="url" value="">
+<input type="hidden" name="dlip" value="">
+<input type="hidden" name="duip" value="">
+<input type="hidden" name="df" value="">
+<input type="hidden" name="dport" value="">
+<input type="hidden" name="fl" value="">
+<input type="hidden" name="fu" value="">
+<input type="hidden" name="dr" value="">
+<input type="hidden" name="username" value="">
+<input type="hidden" name="dispname" value="">
+<input type="hidden" name="flag" value="1">
+<input type="hidden" name="con_flag" value="2">
+
+<input type="hidden" name="host" value="">
+<input type="hidden" name="sip" value="">
+<input type="hidden" name="ysf" value="">
+<input type="hidden" name="msize" value="">
+<input type="hidden" name="asize" value="">
+<input type="hidden" name="sub" value="">
+<input type="hidden" name="from" value="">
+<input type="hidden" name="to" value="">
+<input type="hidden" name="flags" value="">
+<input type="hidden" name="fjflag" value="">
+<input type="hidden" name="message" value="">
+<input type="hidden" name="mfrom" value="">
+<input type="hidden" name="mto" value="">
+<input type="hidden" name="funcode" value="">
+<input type="hidden" name="mesg" value="">
+<input type="hidden" name="dip" value="">
+<input type="hidden" name="refresh_flag" value="2">
+<input type="hidden" name="plate" value="">
+<input type="hidden" name="tjfun" value="">
+<input type="hidden" name="temp_plate" value="">
+<input type="hidden" name="sctop" value="0">
+<input type="hidden" name="labname" value="">
+<input type="hidden" name="sortbyip" value="">
+<input type="hidden" name="lcount" value="">
+
+<input type="hidden" name="expvalue" value="">
+
+    <table border="0" width="100%"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#E1E5E8 >
+    	<tr >
+    	<td colspan="10" valign="top" width="100%">			
+			<table  cellspacing=0   cellpadding="0" bgcolor="#8cb4e8" border="0" align="center" width="100%">
+      <tr height="26" >
+	    <td ID="t0" CLASS="tab3"  >在线用户</td>
+	    <td ID="t1" CLASS="tab4"  >IP访问</td> 
+	    <td ID="t2" CLASS="tab5"  >网站访问</td>
+	    <td ID="t3" CLASS="tab5"  >网页表单</td>
+	    <td ID="t4" CLASS="tab5"  >收发邮件</td>
+	    <td ID="t5" CLASS="tab5"  >聊天记录</td>
+	    <td ID="t6" CLASS="tab5"  >FTP/TELNET</td>
+	    <td ID="t7" CLASS="tab5"  >当前阻断</td>
+	    <td ID="t8" CLASS="tab8" >当前告警</td>
+	    <td ID="t9" CLASS="tab10">&nbsp;</td>	 
+      </tr> 
+
+		</table>
+	</td>
+</tr>
+		<tr >
+			<td colspan="10" valign="top" width="100%" style="position:relative;top:-2px">			
+
+				        <table width="100%" height="26" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/images2/table_bg8.jpg">
+				          <tr > 
+				          	<td  >
+				          		<div id="wlj" >
+	                   <input type="text" name="cond"  size="14" maxlength="31" value="[#cond#]"> 
+	                  <select name="flow_flag" ><option value="">不限</option><option value="1" selected>有流量</option><option value="2">无流量</option></select>     
+	                  排序&nbsp;<select name="sortby" style="width:60px"><option value="1">姓名</option><option value="2">部门</option><option value="3">IP地址</option><option value="4">MAC地址</option><option value="5">开始时间</option><option value="6">最后时间</option><option value="7">流量</option><option value="9">数据包数</option><option value="11">包平均流量</option></select><select name="orderby" style="width:40px"><option value="1">升</option><option value="0">降</option></select>
+	                 <input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value='1'">
+	                 <input name="del" type="submit" class="an3" value="踢 出" onclick="return kick()">
+	                 <input name="dd" class="an3" type="button"  value="同 步" onClick="DoSave()">  
+				          		</div>
+				          	</td>
+				          	<td><div id="wljtitle" align="center">&nbsp;</div></td>
+				          	<td>
+				          		<div id="wlj3" align="right">&nbsp;</div>
+				          	</td>
+				           
+				        <td width="32%" height="23"> 
+              <table align=right border=0 cellpadding=0 cellspacing=0 class=main>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)-1);' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=CurPg size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 30px" value=0 onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+						    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=5 name=TotPg size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=8 name=TotRec size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+						                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)+1);' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage(form1.TotPg.value);' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>
+            </td>
+				            	
+				    </tr>    
+				</table>	
+		</td>
+		</tr>	
+		
+<tr> 	
+<td HEIGHT="*" COLSPAN="10" ID="tabContents" align="left" valign="top"> 
+<div id="ff" name='ff' >
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+<div CLASS="conts" ID="t5Contents"> 5 </div>
+<div CLASS="conts" ID="t6Contents"> 6 </div>
+<div CLASS="conts" ID="t7Contents"> 7 </div>
+<div CLASS="conts" ID="t8Contents"> 8 </div>
+<div CLASS="conts" ID="t9Contents"> 9 </div>
+
+	<iframe name="main" id="data1" style="display:none" src="/pronline/Msg?FunName@ncWebShowUserStatus&flag@1"> </iframe>
+
+</body>
+</html>

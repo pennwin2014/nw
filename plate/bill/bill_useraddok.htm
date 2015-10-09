@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>酒店计费用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function goto(t){
+      self.location.href=t;
+    }
+	
+	function bprint()
+	{
+	   document.all.lhead.style.display="none";
+	   document.all.lbot.style.display="none";
+	   window.print();
+	   document.all.lhead.style.display="";
+	   document.all.lbot.style.display="";
+	}
+	
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #000000}
+-->
+</style></head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" >
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr id="lhead"> 
+      <td align="center"  ><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2"><span class="style1">[#message#]</span>
+            <div align="center"></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>              <table width="90%" border="0" align="center">
+                <tr>
+                  <td height="26" colspan="2"><div align="center">帐号信息</div></td>
+                </tr>
+                <tr> 
+                  <td height="26" width="23%">帐号ID</td>
+                  <td height="26" width="77%"><input type="text" name="username" value="[#username#]" size="15" maxlength="15" readonly="yes"></td>
+                </tr>
+                <tr> 
+                  <td height="26" width="23%">用户姓名</td>
+                  <td height="26" width="77%"> <input type="text" name="dispname" value="[#dispname#]" size="15" maxlength="15" readonly="yes"> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>房间号</td>
+                  <td><input type="text" name="position" size="31" maxlength="31" value="[#position#]" readonly="yes"></td>
+                </tr>
+                <tr> 
+                  <td width="23%">上网密码</td>
+                  <td width="77%"> <input type="text" name="password" size="31" maxlength="31" value="[#password#]"  readonly="yes"> 
+                  </td>
+                </tr>
+              </table>
+                           
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td width="23%">帐户余额</td>
+                  <td><input type="text" name="ip2" value="[#fee#]"  size="15" maxlength="15" readonly="yes">
+                  元</td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="23%">加入时间 </td>
+                  <td width="77%"> <input type="text" name="addtime" value="[#addtime#]" readonly> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>帐号失效时间</td>
+                  <td><input type="text" name="expiretime" value="[#expiretime#]" readonly="yes"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td height="70" align="center"  > 
+        <table width="50%" border="0" align="center">
+          <tr id="lbot"> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebBillUserPrint">
+                <input type="hidden" name="userid" value="[#userid#]">
+                <input type="reset" name="save" value="继续增加" class="an3" onclick="goto('/pronline/Msg?FunName@ncWebBilDispUserInfo')">
+                <input type="reset" name="save2" value="修改帐号" class="an3" onClick="goto('/pronline/Msg?FunName@ncWebBilDispUserInfo&userid@[#userid#]')">                
+                &nbsp; 
+                <input type="reset" name="ok" value="打印" class="an3-1"  onClick="bprint()">
+                &nbsp; 
+                <input type="reset" name="cancel" value="返回" class="an3-1" onClick="goto('/pronline/Msg?FunName@ncWebBilUserList')">
+                &nbsp; &nbsp; </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

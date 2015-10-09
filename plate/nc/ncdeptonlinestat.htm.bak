@@ -1,0 +1,150 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+//parent.form1.CurPg.value=ll;
+//parent.form1.TotPg.value=yy;
+//parent.form1.TotRec.value='[#TotRec#]';
+
+function w1()
+{
+
+	var yy='<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">';
+	yy=yy+'<tr><td colspan="4" height="6"></td></tr>';
+	  yy = yy + '<tr height="28"><td colspan="4" height=25 class="style4"  align="center">实时网络服务流量表&nbsp;<span style="color: #000000;font-size: 9pt; font-weight: normal;"></span></td></tr>';
+	  yy=yy+'<tr bgcolor="#DEE8FA" height="22">';
+    yy=yy+'<td width="20%" align="center" class="bord2_1"> &nbsp;网络服务名</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" > 进流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >出流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >总流量(字节)</td>';
+    yy=yy+'<td width="20%" class="bord2_1" align="center"> 带宽(bps)</td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+  yy = yy + '<tr height="23" bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)">';
+  yy = yy + '<td   class="bord1"  valign="bottom"  nowrap><a href="#xxm">&nbsp;&nbsp;[#service#]</a></td>';
+  yy = yy + '<td   class="bord1"  valign="bottom" align="right" nowrap>[#inbytes#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord1"   valign="bottom" align="right" nowrap>[#outbytes#]&nbsp;&nbsp;</td>';
+
+  yy = yy + '<td   class="bord1" valign="bottom" align="right">&nbsp;[#subytes#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord3" valign="bottom" align="right">&nbsp;[#band#]&nbsp;&nbsp;</td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+ 
+
+  yy=yy+'</table>';
+
+  parent.document.all.test2.innerHTML=(yy);
+  
+  
+  
+//源ip  
+   yy='<table   class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">';
+	yy=yy+'<tr><td colspan="4" height="6"></td></tr>';
+	  yy = yy + '<tr height="28"><td colspan="4" height=25 class="style4"  align="center">源IP流量TOP10&nbsp;<span style="color: #000000;font-size: 9pt; font-weight: normal;"></span></td></tr>';
+	  yy=yy+'<tr bgcolor="#DEE8FA" height="22">';
+    yy=yy+'<td width="20%" align="center" class="bord2_1"> &nbsp;源IP地址</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" > 进流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >出流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >总流量(字节)</td>';
+    yy=yy+'<td width="20%" class="bord2_1" align="center"> 带宽(bps)</td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+  yy = yy + '<tr height="23" bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)">';
+  yy = yy + '<td   class="bord1"  valign="bottom"  nowrap><a href="#xxm">&nbsp;&nbsp;[#sip#]</a></td>';
+  yy = yy + '<td   class="bord1"  valign="bottom" align="right" nowrap>[#inbytes_sip#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord1"   valign="bottom" align="right" nowrap>[#outbytes_sip#]&nbsp;&nbsp;</td>';
+
+  yy = yy + '<td   class="bord1" valign="bottom" align="right">&nbsp;[#subytes_sip#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord3" valign="bottom" align="right">&nbsp;[#band_sip#]&nbsp;&nbsp;</td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+ 
+
+  yy=yy+'</table>';
+
+  parent.document.all.test4.innerHTML=(yy);
+  
+  
+  
+ //目标ip  
+   yy='<table   class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">';
+	yy=yy+'<tr><td colspan="4" height="6"></td></tr>';
+	  yy = yy + '<tr height="28"><td colspan="4" height=25 class="style4"  align="center">源IP流量TOP10&nbsp;<span style="color: #000000;font-size: 9pt; font-weight: normal;"></span></td></tr>';
+	  yy=yy+'<tr bgcolor="#DEE8FA" height="22">';
+    yy=yy+'<td width="20%" align="center" class="bord2_1"> &nbsp;目标IP地址</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" > 进流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >出流量(字节)</td>';
+    yy=yy+'<td width="20%" align="center" class="bord2_1" >总流量(字节)</td>';
+    yy=yy+'<td width="20%" class="bord2_1" align="center"> 带宽(bps)</td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+  yy = yy + '<tr height="23" bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)">';
+  yy = yy + '<td   class="bord1"  valign="bottom"  nowrap><a href="#xxm">&nbsp;&nbsp;[#dip#]</a></td>';
+  yy = yy + '<td   class="bord1"  valign="bottom" align="right" nowrap>[#inbytes_dip#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord1"   valign="bottom" align="right" nowrap>[#outbytes_dip#]&nbsp;&nbsp;</td>';
+
+  yy = yy + '<td   class="bord1" valign="bottom" align="right">&nbsp;[#subytes_dip#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord3" valign="bottom" align="right">&nbsp;[#band_dip#]&nbsp;&nbsp;</td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+ 
+
+  yy=yy+'</table>';
+
+  parent.document.all.test6.innerHTML=(yy); 
+  
+  
+  
+  
+  	[#SLPB#]
+  	parent.sdata_rat[[#num#]]='';
+  	parent.sdata_desc[[#num#]]='[#service#]';
+  	parent.sdata[[#num#]]=[#subytes2#];
+  	parent.sdata_service[[#num#]]=[#id#];
+
+  	[#SLPE#]
+  	parent.sumrec='[#TotService#]'
+
+   parent.drawpid();
+ 
+//画源IP  
+    	[#SLPB#]
+  	parent.sip_rat[[#num_sip#]]='';
+  	parent.sip_desc[[#num_sip#]]='[#sip#]';
+  	parent.sip_data[[#num_sip#]]=[#subytes_sip#];
+
+  	[#SLPE#]
+  	parent.sumrec_sip='[#TotSip#]'
+
+   parent.drawpid_sip();
+
+
+//画目标IP  
+    	[#SLPB#]
+  	parent.dip_rat[[#num_dip#]]='';
+  	parent.dip_desc[[#num_dip#]]='[#dip#]';
+  	parent.dip_data[[#num_dip#]]=[#subytes_dip#];
+
+  	[#SLPE#]
+  	parent.sumrec_dip='[#TotDip#]'
+
+   parent.drawpid_dip();
+
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body  >
+
+</body>
+</html>

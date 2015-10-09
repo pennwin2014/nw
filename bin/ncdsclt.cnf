@@ -1,0 +1,1482 @@
+/* 目录服务 最后更新时间 2005/08/25  By Liyunming   */
+Appsrv  nc {
+    DispName: "网络督察5.0";
+    DsServerIp: 127.0.0.1;      /* 目录服务器的Ip地址 */
+    DsServerPort:8396;          /* 目录服务器的端口号 */
+    KeySecret:OFF;              /* 口令是否加密       */
+    Mykey:nc;                   /* 密码               */
+    StatusTime:60;
+    KeepTime:120;
+    MaxClients:200;
+    MinClients:4;
+    ExtendStep:10;
+    UserTimeOut:6000;
+    Auth: Local;
+}
+
+/* 功能代码的描述  */
+Function Default {
+     DispName:  系统缺省;
+     Auth:      None;
+     MaxRunTime:600;
+     ErrorMsg:   ncmsg_pasmsg.htm;
+}
+
+Function OnTime {
+    Dispname:OnTime;
+    Auth:None;
+    MaxRunTime:7200;
+}
+
+Function dsCltWebLogin {
+    Dispname:dsCltWebLogin;
+    Auth:CheckRight;
+}
+
+Function dsCltWebMyStatus {
+    Dispname:dsCltWebMyStatus;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictList {
+    Dispname:dsCltWebDictList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictForm {
+    Dispname:dsCltWebDictForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDictModi {
+    Dispname:dsCltWebDictModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDictDel {
+    Dispname:dsCltWebDictDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebGroupList {
+    Dispname:dsCltWebGroupList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebGroupForm {
+    Dispname:dsCltWebGroupForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebGroupModi {
+    Dispname:dsCltWebGroupModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebGroupDel {
+    Dispname:dsCltWebGroupDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserList {
+    Dispname:dsCltWebUserList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebUserForm {
+    Dispname:dsCltWebUserForm;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserModi {
+    Dispname:dsCltWebUserModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebUserDel {
+    Dispname:dsCltWebUserDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerList {
+    Dispname:dsCltWebServerList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerForm {
+    Dispname:dsCltWebServerForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebServerModi {
+    Dispname:dsCltWebServerModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebServerDel {
+    Dispname:dsCltWebServerDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleList {
+    Dispname:dsCltWebDsroleList;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleForm {
+    Dispname:dsCltWebDsroleForm;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsroleModi {
+    Dispname:dsCltWebDsroleModi;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsroleDel {
+    Dispname:dsCltWebDsroleDel;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDispDsright {
+    Dispname:dsCltWebDispDsright;
+    Auth:CheckRight;
+}
+
+Function dsCltWebRightSave {
+    Dispname:dsCltWebRightSave;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsPasRoleList {
+    Dispname:dsCltWebDsPasRoleList;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsRoleList_main {
+    Dispname:dsCltWebDsRoleList_main;
+    Auth:CheckRight;
+}
+
+Function dsCltWebDsPasRoleAdd {
+    Dispname:dsCltWebDsPasRoleAdd;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDsPasRoleDel {
+    Dispname:dsCltWebDsPasRoleDel;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebDispUsrRole {
+    Dispname:dsCltWebDispUsrRole;
+    Auth:CheckRight;
+    MaxRunTime:300;
+}
+
+Function dsCltWebUserRoleSave {
+    Dispname:dsCltWebUserRoleSave;
+    Auth:CheckRight;
+}
+
+Function dsCltWebTestCookies {
+    Dispname:dsCltWebTestCookies;
+    Auth:CheckRight;
+}
+
+Function dsCltWebFunlist {
+    Dispname:dsCltWebFunlist;
+    Auth:Auth;
+    MaxRunTime:300;
+}
+
+Function dsCltWebFunGen {
+    Dispname:dsCltWebFunGen;
+    Auth:Auth;
+}
+Function ncsSysUserRoleConfig_v4 {
+    Dispname:ncsSysUserRoleConfig_v4;
+    Auth:Auth;
+}
+
+Function ncsTestRight_v4 {
+    Dispname:ncsTestRight_v4;
+    Auth:CheckRight;
+}
+Function lan_OnlineCompute {
+    Dispname:lan_OnlineCompute;
+    Auth:CheckRight;
+}
+Function lan_chat_detail_search {
+    Dispname:lan_chat_detail_search;
+    Auth:CheckRight;
+}
+Function lan_RTC_monitor_node_search {
+    Dispname:lan_RTC_monitor_node_search;
+    Auth:CheckRight;
+}
+Function lan_chat_search {
+    Dispname:lan_chat_search;
+    Auth:CheckRight;
+}
+Function lan_ssjk_getScreen2 {
+    Dispname:lan_ssjk_getScreen2;
+    Auth:CheckRight;
+}
+Function lan_ssjk_getScreen3 {
+    Dispname:lan_ssjk_getScreen3;
+    Auth:CheckRight;
+}
+Function lan_ssProc_search {
+    Dispname:lan_ssProc_search;
+    Auth:CheckRight;
+}
+Function lan_getOnlineComp{
+    Dispname:lan_getOnlineComp;
+    Auth:CheckRight;
+}
+
+Function lanParmSet {
+    Dispname:lanCleanParmSet_Save;
+    Auth:CheckRight;
+}
+Function lanParmSet_Save {
+    Dispname:lanCleanParmSet_Save;
+    Auth:CheckRight;
+}
+
+Function lanTree_depComp2 {
+    Dispname:lanTree_depComp2;
+    Auth:CheckRight;
+}
+
+Function lan_getOnlineSreen {
+    Dispname:lan_getOnlineSreen;
+    Auth:CheckRight;
+}
+
+Right 实时监控 {
+    Dispname: 实时监控;
+    FunName: ncsTestRight_v4;
+    FunName: lan_OnlineCompute;
+    FunName: lan_chat_detail_search;
+    FunName: lan_RTC_monitor_node_search;
+    FunName: lan_chat_search;
+    FunName: lan_ssjk_getScreen2;
+    FunName: lan_ssjk_getScreen3;
+    FunName: lan_ssProc_search;
+    FunName: lanTree_depComp;
+    FunName: lan_chat_detail_search;
+    FunName: lan_getOnlineComp;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;
+    FunName: lan_getOnlineSreen;
+}
+Function lanTreeProcy {
+    Dispname:lanTreeProcy;
+    Auth:CheckRight;
+}
+Function lan_Procy_count_procyref {
+    Dispname:lan_Procy_count_procyref;
+    Auth:CheckRight;
+}
+Function lan_Procy_count_procyobj {
+    Dispname:lan_Procy_count_procyobj;
+    Auth:CheckRight;
+}
+Function lan_Procy_File {
+    Dispname:lan_Procy_File;
+    Auth:CheckRight;
+}
+Function lan_Procy_Device {
+    Dispname:lan_Procy_Device;
+    Auth:CheckRight;
+}
+Function lan_Procy_Link {
+    Dispname:lan_Procy_Link;
+    Auth:CheckRight;
+}
+Function lan_Procy_Pgtype {
+    Dispname:lan_Procy_Pgtype;
+    Auth:CheckRight;
+}
+Function lan_Procy_Pname {
+    Dispname:lan_Procy_Pname;
+    Auth:CheckRight;
+}
+Function lan_Procy_Net {
+    Dispname:lan_Procy_Net;
+    Auth:CheckRight;
+}
+Function lan_Procy_Url {
+    Dispname:lan_Procy_Url;
+    Auth:CheckRight;
+}
+Function lan_Procy_Oth {
+    Dispname:lan_Procy_Oth;
+    Auth:CheckRight;
+}
+Function lan_MainProcy {
+    Dispname:lan_MainProcy;
+    Auth:CheckRight;
+}
+Function lan_Procy_Ref {
+    Dispname:lan_Procy_Ref;
+    Auth:CheckRight;
+}
+Function lanTree_depComp {
+    Dispname:lanTree_depComp;
+    Auth:CheckRight;
+}
+Function lan_Procy_Obj2 {
+    Dispname:lan_Procy_Obj2;
+    Auth:CheckRight;
+}
+Function lan_procyInfo_search {
+    Dispname:lan_procyInfo_search;
+    Auth:CheckRight;
+}
+
+Function lan_group_search {
+    Dispname:lan_group_search;
+    Auth:CheckRight;
+}
+
+Function lan_procy_search {
+    Dispname:lan_procy_search;
+    Auth:CheckRight;
+}
+
+
+Function lanChatSearchBlackProcy {
+    Dispname:lanChatSearchBlackProcy;
+    Auth:CheckRight;
+}
+Function lanChatDealBlackList {
+    Dispname:lanChatDealBlackList;
+    Auth:CheckRight;
+}
+Function lanChatSearchNameList {
+    Dispname:lanChatSearchNameList;
+    Auth:CheckRight;
+}
+Function lanChatSearchBlackList {
+    Dispname:lanChatSearchBlackList;
+    Auth:CheckRight;
+}
+
+Function lanSearchBlackProcy {
+    Dispname:lanSearchBlackProcy;
+    Auth:CheckRight;
+}
+Function lanDealBlackList {
+    Dispname:lanDealBlackList;
+    Auth:CheckRight;
+}
+Function lanSearchNameList {
+    Dispname:lanSearchNameList;
+    Auth:CheckRight;
+}
+Function lanSearchBlackList {
+    Dispname:lanSearchBlackList;
+    Auth:CheckRight;
+}
+Function lan_procyList {
+    Dispname:lan_procyList;
+    Auth:CheckRight;
+}
+
+Function lan_SenseCombo {
+    Dispname:lan_SenseCombo;
+    Auth:CheckRight;
+}
+
+Function lan_dealParams {
+    Dispname:lan_dealParams;
+    Auth:CheckRight;
+}
+
+Function lan_searchParamValue {
+    Dispname:lan_searchParamValue;
+    Auth:CheckRight;
+}
+
+Function lan_searchParamName {
+    Dispname:lan_searchParamName;
+    Auth:CheckRight;
+}
+Right fileout {
+    Dispname: fileout;
+}
+
+Right 外发文件 {
+    Dispname: 外发文件;
+}
+
+Right 控制策略 {
+    Dispname: 控制策略;
+    FunName: lan_procyList;
+    FunName: ncsTestRight_v4;
+    FunName: lanTreeProcy;
+    FunName: lan_Procy_count_procyref;
+    FunName: lan_Procy_count_procyobj;
+    FunName: lan_Procy_File;
+    FunName: lan_Procy_Device;
+    FunName: lan_Procy_Link;
+    FunName: lan_Procy_Pgtype;
+    FunName: lan_Procy_Pname;
+    FunName: lan_Procy_Net;
+    FunName: lan_Procy_Url;
+    FunName: lan_Procy_Oth;
+    FunName: lan_MainProcy;
+    FunName: lan_Procy_Ref;
+    FunName: lanTree_depComp2;
+    FunName: lan_Procy_Obj2;
+    FunName: lan_procyInfo_search;
+    FunName: lanTree_depComp;
+    FunName: lan_group_search;
+    FunName: lan_procy_search;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;
+    FunName: lanSearchBlackProcy; 
+    FunName: lanDealBlackList;
+    FunName: lanSearchNameList;
+    FunName: lanSearchBlackList;
+	
+    FunName: lanChatSearchBlackProcy; 
+    FunName: lanChatDealBlackList;
+    FunName: lanChatSearchNameList;
+    FunName: lanChatSearchBlackList;
+	
+    FunName: lan_SenseCombo;
+    FunName: lan_dealParams;
+    FunName: lan_searchParamName;
+    FunName: lan_searchParamValue;
+}
+
+Function lan_log_getScreenLog {
+    Dispname:lan_log_getScreenLog;
+    Auth:CheckRight;
+}
+
+Function ncupSoftSave {
+    Dispname:ncupSoftSave;
+    Auth:CheckRight;
+}
+
+Function lan_log_web {
+    Dispname:lan_log_web;
+    Auth:CheckRight;
+}
+Function lan_proc_log_search {
+    Dispname:lan_proc_log_search;
+    Auth:CheckRight;
+}
+Function lan_log_peri {
+    Dispname:lan_log_peri;
+    Auth:CheckRight;
+}
+Function lan_log_getFileLog {
+    Dispname:lan_log_getFileLog;
+    Auth:CheckRight;
+}
+Function lan_log_getAlarmLog {
+    Dispname:lan_log_getAlarmLog;
+    Auth:CheckRight;
+}
+Function lanSearchProc {
+    Dispname:lanSearchProc;
+    Auth:CheckRight;
+}
+Function lanSearchProcType {
+    Dispname:lanSearchProcType;
+    Auth:CheckRight;
+}
+Function lanProcessStatics {
+    Dispname:lanProcessStatics;
+    Auth:CheckRight;
+}
+
+Function lanSearchCompStatus {
+    Dispname:lanSearchCompStatus;
+    Auth:CheckRight;
+}
+
+Function lanDownCSVReport {
+    Dispname:lanDownCSVReport;
+    Auth:CheckRight;
+}
+
+Function lan_mailSearch {
+    Dispname:lan_mailSearch;
+    Auth:CheckRight;
+}
+Right 日志查看 {
+    Dispname: 日志查看;
+    FunName: ncsTestRight_v4;
+    FunName: lan_chat_detail_search;
+    FunName: lan_RTC_monitor_node_search;
+    FunName: lan_chat_search;
+    FunName: lan_log_getScreenLog;
+    FunName: lan_log_web;
+    FunName: lan_proc_log_search;
+    FunName: lan_log_peri;
+    FunName: lan_log_getFileLog;
+    FunName: lan_log_getAlarmLog;
+    FunName: lanTree_depComp;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;
+    FunName: lanSearchProc;
+    FunName: lanSearchProcType;
+    FunName: lan_mailSearch;
+}
+
+
+
+Right 日志统计 {
+    Dispname: 日志统计;
+    FunName: ncsTestRight_v4;
+    FunName: lanProcessStatics;
+    FunName: lanSearchCompStatus;
+    FunName: lanDownCSVReport;
+}
+
+Function lan_RTC_base_info_search {
+    Dispname:lan_RTC_base_info_search;
+    Auth:CheckRight;
+}
+Function lan_RTC_hard_info_search {
+    Dispname:lan_RTC_hard_info_search;
+    Auth:CheckRight;
+}
+Function lan_comp_soft_search {
+    Dispname:lan_comp_soft_search;
+    Auth:CheckRight;
+}
+Function lan_comp_service_search {
+    Dispname:lan_comp_service_search;
+    Auth:CheckRight;
+}
+Function lan_ssProc_search {
+    Dispname:lan_ssProc_search;
+    Auth:CheckRight;
+}
+Function lan_comp_disk_search {
+    Dispname:lan_comp_disk_search;
+    Auth:CheckRight;
+}
+Function lan_comp_net_search {
+    Dispname:lan_comp_net_search;
+    Auth:CheckRight;
+}
+
+Function lan_comp_log_search{
+	Dispname:lan_comp_log_search;
+    Auth:CheckRight;
+}
+
+
+Right 计算机信息 {
+    Dispname: 计算机信息;
+    FunName: ncsTestRight_v4;
+    FunName: lan_RTC_base_info_search;
+    FunName: lan_RTC_hard_info_search;
+    FunName: lan_comp_soft_search;
+    FunName: lan_comp_service_search;
+	FunName: lan_comp_log_search;	
+    FunName: lan_ssProc_search;
+    FunName: lan_comp_disk_search;
+    FunName: lan_comp_net_search;
+    FunName: lanTree_depComp;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;  
+}
+Function lan_client_search {
+    Dispname:lan_client_search;
+    Auth:CheckRight;
+}
+Function lan_group_tree_search {
+    Dispname:lan_group_tree_search;
+    Auth:CheckRight;
+}
+Function lan_soft_search {
+    Dispname:lan_soft_search;
+    Auth:CheckRight;
+}
+Function lan_soft_class_search_base {
+    Dispname:lan_soft_class_search_base;
+    Auth:CheckRight;
+}
+Function lan_time_group_search {
+    Dispname:lan_time_group_search;
+    Auth:CheckRight;
+}
+Function lan_time_search {
+    Dispname:lan_time_search;
+    Auth:CheckRight;
+}
+Function lan_work_time_search {
+    Dispname:lan_work_time_search;
+    Auth:CheckRight;
+}
+Function lan_USB_search {
+    Dispname:lan_USB_search;
+    Auth:CheckRight;
+}
+Function lan_USB_class_search {
+    Dispname:lan_USB_class_search;
+    Auth:CheckRight;
+}
+Function getHardList {
+    Dispname:lan_softupdate_procy;
+    Auth:CheckRight;
+}
+
+Right 客户端信息 {
+    Dispname: 客户端信息;
+}
+
+Right 部门管理 {
+    Dispname: 部门管理;
+}
+
+Right 预定义对象 {
+    Dispname: 预定义对象;
+}
+
+Function lanIgnoreProc {
+    Dispname:lanIgnoreProc;
+    Auth:CheckRight;
+}
+
+Right 基础信息 {
+    Dispname: 基础信息;
+    FunName: ncsTestRight_v4;
+    FunName: lan_client_search;
+    FunName: lan_group_tree_search;
+    FunName: lan_soft_search;
+    FunName: lan_soft_class_search_base;
+    FunName: lan_time_group_search;
+    FunName: lan_time_search;
+    FunName: lan_work_time_search;
+    FunName: lan_USB_search;
+    FunName: lan_USB_class_search;
+    FunName: lanTree_depComp;
+    FunName: getHardList;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;
+    FunName: lanIgnoreProc;
+}
+Function ncsDispRoleFunlist_v4 {
+    Dispname:ncsDispRoleFunlist_v4;
+    Auth:CheckRight;
+}
+Function ncsRolelist_v4 {
+    Dispname:ncsRolelist_v4;
+    Auth:CheckRight;
+}
+Function ncsSysUserlist_v4 {
+    Dispname:ncsSysUserlist_v4;
+    Auth:CheckRight;
+}
+Function pennwin_get_data{
+    Dispname:pennwin_get_data;
+}
+Function ncsSysUserlist_v4 {
+    Dispname:ncsSysUserlist_v4;
+    Auth:CheckRight;
+}
+Function ncsWebDispClientAddForm_v4 {
+    Dispname:ncsWebDispClientAddForm_v4;
+    Auth:CheckRight;
+}
+Function ncsAdminUserSave {
+    Dispname:ncsAdminUserSave;
+    Auth:CheckRight;
+}
+Function lan_systemLog_search {
+    Dispname:lan_systemLog_search;
+    Auth:CheckRight;
+}
+
+Function ncsWebAdminDispUserForm {
+    Dispname:ncsWebAdminDispUserForm;
+    Auth:CheckRight;
+}
+
+Function ncsTreeGroup_v4 {
+    Dispname:ncsTreeGroup_v4;
+    Auth:CheckRight;
+}
+
+Function checkrolename {
+    Dispname:checkrolename;
+    Auth:CheckRight;
+}
+
+Right 系统管理 {
+    Dispname: 系统管理;
+    FunName: ncsTestRight_v4;
+    FunName: ncsDispRoleFunlist_v4;
+    FunName: ncsRolelist_v4;
+    FunName: ncsSysUserlist_v4;    
+    FunName: ncsWebDispClientAddForm_v4;
+    FunName: ncsAdminUserSave;
+    FunName: lan_systemLog_search;
+    FunName: lanTree_depComp;
+    FunName: ncsWebAdminDispUserForm;
+    FunName: ncsTreeGroup_v4;
+    FunName: checkrolename;
+}
+Function lanDispSoftUpload {
+    Dispname:lanDispSoftUpload;
+    Auth:CheckRight;
+}
+Function lanSoftlist_v4 {
+    Dispname:lanSoftlist_v4;
+    Auth:CheckRight;
+}
+Function lanSoftUpload_save {
+    Dispname:lanSoftUpload_save;
+    Auth:CheckRight;
+}
+Function lan_softupdate_procy {
+    Dispname:lan_softupdate_procy;
+    Auth:CheckRight;
+}
+
+Right 客户端升级 {
+    Dispname: 客户端升级;
+    FunName: ncsTestRight_v4;
+    FunName: ncupSoftSave;
+    FunName: lanDispSoftUpload;
+    FunName: lanSoftlist_v4;
+    FunName: lanSoftUpload_save;
+    FunName: lan_softupdate_procy;
+    FunName: lan_softUpdateLog_search;
+}
+
+Function lanIpParmSet {
+    Dispname:lanIpParmSet;
+    Auth:CheckRight;
+}
+Function lanIpParmSet_save {
+    Dispname:lanIpParmSet_save;
+    Auth:CheckRight;
+}
+Function lanCleanParmSet {
+    Dispname:lanCleanParmSet;
+    Auth:CheckRight;
+}
+Function lanCleanParmSet_Save {
+    Dispname:lanCleanParmSet_Save;
+    Auth:CheckRight;
+}
+
+Right 系统设置 {
+    Dispname: 系统设置;  
+    FunName: lanIpParmSet;
+    FunName: lanIpParmSet_save;
+    FunName: lanParmSet;
+    FunName: lanParmSet_Save;  
+    FunName: lanCleanParmSet;    
+    FunName: lanCleanParmSet_Save;
+}
+
+Function lan_setupUpload {
+    Dispname:lan_setupUpload;
+    Auth:CheckRight;
+}
+Function lan_scanDownload {
+    Dispname:lan_scanDownload;
+    Auth:CheckRight;
+}
+Right 安装包下载 {
+    Dispname: 安装包下载;
+    FunName: lan_setupUpload;
+    FunName: lan_scanDownload;
+    FunName: ncsTestRight_v4;
+}
+
+Right 策略下发{
+Dispname: 策略下发;
+}
+
+
+Function lan_webfileUp {
+    Dispname:lan_webfileUp;
+    Auth:CheckRight;
+}
+
+Right 黑白名单{
+Dispname: 黑白名单;
+FunName: lan_webfileUp;
+}
+
+Right webStatics{
+Dispname: webStatics;
+}
+
+Right blacklist{
+Dispname: blacklist;
+}
+
+Right rightrole{
+Dispname: rightrole;
+}
+
+
+Right lay_base{
+Dispname: lay_base;
+}
+
+
+Right dept{
+Dispname: dept;
+}
+
+
+Right client{
+Dispname: client;
+}
+
+
+Right compnetlinkinfo{
+Dispname: compnetlinkinfo;
+}
+
+
+Right compdiskinfo{
+Dispname: compdiskinfo;
+}
+
+Right compservice{
+Dispname: compservice;
+}
+
+
+Right compsoftinfo{
+Dispname: compsoftinfo;
+}
+
+
+Right comphardinfo{
+Dispname: comphardinfo;
+}
+
+
+Right compbaseinfo{
+Dispname: compbaseinfo;
+}
+
+
+Right warnlog{
+Dispname: warnlog;
+}
+
+
+Right filelog{
+Dispname: filelog;
+}
+
+
+Right waishelog{
+Dispname: waishelog;
+}
+
+
+Right proclog{
+Dispname: proclog;
+}
+
+
+Right urllog{
+Dispname: urllog;
+}
+
+
+Right adminuser{
+Dispname: adminuser;
+}
+
+
+Right operlog{
+Dispname: operlog;
+}
+
+
+Right updatesoft{
+Dispname: updatesoft;
+}
+
+
+Right softdown{
+Dispname: softdown;
+}
+
+
+Right downlog{
+Dispname: downlog;
+}
+
+
+Right ipset{
+Dispname: ipset;
+}
+
+
+Right dataclean{
+Dispname: dataclean;
+}
+
+
+Right databack{
+Dispname: databack;
+}
+
+
+Right dispfield{
+Dispname: dispfield;
+}
+
+
+Right shutdown{
+Dispname: shutdown;
+}
+
+
+Right sjcomputer{
+Dispname: sjcomputer;
+}
+
+
+Right sspm{
+Dispname: sspm;
+}
+
+
+Right immon{
+Dispname: immon;
+}
+
+
+Right ssjc{
+Dispname: ssjc;
+}
+
+
+Right file{
+Dispname: file;
+}
+
+
+Right dev{
+Dispname: dev;
+}
+
+
+Right link{
+Dispname: link;
+}
+
+
+Right pgtype{
+Dispname: pgtype;
+}
+
+
+Right pname{
+Dispname: pname;
+}
+
+
+Right net{
+Dispname: net;
+}
+
+
+Right url{
+Dispname: url;
+}
+
+
+Right screen{
+Dispname: screen;
+}
+
+
+Right preid{
+Dispname: preid;
+}
+
+
+Right imcontent{
+Dispname: imcontent;
+}
+
+
+Right screenlog{
+Dispname: screenlog;
+}
+
+
+Right tree_procy{
+Dispname: tree_procy;
+}
+
+
+Right compssjc{
+Dispname: compssjc;
+}
+
+Right center_procy{
+Dispname: center_procy;
+}
+
+
+Right 1110{
+Dispname: 1110;
+}
+
+
+Right 1120{
+Dispname: 1120;
+}
+
+
+Right 2110{
+Dispname: 2110;
+}
+
+
+Right 2120{
+Dispname: 2120;
+}
+
+
+Right 2130{
+Dispname: 2130;
+}
+
+
+Right 2210{
+Dispname: 2210;
+}
+
+
+Right 2220{
+Dispname: 2220;
+}
+
+
+Right 2230{
+Dispname: 2230;
+}
+
+
+Right 2310{
+Dispname: 2310;
+}
+
+
+Right 2320{
+Dispname: 2320;
+}
+
+
+Right 2330{
+Dispname: 2330;
+}
+
+
+Right 2410{
+Dispname: 2410;
+}
+
+
+Right 2420{
+Dispname: 2420;
+}
+
+
+Right 2430{
+Dispname: 2430;
+}
+
+
+Right 2510{
+Dispname: 2510;
+}
+
+
+Right 2520{
+Dispname: 2520;
+}
+
+
+Right 2530{
+Dispname: 2530;
+}
+
+
+Right 2610{
+Dispname: 2610;
+}
+
+
+Right 2620{
+Dispname: 2620;
+}
+
+
+Right 2630{
+Dispname: 2630;
+}
+
+
+Right 2710{
+Dispname: 2710;
+}
+
+
+Right 2720{
+Dispname: 2720;
+}
+
+
+Right 2730{
+Dispname: 2730;
+}
+
+
+Right 2810{
+Dispname: 2810;
+}
+
+
+Right 2820{
+Dispname: 2820;
+}
+
+
+Right 2830{
+Dispname: 2830;
+}
+
+
+Right 2910{
+Dispname: 2910;
+}
+
+
+Right 2920{
+Dispname: 2920;
+}
+
+
+Right 2930{
+Dispname: 2930;
+}
+
+
+Right 3110{
+Dispname: 3110;
+}
+
+
+Right 3310{
+Dispname: 3310;
+}
+
+
+Right 3410{
+Dispname: 3410;
+}
+
+
+Right 3510{
+Dispname: 3510;
+}
+
+
+Right 3610{
+Dispname: 3610;
+}
+
+
+Right 3710{
+Dispname: 3710;
+}
+
+
+Right 4410{
+Dispname: 4410;
+}
+
+
+Right 4510{
+Dispname: 4510;
+}
+
+
+Right 5110{
+Dispname: 5110;
+}
+
+
+Right 5120{
+Dispname: 5120;
+}
+
+
+Right 5130{
+Dispname: 5130;
+}
+
+
+Right 5140{
+Dispname: 5140;
+}
+
+
+Right 5150{
+Dispname: 5150;
+}
+
+
+Right 5160{
+Dispname: 5160;
+}
+
+
+Right 5210{
+Dispname: 5210;
+}
+
+
+Right 5220{
+Dispname: 5220;
+}
+
+
+Right 5311{
+Dispname: 5311;
+}
+
+
+Right 5312{
+Dispname: 5312;
+}
+
+
+Right 5313{
+Dispname: 5313;
+}
+
+
+Right 5314{
+Dispname: 5314;
+}
+
+
+Right 5321{
+Dispname: 5321;
+}
+
+
+Right 5322{
+Dispname: 5322;
+}
+
+
+Right 5323{
+Dispname: 5323;
+}
+
+
+Right 5324{
+Dispname: 5324;
+}
+
+
+Right 5331{
+Dispname: 5331;
+}
+
+
+Right 5332{
+Dispname: 5332;
+}
+
+
+Right 5341{
+Dispname: 5341;
+}
+
+
+Right 5342{
+Dispname: 5342;
+}
+
+
+Right 5343{
+Dispname: 5343;
+}
+
+
+Right 5344{
+Dispname: 5344;
+}
+
+
+Right 6110{
+Dispname: 6110;
+}
+
+Right control{
+Dispname: control;
+}
+
+
+Right outfilelog{
+Dispname: outfilelog;
+}
+
+Right filecontent{
+Dispname: filecontent;
+}
+
+Right outfiletask{
+Dispname: outfiletask;
+}
+
+Right outfilelaw{
+Dispname: outfilelaw;
+}
+
+Right outfileresult{
+Dispname: outfileresult;
+}
+
+Right 6120{
+Dispname: 6120;
+}
+
+
+Right 6130{
+Dispname: 6130;
+}
+
+
+Right 6140{
+Dispname: 6140;
+}
+
+
+Right 6210{
+Dispname: 6210;
+}
+
+
+Right 6220{
+Dispname: 6220;
+}
+
+
+Right 6230{
+Dispname: 6230;
+}
+
+
+Right 7110{
+Dispname: 7110;
+}
+
+
+Right 7120{
+Dispname: 7120;
+}
+
+
+Right 7210{
+Dispname: 7210;
+}
+
+
+Right 7220{
+Dispname: 7220;
+}
+
+
+Right 7230{
+Dispname: 7230;
+}
+
+Right list{
+Dispname: list;
+}
+
+
+Right webstatics{
+Dispname: webstatics;
+}
+
+Right timeobj{
+Dispname: timeobj;
+}
+Right soft{
+Dispname: soft;
+}
+Right worktime{
+Dispname: worktime;
+}
+Right usb{
+Dispname: usb;
+}
+
+Function lanparamsType {
+    Dispname:lanparamsType;
+    Auth:CheckRight;
+}
+
+Right params{
+Dispname: params;
+FunName: lanparamsType;
+}
+
+Right maillog{
+Dispname: maillog;
+}
+
+Right processStatics{
+Dispname: processStatics;
+}
+
+Right ignore{
+Dispname: ignore;
+}
+
+Right complog{
+Dispname: complog;
+}
+
+Right compStatics{
+Dispname: compStatics;
+}
+
+Right otherPennwin{
+Dispname: otherPennwin;
+}
+

@@ -1,0 +1,261 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+
+function DoSort(sname)
+{
+    form1.sort.value=sname;
+	form1.submit();
+}
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+function doexport(){
+	var temp="/pronline/Msg?FunName@ncWebUserExportCsv+cond@"+form1.cond.value;
+
+    self.location.href=temp;
+}
+
+
+function userdel()
+{
+    form1.FunName.value = "ncWebDelSomeUser";
+    form1.submit();
+}
+
+function doModiBm()
+{
+   var flag=0;
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+		{
+			flag=1;
+			break;
+		}
+	}
+	if(flag==0)
+	{
+		alert('请先选择要移动部门的用户');
+		return;
+	}
+    form1.FunName.value = "ncWebModiSomeUserBm";
+    form1.submit();
+}
+
+
+ function dispsearch()
+ {
+      window.open('/pronline/Msg?FunName@ncWebDispSuser','RUNMIT_New','left=100,top=200,width='+525+',height='+245+',fullscreen=0,toolbar=no,scrollbars=no,resizable=0,menubar=no,status=0');
+ }
+ 
+function goto(t){
+self.location.href=t+'&groupid0@[#groupid0#]&cond@[#cond#]&CurPg@[#CurPg#]'
+}
+function useradd(){
+goto('/pronline/Msg?FunName@ncWebDispUserAddForm&gid@[#groupid0#]');
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "yellow";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+function openDr()
+{
+    t = "/cust_dr_frm.htm";
+    
+    var oDia=showModalDialog(t,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:500px;scroll:none;dialogHeight:400px;overflow:none");	
+
+//    openwinflag=window.open(t,'address','left=200,top=300,width='+400+',height='+250+',fullscreen=0,toolbar=no,scrollbars=no,resizable=0,menubar=no,status=0');
+}
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+
+.page1 {  font-size: 13px; color:yellow;}
+.titlename {  font-size: 14px; color:white;font-weight:bold;}
+
+a:visited {  color: yellow;text-decoration: none}
+a:link {  color: yellow;text-decoration: none }
+a:hover {  color: #ffffff}
+.anuse3 { font-size: 9pt; background-color: dfdfdf; 
+  vertical-align: middle; height: 20px; width: 45px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand}
+-->
+</style>
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+	<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0" background="/images/table_bg1.gif">
+         <tr height="30"> 
+         <td  class="titlename">&nbsp;&nbsp;用户管理&nbsp;&nbsp;</td>
+         <td  align="right">        	
+         	 <table  border=0 cellpadding=0 cellspacing=0  width=570>
+              <tbody> 
+                <td align=right class="page1"><a  href="#xxm" onClick='gotoPage(1);form1.submit()'>首页</a>&nbsp;<a  href="#xxm" onClick='gotoPage([#CurPg#]-1);form1.submit()'>上一页</a>&nbsp;<a  href="#xxm" onClick='if([#CurPg#]+1>[#TotPg#]) return;gotoPage([#CurPg#]+1);form1.submit()'>下一页</a>&nbsp;<a  href="#xxm" onClick='gotoPage([#TotPg#]);form1.submit()'>末页</a>&nbsp;页次：<font color="red">[#CurPg#]/[#TotPg#]</font>
+                共&nbsp;<font color="red">[#TotRec#]</font>&nbsp;条记录 
+                <a  href="#xxm22" onClick="if(form1.browsdopage.value>[#TotPg#]) form1.browsdopage.value=[#TotPg#];gotoPage(form1.browsdopage.value);form1.submit()">转到</a>：<input  id=browsdopage maxlength=6  name=browsdopage  style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 40px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">&nbsp;页&nbsp;&nbsp;</td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>
+  
+          <tr bgcolor="#B4DEEA">
+            <td width="100%" height="30" >
+            &nbsp;移到部门&nbsp;[#sgroup#]
+            <input name="export2"type="button" class="an3"   onClick="doModiBm()" value="确认" >
+              <input type="text"  name="cond"  size="12" maxlength="31" value="[#cond#]">
+              <input name="search" type="submit" class="an3" value="查找" >
+              <input name="add" type="button" class="an3"   onclick="useradd()" value="增加" >
+              <input name="del" type="button" class="an3"   onclick="userdel()" value="删除" >
+              <input name="export"type="button" class="an3"   onClick="doexport()" value="导出" > 
+              <input name="export"type="button" class="an3"   onClick="openDr()" value="导入" > 
+              <input name="pm" type="button" class="an3-1"   onclick="form1.FunName.value='ncWebModSomeUserState';form1.submit()" value="禁止修改密码" >（禁止修改密码针对本地验证）
+              <input type="hidden" name="groupid0" value="[#groupid0#]">
+              <input type="hidden" name="FunName" value="ncWebUserSearch_new">
+              <input type="hidden" name="where" value="[#where#]">
+              <input type="hidden" name="sort" value="[#sort#]">
+              <input type="hidden" name="sortby" value="[#sortby#]">
+		  		   <input type="hidden" name="TotPg"      value="[#TotPg#]">
+             <input type="hidden" name="CurPg"      value="[#CurPg#]"> </td>
+       </tr>
+  
+  
+  
+  <tr>
+      <td width="100%" align=center  valign=top bgcolor="#DEE8FA" > 
+      	<div class="tScroll"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead" bgcolor="#3186A9" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="40" height="20"  class="bord2"> 
+              <input type="button" name="b1" value="全选" class="anniu_2"  onClick="allChecked()">
+            </td>
+            <td width="105"  class="bord2" onClick="DoSort('a.username')">姓 名</td>
+            <td width="115"  class="bord2" onClick="DoSort('a.dispname')"><font color="#FFFFFF">登录名</font></div></td>
+            <td width="100"  class="bord2" onClick="DoSort('a.ip')">IP地址</td>
+            <td width="110"  class="bord2" onClick="DoSort('a.mac')">MAC地址</td>
+            <td width="112" class="bord2" onClick="DoSort('b.groupname')">部 门</td>
+            <td width="100" class="bord2" >登录修改密码</td>
+            <td width="123" class="bord2" onClick="DoSort('a.lasttime')">最后上线时间</td>
+            <td width="77"  class="bord4" onClick="DoSort('a.useflags')">状 态</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onDblclick="goto('/pronline/Msg?FunName@ncWebDispUserModiForm&userid@[#userid#]')"> 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#userid#]"></td>
+            <td   class="bord1">&nbsp;[#dispname#]</td>
+            <td   class="bord1">&nbsp;[#username#]</td>
+            <td   class="bord1">&nbsp;[#ip#] </td>
+            <td   class="bord1">&nbsp;[#mac#]</td>
+            <td   class="bord1">&nbsp;[#groupname#]</td>
+            <td   class="bord1">&nbsp;[#email#]&nbsp;</td>
+            <td   class="bord1">&nbsp;[#adate#]&nbsp;</td>
+            <td   class="bord3">&nbsp;[#status#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="20" id=[#snum#]> 
+            <td   class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </div> 
+
+      </td>
+  </tr>
+</table>
+ </form>
+</body>
+
+</html>

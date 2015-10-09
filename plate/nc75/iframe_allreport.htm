@@ -1,0 +1,1208 @@
+
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<head>
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+	 <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+  <meta name="ProgId" content="VisualStudio.HTML">
+  <meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>网络服务图表</title>
+<style>
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+A:link{
+color:#000000;text-decoration:none;
+font-size:9pt;
+}
+A:visited{
+color:#000000;text-decoration:none;
+font-size:9pt;
+}
+A:hover{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+A:active{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+	
+	
+TD {	FONT-SIZE: 9pt}
+</style>
+<script src="/js/calendar.js"></script>
+
+	<script LANGUAGE="JavaScript">	
+		
+		function exppdf(){
+			self.location.href="/pronline/Msg?FunName@ncWebAllReport_PDF&groupid@[#groupid#]&sdate@[#sdate#]&edate@[#edate#]&time@"+form1.time.value;
+			
+		}
+		
+		
+	function openreport(t){
+//		alert(t);
+		window.open(t,'open_report','height=600, width=900, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+	function openreport2(t){
+//		alert(t);
+		window.open(t,'open_report2','height=600, width=400, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+	
+	
+	var top_service,top_flow,top_webclass,top_web,top_im,top_mail;
+	
+
+		var dev_color=new Array();
+	    dev_color[0]='#00FA9A';
+	    dev_color[1]='#FF0000';
+	    dev_color[2]='#00EBCD';
+	    dev_color[3]='#A52A2A';
+	    dev_color[4]='#778899';
+	    dev_color[5]='#e2691E';
+	    dev_color[6]='#800080';
+	    dev_color[7]='#6B8E23';
+		  dev_color[8]='#C0C0C0';
+	    dev_color[9]='#FFFF00';
+	    dev_color[10]='#888888';
+	    
+	    dev_color[11]='#ee0000';
+	    dev_color[12]='#33EBCD';
+	    dev_color[13]='#052A2A';
+	    dev_color[14]='#f78899';
+	    dev_color[15]='#42691E';
+	    dev_color[16]='#d00080';
+	    dev_color[17]='#9B8E23';
+		  dev_color[18]='#CaC0C0';
+	    dev_color[19]='#bbbb00';
+	    dev_color[20]='#dfdfdf';
+	    
+	    
+	    
+//	alert(Math.cos(180*Math.PI/180));
+//	tb_width*Math.cos(sdata[i]/tot*2*Math.PI)+tb_width*Math.cos(sdata[i]+
+	
+
+	
+
+
+function drawpid(){
+		
+	var tb_left=50;
+	var tb_top=137;
+	var tb_width=160;
+	var tb_height=150;
+
+  var startAng=0;
+  var endAng=0;
+	var path_s="m"+parseInt(tb_width/2)+","+parseInt(tb_height/2)+"ae"+parseInt(tb_width/2)+","+parseInt(tb_height/2)+","+parseInt(tb_width/2)+","+parseInt(tb_height/2)+",";	
+	var sdata_desc=new Array();
+	var sdata_rat=new Array();
+	var sdata=new Array();
+  var sdata_time=new Array();
+  var sdata_service=new Array();
+  	[#SLPB#]
+	sdata_rat[[#num_s#]]='[#rate_s#]%';
+	sdata_desc[[#num_s#]]='[#name_s#]';
+	sdata[[#num_s#]]=[#bytes_s#];
+	sdata_time[[#num_s#]]='[#ltime#]';
+	sdata_service[[#num_s#]]='[#service_s#]';
+	[#SLPE#]
+  
+  
+  
+  var tot=0;
+	var i;
+
+	for(i=0;i<sdata.length;i++){
+		tot=tot+sdata[i];
+	}
+
+	var mx=Math.pow(2,16)*360;	
+	var temp_html;
+  
+ 	
+	
+	//统计小角度服务的数量	
+  small_count=0;
+	for(i=0;i<sdata.length;i++){	
+		var pieAng=sdata[i]/tot;	
+		if((pieAng*360<=20)&&(pieAng*360>3.0))
+		   small_count++;
+	}
+		
+	var cx=20;
+	var cy=10;
+	var m_m=0;
+	var n_n=0;
+	
+ 
+	
+	//画边框
+ // temp_html="<v:rect style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-60)+";width:"+parseInt(tb_width+200)+";height:"+parseInt(tb_height+160)+";z-index:1' ' strokecolor='#aaaaaa' strokeweight='1' stroked='t'></v:rect>";
+temp_html='';
+	
+	temp_html=temp_html+"<v:oval  style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+"' fillcolor='#d5dbfb'>";
+	temp_html=temp_html+"<v:fill color2='#dddddd' rotate='t' angle='-135' type='gradient'/>";
+	temp_html=temp_html+"	<o:extrusion v:ext='view' backdepth='1in' viewpoint='0,34.72222mm'   viewpointorigin='0,.5' skewangle='90' lightposition='-50000'   lightposition2='50000' type='perspective' color='#dddddd' on='t'/></v:oval>";
+	
+	for(i=0;i<sdata.length;i++){
+
+		var pieAng=sdata[i]/tot;		
+		endAng=pieAng;
+
+if(pieAng>0.5){
+
+  var xx=0;
+  var yy=50;
+
+}
+else{
+  var xx=(tb_width*Math.cos(startAng*2*Math.PI)+tb_width*Math.cos((startAng+pieAng)*2*Math.PI))/2*0.40;
+  if(startAng<0.5&&pieAng>0.3)
+     var yy=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.75;
+  else
+  var yy=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.40;
+}
+
+  var xx_end=(tb_width*Math.cos(startAng*2*Math.PI)+tb_width*Math.cos((startAng+pieAng)*2*Math.PI))/2*0.6;
+  var yy_end=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.6;
+
+
+
+
+
+	temp_html=temp_html+"<v:shape style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:1' coordsize='"+tb_width+","+tb_height+"' o:spt='100' adj='0,,0' path='"+path_s+parseInt(mx*startAng)+","+parseInt(mx*endAng)+"xe' fillcolor='"+dev_color[i]+"' strokecolor='#FFFFFF' title='"+sdata_desc[i]+":"+sdata_rat[i]+"' >";
+	temp_html=temp_html+"	<v:fill color2='"+dev_color[i]+"' rotate='t' focus='100%' type='gradient'/><v:stroke joinstyle='round'/><v:formulas/>";
+	temp_html=temp_html+"<v:path o:connecttype='segments'/></v:shape>";
+
+	
+	//画比例
+	
+
+	if(pieAng*360>20){
+
+	   
+			temp_html=temp_html+"<v:shape style='position:absolute;left:"+parseInt(tb_left+tb_width/2+xx-cx)+";top:"+parseInt(tb_top+tb_height/2-yy-cy)+";width:40px;height:18px;z-index:1'>";
+		  temp_html=temp_html+"<table  width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'>"+sdata_rat[i]+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+	
+	}
+	
+		 startAng+=pieAng;
+	}
+
+
+
+   var mmm=0;
+ 
+//画图例
+
+  for(i=0;i<sdata.length;i++){
+
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+12)+";top:"+parseInt(tb_top+mmm*20-17)+";width:16;height:12;z-index:2' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+      
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+32)+";top:"+parseInt(tb_top+mmm*20-20)+";width:240px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'> <a href='#xxs' onclick=openreport('/pronline/Msg?FunName@ncShowGServiceDet&groupid@[#groupid#]&userid@[#userid#]&sdate@[#sdate#]&edate@[#edate#]&service@"+sdata_service[i]+"&gname@"+sdata_desc[i]+"') >"+sdata_desc[i]+"("+sdata_rat[i]+")"+"</a></td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+		  mmm++;
+     }
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+10)+";top:"+parseInt(tb_top-42)+";width:170px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"网络服务流量分布图"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+
+      document.getElementById("test1").innerHTML=temp_html;
+
+  
+}
+//画排行榜
+
+ function getColor(){
+		   return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+    };
+ function maxs(mm){
+   var max1 = 0;
+     for(var i=0; i<mm.length; i++){
+     	
+      if(parseInt(mm[i]) > max1) max1 = mm[i];
+    }
+
+ return max1;
+ }
+
+function Drawsort(){
+
+	var tb_left=50;
+	var tb_top;
+
+	var tb_width=550;
+	var tb_height=200; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+	var top_t=parseInt(20*[#sumservice#]+30+120);
+
+	if(top_t<420){
+		tb_top=440;
+	}
+	else{
+		tb_top=top_t+90;
+	}
+
+top_flow=tb_top;
+
+	[#SLPB#]
+	sdate[[#num_f#]]='[#data_f#]';
+	sdate_desc[[#num_f#]]='[#name_f#]';
+	sdate_xh[[#num_f#]]='[#num_f#]';
+	uid[[#num_f#]]='[#uid_f#]';
+	[#SLPE#]
+	
+	 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+//	y_max=(Math.round(maxs(sdate)/100)+20)*100;
+
+	y_max=(Math.round(maxs(sdate)/100)+1)*100;
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#333333' />";
+   //写日期
+//	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+//	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+//	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+//	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-100)+";top:"+parseInt(tb_top-8)+";width:100px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+   //画X轴刻度和柱状图
+	for(i=0;i<x_tot;i++){
+		var t_color=dev_color[i];
+	
+		temp_html=temp_html+"<v:rect   onclick=openreport('/pronline/Msg?FunName@ncShowUserSortDet&sdate@[#sdate#]&edate@[#edate#]&userid@"+uid[i]+"&flow@"+sdate[i]+"') title='"+sdate_desc[i]+"' style='cursor:hand;position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:14px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-15)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+					
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+
+		temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sdate_xh[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+		
+				//画图例
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+22)+";top:"+parseInt(tb_top+i*20)+";width:16;height:12;z-index:2' fillcolor='"+t_color+"' strokecolor='"+t_color+"' strokeweight='1' stroked='t'></v:rect>";
+    
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+42)+";top:"+parseInt(tb_top+i*20-3)+";width:180px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  
+		  temp_html=temp_html+"<tr><td align='left'> <a href='#xxs' onclick=openreport('/pronline/Msg?FunName@ncShowUserSortDet&sdate@[#sdate#]&edate@[#edate#]&userid@"+uid[i]+"&flow@"+sdate[i]+"') >"+i+":&nbsp;"+sdate_desc[i]+"</a></td></tr>";
+		  
+		  
+		  
+		  temp_html=temp_html+"</table></v:shape>";
+		
+	}
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top-38)+";width:80px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='right'>单位：MB</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+210)+";top:"+parseInt(tb_top-32)+";width:190px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"流量最大前[#sumfow#]位上网用户"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+50)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' >"+"(X轴刻度为用户序号)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+
+	 document.getElementById("test3").innerHTML=temp_html;
+	
+}
+	
+	
+//网址类别	
+	
+	function drawweb(){
+		
+	var tb_left=50;
+	var tb_top=137;
+	
+//	var top_t=parseInt(20*[#sumservice#]+30+120);
+tb_top=top_flow+350;	
+//		if(top_t<420){
+//		tb_top=440+350;
+//	}
+//	else{
+//		tb_top=top_t+90+350;
+//	}
+	
+	//alert(top_t);
+	top_webclass=tb_top;
+	
+	var tb_width=160;
+	var tb_height=150;
+
+  var startAng=0;
+  var endAng=0;
+	var path_s="m"+parseInt(tb_width/2)+","+parseInt(tb_height/2)+"ae"+parseInt(tb_width/2)+","+parseInt(tb_height/2)+","+parseInt(tb_width/2)+","+parseInt(tb_height/2)+",";	
+	var sdata_desc=new Array();
+	var sdata_rat=new Array();
+	var sdata=new Array();
+  var sdata_time=new Array();
+  var sdata_service=new Array();
+  [#SLPB#]
+	sdata_rat[[#num_w#]]='[#rate_w#]%';
+	sdata_desc[[#num_w#]]='[#name_w#]';
+	sdata[[#num_w#]]=[#data_w#];
+	sdata_time[[#num_w#]]='[#ltime#]';
+	sdata_service[[#num_w#]]='[#uid_w#]';
+	[#SLPE#]
+  
+  
+  
+  var tot=0;
+	var i;
+
+	for(i=0;i<sdata.length;i++){
+		tot=tot+sdata[i];
+	}
+
+	var mx=Math.pow(2,16)*360;	
+	var temp_html;
+  
+  
+  
+
+	
+	
+	
+	
+	//统计小角度服务的数量	
+  small_count=0;
+	for(i=0;i<sdata.length;i++){	
+		var pieAng=sdata[i]/tot;	
+		if((pieAng*360<=20)&&(pieAng*360>3.0))
+		   small_count++;
+	}
+		
+	var cx=20;
+	var cy=10;
+	var m_m=0;
+	var n_n=0;
+	
+ 
+	
+	//画边框
+ // temp_html="<v:rect style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-60)+";width:"+parseInt(tb_width+200)+";height:"+parseInt(tb_height+160)+";z-index:1' ' strokecolor='#aaaaaa' strokeweight='1' stroked='t'></v:rect>";
+temp_html='';
+	
+	temp_html=temp_html+"<v:oval  style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+"' fillcolor='#d5dbfb'>";
+	temp_html=temp_html+"<v:fill color2='#dddddd' rotate='t' angle='-135' type='gradient'/>";
+	temp_html=temp_html+"	<o:extrusion v:ext='view' backdepth='1in' viewpoint='0,34.72222mm'   viewpointorigin='0,.5' skewangle='90' lightposition='-50000'   lightposition2='50000' type='perspective' color='#dddddd' on='t'/></v:oval>";
+	
+	for(i=0;i<sdata.length;i++){
+
+		var pieAng=sdata[i]/tot;		
+		endAng=pieAng;
+
+if(pieAng>0.5){
+
+  var xx=0;
+  var yy=50;
+
+}
+else{
+  var xx=(tb_width*Math.cos(startAng*2*Math.PI)+tb_width*Math.cos((startAng+pieAng)*2*Math.PI))/2*0.40;
+  if(startAng<0.5&&pieAng>0.3)
+     var yy=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.75;
+  else
+  var yy=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.40;
+}
+
+  var xx_end=(tb_width*Math.cos(startAng*2*Math.PI)+tb_width*Math.cos((startAng+pieAng)*2*Math.PI))/2*0.6;
+  var yy_end=(tb_height*Math.sin(startAng*2*Math.PI)+tb_height*Math.sin((startAng+pieAng)*2*Math.PI))/2*0.6;
+
+
+
+
+
+	temp_html=temp_html+"<v:shape style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:1' coordsize='"+tb_width+","+tb_height+"' o:spt='100' adj='0,,0' path='"+path_s+parseInt(mx*startAng)+","+parseInt(mx*endAng)+"xe' fillcolor='"+dev_color[i]+"' strokecolor='#FFFFFF' title='"+sdata_desc[i]+":"+sdata_rat[i]+"' >";
+	temp_html=temp_html+"	<v:fill color2='"+dev_color[i]+"' rotate='t' focus='100%' type='gradient'/><v:stroke joinstyle='round'/><v:formulas/>";
+	temp_html=temp_html+"<v:path o:connecttype='segments'/></v:shape>";
+
+	
+	//画比例
+	
+
+	if(pieAng*360>20){
+
+	   
+			temp_html=temp_html+"<v:shape style='position:absolute;left:"+parseInt(tb_left+tb_width/2+xx-cx)+";top:"+parseInt(tb_top+tb_height/2-yy-cy)+";width:40px;height:18px;z-index:1'>";
+		  temp_html=temp_html+"<table  width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'>"+sdata_rat[i]+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+	
+	}
+	
+		 startAng+=pieAng;
+	}
+
+
+
+   var mmm=0;
+ 
+//画图例
+
+  for(i=0;i<sdata.length;i++){
+
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+12)+";top:"+parseInt(tb_top+mmm*20-17)+";width:16;height:12;z-index:2' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+      
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+32)+";top:"+parseInt(tb_top+mmm*20-20)+";width:220px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'> <a href='#xxs' onclick=openreport('/pronline/Msg?FunName@ncShowGWebClassDet&groupid@[#groupid#]&userid@[#userid#]&sdate@[#sdate#]&edate@[#edate#]&service@"+sdata_service[i]+"&gname@"+sdata_desc[i]+"') >"+sdata_desc[i]+"("+sdata_rat[i]+")"+"</a></td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+		  mmm++;
+     }
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+10)+";top:"+parseInt(tb_top-42)+";width:170px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"网址类别请求数分布图"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+
+      document.getElementById("test4").innerHTML=temp_html;
+
+  
+}
+	
+	
+	
+function Drawsortweb(){
+
+	var tb_left=50;
+	var tb_top;
+
+	var tb_width=550;
+	var tb_height=300; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+//	var top_t=parseInt(23*[#sumservice#]+30+120+23*[#sumweb#]+430);
+if(parseInt(23*[#sumweb#])<300)
+   tb_top=top_webclass+300;
+else
+   tb_top=top_webclass+23*[#sumweb#];
+//alert(top_t);
+
+
+//	if(top_t<1100){
+//		tb_top=1100;
+//	}
+//	else{
+//		tb_top=top_t-80;
+//	}
+
+top_web=tb_top;
+
+	[#SLPB#]
+	sdate[[#num_ws#]]='[#data_ws#]';
+	sdate_desc[[#num_ws#]]='[#name_ws#]';
+	sdate_xh[[#num_ws#]]='[#num_ws#]';
+	uid[[#num_ws#]]='[#uid#]';
+	[#SLPE#]
+	
+	 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+	y_max=(Math.round(maxs(sdate)/100)+1)*100;
+
+
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#333333' />";
+   //写日期
+//	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+//	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+//	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+//	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-100)+";top:"+parseInt(tb_top-8)+";width:100px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+   //画X轴刻度和柱状图
+	for(i=0;i<x_tot;i++){
+		var t_color=dev_color[i];
+	
+		temp_html=temp_html+"<v:rect   onclick=openreport('/pronline/Msg?FunName@ncShowGWebSiteDet&sdate@[#sdate#]&edate@[#edate#]&userid@[#userid#]&groupid@[#groupid#]&gname@"+sdate_desc[i]+"') title='"+sdate_desc[i]+"' style='cursor:hand;position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:14px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-15)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+					
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+
+		temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sdate_xh[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+	}
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-38)+";width:80px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='right'>单位：(次)</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+210)+";top:"+parseInt(tb_top-32)+";width:190px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"请求数前[#sumwebsite#]个网址"+"&nbsp;<a href='#xxm' onclick=openreport2('/pronline/Msg?FunName@ncShowMoreWebSite')><font color=blue><u>(更多...)</u></font></a>"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+50)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' >"+"(X轴刻度为网址序号)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+//画图例
+
+  for(i=0;i<sdate.length;i++){
+
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+12)+";top:"+parseInt(tb_top+i*20)+";width:16;height:12;z-index:2' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+    
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+32)+";top:"+parseInt(tb_top+i*20-3)+";width:260px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+//		  temp_html=temp_html+"<tr><td align='left'>"+i+":&nbsp;"+sdate_desc[i]+"</td></tr>";
+		  
+		  temp_html=temp_html+"<tr><td align='left'> <a href='#xxs' onclick=openreport('/pronline/Msg?FunName@ncShowGWebSiteDet&sdate@[#sdate#]&edate@[#edate#]&userid@[#userid#]&groupid@[#groupid#]&gname@"+sdate_desc[i]+"') >"+i+":&nbsp;"+sdate_desc[i]+"</a></td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+		 
+     }
+
+
+
+	 document.getElementById("test5").innerHTML=temp_html;
+	
+}	
+	
+	
+	
+
+function Drawsortim(){
+
+	var tb_left=50;
+	var tb_top;
+
+	var tb_width=550;
+	var tb_height=200; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+	if(parseInt(23*[#sumweb#])<500){
+		tb_top=top_web+500;
+	}
+	else
+	  tb_top=top_web+23*[#sumweb#]+60;
+//var top_t=parseInt(23*[#sumservice#]+30+120+23*[#sumweb#]+950);
+
+//	if(top_t<1590){
+//		tb_top=1590;
+//	}
+//	else{
+//		tb_top=top_t-100;
+//	}
+top_im=tb_top;
+	[#SLPB#]
+	sdate[[#num_im#]]='[#data_im#]';
+	sdate_desc[[#num_im#]]='[#name_im#]';
+	sdate_xh[[#num_im#]]='[#num_im#]';
+	uid[[#num_im#]]='[#uid#]';
+	[#SLPE#]
+	
+	 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+//	y_max=(Math.round(maxs(sdate)/100)+20)*100;
+
+	y_max=(Math.round(maxs(sdate)/100)+1)*100;
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#333333' />";
+   //写日期
+//	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+//	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+//	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+//	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-100)+";top:"+parseInt(tb_top-8)+";width:100px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+   //画X轴刻度和柱状图
+	for(i=0;i<x_tot;i++){
+		var t_color=dev_color[i];
+	
+		temp_html=temp_html+"<v:rect    title='"+sdate_desc[i]+"' style='cursor:hand;position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:14px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-15)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+					
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+
+		temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sdate_xh[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+	}
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-38)+";width:80px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='right'>单位：(条)</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+210)+";top:"+parseInt(tb_top-32)+";width:210px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"聊天记录数前[#sumim#]位上网用户"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+50)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' >"+"(X轴刻度为用户序号)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+//画图例
+
+  for(i=0;i<sdate.length;i++){
+
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+12)+";top:"+parseInt(tb_top+i*20)+";width:16;height:12;z-index:2' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+    
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+32)+";top:"+parseInt(tb_top+i*20-3)+";width:180px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'>"+i+":&nbsp;"+sdate_desc[i]+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+		 
+     }
+
+
+
+	 document.getElementById("test7").innerHTML=temp_html;
+	
+}
+
+
+
+function Drawsortmail(){
+
+	var tb_left=50;
+	var tb_top;
+
+	var tb_width=550;
+	var tb_height=200; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+//var top_t=parseInt(23*[#sumservice#]+30+120+23*[#sumweb#]+1280);
+
+//	if(top_t<1950){
+//		tb_top=1950;
+//	}
+//	else{
+//		tb_top=top_t-100;
+//	}
+tb_top=top_im+360;
+	[#SLPB#]
+	sdate[[#num_mail#]]='[#data_mail#]';
+	sdate_desc[[#num_mail#]]='[#name_mail#]';
+	sdate_xh[[#num_mail#]]='[#num_mail#]';
+	uid[[#num_mail#]]='[#uid#]';
+	[#SLPE#]
+	
+	 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+//	y_max=(Math.round(maxs(sdate)/100)+20)*100;
+
+	y_max=(Math.round(maxs(sdate)/100)+1)*100;
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#333333' />";
+   //写日期
+//	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+//	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+//	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+//	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-100)+";top:"+parseInt(tb_top-8)+";width:100px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+   //画X轴刻度和柱状图
+	for(i=0;i<x_tot;i++){
+		var t_color=dev_color[i];
+	
+		temp_html=temp_html+"<v:rect    title='"+sdate_desc[i]+"' style='cursor:hand;position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:14px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-15)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+					
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+
+		temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sdate_xh[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+	}
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-40)+";top:"+parseInt(tb_top-38)+";width:80px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='right'>单位：(封)</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+//画标题
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+210)+";top:"+parseInt(tb_top-32)+";width:210px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"收发邮件数量前[#summail#]位上网用户"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+     temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+50)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' >"+"(X轴刻度为用户序号)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+//画图例
+
+  for(i=0;i<sdate.length;i++){
+
+      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left+tb_width+12)+";top:"+parseInt(tb_top+i*20)+";width:16;height:12;z-index:2' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+    
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+tb_width+32)+";top:"+parseInt(tb_top+i*20-3)+";width:180px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='left'>"+i+":&nbsp;"+sdate_desc[i]+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+		 
+     }
+
+
+
+	 document.getElementById("test9").innerHTML=temp_html;
+	
+}
+
+
+
+	
+	
+	
+	
+	
+</script>
+
+
+
+</head>
+
+<body topmargin=5 leftmargin=0 bgcolor="#DEE8FA" scroll=AUTO >
+
+	<table width="810" border="0" align="left" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+
+  <input type="hidden" name="FunName" value="ncWebAllReport">
+  <input type="hidden" name="groupname" value="[#groupname#]">
+  <input type="hidden" name="dispname" value="[#dispname#]">
+  <input type="hidden" name="gname" value="[#gname#]">
+  <input type="hidden" name="groupid" value="[#groupid#]">
+  <input type="hidden" name="userid" value="[#userid#]">
+  <input type="hidden" name="rootname" value="[#rootname#]">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              【[#dispname#]】上网行为分析报告</div></td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2"> 
+        
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr height="30"> 
+            <td colspan="2">&nbsp;
+            	时间从&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+            	
+            	到&nbsp;<input type="text" name="edate" size="11" value="[#edate#]" ><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+            	时间段
+            	<select name="time">
+										<option value="">全部</option>
+										<option value="WorkTime">工作时间</option>
+										<option value="NoWorkTime">非工作时间</option>
+							</select>
+            	<input name="submit1" type="submit" class="an3"    value="确认" >
+            	<input name="exppdfa" type="button" class="an3" onclick="exppdf()"   value="导出PDF" >           	
+            	</td>
+          </tr>
+          <tr bgcolor="#ffffff">
+          	<td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+          				<td width="49%" id="test1" height="320"><script>drawpid();</script></td>
+          				<td width="49%" valign="top">
+          					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				 <tr><td colspan="4" height="6"></td></tr>
+          		     <tr height="28">
+          			     <td colspan="4" height=25 class='style4'  align="center">网络服务流量分布表&nbsp;</td>
+          		     </tr>
+                   <tr    bgcolor="#DEE8FA" height="22">
+				            <td width="50" align="center" class="bord2_1"> &nbsp;序号</td>
+				            <td  align="center" class="bord2_1" > 网络服务</td>
+				            <td width="140" align="center" class="bord2_1" > 流量(MB)</td>
+				            <td width="110" align="center" class="bord2_1" > 百分比</td>
+				           
+				          </tr>
+          <!--  -->
+				          [#SLPB#]
+				          <tr height="20"> 
+				
+				            <td class="bord1"   nowrap >&nbsp;[#num_s#]</td>
+				            <td class="bord1"  nowrap  >&nbsp;[#name_s#]&nbsp;</td>
+				            <td class="bord1"   nowrap align="right">&nbsp;[#bytes_s_t#]&nbsp;</td>
+				            
+				            <td class="bord1"  align="right">&nbsp;[#rate_s#]%&nbsp;</td>
+				           
+				          </tr>
+                 [#SLPE#]
+          	    </table>
+          			 </td>
+          			
+          			</tr>
+      			
+          			
+          	  </table>
+          	
+          </tr>
+       
+ 
+ <!--流量TOP10统计-->
+ 
+ 
+       
+       <tr  bgcolor="#ffffff" height="320">
+       	     <td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+
+                 <td id="test3">
+               <script>Drawsort();</script>
+              </td>
+
+       	
+               </tr>
+             </table>         	
+          </tr>
+       
+  
+  <!--网站类别访问情况统计-->     
+            <tr bgcolor="#ffffff">
+          	<td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+          				<td width="49%" id="test4" height="320"><script>drawweb();</script></td>
+          				<td width="49%" valign="top">
+          					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				 <tr><td colspan="4" height="6"></td></tr>
+          		     <tr height="28">
+          			     <td colspan="4" height=25 class='style4'  align="center">网站访问请求数前[#sumwebp#]个类别&nbsp;<span style="color: #000000;font-size: 9pt; font-weight: normal;"></span></td>
+          		     </tr>
+                   <tr    bgcolor="#DEE8FA" height="22">
+				            <td width="50" align="center" class="bord2_1"> &nbsp;序号</td>
+				            <td  align="center" class="bord2_1" > 网址类别</td>
+				            <td width="140" align="center" class="bord2_1" > 请求数(次)</td>
+				            <td width="110" align="center" class="bord2_1" > 百分比</td>
+				           
+				          </tr>
+          <!--  -->
+				          [#SLPB#]
+				          <tr height="20"> 
+				
+				            <td class="bord1"   nowrap >&nbsp;[#num_w#]</td>
+				            <td class="bord1"  nowrap  >&nbsp;[#name_w#]&nbsp;</td>
+				            <td class="bord1"   nowrap align="right">&nbsp;[#data_w#]&nbsp;</td>
+				            
+				            <td class="bord1"  align="right">&nbsp;[#rate_w#]%&nbsp;</td>
+				           
+				          </tr>
+                 [#SLPE#]
+          	    </table>
+          			 </td>
+          				
+          			</tr>
+      			
+          			
+          	  </table>
+          	
+          </tr>
+       
+   <!-- 网址访问TOP20 -->    
+              <tr  bgcolor="#ffffff" height="510">
+       	     <td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+
+                 <td id="test5">
+               <script>Drawsortweb();</script>
+              </td>
+
+       	
+               </tr>
+             </table>         	
+          </tr>
+       
+       
+         <!-- 聊天记录数TOP10 -->    
+              <tr  bgcolor="#ffffff" height="340">
+       	     <td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+
+                 <td id="test7">
+               <script>Drawsortim();</script>
+              </td>
+
+       	
+               </tr>
+             </table>         	
+          </tr>
+       
+                <!-- 邮件记录数TOP10 -->    
+              <tr  bgcolor="#ffffff" height="360">
+       	     <td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+
+                 <td id="test9">
+               <script>Drawsortmail();</script>
+              </td>
+
+       	
+               </tr>
+             </table>         	
+          </tr>
+       
+       
+        </table>
+     </td>
+    </tr>
+    <script>
+	      form1.time.value='[#time#]';        
+</script>
+	</table>
+
+</form>
+</body>
+</html> 

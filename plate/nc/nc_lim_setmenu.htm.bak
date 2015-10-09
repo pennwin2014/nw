@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>归档日志</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.tab{
+width:90;
+text-align: center;
+background-image:url("/images/images2/biaoqian2.gif");background-repeat:no-repeat;
+color:#6b6b6b;
+font-weight:bold;
+cursor:hand;
+}
+.selTab{
+width:90;
+text-align: center;
+ background-image: url("/images/images2/biaoqian.gif"); background-repeat:no-repeat; 
+color:#00224f;
+font-weight:bold;
+cursor:hand;
+}
+
+
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+frames.main.location.href=t
+}
+
+var currentTab;
+var tabBase;
+var firstFlag = true;
+var cno;
+function changeTabs(){
+	
+if(firstFlag == true){
+currentTab = t0;
+cno=currentTab.id.substring(1);
+firstFlag = false;
+}
+
+
+if(window.event.srcElement.className == "tab4"||window.event.srcElement.className == "tab5"||window.event.srcElement.className == "tab7"||window.event.srcElement.className == "tab8"||window.event.srcElement.className == "tab9"){
+	var cno2=parseInt(cno)+1;
+	if(cno==0)
+		currentTab.className = "tab7";
+	else if(cno==9)
+		currentTab.className="tab8";
+	else
+		currentTab.className="tab5";
+
+  if(cno2<10)
+  	eval('document.all.t'+cno2).className="tab5";
+  else if(cno2==9)
+  	eval('document.all.t'+cno2).className="tab8";
+  	
+	currentTab = window.event.srcElement;
+	cno=currentTab.id.substring(1);
+	var cno1=parseInt(cno)+1;
+	if(cno==9){
+		currentTab.className = "tab6";
+	}
+  else if(cno==8){
+   currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab9";
+  }
+  else{
+	 currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab4";
+	}
+
+ tabContentID = currentTab.id + "Contents";
+ tabContent = document.all(tabContentID);
+
+var temp_desc;
+	if(tabContent.id=="t0Contents"){		
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listbase&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t1Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@1&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t2Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@4&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t3Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@5&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t4Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@8&gtype@[#gtype#]&id@[#id#]";
+	
+	}
+	else if(tabContent.id=="t5Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout_new&flags@2&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t6Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout_fun&flags@2&gtype@[#gtype#]&id@[#id#]";
+	}
+	
+	
+	
+	else if(tabContent.id=="t7Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@6&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t8Contents"){
+	frames.main.location="/pronline/Msg?FunName@ncWebLim_Listout&flags@3&gtype@[#gtype#]&id@[#id#]";
+	}
+	else if(tabContent.id=="t9Contents"){
+		frames.main.location="/pronline/Msg?FunName@ncWebSetLimSummary&flags@3&gtype@[#gtype#]&id@[#id#]";
+	}
+
+}
+}
+
+</script>
+<style>
+.conts  {visibility:hidden}
+
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main">
+<input type="hidden" name="FunName" value="">
+
+    <table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#8cb4e8 STYLE="width:100%; height:100%">
+      <tr height="27"><td colspan="10" align="center" style="font-size:11pt;color:#00237e;"><b>[#appname#]&nbsp;上网控制规则设置</b></td>
+     <td><!--<input name="hsear" type="button" class="an3"  onclick=goto("/pronline/Msg?FunName@ncWebWait&plate@nc/ncmsg_limapp.htm") value="应用" >--></td>
+      </tr>
+      <tr height="26" >
+	    <td ID="t0" CLASS="tab3">全部规则</td>
+	    <td ID="t1" CLASS="tab4"  >访问外网</td> 
+	    <td ID="t2" CLASS="tab5"  >网络服务策略</td>
+	    <td ID="t3" CLASS="tab5"   >网址库策略</td>
+	    <td ID="t4" CLASS="tab5"   >网址库限制</td>
+	    <td ID="t5" CLASS="tab5"  >网络服务限制</td>
+	    
+	    <td ID="t6" CLASS="tab5"  >功能限制</td>
+	    
+	    
+	    <td ID="t7" CLASS="tab5" >网址内容限制</td>
+	    <td ID="t8" CLASS="tab5" >IP地址限制</td>
+ 
+	    <td ID="t9" CLASS="tab8" >综合参数</td>
+
+	    <td ID="t10" class="tab10" >
+	    	
+	    	</td>	   
+      </tr> 
+		
+
+	
+<td HEIGHT="*" COLSPAN="11" ID="tabContents" align="left" valign="top" style="position:relative;top:-2px"> 
+<div id="ff" name='ff' >
+		<iframe name="main" id="data1" width="100%" height="100%" src="/pronline/Msg?FunName@ncWebLim_Listbase&gtype@[#gtype#]&id@[#id#]" frameborder="no"> </iframe>
+
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+<div CLASS="conts" ID="t5Contents"> 5 </div>
+<div CLASS="conts" ID="t6Contents"> 6 </div>
+<div  ID="t7Contents"> 7 </div>
+<div  ID="t8Contents"> 8 </div>
+<div  ID="t9Contents"> 9 </div>
+<div  ID="t10Contents"> 10 </div>
+<div  ID="t11Contents"> 11 </div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function addmail(){
+	if(form1.rname.value==''){
+		alert('报表名称不能为空');
+		return false;
+	}
+	if(form1.mail.value==''){
+		alert('邮件地址不能为空');
+		return false;
+	}
+	if(form1.rtype.value=='0'){
+		alert('请选择统计类型');
+		return false;
+	}
+	/*
+	if(form1.rtype.value=='1'){
+		if(
+		alert('请选择统计类型');
+		return false;
+	}*/
+	/*
+	if(form1.sendtime.value==''){
+		alert('发送时间不能为空');
+		return false;
+	}
+	
+	if(form1.orderby.value=='1'){
+		if(form1.sendtime.value.length!=10){
+			alert("请按yyyy/mm/dd格式填写发送时间");
+			return false;
+		}
+		if((form1.stime.value=='')||(form1.etime.value=='')){
+			alert("统计时间不能为空");
+			return false;
+		}
+	}else{*/
+		if(form1.sendtime.value.length>2||form1.sendtime.value*1>31){
+			alert("周报发送时间填写1-7，月报1-31");
+			return false;
+		}
+ 	//}
+ 	//alert(form1.sendmoment.value.length);
+ 	//if(2>1) return false;
+ 	if(form1.sendmoment.value!=''){
+	 	if(form1.sendmoment.value.length>2||form1.sendmoment.value*1>24){
+			alert("时刻填写1-24");
+			return false;
+		}
+	}
+	return true;
+}
+
+function showf(sid,uname,mail,rid,gid,rname,type,sendtime1,ttype,orderby,timemoment1,xh_uname,xh_ip,xh_url){
+	form1.sid.value=sid;
+	form1.uname.value=uname;
+	form1.reportid.value=rid;
+	form1.rname.value=rname;
+	form1.groupid.value=gid;
+	form1.mail.value=mail;
+	form1.rtype.value=orderby;		
+	form1.sendtime.value=sendtime1;
+	form1.ttype.value=ttype;
+	form1.orderby.value=type;
+	if(orderby==1)
+		form1.sendmoment2.value=timemoment1;
+	else
+		form1.sendmoment.value=timemoment1;
+	form1.dj_uname.value=xh_uname;
+	form1.dj_ip.value=xh_ip;
+	form1.dj_site.value=xh_url;
+}
+function modmail(){
+	if(form1.sid.value==''){
+		alert('请先点击要修改的记录');
+		return false;
+	}
+	if(form1.rname.value==''){
+		alert('报表名称不能为空');
+		return false;
+	}
+	if(form1.mail.value==''){
+		alert('邮件地址不能为空');
+		return false;
+	}
+	if(form1.rtype.value=='0'){
+		alert('请选择统计类型');
+		return false;
+	}
+	/*
+	if(form1.sendtime.value==''){
+		alert('发送时间不能为空');
+		return false;
+	}*/
+	return true;
+}
+var dfd1="0"
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+function goto2(t){
+	var temp_t;
+	temp_t=t+"&groupid@"+form1.groupid.value;
+ tt=showModalDialog(temp_t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:520px');
+}
+
+function changemod(attName,attValue,attName2,attValue2){
+	var divs = document.getElementsByTagName("div");
+	if(form1.rtype.value=='1'){		
+		 for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName) == attValue)
+           divs[i].style.display = 'none';
+     }
+     for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = '';
+     }   
+	}else if(form1.rtype.value=='2'){
+		for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName) == attValue)
+           divs[i].style.display = '';
+     }
+    for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = 'none';
+     }				
+	}else if(form1.rtype.value=='3'){
+		for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName) == attValue)
+           divs[i].style.display = '';
+     }
+    for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = 'none';
+     }		
+	}else{
+		for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName) == attValue)
+           divs[i].style.display = '';
+     }
+    for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = 'none';
+     }
+	}
+		
+}
+
+function init(attName2,attValue2){
+	var divs = document.getElementsByTagName("div");
+	for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = 'none';
+  }	
+}
+function testmail(){
+	//form1.khwt_mail1.value=1;
+	var temp="/pronline/Msg?FunName@nc_opentest_mail";
+	var oDia=showModalDialog(temp,window,
+		  "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:530px;scroll:none;dialogHeight:400px;overflow:none");	
+}
+
+function changetype(){
+	if(form1.orderby.value==7){
+			document.getElementById("dj_filter").style.display="";
+//			document.getElementById("dj_filter2").style.display="none";
+	}else{
+			document.getElementById("dj_filter").style.display="none";	
+//			document.getElementById("dj_filter2").style.display="";
+	}
+}
+function filter_tj(){
+		document.all.Layer3.style.display='';
+} 
+
+function showtree(id,cna){
+	var objEva=new Array();
+ 
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+ 
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select_jd.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+ 
+}
+
+function exp_exc(){
+  	form1.FunName.value="ncWebServiceSortUserByTime";
+  	form1.submit();	
+  }   
+</script>
+
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<script src="/js/tablecssall.js"></script>
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:548px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }   
+-->
+
+</style>
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=1  marginwidth=0 topMargin="0" style="overflow:hidden"  onload="init('Sid2','hidd2');">
+<form name="form1" method="post" action="/pronline/Msg">
+<input name="FunName" type="hidden" value="ncReportReset">
+<input name="sid" type="hidden" value="">
+<input type="hidden" name="khwt_preple" value="[#khwt_preple#]">
+ <input type="hidden" name="khwt_man" value="[#khwt_man#]">
+ <input type="hidden" name="khwt_title" value="[#khwt_title#]">
+ <input type="hidden" name="khwt_content" value="[#khwt_content#]">
+ <input type="hidden" name="temp_file" value="[#temp_file#]">
+<input name="reportid" type="hidden" value="">
+  <table border="0" width="100%" height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+  	<tr>  	
+	  	 <td align="center" valign="top" bgcolor="#DEE8FA">
+        <table width="98%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>         	
+            <td valign="top" colspan="2" style="display:inline-block; ">  
+              <table width="99%" border="0" align="center">
+              
+                <tr height="19">                 
+                  <td  width="150" style="font-size: 10pt;color:#00237e;"><b >姓&nbsp;&nbsp;名</b>&nbsp;<input type="text" name="uname" size="8" maxlength="22">&nbsp;</td>
+                  <td  width="180" style="font-size: 10pt;color:#00237e;"><b>邮件帐号</b><input type="text" name="mail" size="16" maxlength="64"></td>
+                  <td  width="160" style="font-size: 10pt;color:#00237e;"><b>统计频度</b>&nbsp;<select name="rtype" style="width:82" onpropertychange="changemod('Sid','hidd','Sid2','hidd2');"><option value="0">请选择</option><option value="1">日报</option><option value="2">周报</option><option value="3">月报</option></select></td>
+                  <td style="font-size: 10pt;color:#00237e;">
+                   <div Sid="hidd" style="white-space:nowrap;"><b>发送日期</b>&nbsp;<input type="text" name="sendtime" size="10" maxlength="13">(周报1－7，月报1－31)<b>发送时刻</b>&nbsp;<input type="text" name="sendmoment" size="3">(时刻1－24)</div><div Sid2="hidd2" style="white-space:nowrap;"><b>发送时刻</b>&nbsp;<input type="text" name="sendmoment2" size="3">(时刻1－24)</div></td>    
+                  </tr>
+                
+                               
+                <tr height="19">                
+                  <td width="150" style="font-size: 10pt;color:#00237e;"><b >时间段&nbsp;</b><select name="ttype" style="width:68"><option value="0">全部</option><option value="1">工作时间</option><option value="2">非工作时间</option></select>&nbsp;</td>
+                  <td width="185"style="font-size: 10pt;color:#00237e;"><b>报表类型</b><select name="orderby" style="width:125" onpropertychange="changetype();">
+                  		<option value="6">上网情况报表</option>
+                  		<option value="5">上网行为分析报告</option>
+                  		<option value="1">服务流量分布图表</option>
+                  		<option value="2">服务流量趋势图表</option>
+                  		<option value="3">网站访问分布图表</option>
+                  		<option value="4">网站访问趋势图表</option>
+                  		<option value="7">上网时间综合图表</option>
+                  	</select>
+                  </td>                  
+                  <td   style="font-size: 10pt;color:#00237e;"><b>报表名称&nbsp;</b><input type="text" name="rname" size="10" maxlength="32">&nbsp;</td>
+                 
+                  <td colspan="2" nowrap style="font-size: 10pt;color:#00237e;">
+                  <b>统计对象</b>&nbsp;<!--<select name="groupid" style="width:80"><option value="999999999">全部</option>[#SLPB#]<option value="[#gid#]">[#gname#]</option>[#SLPE#]</select>&nbsp;  -->
+                 <input type="text" name="gname" value="点击选择部门" size="9" onclick="showtree('groupid','gname')" readonly >
+								 <input type="hidden" name="groupid" value="">
+                 <input id="dj_filter" style="display:none"  name="fiter" type="button" class="an3" onclick="filter_tj();" value="过虑">
+                 &nbsp;<input type="submit" name="add" value="添加"  class="an3" onclick="return addmail();">&nbsp;<input type="submit" name="modi" value="修改" class="an3" onclick="return modmail()">&nbsp;<input type="submit" name="del" value="删除"  class="an3" onclick="return addfee();">&nbsp;<input type="button" name="add" value="测试"  class="an3" onclick="testmail();">
+                  <input name="submit1" type="button" class="an3" onclick="exp_exc()"  value="expExcel" >
+                  </td>      
+                 
+                       
+                </tr>
+                
+              </table>            
+         </td>
+	  
+	  
+  </tr>	
+  	
+    <tr>   
+      <td width="1200"  valign=top align=center bgcolor="#DEE8FA">
+      	<div class="tScrollw" id="tC">
+        <table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD" height="20">
+             <td width="30" align="center" class="bord2" bgcolor="#848CCB"> 
+              <font color="#000000">
+                <input type="button" name="b1" value="选择"    class="anniu_1" onClick="allChecked()">
+              </font></td>
+            <td width="60" align="center" class="bord2"> &nbsp;姓名</td>
+            <td width="160" align="center" class="bord2" > 邮件帐号</td>
+            <td width="150" align="center" class="bord2" > 报表名称</td>
+            <td width="80" align="center" class="bord2" >统计对象</td>
+            <td width="100" align="center" class="bord2" >报表类型 </td>
+            <td width="80" align="center" class="bord2" > 发送时间</td>
+            <td width="80" align="center" class="bord2" >时间段</td>	
+            <td width="40" align="center" class="bord2" >统计频度</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" height="18" onMouseOut="mouseouttr2(this)" onclick="showf('[#sid#]','[#uname#]','[#mail#]','[#rid#]','[#groupid#]','[#rname#]','[#type_desc1#]','[#sendtime1#]','[#ttype_desc1#]','[#orderby1#]','[#timemoment1#]','[#xh_uname#]','[#xh_ip#]','[#xh_url#]')" > 
+          <td  align="center" class="bord1"> <input type="checkbox" name="ch1" value="[#sid#]"> 
+            </td>
+            <td class="bord1" title="[#uname#]"  nowrap >&nbsp;[#uname#]</td>
+            <td class="bord1" title="[#mail#]" nowrap  >&nbsp;[#mail#]</a></td>
+            <td class="bord1" title="[#rname#]"  nowrap >&nbsp;[#rname#]</td>   
+            <td class="bord3" title="[#groupname#]" nowrap align="center">[#groupname#]&nbsp;</td>
+					  <td class="bord1" title="[#type_desc#]" nowrap  >&nbsp;[#type_desc#]</a></td>
+            <td class="bord1" title="[#sendtime#]"  nowrap >&nbsp;[#sendtime#]</td>
+            <td class="bord1" title="[#ttype_desc#]"  nowrap >&nbsp;[#ttype_desc#]</td>
+            <td class="bord3" title="[#orderby#]"  nowrap >&nbsp;[#orderby#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+      </div>
+      </td>
+  </tr>
+</table>
+<div id="Layer3" style="position:absolute; left:200px; top:55px; width:550px; height:50px;background-color:#DEE8FA; z-index:1;display:none;">
+       	    <table width="200" cellpadding=3 cellspacing=3>
+       	    	<tr height="35">
+       	    	<td>
+       	    	<table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="570px">
+       	        <tr>
+                	<td height="35">&nbsp;
+               			User Name&nbsp;<input type="text" name="dj_uname" size="21" maxlength="151"  value="[#dj_uname#]">&nbsp;&nbsp;&nbsp;
+               			Ip&nbsp;<input type="text" name="dj_ip" size="21" maxlength="151"  value="[#dj_ip#]">
+       	        	</td>
+       	        </tr>
+       	        <tr>
+ 
+                <td height="35">&nbsp;
+                		&nbsp;&nbsp;Website&nbsp;<input type="text" name="dj_site" size="50" maxlength="253"  value="[#dj_site#]" >
+            <!--    	&nbsp;<input name="add" type="button" class="an3" value="Confirm" onclick="con_tj();">	-->
+                  &nbsp;<input name="back" type="button" class="an3" value="Hide"  Onclick="document.all.Layer3.style.display='none';">
+                	
+       	        	</td>
+       	        </tr>
+       	      </table>
+       	    </td>
+       	  </tr>
+       	</table>
+      </div>
+ </form>
+</body>
+
+</html>

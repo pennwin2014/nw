@@ -1,0 +1,164 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Language" content="zh-CN" />
+<title>left</title>
+<!-- 调用JS -->
+<link href="/css/left/tree.css" type="text/css" rel="stylesheet">
+<script src="/js/left/ajax.js" type="text/javascript"></script>
+<script src="/js/left/tree.js" type="text/javascript"></script>
+<style type="text/css">
+	.bord4 
+  {	border-top: 1px solid #9AC7F0;
+	border-right: 1px solid #294767;
+	border-bottom: 1px solid #294767;
+	border-left: 1px solid #9AC7F0;}
+	.bordleft{border-right:1px solid #abacae;}
+A.MzTreeview
+{
+	font-size: 9pt;
+	padding-left: 3px;
+}
+</style>
+<script type="text/javascript">
+	
+   cp = [#CurPg#];
+   tp = [#TotPg#];
+   function gotoPage(t){
+       if(t==1) {
+           form1.app.value = "next";
+       }
+       else if(t == (-1)) {
+           form1.app.value = "prev";
+       }
+       cp = cp + t;
+       if(cp <= 0) cp = 1;
+       if(cp > tp) cp = tp;
+       
+       form1.CurPg.value = cp;
+       form1.submit();
+       return;
+   }
+	
+	
+	
+//--------------------------------------------------
+JSErrorFrame="{JSErrorFrame}";
+//--------------------------------------------------
+<!--
+function sendVar(o)
+{
+      self.parent.topFrame.location = "top.htm";
+}
+
+function init(o)
+{
+	sendVar(o);
+	test_a("正在加载...");
+}
+-->
+</script>
+</head>
+<body  marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" >
+<table border="0" cellpadding="0" cellspacing="0" width="179" height="100%">
+    <tr>
+    
+	    <td width="174" valign="top" >
+		    <table border="0" width="100%" cellspacing="0" cellpadding="0" >
+		    	<tr>
+		    		<td>
+		    	  <table width="100%" cellspacing="0" cellpadding="0" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff>
+		    	<tr>
+		    		<td>
+		    		<table width="100%" cellspacing="0" cellpadding="0" border="0" >
+		    	      <form action="/pronline/Msg" method="post" name="form1" id="form1">
+		    	      <input name="FunName" type="hidden" value="ncWebTreeDispUserRid">
+              <input name="CurPg"   type="hidden" value="[#CurPg#]">
+              <input name="TotRec"  type="hidden" value="[#TotRec#]">
+              <input name="groupid"  type="hidden" value="[#groupid#]">
+              <input name="plate"   type="hidden"  value="tree/tree_group_imclient_nolimit.htm">
+              <input name="app"   type="hidden"    value=" ">
+              
+		    	
+		           <tr> 
+		 	
+		 	          <td width="50px"> 
+                <input name="name" type="text"  value="[#name#]"  style="height:17px" size="12" maxlength="31">&nbsp;
+             
+                </td>
+		 	
+			      <td height="20" colspan="2" valign="bottom">
+			         <table  height="20" border="0" cellpadding="0" cellspacing="0">
+			       
+			        
+					    	<tr> 
+			          
+			          <td>
+			            <script>
+			                if(cp < tp) {
+			                        document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 alt='转下页,共[#TotPg#]页 当前为第[#CurPg#]页' onClick='gotoPage(1);form1.submit()' class='hand'>");
+			                }
+			                else {
+			                        document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 alt='已经是最后一页,共[#TotPg#]页 当前为第[#CurPg#]页' class='gray1'>");
+			                }
+			                if(cp > 1) {
+			                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 alt='转上页,共[#TotPg#]页 当前为第[#CurPg#]页' onClick='gotoPage(-1);form1.submit()' class='hand'>");
+			                }
+			                else {
+			                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 alt='已是第一页,共[#TotPg#]页 当前为第[#CurPg#]页'  class='gray1'>");
+			                }
+			            </script>
+			          </td>
+			        </tr>
+			      
+			      </table>
+			      </td>
+          </tr>
+		   </table>
+		     </form>
+		   
+	    </td>
+      </tr> 
+		</table>
+	</td>
+</tr>  	
+		    	
+				<tr>
+				    <td  valign="top">
+					    <script type="text/javascript">
+						<!--
+						window.tree = new MzTreeView("tree");
+
+
+
+
+						tree.icons["property"] = "property.gif";
+						tree.icons["css"] = "collection.gif";
+						tree.icons["book"]  = "book.gif";
+						tree.iconsExpand["book"] = "bookopen.gif"; //展开时对应的图片
+						tree.setIconPath("/images/tree/"); //可用相对路径
+						tree.nodes["-1_0"] = "text:全部用户;";
+						[#SLPB#]
+						tree.nodes["[#nodep#]_[#nodes#]"] = "text:[#dname#];url:/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@[#fname2#]&userid@[#userid#]&service@[#service#]&vid@[#myrid#] ";
+						[#SLPE#]
+						
+						
+						tree.setTarget("sbpm_right");
+						document.write(tree.toString());    //亦可用 obj.innerHTML = tree.toString();
+						//-->
+						</script>
+					</td>
+					
+				</tr>
+			</table>
+			
+		</form>
+		</td>
+
+
+	</tr>
+</table>
+
+</body>
+</html>

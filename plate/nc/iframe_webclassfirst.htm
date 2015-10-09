@@ -1,0 +1,166 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">	
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>网站访问统计</title>
+<style>
+	v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+TD {	FONT-SIZE: 9pt}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+	function getColor(){
+		return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+  };
+	//求数据对象的最大Value
+function maxs(mm){
+ var max1 = 0;
+ for(var i=0; i<mm.length; i++){
+  if(mm[i] > max1) max1 = mm[i];
+ }
+ return max1;
+}
+	
+	
+</script>
+
+
+</head>
+<body topmargin=5 leftmargin=0  style="overflow:hidden" onload=parent.form1.ctime.value='[#today#]'>
+	<div id="test1">
+
+	<script LANGUAGE="JavaScript">	
+	
+	var tb_left=40;
+	var tb_top=20;
+	var tb_width=380;
+	var tb_height=180;
+	
+	var y_tot=5;
+	var x_tot=7;
+	var y_max=1500;
+  var to_day='[#today#]';
+
+	var sdate=new Array();
+	var sdate_desc=new Array();
+[#SLPB#]
+sdate[[#num#]]=[#count#];
+sdate_desc[[#num#]]='[#classname#]';
+[#SLPE#]
+
+
+	
+	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+	y_max=(Math.round(maxs(sdate)/5)+1)*5;
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+	var step_x=Math.floor(tb_width/x_tot);
+	var yzoom=tb_height/y_max;
+
+
+
+
+//画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+tb_left+","+parseInt(tb_top-3)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+//   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left+7)+","+parseInt(tb_top)+"' to='"+parseInt(tb_left+7)+","+parseInt(tb_top+tb_height-8)+"' strokecolor='#69f'/>";
+    
+//   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+tb_left+","+parseInt(tb_top+tb_height-7)+"' to='"+parseInt(tb_left+7)+","+parseInt(tb_top+tb_height)+"' strokecolor='#69f'/>"; 
+//   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left+7)+","+parseInt(tb_top+tb_height-8)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height-8)+"' strokecolor='#69f'/>";
+
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-3)+"' strokecolor='#333333' />";
+//   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top)+"' strokecolor='#69f'/>";
+
+
+//写日期
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+tb_width-82)+";top:"+parseInt(tb_top-17)+";width:80px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right' style='font-size:10pt'>"+to_day+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+
+
+
+
+//画纵坐标刻度
+	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#dddddd'/>	";
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top-8)+";width:70px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	
+	temp_html=temp_html+"<tr><td align='right'>"+y_max+"</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+	
+	
+	
+	var i;
+	for(i=1;i<y_tot;i++){	   
+			temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:-1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"' strokecolor='#dddddd'/>	";		
+	
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-70)+";top:"+parseInt(tb_top+i*step_scal-10)+";width:70px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";			
+			temp_html=temp_html+"<tr><td align='right'>"+parseInt(y_max-step*i)+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+
+//画X轴刻度和柱状图
+for(i=0;i<x_tot;i++){
+	var t_color=getColor();
+
+	temp_html=temp_html+"<v:rect  alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom)+ ";width:18px;height:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+	temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+
+//柱上刻度		
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-5)+";top:"+parseInt(tb_height+tb_top-sdate[i]*yzoom-25)+";width:42px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+	temp_html=temp_html+"</v:textbox></v:shape>";		
+				
+//X轴刻度标志	
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_x*(i+1)-step_x*3/4-10)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate_desc[i]+"</td></tr></table>";
+	temp_html=temp_html+"</v:textbox></v:shape>";
+	
+	
+}
+
+
+
+
+
+
+  document.write(temp_html);
+</script>
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+	
+</body>

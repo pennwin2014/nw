@@ -1,0 +1,225 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#FFFF00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+   
+	for(var i=1;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+function showuserinfo(uid){
+	var temp="/pronline/Msg?FunName@ncWebDispUserInfo2&userid@"+uid;
+
+ showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:660px;scroll:no;dialogHeight:600px');
+}
+function passdate()
+{
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#333333;">[#title_name#] 上网阻断日志</b>';
+}
+
+function qr(){
+  if(form1.username.value!=form1.old_dispname.value){
+  form1.userid.value='';
+  }
+  form1.where.value='';
+	parent.form1.userid.value=form1.userid.value;
+	parent.form1.groupid.value=form1.groupid.value;
+	parent.form1.sdate.value=form1.sdate.value;
+	parent.form1.sdate1.value=form1.sdate1.value;
+	parent.form1.edate.value=form1.edate.value;
+	parent.form1.edate1.value=form1.edate1.value;
+	parent.form1.sip.value=form1.sip.value;
+
+	parent.form1.username.value=form1.username.value;
+	parent.form1.idfyno.value=form1.idfyno.value;
+	parent.form1.mac.value=form1.mac.value;
+	parent.form1.dip.value=form1.dip.value;
+	parent.form1.mesg.value=form1.mesg.value;
+
+}
+
+function cleara(){
+form1.userid.value='';
+form1.groupid.value='';
+//form1.sdate.value='';
+//form1.edate.value='';
+//form1.sdate1.value='';
+//form1.edate1.value='';
+form1.username.value='';
+form1.idfyno.value='';
+form1.sip.value='';
+form1.old_dispname.value='';
+form1.dip.value='';
+form1.mac.value='';
+form1.mesg.value='';
+
+parent.form1.userid.value='';
+parent.form1.groupid.value='';
+//parent.form1.sdate.value='';
+//parent.form1.edate.value='';
+//parent.form1.sdate1.value='';
+//parent.form1.edate1.value='';
+
+parent.form1.username.value='';
+parent.form1.idfyno.value='';
+parent.form1.sip.value='';
+
+parent.form1.dip.value='';
+
+parent.form1.mac.value='';
+parent.form1.mesg.value='';
+
+}
+
+</script>
+
+<script src="/js/drawtable.js"></script>
+<script src="/js/calendar.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('DataTable', '100%', '480', 'center', 41, 'flexibleTableSpan');
+
+Table.Header ('<input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()">', '姓名', '时间', '源IP地址','目标IP地址','次数','内容');
+Table.ColumnsWidth ('46', '110', '110', '110', '110', '50', '280');
+Table.HeaderAligment ('center', 'center', 'center', 'center', 'center', 'center', 'center');
+Table.BodyAligment ('center', 'left', 'center', 'left', 'left', 'right','left');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('<input type="checkbox" name="chk[#num#]" value="[#sid#]">','<a href="#xxm" onclick=showuserinfo("[#userid#]")>&nbsp;[#username#] </a>','&nbsp;[#sdate#]','&nbsp;[#sip#]','&nbsp;[#dip#]','&nbsp;[#count#]&nbsp;','&nbsp;[#mesg#] ');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+ .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#DEE8FA" leftMargin=2 topMargin=2 scroll=no onload="Table.Draw();passdate()">
+	<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebErrHsearch">
+	<input type="hidden" name="userid" value="[#userid#]">
+	<input type="hidden" name="groupid" value="[#groupid#]">
+	<input type="hidden" name="old_dispname" value="[#dispname#]">
+	<input type="hidden" name="plate2" value="nc/nc_error_listnow.htm">
+		
+		<input type="hidden" name="del" value="">
+		<input type="hidden" name="where"      value="[#where#]">
+
+		<TABLE  height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+
+    
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	
+  	  	  	  	 <tr height="90">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td width="100" align="center">&nbsp;时间从</td>
+          	  	     	<td width="150"><input type="text" name="sdate" value="[#sdate#]" size="11" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="sdate1" value="[#sdate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="75" align="center">&nbsp;到</td>
+          	  	     	<td width="150"><input type="text" name="edate" value="[#edate#]" size="11" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-19px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-17px;" name="edate1" value="[#edate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="60" align="center">&nbsp;源IP</td>
+          	  	     	<td ><input type="text" name="sip" value="[#sip#]" size="15"></td>
+          	  	     	<td width="80">&nbsp;MAC地址</td>
+          	  	     	<td width="100">
+          	  	    <input type="text" name="mac" value="[#mac#]" size="14" ></td>
+          	  	     	<td width="100" align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td  align="center">&nbsp;用户名</td>
+          	  	     	<td ><input type="text" name="username" value="[#dispname#]" size="17" >
+
+          	  	     		</td>  
+          	  	     	<td  align="center" >&nbsp;证件号</td>
+          	  	     	<td ><input type="text" name="idfyno" value="[#idfyno#]" size="17"></td>
+          	  	     	<td  align="center">&nbsp;目标IP</td>
+          	  	     	<td ><input type="text" name="dip" value="[#dip#]" size="15"></td>
+          	  	     	<td >&nbsp;内容</td>
+          	  	     	<td ><input type="text" name="mesg" value="[#mesg#]" size="14" ></td>  
+          	  	     	<td  align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+
+
+          	  	   </table>
+       	        	</td>
+       	        </tr>
+  	
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+</html>

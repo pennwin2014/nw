@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function tjsave(){
+	var temp=form1.ipg.value;
+  var index=temp.indexOf('-');
+
+	if(index<0&&temp.length<7){
+	alert('ip地址格式不正确');
+	 return ;
+	 };
+	 form1.submit();
+//  parent.close();
+	
+	}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden" >
+<form name="form1" method="post" action="/pronline/Msg" target="sbpm_right2">
+<input type="hidden" name="sid" value="[#sid#]">
+<input type="hidden" name="FunName" value="ncGroupRzfsSave">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">添加部门IP段验证方式</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="90%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="200" width="100%"> 
+            	<table width="95%" border="0" align="center">
+            		<tr height="20px">
+				          	<td>&nbsp;</td>
+				          	<td>&nbsp;</td>
+				          </tr>
+                <tr height="30"> 
+                  <td width="26%">&nbsp;部门&nbsp;</td>
+                  <td width="35%">&nbsp;&nbsp;[#sgroup#]&nbsp;&nbsp
+                  <td width="9%">&nbsp;</td>
+                  <td width="30%">&nbsp;</td>
+                </tr>
+               
+              
+               
+                 <tr height="30"> 
+                  <td >&nbsp;IP范围</td>
+                  <td >&nbsp; <textarea name="ipg" cols="30" rows="15"></textarea>
+
+                  <td colspan="2">格式：<br>起始IP-终止IP<br>一行一条记录<br>示例:<br>
+                  	192.168.0.1-192.168.0.20<br>
+                  	不写终止IP,默认起始IP和终止IP相同。</td>
+                
+                </tr>
+               
+				          <tr height="30px">
+				          	<td>&nbsp;管理方式</td>
+				          	<td>&nbsp;<select name="flags1" style="width:240px" >
+         
+                    	<option value="2">IP地址</option>
+                    	<option value="3">MAC地址</option>
+                    	<option value="4">本地验证</option>
+                    	<option value="5">第三方验证</option>
+                    	<option value="11">交换机端口</option>
+                    	<option value="12">VlanID</option>
+                    	<option value="9">客户端管理</option>
+                    	<option value="8">主机监控</option>
+                    	<option value="1">名字管理</option>
+                    	<option value="7">禁止访问</option>
+                    	<option value="6">免监控</option>    
+                    </select></td>
+				          </tr>
+				          
+				          
+                  	</table>
+                  </td>
+                </tr>
+              </table>
+                  	
+                  	</td>
+                  	
+                  	
+                  	
+                  	
+            
+                </tr>
+               
+               
+               
+               
+              </table>
+              </td>
+              
+              
+              
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="100%" border="0" align="center">
+      	<tr><td>&nbsp;</td></tr>
+          <tr> 
+            <td align="center"> 
+                
+                &nbsp; 
+                <input type="button" name="cancel" value="保存" class="an3" onclick="tjsave()">
+                &nbsp;
+                
+              </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>

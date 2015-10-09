@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/buttons.css" />   
+<script src="/newver/resources/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var i =0;
+  $("#btn_style1").click(function(){
+	if(i==0){
+   // $("#login").fadeOut(2000);
+// $("#content").delay(2000).hide().fadeIn(1000);
+	    $("#login").slideUp(1000);
+		$("#content").delay(1000).slideDown(1000);
+
+	document.getElementById('btn_style1').className = 'btn_style2';
+	i++;
+	}
+	else{
+	$("#content").fadeOut(1000);
+	$("#login").delay(1000).fadeIn(2000);
+	//$("#login").delay(2000).animate({
+ //   left:'250px',
+  //  height:'150px',
+  //  width:'150px'
+//	});
+	document.getElementById('btn_style1').className = 'btn_style1';
+	i--;
+	}
+	});
+  
+  
+ // $("#login").load(function() {  
+  $(".title").hide().fadeIn(1000);     
+ 
+  $("#login").hide().slideDown(1000);         
+
+ $("#foot").hide().fadeIn(1000);       
+//});
+
+});
+
+
+
+
+</script>
+
+
+<title>新网程内网管理系统</title>
+
+
+<style type="text/css">
+* {
+	margin:0px;
+	padding:0px;
+}
+body{
+	background: url(/images/v8login/bg2.png) repeat scroll 0 0;
+	margin:0;
+font-family: "微软雅黑";
+
+}
+.title {
+	font-weight:600; 
+	white-space:nowrap;
+	margin-top:4%;
+	text-shadow: #2E2E2E 5px 5px 5px;
+	text-align:center;
+	font-size:50px;
+	position: relative;
+	color:#100719;
+}
+.title2{
+	background: url(/images/v8login/gradient-dark-stripe-hz.png) repeat-x;
+	margin:5px auto;
+	height:50px;
+	width:500px;
+
+}
+#login {
+	background: url(/images/v8login/bg.png) repeat scroll 0 0;
+	height:200px;
+	border:2px solid #000000;
+	box-shadow: 5px 10px 100px 15px #000000;
+	margin:2% 0% 2% 0% ;
+}
+.login {
+	display:none;
+	height:200px;
+	display:none;
+	margin:2% 5% 2% 5%;
+}
+#nclogin {
+	height:262px;
+	
+	width:650px;
+	margin:-50px auto 0;
+}
+
+#nclogin .img {
+    width: 100px;
+    height: 100px;
+}
+#login_form_ul {
+	height:120px;
+	list-style:none;
+	padding: 71px 0;
+	margin-left:320px;
+}
+.login_form_ul_li {
+	
+	height:40px;
+	line-height:40px;
+}
+.login_form_lab {
+	color:#fff;
+	display:inline-block;
+	width:80px;
+	text-align:justify;
+}
+.login_form_input{
+font-size:1.0em;
+}
+#login_form_list_action{
+	padding-left:70px;
+	*padding-left:66px;
+}
+/*.login_form_btn {
+	border:2px outset #1EB6FF;
+	padding:0 8px;
+	*padding-top: 3px;
+	line-height:16px;
+	background-color:#1EB6FF;
+}*/
+.login_form_btn{
+	padding:0 8px;
+	*padding-top: 3px;
+	line-height:16px;
+}
+#foot {
+	padding-top:2%;
+	text-align:center;
+	line-height:40px;
+	white-space:nowrap;
+}
+
+
+.title span {
+background: url(/images/v8login/gradient-dark-stripe-hz.png) repeat-x;
+position: absolute;
+display: block;
+width: 100%;
+height: 100px;
+}
+	
+h1 {
+display: block;
+font-size: 2em;
+-webkit-margin-before: 0.67em;
+-webkit-margin-after: 0.67em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+font-weight: bold;
+}
+div {
+display: block;
+}
+
+.img1{
+margin-left:20%;
+float:left;
+}
+
+.btn_style1{
+margin-top:5%;
+width: 68px;
+height:68px;
+background:url(/images/v8login/sdag4.png) no-repeat;
+border-radius: 40px;
+            }
+.btn_style2{
+margin-top:5%;
+width: 68px;
+height:68px;
+background:url(/images/v8login/sdag5.png) no-repeat;
+border-radius: 40px;
+}
+
+</style>
+
+<script language="JavaScript">
+
+function spylogin(){
+
+if (nclogin.username.value=="" || nclogin.password.value=="") {
+
+	window.alert("用户名或密码不能为空！");
+
+	return false;
+
+}
+return true;
+//nclogin.submit();
+
+}
+function ss()
+{
+if(event.keyCode==13){
+spylogin();
+nclogin.submit();
+}
+}
+
+// -->
+var i = 0;
+function display(){
+
+ //document.getElementById("login").slideOut();
+if(i==0){
+ document.getElementById("login").style.display = "none";
+  document.getElementById("content").style.display = "block";
+// document.getElementById("login").style.visibility ="hidden";
+ document.getElementById('btn_style1').className = 'btn_style2';
+ i++;
+ }
+ else{
+  document.getElementById("login").style.display = "block";
+ document.getElementById("content").style.display = "none";
+
+ //document.getElementById("login").style.visibility = "visible";
+ document.getElementById('btn_style1').className = 'btn_style1';
+ i--;
+ }
+
+ 
+ }
+</script>
+
+</head>
+<body >
+
+	<div id="main">
+   
+			<div class="title">新网程内网管理系统</div>
+			<div class="title2"></div>
+			
+					
+        <div id="login">
+		
+		<div class="img1">
+			
+		<img src="/images/v8login/Vanamo_Logo.png" width="200px" />
+
+		</div>
+		
+  	<form name="nclogin" id="nclogin" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncWebAuth">
+		
+                <ul id="login_form_ul">
+				
+                    <li id="login_form_list_username" class="login_form_ul_li">
+					
+                        <label for="username" class="login_form_lab">用户名：</label>
+                        <input type="text" name="username" class="login_form_input" id="username"/ >
+						
+                    </li>
+                    <li id="login_form_list_password" class="login_form_ul_li">
+                        <label for="password" class="login_form_lab">密码：</label>
+                        <input type="password" name="password" class="login_form_input" id="password"/ onKeyPress="ss()">
+                    </li>
+					<li><b><font color="#FFCF00" size="3">[#message#]</font></b></li>
+                    <li id="login_form_list_action" class="login_form_ul_li">
+                       <!-- <input type="submit" value="登 录" class="login_form_btn"/> 
+                        <input type="reset" value="重 置" class="login_form_btn"/>-->
+                        <input type="submit" value = "登录"  class="button pink"  name="submit" onClick="spylogin();"/> 
+                        <input  type="reset" class="button" value="取消" name="reset"/>
+						
+                    </li>
+				</ul>
+            </form>
+        </div>
+		<div class="login" id="content"><center><b><font color="#FFCF00" size="3">公司简介</font></b></center>
+ 上海新网程信息技术股份有限公司成立于1998年8月，由清华学子和资深互联网及网络安全技术专家创立，是一家专门从事互联网数据分析及网络信息安全产品研发的高新技术企业。</br>
+    目前新网程已形成由"场所端系统、通信和现场管理平台系统、数据中心系统、互联网数据应用及业务系统"等组成的产品架构体系，并拥有"大数据处理、海量数据存储、高流量数据采集、协议分析、高并发数据通信"等核心技术。场所端产品包括从低端的嵌入式到高端的万兆设备。服务器端具备可处理几万个并发连接, 上百TB的海量数据的大数据平台。</br>
+    在该架构基础上，新网程已形成了公安网监安全审计,企事业单位上网行为管理和移动互联网业务数据分析及应用三大业务领域的产品和解决方案。
+    </br>在公安领域已经在上海、浙江、山东、河北、辽宁等16个省得到实际使用，客户数量超过5万家。在企业上网行为管理领域，客户包括2010上海世博、申银万国、中国银行、宝钢集团、中石化等数千家大中型企业。在移动互联网领域，公司已经和浦东、虹桥机场，若干连锁集团及中国移动、电信、联通等展开深入合作。</div>
+		
+		<center>
+		<input  id="btn_style1" type="button" class="btn_style1" value="" name="reset"/>
+		</center>
+        <div id="foot">
+		
+        	<img src="/images/v8login/company_logo.png" width="200px" /><div>2002-2013 新网程信息技术股份有限公司版权所有</div>
+        </div>
+    </div>
+
+</body>
+</html>

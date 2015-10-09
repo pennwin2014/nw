@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<link rel="stylesheet" href="/css/main.css" type="text/css">
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-small;
+	color: #330000;
+}
+-->
+</style>
+<script>
+	function dopost() {
+		form1.submit();
+	}
+	
+	function doleft() {
+	   imod = '[#modflag#]';
+	   if(imod == '2') {
+ 			parent.sbpm_left.location.href='/pronline/Msg?FunName@ncWebTcClassTree';
+	   }
+   }
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  onload="doleft()" align="center" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr>
+      <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+          	<td width="30" height="26"><img src="/images/pagetitle1a.jpg" /></td>
+            <td background="/images/pagetitle1c.gif" class="titleText">接口参数定义</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td valign="top" class="bord4">
+        <table width="100%" border="0"   align="center" cellpadding="0" cellspacing="0"    bordercolorlight=#ffbd64   bordercolordark=#ffffff>
+          <tr> 
+            <td ><br>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="19%" height="23"> <div align="right">连接名称</div></td>
+                  <td width="38%" height="23"> <input name="cname" type="text" id="cname" value="[#cname#]" size="15" maxlength="16" > 
+                  </td>
+                  <td width="43%" height="23">带宽控制连接，连接数量针对每台设备固定，为接口总数除2</td>
+                </tr>
+                <tr> 
+                  <td height="1"><div align="right">启用状态</div></td>
+                  <td height="1"><select name="status" style="width:114px">
+                  	<option value="0">停用</option>
+                  	<option value="1">启用</option>
+                  	</select></td>
+                  <td >缺省为停用状态</td>
+                </tr>
+
+                <tr> 
+                  <td width="19%" height="1"> <p align="right">内部接口 </td>
+                  <td width="38%" height="1"> 
+                  	<select name="indev" style="width:114px">
+                  
+                   	[#SLPB#]
+                  	<option value="[#i#]">LAN[#i#]</option>
+                  	[#SLPE#]
+                  	
+                  	</select> </td>
+                  <td width="43%" height="1" > 连接内部网络的接口，选择LAN0-LAN7,不能重复</td>
+                </tr>
+               
+                <tr> 
+                  <td width="19%" height="16"> <p align="right">外部接口 </td>
+                  <td width="38%" height="16"> 
+                   <select name="outdev" style="width:114px">
+                   	[#SLPB#]
+                  	<option value="[#i#]">LAN[#i#]</option>
+                  	[#SLPE#]
+                  	
+                  	</select> 
+                  	
+                  	</td>
+                  <td width="43%" height="16" >连接内部网络的接口，选择LAN0-LAN7,不能重复
+                  </td>
+                </tr>
+                
+                <tr> 
+                  <td width="19%" height="16"> <p align="right">下行速率 </td>
+                  <td width="38%" height="16"> <input name="bandrate" type="text" id="bandrate" value="[#bandrate#]" size="11" maxlength="11">
+                    Kbit</td>
+                  <td width="43%" height="16" >单位为 Kbps, (每秒K bit)
+                  </td>
+                </tr>
+                
+                
+                <tr> 
+                  <td width="19%" height="16"> <p align="right">上行速率 </td>
+                  <td width="38%" height="16"> <input name="uprate" type="text" id="uprate" value="[#uprate#]" size="11" maxlength="11">
+                    Kbit</td>
+                  <td width="43%" height="16" >单位为 Kbps, (每秒K bit)
+                  </td>
+                </tr>
+                
+                
+                
+                
+                
+                <input type="hidden" name="opt" value="96">
+
+                <tr>
+                  <td height="16">&nbsp;</td>
+                  <td height="16">&nbsp;</td>
+                  <td height="16" class="style2">&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+
+
+
+    <tr> 
+      <td height="70"> 
+        <div align="center"> 
+          <table width="100%" border="0" align="center">
+            <tr> 
+              <td> <div align="center">
+                  <input type="hidden" name="modflag" value="[#modflag#]">
+                  <input type="hidden" name="FunName" value="ncWebTcSaveClass">
+                  <input name="ok" type="submit" class="button" id="ok2" value="确 认" onClick="dopost()" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input type="submit" name="app" value="应 用" class="button" onClick="dopost" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input type="reset" name="cancel" value="取消返回" class="button" onClick="history.back()" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input name="del" type="submit" class="button" id="del2" value="删 除" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  &nbsp; </div></td>
+            </tr>
+
+			<tr><td height=120></td></tr>
+          </table>
+
+        </div></td>
+    </tr>
+
+
+
+
+        </table>
+        <br>
+      </td>
+    </tr>
+
+	<!--
+    <tr> 
+      <td height="70"> 
+        <div align="center"> 
+          <table width="100%" border="0" align="center">
+            <tr> 
+              <td> <div align="center">
+                  <input type="hidden" name="modflag" value="[#modflag#]">
+                  <input type="hidden" name="FunName" value="ncWebTcSaveClass">
+                  <input name="ok" type="submit" class="button" id="ok2" value="确 认" onClick="dopost()" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input type="submit" name="app" value="应 用" class="button" onClick="dopost" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input type="reset" name="cancel" value="取消返回" class="button" onClick="history.back()" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  <input name="del" type="submit" class="button" id="del2" value="删 除" onMouseOver="this.className='buttonOver';" onMouseOut="this.className='button';">
+                  &nbsp; </div></td>
+            </tr>
+          </table>
+
+        </div></td>
+    </tr>
+-->
+
+
+  </table>
+
+</form>
+</body>
+</html>

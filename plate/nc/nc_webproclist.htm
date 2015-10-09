@@ -1,0 +1,310 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>Web地址列表</title>
+<script>
+    function goto(t){
+        self.location.href=t;
+    }
+    
+    function setgroup(t){
+       j=form1.group.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.group.options[i].value;
+           if(gv == t) {
+               form1.group.selectedIndex = i;
+           }
+       }
+    }
+
+    function setprot(t){
+       j=form1.prot.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.prot.options[i].value;
+           if(gv == t) {
+               form1.prot.selectedIndex = i;
+           }
+       }
+    }
+        
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#003399";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#ffffff";
+        }	
+    }
+
+    function showf(s1,s2,s3,s4) {
+        form1.sid.value=s1;
+        form1.cid.value=s2;
+        form1.name2.value=s3;
+		    form1.descr.value=s4;
+		
+		
+    }
+    
+    function Add(){
+    if(form1.cid.value==''){
+    alert('请先选择进程集合');
+    return false;
+    }
+    if(form1.name2.value==''){
+      alert('请输入进程名');
+      return false;
+      }
+      return true;
+    }
+    
+    
+    function Mod(){
+     if(form1.sid.value==''){
+    alert('请先选择要修改的记录');
+    return false;
+    }
+    if(form1.cid.value==''){
+    alert('请先选择进程集合');
+    return false;
+    }
+    if(form1.name2.value==''){
+      alert('请输入进程名');
+      return false;
+      }
+      return true;
+    }
+    
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function gotoPage(pagenum)
+    {
+        form1.CurPg.value = pagenum;
+    }
+
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+<!-- Hide
+var ll='[#CurPg#]'
+var yy='[#TotPg#]'
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+
+</script>
+
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:470px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    } 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="sid" value="" >				     
+  <input type="hidden" name="FunName" value="ncWebProcClassPlist">
+  <table width=100%cellspacing="0" border="0" align=center cellpadding="0" cellspacing="0">
+  	
+  	
+  		<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle" >进程集合定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">        	
+         
+         
+         
+                   <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+                    <tbody>
+                    <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                    <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                    <td width="20%" valign="top"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                    <td align=middle background="" width=92> <input class=Main id=browsdopage2 maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)"> 
+                    </td>
+                    <td width="10%" valign="top"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                    <td width="10%" valign="top"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                    <td width="10%" valign="top"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                    <td align=middle background="" width=92> <input  class=Main id=browsdopage12 maxlength=6 name=browsdopage12 size=6 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotPg#]'> 
+                    </td>
+                    <td width="10%" valign="top"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+                    <td align=middle background="" width=92> <input  class=Main id=browsdopage12 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotRec#]'> 
+                    </td>
+                    <td width="10%" valign="top"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                    <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script> </td>
+                    <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script> </td>
+                  </table>
+         
+         
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>
+  	
+  	  	
+  	
+    <tr> 
+      <td width="100%"  valign=middle align=center class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+          <td > <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              
+              <tr height="30"> 
+                <td >
+                	 集合名&nbsp;<select name="cid" style="width:120px;">[#SLPB#]<option value="[#cid#]">[#cname#]</option>[#SLPE#]</select> 
+                	
+                	  进程名&nbsp;<input type="text" name="name2" maxlength="20" size="25" value="[#name#]">
+                      说明 
+                      <input type="text" name="descr" maxlength="20" size="25" value="[#name#]">
+                  </td>
+                </tr>
+                <tr height="30">
+                  <td>&nbsp;
+                    <input name="add" type="submit" class="an3" value="添 加" onclick="return Add()">
+                    <input name="modi" type="submit" class="an3" value="修 改" onclick="return Mod()">
+                    <input name="del" type="submit" class="an3" value="删 除" >
+                  
+                  </td>
+              </tr>
+
+            </table></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+      	
+      	<div class="tScrollw" id="tC">
+        <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"  id="DataTable">
+          <tr bgcolor="#6382BD" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="40" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">
+                <input type="button" name="b1" value="全选"    class="anniu_1" onClick="allChecked()">
+                </font></div></td>
+            <td width="230" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;进程名</font></div></td>
+            <td width="261" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">进程说明</font></div></td>
+
+            <td width="76" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">类别</font></div></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#lsid#]','[#lid#]','[#lname#]','[#descr#]')" > 
+            <td class="bord1"  align="center"> <input type="checkbox" name="ch[#num#]" value="[#lsid#]"> 
+            </td>
+            <td class="bord1"  >&nbsp;[#lname#]&nbsp;</td>
+
+            <td class="bord1"  >&nbsp;[#descr#]&nbsp;</td>
+            <td class="bord3"  >&nbsp;[#cname2#]&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td class="bord1" >&nbsp; </td>
+
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord3" >&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+      </div>
+      </td>
+    </tr>
+    </table>
+  </form>
+<script>form1.cid.value='[#cid#]';</script>
+</body>
+</html>

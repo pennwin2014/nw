@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-small;
+	color: #330000;
+}
+-->
+</style>
+<script>
+	function dopost() {
+		form1.submit();
+	}
+	
+	function doleft() {
+	   imod = '[#modflag#]';
+	   if(imod == '2') {
+ 			parent.sbpm_left.location.href='/pronline/Msg?FunName@ncWebTcClassTree';
+	   }
+   }
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  onload="doleft()" align="center" >
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr>
+      <td valign="top"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">带宽通道参数</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td valign="top">
+        <table width="70%" border="1"   align="center" cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+          <tr> 
+            <td ><br>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="19%" height="23"> <div align="right">通道代码</div></td>
+                  <td width="38%" height="23"> <input name="cname" type="text" id="cname" value="[#cname#]" size="15" maxlength="15" [#nameread#]> 
+                  </td>
+                  <td width="43%" height="23"><span class="style2">通道代码名称</span></td>
+                </tr>
+                <tr> 
+                  <td height="1"><div align="right">显示名</div></td>
+                  <td height="1"><input name="dispname" type="text" id="dispname" value="[#dispname#]" size="15" maxlength="15"></td>
+                  <td height="1" class="style2">通道的显示名称</td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="1"> <p align="right">优先级 </td>
+                  <td width="38%" height="1"> [#sprio#] </td>
+                  <td width="43%" height="1" class="style2">通道优先级，数字越大，优先级越低 </td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="1"> <p align="right">上传速率 </td>
+                  <td width="38%" height="1"> <input name="urate" type="text" id="urate" value="[#urate#]" size="11" maxlength="11">
+                    Kbit </td>
+                  <td width="43%" height="1" class="style2"> 数据上传的速率，以Kbit为单位</td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="16">&nbsp; </td>
+                  <td width="38%" height="16"> <input name="uborrow" type="checkbox" id="uborrow" value="1" [#uborrow#]>
+                    允许借用别的通道的带宽 </td>
+                  <td width="43%" height="16" class="style2">当其它通道空闲时，可以借用别的通道的带宽</td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="16">&nbsp; </td>
+                  <td width="38%" height="16"> <input name="ushare" type="checkbox" id="ushare" value="1" [#ushare#]>
+                    允许别的用户共享本通道带宽 </td>
+                  <td width="43%" height="16" class="style2">当本通道空闲时，允许别的用户借用带宽 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="16"> <p align="right">下传速率 </td>
+                  <td width="38%" height="16"> <input name="drate" type="text" id="drate" value="[#drate#]" size="11" maxlength="11">
+                    Kbit</td>
+                  <td width="43%" height="16" class="style2">数据下传的速率，以Kbit为单位 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="16">&nbsp; </td>
+                  <td width="38%" height="16"> <input name="dborrow" type="checkbox" id="dborrow" value="1" [#dborrow#]>
+                    允许借用别的通道的带宽 </td>
+                  <td width="43%" height="16" class="style2">当其它通道空闲时，可以借用别的通道的带宽 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="19%" height="16">&nbsp; <p align="right"> </td>
+                  <td width="38%" height="16"> <input name="dshare" type="checkbox" id="dshare" value="1" [#dshare#]>
+                    允许别的用户共享本通道带宽 </td>
+                  <td width="43%" height="16" class="style2">当本通道空闲时，允许别的用户借用带宽 
+                  </td>
+                </tr>
+                <tr>
+                  <td height="16">&nbsp;</td>
+                  <td height="16">&nbsp;</td>
+                  <td height="16" class="style2">&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+        <br>
+      </td>
+    </tr>
+    <tr> 
+      <td height="70"> 
+        <div align="center"> 
+          <table width="50%" border="0" align="center">
+            <tr> 
+              <td> <div align="right">
+                  <input type="hidden" name="modflag" value="[#modflag#]">
+                  <input type="hidden" name="FunName" value="ncWebTcSaveClass">
+                  <input name="ok" type="submit" class="an3" id="ok2" value="确 认" onClick="dopost()">
+                  <input type="submit" name="app" value="应 用" class="an3" onClick="dopost">
+                  <input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="history.back()">
+                  <input name="del" type="submit" class="an3" id="del2" value="删 除">
+                  &nbsp; </div></td>
+            </tr>
+          </table>
+
+        </div></td>
+    </tr>
+  </table>
+
+</form>
+</body>
+</html>

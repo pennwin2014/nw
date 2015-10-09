@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Auth</title>
+<style type="text/css">
+<!--
+/* 全局样式 */
+html, body, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, object, iframe, form, blockquote, fieldset, input, textarea, code, address, caption, cite, code, em, i, ins {margin: 0px;
+	padding: 0px;font-style: normal;font-size: 14px;font-weight: normal;}
+body {background: #FFF;color: #666;font-size: 14px;font-family:"宋体", Times New Romar;;
+      line-height: 180%;  }
+fieldset, img {border: 0;}
+table, td, tr, th {font-size: 14px;padding: 0px;font-style: normal;}
+table {border-collapse: collapse;border-spacing: 0px;}preview
+caption,th {text-align: left;}
+li{list-style-type: none;}
+ul,ol {list-style: none;}
+select, input, img {vertical-align: middle;}
+h1, h2, h3, h4, h5, h6 {font-size: 14px;font-weight: normal;}
+q:before, q:after {content: '';}
+abbr, acronym {border: 0;}
+a:link {text-decoration: none;color: #666666;}
+a:visited {text-decoration: none;color: #666666;}
+a:hover {color: #003399!important;}
+a:active {color: #666666;}
+/* 通用样式 */
+
+#container {height: auto;width: auto;margin-right: auto;margin-left: auto;
+
+}
+
+.tableclass {	
+	border-right-width: 1px;border-bottom-width: 1px;border-top-width: 1px;
+	border-left-width: 0px;border-right-style: solid;border-bottom-style: solid;border-top-style: solid;
+	border-left-style: solid;border-right-color: #b9c0ca;border-bottom-color: #b9c0ca;
+	border-left-color: #b9c0ca;border-top-color: #b9c0ca;
+
+}
+
+.news_banner {
+	height: 310px;
+	width: 947px;
+	margin-bottom: 10px;
+	background-repeat: no-repeat;
+	clear: both;
+	margin-top: 15px;
+	
+}
+.news_banner_a {
+	height:270px;
+	width: 230px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;	
+}
+.news_banner_b {
+	height: 270px;
+	width: 270px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;
+	
+}
+.news_banner_b_1 {
+	height: 240px;
+	margin-left:0px;
+	margin-top:10px;
+	width: 260px;
+	padding:0px 14px;
+  letter-spacing:0px;line-height:18px;
+	
+}	
+.news_banner_c {
+	height: 250px;
+	width: 410px;
+	float: left;
+	margin-left:1px;
+	background-repeat: no-repeat;
+	border-right-width: 1px;border-bottom-width: 1px;border-top-width: 1px;
+	border-left-width: 1px;border-right-style: solid;border-bottom-style: solid;border-top-style: solid;
+	border-left-style: solid;border-right-color: #b9c0ca;border-bottom-color: #b9c0ca;
+	border-left-color: #b9c0ca;border-top-color: #b9c0ca;
+	background-color: #f6f9fe;
+	
+	margin-top: 10px;
+	
+}
+
+
+.input-submit {
+	Height:25px;BORDER-RIGHT: #afbdd2 1px solid;BORDER-LEFT: #afbdd2 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #afbdd2 1px solid;BORDER-BOTTOM: #afbdd2 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 2px; CURSOR: pointer; PADDING-TOP: 2px; BACKGROUND-COLOR: #e9f1fd; TEXT-ALIGN: center; _padding: 3px 10px
+}
+
+.lines-1 {
+	background-image: url(/images/authimage/join_us-1.gif);
+	background-repeat: no-repeat;
+	height: 1px;
+	width: 648px;
+	line-height: 1px;
+	margin-bottom: 10px;
+	margin-left:10px;
+	
+}
+ 				.code{
+             font-family:Arial;
+             font-style:italic;
+             color:Red;
+             border:0;
+             padding:2px 3px;
+             letter-spacing:3px;
+             font-weight:bolder;
+        }
+         .unchanged{
+             border:0;
+             -moz-user-select:   none;
+        }
+-->
+</style>
+
+<script language="javascript" type="text/javascript">
+     var code ; //在全局 定义验证码
+     function createCode(){ 
+        code = "";
+       var codeLength = 4;//验证码的长度
+       var checkCode = document.getElementById("checkCode");
+       var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//所有候选组成验证码的字符，当然也可以用中文的
+        
+       for(var i=0;i<codeLength;i++){
+	       	var charIndex = Math.floor(Math.random()*9);
+	        code +=selectChar[charIndex];
+       }
+//        alert(code);
+       if(checkCode){
+          checkCode.className="code";
+          checkCode.value = code;
+        }
+      }
+     
+      function validate () {
+       var inputCode = document.getElementById("input1").value;
+       if(inputCode.length <=0){
+            alert("请输入验证码！");
+       }else if(inputCode != code ){
+           alert("验证码输入错误！");
+           createCode();//刷新验证码
+       }else{
+          alert("^-^ OK");
+       }
+       
+      }
+      function changlogin(flag){
+      	   
+      	self.location='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+      }
+      
+      
+	function spylogin(){
+		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("Invalid input!");
+			return ;
+		}
+	
+		var temp=document.getElementById("input1").value;
+
+		if(temp!=code){
+		alert('Invalid verification!');
+		return false;
+		}
+    return true;
+	//	document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+	
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+
+
+	function restore(){
+	document.getElementById("gpss").disabled="";
+	document.getElementById("imgm").style.display="none";
+p_flag='1';
+ // document.getElementById("imgm").src='/images/sjimage/smspad.jpg';
+	}
+	var p_flag='1';
+	function getpasswd(){		
+
+	   if(p_flag=='0') return false;
+	   
+		  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('Invaild input !');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		    alert('Invaild input !');
+		    return false;
+		    } 
+		  if(chk(telno)!='0'){
+		    alert('Invaild input !');
+		  	return false;
+		  }
+		  
+		var temp=document.getElementById("input1").value;
+		if(temp!=code){
+		alert('Invalid Verification code!');
+		return false;
+		}
+		 document.getElementById("input1").value='';
+		  
+		  temp_html="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebGetMobPass_Cy&mobno@"+document.getElementById("nclogin").username.value;
+		  
+	
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='/images/authimage/donghua.gif';
+document.getElementById("gpss").disabled="true";
+document.getElementById("imgm").style.display="";
+p_flag='0';
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	function server_help(){		
+		document.getElementById("nclogin").FunName.value="ncWebShowHelpUser";
+//		document.getElementById("nclogin").submit();		
+	}   
+      
+   </script>
+
+
+</head>
+
+<body onload="document.getElementById('nclogin').username.focus();createCode();MM_preloadImages('/images/authimage/donghua.gif');">
+	<form id="nclogin" name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg?">
+  <input type="hidden" name="FunName" value="ncWebLoginMob">
+  <input type="hidden" name="url" value="[#url#]" >
+  <input type="hidden" name="sid" value="[#sid#]" >
+  <input type="hidden" name="ModiPass" value="">
+  <input type="hidden" name="eng_flag" value="1">
+<div id="container" >
+<table align="center"  class="tableclass"><tr>
+	<td bgcolor="ebf3fe">
+
+	<img border="0" src="/images/authimage/sms-e.png" >
+	</td>
+</tr>
+<tr>
+	<td>
+  <table align="center"  border="0" >
+  	<tr>
+  		<td>
+  			  <div class="news_banner_c">
+				<table width="410" border="0" cellspacing="0" cellpadding="0" height="100%">
+			  <tr>
+			    <td width="133" height="2"></td> 
+			    <td width="89"></td>
+			    <td width="67"></td>
+			    <td width="121"></td>
+			  </tr>
+			  <tr>
+			    <td height="38" colspan="3"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;<strong>Registered Users To Sign In
+			      
+			    </strong></font></td>
+			    <td><a href="#xxm" onclick="changlogin('0')"><font color="#146db9" ><strong>中文</strong></font></a>|<a href="#xxm"  onclick="changlogin('1')"><font color="#146db9" ><strong>English</strong></font></a></td>
+			  </tr>
+			  <tr>
+			    <td height="10" colspan="4"><div class="lines-1" style="width:380px; margin-top:0px;"></div></td>
+			    </tr>
+			  <tr>
+			    <td height="14"></td>
+			    <td colspan="3" height="14" id="msgs"><font color="red">[#message#]</font></td>
+			
+			  </tr>
+			  <tr>
+			    <td height="33"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Account</strong></font></td>
+			    <td colspan="2"><input type="text" id="username" name="username" style="width:140px" /></td>
+			    <td>&nbsp;</td>
+			  </tr>
+			  <tr>
+			    <td height="35"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Password<strong></font></td>
+			    <td colspan="2"><input type="password" id="password" name="password" style="width:140px" onKeyPress="ss(event)"></td>
+			    <td>&nbsp;</td>
+			  </tr>
+			  <tr>
+			    <td height="38"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Verification</strong></font></td>
+			    <td><input type="text"  name="verfication"  onpaste="return false" id="input1" style="width:70px" /></td>
+			    <td><input type="text" id="checkCode"  style="width: 70px" readonly onselectstart="return false" /></td>
+			    <td><a href="#xx" onclick="createCode();" ><font color="#ff000c" ><U>Refresh</U></font></a></td>
+			  </tr>
+			  <tr>
+			    <td height="8"></td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			  </tr>
+			  <tr>
+			    <td colspan="4"></td>
+			    </tr>
+			  <tr>
+			    <td colspan="4" align="center">
+			    	    	 
+			      <input class="input-submit login-btn" id=gpss tabindex=5 type=button value="SMS Obtain" onClick="getpasswd();" />
+			    	<input class="input-submit login-btn" id=login tabindex=5 type=submit value="&nbsp;Sign In&nbsp;" onClick="return spylogin();" />
+			 <!--    <input class="input-submit login-btn" id=login tabindex=5 type=submit value=退出 />
+			   
+			 -->
+			
+			
+			    <input class="input-submit login-btn" id=login tabindex=5 type=submit value="Attendant Help" onClick="server_help();" /></td>
+			    </tr>
+			  <tr>
+			    <td height="21" colspan="4">&nbsp;</td>
+			  </tr>
+			  </table>
+  
+  
+  </div>
+  			
+  			
+  			</td>
+  			
+  			
+  			
+  		<td>
+  				<div class="news_banner_b_1">
+    <p align="left"><font color="#231815" >Unregistered or forgot your password,please input your mobile phone number and click <font color="#ff000c" ><strong>"SMS Obtain"</strong></font> to get a password for free.
+      
+      
+    </font></p>
+<p align="left"><font color="#231815"  >Failed to get the password by SMS,please contact the site attendant for help.</font></p>
+<p ><br>
+				    <img border="0" src="/images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none" >
+				    </p>	
+				    				    											    			
+				</div> 
+  			
+  			</td>
+  		<td>
+  				<div class="news_banner_b">
+					<img src="/images/authimage/xh.png" width="218" height="225" />
+				</div>
+  			</td>
+  	</table>
+  
+</td>
+</tr>
+<tr>
+	<td bgcolor="ebf3fe" height="30">
+			    <div align="center"><a href="http://www.pronetway.com"><font color="#595757" style="font-size:14px" >上海新网程信息技术股份有限公司承建</font></a></div>
+	</td>
+</tr>
+</table>
+
+</div>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+</body>
+</html>
+

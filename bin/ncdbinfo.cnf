@@ -1,0 +1,252 @@
+--  日志表结构
+--  将index全部包含在create table 内部                                               2013/12/04
+--  表nwfilelog_nwfilelog_[#date#] 增加了一个字段 destPath char(256)        张现保   2013/10/16
+--  内网管理日志表结构   2013/10/08
+--  ncgentable -u ncs -p ncs -d ncs -O create -e Myisam -o bb.log -f ncdbinfo.cnf 
+--  删除表 
+--  ncgentable -u ncs -p ncs -d ncs -O Drop -e Myisam -o bb.log -f ncdbinfo.cnf 
+--  
+--  进程使用日志
+drop     table if exists nwproclog_[#date#];
+create   table if not exists nwproclog_[#date#] (
+    sid       bigint auto_increment,                       -- 序列号
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  用户ID
+    mac       char(20)  default '',                       --  MAC地址
+    groupid   int unsigned default 0,                     -- 部门Id
+    devname   char(32)  default '',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip       int unsigned,                                -- sip
+    procname  char(72),                                    -- 进程名称
+    screenid  int unsigned,                                -- 屏幕id
+    mark      char(1),                                     -- a 启动   d 停止
+    pid       int,                                         -- 进程ID
+    indexid   char(24),                                    -- 进程唯一标识
+    pindexid  char(24),                                    -- 父进程唯一标识
+    stime     int unsigned,                                -- 启动时间
+    btime     int unsigned,                                -- 退出时间
+    path      char(256),                                   -- 进程完整路径
+    mem       int unsigned,                                -- 内存占用
+    cpu       int unsigned,                                -- CPU时间
+    flags     int default 0,                                -- 用于统计
+    nettime   int unsigned default 0,                       --  网络活动时间 20130917添加
+    wndtime   int unsigned default 0,                        --20140223 窗口活动时间
+    upval     int unsigned default 0,                       -- 上行流量 20130917添加
+    downval   int unsigned default 0,                       -- 下行流量 20130917添加
+    primary key (sid),
+    key  nwproclog_ind1_[#date#] (stime),
+    key  nwproclog_ind2_[#date#] (compid),
+    key  nwproclog_ind3_[#date#] (groupid)
+) engine=[#eng#];
+
+-- 进程屏幕日志  
+drop table if exists nwprocscreen_[#date#];
+create table nwprocscreen_[#date#] (
+    sid  	    bigint auto_increment  primary key,    -- 序列号
+    compid    int unsigned,                          -- 计算机ID
+    userid    int unsigned default 0,            	   -- 用户ID
+	  groupid   int unsigned default 0,                -- 部门Id
+    devname   char(32)  default '',                  -- 设备名
+    udisp     char(32)  default '',                  -- 用户名
+    mac       char(20)  default '',                  -- MAC地址
+    proscreen char(48)  default '',                  -- 敏感进程名
+    sip	      int unsigned,                          -- sip
+    stime     int,                                   -- 采集时间
+    file      char(80),                              -- 文件名
+	  mousepos  int unsigned default 0                 -- 鼠标位置                 
+) engine=[#eng#];
+
+---- 文件操作日志 （每天一个表）
+drop     table if exists nwfilelog_[#date#];
+create   table if not exists nwfilelog_[#date#] (
+    sid       bigint  auto_increment,    -- 序列号
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  用户ID
+    mac       char(20)  default '',                       --  MAC地址
+    groupid   int unsigned default 0,                     -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip       int unsigned,                                -- sip
+    procname  char(72),                                    -- 进程名称
+    mark      int,                                     -- 文件操作类型
+    indexid   char(24),                                    -- 进程唯一标识
+    stime     int unsigned,                                -- 操作时间
+    souPath      char(256),                               -- 文件源路径
+    destPath   char(256),                                                                       --  目标路径
+    content   char(256),                            -- 备注
+    primary key (sid),
+    key  nwfilelog_ind1_[#date#] (stime),
+    key  nwfilelog_ind2_[#date#] (compid),
+    key  nwfilelog_ind3_[#date#] (groupid)
+
+)  engine=[#eng#];
+
+
+---- 外设操作日志 （每天一个表）
+drop     table if exists nwremovelog_[#date#];
+create   table if not exists nwremovelog_[#date#] (
+    sid       bigint auto_increment,                         -- 序列号
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  ?没D
+    mac       char(20)  default '',                       --  MAC地址
+    groupid   int unsigned default 0,                  -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip       int unsigned,                                -- sip
+    procname  char(72),                                    -- 进程名称
+    mark      char(1),                                                             -- 操作类型 插入，拔出
+    stime     int unsigned,                                -- 操作时间
+    valuename  char(72),                                    -- 卷名称
+    produname  char(72),                                    -- 产品名称
+    hardname  char(72),                                    -- 硬件ID
+    driversn  char(2),                                     -- 分配的盘符
+    primary key (sid),
+    key  nwremovelog_ind1_[#date#] (stime),
+    key  nwremovelog_ind2_[#date#] (compid),
+    key  nwremovelog_ind3_[#date#] (groupid)
+) engine=[#eng#]  max_rows=1000000000 avg_row_length=1500;
+
+
+drop     table if exists ncimclient_[#date#];
+create   table if not exists ncimclient_[#date#] (
+    sid       bigint auto_increment,
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  用户ID
+    mac       char(20)  default '',                       --  MAC地址
+    groupid   int unsigned default 0,                  -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip       int unsigned,                                -- sip
+    procname  char(72),                                    -- 进程名称
+    stime     int unsigned,        --  时间
+    service   int,                 --  服务类型
+    funcode   int,                 --  服务代码 1.登录 2.退出  3.发送消息 4.发送文件  5.接收文件 6.接收消息
+    mfrom     char(48),
+    mto       char(48),
+    mesg      varchar(255),         --  内容
+    sesid     int unsigned   default 0,      --   会话ID
+    myaccount char(48) default '',           --   本人帐号
+    friendaccount char(48) default '',        --   对方帐号
+    primary key (sid),
+    key  ncimclient_ind1_[#date#] (stime),
+    key  ncimclient_ind2_[#date#] (compid),
+    key  ncimclient_ind3_[#date#] (groupid),
+    key  ncimclient_ind4_[#date#] (myaccount)
+    
+) engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+
+-- 屏幕JPG日志  （每天一个表）
+drop table if exists ncscreenlog_[#date#];
+create table if not exists ncscreenlog_[#date#] (
+    sid             bigint auto_increment,    -- 序列号
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  用户ID
+          groupid   int unsigned default 0,                  -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    mac       char(20)  default '',                       --  MAC地址
+    sip       int unsigned,                                -- sip
+    stime     int,             -- 采集时间
+    file      char(80),         -- 文件名
+    primary key (sid),
+    key  ncscreenlog_index1_[#date#] (stime),
+    key  ncscreenlog_index2_[#date#] (compid),
+    key  ncscreenlog_index3_[#date#] (groupid)
+    
+) engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+
+-- 网页操作日志 （每天一个表）
+drop     table if exists nwweblog_[#date#];
+create   table nwweblog_[#date#] (
+    sid       bigint auto_increment  primary key,    -- 序列号
+     compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,            	   --  用户ID	
+    mac       char(20)  default '',                       --  MAC地址
+   groupid   int unsigned default 0,                  -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip	      int unsigned,                                -- sip
+    procname  char(72),                                    -- 进程名称
+    stime     int unsigned,                                -- 操作时间
+    urlclass  int unsigned,				                            -- 类型
+    webaddr   char(128),					                        -- 网址
+    subject   char(128),					                        -- 标题
+    content   char(128),                                    -- 备注
+    host	        char(128)
+) engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+--   告警日志
+drop     table if exists nwwarnlog_[#date#];
+create   table if not exists nwwarnlog_[#date#] (
+    sid       bigint auto_increment,      -- 序列号
+    compid    int unsigned,                                -- 计算机ID
+    userid    int unsigned default 0,                      --  用户ID
+    mac       char(20)  default '',                       --  MAC地址
+    groupid   int unsigned default 0,                     -- 部门Id
+    devname   char(32)  default ' ',                       -- 设备名
+    udisp     char(32)  default '',                        -- 用户名
+    sip       int unsigned,                                -- sip
+    stime     int unsigned,                                -- 操作时间
+    screenid  int unsigned,                                -- 屏幕ID
+    pid       int unsigned,                                -- 触发策略ID
+    mesg   char(256),                                      -- 告警描述
+    primary key (sid),
+    key  nwwarnlog_ind1_[#date#] (stime),
+    key  nwwarnlog_ind2_[#date#] (compid),
+    key  nwwarnlog_ind3_[#date#] (groupid)
+) engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+
+-- 告警屏幕日志
+drop table if exists nwwarnscreen_[#date#];
+create table if not exists nwwarnscreen_[#date#] (
+    sid       bigint auto_increment,    -- 序列号 
+    warnid    int unsigned,                                -- 和告警日志的screenid关联
+    stime     int,             -- 采集时间
+    file      char(80),         -- 文件名     
+    primary key (sid),
+    key  nwwarnscreen_ind1_[#date#] (warnid)
+) engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+drop table if exists ncsmailmon_if_[#date#];
+create table ncsmailmon_if_[#date#](
+    recno           int unsigned auto_increment  primary key,   -- 记录号
+    groupid         int unsigned,                               -- 部门ID
+    compid          int unsigned,                               -- 机器ID
+    userid          int unsigned,                               -- 用户ID
+    company         char(32),                                   -- 公司简称
+    stime           int,                                        -- 开始时间 
+    sip             char(15),                                   -- 源IP 
+    dip             char(15),                                   -- 目标IP地址 
+    mailfrom        char(255),                                  -- 发件人 
+    mailto          char(255),                                  -- 收件人 
+    mailsub         char(255),                                  -- 主题 
+    host            char(255),                                  -- 主机 
+    fileid          bigint default 0,                           -- 文件ID 
+    mailasize       int,                                        -- 附件大小 
+    mailsize        int,                                        -- 邮件大小 
+    flags           smallint,                                   -- 邮件状态 1--SMTP  2--POP3  3--WebMail 
+    usid            bigint default 0,                           -- 上网ID 
+    sid             bigint default 0,
+    ccode           smallint,                                   -- 编码 
+    filenum         int,                                        -- 文件序号 
+    filepath        char(255)                                   -- 文件路径
+)engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+
+drop     table if exists nwcomputelog_[#date#];
+create   table nwcomputelog_[#date#] (
+    sid           bigint auto_increment  primary key,     -- 序列号 
+    compid        int unsigned,                           -- 计算机ID 
+    userid        int unsigned default 0,            	    -- 用户ID 
+    mac           char(20)  default '',                   -- MAC地址 
+    groupid       int unsigned default 0,                 -- 部门Id 
+    devname       char(32)  default ' ',                  -- 设备名 
+    udisp         char(32)  default '',                   -- 用户名 
+    startmactime  int unsigned default 0,                 -- 开机时间 
+    idletime      int unsigned default 0,                 -- 空闲时间 
+    activetime    int unsigned default 0,                 -- 活动时间 
+    closemactime  int unsigned default 0                  -- 关机时间 
+)engine=[#eng#] max_rows=1000000000 avg_row_length=1500;
+

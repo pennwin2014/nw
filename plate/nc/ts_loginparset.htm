@@ -1,0 +1,179 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+     function goto(t)
+    {
+	    self.location.href=t;
+    }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncTsLoginSetSave">
+  <input type="hidden" name="sid" value="[#sid#]">
+  <input type="hidden" name="id" value="[#id#]">
+    <input type="hidden" name="startip" value="[#startip#]">
+  <input type="hidden" name="stopip" value="[#stopip#]">
+  
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+            	特定登录特征信息设置([#startip#]-[#stopip#])
+              <div align="center"></div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                 
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">登录网址&nbsp;</div></td>
+                    <td> 
+                    	   <input type="text" size="40" name="loginurl" value="[#loginurl#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;上网前需要访问的网址，如：http://www.sina.com/login.htm</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">网址IP地址描述&nbsp;</div></td>
+                    <td> 
+                    <textarea name="loginip" cols="39" rows="4">[#loginip#]</textarea>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;网址的IP地址及端口可以如下格式(合计长度不超过255字节)<br>&nbsp;&nbsp;&nbsp;&nbsp;192.168.0.254-192.168.0.255:80-81
+
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;192.168.10.200:8008-8009
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;211.12.12.12:8009
+                   </td>
+                  </tr>
+  <!--                
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">网址路径&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" size="40" name="requrl" value="[#requrl#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;若空，不检查路径。</td>
+                  </tr>
+  -->
+                 <tr height="26"> 
+                    <td height="26" ><div align="right">编码&nbsp;</div></td>
+                    <td> 
+                    	<select name="method" >
+                    	<option value="0" selected>简体</option><option value="1">繁体</option><option value="2">UTF8</option><option value="3">日文</option>
+                    	</select>
+                    
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;</td>
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">登录名特征&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" size="40" name="namevar" value="[#namevar#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;格式示例：username1,passwd1;username2<br>&nbsp;&nbsp;&nbsp;&nbsp;(说明："；"为多套特征之间的分隔符，"，"表示登录名取数据包前后特征之间的字符，<br>&nbsp;&nbsp;&nbsp;&nbsp;如没有“，”则这个特征代表表单变量。<br>
+                    		&nbsp;&nbsp;&nbsp;&nbsp;上面的示例的意思是：登录名既可以是特征“username1"和“passwd1"之间的字符，<br>&nbsp;&nbsp;&nbsp;&nbsp;也可以是表单变量"username2"</td>
+                  </tr>
+               
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">请求的特征&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" size="40" name="reqattr" value="[#reqattr#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;请求数据包中的特征字符串。(支持正则表达式)</td>
+                  </tr>
+               
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">应答的特征&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" size="40" name="resattr" value="[#resattr#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;请求数据包中的特征字符串。(支持正则表达式)</td>
+                  </tr>
+               
+
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">管理方式&nbsp;</div></td>
+                    <td> 
+                    	<select name="baseon" >
+                    	<option value="2">IP地址</option>
+                    	<option value="3">MAC地址</option>
+                    	<option value="1">名字管理</option>
+                    	<option value="11">交换机端口</option>
+                    	<option value="12">VlanID</option>
+                    	</select>
+                    	
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;若停用，特定登录将不起作用。</td>
+                  </tr>
+
+
+                 
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">启用状态&nbsp;</div></td>
+                    <td> 
+                    	<select name="flags" >
+                    		<option value="1">启用</option>
+                    		<option value="0">停用</option>
+                    	</select>
+                    	
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;若停用，特定登录将不起作用。</td>
+                  </tr>
+                  
+              
+                
+ 
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="submit" name="save" value="保存" class="an3"  >       
+               &nbsp;
+                <input type="button" name="fh" value="返回" class="an3"  onclick="self.location.href='/pronline/Msg?FunName@ncWebDispNetwork&flags@13' ">         
+     
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table>
+ 
+	</form>
+<script>form1.flags.value="[#flags#]";
+	form1.method.value="[#method#]";
+	form1.baseon.value="[#baseon#]";
+ 
+	
+	</script>
+</BODY>
+</html>
+

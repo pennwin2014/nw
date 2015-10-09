@@ -1,0 +1,38 @@
+ <table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+ 	  <tr> 
+ 	  	<td>
+ 	  		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+ 	  			<tr>
+    <td   height="32" width="80%"> 
+      <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+        [#username#]聊天对象
+      </div>
+      
+    </td>
+    <td><input type="button" class="an3" value="隐藏" onclick="document.all.Layer3.style.display='none'"></td>
+  </tr>
+</table>
+</td>
+  </tr>
+ 	<tr>
+ 		<td bgcolor="#ffffff" >
+ 			<table width="98%" border="0" align="center" cellspacing="2" cellpadding="2" bgcolor="#ffffff">
+ 				[#SLPB#]
+ 	  <tr> 
+ 	  	<td>
+ 	  		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+ 	  			<tr>
+    <td   height="32" > 
+      <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: lefit;">
+        [#myaccount#]和[#friaccount#]聊天
+      </div>
+      
+    </td>
+   
+  </tr>
+ 				[#SLPE#]
+ 				<tr><td width="10">&nbsp;</td></tr>
+ 			</table>
+ 		</td>
+ 	</tr>
+</table>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W#C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/losse.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>锦江之星登陆页面</title>
+<link rel="stylesheet" href="/css/jjzx/style.css" type="text/css" media="screen" />
+
+<script language="javascript" type="text/javascript">
+
+                function byby(){
+if('[#beat_flag#]'=='1'){
+//      if(confirm('关闭本页面，您将不能上网了?')){
+        self.location.href='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebInternetLogout' ;
+}
+////    }
+//      return false;
+        }
+
+
+                function tuichu(){
+        //              document.getElementById("nclogin_0").submit();
+        }
+                        //创建XMLHttpRequest对象
+function createXMLHttpRequest() {
+        var C=null;
+                if(window.XMLHttpRequest) { //Mozilla 浏览器
+                        C = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) { // IE浏览器
+                        try {
+                                C = new ActiveXObject("Msxml2.XMLHTTP");
+                        } catch (e) {
+                                try {
+                                        C = new ActiveXObject("Microsoft.XMLHTTP");
+                                } catch (e) {}
+                        }
+                }
+                return C;
+        }
+        //解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+        function getxmlbyname(ins,names,namee){
+        var start;
+        var end;
+        var ret='';
+
+        start=ins.indexOf(names);
+        end=ins.indexOf(namee);
+
+        if(start!=-1&&end!=-1){
+                ret=ins.substr(start+names.length,end-start-names.length);
+        }
+        return ret;
+}
+
+
+var xmlHttp = false;
+var flesh_flag;
+//调用AJAX
+ function callServer()
+ {
+
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+
+   xmlHttp = createXMLHttpRequest();
+
+   if( xmlHttp)
+   {
+
+    var web_url='/proauth/Msg?FunName@ncWebLoginHeat&sid@'+document.getElementById("nclogin_0").sid.value+'&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+
+
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+
+  }
+
+ }
+
+
+function initAjax(){
+        if('[#beat_flag#]'=='1'){
+        callServer();
+        setInterval('callServer()',[#beattime#]);
+        }
+
+}
+
+         //ajax回调处理函数
+ function updatePage()
+ {
+   if (xmlHttp.readyState == 4)
+   {
+    var response = xmlHttp.responseText;
+
+     var temp_date=getxmlbyname(response,"<starttime>","</starttime>");
+     var mesg="<font color='#146db9'>Do not close this page,otherwiae you have to re-login.<br>";
+
+     var temp_date=getxmlbyname(response,"<sumtime>","</sumtime>");
+
+     mesg=mesg+"Elasped time::"+temp_date;
+
+
+     mesg=mesg+"</font>";
+//     document.all.mesga.innerHTML=mesg;
+
+     document.getElementById("mesga").innerHTML=mesg;
+
+
+//alert(response);
+   }
+
+ }
+</script>
+
+</head>
+<body id="login" onload="initAjax();" onunload="byby()" >
+
+		
+		<div id="login-wrapper" class="png_bg">
+        	<div id="logotop">
+         		<div id="logo"><a href="http://www.jinjianginns.com/" target="_blank"><img src="/images/jjzx/logo.png" width="200" height="90" border="0" /></a></div>
+           	  <div id="logos"></div>
+            </div>
+			<div id="login-top">
+           
+			
+			</div> <!-- End #logn-top -->
+		  <div id="main">
+<div id="login-content">
+ <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+        <input type="hidden" name="sid" value="[#sid#]">
+        <input type="hidden" name="FunName" value="ncWebInternetLogout">
+        <input type="hidden" name="ModiPass" value="">
+        <input type="hidden" name="username" value="[#username#]">
+
+				  <div style="width:360px; height:20px; font-size:20px; color:red; text-align:left; line-height:14px;"><font color="red">Welcome to get on the internet&nbsp;</font></div>
+					
+						<p <font color="red" >Successful login,you can get on the internet now.</font>
+
+           <br><font color="red" >Keep your account information so as use it next time.</font>
+
+           </p>
+						<p id="mesga" height="60" style="font-size:14px;"></p></td>
+			
+					<span id="remember-password">
+            <input class="button" type="submit"  onClick="tuichu()"  value="Quit Internet" /   >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</span>
+                        
+					<br/>
+
+						
+					
+					
+				</form>
+		    </div> <!-- End #login-content -->
+            <div  id="shming">
+              <p><b style="color:#F00">Tips：</b></p>
+              <p><font color="red">Please comply with Chinese laws and <br> regulations,and be civilized online.
+<br>
+              </font></p>
+
+            </div>
+		  </div>
+			<div  id="foot">
+            <div class="banner"><a href="http://www.jinjianginns.com/HuoDong/LJ600/index.html" target="_blank"><img src="/images/jjzx/1.png" width="240" height="265"  border="0"/><p/>夏日激情升级蓝鲸会员送600元优惠券</a><p/></div>
+            <div class="banner"><a href="http://www.jinjianginns.com/Articleinfo-1709.html" target="_blank"><img src="/images/jjzx/3.png" width="240" height="265"  border="0"/><p/>最红星期五优惠在锦江之星</a><p/></div>
+            <div class="banner"><a href="http://www.jinjianginns.com/membermanage/register.html" target="_blank"><img src="/images/jjzx/2.png" width="240" height="265"  border="0"/><p/>注册即送50元优惠券</a><p/></div>         
+            </div>
+		</div> <!-- End #login-wrapper -->
+		
+
+</body>
+</html>

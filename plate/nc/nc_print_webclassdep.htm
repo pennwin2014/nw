@@ -1,0 +1,114 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function gotoPg(t){
+  self.location.href="/pronline/Msg?FunName@ncWebStatByWebclass&startpg@"+t+"&sumpage@[#sumpage#]&cheID@[#cheID#]&way@[#way#]&gtype@[#gtype#]&sdate@[#sdate#]&edate@[#edate#]&stime@[#stime#]&etime@[#etime#]&groupid@[#groupid#]&dispname@[#dispname#]&mac@[#mac#]&recnum@[#recnum#]";
+}
+
+function  doExport(){
+  self.location.href="/pronline/Msg?FunName@ncWebStatByWebclass&daochu@e&cheID@[#cheID#]&way@[#way#]&gtype@[#gtype#]&sdate@[#sdate#]&edate@[#edate#]&stime@[#stime#]&etime@[#etime#]&groupid@[#groupid#]&dispname@[#dispname#]&mac@[#mac#]&recnum@[#recnum#]";
+}
+function doCon(){
+  self.location.href="/pronline/Msg?FunName@ncWebClassDispForm&cheID@[#cheID#]&way@[#way#]&gtype@[#gtype#]&sdate@[#sdate#]&edate@[#edate#]&stime@[#stime#]&etime@[#etime#]&groupid@[#groupid#]&dispname@[#dispname#]&mac@[#mac#]&recnum@[#recnum#]&fla_time@[#fla_time#]";
+}
+function llprint(){
+// document.all.pprint.style.display="none"
+  window.print()
+
+}
+
+
+</script>
+
+<style type="text/css">
+<!--
+.tScrollw {
+    overflow-x:hidden;
+    OVERFLOW: scroll;
+    height:600px;
+    cursor: default;
+    }
+-->
+</style>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+	
+<div class="tScrollw"  id="tC">
+	
+<!-- [#SLPB#] -->	
+	
+<table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+  <tr> 
+    <td colspan="10" height="30"  class="ttt"> <table width="100%" border="0">
+        <tr> 
+          <td height="24" width="56%"> 
+            <p align="right"><b>按类别统计网站访问情况</b><b>([#sdate#]--[#edate#]) </b></p></td>
+          <td width="14%" height="24"> <div align="right">
+              <input name="exp" type="button" class="an3" onClick="doExport()" value="导 出">
+            </div></td>
+          <td width="30%" height="24" id="pprint"> [#SLPB#]
+            <input name="B[#pnum#]" type="button" class="an3" onClick="[#prun#]" value="[#butname#]">
+            [#SLPE#]
+             <input name="cont" type="button" class="an3" onClick="doCon()" value="条件">
+            
+            </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr align="center" height="18" valign="middle"> 
+    <td width="5%"  bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">序号</font></div></td>
+    <td  width="10%" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">网址类别</font></div></td>
+
+    <td width="11%" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">部门</font></td>
+
+    <td width="10%"  bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">访问流量(Bytes)</font></div></td>
+    <td  width="10%"  bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">访问次数</font></div></td>
+<!--    <td  width="10%"  bgcolor="#6382BD"  class="bord2" > 
+      <div align="center"><font color="#FFFFFF">访问时间</font></div></td>
+-->
+  </tr>
+  <!-- [#SLPB#] -->
+  <tr height="18"> 
+    <td width="5%"  bgcolor="#FFFFFF"  class="bord1"> 
+      <div align="center"><b> [#num#]</b></div></td>
+    <td  colspan="8" height="10" bgcolor="#FFFFFF"  class="bord3"><b> [#username#]</b></td>
+    
+  </tr>
+  <!-- [#SLPB#] -->
+  <tr height="18"> 
+    <td   bgcolor="#FFFFFF"  class="bord1">&nbsp;</td>
+    <td    bgcolor="#FFFFFF"  class="bord1">&nbsp;</td>
+    <td  bgcolor="#FFFFFF"  class="bord1">&nbsp;[#username#]</td>
+
+    <td  height="10" bgcolor="#FFFFFF"  class="bord1"> 
+      <div align="right">[#lbytes#]&nbsp;</div></td>
+    <td  height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div align="right">[#lcount#]&nbsp;</div></td>
+      	
+<!--    <td  height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div align="right">[#ltime#]&nbsp;</div></td>
+-->
+  </tr>
+  <!-- [#SLPE#] -->
+  <!-- [#SLPE#] -->
+</table>
+	  
+<p align="center">第 [#pages#]页</p>
+<xmp style='page-break-after:always'></xmp>
+<!-- [#SLPE#] -->
+            
+          
+<p>&nbsp;</p>
+</div>
+</body>
+</html>

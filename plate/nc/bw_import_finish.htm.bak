@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+
+<body bgcolor="#DEE8FA">
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+  
+  <tr> 
+    <td align="center"> 
+    	<form action="/pronline/Msg" method="post"  name="form1" >
+
+        <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center"> 
+              <table width="100%" border="0" align="center" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+
+                <tr height="25"> 
+                  <td colspan="3">
+                    <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">导入统计</div>
+                  </td>
+                </tr>
+                        
+            <tr > 
+            <td colspan="2"><font color="blue">成功导入数:</font><font color="red">[#scount#]</font></td>
+            <td colspan="2" ><font color="blue">失败导入数:</font><font color="red">[#fcount#]</font></td>
+           
+          </tr>
+          
+           <tr > 
+            <td width="115" bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">MAC地址</font></td>
+            <td width="105" bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">IP地址</font></div></td>
+            <td width="100" bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">位置</font></td>
+            <td width="100" bgcolor="#6382BD" class="bord4" align="center"><font color="#FFFFFF">失败原因</font></td>
+          </tr>
+          [#SLPB#]
+          <tr height="20">     
+            <td   class="bord1">&nbsp;[#mac#]</td>
+            <td   class="bord1" align="right">&nbsp;[#ip#]&nbsp; </td>           
+            <td   class="bord1" align="right">&nbsp;[#position#]&nbsp;</td>
+            <td   class="bord1" align="right">&nbsp;[#desc#]&nbsp;</td>
+          </tr>
+          
+         [#SLPE#]   
+                
+                               
+              </table>
+						</td>
+          </tr>
+
+ 
+      
+          
+          
+          
+          
+        </table>
+      </form></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

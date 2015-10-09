@@ -1,0 +1,128 @@
+<html>
+<head>
+<title>酒店计费用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function goto(t) {
+	    if(form1.limitid.value != '0') {
+            window.open(t+'&id@'+form1.limitid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 策略没有定义");
+		}
+	}
+
+    function goto1(t) {
+	    if(form1.userid.value != '') {
+            window.open(t+'&id@'+form1.userid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 请先保存用户信息");
+		}
+	}
+	 
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" >
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2"> <div align="center"><strong><font color="#FFFFFF">帐号开户信息</font></strong></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td height="26" width="23%">帐号ID</td>
+                  <td height="26" width="77%"><input type="text" name="username" value="[#username#]" size="15" maxlength="15">
+                  </td>
+                </tr>
+                <tr> 
+                  <td height="26" width="23%">用户姓名</td>
+                  <td height="26" width="77%"> <input type="text" name="dispname" value="[#dispname#]" size="15" maxlength="15"> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>房间号</td>
+                  <td><input type="text" name="position" size="31" maxlength="31" value="[#position#]"></td>
+                </tr>
+                <tr> 
+                  <td width="23%">上网密码</td>
+                  <td width="77%"> <input type="text" name="password" size="31" maxlength="31" value="[#password#]" > 
+                  </td>
+                </tr>
+               <tr> 
+                  <td width="23%">部门</td>
+                  <td width="77%"> [#dept#] 
+                  </td>
+                </tr>
+                
+              </table>
+                           
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="23%" height="19" >使用状态 </td>
+                  <td > [#use#]</td>
+                </tr>
+                <tr>
+                  <td>计费策略</td>
+                  <td>[#feeid#]</td>
+                </tr>
+                <tr>
+                  <td>帐户余额</td>
+                  <td><input type="text" name="fee" value="[#fee#]"  size="15" maxlength="15">
+                  元</td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="23%">加入时间 </td>
+                  <td width="77%"> <input type="text" name="addtime" value="[#addtime#]" readonly> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>帐号失效时间</td>
+                  <td><input type="text" name="expiretime" value="[#expiretime#]"></td>
+                </tr>
+                <tr> 
+                  <td width="23%">最后访问时间 </td>
+                  <td width="77%"> <input type="text" name="lasttime" value="[#lasttime#]" readonly> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><div align="center">
+                      <input type="hidden" name="FunName" value="ncWebBillUserSave">
+                      <input type="hidden" name="fee0" value="[#fee#]">
+                      <input type="hidden" name="feeid0" value="[#feeid0#]">
+                      <input type="hidden" name="userid" value="[#userid#]">
+                      <input type="submit" name="save" value="保 存" class="an3">
+&nbsp; &nbsp;
+  <input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="history.back()">
+                  </div></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

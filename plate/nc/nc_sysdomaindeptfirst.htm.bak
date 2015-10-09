@@ -1,0 +1,95 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+    function goto(t)
+    {
+	    self.location.href=t;
+
+    }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncSysDomainUserNext">
+
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+               同步部门
+            </div></td>
+             <td align="right">
+            	   <input type="button" name="presave" value="上一步" class="an3"  onclick="goto('/pronline/Msg?FunName@ncYyzBase')">
+            	   <input type="submit" name="save" value="下一步" class="an3"  onclick="form1.FunName.value='ncSysDomainDept' "> &nbsp;&nbsp;
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                                   
+     
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">选择部门字段&nbsp;</div></td>
+                    <td> 
+                    	<select name="NameGroupBy">
+                    		<option value="ou">域中的组织单位（OU)</option>
+                    		<option value="group">属性Group</option>
+                    		<option value="department">属性department</option>
+                    	  <option value="company">属性company</option>
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;将域中用户的指定属性值作为部门</td>
+                  </tr>
+                  
+                
+                 
+              
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="button" name="presave" value="上一步" class="an3"  onclick="goto('/pronline/Msg?FunName@ncYyzBase')">
+            	   <input type="submit" name="save" value="下一步" class="an3"  onclick="form1.FunName.value='ncSysDomainDept' ">       
+               &nbsp;
+                   
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table> 
+	</form>
+<script>
+	form1.NameGroupBy.value='[#NameGroupBy#]';
+</script>
+</BODY>
+</html>
+

@@ -1,0 +1,251 @@
+
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<head>
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+	 <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+  <meta name="ProgId" content="VisualStudio.HTML">
+  <meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>网络服务目标IP统计</title>
+<style>
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+A:link{
+text-decoration:underline;
+font-size:9pt;
+}
+A:visited{
+text-decoration:underline;
+font-size:9pt;
+}
+A:hover{text-decoration:underline;
+font-size:9pt;
+}
+A:active{text-decoration:underline;
+font-size:9pt;
+}
+	
+	
+TD {	FONT-SIZE: 9pt}
+</style>
+<script src="/js/calendar.js"></script>
+<script>
+		function savexp(){
+	if(confirm("统计结果将被保存，您可以在历史报表查看中查看!")){
+	return true;
+	}
+	return false;
+	}
+	
+	function changservice(){
+callServer();
+//document.all.service.options[0].value='1';
+//document.all.service.options[0].text="111";
+
+
+}
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowServiceDet&groupid@'+form1.serviceclass.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+//alert(response);         
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+document.all.service.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.service.options[i].value=aid[i];
+ document.all.service.options[i].text=aname[i];
+	}
+
+   }
+ 
+ }
+	
+	
+	
+	
+	
+		function openreport(t){
+		window.open(t,'open_report','height=600, width=900, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+</script>
+
+
+
+
+<script src="/js/ajax.js"></script>
+
+</head>
+
+<body topmargin=5 leftmargin=0 bgcolor="#DEE8FA" scroll=AUTO >
+
+	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+    	<input type="hidden" name="FunName" value="ncWebReplace">
+    	<input type="hidden" name="plate" value="ncmsg_ipquery.htm">
+  <input type="hidden" name="fun" value="ncShowServiceDip">
+
+
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              [#title#]服务目标IP流量统计</div></td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2"> 
+        
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr height="30"> 
+            <td colspan="2">
+            	&nbsp;显示前&nbsp;<input type="text" name="sunrec" style="width:40px;" value="[#sunrec#]">
+            
+            	&nbsp;
+            	时间从&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+            	
+            	到&nbsp;<input type="text" name="edate" size="11" value="[#edate#]" ><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+            	
+            	&nbsp;服务大类<select name="serviceclass" style="width:80" onchange="changservice()">
+          	  	     	<option value="" selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#cgid#]">[#cgname#]</option>
+                      [#SLPE#]
+                     </select>
+                     &nbsp;细分服务
+          	  	     	<select name="service" style="width:100">
+          	  	     	<option value=" " selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#id_s#]">[#name_s#]</option>
+                      [#SLPE#]
+                      
+                    </select>
+              统计方式
+            	<select name="stattype" style="width:50px;">
+            		<option value="0">前台统计</option>
+            		<option value="1">后台统计</option>
+            	</select>   
+                     
+    <!--        	
+            	排序&nbsp;
+            	<select name="order" style="width:100px;">
+            	<option value="F">流量</option>
+            	<option value="C">请求数</option>
+            	</select>
+-->            	
+            	<input name="submit1" type="submit" class="an3"   value="确认" onclick="form1.FunName.value='ncWebReplace'" >&nbsp;
+            	<input name="exp" type="submit" class="an3"    value="导出"  onclick="form1.FunName.value='ncShowServiceDip'">
+            	<input name="expsql" type="submit" class="an3"    value="保存结果" onclick="return savexp()">
+            	</td>
+          </tr>
+          <tr bgcolor="#ffffff">
+          	<td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+          			
+          				<td width="98%" valign="top">
+          					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr    bgcolor="#DEE8FA" height="22">
+				            <td width="40" align="center" class="bord2_1"> &nbsp;序号</td>
+				            <td  align="center" class="bord2_1" > 目标IP</td>
+				            <td  align="center" class="bord2_1" > IP位置</td>
+				            <td width="140" align="center" class="bord2_1" > 总流量(MB)</td>
+				            <td width="140" align="center" class="bord2_1" > 上行流量(MB)</td>
+				            <td width="140" align="center" class="bord2_1" > 下行流量(MB)</td>
+				           
+				          </tr>
+          <!--  -->
+				          [#SLPB#]
+				          <tr height="20"> 
+				
+				            <td class="bord1"   nowrap >&nbsp;[#num#]</td>
+				            <td class="bord1"   nowrap >&nbsp; [#dip#]</a></td>
+				            <td class="bord1"   nowrap >&nbsp; [#dip_desc#]</a></td>
+				            <td class="bord1"   nowrap align="right">&nbsp;[#bytes#]&nbsp;</td>
+				           <td class="bord1"   nowrap align="right">&nbsp;[#ubytes#]&nbsp;</td>
+				            <td class="bord3"  align="right">&nbsp;[#dbytes#]&nbsp;</td>
+				           
+				          </tr>
+                 [#SLPE#]
+          	    </table>
+          			 </td>
+          			
+          			</tr>
+      			
+          			
+          	  </table>
+          	
+          </tr>
+       
+ 
+
+       
+        </table>
+     </td>
+    </tr>
+	</table>
+
+</form>
+<script>
+	if('[#service#]'!='') form1.service.value='[#service#]';
+</script>
+</body>
+</html> 

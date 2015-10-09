@@ -1,0 +1,276 @@
+<html>
+<head>
+<title>Setup WebList</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<script src="/js/ajax.js"></script>
+<script language="JavaScript" type="text/javascript">
+var xmlHttp = false;
+
+//调用AJAX
+ function callServer(gid) 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebLim_servicedet&pid@[#pid#]&gid@'+gid;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+    var gid=getxmlbyname(response,"<gid>","</gid>");
+    var temp_date=getxmlbyname(response,"<innhtml>","</innhtml>");
+     
+  	var gtid="document.all.g"+gid;
+	  eval(gtid).innerHTML=temp_date;
+   
+    
+   
+    
+	  var g_num="form1.g_"+gid;	
+		var s_sum=eval(g_num).value;	
+		sum=parseInt(s_sum);
+	
+
+     
+		if(sum>0){
+			
+				var v_sevid="form1.sevid_"+gid+"_1";
+				var sevidv=eval(v_sevid).value;
+	//			alert(sevidv);
+				if(parseInt(sevidv)%1000==0){
+					var vc_flag="form1.vflag_"+gid;
+					var obj2=eval(vc_flag);
+         var t_v=getradiovalue(obj2);
+ 
+					var v_flag="form1.vflag_"+gid+"_1";
+				  var obj=eval(v_flag);	
+		      setradio(obj,t_v);
+					
+				}
+				
+				
+		
+		
+			}
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+   }
+ 
+ }
+
+
+ function getradiovalue(ob){
+	   var j=ob.length;   
+       for(i=0;i<j;i++) {
+             if(ob[i].checked) {
+             return ob[i].value;
+          } 
+      }
+      return 9;
+    }
+
+
+  function setradio(ob,t){
+  //	alert(t);
+	   var j=ob.length;
+    
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+function openclass(gid){
+		 callServer(gid);
+		 var gtid="document.all.g"+gid;
+		 if(eval(gtid).style.display=='none'){
+		 	eval(gtid).style.display='';
+		}
+	else{
+		eval(gtid).style.display='none';
+	}
+	}
+	
+function openclass2(gid){
+//	form1.tt_gid.value=gid;
+		 callServer(gid);
+		 var gtid="document.all.g"+gid;		 
+		 eval(gtid).style.display='';		
+		 
+		 
+		 
+}	
+	
+	
+function setsid(gid,flag){
+//   callServer(gid);
+
+// if (xmlHttp.readyState == 4) {
+	var g_num="form1.g_"+gid;
+	
+	var s_sum=eval(g_num).value;
+
+	sum=parseInt(s_sum);
+
+  var gtid="document.all.g"+gid;
+	if(eval(gtid).style.display=='none')
+  return;
+     
+     
+	var i,sum;
+	for(i=0;i<sum;i++){
+		var v_flag="form1.vflag_"+gid+"_"+parseInt(i+1);
+		var obj=eval(v_flag);
+    setradio(obj,flag);
+		
+// }
+	}
+}
+
+ </script>
+ 
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<style type="text/css">
+<!--
+.bord3-22 {
+	border-top: 0px solid #FFFFFF;
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	border-left: 1px solid #999999;
+}
+
+.bord3-23 {
+	border-top: 0px solid #FFFFFF;
+	border-right: 0px solid #999999;
+	border-bottom: 1px solid #AEE8FA;
+	border-left: 0px solid #999999;
+}
+
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" link="#33FF99" alink="#FF0000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  onUnLoad="DoUnload()">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td colspan="2"><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div align="center"><b><font color="#000000">互联网服务策略设置</font></b></div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td><form name="form1"  method="post" action="/pronline/Msg">
+       <input type="hidden" name="tt_gid" value="">
+        <table width="90%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+          <tr> 
+            <td  class="bord3-1" colspan="3" height="30"> <div align="left"></div>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td width="28%" style="color:#333333;font-size: 13px;font-weight: bold;"><div align="center">策略名称:[#pname#]</div></td>
+                  <td width="26%">缺省访问:[#vister#]</td>
+                  <td width="18%"> 
+                  </td>
+                  <td width="28%"><input type="hidden" name="rtl" > <input type="hidden" name="FunName" value="ncWebLim_SetIpPol_new"> 
+                    <input type="hidden" name="pid" value="[#pid#]"> <input type="hidden" name="pname" value="[#pname#]"> 
+                     <input name="save" type="submit" class="an3"  value="保 存"> 
+    <!--                <input name="save12" type="button" class="an3" onClick="ClickReset()" value="放 弃"> -->
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+    [#SLPB#]    
+          <tr>            
+            <td  colspan="3"  class="bord3-22">
+            	<input type="hidden" name="g_[#gid#]" value="[#sum#]">
+            	 <table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0" >
+            	 	 <tr height="28">
+            	 	 	<td class="bord3-23">
+            	 	 		<table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0" >
+            	 	 			<tr>
+			            	 	 	<td  width="120"  style="color:#333333;font-size: 13px;font-weight: bold;" onclick="openclass('[#gid#]')">&nbsp;<img src="/images/tree/folder.gif" >&nbsp;[#gname#]
+			            	 	 			
+			            	 	  </td>
+				            	 	<td align="left">      	 	 
+				            	 	 	  <input name="vflag_[#gid#]" type="radio" value="1" onclick="setsid('[#gid#]',1)" [#ycheck#]>全部允许 
+						                 <input name="vflag_[#gid#]" type="radio" value="0" onclick="setsid('[#gid#]',0)" [#jcheck#]> 全部禁止
+						                 <input name="vflag_[#gid#]" type="radio" value="9" onclick="openclass2('[#gid#]')" [#ncheck#]> 部分
+						                 
+						            </td>
+		                  </tr>
+		                </table>
+		              </td>
+		            </tr>
+		                
+            	 	 <tr >
+            	 	 	 <td  id="g[#gid#]" style="display:none">
+            	 	 	 	 <table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="#dEE8FA">
+         
+					          </table>
+					        </td>
+					      </tr>
+		                
+		                 
+		     	                 
+            	 	</table>       
+            </td>
+          </tr>
+        
+        
+        
+        
+      
+        
+        
+       [#SLPE#] 
+        
+        
+        
+        
+        
+        
+        </table>
+      </form></td>
+   
+  </tr>
+</table>
+</body>
+</html>

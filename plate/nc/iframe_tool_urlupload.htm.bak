@@ -1,0 +1,32 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script>
+function w1()
+{
+
+var yy='<tbody>';
+	yy=yy+'<table width="100%" border="0" style="font-size:11pt" cellpadding="5" cellspacing="5">';
+	yy = yy + '<tr>';
+  yy = yy + '<td>[#msg#]</td>';
+  yy = yy + '</tr>';
+  yy=yy+'</table>';
+  yy = yy + '</tbody>';
+
+  parent.document.all.ff.innerHTML=(yy);
+ 
+parent.document.all.cmd1.disabled=0;
+parent.document.all.cmd2.disabled=0;
+parent.document.all.cmd3.disabled=0;
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

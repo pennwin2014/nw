@@ -1,0 +1,79 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="refresh" content="5">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<SCRIPT LANGUAGE="JavaScript">
+var yy='<tbody>';
+function w1()
+{
+
+	yy = yy + '<table cellspacing=0 bordercolor="#BFD7F9  class="listDataTable" border="0" align="center" width="100%" >';	
+	    yy = yy + '<tr height="22"  >';    
+      yy = yy + '<td width="40" bgcolor="#6382BD" class="bord2">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">序号</font></div></td>';
+      yy = yy + '<td width="100" bgcolor="#6382BD" class="bord2" ><p align="center"><font color="#FFFFFF">姓名</font></p></td>';
+      yy = yy + '<td width="100" bgcolor="#6382BD" class="bord2" ><div align="center"><font color="#FFFFFF">用户名</font></div></td>';
+      yy = yy + '<td width="90" bgcolor="#6382BD" class="bord2" >';
+      yy = yy + '<div align="center"><font color="#FFFFFF">部门</font></div></td>';
+      yy = yy + ' <td width="90"center" bgcolor="#6382BD" class="bord2" align="center" ><font color="#FFFFFF">IP地址</font></div></td>';
+      yy = yy + '<td width="90" bgcolor="#6382BD" class="bord2" onclick="px(5)">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">最近访问</font></div></td>';
+      yy = yy + '<td width="90" bgcolor="#6382BD" class="bord2" onclick="px(8)">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF" onclick="px(8)">进流量(字节)</font></div></td>';
+      yy = yy + '<td width="90" bgcolor="#6382BD" class="bord2" onclick="px(7)">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">出流量(字节)</font></div></td>';
+      yy = yy + '<td width="90"  bgcolor="#6382BD" class="bord2" onclick="px(6)">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">总流量(字节)</font></div></td>';
+      yy = yy + '<td width="90"  bgcolor="#6382BD" class="bord2" onclick="px(9)">'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">带宽(bps)</font></div></td>';
+      yy = yy + '<td width="90"  bgcolor="#6382BD" class="bord2" >'; 
+      yy = yy + '<div align="center"><font color="#FFFFFF">操作</font></div></td>';
+    yy = yy + '</tr>';
+// [#SLPB#]
+  yy = yy + '<tr onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)" height="18" valign="top" >';
+  yy = yy + '<td  onyes="head"   nowrap  class="bord1" valign="top" align="center">[#num#]&nbsp;</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" title="[#dispname#]"  valign="top">&nbsp;<a href="/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_ip_lab.htm&userid@[#userid#]" target="_blank">[#dispname#]</a></td>';
+  yy = yy + '<td  onyes="head"   nowrap class="bord1" title="[#username#]" valign="top">&nbsp;[#username#]</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" title="[#dept#]" valign="top">&nbsp;[#dept#]</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" valign="top">&nbsp;[#ip#]</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" valign="top" align="center">&nbsp;[#lasttime#]</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" valign="top" align="right">[#inbytes#]&nbsp;</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" valign="top" align="right">[#outbytes#]&nbsp;</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord1" valign="top" align="right">[#sumbytes#]&nbsp;</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord3" valign="top" align="right">[#band#]&nbsp;</td>';
+  yy = yy + '<td  onyes="head"    nowrap class="bord3" valign="top" align="center"><a href="#xxma" onclick=zt("[#userid#]","[#dispname#]","[#ip#]")>暂停上网</a></td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+yy=yy+'</table>';
+yy=yy+'</div>';
+  yy = yy + '</tbody>'
+  parent.document.all.xxm.rows[0].cells[1].innerHTML="页码&nbsp;<font color='red'>[#CurPg#]/[#TotPg#]</font>";
+  parent.document.all.xxm.rows[0].cells[2].innerHTML="共&nbsp;<font color='red'>[#TotRec#]</font>&nbsp;条记录";
+  parent.ff.innerHTML=(yy);
+
+}
+
+function goto(t){
+self.location.href=t
+}
+
+ </SCRIPT> 
+
+</head>
+<body bgcolor="#ffffff" text="#000000" oncontextmenu="return false" topmargin="0" leftmargin="0" >
+<SCRIPT LANGUAGE="JavaScript">
+setTimeout(' w1()',1000)
+ </SCRIPT> 
+ 
+ <form method="post"  id="form1" name="form1" action="/pronline/Msg" >
+<input type="hidden" name="cond" value="[#cond#]">
+<input type="hidden" name="sortby" value="[#sortby#]">
+<input type="hidden" name="orderby" value="[#orderby#]">
+<input type="hidden" name="CurPg"   value="[#CurPg#]">
+<input type="hidden" name="TotPg"      value="[#TotPg#]">
+</form>
+</body>
+</html>

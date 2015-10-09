@@ -1,0 +1,184 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+
+<head>
+<title>聊天记录统计条件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<style>
+	.styletab {
+  font-size: 13px;
+  text-align:right;
+	color: black;	
+	font-weight: bold;
+}
+</style>
+<script>
+
+</script>
+<script src="/js/calendar.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  style="overflow:hidden">
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="plate" value="ncmailmsg_tj.htm">
+  <input type="hidden" name="tjfun" value="ncWebImclientStat">
+  <input type="hidden" name="FunName" value="ncWebImclientStat">
+  <input type="hidden" name="vid" value="">
+    <input type="hidden" name="userid">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              聊天统计条件</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <div align="center"> <b>
+          </b></div>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+        <table width="90%" border="0" align="center" class="styletab">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+
+                <tr> 
+                  <td width="1%"> </td>
+                  <td width="18%"> <div align="right"><font color="#000000"><b>部 
+                      门&nbsp;</b></font></div></td>
+                  <td width="43%"> <div align="left"><font color="#000000"> [#sgroup#]</font></div></td>
+                  <td colspan="3"> <div align="center"><font color="#000000"></font></div>
+                    <div align="center"><font color="#000000"> </font></div>
+                    <div id="plabel" align="center"><font color="#000000"> </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%"> </td>
+                  <td width="18%"> <div align="right"><font color="#000000"><b>用户名&nbsp;
+                     </b></font></div></td>
+                  <td width="43%" align="left"> <input type="text" name="dispname" size="21" value="[#dispname#]"></td>
+                  <td colspan="3">
+                 
+                   </td>
+                </tr> 
+             
+                
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%"> <div align="right"><font color="#000000"><b>聊天时间从&nbsp;</b></font></div></td>
+                  <td width="43%"> <div align="left"><font color="#000000"> 
+                      <input type="text" name="sdate" style="width:100" value="[#sdate1#]" >
+                      <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+                      <input type="text" style="position:relative;left:-28px;" name="stime" value="[#stime#]" size="6" maxlength="6">
+                      
+                      </font></div></td>
+                  <td width="9%"> </td>
+                  <td width="6%"> </td>
+                  <td > <div id="plabel" align="center"><font color="#000000"> 
+                      </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%" height="21">&nbsp;</td>
+                  <td width="18%" height="21"> <div align="right"><font color="#000000"><b>到&nbsp;</b></font></div></td>
+                  <td width="43%" height="21" align="left"><font color="#000000"> 
+                      <input type="text" name="edate" style="width:100" value="[#sdate2#]" >
+                      <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+                      <input type="text" style="position:relative;left:-28px;" name="etime" value="[#etime#]" size="6" maxlength="6">
+ 
+                    </font></td>
+                  <td width="9%" height="21"><div align="center"></div></td>
+                  <td width="6%" height="21">&nbsp;</td>
+                  <td  height="21" align="center">&nbsp;</td>
+                </tr>
+                
+                
+                 <tr> 
+                  <td width="1%"> </td>
+                  <td width="18%"> <div align="right"><font color="#000000"><b>聊天工具&nbsp;</b></font></div></td>
+                  <td width="43%"> <div align="left"><font color="#000000">
+                  	 <select style="width:160px">
+                  	 <option value="">不限</option>
+                  	 <option value="1001">QQ</option>
+                  	 <option value="1002">MSN</option>
+                  	 <option value="1004">SKYPE</option>
+                  	 <option value="1005">新浪UC</option>
+                  	 <option value="1006">雅虎通</option>
+                  	 <option value="1007">网易泡泡</option>
+                  	 <option value="1008">ICQ</option>
+                  	 <option value="1009">阿里旺旺</option>
+                  	 <option value="1012">飞信</option>
+                  	 <option value="1013">baiduHi</option>
+                  	 <option value="1014">GTALK</option>
+                  	 <option value="1034">校内通</option>
+                  	</select>
+                  	
+                  	</font></div></td>
+                  <td colspan="3"> <div align="center"><font color="#000000"></font></div>
+                    <div align="center"><font color="#000000"> </font></div>
+                    <div id="plabel" align="center"><font color="#000000"> </font></div></td>
+                </tr>
+                
+                
+                
+                
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%"> <div align="right"><font color="#000000"><b></b></font></div></td>
+                  <td width="43%"> 
+
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td >&nbsp;</td>
+                </tr>
+                
+             <tr height="50"> 
+                  <td  colspan="5"  align="center" >&nbsp;
+                  	<input name="Search" type="button" class="an3" onClick="form1.FunName.value='ncWebReplace';form1.submit();form1.Search.disabled=1" value="确 认"></td>
+                  	<td>&nbsp;</td>
+                </tr>
+                
+          
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%"> <div align="center"><font color="#000000"><b></b></font></div></td>
+                  <td width="43%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td >&nbsp; </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td height="70" colspan="2">
+<table width="50%" border="0" align="center">
+
+      </table>
+    </td>
+  </tr>
+ </form>
+<script>
+	form1.service.value="[#service#]";
+</script>
+</table>
+</body>
+</html>

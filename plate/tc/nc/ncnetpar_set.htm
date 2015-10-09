@@ -1,0 +1,230 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function setAdminIp()
+{
+
+	if(form1.gateway[1].checked)
+	{
+	       if(form1.InDev1[0].checked)
+		{
+		form1.adminip.value=form1.eth0IP.value;
+		form1.adminmask.value=form1.eth0Mask.value;
+		}
+	        else if(form1.InDev1[1].checked)
+		{
+		form1.adminip.value=form1.eth1IP.value;
+		form1.adminmask.value=form1.eth1Mask.value;
+		}
+	        else if(form1.InDev1[2].checked)
+		{
+		form1.adminip.value=form1.eth2IP.value;
+		form1.adminmask.value=form1.eth2Mask.value;
+		}
+		
+	}		
+}
+
+function setrAdminIp(num)
+{
+
+	if(form1.gateway[1].checked)
+	{
+	       
+		form1.adminip.value=eval("form1.eth"+num+"IP").value;
+		form1.adminmask.value=eval("form1.eth"+num+"Mask").value;
+				
+		
+	}		
+}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">&nbsp;</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td valign="top" >
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td valign="top">
+              <table width="100%" border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff     align="center" cellpadding="0" cellspacing="0">
+                <tr> 
+                  <td rowspan="3" width="15%" align="center">
+                       <font size="2"><b>接<br>入<br>方<br>式</b></font>
+                  </td>
+                  <td width="85%"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=30>
+                                      <td width="25" ><input type="radio" name="gateway" value="bridge" [#bridge#]></td>
+                                      <td><b>网桥方式</b></td>                                      
+                                   </tr>
+                                   <tr height=30>
+                                      <td>&nbsp;</td>
+                                      <td>&nbsp;&nbsp;&nbsp;接口设备&nbsp;[#SLPB#]&nbsp;<input type="checkbox" name="breth[#iNum#]" value="eth[#iNum#]" [#breth#]>Eth[#iNum#][#SLPE#]
+                   
+                                      </td>
+                                   </table>
+                  </td>
+                  </tr>
+                 <tr>                  
+                  <td>     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=30>
+                                      <td width="25"><input type="radio" name="gateway" value="gateway" [#gateway#]></td>
+                                      <td><b>网关方式</b></td>                                      
+                                   </tr>
+
+                           </table>
+                  </td>
+                  </tr>
+                  
+                                 
+                 <tr>                 
+                  <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                       <tr height=30>
+                          <td width="25"><input type="radio" name="gateway" value="bypass" [#bypass#]></td>
+                          <td><b>旁路方式</b></td>                                      
+                      </tr>
+                      </table>
+                  </td>
+                 </tr>
+                 
+                <tr>
+                   <td align="center"><b>网卡地址</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=40>
+                                      <td>&nbsp;</td>
+                                      <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                            <tr height="25"><td width="50">&nbsp;</td>
+                                                <td align="center" width="150">IP地址</td>
+                                                <td align="center" width="150">掩码地址</td>
+                                                <td>&nbsp;</td>
+                                             </tr> 
+                                             [#SLPB#]
+                                             <tr height="30"><td align="right"><b>Eth[#iNum#]</b></td>                                         
+                                                <td align="center" ><input type="text" name="eth[#iNum#]IP" value="[#ethIP#]" size="15" maxlength="15" onchange="setAdminIp()"></td>
+                                                <td align="center"><input type="text" name="eth[#iNum#]Mask" value="[#ethMask#]" size="15" maxlength="15" onchange="setAdminIp()"></td>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             [#SLPE#]
+                                             
+                                             <tr height="10"><td colspan="3">&nbsp;</td></tr>
+                                            </table>               
+                                      </td>
+                        </table>
+                   </td>
+                   </tr>
+ <!--                
+                 <tr>
+                   <td align="center"><b>监控接口</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=30>
+                                      <td width="25">&nbsp;</td>
+                                      <td><input type="radio" name="InDev1" value="eth0" [#InDeveth0#] onclick="setrAdminIp('0')">Eth0
+                                      &nbsp;<input type="radio" name="InDev1" value="eth1" [#InDeveth1#] onclick="setrAdminIp('1')">Eth1
+                                      &nbsp;<input type="radio" name="InDev1" value="eth2" [#InDeveth2#] [#eth2lock#] onclick="setrAdminIp('2')">Eth2 
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+ -->                
+                 <tr>
+                   <td align="center"><b>管理地址</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                  
+                                   <tr height=40>
+                                      
+                                      <td align="center">IP地址&nbsp;<input type="text" name="adminip" value="[#adminip#]" size="14" maxlength="15"></td>
+                                      <td align="center">掩码&nbsp;<input type="text" name="adminmask" value="[#adminmask#]" size="14" maxlength="15"></td>
+                                      <td align="center">管理端口&nbsp;<input type="text" name="adminport" value="[#adminport#]" size="4" maxlength="5"></td>
+                                      <td align="center">验证端口&nbsp;<input type="text" name="authport" value="[#authport#]" size="4" maxlength="5"></td>
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                   
+                 <tr>
+                   <td align="center"><b>缺省网关</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=30>
+                                      <td width="25">&nbsp;</td>
+                                      <td>&nbsp;&nbsp;&nbsp;<input type="text" name="defgateway" value="[#defgateway#]" size="15" maxlength="15">
+                                     
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                   
+                 <tr>
+                   <td align="center"><b>路由设置</b>
+                   </td>
+                   <td align="center"> <textarea name="routconf"  rows="3" style="width:100%">[#routconf#]</textarea>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td align="center"><b>DNS</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                  
+                                   <tr height=40>
+                                      
+                                      <td align="center">DNS1&nbsp;<input type="text" name="dnsserver1" value="[#dnsserver1#]" size="15" maxlength="15"></td>
+                                      <td align="center">DNS2&nbsp;<input type="text" name="dnsserver2" value="[#dnsserver2#]" size="15" maxlength="15"></td>
+                                     
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                 <tr>
+                   <td align="center"><b>地址转换</b>
+                   </td>
+                   <td align="center"> <textarea name="iptable"  rows="3" style="width:100%">[#iptable#]</textarea>
+                   </td>
+                 </tr>
+              </table>
+             </td>
+             </tr>
+             </table>
+         </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebSystemSave_base">
+                <input type="submit" name="next" value="保 存" class="an3">
+                &nbsp; 
+                <input type="submit" name="exec" value="临时执行" class="an3">
+                &nbsp; 
+                <input type="submit" name="app" value="应 用" class="an3">
+                &nbsp; 
+                <input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="history.back()">
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

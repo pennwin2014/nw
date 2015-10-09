@@ -1,0 +1,6 @@
+<sum>[#sum#]</sum>
+[#SLPB#]
+<data_flow[#num#]>[#data_flow#]</data_flow[#num#]>
+[#SLPE#]
+<devname>[#devname#]</devname>
+<unit>[#unit#]</unit>

@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>阻断告警设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">阻断和告警信息报警通知</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    
+    
+
+    
+    
+    
+    <tr> 
+      <td>
+        <table width="90%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+        	
+        	    <tr> 
+      <td valign="top">
+      	<table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr height="28"> 
+            <td > 
+            	&nbsp;&nbsp;功能&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            	<select name="starterr" style="width:100"><option value="Yes">启用</option><option value="No">不启用</option></select>
+            发送间隔 <input type="text" name="warnerrtime" value="[#warnerrtime#]" size="6">&nbsp;分钟
+           &nbsp;
+           <input type="checkbox" name="serrlog" value="1" [#errcheck#]>阻断日志&nbsp;
+           <input type="checkbox" name="swarnlog" value="1" [#warcheck#]>告警日志
+            <input type="checkbox" name="adminlog" value="1" [#admincheck#]>系统操作日志
+            &nbsp;
+           <input type="checkbox" name="smpwerr" value="1" [#smpwarncheck#]>短信提醒
+           手机号&nbsp;<input type="text" name="werrmobno" value="[#werrmobno#]">
+           </td>
+           <td>&nbsp;</td>
+          </tr>
+          
+          
+          <tr height="28"> 
+            <td > 
+            	&nbsp;&nbsp;告警级别&nbsp;
+            
+            	<select name="warnlevel" style="width:100"><option value="">不限</option><option value="1">严重</option><option value="2">中度</option><option value="0">一般</option></select>
+           
+           &nbsp;内容包含&nbsp;<Input type="text" name="cont" value="[#cont#]" size="22">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="mailnotify" value="1" [#mailnotify#]>邮件通知
+           </td>
+           <td>&nbsp;</td>
+          </tr>
+          
+          
+          
+          
+        </table></td>
+    </tr>
+        	
+        	
+          <tr> 
+            <td> <br>&nbsp;邮件地址（一条记录一行）<br><br>
+                <textarea name="warnerrmail" cols="100%" rows="20">[#warnerrmail#]</textarea>
+                <br>
+                <br>
+                <br>
+                <br>
+              </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td height="70"><table width="70%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebError_WarnSave">
+                <input type="submit" name="ok" value="保 存" class="an3">
+                &nbsp; 
+               
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+
+<script>
+	form1.starterr.value='[#starterr#]';
+	form1.warnlevel.value='[#warnlevel#]';
+</script>
+</body>
+</html>

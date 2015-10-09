@@ -1,0 +1,179 @@
+<html>
+
+<head>
+<title>上网时间统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<style>
+	.styletab {
+  font-size: 13px;
+  text-align:right;
+	color: black;	
+	font-weight: bold;
+}
+</style>
+
+<script language = "Javascript" src = "/js/selecttime.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"   >
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+ 
+    <input type="hidden" name="userid">
+    <input type="hidden" name="caService">
+    <input type="hidden" name="FunName" value="ncWebFlowCount">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">流量时间统计查询条件定义</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <div align="center"> <b>
+          </b></div>
+        <table width="90%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+        <table width="90%" border="0" align="center" >
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 部 门
+                      </td>
+                  <td width="33%"> <div align="left"><font color="#000000"> [#sgroup#]</font></div></td>
+                  <td colspan="3"> <div align="center"><font color="#000000"></font></div>
+                    <div align="center"><font color="#000000"> </font></div>
+                    <div id="plabel" align="center"><font color="#000000"> </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 用户名</td>
+                  <td width="33%"> <input type="text" name="dispname" size="18"></td>
+                  <td colspan="3">
+                 
+                   </td>
+                </tr> 
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> MAC地址</td>
+                  <td width="33%"> <input type="text" name="mac" size="18"></td>
+                  <td colspan="3">                
+                   </td>
+                </tr> 
+                
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 起始时间</td>
+                  <td width="33%"> <div align="left"><font color="#000000"> 
+                      <input type="text" name="sdate1" size="10" value="[#sdate1#]" >
+                      <input type="text" name="stime" size="2" maxlength="2" value="[#stime#]" >
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('form1.sdate1')></a></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%"> <div id="plabel" align="center"><font color="#000000"> 
+                      </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%" height="21">&nbsp;</td>
+                  <td width="18%" height="21" class="styletab"> 终止时间</td>
+                  <td width="33%" height="21"><font color="#000000"> 
+                    <input type="text" name="sdate2" size="10" value="[#sdate2#]">
+                    <input type="text" name="etime" size="2" maxlength="2" value="[#etime#]" >
+                    </font></td>
+                  <td width="9%" height="21"><div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('form1.sdate2')></a></font></div></td>
+                  <td width="6%" height="21">&nbsp;</td>
+                  <td width="33%" height="21" align="center">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 分组条件</td>
+                  <td width="33%"> 
+                  <select name="opt" style="width:115">
+                  <option value="1">天</option>
+                  <option value="2">时</option>
+                  <option value="3">月</option>
+                  <option value="4">部门</option>
+                  <option value="5">用户</option>
+                  </select> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                
+                <tr height="30"> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 统计内容</td>
+                  <td width="33%"> 
+                  <select name="way" style="width:115">
+                  <option value="1">流量</option>
+ <!--                 <option value="2">时间</option>
+-->
+
+                  </select> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;<input name="Button" type="button" class="an3" onClick="form1.submit();" value="确 认"></td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%"> <div align="center"><font color="#000000"><b></b></font></div></td>
+                  <td width="33%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%">&nbsp; </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+          <td>
+      <div style="height:320px;overflow-y:scroll" id="tC">
+          <table width="90%" border="0" align="center" > 
+          <tr><td align="center" height="18" colspan="6">
+          显示服务
+          </td>
+          </tr>
+          [#SLPB#]
+          <tr>[#SLPB#]<td><input type="checkbox" name="chk[#i#]" value="[#i#]" [#check#]>[#service_name#]</td>[#SLPE#]
+          [#SLPE#]
+          <tr>
+          </table>
+      </div>
+          </td>
+          </tr>
+          
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td height="70" colspan="2">
+<table width="50%" border="0" align="center">
+
+      </table>
+    </td>
+  </tr>
+ </form>
+<script>form1.way.value='[#way#]';
+        form1.opt.value='[#opt#]';
+        form1.groupid.value='[#groupid#]';
+</script>
+</table>
+</body>
+</html>

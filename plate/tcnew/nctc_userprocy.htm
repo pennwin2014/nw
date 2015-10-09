@@ -1,0 +1,506 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>邮件分类</title>
+<script>
+	var ll='[#CurPg#]';
+  var yy='[#TotPg#]';
+  
+	 function setcheck(ob){
+	 eval(ob).checked=true;
+    }
+ function tj(){
+	 document.all.Layer3.style.display='';
+	 form1.userid.value='';
+	 form1.add.value='add';
+	form1.modi.value='';
+	}
+function changetype(){
+if(form1.utype.value=='0'){
+  document.all.sip1.style.display='none';
+  document.all.gid1.style.display='none';
+  document.all.uid1.style.display='none';
+}
+else if(form1.utype.value=='1'){
+  document.all.sip1.style.display='none';
+  document.all.gid1.style.display='';
+  document.all.uid1.style.display='none';
+}
+else if(form1.utype.value=='2'){
+  document.all.sip1.style.display='none';
+  document.all.gid1.style.display='none';
+  document.all.uid1.style.display='';
+}
+else if(form1.utype.value=='3'){
+  document.all.sip1.style.display='';
+  document.all.gid1.style.display='none';
+  document.all.uid1.style.display='none';
+  }
+}
+
+function qr(){
+if(form1.utype.value=='2'){
+
+	var temp="/pronline/Msg?FunName@ncLimMonUser&rycx@"+form1.udispname.value+"&userid@"+form1.userid.value;
+	
+	showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:470px');
+	return false;
+}
+return true;
+}
+
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+    function goto(t){
+        self.location.href=t;
+    }
+	
+    
+	
+	  
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#ffff00";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }	
+    }
+ 
+
+    function showf(sid,did,stime,utype,uid,eip,aid,name_obj,sip)
+    {   
+     form1.sid.value=sid ;     
+     form1.did.value=did;
+     form1.stime.value=stime;
+     form1.utype.value=utype;
+     form1.aid.value=aid;
+     if(form1.utype.value=='1'){
+         form1.groupid.value=uid;
+      }
+      else if(form1.utype.value=='2'){
+      form1.userid.value=uid;
+      form1.udispname.value=name_obj;
+      }
+      else if(form1.utype.value=='3'){
+      form1.sip.value=sip;
+      form1.eip.value=eip;
+      }
+      else{
+      
+      }  
+     
+     
+     changetype();
+     
+		 document.all.Layer3.style.display='';
+		 form1.add.value='';
+		 form1.modi.value='modi';
+    }
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+    
+  
+    
+<!-- Hide
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+
+</script>
+
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.anniu_1 {  background-color: #6382BD; height: 18px; width: 49px;font-size: 9pt; font-style: normal; font-weight: normal;BORDER-BOTTOM: 1px solid #6382BD; BORDER-LEFT:1px solid  #6382BD; BORDER-RIGHT: 1px solid #266AA8; BORDER-TOP: 1px solid  #6382BD; COLOR: #ffffff; top: 20px; clip:   rect(   )}
+.nnoo {  filter: Gray}
+
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:340px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    }   
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bgcolor="#DEE8FA"  style="overflow:auto;">
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="add" value="">
+  <input type="hidden" name="modi" value="">  
+ <input type="hidden" name="FunName" value="ncWebTcUserProcy">
+<input type="hidden" name="cheID" value="">
+ <input type="hidden" name="sid" value="">
+ 
+ <input type="hidden" name="CurPg" value="[#CurPg#]">
+ <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+   <tr>
+      <td valign="top"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">使用者带宽设置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+ </table>
+ 
+ <table width="98%" border="1"   align="center" cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+  <tr> 
+      <td >
+         
+ 
+  <table border="0" width=100% cellspacing="0" cellpadding="0" align=center>
+     
+         <tr height="25">
+			  
+			  <td >&nbsp;
+             <input name="add1" type="button" class="an3" onclick="tj()" value="添 加" >
+             &nbsp; 
+            <input name="del" type="submit" class="an3" value="删 除" onclick="form1.add.value='';form1.modi.value=''">
+            &nbsp;  
+ <!--           <input name="app" type="submit" class="an3" value="应 用" >
+  -->                            
+			  </td>
+			  <td align="right">
+			  	
+			  	
+			  	  <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody>               	
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>               
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> 
+                 <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+               <td align=middle background="" width=92> 
+               <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+               </td>
+               <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table> 
+			  	
+			  	
+			  	
+			  	
+			  	&nbsp;
+			  	
+			  </td>
+       </tr>
+     
+     
+   <tr>
+      <td width="100%" colspan="2" valign=top align=center> 
+      	
+  
+        <table  id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          <tr  height="21" class="tableHead"> 
+            <td width="40" height="18" bgcolor="#6382BD" class="bord2">
+             <div align="center"><font color="#FFFFFF">
+                <input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()">
+                </font></div></td>
+           <td width="120" height="18" bgcolor="#6382BD" class="bord2">
+           <div align="center"><font color="#FFFFFF">日期</font></div></td>
+            <td width="270" height="18" bgcolor="#6382BD" class="bord2">
+           <div align="center"><font color="#FFFFFF">时间</font></div></td>
+         
+             <td  height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">带宽策略名称</font></div></td>	
+              <td  height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">使用者类别</font></div></td>	
+             <td  height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">使用者名称</font></div></td>	
+              			
+             <td width="60" height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">编辑</font></div></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="18" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+            <td class="bord1" align="center"> 
+                <input type="checkbox" name="chk[#iNum#]" value="[#sid#]">
+            </td>          
+            <td class="bord1" >&nbsp;[#name_d#]</td>          
+            <td class="bord1" >&nbsp;[#stime#]&nbsp;</td>
+
+            
+            <td class="bord1" >&nbsp;[#aclname#]&nbsp;</td>
+            <td class="bord1" >&nbsp;[#type_desc#]</td>
+            <td class="bord1" >&nbsp;[#name_obj#]</td>
+            <td class="bord3"  align="center"><a href="#xxm" onclick="showf('[#sid#]','[#did#]','[#stime#]','[#utype#]','[#uid#]','[#eip#]','[#aid#]','[#name_obj#]','[#sip#]')">编辑</a>&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+                  <!-- [#SLPB#] -->
+          <tr id=[#snum#] height="18"> 
+            <td  class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+     
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
+
+       <div id="Layer3" style="position:absolute; left:10px; top:63px; width:100%; height:260px; z-index:1;display:none;background-color:#DEE8FA">
+       	    <table width="100%" cellpadding=3 cellspacing=3>
+       	    	<tr height="35">
+       	    	<td>
+       	    	<table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="100%">
+       	        <tr>
+       	        	<td>
+       	        		
+              <table width="99%" border="0" align="center">
+                <tr> 
+                  <td width="7%" height="23"> <div align="right">日期</div></td>
+                  <td width="37%" height="23">
+                  	<select name="did" style="width:140px">
+                  		     <option value="0">每日</option>
+                  				  [#SLPB#]
+			                  		<option value="[#id_d2#]">[#name_d2#]</option>
+			                  		[#SLPE#]
+			                  		
+			                  	</select>
+                  	
+                  </td>
+                  <td width="56%" height="23">(策略的日期频度)</td>
+                </tr>
+                <tr> 
+                  <td height="1"><div align="right">时间</div></td>
+                  <td height="1"><input name="stime" type="text" id="stime" value="00:00-23:59" size="50" maxlength="254" ></td>
+                  <td >(时间范围, 格式:hh:mm-hh:mm，可以有多个，多个之间用逗号分隔，如: 8:00-11:30,12:30-18:00)</td>
+                </tr>
+
+           
+             
+                 <tr> 
+                  <td  height="16"> <p align="right">使用者类别</td>
+                  <td  height="16"> 
+                  	<select name="utype" style="width:140px" onchange="changetype()">
+                  		<option value="0">全部</option>
+                  		<option value="1">部门</option>
+                  	  <option value="2">用户</option>
+                  	  <option value="3">网络</option>
+                  	</select>
+                    </td>
+                  <td  height="16" >
+                  </td>
+                </tr>
+          
+                <tr height="16"> 
+                  <td   colspan="3" > 
+                  	
+                  	   <table  width="100%" border="0" cellpadding=0 cellspacing=0 style="display:none" id="sip1">
+                  	 	  <tr> 
+			                  <td   height="16" width="7%"> <p align="right">起始IP</p> </td>
+			                  <td  height="16" width="37%"> 
+                           <input name="sip" type="text"  value="0.0.0.0" size="16" maxlength="16" >
+                           &nbsp;终止IP&nbsp;<input name="eip" type="text"  value="0.0.0.0" size="16" maxlength="16" >
+			                    </td>
+			                  <td  height="16" width="56%">(格式示例：192.168.0.1)
+			                  </td>
+			                </tr>
+                  	</table> 
+                  	
+                    <table  width="100%" border="0" cellpadding=0 cellspacing=0 style="display:none" align="left" id="gid1">
+                  	 	  <tr> 
+			                  <td   height="16" width="7%"> <p align="right">部门</p> </td>
+			                  <td  height="16" width="37%"> 
+                         <select name="groupid" style="width:240px">
+                         
+                         	[#SLPB#]
+			                  		<option value="[#id_g#]">[#name_g#]</option>
+			                  	[#SLPE#]
+			                  		
+			                  	</select>
+			                    </td>
+			                  <td  height="16" width="56%">
+			                  </td>
+			                </tr>
+                  	</table> 
+                  
+                  
+                  
+                  	   	
+                  	 <table width="100%"  cellpadding=0 cellspacing=0 id="uid1" style="display:none">
+                  	 	  <tr> 
+			                  <td  height="16" width="7%"> <p align="right">用户名 </td>
+			                  <td  height="16" width="37%"> 
+			                  	<input type="text" name="udispname" size="16" value="" >
+			                    <input type="hidden" name="userid" value="">
+			                    </td>
+			                  <td  height="16" width="56%">(你可以在此输入用户的登录名，显示名，IP或MAC,按确认后，会弹出对话框让你确认)
+			                  </td>
+			                </tr>
+                  	</table>                	
+                  </td>
+                </tr>
+               
+                 <tr> 
+                  <td  height="16"> <p align="right">使用带宽策略 </td>
+                  <td  height="16"> 
+                  	<select name="aid" style="width:140px" >                  		
+                  		[#SLPB#]
+                  		<option value="[#aid_d#]">[#aname_d#]</option>
+                  		[#SLPE#]
+                  	 
+                  	</select>
+                    </td>
+                  <td  height="16" >
+                  </td>
+                </tr>
+               
+               
+               
+               
+               
+                <tr >
+                  <td height="16">&nbsp;</td>
+                  <td height="16">&nbsp;</td>
+                  <td height="16" class="style2">&nbsp;</td>
+                </tr>
+              </table>
+       	        	
+       	        	
+       	        	
+       	         </td>
+       	       </tr>
+       	            <tr height="30"> 
+                        <td  align="center"> 
+                          
+                            &nbsp;
+                              <input name="cxx" type="submit"  class="an3" value="确 认"  onclick="return qr()">&nbsp; <input name="yc" type="button"  value="隐藏" class="an3" onclick="document.all.Layer3.style.display='none';">	
+
+                            
+                          
+                        </td>
+                      </tr>  
+          	  	 
+
+          	  </table>
+          	 </td>         	  	
+          	</tr>
+          </table>
+       
+         </div>
+
+
+
+
+  </form>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+
+.bord1 {  font-size:9pt;border: #8CB4E8 solid; border-width: 0px 0px 1px 1px}
+
+-->
+</style>
+<script>
+	function goto1(){
+	var temp_src;
+	temp_src="/pronline/Msg?FunName@ncWebShowOutflowMore_new&stime@"+form1.stime.value;
+	parent.sbpm_top.location.href=temp_src;
+	form1.submit();
+
+	}
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" style="overflow:scroll">
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="flag" value="1">
+<input type="hidden" name="FunName" value="ncWebShowOutflowMore_new">
+<table  border=0 cellspacing=0 cellpadding=0 align="left">
+	<tr><td >
+		<div style="width:790;overflow-x:scroll;" >
+		<table border=1 width="100%" cellspacing=0 cellpadding=0 >          
+ 
+ 
+    <tr  bgcolor="#ffffff">  	
+        
+       <td height="20" width="120" align="center">&nbsp;&nbsp;时&nbsp;间&nbsp;&nbsp;</td> 
+        [#SLPB#]
+       <td width="85" >&nbsp;[#sdatea#]&nbsp;</td>
+       [#SLPE#]
+      
+    </tr>
+   [#SLPB#]
+   
+        <tr  bgcolor="#ffffff" height="20">  	       
+       <td  align="center">&nbsp;[#devname#]</td> 
+       [#SLPB#] 
+       <td  align="right">&nbsp;[#data#]&nbsp;</td>
+       [#SLPE#]
+
+    </tr>
+   
+   [#SLPE#]
+        <td height="20" width="120" align="center">&nbsp;&nbsp;合&nbsp;计&nbsp;&nbsp;</td> 
+        [#SLPB#]
+       <td width="85" >&nbsp;[#totbytes#]&nbsp;</td>
+       [#SLPE#]
+      
+    </tr>
+                                               
+     </table>
+    </div>
+        </td>
+      </tr>
+      <tr height="60">
+      	<td align="center">
+      		时间&nbsp;<input type="text" name="stime" size="14" value="[#stime#]">
+      		<input name="hsear1" type="button" class="an3"  onclick=goto1() value="查 询">&nbsp;(时间格式YYYY/MM/DD HH 速率单位[#unit#])
+      		</td>
+      	</tr>    
+</table>
+</form>            
+</body>
+</html>

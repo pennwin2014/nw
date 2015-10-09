@@ -1,0 +1,129 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>上网验证</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link href="/css/style_sb.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.buttome {
+	height: 32px;
+	width: 360px;
+	margin-left: 100px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #52b71d;
+	padding-top: 5px;
+}
+
+</style>
+<script>
+
+function goto2(t)
+{
+var temp="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebNewsShowAdd&flag@1&sid@"+t;
+
+
+    var oDia=showModalDialog(temp,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:700px;scroll:none;dialogHeight:450px;overflow:none");	
+
+}
+	function spylogin(){
+	if((document.getElementById("nclogin").username.value=='')||(document.getElementById("nclogin").password.value=='')) {
+	
+		alert('用户名或密码不能为空！');
+	
+		return false;
+		}
+
+//  document.getElementById("nclogin").username.value=document.getElementById("nclogin").username1.value+document.getElementById("nclogin").password.value;
+
+	document.getElementById("nclogin").submit();
+
+	}
+	function ss()
+	{
+	if(event.keyCode==13)
+	spylogin();
+	}
+
+</script>
+
+</head>
+
+<body topmargin="80">
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+<input type="hidden" name="FunName" value="ncWebInternetLogin">
+
+    <input type="hidden" name="url" value="[#url#]" >
+    <input type="hidden" name="sid" value="[#sid#]" >
+    <input type="hidden" name="ModiPass" value="">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" >
+	<tr>
+	  <td align="center" height="60"><img src="/images/sb/jie_13.jpg"  /></td>
+	</tr>
+	<tr>
+		<td>
+			<table width="542" height="313" border="0" align="center" cellpadding="0" cellspacing="0" class="werper">
+
+					<tr><td height="268">
+						<table width="320" height="100%" align="center" border="0" cellpadding="0" cellspacing="0" >
+							<tr> <td colspan="4" height="30">&nbsp;&nbsp;<font color="red">[#message#]</font></td>
+							</tr>
+							     <tr><td colspan="4">
+              	    <table width="100%">
+							
+							<tr height="25"><td width="40">&nbsp;</td>
+								  <td class="buttom" align="right">上网帐号&nbsp;&nbsp;&nbsp;</td>
+								  <td><input type="text" style="width:140px;" name="username" /></td>
+								  <td width="50"></td>
+							</tr>
+					    <tr height="25"><td >&nbsp;</td>
+								  <td class="buttom" align="right">验证密码&nbsp;&nbsp;&nbsp;</td>
+								  <td><input type="password" name="password" style="width:140px;" onKeyPress="ss()" /></td>
+								  <td width="50"></td>
+							</tr>
+						 <tr><td >&nbsp;</td>
+								  
+								  <td colspan="2" height="65">&nbsp;<input name="auth1" onclick="nclogin.FunName.value='ncWebInternetLogin';nclogin.ModiPass.value='';spylogin();" type="button"  value="登 录"/>&nbsp;
+								  	<input name="Button" type="button" value="退出上网"  onclick="nclogin.FunName.value='ncWebInternetLogout';nclogin.submit();">
+								  	<input name="Button3" type="button" value="加入收藏夹" class="ansc" onClick="window.external.AddFavorite('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin','上网验证')"
+								  	 </td>
+								  <td width="50"></td>
+							</tr>
+							
+							
+				     <tr>
+								  
+								  <td colspan="4" height="65" class="buttome">您登记入住信息后，默认情况下
+								  	上网帐号为您的房间号，密码为您证件号码的后六位。 </td>
+								  
+							</tr>
+						</table>
+					</td>
+				</tr>
+							<tr>								  
+							<td colspan="4"  height="60">&nbsp;&nbsp;
+              </td>
+								 
+							</tr>
+							
+						</table>
+					</td></tr>
+				
+			</table>
+	   </td>
+	  </tr>
+	  <tr height="20"><td>&nbsp;</td></tr>
+		
+
+</table>
+</form>
+</body>
+</html>

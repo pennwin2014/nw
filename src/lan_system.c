@@ -100,7 +100,7 @@ int lan_systemLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " order by %s %s", sort_in, dir_in);
     }
 
-    snprintf(sql, sizeof(sql), "select count(*) from ncadminlog where name in(select dispname from dsuser where groupid = (select groupid from dsuser where name='%s')) %s", username, sql_tmp);
+    snprintf(sql, sizeof(sql), "select count(*) from %s where name in(select dispname from dsuser where groupid = (select groupid from dsuser where name='%s')) %s", getNewTable(shortName,char * tableName),username, sql_tmp);
 
 #if SYSTEM_LOG
     printf("sql_count:%s\n", sql);

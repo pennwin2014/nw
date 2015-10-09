@@ -1,0 +1,346 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+    form1.FunName.value='ncWebMailMonList';
+    form1.CurPg.value = pagenum;
+}
+
+function userdel()
+{
+    form1.FunName.value = "ncWebMailMonDel";
+    form1.submit();
+}
+
+function setSelect(o){
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+
+form1.ccode.value=ccod;
+parent.form1.ccode.value=ccod;
+}
+var dfd1="0"
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function passdate()
+{
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+if('[#title_name#]'!='')
+	parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#00237e;">[#title_name#]</b>';
+else
+	parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#00237e;">邮件日志&nbsp;&nbsp;&nbsp;&nbsp;</b>';
+
+}
+
+
+function mexp()
+{
+    form1.FunName.value = "ncWebMailMonExport";
+    form1.submit();
+}
+
+
+
+function ggf(){
+document.all.ccll.innerHTML="到 &nbsp;<input type='text' id='zhuanfa' name='smail' value='' size=18 > <input type='submit' name='Button' value='确定' onclick='goto3()'>"
+}
+
+function ggs(){
+    tt=showModalDialog("/pronline/Msg?FunName@ncWebMailMonDispSform&username@[#dispname#]&flags@[#flags#]", window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:560px;scroll:no;dialogHeight:430px');
+}
+
+
+
+function goto3(){
+ form1.FunName.value = "ncWebMailMonFw";
+ form1.smail.value = parent.document.all.smail.value;
+ form1.submit();
+ parent.document.all.ccll.innerHTML="";
+}
+function openmail(sid){
+    form1.sid.value=sid;
+    form1.FunName.value = "ncWebMailReadSource";
+    form1.submit();
+
+}
+
+function goto(o)
+{
+var msid=o.cells[0].childNodes[0].childNodes[0].value;
+alert(msid);
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+var uid=o.cells[0].childNodes[0].childNodes[2].value;
+var msgfile=o.cells[0].childNodes[0].childNodes[3].value;
+var t="/pronline/Msg?FunName@ncWebMailMonRead&ccode@"+ccod+"&userid@"+uid+"&msgfile@"+msgfile;
+    openwinflag=window.open(t,'RUNMIT_New','left=100,top=200,width='+610+',height='+480+',fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+//    tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:480px');
+    }
+
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+   
+	for(var i=1;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+function qr(){
+  if(form1.username.value!=form1.old_dispname.value){
+  form1.userid.value='';
+  }
+	parent.form1.userid.value=form1.userid.value;
+	parent.form1.groupid.value=form1.groupid.value;
+	parent.form1.sdate.value=form1.sdate.value;
+	parent.form1.sdate1.value=form1.sdate1.value;
+	parent.form1.edate.value=form1.edate.value;
+	parent.form1.edate1.value=form1.edate1.value;
+	parent.form1.to.value=form1.to.value;
+	parent.form1.username_match.value=form1.username_match.value;
+	parent.form1.username.value=form1.username.value;
+	parent.form1.idfyno.value=form1.idfyno.value;
+	parent.form1.from.value=form1.from.value;
+	parent.form1.asize.value=form1.asize.value;
+	parent.form1.attfile.value=form1.attfile.value;
+	parent.form1.ip.value=form1.ip.value;
+	parent.form1.content.value=form1.content.value;
+	parent.form1.attfile.value=form1.attfile.value;
+  parent.form1.msize.value=form1.msize.value;
+  parent.form1.flags.value=form1.flags.value;
+  parent.form1.sub.value=form1.sub.value;
+ 
+ form1.FunName.value="ncWebReplace";
+}
+
+function cleara(){
+form1.userid.value='';
+form1.groupid.value='';
+form1.sdate.value='';
+form1.edate.value='';
+form1.sdate1.value='';
+form1.edate1.value='';
+form1.username.value='';
+form1.idfyno.value='';
+form1.ip.value='';
+form1.old_dispname.value='';
+form1.to.value='';
+form1.asize.value='';
+form1.from.value='';
+form1.msize.value='';
+form1.content.value='';
+form1.attfile.value='';
+form1.flags.value='';
+form1.sub.value='';
+
+parent.form1.userid.value='';
+parent.form1.groupid.value='';
+parent.form1.sdate.value='';
+parent.form1.edate.value='';
+parent.form1.sdate1.value='';
+parent.form1.edate1.value='';
+
+parent.form1.username.value='';
+parent.form1.idfyno.value='';
+parent.form1.ip.value='';
+
+parent.form1.to.value='';
+
+parent.form1.from.value='';
+parent.form1.msize.value='';
+parent.form1.asize.value='';
+parent.form1.content.value='';
+parent.form1.attfile.value='';
+
+parent.form1.flags.value='';
+parent.form1.sub.value='';
+}
+
+
+function dosort(flag){
+
+if(flag=='1'){
+ form1.osort.value='name';
+
+ }
+ else if(flag=='2'){
+ form1.osort.value='from';
+ }
+ else if(flag=='3'){
+ form1.osort.value='to';
+ }
+ else if(flag=='4'){
+ form1.osort.value='date';
+ }
+ else{
+ form1.osort.value='';
+ }
+
+ qr();
+ form1.submit();
+}
+
+</script>
+
+<script src="/js/drawtable.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('DataTable', '100%', '458', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('<input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()">', '<span style="cursor: hand;" ondblclick=dosort("1")>姓名</span>','<span style="cursor: hand;" ondblclick=dosort("1")>源ip</span>', '<span style="cursor: hand;" ondblclick=dosort("2")>发件人</span>', '<span style="cursor: hand;" ondblclick=dosort("3")>收件人</span>','主 题','<span style="cursor: hand;" ondblclick=dosort("4")>发送时间</span>','大 小','附 件','类型','目标IP','原文查看');
+Table.ColumnsWidth ('35', '70','70','110', '110', '200', '110', '45','35','45','60','60');
+Table.HeaderAligment ('center', 'center','center', 'center', 'center', 'center', 'center', 'center','center','center','center','center');
+Table.BodyAligment ('center', 'left', 'left','left', 'left', 'left', 'center','right','center','left','left','left');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" onClick=\"setSelect(this);\" onDblClick=\"goto(this)\" ");
+[#SLPB#]
+Table.Row('<input type="checkbox" name="chk[#num#]" value="[#sid#]"><input type="hidden" name="ccod[#num#]" value="[#ccode#]"><input type="hidden" name="userid[#num#]" value="[#userid#]"><input type="hidden" name="msgfile[#num#]" value="[#file#]">','&nbsp;[#username#] ','&nbsp;[#sip#] ','&nbsp;[#from#] ','&nbsp;[#to#] ','&nbsp;[#sub#] ','&nbsp;[#sdate#]','[#size#]&nbsp;','&nbsp;[#att#]','&nbsp;[#flags_desc#] ','&nbsp;[#dip#]','&nbsp;<a href="#xxm" onclick=openmail("[#sid#]")>原文查看</a>');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+<script src="/js/calendar.js"></script>
+
+<style type="text/css">
+<!--
+ .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#eaf3f5" leftMargin=2 topMargin=2 scroll=no onload="Table.Draw();passdate()">
+	<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="old_dispname" value="[#dispname#]">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebMailMonHsear"> 
+		<input type="hidden"name="ccode" value="">
+		<input type="hidden" name="smail" value="">
+		<input type="hidden" name="sid" value="">
+		<input type="hidden" name="userid" value="[#userid#]">
+		<input type="hidden" name="groupid" value="[#groupid#]">
+		<input type="hidden" name="where" value="[#where#]">
+			<input type="hidden" name="osort" value="[#osort#]">
+		<TABLE  height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+   
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	  	  	     <tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td width="100" align="center">&nbsp;收发时间</td>
+          	  	     	<td width="150"><input type="text" name="sdate" value="[#sdate#]" size="11" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="sdate1" value="[#sdate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="75" align="center">&nbsp;到</td>
+          	  	     	<td width="155"><input type="text" name="edate" value="[#edate#]" size="11" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-19px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-17px;" name="edate1" value="[#edate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="70" align="center">&nbsp;收件人</td>
+          	  	     	<td ><input type="text" name="to" value="[#to#]" size="17"></td>
+          	  	     	<td width="80">&nbsp;附件大于</td>
+          	  	     	<td width="80"><input type="text" name="asize" size="10" maxlength="12" value="[#asize#]"> </td>
+          	  	     	<td width="100" align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td  align="center">&nbsp;用户名</td>
+          	  	     	<td ><select name="username_match">
+                      <option value="0">等于</option>
+                      <option value="1">包含</option>
+                    </select><input type="text" name="username" value="[#dispname#]" size="13" >
+
+          	  	     		</td>  
+          	  	     	<td  align="center" >&nbsp;证件号</td>
+          	  	     	<td ><input type="text" name="idfyno" value="[#idfyno#]" size="17"></td>
+          	  	     	<td  align="center">&nbsp;发件人</td>
+          	  	     	<td ><input type="text" name="from" value="[#from#]" size="17"></td>
+          	  	     	<td >&nbsp;附件名</td>
+          	  	     	<td ><input type="text" name="attfile" value="[#attfile#]" size="10" ></td>  
+          	  	     	<td  align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td align="center">&nbsp;源IP</td>
+          	  	     	<td ><input type="text" name="ip" value="[#ip#]" size="21" ></td>  
+          	  	     	<td  align="center">邮件大于</td>
+          	  	     	<td  ><input type="text" name="msize" value="[#msize#]" size="6">类型<select name="flags" style="width:60;">
+          	  	      <option value="">全部</option>
+                      <option value="2">POP3</option>
+                      <option value="1">SMTP</option>
+                      <option value="3">WebMail</option>
+                    </select></td>
+          	  	     	<td  align="center">主题包含</td>
+          	  	     	<td >
+                    <input type="text" name="sub" size="18" maxlength="44" value="[#sub#]" > 
+                   </td>
+ 
+          	  	   	<td colspan="3">&nbsp;正文包含&nbsp;<input type="text" name="content" size="20" maxlength="44" value="[#content#]" > 
+                   </td>  	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  	
+ 	</TABLE>
+ 		
+ </form>	
+ <script>if('[#username_match#]'!='') form1.username_match.value='[#username_match#]';</script>	
+ <script>if('[#flags#]'!='') form1.flags.value='[#flags#]';</script>	
+	
+</BODY>
+</html>

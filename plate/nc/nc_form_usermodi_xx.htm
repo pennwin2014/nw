@@ -1,0 +1,240 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function goto() {
+	    if(form1.polid.value != '0' && form1.polid.value != '') {
+            window.open('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@4&id@'+form1.polid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 策略没有定义");
+		}
+	}
+
+    function goto1() {
+	    if(form1.userid.value != '' ) {
+            window.open('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@1&id@'+form1.userid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 请先保存用户后再定义访问控制");
+		}
+	}
+	function addsave()
+	{
+//	if(form1.port.value==''){
+//	alert('房间号不能为空');
+//	return false;
+//	}
+	return true;
+	}
+	function change()
+	{
+	   if(form1.username.value==''){
+	   form1.username.value=form1.port.value;
+	   }
+	   if(form1.dispname.value==''){
+	   form1.dispname.value=form1.port.value;
+	   }
+	}
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"   >
+<form name="form1" method="post" action="/pronline/Msg">
+
+	<input name="pointphyname" type="hidden" value="[#pointphyname#]">
+	<input type="hidden" name="email" value="[#email#]">
+  <input name="pointphyname" type="hidden" value="[#pointphyname#]">
+  
+  <input type="hidden" name="FunName" value="ncWebUserModify">
+  <input type="hidden" name="userid" value="[#userid#]">
+  <input type="hidden" name="groupid0" value="[#groupid0#]">
+  <input type="hidden" name="cond" value="[#cond#]">
+  <input type="hidden" name="CurPg" value="[#CurPg#]">
+  <input type="hidden" name="opt" value="[#opt#]">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">用户上网登记</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center" valign="top" height=700px>
+        <table width="70%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff      align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td align="center"   > 
+              <table width="90%" border="0">
+                <tr> 
+                  <td valign="top"> 
+                    <table width="96%" border="0" align="center">
+                     <tr> 
+                        <td height="26" width="23%">登录名</td>
+                        <td height="26" width="77%"> <input type="text" name="username" value="[#username#]" size="15" maxlength="15"> &nbsp;(登录名和密码用于本地验证的方式)
+                        </td>
+                      </tr>
+
+                      <tr> 
+                        <td width="23%">密码 </td>
+                        <td width="77%"> <input type="password" name="password" size="31" maxlength="31" value="[#password#]" > 
+
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="23%">密码确认 </td>
+                        <td width="77%"> <input type="password" name="password1" size="31" maxlength="31" value="[#password#]" > 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td height="26" width="23%">姓名 </td>
+                        <td height="26" width="77%"> <input type="text" name="dispname" value="[#dispname#]" size="15" maxlength="15"> 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td height="26" width="23%">性别</td>
+                        <td height="26" width="77%"> <select name="sex" >
+                                <option value="9" >未知</option>   		     
+                  							<option value="1" >男</option>
+                  							<option value="2" >女</option>
+                  		    </select> 
+                        </td>
+                      </tr>
+                       <tr> 
+                        <td width="23%">IP地址</td>
+                        <td width="77%"> <input type="text" name="ip" value="[#ip#]"  size="20" maxlength="15"> 
+                        </td>
+                      </tr>
+                    <tr> 
+                        <td width="23%">MAC 地址</td>
+                        <td width="77%"> <input type="text" name="mac" value="[#mac#]" size="20" maxlength="22"> 
+                        </td>
+                    </tr>  
+                      
+                      <tr>
+		                  <td height="28" >证件类别</td>
+		                  <td height="28">
+		                  	<select name="idfytype" >
+		                  		        <option value="111" selected>身份证</option>
+                  								<option value="133" >学生证</option>
+                  								<option value="123" >警官证</option>
+                  								<option value="233">士兵证</option>
+                  								<option value="113">户口薄</option>
+                  								<option value="414">护照</option>
+                  								<option value="990">其他证件</option>
+                  		</select>
+		                  	</td>
+		                </tr>
+		                 <tr>
+		                  <td height="28" >证件号码</td>
+		                  <td height="28"><input type="text" name="idfyno" size="31" maxlength="18" value="[#idfyno#]"></td>
+		                </tr>
+
+
+	<!--	                
+		                <tr> 
+                        <td width="23%">上网有效期 </td>
+                        <td width="77%"> <input type="text" name="expiretime" value="[#expiretime#]" > (YYYY-MM-DD HH:MM:SS)
+                        </td>
+                    </tr>
+-->
+						 
+						        <tr>
+		                  <td height="28" >发证单位</td>
+		                  <td height="28"><input type="text" name="idfyunit" size="31" maxlength="18" value="[#idfyunit#]"></td>
+		                </tr>
+		                <tr>
+		                  <td height="28" >国家代码</td>
+		                  <td height="28"><input type="text" name="country" size="9" maxlength="3" value="[#country#]"></td>
+		                </tr>
+		               <tr> 
+		                  <td  >使用状态 </td>
+		                  <td  > [#use#]</td>
+		               </tr>
+		               		               
+
+                      <tr> 
+                        <td width="23%">部门</td>
+                        <td width="77%">[#dept#] </td>
+                      </tr>
+
+                    <tr> 
+                        <td width="23%">计算机名</td>
+                        <td width="77%"><input type="text" name="compname" value="[#compname#]" size="20" maxlength="15">
+                        </td>
+                    </tr>
+                    <tr>
+		                  <td height="28" >上网位置</td>
+		                  <td height="28">
+		                  	  	 <input type="text" name="port" value="[#port#]" size="16" maxlength="15"> 
+ 		                  			      <select name="port1" onchange="form1.port.value=form1.port1.value">
+                                <option value="" >请选择</option>
+		                  		        [#SLPB#]
+                  								<option value="[#port#]" >[#port#]</option>
+                  								[#SLPE#]
+                  		          </select>
+		        	
+
+	                 </td>
+
+		                </tr>
+                   <tr> 
+                        <td width="23%">加入时间 </td>
+                        <td width="77%"> <input type="text" name="addtime" value="[#addtime#]" disabled> 
+                        </td>
+                      </tr>
+
+                      
+                      <tr> 
+                        <td width="23%">最后访问时间 </td>
+                        <td width="77%"> <input type="text" name="addtime" value="[#lasttime#]" disabled> 
+                        </td>
+                      </tr>
+              		   <tr> 
+		                  <td  >帐号状态 </td>
+		                  <td  > <select name="usestatus" style="width:150px">
+													<option value="0" selected>失效</option>
+													<option value="1">正常</option>										
+													</select></td>
+		               </tr>
+              
+                    </table>
+                        
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+      <tr>
+      <td height="70" align="center"  >    	
+      	<table width="98%" border="0" align="center">
+          <tr> 
+            <td align="center">
+            	  <input type="submit" name="mod" value="确 认" class="an3" onclick="return addsave();">             
+                <input type="submit" name="del"  value="删 除" class="an3">              
+                <input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="self.location='/pronline/Msg?FunName@ncWebUserSearch'">
+             </td>
+           </tr>
+        </table>     	
+    </td>
+    </tr>
+          
+          
+          
+        </table></td>
+    </tr>
+
+  </table>
+
+</form>
+<script>form1.idfytype.value="[#idfytype#]" </script>
+<script>form1.usestatus.value="[#usestatus#]" </script>
+<script>form1.sex.value="[#sex#]" </script>
+</body>
+</html>

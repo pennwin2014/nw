@@ -1,0 +1,124 @@
+<html>
+<head>
+<base target="_self" />
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache" >
+<meta http-equiv="Cache-Control" content="must-revalidate" >
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv=Content-Type content=text/html; charset=gbk>
+<title>代理服务设置</title>
+<style type="text/css">
+
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+</style>
+
+<SCRIPT language=JavaScript>
+	
+
+
+
+//-->
+</SCRIPT>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body class="bodybg" oncontextmenu="return false" bgcolor="#DEE8FA">
+
+<form name=form1 id=form1 action="/pronline/Msg" method=post>
+<input type="hidden" name="FunName" value="ncProxyServiceSave">
+
+	<table width="70%" height="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">
+  <tr><td valign="top">
+  	<table width="100%" cellpadding="0"  cellspacing="0"> 
+  <tr height="45">
+  <td   width="17%">&nbsp;&nbsp;&nbsp;启动状态</td>
+  <td   width="23%" ><select name="proxystate" style="width:200"><option value="[#auto#]">[#autodesc#]</option><option value="Yes">启用</option><option value="No">不启用</option></select></td>
+  <td   width="17%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+  <td   width="23%"></td>
+  </tr>
+ <tr>
+ 	<td colspan="4">
+ 		<table width="70%" height="100%" border="0" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">
+ 		
+ 		
+  <tr height="35">
+  <td   >&nbsp;&nbsp;&nbsp;<b>协议</b></td> 
+  <td  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>端口</b></td>
+  </tr>
+ 
+   <tr height="35">
+  <td   >&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="httpproxyflag" [#httpcheck#]> HTTP</td> 
+  <td   >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="httproxyport"  size="8" value="[#httproxyport#]"></td>
+  </tr>
+  <tr height="35">
+  <td   >&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="httpsproxyflag" [#httpcheck#]> HTTPS</td> 
+  <td   >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="httpsproxyport"  size="8" value="[#httpsproxyport#]"></td>
+  </tr>
+
+  <tr height="35">
+  <td   >&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="socksproxyflag" [#sockcheck#]> SOCKS</td> 
+  <td   >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="socksproxyport"  size="8" value="[#socksproxyport#]"></td>
+  </tr>
+
+  <tr height="35">
+  <td  >&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="ftpproxyflag" [#ftpcheck#]> FTP</td> 
+  <td  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="ftpproxyport"  size="8" value="[#ftpproxyport#]"></td>
+  </tr>
+  </table>
+  </td>
+</tr>
+
+  <tr height="75">
+  <td   width="17%">&nbsp;&nbsp;&nbsp;允许范围</td>
+  <td   width="23%" ><select name="proxyalow" style="width:200"><option value="Yes">全部允许</option><option value="No">帐号验证</option></select></td>
+  <td   width="17%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+  <td   width="23%"></td>
+  </tr>
+
+
+
+
+  </table></td>
+  </tr>
+ 
+
+  <tr height="70">
+  <td >
+   <table width="60%" height="100%" border="0" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">
+   	
+   	<tr><td>缓存更新时间(分钟)</td>
+   		  <td><input type="text" name="proxycachtime" size="8" value="[#proxycachtime#]">
+   		  </td>
+   	</tr>
+   	
+   	<tr><td>缓存大小(M)</td>
+   		  <td><input type="text" name="proxycachsize" size="8" value="[#proxycachsize#]">
+   		  </td>
+   	</tr>
+   	
+   	
+ 	 </table>
+   </td>
+   </tr>
+  
+    <tr height="140">
+  <td align="center">
+  <input type="submit" name="ok" value="保存" class="an3">&nbsp;
+  <input type="submit" name="app" value="应用" class="an3-1" >
+   
+  </td></tr>
+  
+  
+  </table>
+
+</form>
+<script>form1.proxyalow.value="[#proxyalow#]";</script>
+</body>
+
+</html>
+
+

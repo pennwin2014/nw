@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title>й╣й╠фад╩</title>
+</head>
+<body>
+	<OBJECT ID="RemoteMg[#num#]"  CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="/RemoteMg.CAB"  Height=1024 Width=768>
+		<Param name="port" value="[#position#]" />
+	</OBJECT>	
+</body>
+</html>

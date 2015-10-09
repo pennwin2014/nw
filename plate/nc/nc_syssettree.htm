@@ -1,0 +1,98 @@
+<html>
+<head>
+	<title>SystemSetTree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">	
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+	<style>
+	/* Style for tree item text */
+	.t0i {
+		font-family: Tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		color: #000000;
+		background-color: bgcolor="#d0e1fa";
+		text-decoration: none;
+	}
+	/* Style for tree item image */
+	.t0im {
+		border: 0px;
+		width: 19px;
+		height: 16px;
+	}
+	</style>
+</head>
+
+<body bgcolor="#d0e1fa" leftmargin="1" marginheight="2" marginwidth="15" topmargin="2">
+<script>
+var TREE_ITEMS = [
+	['系统参数设置', '',
+		['基本参数设置', '/pronline/Msg?FunName@ncWebSystemSet_par'],
+		['功能选项设置', '/pronline/Msg?FunName@ncWebSystemSet_fun'],
+		['自动备份设置', '/pronline/Msg?FunName@ncWebSystemSet_back'],
+		['自动整理设置', '/pronline/Msg?FunName@ncWebSystemSet_clean'],
+		['网络监控设置', '/nc_netdev_lab.htm'],
+		['邮件分发参数设置', '/pronline/Msg?FunName@ncMailSendSet_par'],
+//		['访问控制参数', '/pronline/Msg?FunName@ncWebLimShowDefault'],
+//		['免监控网址',   '/pronline/Msg?FunName@ncWebSystemSet_noweb'],
+//		['免监控邮件地址','/pronline/Msg?FunName@ncWebMailAddrPriCtlSet'],
+//		['公司内部域名','/pronline/Msg?FunName@ncWebSystemSet_url'],
+//		['病毒扫描设置', '/pronline/Msg?FunName@ncWebSystemSet_virus'],
+		['系统登录参数', '/pronline/Msg?FunName@ncWebLogin_par'],
+		['管理员密码策略', '/pronline/Msg?FunName@ncUserPasswordProcy'],
+ 		['系统状态告警设置', '/pronline/Msg?FunName@ncDiskRate_par'],
+ 		['告警通知设置', '/pronline/Msg?FunName@ncWebError_WarnSet'],
+//		['工作时间设定', '/pronline/Msg?FunName@ncWebSystemSet_Worktime'],
+		['系统数据删除', '/pronline/Msg?FunName@ncWebReplace&plate@nc/ncsys_delete.htm'],
+		['基础数据导入', '/pronline/Msg?FunName@ncWebReplace&title_name@基础数据导入&funname@ncBaseDrNext&plate@nc/base_dr_first.htm'],
+//		['IP和MAC地址对照表', '/pronline/Msg?FunName@ncWebShowIpMac'],
+//		['部门IP地址段设置', '/pronline/Msg?FunName@ncIPdepSet'],
+		['编码设置', '/pronline/Msg?FunName@ncCodeSystemSet'],
+		['代理服务器自动检测设置', '/pronline/Msg?FunName@ncProxySet'],
+//		['交换机信息维护', '/nc_exchange_lab.htm'],
+		['信息发布', '/pronline/Msg?FunName@ncWebDispNews'],
+//		['网络异常检测设置', '/pronline/Msg?FunName@ncWebSystemExcpSet_par'],
+		['限制发送内容设置', '/pronline/Msg?FunName@ncWebSystemSet_Keyword'],
+		['访问网络IP白名单', '/pronline/Msg?FunName@ncWebSysSet_IPWhite'],
+		['系统防护参数设置', '/pronline/Msg?FunName@ncWebSystemSet_fwset'],
+//		['SNMP服务设置', '/pronline/Msg?FunName@ncWebSendBySnmp_set'],
+//		['代理服务设置', '/nc_proxy_lab.htm'],
+		['部门带宽对照表', '/pronline/Msg?FunName@ncGroupBandSet'],
+//		['内外网地址转换', '/pronline/Msg?FunName@ncToolsNatIp'],
+//		['端口重定向', '/pronline/Msg?FunName@ncToolsNatPort'],
+//		['动态地址伪装', '/pronline/Msg?FunName@ncToolsNatMASQUERADE'],
+//		['路由设置', '/pronline/Msg?FunName@ncToolsRouteSet'],
+//		['DHCP设置', '/pronline/Msg?FunName@ncWebDHCPSet'],
+  		['短信网关参数设置', '/pronline/Msg?FunName@nc_smp_gatewayset'],
+//  		['未知网址智能分类设置', '/unknowurlclassset.htm'],
+//		['预定义短信告警内容', '/pronline/Msg?FunName@ncWarnContSet'],
+//		['发送短信', '/pronline/Msg?FunName@ncShowWarnSendSms&username@'],
+//	  ['短信告警日志', '/pronline/Msg?FunName@ncShowSmsLog'],
+//		['验证界面图片上传', '/pronline/Msg?FunName@ncWebAuth_imageUpload'],
+//		['VLanID和物理位置对照表', '/pronline/Msg?FunName@ncWebVlanIDtoPos'],
+//  		['金硅治安接口1', '/pronline/Msg?FunName@nc_jgftp_parset'],
+//  		['金硅治安接口2', '/pronline/Msg?FunName@nc_jgftp_parset&num@1'],
+//  		['金硅治安接口3', '/pronline/Msg?FunName@nc_jgftp_parset&num@2'],
+		    ['Syslog和Snmp配置', '/pronline/Msg?FunName@ncWebSyslog_Ip'],
+		    ['配置数据中心参数', '/pronline/Msg?FunName@ncWebDataCenter_Par'],
+//		    ['按部门划分联网单位', '/pronline/Msg?FunName@ncWebSepCorpByDep'],
+//		    ['准入客户端提示信息', '/pronline/Msg?FunName@ncWebSysSet_Zrtip'],
+         ['多链路配置', '/nc_muline_lab.htm'],
+    ],
+];
+
+
+
+
+</script>
+
+<script language="JavaScript" src="/js/tree_tpl.js"></script>
+<script language="JavaScript" src="/js/tree.js"></script>
+<script language="JavaScript">
+	new tree (TREE_ITEMS, tree_tpl);
+</script>
+</body>
+</html>
+
+

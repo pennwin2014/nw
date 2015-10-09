@@ -1,0 +1,264 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>测试CPU</title>
+<style>
+	v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+TD {	FONT-SIZE: 9pt}
+
+.style2 {
+	font-size: 12px;
+	color: #00237e;
+	font-weight: bold;
+}
+</style>
+
+<script src="/js/ajax.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript">
+	function getColor(){
+		return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+  };
+	//求数据对象的最大Value
+function maxs(mm){
+ var max1 = 0;
+ for(var i=0; i<mm.length; i++){
+  if(mm[i] > max1) max1 = mm[i];
+ }
+ return max1;
+}
+	var tb_left=10;
+	var tb_top=30;
+	var tb_width=120;
+	var tb_height=34;	
+	var cpu=0;
+	var mem=0;
+	var swap=0;
+	var cpurat='0%';
+	var memrat='0%';
+	var swaprat='0%';
+	
+	
+	
+function drawcpu(){
+	var temp_html="";
+
+ var i;
+	//画CPU
+ for(i=0;i<=cpu;i++){	
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/4-3)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2-1)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";
+ }
+	
+		temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top+5)+";width:33px;height:30px;z-index:1'>";
+//	  temp_html=temp_html+"<v:textbox;style='FONT-SIZE:9;Z-INDEX:8;COLOR:#f81ad2;'>"+cpurat+"</v:textbox></v:shape>";
+	  temp_html=temp_html+"<table cellspacing='0' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='right'><font color=#7CFC00>"+cpurat+"</font></td></tr>";
+	  temp_html=temp_html+"</table></v:shape>";
+	
+	//画MEM
+	for(i=0;i<=mem;i++){
+			temp_html=temp_html+"<v:line  style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/4-3+70)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2-1+70)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";
+		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2+70)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2+70)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";
+  }
+
+//画MEM%
+	  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top+tb_height/2-9+70)+";width:33px;height:20px;z-index:1'>";
+
+	  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='right'><font color=#7CFC00>"+memrat+"</font></td></tr>";
+	  temp_html=temp_html+"</table></v:shape>";
+
+//画交换分区	
+	for(i=0;i<=swap;i++){
+			temp_html=temp_html+"<v:line  style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/4-3+140)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2-1+140)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";
+		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2+140)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2+140)+"'  strokeweight='1.5' strokecolor='#7CFC00' />";
+}
+
+//画swap%
+	  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top+tb_height/2-9+140)+";width:33px;height:20px;z-index:1'>";
+
+	  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='right'><font color=#7CFC00>"+swaprat+"</font></td></tr>";
+	  temp_html=temp_html+"</table></v:shape>";
+
+	document.getElementById("test1").innerHTML=temp_html;
+}
+	
+	
+	
+var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowCpuAjx&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+
+
+function initAjax(){
+callServer();
+setInterval('callServer()',4000);
+
+
+}
+
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+    
+
+     temp_date=getxmlbyname(response,"<cpu>","</cpu>");
+     cpu=temp_date;
+     
+
+     temp_date=getxmlbyname(response,"<cpurat>","</cpurat>");     
+     cpurat=temp_date;
+     
+     temp_date=getxmlbyname(response,"<mem>","</mem>");
+     mem=temp_date;
+   
+     temp_date=getxmlbyname(response,"<memrat>","</memrat>");
+     memrat=temp_date;
+
+     temp_date=getxmlbyname(response,"<swap>","</swap>");     
+     swap=temp_date;
+     
+     temp_date=getxmlbyname(response,"<swaprate>","</swaprate>");     
+     swaprat=temp_date;
+     
+     drawcpu();
+     
+     
+     
+//alert(response);
+   }
+ 
+ }	
+	
+	
+	
+</script>
+
+
+</head>
+<body topmargin=5 leftmargin=0 bgcolor="#BFD7F9" style="overflow:hidden" onload="initAjax()">
+
+	<script LANGUAGE="JavaScript">	
+	
+//cpu start
+
+   temp_html="<v:RoundRect  arcsize='0.05'  style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#000000' strokecolor='green' strokeweight='1' stroked='t'>";
+ //  temp_html=temp_html+"<v:fill type='gradient' id='fill1' color='#DFF0F7'/>";
+   temp_html=temp_html+"</v:RoundRect>";
+  
+    
+//画Y轴	
+	var i;
+	for(i=0;i<=25;i++){	   
+			temp_html=temp_html+"<v:line  style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/4-3)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2-1)+"'  strokeweight='2' strokecolor='#007000' />";		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2)+"'  strokeweight='2' strokecolor='#007000' />";
+				   
+	}
+
+
+
+//画标题
+
+	  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top-25)+";width:130px;height:20px;z-index:1'>";
+	  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='center' class='style2'>CPU使用状况</td></tr>";
+	  temp_html=temp_html+"</table></v:textbox></v:shape>";
+
+//cpu end
+
+
+
+//内存 start
+
+   temp_html=temp_html+"<v:RoundRect  title='内存共[#mem#]KB;剩余[#free#]KB;' style='position:absolute;left:"+tb_left+";top:"+parseInt(tb_top+70)+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#000000' strokecolor='green' strokeweight='1' stroked='t'>";
+   temp_html=temp_html+"</v:RoundRect>";
+  
+    
+//画Y轴	
+	var i;
+	for(i=0;i<=25;i++){	   
+			temp_html=temp_html+"<v:line  style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+70+tb_height/4-3)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+70+tb_height/2-1)+"'  strokeweight='2' strokecolor='#007000' />";		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2+70)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2+70)+"'  strokeweight='2' strokecolor='#007000' />";
+				   
+	}
+
+
+//画标题
+
+	  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top-25+70)+";width:130px;height:20px;z-index:1'>";
+	  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='center' class='style2'>内存使用状况</td></tr>";
+	  temp_html=temp_html+"</table></v:textbox></v:shape>";
+
+//内存 end
+
+
+
+
+//交换空间 start
+
+   temp_html=temp_html+"<v:RoundRect  title='共[#swap#]KB;剩下[#freeswap#]KB;' style='position:absolute;left:"+tb_left+";top:"+parseInt(tb_top+140)+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#000000' strokecolor='green' strokeweight='1' stroked='t'>";
+   temp_html=temp_html+"</v:RoundRect>";
+     
+//画Y轴	
+	var i;
+	for(i=0;i<=25;i++){	   
+			temp_html=temp_html+"<v:line  style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+140+tb_height/4-3)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+140+tb_height/2-1)+"'  strokeweight='2' strokecolor='#007000' />";		
+			temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;z-index:8' from='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height/2+140)+"' to='"+parseInt(tb_left+35+i*3)+","+parseInt(tb_top+tb_height*3/4+2+140)+"'  strokeweight='2' strokecolor='#007000' />";
+				   
+	}
+
+//画标题
+
+	  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top-25+140)+";width:130px;height:20px;z-index:1'>";
+	  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+	  temp_html=temp_html+"<tr><td align='center' class='style2'>交换空间使用状况</td></tr>";
+	  temp_html=temp_html+"</table></v:textbox></v:shape>";
+
+//内存 end
+
+  document.write(temp_html);
+</script>
+	
+<div id="test1">
+	
+</div>
+	
+</body>

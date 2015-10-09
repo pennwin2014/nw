@@ -1,0 +1,368 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function addpro(){
+	if(form1.nc_sname.value==''){
+		alert('网站名称不能为空');
+		return false;
+	}
+	if(form1.nc_url.value==''){
+		alert('url不能为空');
+		return false;
+	}
+	if(form1.nc_name.value==''){
+		alert('账号变量不能为空');
+		return false;
+	}
+	if(form1.nc_passwd.value==''){
+		alert('密码变量不能为空');
+		return false;
+	}
+	if(form1.uc_seid.value==''){
+		alert('服务类型不能为空');
+		return false;
+	}
+	if(isNaN(form1.uc_seid.value)){
+		alert('服务类型请填数字');
+		return false;	
+	}
+	if(form1.nc_type.value==''){
+		alert('操作类型不能为空');
+		return false;
+	}
+	
+	return true;
+}
+
+function showf(sid,caSname,caUrl,caUname,caPasswd,caEmail,serviceid,caReid,flag){
+	form1.sid.value=sid;
+	form1.nc_sname.value=caSname;
+	form1.nc_url.value=caUrl;
+	form1.nc_name.value=caUname;
+	form1.nc_passwd.value=caPasswd;
+	form1.nc_email.value=caEmail;
+	form1.uc_seid.value=serviceid;	
+	form1.nc_type.value=caReid;			
+	form1.nc_flag.value=flag;			
+}
+function modpro(){
+	if(form1.sid.value==''){
+		alert('请先点击要修改的记录');
+		return false;
+	}
+	if(form1.nc_sname.value==''){
+		alert('网站名称不能为空');
+		return false;
+	}
+	if(form1.nc_url.value==''){
+		alert('url不能为空');
+		return false;
+	}
+	if(form1.nc_name.value==''){
+		alert('账号变量不能为空');
+		return false;
+	}
+	if(form1.nc_passwd.value==''){
+		alert('密码变量不能为空');
+		return false;
+	}
+	if(form1.uc_seid.value==''){
+		alert('服务类型不能为空');
+		return false;
+	}
+	if(isNaN(form1.uc_seid.value)){
+		alert('服务类型请填数字');
+		return false;	
+	}
+	if(form1.nc_type.value==''){
+		alert('操作类型不能为空');
+		return false;
+	}
+	
+	return true;
+}
+var dfd1="0"
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+function goto2(t){
+	var temp_t;
+	temp_t=t+"&groupid@"+form1.groupid.value;
+ tt=showModalDialog(temp_t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:520px');
+}
+
+
+function init(attName2,attValue2){
+	var divs = document.getElementsByTagName("div");
+	for(var i = 0; i < divs.length; i++){
+        if(divs[i].getAttribute(attName2) == attValue2)
+           divs[i].style.display = 'none';
+     }	
+}
+
+function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+		var ll=[#CurPg#];
+		var yy=[#TotPg#];
+		function goto(t){
+        self.location.href=t;
+    }
+    function cx(){
+			if(form1.nc_find.value==''){
+				alert('请输入查询条件');
+				return;
+			}
+			form1.submit();
+	}
+</script>
+
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<script src="/js/tablecssall.js"></script>
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:548px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }   
+-->
+
+</style>
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=1  marginwidth=0 topMargin="0" style="overflow:hidden"  >
+<form name="form1" method="post" action="/pronline/Msg">
+<input name="FunName" type="hidden" value="ncProtocolDefine">
+<input name="sid" type="hidden" value="">
+<input type="hidden" name="khwt_preple" value="[#khwt_preple#]">
+ <input type="hidden" name="khwt_man" value="[#khwt_man#]">
+ <input type="hidden" name="khwt_title" value="[#khwt_title#]">
+ <input type="hidden" name="khwt_content" value="[#khwt_content#]">
+ <input type="hidden" name="temp_file" value="[#temp_file#]">
+<input name="reportid" type="hidden" value="">
+  <table border="0" width="100%" height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+  	<tr>  	
+	  	 <td align="center" valign="top" bgcolor="#DEE8FA">
+        <table width="98%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>         	
+            <td valign="top" colspan="2" style="display:inline-block; ">  
+              <table width="99%" border="0" align="center">
+              
+                <tr height="19">                 
+                  <td  width="190" style="font-size: 10pt;color:#00237e;"><b >网站名称</b>&nbsp;<input type="text" name="nc_sname" size="12" maxlength="22">&nbsp;</td>
+                  <td  width="190" style="font-size: 10pt;color:#00237e;"><b>邮箱变量&nbsp;</b><input type="text" name="nc_email" size="12" maxlength="32"></td>
+                  <td width="220" style="font-size: 10pt;color:#00237e;"><b>服务类型</b>
+                  	<select name="uc_seid" style="width:135px">
+					   							<option value="[#uc_seid#]" >[#uc_seid#]</option>
+					   							[#SLPB#]	
+							   					<option value="[#lstid#]">[#caTypename#]</option> 	      
+				            			[#SLPE#]   
+				   							</select>	
+                  </td>
+                  <td width="280" style="font-size: 10pt;color:#00237e;"><b>注册变量</b>
+                   	<input type="text" name="nc_type" size="10" maxlength="15">
+                   	<b>操作</b>&nbsp;
+       									<select name="nc_flag" style="width:50px">
+					   							<option value="[#nc_flag#]" >[#nc_flag#]</option>
+					   							<option value="1" >注册</option> 
+					   							<option value="0" >登录</option>
+				   							</select>	
+                  </td>  
+      <!--              <td width="180" style="font-size: 10pt;color:#00237e;">
+   								</td>           	
+                	<input type="text" name="nc_type" size="14" maxlength="13"></td>    -->
+                 	<td>&nbsp;</td>
+                  </tr>
+                
+                               
+                <tr height="19">                
+                  <td width="190" style="font-size: 10pt;color:#00237e;"><b >账号变量&nbsp;</b><input type="text" name="nc_name" size="12" maxlength="22">&nbsp;</td>
+                  <td width="190"style="font-size: 10pt;color:#00237e;"><b>密码变量&nbsp;</b><input type="text" name="nc_passwd" size="12" maxlength="64"></td>                  
+                  <td width="400" colspan="3" style="font-size: 10pt;color:#00237e;"><b>&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;</b><input type="text" name="nc_url" size="45" maxlength="64">&nbsp;</td>
+                     
+                </tr>
+                
+                <tr> 
+            <td height="26" colspan="5"> 
+              <table width="100%" border="0">
+
+                <tr> 
+                  <td width="1%" height="2"> </td>
+                  <td height="2">
+                  	   &nbsp;<input type="text" name="nc_find" size="26" value='[#nc_find#]'  onKeyPress="if (event.keyCode == 13) return false;">&nbsp;<input name="sear2" type="button" class="an3" value="查询" onclick="cx()" >&nbsp;<input type="submit" name="add" value="添加"  class="an3" onclick="return addpro();">&nbsp;<input type="submit" name="modi" value="修改" class="an3" onclick="return modpro()">&nbsp;<input type="submit" name="del" value="删除"  class="an3" onclick="return addfee();">&nbsp;
+                  
+                      <input type="hidden" name="flags"   value="[#flags#]">
+                      <input type="hidden" name="CurPg"      value="[#CurPg#]">
+                      <input type="hidden" name="TotPg"      value="[#TotPg#]">
+                      <input type="hidden" name="where"      value="[#where#]">
+                      <input type="hidden" name="TotRec"     value="[#TotRec#]">
+                  	</td>
+                  <td height="2" colspan="2"> <div align="center"> 
+                  <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+                      <tbody>
+                      <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                      <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                      <td width="20%" valign="top"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                      <td align=middle background="" width=92> <input class=Main id=browsdopage3 maxlength=7  name=browsdopage size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)"> 
+                      </td>
+                      <td width="10%" valign="top"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                      <td width="10%" valign="top"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                      <td width="10%" valign="top"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                      <td align=middle background="" width=92> <input  class=Main id=browsdopage122 maxlength=7 name=browsdopage12 size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotPg#]'> 
+                      </td>
+                      <td width="10%" valign="top"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+                      <td align=middle background="" width=92> <input  class=Main id=browsdopage122 maxlength=7 name=browsdopage12 size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotRec#]'> 
+                      </td>
+                      <td width="10%" valign="top"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                      <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script> </td>
+                      <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script> </td>
+                    </tbody></table>
+
+
+
+
+
+                  
+                    </div></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+                
+              </table>            
+         </td>
+	  
+	  
+  </tr>	
+  	
+    <tr>   
+      <td width="1200"  valign=top align=center bgcolor="#DEE8FA">
+      	<div class="tScrollw" id="tC">
+        <table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD" height="20">
+             <td width="25" align="center" class="bord2" bgcolor="#848CCB"> 
+              <font color="#000000">
+                <input type="button" name="b1" value="选择"    class="anniu_1" onClick="allChecked()">
+              </font></td>
+            <td width="80" align="center" class="bord2"> &nbsp;网站名称</td>
+            <td width="160" align="center" class="bord2" > URL</td>
+            <td width="70" align="center" class="bord2" > 账号变量</td>
+            <td width="70" align="center" class="bord2" >密码变量</td>
+            <td width="100" align="center" class="bord2" >Email变量 </td>
+            <td width="80" align="center" class="bord2" > 服务类型</td>
+            <td width="80" align="center" class="bord2" > 注册变量</td>
+            <td width="60" align="center" class="bord2" >操作</td>	
+            
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" height="18" onMouseOut="mouseouttr2(this)" onclick=showf('[#sid#]','[#caSname#]','[#caUrl#]','[#caUname#]','[#caPasswd#]','[#caEmail#]','[#serviceid#]','[#caReid#]','[#flags#]')> 
+          <td  align="center" class="bord1"> <input type="checkbox" name="ch[#num#]" value="[#sid#]"> 
+            </td>
+            <td class="bord1" title="[#caSname#]"  nowrap >&nbsp;[#caSname#]</td>
+            <td class="bord1" title="[#caUrl#]" nowrap  >&nbsp;[#caUrl#]</a></td>
+            <td class="bord1" title="[#caUname#]"  nowrap >&nbsp;[#caUname#]</td>   
+            <td class="bord3" title="[#caPasswd#]" nowrap align="left">[#caPasswd#]&nbsp;</td>
+					  <td class="bord1" title="[#caEmail#]" nowrap  >&nbsp;[#caEmail#]</a></td>
+            <td class="bord1" title="[#servicename#]"  nowrap align="center" >&nbsp;[#servicename#]</td>
+            <td class="bord1" title="[#caReid#]"  nowrap >&nbsp;[#caReid#]</td>
+            <td class="bord3" title="[#operate#]"  nowrap >&nbsp;[#operate#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+      </div>
+      </td>
+  </tr>
+</table>
+<script>
+//  				form1.nc_type.value='[#nc_type#]';】
+//  				form1.idc_groupid.value='[#idc_groupid#]';
+  </script>
+ </form>
+</body>
+
+</html>

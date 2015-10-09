@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>在线升级</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function openreport(t){
+
+		window.open(t,'open_report2','height=520, width=600, top=50, left=150,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}	
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style="overflow:hidden" >
+<form name="form2" method="post" action="/pronline/Msg">
+	<input type="hidden" name="FunName" value="">
+	<input type="hidden" name="fsize" value="[#fsize#]">
+	<input type="hidden" name="md5" value="[#md5#]">
+	<input type="hidden" name="upfile_flag" value="[#upfile_flag#]">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  >        <div align="left">
+        <table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+            <tr > 
+              <td colspan="2"> <div align="center"><strong>系统升级</strong></div></td>
+            </tr>
+            </table>
+      </div></td></tr>
+    <tr> 
+      <td align="center"  >
+        <table width="92%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+        	<tr height="35"><td>
+        		
+        		&nbsp;&nbsp;&nbsp;<font color="red">[#mesg#]&nbsp;&nbsp;</font>
+        		<input name="usave" type="button" class="an3" value="继续升级"  onclick="document.all.ff2.innerHTML='正在升级，请稍候...';form2.FunName.value='ncWebUpdateService';form2.submit()" [#disable#] >&nbsp;
+            <input name="usj" type="button" class="an3" value="返回"  onclick="self.location.href='/pronline/Msg?FunName@ncWebOnlineUpdateService' ">
+        		</td>
+        		<td id="ff2" style="font-size:9pt;color:red;"></td>
+        	</tr>
+        
+          <tr>
+              <td colspan="2">
+                  <iframe id="pingd" name="pingd" height="80"  src="/show_upstate.htm" width="100%"  FrameBorder=0 scrolling="auto"></iframe
+              </td>
+             </tr>
+
+  </table>
+</form>
+
+</body>
+</html>

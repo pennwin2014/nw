@@ -1,0 +1,298 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script src="/js/ajax.js"></script>
+
+<script>
+
+	
+	
+		var xmlHttp = false;
+ 
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowUserDep&CurPg@'+form1.CurPg.value+'&flag@'+form1.flag.value+'&cond@'+form1.cond.value+'&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+ 
+    xmlHttp.send(null);
+  
+  }
+ 
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+         
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+if(form1.flag.value=='1'){
+document.all.userid.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.userid.options[i].value=aid[i];
+ document.all.userid.options[i].text=aname[i];
+	}
+form1.userid.value='[#userid#]';
+}
+else{
+document.all.groupid.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.groupid.options[i].value=aid[i];
+ document.all.groupid.options[i].text=aname[i];
+	}
+	form1.groupid.value='[#groupid#]';
+ }
+   }
+ 
+ }
+
+	
+	
+	
+	
+	function chgobj(){
+	  if(form1.objtype.value=='1'){
+	  document.all.bm.style.display='none';
+	  document.all.yip.style.display='';
+	  document.all.yhm.style.display='none';
+	}
+	else if(form1.objtype.value=='2'){
+	 form1.flag.value='0';
+	 document.all.bm.style.display='';
+	 form1.CurPg.value='1';
+	 	form1.cond.value='';
+	 	
+	  document.all.yip.style.display='none';
+	  document.all.yhm.style.display='none';
+	  callServer();
+
+	  	
+	}
+	else if(form1.objtype.value=='3'){
+		 form1.flag.value='1';
+		document.all.bm.style.display='none';
+	  document.all.yip.style.display='none';
+	  document.all.yhm.style.display='';
+	  	 form1.CurPg.value='1';
+	  	 form1.cond.value='';
+	  callServer();
+	  	
+	  }
+	  else{
+		document.all.bm.style.display='none';
+	  document.all.yip.style.display='none';
+	  document.all.yhm.style.display='none';
+	  }
+	  }
+	  
+	  function init(){
+	form1.objtype.value='[#objtype#]';
+	chgobj();
+	
+	}
+	  
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden" onunload="dialogArguments.form1.submit()" onload="init()">
+<form name="form1" method="post" action="/pronline/Msg">
+<input type="hidden" name="FunName" value="SnapLimSave">
+<input type="hidden" name="flag" value="">
+<input type="hidden" name="CurPg" value="1">
+<input type="hidden" name="sid" value="[#sid#]">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">网页快照规则</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="90%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="180" width="100%"> 
+            	<table width="95%" border="0" align="center">
+            		<tr height="20px">
+				          	<td width="100px">&nbsp;</td>
+				          	<td width="160px">&nbsp;</td>
+				          	<td>&nbsp;</td>
+				          	<td>&nbsp;</td>
+				          </tr>
+				          
+				       <tr height="30"> 
+                  <td >&nbsp;对象类别</td>
+                <td >&nbsp;<select name="objtype" onchange="chgobj()">
+                	<option value="0">全部</option><option value="1">源地址</option><option value="2">部门</option><option value="3">用户</option></select>&nbsp;&nbsp</td>
+                  <td >&nbsp;</td>
+                  <td >&nbsp;</td>
+                </tr>
+				       <tr>
+				       	<td colspan="4" id ="bm" style="display:none">
+				       		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				       			<tr>
+				       				<td width="100px">
+				       					&nbsp;部门名
+				       				</td>
+				       			  <td>
+				       					<select name="groupid">
+				       						
+				       					</select>
+				       				</td>
+				       			 <td >&nbsp;</td>
+                     <td >&nbsp;</td>
+				       			</tr>
+				        </table>
+				       </td>
+				       </tr>
+               
+             <tr>
+				       	<td colspan="4" id ="yip" style="display:none">
+				       		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				       			<tr>
+				       				<td width="100px">
+				       					&nbsp;源IP地址
+				       				</td>
+				       			  <td width="160px">
+				       					&nbsp;<input type="text" name="sip" size=16 value="[#sip#]">
+				       				</td>
+				       			 <td >到&nbsp;<input type="text" name="dip" size=16  value="[#dip#]"></td>
+                     <td >&nbsp;</td>
+				       			</tr>
+				        </table>
+				       </td>
+				       </tr>
+               
+               <tr>
+				       	<td colspan="4" id ="yhm" style="display:none">
+				       		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				       			<tr>
+				       				<td width="100px">
+				       					&nbsp;用户名
+				       				</td>
+				       			  <td >&nbsp;
+				       			  	<a href="#xxm" onclick="var aa=parseInt(form1.CurPg.value)-1;form1.CurPg.value=aa;callServer();">上页</a>
+				       						<select name="userid">
+				       						
+				       					</select>
+				       					<a href="#xxm" onclick="var aa=parseInt(form1.CurPg.value)+1;form1.CurPg.value=aa;callServer();">下页</a><input type="text" name="cond" size=10 value=""><a href="#xxm" onclick="callServer()">查询</a>
+				       				</td>
+				       			
+				       			</tr>
+				        </table>
+				       </td>
+				       </tr>
+              
+                 <tr height="30"> 
+                  <td >&nbsp;域名</td>
+                <td >&nbsp;<input type="text" name="host" size=40 value="[#host#]"></td>
+                  <td >&nbsp;</td>
+                  <td >&nbsp;</td>
+                </tr>
+                <tr height="30"> 
+                  <td >&nbsp;URL路径</td>
+                <td >&nbsp;<input type="text" name="url" size=40  value="[#url#]"></td>
+                  <td >&nbsp;</td>
+                  <td >&nbsp;</td>
+                </tr>
+                
+               <tr height="30"> 
+                  <td >&nbsp;关键字</td>
+                <td >&nbsp;<input type="text" name="keyword" size=40 value="[#keyword#]"></td>
+                  <td ></td>
+                  <td >&nbsp;</td>
+                </tr>
+                   <tr height="30"> 
+                  <td >&nbsp;</td>
+                <td >如多个关键字，其间用‘，’分割</td>
+                  <td ></td>
+                  <td >&nbsp;</td>
+                </tr>
+                 <tr height="30"> 
+                  <td >&nbsp;状态</td>
+                <td >&nbsp;<select name="flags"><option value="0">不保存快照</option><option value="1">保存快照</option></select>&nbsp;&nbsp
+                  <td >&nbsp;</td>
+                  <td >&nbsp;</td>
+                </tr>
+               
+				         
+				          
+                  	</table>
+                  </td>
+                </tr>
+              </table>
+                  	
+                  	</td>
+                  	
+                  	
+                  	
+                  	
+            
+                </tr>
+               
+               
+               
+               
+              </table>
+              </td>
+              
+              
+              
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="100%" border="0" align="center">
+      	<tr><td>&nbsp;</td></tr>
+          <tr> 
+            <td align="center"> 
+                 <input type="submit" name="Save" value="保 存" class="an3" >
+                &nbsp; 
+                <input type="button" name="cancel" value="关 闭" class="an3" onclick="self.close()">
+                &nbsp;
+                
+              </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>form1.flags.value='[#flags#]';
+
+
+	</script>
+</body>
+</html>

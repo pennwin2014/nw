@@ -1,0 +1,104 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+     function goto(t)
+    {
+	    self.location.href=t;
+    }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncBlackWhiteBase_Save">
+
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: right;">
+              <div align="center"></div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                                   
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">功能状态&nbsp;</div></td>
+                    <td> 
+                    	<select name="LoadState">
+                    		<option value="Yes">启用</option>
+                    		<option value="No">停用</option>
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;设置MAC地址管理方式之前，必须要开启本功能，设置才会生效。</td>
+                  </tr>
+                
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">缺省使用的管理方式&nbsp;</div></td>
+                    <td> 
+                    	<select name="DefBlack">
+                    		<option value="Accept">使用IP设置的管理方式</option>
+                    		<option value="Drop">禁止上网</option>
+                    		<option value="LocalAuth">本地验证</option>
+                    		<option value="NoMon">免监控</option>
+                    		<option value="ThirdAuth">第三方验证</option>
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;缺省使用的管理方式指的是没有设置MAC地址管理方式的上网电脑使用的管理方式</td>
+                  </tr>
+                <tr height="60"><td colspan="3">&nbsp;</td></tr>
+                <tr height="40"><td colspan="3" style="padding:10px;line-height:13pt;">&nbsp;<img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;管理方式的优先级顺序：MAC地址的管理方式>缺省的MAC地址管理方式>IP地址的管理方式。MAC地址的管理方式是IP地址段管理方式的补充，效率比IP地址段的管理方式低，这里设置过的管理方式，需要在IP地址段中将这些机器所处的IP地址段加入到相应的管理方式中。</td>
+                </tr>
+                
+                
+ 
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="submit" name="save" value="保存" class="an3"  onClick="return Add()">       
+               &nbsp;
+                           
+     
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table>
+ 
+	</form>
+<script>form1.LoadState.value="[#LoadState#]";
+	form1.DefBlack.value="[#DefBlack#]";
+	</script>
+</BODY>
+</html>
+

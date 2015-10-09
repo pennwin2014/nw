@@ -1,0 +1,103 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>新网程网络督察</title>
+<script language="JavaScript">
+<!--
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_preloadImgs() {//v1.0
+	if('[#authcount#]'>'[#authcount_set#]'){
+	self.close();
+}
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+
+function FP_swapImgRestore() {//v1.0
+ var doc=document,i; if(doc.$imgSwaps) { for(i=0;i<doc.$imgSwaps.length;i++) {
+  var elm=doc.$imgSwaps[i]; if(elm) { elm.src=elm.$src; elm.$src=null; } } 
+  doc.$imgSwaps=null; }
+}
+function spylogin(){
+
+if (nclogin.username.value=="" || nclogin.password.value=="") {
+
+	window.alert("用户名或密码不能为空！");
+
+	return ;
+
+}
+nclogin.submit();
+
+}
+function ss()
+{
+if(event.keyCode==13)
+spylogin();
+}
+
+// -->
+</script>
+</head>
+
+<body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" onload="FP_preloadImgs(/*url*/'/images/images2/login-4-1.gif', /*url*/'/images/images2/login-5-1.gif')" bgcolor="#01337b">
+<form name="nclogin" id="nclogin" method="post" action="/pronline/Msg">
+<input type="hidden" name="FunName" value="ncWebAuth">
+<table border="0" width="1020" cellspacing="0" cellpadding="0" height="632">
+	<tr>
+		<td height="149">
+		<img border="0" src="/images/images2/login-1.gif" width="1020" height="149"></td>
+	</tr>
+	<tr>
+		<td height="283" background="/images/images2/login-2.gif">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0" height="100%">
+			<tr>
+				<td width="449" rowspan="5">　</td>
+				<td width="571" height="105" colspan="3" valign="bottom"><b><font color="#FFCF00" size="3">【[#message#]】</font></b>　</td>
+			</tr>
+			<tr>
+				<td width="571" height="27" colspan="3">
+				<input type="text" name="username" size="20"></td>
+			</tr>
+			<tr>
+				<td width="571" height="31" valign="middle" colspan="3">
+				<input type="password" name="password" size="20" onKeyPress="ss()"></td>
+			</tr>
+			<tr>
+				<td width="108" height="35" valign="bottom">
+				<img border="0" src="/images/images2/login-4.gif" width="38" height="22" id="img1" onClick="spylogin();" onmouseout="FP_swapImgRestore()" onmouseover="FP_swapImg(1,1,/*id*/'img1',/*url*/'/images/images2/login-4-1.gif')"></td>
+				<td width="92" height="35" valign="bottom">
+				<img border="0" src="/images/images2/login-5.gif" width="38" height="22" id="img2" onClick="window.close()" onmouseout="FP_swapImgRestore()" onmouseover="FP_swapImg(1,1,/*id*/'img2',/*url*/'/images/images2/login-5-1.gif')"></td>
+				<td width="371" height="35">　</td>
+			</tr>
+			<tr>
+				<td width="571" height="85" colspan="3">　</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="253">
+		<img border="0" src="/images/images2/login-3.gif" width="1020" height="253"></td>
+	</tr>
+</table>
+</form>
+</body>
+
+</html>

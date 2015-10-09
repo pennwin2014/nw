@@ -1,0 +1,180 @@
+<html>
+<head>
+<title>计算机信息管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.tab{
+width:90;
+text-align: center;
+background-image:url("/images/images2/biaoqian2.gif");background-repeat:no-repeat;
+color:#6b6b6b;
+font-weight:bold;
+cursor:hand;
+}
+.selTab{
+width:90;
+text-align: center;
+ background-image: url("/images/images2/biaoqian.gif"); background-repeat:no-repeat; 
+color:#00224f;
+font-weight:bold;
+cursor:hand;
+}
+.tab1{
+	border-top:thin none #FFFFFF;
+	border-right:thin solid gray;
+	border-left:thin none #FFFFFF;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+	border-bottom-width: thin;
+	border-bottom-style: none;
+	border-bottom-color: gray;
+}
+
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+frames.main.location.href=t
+}
+
+var currentTab;
+var tabBase;
+var firstFlag = true;
+var cno;
+function changeTabs(){
+
+if(firstFlag == true){
+currentTab = t0;
+cno=currentTab.id.substring(1);
+firstFlag = false;
+}
+
+if(window.event.srcElement.className == "tab4"||window.event.srcElement.className == "tab5"||window.event.srcElement.className == "tab7"||window.event.srcElement.className == "tab8"||window.event.srcElement.className == "tab9"){
+	var cno2=parseInt(cno)+1;
+	if(cno==0)
+		currentTab.className = "tab7";
+	else if(cno==3)
+		currentTab.className="tab8";
+	else
+		currentTab.className="tab5";
+
+  if(cno2<3)
+  	eval('document.all.t'+cno2).className="tab5";
+  else if(cno2==3)
+  	eval('document.all.t'+cno2).className="tab8";
+  	
+	currentTab = window.event.srcElement;
+	cno=currentTab.id.substring(1);
+	var cno1=parseInt(cno)+1;
+	if(cno==3){
+		currentTab.className = "tab6";
+	}
+  else if(cno==2){
+   currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab9";
+  }
+  else{
+	 currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab4";
+	}
+	
+tabContentID = currentTab.id + "Contents";
+
+//alert(currentTab.id.substring(1));
+
+tabContent = document.all(tabContentID);
+
+var temp_desc;
+	if(tabContent.id=="t0Contents"){		
+	frames.main.location="/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@5";
+
+	}
+	else if(tabContent.id=="t1Contents"){
+	frames.main.location="/pronline/Msg?FunName@nwWebCompInfo&gtype@[#gtype#]&id@[#id#]&opt@3";
+	}
+	else if(tabContent.id=="t2Contents"){
+	frames.main.location="/pronline/Msg?FunName@nwWebCompInfo&gtype@[#gtype#]&id@[#id#]&opt@5";
+	}
+	else if(tabContent.id=="t3Contents"){
+	frames.main.location="/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@6',6)";
+	}
+
+}
+}
+
+</script>
+<style>
+.conts  {visibility:hidden}
+
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main">
+<input type="hidden" name="FunName" value="">
+
+    <table border="0" bgcolor=#8cb4e8 bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor="#8cb4e8" STYLE="width:100%; height:100%">
+      <tr height="22"><td colspan="10" align="center" style="font-size:11pt;color:#00237e;"><b>[#dispname#]&nbsp;内部计算机监控信息</b></td>
+
+      </tr>
+      <tr height="26" >
+	    <td ID="t0" CLASS="tab3">程序使用记录</td>
+	    <td ID="t1" CLASS="tab4"  >硬件变化记录</td> 
+	    <td ID="t2" CLASS="tab5"  >软件变化记录</td>
+	    <td ID="t3" CLASS="tab8"   >系统变化记录</td>
+	    <td ID="t4" class="tab10" ></td>
+   
+      </tr> 
+		
+
+	
+<td HEIGHT="*" COLSPAN="6" ID="tabContents" align="left" valign="top" style="position:relative;top:-2px"> 
+<div id="ff" name='ff' >
+		<iframe name="main" id="data1" width="100%" height="100%" src="/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@5" frameborder="no"> </iframe>
+
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center" oncontextmenu="return false" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"><div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">数据中心参数配置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="90%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="411"> <table width="100%" border="0" align="center">
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%">&nbsp;</td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+
+                <tr> 
+                  <td width="17%" height="89">&nbsp;</td>
+                  <td height="89" width="67%" align="center"> <table width="100%" border="0"  bordercolorlight=#848284   bordercolordark=#ffffff>
+                      <tr> 
+                        <td width="37%"> 启动数据生成进程</td>
+                        <td width="63%"> <select name="StartFSSGenDbLog" ><option value="Yes">启动</option><option value="No">停止</option></select>
+                        </td>
+                      </tr>
+                      
+                      <tr> 
+                        <td width="37%"> 启动数据发送进程</td>
+                        <td width="63%"> <select name="StartFSSSend" ><option value="Yes">启动</option><option value="No">停止</option></select>
+                        </td>
+                      </tr>
+                                            
+                      
+                      <tr> 
+                        <td width="37%" height="28"> 数据中心地址</td>
+                        <td width="63%" height="28"> <input type="text" name="DataServer" size="22" value="[#DataServer#]" maxlength="22"> 
+                        </td>
+                      </tr>
+                     
+                      <tr> 
+                        <td width="37%" height="28"> 上传数据内容</td>
+                        <td width="63%" height="28">
+                        	<table width="100%" border="0">
+                        		<tr>
+                        			<td><input type="checkbox" name="httplog" value="1" [#httpcheck#]>网站日志</td>
+                        	  <td><input type="checkbox" name="userlog" value="1" [#userlogcheck#]>上下线日志&nbsp;</td>
+                        	  <td><input type="checkbox" name="instlog" value="1" [#instcheck#]>即时通讯日志</td>
+                        	  <td><input type="checkbox" name="maillog" value="1" [#maillogcheck#]>邮件日志&nbsp;</td>
+                        	</tr>
+                        	<tr>
+                        		<td><input type="checkbox" name="searchlog" value="1" [#searchcheck#]>搜索日志&nbsp;</td>
+                        		<td><input type="checkbox" name="seslog" value="1" [#sescheck#]>网络会话日志&nbsp;</td>
+                        		<td><input type="checkbox" name="bbslog" value="1" [#bbscheck#]>BBS日志&nbsp;</td>
+                        		<td><input type="checkbox" name="formlog" value="1" [#formcheck#]>表单日志&nbsp;</td>
+                        	</tr>
+                        	<tr>
+                        		<td><input type="checkbox" name="servicelog" value="1" [#servicecheck#]>服务应用统计数据&nbsp;</td>
+                        		<td><input type="checkbox" name="httpclass" value="1" [#httpclasscheck#]>网站统计数据&nbsp;</td>
+                        		<td><input type="checkbox" name="iplog" value="1" [#ipcheck#]>IP日志</td>
+                        		<td>&nbsp;</td>
+                        	</tr>
+                      </table>
+                      </tr>
+                     
+                      <tr> 
+                        <td width="37%" height="28"> 日志数据生成时间间隔</td>
+                        <td width="63%" height="28"> <input type="text" name="OutLogGenStep" size="22" value="[#OutLogGenStep#]" maxlength="6"> 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 日志数据生成时间范围</td>
+                        <td width="63%" height="28"> <input type="text" name="OutLogGenTime" size="22" value="[#OutLogGenTime#]" > 
+                        </td>
+                      </tr>
+                      
+                    <tr> 
+                        <td width="37%" height="28"> 日志数据是否压缩</td>
+                        <td width="63%" height="28"> <select name="OutLogZip" ><option value="Yes">压缩</option><option value="No">不压缩</option></select>
+                        </td>
+                      </tr>
+                     
+                      <tr> 
+                        <td width="37%" height="28"> 日志数据发送完毕后是否保存</td>
+                        <td width="63%" height="28"> <select name="FssKeepSend" ><option value="Yes">保存</option><option value="No">不保存</option></select>
+                        </td>
+                      </tr>
+                       <tr> 
+                        <td width="37%" height="28"> 发送完成后日志文件保存路径</td>
+                        <td width="63%" height="28"> <input type="text" name="UpLogKeepPath" size="32" value="[#UpLogKeepPath#]" > 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 生成日志文件保存路径</td>
+                        <td width="63%" height="28"> <input type="text" name="UpLogTmpPath" size="32" value="[#UpLogTmpPath#]" > 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 传送完成的日志保留天数
+                          </td>
+                        <td width="63%" height="28"> <input type="text" name="SendKeepTime" size="22" value="[#SendKeepTime#]" > 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 生成的日志保留天数
+                          </td>
+                        <td width="63%" height="28"> <input type="text" name="OutLogKeepTime" size="22" value="[#OutLogKeepTime#]" > 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 单个日志文件大小限制
+                          </td>
+                        <td width="63%" height="28"> <input type="text" name="MaxOutLogSize" size="22" value="[#MaxOutLogSize#]" > 
+                        </td>
+                      </tr>
+                     
+                     <tr> 
+                        <td width="37%" height="28"> </td>
+                      <td width="63%" height="28"> 
+                        </td>
+                      </tr>
+                     
+                     
+                     
+                    </table></td>
+                  <td width="16%" height="89">&nbsp;</td>
+                </tr>
+                
+                
+               
+             
+             
+                
+                
+                
+                
+                
+                
+                
+              
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        </table>
+      </td>
+    </tr>
+    
+    
+    
+    <tr>
+      <td height="70" ><table width="90%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebDataCenter_ParSave">
+                <input type="submit" name="next" value="保 存" class="an3">
+    
+                <input type="submit" name="app" value="应 用" class="an3">
+         
+          
+             
+           
+          
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	form1.StartFSSGenDbLog.value='[#StartFSSGenDbLog#]';
+	form1.StartFSSSend.value='[#StartFSSSend#]';
+	form1.OutLogZip.value='[#OutLogZip#]';
+  form1.FssKeepSend.value='[#FssKeepSend#]';
+	
+	</script>
+</body>
+</html>

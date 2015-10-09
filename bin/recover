@@ -1,0 +1,5 @@
+cd /home/ncmysql/nw/bin
+mysql -uroot -pPronetwaySH -Dmysql<init.sql
+mysql  -unc -pnc -Dnw <ds.dmp
+./ncupdatedbstr -u nc -p nc -d nw -f nw.str
+mysql -unc -pnc -Dnw <nwsoft.sql

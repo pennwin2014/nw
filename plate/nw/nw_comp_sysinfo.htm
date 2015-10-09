@@ -1,0 +1,136 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='1';
+var yy='1';
+parent.form1.CurPg.value=ll;
+parent.form1.TotPg.value=yy;
+parent.form1.TotRec.value='1';
+function w1()
+{
+
+var yy='<table width="95%" height="90%" border="0" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0">';
+
+yy=yy+'<tr><td valign="top">';
+
+  yy = yy + '<table width="75%"  border="1" align="center"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">';  
+  yy = yy + '<tr height="28"><td  align="center"><b>基本信息</b></td></tr>';
+  yy = yy+'<tr><td><table width="100%" cellpadding="0" cellspacing="0">';
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td   width="15%">&nbsp;&nbsp;&nbsp;设备ID</td>';
+  yy = yy + '<td   width="35%"><input name="compid" type="text" id="compid3" value="[#compid#]" size="25"  readonly></td>';
+  yy = yy + '<td   width="15%">&nbsp;&nbsp;&nbsp;设备名&nbsp;</td>';
+  yy = yy + '<td   width="35%"><input type="text" name="devname" value="[#devname#]" size="25"  readonly></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td  >&nbsp;&nbsp;&nbsp;计算机名&nbsp;</td>';
+  yy = yy + '<td   ><input name="compname" type="text" id="compname3" value="[#compname#]" size="25" maxlength="15" readonly ></td>';
+  yy = yy + '<td  >&nbsp;&nbsp;&nbsp;IP地址&nbsp;</td>';
+  yy = yy + '<td   ><input name="ip" type="text" id="ip3" value="[#ip#]" size="25" maxlength="15" ></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;MAC地址&nbsp;</td>';
+  yy = yy + '<td><input name="mac" type="text" id="mac3" value="[#mac#]" size="25" ></td>';
+  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;客户端版本&nbsp;</td>';
+  yy = yy + '<td   ><input type="text" name="version" value="[#version#]" size="25" readonly></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;操作系统&nbsp;</td>';
+  yy = yy + '<td><input type="text" name="os" value="[#os#]" size="25" readonly></td>';
+  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;浏览器版本&nbsp;</td>';
+  yy = yy + '<td   ><input type="text" name="ie" value="[#ie#]" size="25" readonly></td>';
+  yy = yy + '</tr>';
+  
+ // yy=yy+'<tr height="28">';
+//  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;CPU使用率&nbsp;</td>';
+//  yy = yy + '<td><input type="text" name="cpu" value="[#cpu#]%" size="25" readonly></td>';
+//  yy = yy + '<td   >&nbsp;&nbsp;&nbsp;在线状态&nbsp;</td>';
+//  yy = yy + '<td   ><input type="text" name="status" size="25" value="[#status#]" readonly></td>';
+//  yy = yy + '</tr>';
+  
+  yy=yy+'</table></td></tr>';
+  yy=yy+'<tr height="28"><td align="center"><b>存储设备</b></td></tr>';
+  
+  yy = yy+'<tr><td><table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0">';
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td   width="20%" align="center">名称</td>';
+  yy = yy + '<td   width="20%" align="center">数量</td>';
+  yy = yy + '<td   width="20%" align="center">总共(KB)</td>';
+  yy = yy + '<td   width="20%" align="center">空闲(KB)</td>';
+  yy = yy + '<td   width="150" align="center">图示</td>';
+  yy = yy + '</tr>';
+
+  yy=yy+'<tr height="28" >';
+  yy = yy + '<td >&nbsp;&nbsp;&nbsp;内存</td>';
+  yy = yy + '<td    align="center">&nbsp;</td>';
+  yy = yy + '<td    align="center">&nbsp;[#memsum#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#memleft#]</td>';
+  yy=yy+'<td><img src="/images/red.gif" width="[#memusedrat#]" height="16"><img src="/images/yellow.gif" width="[#memleftrat#]" height="16"></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28" >';
+  yy = yy + '<td >&nbsp;&nbsp;&nbsp;硬盘分区</td>';
+  yy = yy + '<td    align="center">&nbsp;[#hdcount#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#hdsum#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#hdleft#]</td>';
+  yy=yy+'<td><img src="/images/red.gif" width="[#hdusedrat#]" height="16"><img src="/images/yellow.gif" width="[#hdfreerat#]" height="16"></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28" >';
+  yy = yy + '<td >&nbsp;&nbsp;&nbsp;光驱</td>';
+  yy = yy + '<td    align="center">&nbsp;[#cdcount#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#cdsum#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#cdleft#]</td>';
+  yy=yy+'<td><img src="/images/red.gif" width="[#cdusedrat#]" height="16"><img src="/images/yellow.gif" width="[#cdfreerat#]" height="16"></td>';
+  yy = yy + '</tr>';
+  
+  yy=yy+'<tr height="28" >';
+  yy = yy + '<td >&nbsp;&nbsp;&nbsp;移动设备</td>';
+  yy = yy + '<td    align="center">&nbsp;[#mdcount#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#mdsum#]</td>';
+  yy = yy + '<td    align="center">&nbsp;[#mdleft#]</td>';
+  yy=yy+'<td><img src="/images/red.gif" width="[#moveusedrat#]" height="16"><img src="/images/yellow.gif" width="[#movefreerat#]" height="16"></td>';
+  yy = yy + '</tr>';
+
+  yy=yy+'</table></td></tr>';
+   yy=yy+'<tr height="28"><td align="center"><b>硬盘逻辑分区</b></td></tr>';
+  yy = yy+'<tr><td><table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0">';
+  yy=yy+'<tr height="28">';
+  yy = yy + '<td width="25%"   align="center">逻辑盘符</td>';
+  yy = yy + '<td  width="25%"  align="center">大小(KB)</td>';
+  yy = yy + '<td  width="25%"  align="center">空闲(KB)</td>';
+  yy = yy + '<td  width="150"  align="center">图示</td>';
+  yy = yy + '</tr>';
+  [#SLPB#]
+  yy=yy+'<tr height="28" >';
+  yy = yy + '<td    align="center">[#driver#]</td>';
+  yy = yy + '<td    align="center">[#dsum#]</td>';
+  yy = yy + '<td    align="center">[#dleft#]</td>';
+  yy=yy+'<td><img src="/images/red.gif" width="[#driveusedrat#]" height="16"><img src="/images/yellow.gif" width="[#drivefreerat#]" height="16"></td>';
+  yy = yy + '</tr>';
+  [#SLPE#]
+  yy=yy+'</table></td></tr>';
+  yy=yy+'</table>';
+ 
+  yy=yy+'</td></tr></table>';
+  parent.document.all.wlj.innerHTML='';
+  parent.document.all.wlj3.innerHTML='<b style="font-size: 10pt;color:#333333;">'+'[#compname#]'+'计算机当前信息</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信息更新时间:<font color="red">[#syntime#]</font>';
+  parent.document.all.ff.innerHTML=(yy);
+  parent.form1.refresh_flag.value='2';
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

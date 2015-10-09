@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+
+<title>新网程内网管理系统-用户申请管理</title>
+	<style>
+		.bodyCls{
+			background-color:#E1F8FD;
+		}
+		.mainCls{
+			margin-top:100px;
+		}
+		.loginCls1{
+			width:1024px;
+			height:386px;
+		}
+		.loginCls2{
+			width:1022px;
+			height:400px;
+			margin:-377px 0px 0px 0px;
+		}
+		.titleCls{
+			margin:0px 0px 0px -500px;
+		}
+		.footCls{
+			margin-top:20px;
+		}
+		.formCls{
+			margin:-286px 0px 0px -520px;
+		}
+		.alertCls{
+			font-size:3;
+			color:#FF0000;
+		}
+		.labelCls{
+			padding: 2px 0 2px 0;
+			font-family:"微软雅黑";
+			color:#333333;
+		}
+		.inputCls{
+			border:1px solid #999999;
+			height:20px;
+			width:170px;
+		}
+		.btnCls{
+			margin:30px 0 0 0;
+		}
+	</style>
+	
+	<script>
+		function spylogin(){
+			if (nclogin.username.value=="" || nclogin.password.value=="") {
+				window.alert("用户名或密码不能为空！");
+				return false;
+			}
+			return true;
+		}
+		function ss(){
+			if(event.keyCode==13){
+				spylogin();
+				nclogin.submit();
+			}
+		}
+	</script>
+</head>
+	<body class="bodyCls">
+		<div align="center" class="mainCls">
+			<div class="titleCls"><img src="/v8/images/login/nw001.png"/></div>
+			<div class="loginCls1"><img width="1024px" height="386px" src="/v8/images/login/nw007.png"/>
+				<div class="loginCls2"><img width="502px" src="/v8/images/login/nw002.jpg"/><img width="502px" src="/v8/images/login/nw003.jpg"/></div>
+				<div class="formCls">
+					<form name="nclogin" id="nclogin" method="post" action="/pronline/Msg" onsubmit="spylogin()">
+						<input type="hidden" name="FunName" value="lan_appAdmin">
+						<div class="alertCls">用户名或密码不正确</div>
+						<br/>
+						<label for="username" class="labelCls">用户名：</label>
+						<input type="text" name="username" class="inputCls" id="username"/ >
+						<br/><br/>
+						<label for="password" class="labelCls">密 &nbsp;&nbsp;码：</label>
+            <input type="password" name="password" class="inputCls" id="password" onKeyPress="ss()"/>
+            
+            <div class="btnCls"><input type="submit" name="submit_button" value="" style="outline:none;border:0;width:105px;height:36px;background:url(/v8/images/login/nw005.jpg) no-repeat;"><input type="reset" name="submit_button" value="" style="outline:none;border:0;width:105px;height:36px;background:url(/v8/images/login/nw006.jpg) no-repeat;margin:0 0 0 20px;"></div>
+					</form>
+				</div>
+			</div>
+			<div class="footCls"><img src="/v8/images/login/nw004.png"/></div>
+		</div>
+	</body>
+</html>

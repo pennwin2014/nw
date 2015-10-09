@@ -1,0 +1,591 @@
+ <head>
+ 	
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+ <title>新网程内网管理系统</title>
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />	
+ <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+ <OBJECT ID="GetIP" CLASSID="CLSID:291B301B-9FE9-4A7E-BD2A-79B6D4825670" codebase="/proComm.CAB" width=0 height = 0>
+		<Param name="funtion" value="GetIP" />
+	</OBJECT>
+    <style type="text/css">
+ .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+	.x-statusbar .x-status-busy {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 0;
+}
+  .x-statusbar .x-status-busy {
+    background-image: url(/images/loading.gif);
+}
+  .add_dw {
+    background-image: url(/images/v8/gman.gif) !important;
+}	 
+  .add_sf {
+    background-image: url(/images/v8/customers.png) !important;
+}	
+ .dhs {
+    background-image: url(/images/v8/earth.png) !important;
+}	
+ .mggd {
+    background-image: url(/images/v8/info.png) !important;
+}
+ .refresh {
+    background-image: url(/images/v8/refresh.png) !important;
+}
+ .unlock {
+    background-image: url(/images/v8/unlock.png) !important;
+}
+
+ .search {
+    background-image: url(/images/v8/search.png) !important;
+}
+ .lamp {
+    background-image: url(/images/v8/lamp.png) !important;
+}
+ .bk {
+    background-image: url(/images/v8/bk.png) !important;
+}
+
+ .sitemap {
+    background-image: url(/images/v8/sitemap.png) !important;
+}
+ .pencil {
+    background-image: url(/images/v8/pencil.png) !important;
+}
+ .address {
+    background-image: url(/images/v8/address.png) !important;
+}
+ .dvd {
+    background-image: url(/images/v8/dvd.png) !important;
+}
+ .edit {
+    background-image: url(/images/v8/edit.png) !important;
+}
+ .static {
+    background-image: url(/images/v8/pie-chart_graph.png) !important;
+}
+ .group {
+    background-image: url(/images/v8/category.png) !important;
+}
+
+ .users {
+    background-image: url(/images/v8/user_friend.png) !important;
+}
+ .macs {
+    background-image: url(/images/v8/help_ring-buoy.png) !important;
+}
+ .calculator {
+    background-image: url(/images/v8/calculator.png) !important;
+}
+ .szhtj {
+    background-image: url(/images/v8/statistics.png) !important;
+}
+ .xtyh {
+    background-image: url(/images/v8/add.gif) !important;
+}
+ .mark_flag {
+    background-image: url(/images/v8/flag_mark_green.png) !important;
+}
+.ssjk {
+
+    background-image: url(/images/large/ssjk.png) !important;
+
+}	 
+.computer {
+
+    background-image: url(/images/large/computer_monitor.png) !important;
+
+}	 
+.rzck{
+
+    background-image: url(/images/large/rzck.png) !important;
+
+}	 
+
+.xtfx{
+
+    background-image: url(/images/large/xtfx.png) !important;
+
+}	
+
+
+
+.xtgl{
+
+    background-image: url(/images/large/xtgl.png) !important;
+
+}	
+
+.kzcl{
+
+    background-image: url(/images/large/kzcl.png) !important;
+
+}	
+
+.cssz{
+
+    background-image: url(/images/large/cssz.png) !important;
+
+}	
+
+.gjxx{
+
+    background-image: url(/images/large/gjxx.png) !important;
+
+}	
+
+.bz{
+
+    background-image: url(/images/large/bz.png) !important;
+
+}	
+.treecls {  
+background-image:url(/images/large/application_view_list.png) !important;  
+}  
+.treecompt {  
+background-image:url(/images/large/image_add.png) !important;  
+}  
+
+#toolbarBackground{
+
+    background-image: url(/images/large/toolbarbackground.png) !important;
+
+}
+
+
+   *{font-size:12px!important;}
+   .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 14px !important;
+		line-height: 16px;
+	}
+  </style>
+  
+
+    <script type="text/javascript">
+     var ncapp;
+     var compidTmp;
+     var compNameTmp;
+     function dhsrc(url,title,id){
+      var obj = {
+      	srcurl:url,
+      	text:title,
+      	itemid:id
+      };
+      
+     	ncapp.onItemClick(obj);
+     
+    }
+     
+     
+     
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+ 
+   //     Ext.Loader.setPath('Ext.app', 'classes');
+        Ext.require([
+    'Ext.tip.QuickTipManager',
+    'Ext.container.Viewport',
+    'Ext.layout.*',
+    'Ext.form.Panel',
+    'Ext.form.Label',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.tree.*',
+     'Ext.panel.*',
+    'Ext.toolbar.*',
+    'Ext.button.*',
+    'Ext.selection.*',
+    'Ext.tab.Panel',
+    'Ext.tab.*',
+    'Ext.ux.TabCloseMenu',
+    'Ext.ux.layout.Center',
+     'Ext.chart.*',
+    'Ext.ux.statusbar.StatusBar'
+
+        ]);
+        
+        
+        
+           	
+        	
+        	
+var _playTime = 6000;
+var win10;    	
+var _win10BtnText = "自动播放";
+var _store2;
+var _index = 0;
+var _htmlvar;
+var _intervalNumber = 0;
+var _currentRec;
+var store3PageSize = 4;
+var _currentPage;
+//显示屏幕日志信息
+function _show_screenlog(store2,index,intervalNumber,playTime,win4Btn1Text,currentRec,time_flag,store2PageSize,currentPage){
+	//alert('ggggg');
+		_currentPage = currentPage;
+		store3PageSize = store2PageSize;
+			_store2 = store2;
+			_index = index;
+			_playTime = playTime;
+			_intervalNumber = intervalNumber;
+			_currentRec = currentRec;
+			_win10BtnText = win4Btn1Text;
+			win10 = new Ext.Window ({
+                          //   id:"window10",
+                         //    title:_title,
+                             x:0,
+                             y:0,
+                             width:1250,
+                             height:710,
+							closeAction: 'destroy',
+							expandOnShow:true, 
+							draggable:true, //可拖动的
+							maximizable:true, //可最大化的
+						//	minimizable:true, //可最小化
+						//	autoScroll:true, 
+						//	collapsed  :true,//伸缩
+						//	collapsible  :true,
+							resizable: true, //可改变大小
+							modal: false,//后面的内容可以操作
+						//	plain：true,//则主体背景透明
+						//	items: fp2
+							constrain:true, //限制窗口只能在其容器内移动
+							buttonAlign:'center',  
+							alwaysOnTop: true,
+				
+                            // html:htmlvar,
+							items:[{
+					baseCls:"x-plain",
+					id:'imageLabel',
+					xtype:'label',	  
+					html: '<iframe  id="lay_rzck_screenlog_img" name="lay_rzck_screenlog_img" src="/v8/rzck/pingmurizhi_img.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+				},	],
+				
+				listeners:{
+				'close':function(){
+						//	alert("close");		
+							eval('lay_rzck_screenlog_img').clear();
+							}
+					}						               
+			}
+        )
+
+        win10.show();
+			
+}
+function updateImgStore(currentPage){
+	var tabs_center=Ext.getCmp("layout_center");
+        	var active = tabs_center.getActiveTab();
+   
+        	var active_id='lay_'+active.id;
+        	var tabs_if=Ext.getCmp(active_id).getActiveTab();
+        	var tabframe=active_id+'_'+tabs_if.id;
+    
+		eval(tabframe).store2.currentPage = currentPage;
+		eval(tabframe).reflash2();
+		eval(tabframe).updateImgStore();
+
+}    
+  
+function sendImgStore(store2){
+		eval('lay_rzck_screenlog_img').sendImgStore(store2);
+		//eval('lay_rzck_screenlog_img').updateWin10();
+}
+ 
+ 
+      var fptest = Ext.create('Ext.FormPanel', { 
+
+     });
+     var wintest='';
+     var timeout_count=0;
+
+    function testright(){
+              fptest.getForm().doAction('submit',{
+              url:'/pronline/Msg',
+               method:'post',
+               params:{FunName:'ncsTestRight_v4'},
+    
+                success:function(form,action){                
+                      timeout_count=0;
+             		     var msgaa=action.result.reason;
+       
+             		     if(msgaa=='license'){
+             		     	 if(!wintest){
+             	           msgaa=action.result.id;
+				              wintest=Ext.create('Ext.Window', {
+										       title: '系统提示',
+										       id:'wintest',     
+										 //       header:false,
+										        width: 250,
+										        x:600,
+										        y:210,
+										        height: 90,
+										        closable: true,
+										        modal: false,
+										  //      closeAction: 'hide',
+										        bodyPadding: 10,
+										        html:msgaa
+										    });
+
+										    
+                        wintest.show();
+                       }
+             		     }
+             		     	
+                },
+             		 failure:function(form,action){
+             		 	timeout_count++;
+             		 	  if(timeout_count>5) return;
+             		      if(!wintest){
+             	
+				              wintest=Ext.create('Ext.Window', {
+										       title: '系统提示',
+										       id:'wintest',     
+										 //       header:false,
+										        width: 250,
+										        x:600,
+										        y:210,
+										        height: 90,
+										        closable: true,
+										        modal: false,
+										  //      closeAction: 'hide',
+										        bodyPadding: 10,
+										        html:'登录超时，请重新登录！'
+										    });
+										     wintest.on("beforeclose", function() {
+                             self.location='/login2.htm';
+                          });
+										    
+                        wintest.show();
+                   }
+
+
+                 
+           		 }
+               }
+           )
+          
+   }
+   		//计算机关机
+		  function shutDown(compid){
+				var form_tmp = Ext.create('Ext.form.Panel');
+				Ext.Msg.show({
+					title:"提示",
+					msg:"您确定关闭这台计算机吗？",
+			    modal:true,
+					buttons:Ext.Msg.YESNO,	      				
+					fn:function(btn){
+						if(btn == 'yes'){
+							var form1 = form_tmp.getForm();
+							form1.submit({
+								clientValidation: true,
+								url:'/pronline/Msg?FunName@lan_onLineComp',
+								method: 'get',
+								params: {
+						    	compid: compid,
+						    	deal: 0
+						    }
+						  });
+						}
+					},
+					icon: Ext.Msg.QUESTION
+				}).setPosition(600,200);
+			}
+			//计算机重启
+			function restart(compid){
+				var form_tmp = Ext.create('Ext.form.Panel');
+				Ext.Msg.show({
+					title:"提示",
+					msg:"您确定重启这台计算机吗？",
+			    modal:true,
+					buttons:Ext.Msg.YESNO,	      				
+					fn:function(btn){
+						if(btn == 'yes'){
+							var form1 = form_tmp.getForm();
+							form1.submit({
+								clientValidation: true,
+								url:'/pronline/Msg?FunName@lan_onLineComp',
+								method: 'get',
+								params: {
+						    	compid: compid,
+						    	deal: 1
+						    }
+						  });
+						}
+					},
+					icon: Ext.Msg.QUESTION
+				}).setPosition(600,200);
+			}
+			//卸载客户端
+			function uninstal(compid){
+				var form_tmp = Ext.create('Ext.form.Panel');
+				Ext.Msg.show({
+					title:"提示",
+					msg:"您确定卸载这台计算机的客户端吗？",
+			    modal:true,
+					buttons:Ext.Msg.YESNO,	      				
+					fn:function(btn){
+						if(btn == 'yes'){
+							var form1 = form_tmp.getForm();
+							form1.submit({
+								clientValidation: true,
+								url:'/pronline/Msg?FunName@lan_onLineComp',
+								method: 'get',
+								params: {
+						    	compid: compid,
+						    	deal: 2
+						    }
+						  });
+						}
+					},
+					icon: Ext.Msg.QUESTION
+				}).setPosition(600,200);
+			}
+    	//最大化窗口
+    	function captureScreen(path1,gname,sip,compname,compid){
+    		var mode =0;
+    		//添加model
+    		var htmlStr = '<div style = "float:left;" width='+(document.body.clientWidth)+' height='+document.body.clientHeight+' ><iframe src="/v8/ssjk/lansspm.html?uid='+Math.random()+'" scrolling="no" width='+(document.body.clientWidth-35)+' height='+(document.body.clientHeight-85)+' FrameBorder=0 ></iframe></div>';/*+
+    		'<div width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ><iframe src="/v8/ssjk/lansspm.html?uid='+Math.random()+'" scrolling="no" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' FrameBorder=0 ></iframe></div>'+'<div width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ><iframe src="/v8/ssjk/lansspm.html?uid='+Math.random()+'" scrolling="no" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' FrameBorder=0 ></iframe></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'+
+    		'<div style = "float:left;" width='+document.body.clientWidth/3+' height='+document.body.clientHeight/3+' ></div>'*/
+/*				var resultTpl = new Ext.XTemplate(
+					'<tpl for=".">',
+						'<div style = "float:left;width:300;height:256;padding-left:50px;margin-top:10px;margin-bottom: 10px;" ondblclick = "" border = 1px>',
+							'<iframe src= "/pronline/Msg?FunName@getEachScreen&position@{#}"></iframe>',
+							'<p>{src}</p>',
+						'</div>',
+		      '</tpl>'
+	 			);
+*/		var w=window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+			
+			var h=window.innerHeight
+			|| document.documentElement.clientHeight
+			|| document.body.clientHeight;
+				var sspmwin = Ext.create('Ext.window.Window',{
+					width:w-20,
+					height:h-20,
+					floating:true,
+					modal: true,
+					constrain: true,
+					tbar:[{
+						xtype: 'combobox',
+		      	fieldLabel: '显示模式',
+		      	labelWidth: 60,
+		      	width:	150,
+		      	triggerAction: 'all',
+		      	valueField:'id',
+		      	value: '1',
+		    		displayField: 'text',
+		    		store: {
+		    			xtype: 'store',
+		    			fields:['id','text'],
+		    			data:[
+		    				{id:'1','text':'1x1'},
+		    				{id:'2','text':'1x3'},
+		    				{id:'3','text':'2x3'},
+		    				{id:'4','text':'3x3'}
+		    			]
+		    		}
+					}/*,{
+						text: '申请控制',
+						id:   'getCtr',
+						handler:function(){
+							mode = mode ^ 1;
+							var form1 = Ext.create('Ext.form.Panel').getForm();
+							var num = 0;
+							form1.submit({
+			          url: '/pronline/Msg?FunName@lan_sspm',
+								clientValidation: true,
+			          params: {
+			          	mode: mode,
+					        compid: compid,
+					        position: 5000,
+					        ip:GetIP.GetIP()
+						    },
+						    method: 'get',
+			          success: function(fp, o) {
+									var sh = setInterval(function(){
+										num++;
+										form1.submit({
+						          url: '/pronline/Msg?FunName@lan_getAccess',
+											clientValidation: true,
+									    method: 'get',
+									    params:{compid:compid},
+						          success: function(fp, o) {
+						        		alert(num);
+						          //	alert(o.result.msg);
+						        		if(o.result.msg == 5){
+						        			clearInterval(sh);
+						        			alert('连接成功');
+						        			var htmlStr1 = '<div style = "float:left;" width='+(document.body.clientWidth)+' height='+document.body.clientHeight+' ><iframe src="/v8/ssjk/lansspm.html?uid='+Math.random()+'" scrolling="no" width='+(document.body.clientWidth-35)+' height='+(document.body.clientHeight-85)+' FrameBorder=0 ></iframe></div>';
+						        			sspmwin.update(htmlStr1);
+						        		}
+						        		if(num>30){
+						        			clearInterval(sh);
+						        			alert('连接失败');
+						        		}
+						        	}	
+									 	});
+									},1000);
+			          }
+							});
+							
+						}
+					}*/],
+					title: "<b>部门:</b>"+gname+",<b>IP:</b>"+sip+",<b>用户名:</b>"+compname,
+					html:htmlStr
+				});
+				var form = Ext.create('Ext.form.Panel').getForm();
+				form.submit({
+          url: '/pronline/Msg?FunName@lan_sspm',
+          //waitMsg: 'Loading...',
+					clientValidation: true,
+          params: {
+          	mode: mode,
+		        compid: compid,
+		        position: 5000,
+		        ip:GetIP.GetIP()
+			    },
+			    method: 'get',
+          success: function(fp, o) {
+          	sspmwin.show();
+          }
+        });
+			}
+    
+         Ext.onReady(function(){
+        	
+        	Ext.QuickTips.init();
+          ncapp = new ncViewer.App();
+
+  setInterval('testright()',20000);   
+     
+        });
+           
+           
+           
+      
+    </script>
+
+    <script type="text/javascript" src="/v8/js/ncViewer.js"></script> 
+    <script type="text/javascript">
+		var now=new Date();
+		var number = now.getYear().toString()+now.getMonth().toString()+now.getDate().toString()+now.getHours().toString()+now.getMinutes().toString()+now.getSeconds().toString(); 
+		document.write("\<script language=\"javascript\" type=\"text/javascript\" src=\"/pronline/Msg?FunName@ncsSysUserRoleConfig_v4&time@"+number+"\"><\/script\>"); 
+
+   </script>
+</head>
+<body>
+</body>
+</html>

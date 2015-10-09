@@ -1,0 +1,88 @@
+
+<html>
+<head>
+<META content="text/html; charset="gb2312" http-equiv=Content-Type>
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<style>
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+	
+<title>禁止用户上网</title>
+<style>
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+A:link{
+color:#000000;text-decoration:none;
+font-size:9pt;
+}
+A:visited{
+color:#000000;text-decoration:none;
+font-size:9pt;
+}
+A:hover{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+A:active{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+	
+TD {	FONT-SIZE: 9pt}
+</style>
+<script>
+	function OK(){
+	form1.submit();
+	self.close();
+	}
+</script>
+</head>
+
+<body topmargin=5 leftmargin=0 bgcolor="#DEE8FA" scroll=AUTO >
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+    <input type="hidden" name="userid" value="[#userid#]">
+    <input type="hidden" name="ip" value="[#ip#]">
+  <input type="hidden" name="FunName" value="ncUserForbit">
+
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              暂时禁止上网[#mesg#]</div></td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2"> 
+        
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr height="30"> 
+            <td colspan="2">&nbsp;
+            	姓名&nbsp;<input type="text" name="uname" size="20" value="[#uname#]" readonly>
+
+            	禁止时间&nbsp;<input type="text" name="stime" size="6" value="[#stime#]" >&nbsp;秒
+
+            	<input name="submit1" type="button" class="an3"   onclick="OK()" value="确认" >
+            
+            	</td>
+          </tr>
+       
+       
+        </table>
+     </td>
+    </tr>
+	</table>
+	
+</form>
+</body>
+</html> 

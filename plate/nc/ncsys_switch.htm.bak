@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" width="100%"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">SNMP交换机参数设置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+ 	
+       
+
+        </table></td>
+    </tr>
+    	
+    <tr> 
+      <td>
+        <table width="100%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr><td>
+          	&nbsp;# SwitchName &nbsp;&nbsp;&nbsp;&nbsp; IP &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Port &nbsp;&nbsp;&nbsp;&nbsp;  LoginName &nbsp;&nbsp;&nbsp;&nbsp;  Key &nbsp;&nbsp;&nbsp;&nbsp;Type &nbsp;&nbsp;&nbsp;&nbsp;Max &nbsp;&nbsp;&nbsp;&nbsp;Step<br>
+             &nbsp;&nbsp; Dlink &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.0.2&nbsp;&nbsp;&nbsp;&nbsp;61 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;&nbsp;&nbsp;&nbsp;Snmp&nbsp;&nbsp;&nbsp;&nbsp;1000&nbsp;&nbsp;&nbsp;&nbsp;60
+
+          	
+          	</td>
+          </tr>
+          <tr> 
+            <td> <p align="center">
+                <textarea name="ncclient" cols="90" rows="18">[#ncclient#]</textarea>
+             
+              </p></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td height="70"><table width="100%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncShowSnmpConfSave">
+                <input type="submit" name="ok" value="保 存" class="an3">
+                &nbsp; 
+
+                &nbsp; 
+
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+
+</body>
+</html>

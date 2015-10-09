@@ -1,0 +1,228 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+self.location.href=t
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function showf(s1,s2,s3,s4,s5,s6,s7,s8,s9)
+{
+	form1.switchid.value=s1;
+	form1.ename.value=s2;
+	form1.ip.value=s3;
+	form1.stype.value=s4;
+	form1.sumport.value=s5;
+	form1.flags.value=s6;
+	form1.port.value=s7
+	form1.username.value=s8;
+	form1.password.value=s9;
+}
+    function Add()
+    {
+	    if(form1.ip.value==''||form1.ename.value=='')
+	    {
+	    	alert('ip和交换机说明不能为空');
+	    	return false;
+	    	}
+	    	return true;
+    }
+    function Mod()
+    {
+	    if(form1.switchid.value=='')
+	    {
+	    	alert('请先选择要修改的记录');
+	    	return false;
+	    	}
+
+	    	return true;
+    }
+    function Del()
+    {
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要删除的记录');
+	    	return false;
+	    }
+	    	return true;
+    }
+    
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:530px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+
+    height: 18px; 
+    text-align: center;
+    }   
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" style="overflow:hidden">
+
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center  bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="switchid" value="">
+	<input type="hidden" name="FunName" value="ncExpchangeBaseInfo">
+	
+ <tr> 
+    <td width="100%"  valign=middle align=center height="25" bgcolor="#dfdfdf" class="ttt">
+      <table width="100%" border="0" cellspacing="0">
+        <tr> 
+            <td height="35" bgcolor="#DEE8FA"> 
+              <table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="100%" >
+                  	  <table width="100%" >
+                  	  	<tr height="28">
+                  	  		<td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交换机说明 
+                            <input type="text" name="ename" size="32" value="">
+                            IP地址&nbsp;&nbsp;
+                           <input type="text" name="ip" size="15" value="">
+                           管理端口
+                           <input type="text" name="port" size="7" value="">
+                           
+                            账号
+                           <input type="text" name="username" size="16" value="">
+                    			</td>
+                    		</tr>
+                    		                    	
+                    		 <tr height="28">
+                  	  		<td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           交换机类型
+                           <select name="stype" style="width:237px">
+                           	<option value='TPLINK'>TPLINK</option>
+                           	<option value='Quidway-S2026'>Quidway-S2026</option>
+                           	<option value='Quidway-S2000'>Quidway-S2000</option>
+                           	<option value='TL-SL3210'>TL-SL3210</option>
+                           	<option value="3COM">3COM</option>
+                           	<option value="其它">其它</option></select>
+                            端口总数
+                           <input type="text" name="sumport" size="15" value="">
+                           状态&nbsp;&nbsp;&nbsp;&nbsp;
+                           <select name="flags" style="width:62"><option value='0'>不启用</option><option value="1">启用</option></select>
+                           
+                            口令
+                           <input type="text" name="password" size="16" value="">
+                    			</td>
+                    			
+                    		</tr>
+                    		
+                    	</table>
+                   </td>
+                  </tr>
+                 <tr height="28">
+                 	  <td>&nbsp;&nbsp;
+                 	  <input type="submit" name="add" value="添  加" onclick="return Add()" class="an3"> 
+                    <input type="submit" name="modi" value="修  改" class="an3" onclick="return Mod()"> 
+                    <input type="submit" name="del" value="删  除" class="an3" Onclick="return Del()"> 
+                    <input type="submit" name="app" value="应  用" class="an3"> 
+                 	  </td>
+                 	  
+                 	  
+                 	  
+                 	  
+                 	</tr>
+              </table> 
+            </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center > 
+      	<div class="tScrollw" id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA" >
+          <tr height="18" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td bgcolor="#6382BD" class="bord2" align="center">&nbsp;</td>
+            <td bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp;
+              交换机说明</font></td>
+            <td bgcolor="#6382BD" width="110" class="bord2" align="center"><font color="#FFFFFF">&nbsp;
+              IP 地址</font></td>
+            <td bgcolor="#6382BD" width="60" class="bord2" align="center"><font color="#FFFFFF">
+              管理端口</font></td>
+           <td  bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 
+              交换机类型</font></td>
+            <td  bgcolor="#6382BD" class="bord2" width="50" align="center"><font color="#FFFFFF">
+              端口数</font></td>
+              <td  bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 
+              帐号</font></td>
+              <td  bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 
+              口令</font></td>
+            <td bgcolor="#6382BD" class="bord2" width="50" align="center"><font color="#FFFFFF">&nbsp; 
+              状态</font></td>
+            <td bgcolor="#6382BD" class="bord4" width="120" align="center"><font color="#FFFFFF">&nbsp; 
+              更新时间</font></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="18" bgcolor="#FFFFFF" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#switchid#]','[#name#]','[#ip#]','[#stype#]','[#sumport#]','[#flags#]','[#port#]','[#username#]','[#password#]')" > 
+            <td class="bord1" width="25"> <input type="checkbox" name="chk[#iNum#]" value="[#switchid#]"> 
+            </td>
+            <td class="bord1" width="120">&nbsp;[#name#]</td>
+            <td class="bord1">&nbsp;[#ip#]</td>
+            <td class="bord1">&nbsp;[#port#]</td>
+            <td class="bord1">&nbsp;[#stype#]</td>
+            <td class="bord1">&nbsp;[#sumport#]</td>
+            <td class="bord1">&nbsp;[#username#]</td>
+            <td class="bord1">&nbsp;[#password#]</td>
+            <td class="bord1">&nbsp;[#flag_desc#]</td>
+            <td class="bord3">&nbsp;[#lasttime#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+			</div>
+    </form>
+</table>
+
+
+</body>
+
+</html>

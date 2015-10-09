@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>定义网段</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center" oncontextmenu="return false" >
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top"><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2"> <div align="center"><strong><font color="#FFFFFF">网段定义</font></strong></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td><br>
+        <table width="100%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+        	<tr height=20><td >&nbsp;1.一个网段共5个字段,按顺序分别为ID,Name,StartIp,EndIp,Base,字段间用空格分割.</td></tr>
+        	<tr height=20><td >&nbsp;2.#开头的为注释行.</td></tr>
+        	<tr height=20><td >&nbsp;3.Base字段为某网段出口的基准总流量,如果某网段的ip不连续的,可以多行描述，但ID和<br>&nbsp;&nbsp;&nbsp;Name要相同,基准总流量为各行之和。基准总流量用作计算流量比例的分母,单位Kbps。
+        		</td></tr>
+ 
+          <tr> 
+            <td> <p align="center"><br>
+                <textarea name="wdlist" cols="63" rows="16">[#wdlist#]</textarea>
+                
+              </p></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td height="70"><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebSystemSave_wd">
+                <input type="submit" name="ok" value="确 认" class="an3">
+
+                &nbsp; 
+                <input type="button" name="cancel" value="关闭" class="an3-1" onClick="self.close()">
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+</body>
+</html>

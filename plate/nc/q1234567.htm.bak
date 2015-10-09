@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>QQ安全中心</title>
+ 
+
+  
+ 
+<script> 
+var G_pageStartTime = new Date();
+</script>
+ 
+<link href="/css/qqglobal.css" rel="stylesheet" type="text/css" />
+<link href="/css/qqbase.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://aq.qq.com/v2/js/jquery.min.js?v=2.1"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js">-->
+<!--<script type="text/javascript" src="http://aq.qq.com/v2/js/common.js?v=2.1"></script>
+ -->
+<script> 
+var G_loginTimePoints = new Array();
+G_loginTimePoints[0] = new Date();//dom开始渲染
+</script>
+ 
+</head>
+<body>
+ 
+ 
+<!--Header-->
+<div id="headerAll">
+ 
+	<div id="header">
+ 
+    	<div id="top">
+		<a  class="logo" href="/" onclick="sendHotClick('HEADER.TO.LOGO');"><cite>QQ安全中心<br />在线生活安全护航</cite></a>
+        	<div class="right_info">
+            <ul>
+			
+			<li><a href="#xxm" id="header_login_but">登录</a></li>
+			
+			<li id="header_safe_express"><a href="#xxm" >求助</a></li>
+			<li><a href="http://aq.qq.com/v2/safe_school/report_index.shtml" target="_blank" onclick="sendHotClick('HEADER.TO.REPORT');">举报</a></li>
+			<li><a href="http://support.qq.com/discuss/387_1.shtml" target="_blank" onclick="sendHotClick('HEADER.TO.FEEDBACK');">反馈意见</a></li>
+			<li class="pr"><a href="javascript:;" onmouseover="ShowSubMenu('site_map_menu');" onmouseout="HideSubMenu('site_map_menu');">站点地图<b></b></a></li>
+            </ul>
+            </div>
+ 
+        </div>
+    
+    	<div id="menu">
+        	<ul>
+            <li id="menu_index"><a class="m1" href="http://aq.qq.com/cn2/index"><cite>首页</cite></a></li>
+			<li id="menu_toolbox"><a class="m5" href="http://aq.qq.com/cn2/manage/my_mb" onmouseover="ShowSubMenu('submenu_toolbox');" onmouseout="HideSubMenu('submenu_toolbox');"><cite>密保工具箱</cite></a></li>
+            <li id="menu_account_prot"><a  class="m2" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_prot" onmouseover="ShowSubMenu('submenu_account_prot');" onmouseout="HideSubMenu('submenu_account_prot');" ><cite>帐号保护</cite></a></li>
+            <li id="menu_pwd_manage"><a  class="m3" href="http://aq.qq.com/cn2/manage/my_mb/cn2/psw_mgr/psw_mgr_index" onmouseover="ShowSubMenu('submenu_pwd_manage');" onmouseout="HideSubMenu('submenu_pwd_manage');" ><cite>密码管理</cite></a></li>
+            <li id="menu_safe_mutual"><a  class="m4" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_school/safe_school_index" onmouseover=""><cite>安全学堂</cite></a></li>
+            </ul>
+        </div>
+		
+		<script type="text/javascript">
+		G_loginTimePoints[1] = new Date();//导航显示
+		</script>
+		
+   	   <a class="handheld" href="/app" target="_blank"></a>
+ 
+	   <!--密保工具箱下拉菜单-->
+<div class="accounts_list toolbox_list" id="submenu_toolbox" name="submenu" onmouseover="ShowSubMenu('submenu_toolbox', 'menu_toolbox', 'on5');" onmouseout="HideSubMenu('submenu_toolbox','menu_toolbox');"  style="display:none;">
+	<h3><a href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/my_mb"><cite>密保工具</cite></a></h3>
+	<ul>
+	<li><a class="t1" href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mobile/mobile_index?source_id=2228"><cite>密保手机</cite></a></li>
+	<li><a class="t2" href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mbtoken/mbtoken_home?source_id=2228"><cite>手机令牌</cite></a></li>
+	<li><a class="t3" href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/qqtoken/qqtoken_home?source_id=2228"><cite>QQ令牌</cite></a></li>
+	<li><a class="t4" href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mbk/my_mbk?source_id=2228"><cite>密保卡</cite></a></li>
+	<li><a class="t5" href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/question/my_question?source_id=2228"><cite>密保问题</cite></a></li>
+	</ul>
+</div><!--密保工具箱下拉菜单 End-->
+ 
+<!--帐号保护下拉菜单-->
+<div class="accounts_list" id="submenu_account_prot" onmouseover="ShowSubMenu('submenu_account_prot','menu_account_prot','on2');" onmouseout="HideSubMenu('submenu_account_prot','menu_account_prot');" name="submenu" style="display:none;">
+	<h3><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_prot"><cite>帐号保护</cite></a></h3>
+	<ul>
+    <li><a  class="a1" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_qbqd_prot"><cite>保护Q币Q点</cite></a></li>
+    <li><a  class="a2" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_game_prot"><cite>保护游戏</cite></a></li>
+    <li><a  class="a3" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_login_prot" ><cite>保护QQ登录</cite></a></li>
+    <li><a  class="a4" href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_key_prot"><cite>保护QQ SHOW物品</cite></a></li>
+    </ul>
+</div><!--帐号保护下拉菜单 End-->
+ 
+<!--密码管理下拉菜单-->
+<div class="accounts_list password_list" id="submenu_pwd_manage"  name="submenu" onmouseover="ShowSubMenu('submenu_pwd_manage','menu_pwd_manage','on3');" onmouseout="HideSubMenu('submenu_pwd_manage','menu_pwd_manage');" style="display:none;">
+	<h3><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/psw_mgr/psw_mgr_index"><cite>密码管理</cite></a></h3>
+	<ul>
+    <li><a  class="pw1" href="http://aq.qq.com/cn2/manage/my_mb/cn2/change_psw/change_psw_index"><cite>修改密码</cite></a></li>
+    <li><a  class="pw2" href="http://aq.qq.com/cn2/manage/my_mb/cn2/findpsw/findpsw_index"><cite>找回密码</cite></a></li>
+    <li><a  class="pw3" href="http://aq.qq.com/cn2/manage/my_mb/cn2/ipwd/my_ipwd"><cite>独立密码管理</cite></a></li>
+    <li><a  class="pw4" href="http://aq.qq.com/cn2/manage/my_mb/cn2/appeal/appeal_index"><cite>帐号申诉</cite></a></li>
+    </ul>
+</div><!--密码管理下拉菜单 End-->
+ 
+<!--站点地图-->
+<div class="m_h" style="display:none;" id="site_map_menu" onmouseover="ShowSubMenu('site_map_menu');" onmouseout="HideSubMenu('site_map_menu');">
+	<div class="m_h_t">站点地图<b></b></div>
+    <dl>
+    <dt><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/index">首页</a></dt>
+    </dl>
+    
+    <dl>
+    <dt><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_prot">帐号保护</a></dt>
+    <dd>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_qbqd_prot">Q币Q点保护</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_login_prot">QQ登录保护</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_game_prot">游戏保护</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_service/my_key_prot">QQ秀物品保护</a>
+    </dd>
+    </dl>
+    
+    <dl>
+    <dt><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/my_mb">密保工具箱</a></dt>
+    <dd>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/question/my_question">密保问题</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mobile/mobile_index">密保手机</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mbk/my_mbk">密保卡</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/qqtoken/qqtoken_home">QQ令牌</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mbtoken/mbtoken_home">手机令牌</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/manage/mb_reset/mb_reset_index">申请重置密保</a>
+    </dd>
+    </dl>
+    
+    <dl>
+    <dt><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/psw_mgr/psw_mgr_index">密码管理</a></dt>
+    <dd>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/findpsw/findpsw_index">找回密码</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/change_psw/change_psw_index">修改密码</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/appeal/appeal_index">帐号申诉</a><br />
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/ipwd/my_ipwd">独立密码管理</a>
+    </dd>
+    </dl>
+ 
+    <dl>
+    <dt><a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_school/safe_school_index">安全学堂</a></dt>
+    </dl>
+    
+    <dl class="n">
+    <dt class="g">其他</dt>
+    <dd>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/v2/safe_school/report_index.shtml">举报</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_school/url_appeal_index">网址申诉</a>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_school/url_query_index">网址安全检测</a><br />
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/personal_info/personal_info_index">个人资料</a>
+	<a  href="http://aq.qq.com/cn2/manage/my_mb/v2/notice/notice.shtml">系统公告</a>
+	<a  href="http://service.qq.com/special_auto/aq.html">腾讯客服</a>
+    </dd>
+    </dl>
+</div>
+<!--站点地图end-->
+</div>
+</div><!--Header End-->
+
+ 
+ 
+<!--Login-->
+<div id="loginbar">
+<div id="login">
+ 
+<div class="login" id="login_alert" style="display:block;z-index:10003;">
+        	<h3>用户登录</h3>
+			<iframe style="background-color:transparent;" allowTransparency="true" name="embed_login_frame" id="embed_login_frame" frameborder="0" scrolling="no" width="100%" height="100%" src="/pronline/Msg?FunName@ncWebReplace&plate@qqlogin.htm" ></iframe>
+        </div>
+ 
+ 
+<script> 
+document.domain="qq.com";
+ 
+function alert_login(url,isauto,lang,target){
+	if(document.getElementById("login_alert").style.display=="block")
+	{
+		return ;
+	}
+	if (typeof lang == "undefined")
+	{
+		lang=0;				//默认是简体中文
+	}
+	if(typeof url== "undefined")
+	{
+		url = "";
+	}
+	if(typeof isauto== "undefined")
+	{
+		isauto = true;
+	}
+	if (typeof target == "undefined")
+	{
+		target="top";				//默认是简体中文
+	}
+		 if (document.body.clientHeight)	
+		{
+			var sHeight = document.body.clientHeight ;
+		}
+		else if (window.innerHeight)
+		{
+			var sHeight = window.innerHeight ;
+		}
+ 
+		if (document.body.clientWidth)	
+		{
+			var sWidth = document.body.clientWidth;
+		}
+		else if (window.innerWidth)
+		{
+			var sWidth = window.innerWidth;
+		}
+		var ptLoginUrl = window.location.protocol + "//ui.ptlogin2.qq.com/cgi-bin/login";
+		/*if("https:" == window.location.protocol)
+		{
+			ptLoginUrl = "https://ssl.ptlogin2.qq.com/cgi-bin/login";
+		}*/
+		var deturl = escape(getHost() + url);
+		if(url.indexOf("http") == 0)
+		{
+			deturl = escape(url);
+		}
+		var s_url = (0 == url.length ? escape(window.location.href) : deturl);
+		s_url='http://aq.qq.com/cn2/index';
+		var param = "?appid=2001601&no_verifyimg=1&f_url=loginerroralert&lang=" + lang +"&target="+target+"&hide_title_bar=1&s_url=" + s_url+ "&qlogin_jumpname=aqjump&qlogin_param="+escape("aqdest="+s_url)+"&css="+"http://aq.qq.com"+"/v2/css/login.css");
+		var loginSrc = ptLoginUrl + param;
+		alert(loginSrc);
+		document.getElementById("embed_login_frame").src = loginSrc;
+		 var loginDiv = document.getElementById("login_alert");
+		if(isauto)
+		{
+			if(isIE6())
+			{
+				setCenter();
+			}
+			else
+			{
+				loginDiv.style.position = "fixed";
+				loginDiv.style.top = "27%";
+				loginDiv.style.left = "40%";
+				var FrameMarginTop =  -loginDiv.offsetHeight / 2 + "px";
+				var FrameMarginLeft = -loginDiv.offsetWidth / 2 + "px";
+				loginDiv.marginTop =   FrameMarginTop;
+				loginDiv.marginLeft = FrameMarginLeft;
+			}
+			
+		}
+		loginDiv.style.display = "block";
+}
+function alert_login_close()
+{
+	document.getElementById("login_alert").style.display = "none";
+}
+function ptlogin2_onResize(width, height) 
+{
+		//var outter_wnd = document.getElementById("login_round_info");
+		var outter_wnd = document.getElementById("embed_login_frame");
+		if (outter_wnd)	{
+			
+			outter_wnd.style.width = 350+"px";
+			outter_wnd.style.height = 315+ "px";
+			
+		}
+}
+ 
+function ptlogin2_onClose(){
+		login_wnd = document.getElementById("login");	
+		login_wnd.style.display="none"
+		mybg = document.getElementById("mybg");
+		mybg.style.display = "none";
+		document.body.removeChild(mybg);
+}
+function getHost() {
+	return window.location.protocol + "//" + window.location.host;
+}
+function isIE6()
+{
+	var isIE = (document.all)?true:false;
+	is_IE6 = isIE && ([/MSIE (\d)\.0/i.exec(navigator.userAgent)][0][1] == 6);
+	return is_IE6;
+}
+/*
+ *兼容IE6的居中定位
+ */
+function setCenter(){
+			$("#login_alert").css("position","absolute");
+			var FrameMarginTop =  document.documentElement.scrollTop - document.getElementById("login_alert").offsetHeight/2 + "px";
+			var FrameMarginLeft = document.documentElement.scrollLeft  - document.getElementById("login_alert").offsetWidth/2 + "px";
+			$("#login_alert").css({"marginTop":FrameMarginTop,"marginLeft":FrameMarginLeft});
+		}
+</script>
+ 
+ 
+</div>
+</div>
+<!--Login End-->
+ 
+ 
+<!--indexInfo-->
+<div id="indexinfo">
+	<dl>
+    <a href="http://aq.qq.com/cn2/manage/my_mb/cn2/appeal/appeal_index?source_id=2224">
+    <dt><i class="icon14"></i><span>帐号申诉</span></dt>
+    <dd>申诉和辅助好友申诉</dd>
+    </a>
+    </dl>
+ 
+	<dl>
+    <a  href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_express/safe_express_index?click=more10">
+    <dt><i class="icon11"></i><span>找回密码</span></dt>
+    <dd>了解如何找回密码的解决方案</dd>
+    </a>
+    </dl>
+ 
+	<dl>
+    <a href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_express/safe_express_index?click=more7">
+    <dt><i class="icon1"></i><span>忘记密保问题</span></dt>
+    <dd>了解忘记密保问题时的解决方案</dd>
+    </a>
+    </dl>
+    
+	<dl>
+    <a href="http://aq.qq.com/cn2/manage/my_mb/cn2/safe_express/safe_express_index?click=more2">
+    <dt><i class="icon2"></i><span>密保手机换号</span></dt>
+    <dd>了解密保手机换号时的解决方案</dd>
+    </a>
+    </dl>
+</div><!--indexInfo End-->
+ 
+ 
+ 
+<!--Footer-->
+<!--Footer-->
+<div id="footer">
+  <p><a href="http://www.tencent.com/" target="_blank">关于腾讯</a>|<a href="http://www.tencent.com/index_e.shtml" target="_blank">About Tencent</a>|<a href="http://www.qq.com/contract.shtml" target="_blank">服务条款</a>|<a href="http://hr.tencent.com/" target="_blank">腾讯招聘</a>|<a href="http://security.tencent.com" target="_blank">漏洞报告</a>|<a href="http://service.qq.com/" target="_blank">腾讯客服<span id="debug"></span></a></p>
+  <p>Copyright &copy; 1998 - 2012 Tencent. All Rights Reserved </p>
+  <p>腾讯公司 版权所有</p>
+</div>
+<script language="javascript"> 
+	if (typeof(timePoints) != "undefined")	
+	{
+		timePoints[0] = new Date();	
+		$(document).ready(function() {
+			timePoints[1] = new Date();
+		});	
+	}	
+</script>
+<iframe name="aqrjs_hidden_frame" id="aqrjs_hidden_frame" style="width:150px; height:150px; display:none;"></iframe>
+<!--Footer End-->
+ 
+ 
+ 
+<!--Footer End-->
+ 
+ 
+ 
+</body>
+</html>
+<script> 
+
+	alert_login("/cn2/index",true);
+
+$(document).ready(function(){
+
+	$("#menu_index").addClass("on1");
+	G_loginTimePoints[2] = new Date();//开始调用pt框时间
+
+	alert_login("/cn2/index",true);
+	setTimeout(report,100);
+ 
+	$("#header_login_but").css("display","none");
+});
+ 
+function report(){
+	var s = [];
+	for (var i=0; i<G_loginTimePoints.length; i++){
+		if (G_loginTimePoints[i]){
+			s.push((i+1)+"="+(G_loginTimePoints[i]-G_pageStartTime));
+		}
+	}
+	var ua = navigator.userAgent.toLowerCase();
+	var pageid = 15;
+	if(window.ActiveXObject) {//IE
+		var ver = ua.match(/msie ([\d.+])/)[1];
+		pageid = (ver==6)?12:(ver==9)?13:15;
+	}
+	else if(ua.indexOf("chrome") != -1){
+		pageid = 14;
+	}
+	var url = "http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7805&flag2=1&flag3="+pageid+"&"+s.join("&");
+	imgSendTimePoint=new Image();
+	imgSendTimePoint.src=url;
+}
+ 
+</script>
+

@@ -1,0 +1,460 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+    form1.FunName.value='nc_Sjhl_webvisit';
+    form1.CurPg.value = pagenum;
+}
+
+function userdel()
+{
+    form1.FunName.value = "ncWebMailMonDel_fl";
+    form1.submit();
+}
+
+function setSelect(o){
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+
+form1.ccode.value=ccod;
+
+}
+
+function mexp()
+{
+		form1.expexcel.value=1;
+    form1.FunName.value = "nc_Sjhl_webvisit";
+    form1.submit();
+}
+
+
+
+function  cvtcode()
+{
+    form1.FunName.value = "ncWebMailMonFlCvtCode";
+    form1.submit();
+}
+
+
+function goto3(){
+	form1.expexcel.value="";
+  form1.FunName.value = "nc_Sjhl_webvisit";
+  form1.submit();
+}
+
+
+function goto(o)
+{
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+var uid=o.cells[0].childNodes[0].childNodes[2].value;
+var msgfile=o.cells[0].childNodes[0].childNodes[3].value;
+var t="/pronline/Msg?FunName@nc_Sjhl_webvisit&ccode@"+ccod+"&userid@"+uid+"&msgfile@"+msgfile;
+    openwinflag=window.open(t,'RUNMIT_New','left=100,top=200,width='+610+',height='+480+',fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+//    tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:480px');
+    }
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+   
+	for(var i=1;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+function sjhl_sort(sjhlvalue){
+	form1.expexcel.value="";
+	form1.sjhl_st.value=sjhlvalue;
+  form1.FunName.value = "nc_Sjhl_webvisit";
+  form1.submit();
+}
+</script>
+
+<script src="/js/drawtable.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('DataTable', '100%', '570', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('访问时间', '源地址', '目标地址','URL','错误代码','错误信息','<input type="button" value="访问次数" onclick=sjhl_sort("lcou") class="anniu_3" >');
+Table.ColumnsWidth ('100', '100', '110', '240', '240', '100', '120');
+Table.HeaderAligment ('center', 'center', 'center', 'center', 'center', 'center', 'center');
+Table.BodyAligment ('center', 'left', 'left', 'left', 'left', 'center','right');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" onClick=\"setSelect(this);\" onDblClick=\"goto(this)\" ");
+//[#SLPB#]
+//Table.Row('<input type="checkbox" name="chk[#num#]" value="[#sid#]"><input type="hidden" name="ccod[#num#]" value="[#ccode#]"><input type="hidden" name="userid[#num#]" value="[#userid#]"><input type="hidden" name="msgfile[#num#]" value="[#file#]">','&nbsp;[#username#] ','&nbsp;[#from#] ','&nbsp;[#to#] ','&nbsp;[#sub#] ','&nbsp;[#sdate#]','[#size#]&nbsp;','&nbsp;[#att#]');
+//[#SLPE#]
+[#SLPB#]
+Table.Row('&nbsp;[#sjhl_stime#] ','&nbsp;[#sjhl_sip#] ','&nbsp;[#sjhl_dip#] ','&nbsp;[#sjhl_url#] ','&nbsp;[#sjhl_status#]','[#sjhl_message#]&nbsp;','&nbsp;[#sjhl_lcount#]');
+[#SLPE#]
+//-->
+</SCRIPT>
+
+<script src="/js/calendar.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+.anniu_3 {  background-color: #6382BD; height: 16px; width: 80px;font-size: 9pt; font-style: normal; font-weight: normal;BORDER-BOTTOM: 1px solid #6382BD; BORDER-LEFT:1px solid  #6382BD; BORDER-RIGHT: 1px solid #266AA8; BORDER-TOP: 1px solid  #6382BD; COLOR: #ffffff; top: 20px; clip:   rect(   )   cursor: hand}
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#DEE8FA" leftMargin=2 topMargin=0 scroll=no onload=Table.Draw()>
+	<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="FunName" value="nc_Sjhl_webvisit">
+  <input type="hidden" name="TotRec"      value="[#TotRec#]">
+  <input type="hidden" name="CurPg"      value="[#CurPg#]">
+  <input type="hidden" name="TotPg"      value="[#TotPg#]">
+  <input type="hidden" name="expexcel"        value="">
+  <input type="hidden" name="tname"      value="[#name#]">
+  <input type="hidden" name="where"      value="[#where#]">
+  <input type="hidden" name="sjhl_st"      value="[#sjhl_st#]">
+  <input type="hidden" name="sjhl_sv" value="[#sjhl_sv#]">
+		<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+	<tr>
+	   <td valign="top"><table width="100%"  cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle" >异常网站访问记录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">       	
+         	 <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+              	
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>               
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> 
+                 <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+               <td align=middle background="" width=92> 
+               <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+               </td>
+               <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>  
+  
+   <tr bgcolor="#DEE8FA">
+            <td width="100%" height="26" >&nbsp;
+        <!--      <input name="del" type="button" class="an3"  onclick="userdel()"    value="删 除"> 
+            转发 -->
+              <input type="text" name="keyword" size="25" value="[#keyword#]">
+              
+              时间从&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+            	<select name="shour" style="position:relative;left:-14px;">
+            	<option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	</select>
+            	<select name="smin" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+            	到&nbsp;<input type="text" name="edate" size="11" value="[#edate#]" ><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+            	<select name="ehour" style="position:relative;left:-14px;">
+            	<option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+
+            	</select>
+            	<select name="emin" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+              
+              <input name="zhuanfa" type="button" class="an3"  onclick="goto3()"    value="确 认">
+<!--
+            [#sflags#]编码:
+              <select name="ccode"  onChange="cvtcode()">
+                <option value="0" selected>简体</option>
+                <option value="1">繁体</option>
+                <option value="2">UTF8</option>
+                <option value="3">日文</option>
+              </select> &nbsp;-->
+              <input name="exp" type="button" class="an3"  onClick="mexp()"    value="导 出">
+              <div id="ccll"></div>
+            </td>
+   </tr>
+  
+  
+  	<TR>
+    		<TD valign="top" ><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+ 	</TABLE>
+ 		<script> form1.shour.value="[#shour#]";
+		       form1.smin.value="[#smin#]";
+		       form1.ehour.value="[#ehour#]";
+		       form1.emin.value="[#emin#]";
+		</script>
+ </form>		
+</BODY>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>用户信息</title>
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function qr()
+	{
+	
+	if(form1.password2.value==''){
+	   alert('请输入验证吗');
+		 return false;
+	}
+	else
+		return true;
+	}
+
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div align="center"></div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+ <form name="form1" method="post" action="/pronline/Msg" >
+ <input type="hidden" name="FunName" value="ncSecondLogin">
+
+<input type="hidden" name="username" value="[#username#]">
+<input type="hidden" name="con_flag" value="[#con_flag#]">
+
+<br>
+
+  <tr> 
+    <td><table width="80%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td  style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">第二密码验证</td>
+         
+        </tr>
+      </table></td>
+      
+  </tr>
+  <tr> 
+    <td height="108">
+
+        <br>
+        <table width="95%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+        	<tr><td height="35"> 
+          <div align="left"><strong>&nbsp;必须要第二密码验证后才能进入。<br><br>&nbsp;请输入第二密码.<br><br>&nbsp;</strong></div></td>
+        	</tr>
+        	<tr><td height="35" align="center"> 
+        		
+        	输入第二密码&nbsp;<input type="password" name="password2" size="16" >
+        		<input name="ok" type="submit" class="an3"   value="确认" onclick="return qr()">
+        		
+
+        		&nbsp;<font color="red">[#mesg#]</font>
+        		</td>        	
+        	</tr>
+        	
+         
+</form>
+
+</table>
+</body>
+</html>

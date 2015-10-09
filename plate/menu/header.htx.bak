@@ -1,0 +1,207 @@
+<HTML>
+<HEAD>
+<META content=0 http-equiv=Expires>
+<META content=no-cache http-equiv=Pragma>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2614.3500" name=GENERATOR>
+<script language="javascript" src="/js/browser.js"></script>
+<script language="javascript" src="/js/bottem.js"></script>
+<script>
+function goto(t){
+parent.sbpm_right.location.href=t
+}
+function goto2(t){
+parent.sbpm_left.location.href=t
+}
+</script>
+
+<script language="JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+
+
+function writehtml(){
+	var temp_html='';
+	
+	if('[#ssjk#]'!=''){
+		temp_html=temp_html+'<td width="40" valign=top>';
+		temp_html=temp_html+'<div align="center" ><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img1\',\'\',\'/images/images2/1-1.gif\')"';
+		temp_html=temp_html+'onclick="goto(\'/pronline/Msg?FunName@ncWebReplace&opmsg@1060&plate@nc/nc_ssjk_lab.htm\');goto2(\'/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm\');parent.go_show()" ';
+		temp_html=temp_html+'title="实时监控" ><img  name="Img1" src="/images/images2/1.gif" ></span></div></td>';
+	}
+	if('[#gdrz#]'!=''){
+		temp_html=temp_html+'<td width="40" valign=top>'; 
+    temp_html=temp_html+'<div align="center"><span  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img2\',\'\',\'/images/images2/2-1.gif\')" ';
+    temp_html=temp_html+'onclick="goto(\'/pronline/Msg?FunName@ncWebReplace&opmsg@1071&plate@nc/nc_gdrz_lab.htm\');goto2(\'/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm\');parent.go_show()" ';
+    temp_html=temp_html+' title="历史记录查看" ><img align=absMiddle name="Img2" src="/images/images2/2.gif" ></span></div></td> ';
+    
+         temp_html=temp_html+' <td width="40" valign=top> ';
+     temp_html=temp_html+'  <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img8\',\'\',\'/images/images2/7-1.gif\')" ';
+     temp_html=temp_html+'  onclick="goto(\'/pronline/Msg?FunName@ncWebBBSLog\');goto2(\'/no.htm\');parent.go_show()" ';
+     temp_html=temp_html+'  title="BBS表单" ><img align=absMiddle name="Img8" src="/images/images2/7.gif" ></span></div></td> ';
+    
+	}
+	if('[#swyh#]'!=''){
+		 temp_html=temp_html+'  <td width="40" valign=top> ';
+    temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img4\',\'\',\'/images/images2/11-1.gif\')" ';
+    temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebUserSearch\');goto2(\'/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_user_nolimit.htm\');parent.go_show()" ';
+    temp_html=temp_html+' title="用户管理" ><img align=absMiddle name="Img4" src="/images/images2/11.gif" ></span></div></td> ';
+ 
+	}
+	if('[#sz#]'!=''){	
+	  temp_html=temp_html+' <td width="40" valign=top> ';
+    temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img3\',\'\',\'/images/images2/10-1.gif\')" ';
+    temp_html=temp_html+' onclick="goto(\'/nc_networkset.htm\');goto2(\'/no.htm\');parent.go_hide()" ';
+    temp_html=temp_html+' title="网络设置" ><img align=absMiddle name="Img3" src="/images/images2/10.gif" ></span></div></td> ';
+   
+   
+   temp_html=temp_html+'  <td width="40" valign=top> ';
+   temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img5\',\'\',\'/images/images2/9-1.gif\')" ';
+   temp_html=temp_html+'  onclick="goto(\'/pronline/Msg?FunName@ncWebSystemSet_par\');goto2(\'/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_syssettree.htm\');parent.go_show()" ';
+    temp_html=temp_html+' title="系统参数" ><img align=absMiddle name="Img5" src="/images/images2/9.gif" ></span></div></td> ';
+   }
+	if('[#gzsz#]'!=''){
+		
+		temp_html=temp_html+' <td width="40" valign=top>  ';
+    temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img6\',\'\',\'/images/images2/12-1.gif\')"  ';
+    temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0\');goto2(\'/pronline/Msg?FunName@ncWebUserTree&fname@ncWebLim_Dispmenu&plate@tree/tree_menu_lim.htm\');parent.go_show()"  ';
+    temp_html=temp_html+' title="规则设置" ><img align=absMiddle name="Img6" src="/images/images2/12.gif" ></span></div></td>  '; 
+		
+		temp_html=temp_html+' <td width="40" valign=top>  ';
+    temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img15\',\'\',\'/images/images2/15-1.gif\')"  ';
+    temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_ctlbase_setmenu.htm\');goto2(\'/pronline/Msg?FunName@ncWebWebPolClass&plate@tree/nc_tree_limwebpol_top.htm&rownum@999\');parent.go_show()"  ';
+    temp_html=temp_html+' title="控制规则基础数据" ><img align=absMiddle name="Img15" src="/images/images2/15.gif" ></span></div></td>  ';
+
+    temp_html=temp_html+' <td width="40" valign=top>  ';
+    temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img16\',\'\',\'/images/images2/16-1.gif\')"  ';
+    temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_sentive_setmenu.htm\');goto2(\'/pronline/Msg?FunName@ncWebMailGroupEdit&plate@mail/nc_mailmonsettree.htm\');parent.go_show()"  ';
+    temp_html=temp_html+' title="敏感信息规则定义" ><img align=absMiddle name="Img16" src="/images/images2/16.gif" ></span></div></td>  ';
+	}
+	if('[#tj#]'!=''){
+		
+		 temp_html=temp_html+' <td width="40" valign=top> ';
+     temp_html=temp_html+' <div align="center"><span  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img7\',\'\',\'/images/images2/5-1.gif\')" ';
+     temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebSortUserByFlow&group@W&order@F\');goto2(\'/nc_sort.htm\');parent.go_show()" ';
+     temp_html=temp_html+' title="排行榜" ><img align=absMiddle name="Img7" src="/images/images2/5.gif" ></span></div></td> ';
+         
+
+        
+     temp_html=temp_html+' <td width="40" valign=top> ';
+     temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img9\',\'\',\'/images/images2/6-1.gif\')" ';
+     temp_html=temp_html+'  onclick="goto(\'/pronline/Msg?FunName@ncWebCountIp&opt@0\');goto2(\'/pronline/Msg?FunName@ncWebUserTree&opt@0&var@opt,&fname@ncWebCountIp&plate@tree/tree_menu.htm\');parent.go_show()" ';
+     temp_html=temp_html+'  title="流量分析" ><img align=absMiddle name="Img9" src="/images/images2/6.gif" ></span></div></td> ';
+         
+  
+     temp_html=temp_html+' <td width="40" valign=top> ';
+     temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img10\',\'\',\'/images/images2/8-1.gif\')" ';
+     temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebCountIp&opt@1\');goto2(\'/pronline/Msg?FunName@ncWebUserTree&opt@1&var@opt,&fname@ncWebCountIp&plate@tree/tree_menu.htm\');parent.go_show()" ';
+     temp_html=temp_html+' title="时间分析" ><img align=absMiddle name="Img10" src="/images/images2/8.gif" ></span></div></td> ';
+	}
+	if('[#xtgl#]'!=''){
+		
+		 temp_html=temp_html+' <td width="40" valign=top> ';
+     temp_html=temp_html+' <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage(\'Img11\',\'\',\'/images/images2/13-1.gif\')" ';
+     temp_html=temp_html+' onclick="goto(\'/pronline/Msg?FunName@ncWebShowSystemInfo\');goto2(\'/no.htm\');parent.go_hide()" ';
+     temp_html=temp_html+' title="系统信息" ><img align=absMiddle name="Img11" src="/images/images2/13.gif" ></span></div></td> ';
+	}
+
+	document.write(temp_html);
+}
+
+
+
+</script>
+
+<link rel="stylesheet" href="/css/title.css" type="text/css">
+<STYLE type=text/css>
+.coolButton {
+	
+	MARGIN: 0px;
+	}
+.skin0 {
+position:absolute;
+text-align:left;
+width:200px;
+border:2px solid black;
+background-color:menu;
+font-family:Verdana;
+line-height:20px;
+cursor:default;
+visibility:hidden;
+}
+.skin1 {
+cursor:default;
+font:menutext;
+position:absolute;
+text-align:left;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10pt;
+width:1px;
+background-color:menu;
+border:0 solid buttonface;
+visibility:hidden;
+border:0 outset buttonhighlight;
+}
+.menuitems {
+padding-left:2px;
+padding-right:2px;
+.red {color: red}
+.blue {color: blue}
+}table {  font-size: 9pt}
+div {  font-size: 9pt}
+.unnamed1 {  border: #000000; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+</STYLE>
+</HEAD>
+<BODY leftMargin=0 topMargin=0 marginheight="0"   onLoad="MM_preloadImages('/images/images2/1.gif','/images/images2/2.gif','/images/images2/4.gif','/images/images2/5.gif','/images/images2/6.gif','/images/images2/7.gif','/images/images2/8.gif','/images/images2/9.gif','/images/images2/10.gif','/images/images2/11.gif','/images/images2/12.gif','/images/images2/1-1.gif','/images/images2/2-1.gif','/images/images2/4-1.gif','/images/images2/5-1.gif','/images/images2/6-1.gif','/images/images2/7-1.gif','/images/images2/8-1.gif','/images/images2/9-1.gif','/images/images2/10-1.gif','/images/images2/11-1.gif','/images/images2/12-1.gif')">
+
+<TABLE width="100%"  border=0 cellPadding=0 cellSpacing=0 background="/images/images2/bg.gif">
+  <TR>
+    <TD>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td width="5" >&nbsp;</td>
+ <!-          <td width="40" valign=top> 
+            <div align="center" ><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Img17','','/images/images2/17-1.gif')"
+                 onclick="goto('/pronline/Msg?FunName@ncWebShowFirstRight');goto2('/pronline/Msg?FunName@ncWebShowFirstLeft');parent.go_show()"
+                 title="主页" ><img  name="Img17"
+                  src="/images/images2/17.gif" ></span></div>
+          </td> 
+-->
+          <script>writehtml();</script>
+         
+          <td width="40" valign=top> 
+            <div align="center"><span onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Img12','','/images/images2/14-1.gif')"
+                 onclick="goto('/pronline/Msg?FunName@ncWebWait&plate@nc/ncmsg_goto.htm');goto2('/no.htm');parent.go_hide()"
+                 title="系统刷新" ><img align=absMiddle name="Img12"
+                  src="/images/images2/14.gif" ></span></div>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>     
+    </TD></TR>
+  <TR>
+    <TD bgcolor="#0148b2" height="6"></TD></TR></TABLE>
+
+</BODY></HTML>

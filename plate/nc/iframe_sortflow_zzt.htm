@@ -1,0 +1,215 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns:v="urn:schemas-microsoft-com:vml">
+	  <link rel="stylesheet" href="/css/css.css" type="text/css">
+<HEAD>
+<TITLE> Test VML Chart for Version 1.0.1 </TITLE>
+<STYLE>
+    v\:* { BEHAVIOR: url(#default#VML) }
+</STYLE>
+<script language="Javascript" src="/js/drawsortzzt.js"></script>
+
+<script>
+	
+	 function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function lprint(){
+
+  MM_showHideLayers('clearStart3','','hide')
+  window.print()
+  MM_showHideLayers('clearStart3','','show')
+}
+	
+	
+	
+	  function queren(){
+//	if(form1.rptype.value!='2')
+			form1.submit();
+//	else{
+//		    temp="/pronline/Msg?FunName@ncWebReplace&plate@nc/ncsortflow_bt.htm&ltime@[#ltime#]&current@[#current#]&prev@[#prev#]&next@[#next#]&sdate@[#sdate1#]&edate@[#sdate2#]&userid@[#userid#]&groupid@[#groupid#]&stime@[#stime#]&etime@[#etime#]&report_name@[#report_name#]&title_name@[#title_name#]&rptype@"+form1.rptype.value;
+//        self.location.href=temp;
+      
+        
+//      }
+		
+}
+
+
+function changeselect()
+{
+
+var fg;
+	if(form1.group.value=="日"){
+	fg="day"
+	}else if(form1.group.value=="月"){
+	fg="month"
+	}
+	else
+	{
+	fg="week"
+	}
+	
+	if(form1.group.value=='9')
+	document.all.xxm.rows[0].cells[1].innerHTML="&nbsp;从&nbsp;<input type='text' name='sdate' value='[#sdate1#]' size='10' ><input type='text' name='stime' value='[#stime#]' size='2' maxlength='2' >&nbsp;到&nbsp;<input type='text' name='edate' value='[#sdate2#]' size='10' > <input type='text' name='etime' value='[#etime#]' size='2' maxlength='2' >";
+	else
+	{
+	document.all.xxm.rows[0].cells[1].innerHTML="<img src='/images/pre"+fg+".gif' onclick=form1.ltime.value='[#prev#]';form1.submit();><img src='/images/next"+fg+".gif' onclick=form1.ltime.value='[#next#]';form1.submit();>";
+	}
+	
+	form1.ltime.value='';
+	
+	form1.submit();
+
+}	
+	
+</script>
+</HEAD>
+
+<BODY bgcolor="#DEE8FA">
+	
+	
+<form method="post" name="form1" id='interip' action="/pronline/Msg" >
+<table border=0 cellspacing=0 width="100%" cellpadding=0 align="center">
+  <tr> 
+    <td id=clearStart   height="30"> 
+      <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+ 
+ 
+    [#title_name#][#report_name#]排行榜 日期:[#sdate1#]--[#sdate2#]
+    &nbsp;&nbsp;&nbsp;&nbsp;报表类型&nbsp;<select name="rptype" ><option value="1">表格</option><option value="2">饼图</option><option value="3">柱状图</option></select>
+      </div>
+    </td>
+  </tr>
+  <tbody> 
+  
+  <tr>
+    <td id=clearStart3  valign="top" width="50%"> 
+
+
+      <input type="hidden" name="FunName" value="ncWebSortUserByFlow">
+      <input type="hidden" name="ltime" value="[#current#]">
+      <input type="hidden" name="userid" value="[#userid#]">
+      <input type="hidden" name="groupid" value="[#groupid#]">
+	  
+          <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%" >
+            <tr> 
+              <td height="30" colspan="4" class="ttt"> 
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="xxm">
+                  <tr> 
+                    <td width="36%" height="13"> 
+                      <div align="center">排序&nbsp;<select name="order" style="position:relative;top:2px;">
+                                                   <option value="流量">流量</option>
+                                                    <option value="时间">时间</option>
+                                                
+                                                    </select>  统计时间&nbsp;
+                                                    <select name="group" style="position:relative;top:2px;" onchange="changeselect()"><option value="周">周</option>
+                                                    <option value="日">日</option>
+                                                    <option value="月">月</option> <option value="9">时间段</option>
+                                                    </select>显示&nbsp;<input name="sunrec" size="3" style="position:relative;top:2px;" value="[#sumrec#]" >&nbsp;行</div>
+                      </td>
+
+                    <td width="34%">&nbsp;<script>
+			var fg
+			if("[#group#]"=="日"){
+			fg="day"
+			}else if("[#group#]"=="月"){
+			fg="month"
+			}
+			else if ("[#group#]"=="9"){
+			fg="9";
+			}
+			else {
+			fg="week"
+			}
+			if((fg=="day")||(fg=="month")||(fg=="week"))
+			{
+			
+				document.write("<img src='/images/pre"+fg+".gif' onclick=form1.ltime.value='[#prev#]';form1.submit();> ")
+				document.write("<img src='/images/next"+fg+".gif' onClick=form1.ltime.value='[#next#]';form1.submit();> ")
+			}
+			if(fg=="9")
+			{
+				document.write("从&nbsp;<input type='text' name='sdate' value='[#sdate#]' size='10' ><input type='text' name='stime' value='[#stime#]' size='2' maxlength='2' >&nbsp;到&nbsp;<input type='text' name='edate' value='[#edate#]' size='10' > <input type='text' name='etime' value='[#etime#]' size='2' maxlength='2' >");
+			}
+                   </script>
+                   </td>
+                    <td width="30%" colspan="2">
+                      &nbsp;
+                      <input type="button"  name="Search"  class="an3" value="查询" onclick="queren()">
+                      <input name="cx" type="button" class="an3" onClick="goto1('/pronline/Msg?FunName@ncSortDispForm+sort_flag@1+group@9')"  value="高级查询"> 
+                      <input name="save1" type="button" class="an3" onClick="lprint()"  value="打 印">                
+                    <input name="exp" type="submit" class="an3" value="导 出"></td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+ </table>
+  </form>
+      <script>form1.group.value='[#group#]';
+      form1.order.value='[#order#]';
+      form1.rptype.value='[#rptype#]';
+      </script>
+	
+<div id=test1>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var tmp = new Array();
+
+//柱状图
+var chart = new VerticalBarChart();
+
+//线图
+//var chart = new VerticalLineChart();
+
+chart.Text.Font.Size = 20;
+chart.Text.Font.Style = fstBold;
+chart.Shadow = false;
+chart.Container = test1;
+chart.Text.Text="部门上网[#caLabel#]统计([#unit#])";
+chart.initialise();
+
+var s = new Series();
+var label = new Array([#SLPB#]"[#username#]",[#SLPE#]"");
+
+for(var i=0;i<label.length-1;i++){
+temp_fs=new Array([#SLPB#]"[#bytes#]",[#SLPE#]"")
+v=Math.round(temp_fs[i]);
+  tmp[tmp.length] = v;
+  s.addData(label[i],v);
+}
+s.Title = "[#caLabel#]";
+s.Color = "red";
+chart.addSeries(s);
+
+
+chart.draw();
+
+//-->
+
+</SCRIPT>
+</div>
+</BODY>
+
+</HTML>

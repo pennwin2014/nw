@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>计费基本参数</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function doSubmit(t) {
+	     form1.xdo.value = t;
+	     alert(form1.pid.value);
+		 form1.submit();
+         parent.parent.sbpm_left.location.href="/pronline/Msg?FunName@ncBilFeeSetTree&pid@0&opt@1";
+	}
+
+    function InitValue() {
+        setradio(form1.timeway,'[#timeway#]');
+        setradio(form1.feetype,'[#feetype#]');
+	}
+
+
+ 	function setradio(ob,t){
+	   var j=ob.length;
+       if(t=='' || t == ' ') t = '9';
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+
+    function setcheck(ob,t){
+       j=ob.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = ob.options[i].value;
+           if(gv == t) {
+               ob.selectedIndex = i;
+           }
+       }
+    }
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+.style2 {
+	color: #000000;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style="overflow:hidden"  onLoad="InitValue()">
+<form action="/pronline/Msg" method="post" name="form1" target="_parent">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><br>
+        <table width="74%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br> 
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td><div align="center">计费基本参数设置</div></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td height="26">策略名称</td>
+                  <td width="66%" height="26"><input type="text" name="name" value="[#name#]" size="31" maxlength="31"></td>
+                </tr>
+                <tr>
+                  <td height="26">说明</td>
+                  <td height="26"><input type="text" name="descr" value="[#descr#]" size="63" maxlength="127"></td>
+                </tr>
+                <tr>
+                  <td height="26" rowspan="2">时间计算方式</td>
+                  <td height="26"><input name="timeway" type="radio" value="0"> 
+                  登录结束和开始时间之差</td>
+                </tr>
+                <tr>
+                  <td height="12"><input name="timeway" type="radio" value="1">
+根据数据包经过的时间计算上网时间</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" rowspan="2"><div align="left">付费方式</div></td>
+                  <td height="26"><p>
+                      <input name="feetype" type="radio" value="0"> 
+                    后付费（使用后统一结算）
+</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="12">
+                    <input name="feetype" type="radio" value="1">
+预付费（从余额中扣除，一旦费用扣完，用户将不能再上网）</td>
+                </tr>
+                <tr>
+                  <td height="26" rowspan="5">结算时间</td>
+                    <td height="26">结算周期：[#feeway#]</td>
+                </tr>
+<!--                <tr>
+                  <td height="12">结算时间：第[#feemon#]月第[#feeday#]天[#feehou#]</td>
+                </tr>
+-->
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td  align="center"  ><table width="50%" border="0" align="center">
+          <tr> 
+            <td height="26"> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncBilFeeSetProc">
+                <input type="hidden" name="pid" value="[#pid#]">
+                <input type="hidden" name="opt" value="1">
+                <input type="hidden" name="name" value="[#name#]">
+				<input type="hidden" name="xdo">
+                <input type="button" name="save" value="保 存" class="an3" onClick="doSubmit('S')">
+&nbsp;
+<!--<input type="button" name="app" value="应 用" class="an3" onClick="doSubmit('A')">   -->
+<input type="button" name="del" value="删除" class="an3" onClick="doSubmit('D')">                
+&nbsp; 
+                <input type="reset" name="cancel" value="取消" class="an3-1">
+&nbsp;            &nbsp; </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

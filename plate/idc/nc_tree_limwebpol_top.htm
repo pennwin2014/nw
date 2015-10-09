@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<script>
+
+    function idc_add(){
+    	form1.modiflag.value='';
+			form1.addflag.value=1;
+	    if(form1.gname.value==''){
+	    	alert('请填写要添加的策略名称');
+	    	return false;
+	    }
+	    if(form1.groupid.value==''){
+	    	alert('请选择左侧策略类型');
+	    	return false;
+	    }
+	    if(isNaN(form1.shour.value)){
+	    	alert('开始时间小时请输入(1~24)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.smin.value)){
+	    	alert('开始时间分钟请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.ssec.value)){
+	    	alert('开始时间秒请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.ehour.value)){
+	    	alert('终止时间小时请输入(1~24)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.emin.value)){
+	    	alert('终止时间分钟请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.esec.value)){
+	    	alert('终止时间秒请输入(1~59)的数字');
+	    	return false;
+	    }
+	    	return true;
+    }
+   
+    
+    function idc_mod(){
+    	if(form1.name.value==''){
+	    	alert('请先选择要修改的策略');
+	    	return false;
+	    }
+	    if(isNaN(form1.shour.value)){
+	    	alert('开始时间小时请输入(1~24)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.smin.value)){
+	    	alert('开始时间分钟请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.ssec.value)){
+	    	alert('开始时间秒请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.ehour.value)){
+	    	alert('终止时间小时请输入(1~24)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.emin.value)){
+	    	alert('终止时间分钟请输入(1~59)的数字');
+	    	return false;
+	    }
+	    if(isNaN(form1.esec.value)){
+	    	alert('终止时间秒请输入(1~59)的数字');
+	    	return false;
+	    }
+	    	
+			form1.modiflag.value=1;
+			form1.addflag.value='';
+	
+		}
+    
+    function idc_del(){
+   		 var flag=0;
+    	 for(var i=0;i<document.all.DataTable.rows.length;i++){
+		    if(document.all.DataTable.rows[i].cells[0].childNodes[1].checked){
+			    flag=1;
+			    break;
+		    }
+	    }
+	    if(flag==0){
+	    	alert('请先选择要删除的策略');
+	    	return false;
+	    }
+	    return true;
+    }
+  
+    function showf(sid,name,st,et,status) {
+        form1.gname.value=name;
+        form1.sdate.value=st.substr(0,10);
+				form1.shour.value=st.substr(11,2);
+				form1.smin.value=st.substr(14,2);
+				form1.ssec.value=st.substr(17,2);
+			//	alert(form1.tsdate.value+" "+form1.tshour.value+" "+form1.tsmin.value+" "+form1.tssec.value);
+				form1.edate.value=et.substr(0,10);
+				form1.ehour.value=et.substr(11,2);
+				form1.emin.value=et.substr(14,2);
+				form1.esec.value=et.substr(17,2);
+				form1.mo_sid.value=sid;
+				form1.idc_status.value=status;
+    } 
+  
+   function gotoRight(t){
+       parent.document.getElementById("add").src=t
+   }
+ 
+   function goto(t){
+       self.location.href=t
+   }
+   function init(){
+   		if(form1.repflag.value==1){
+   			alert("策略名重复请重新添加");
+   			return	
+   		}
+   }   
+</script>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+<!--
+
+.css1 {
+	border: 1px solid #C5C5C5;
+	height: 15px;
+	font-size: 12px;
+}
+table {
+	font-size: 12px;
+	font-family: "Arial", "Helvetica", "sans-serif";
+	 "Verdana", "Arial", "Helvetica", "sans-serif", "宋体"; 
+}
+
+a:link {
+	text-decoration: none;	color: #00237e;
+}
+a:visited {
+	text-decoration: none;	color: #00237e;
+}
+a:hover {
+	text-decoration: none;
+	color: #00237e;
+}
+a:active {
+	text-decoration: none;
+	color: #00237e;
+    font-weight: bold;
+}
+
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:500px;
+    cursor: default;
+    }
+    
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script src="/js/calendar.js"></script>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#d0e1fa" style="overflow-y:hidden" onload="init();">
+	<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="sid" value="[#sid#]" >			
+	<input type="hidden" name="groupid" value="[#groupid#]" >		     
+  <input type="hidden" name="flags" value="1" >
+  <input type="hidden" name="FunName" value="ncsIdcRule_maintain">
+  <input type="hidden" name="plate" value="idc/nc_tree_limwebpol_top.htm">
+  <input type="hidden" name="addflag"   value="">
+  <input type="hidden" name="modiflag"   value="">
+  <input type="hidden" name="mo_sid" value="[#mo_sid#]">
+  <input type="hidden" name="repflag" value="[#repflag#]">
+
+<table width="260" border="1" cellspacing="0" cellpadding="0">
+	<tr >
+    <td colspan="2" width="260">
+    	<table width="100%">
+    		<tr><td>
+    	&nbsp;策略名&nbsp;<input type="text" name="gname" size="17">&nbsp;<select name="idc_status" style="width:50" >
+                  <option value="1" selected >启用</option>
+                  <option value="0" >停用</option>
+                </select></td>
+    	</tr>
+    	<tr><td>
+    	&nbsp;从&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+                 <input type="text" name="shour" value="[#shour#]" size=2 />：<input type="text" name="smin" value="[#smin#]" size=2 />：<input type="text" name="ssec" value="[#ssec#]" size=2 />
+                 <!--  
+                    <select name="shour" style="position:relative;left:-14px;">
+            	<option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	</select>
+            	<select name="smin" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+            	<select name="ssec" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+            	-->
+            	</td>
+    	</tr>
+    
+    	<tr><td>
+    	&nbsp;到&nbsp;<input type="text" name="edate" size="11" value="[#edate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+                   <input type="text" name="ehour" value="[#ehour#]" size=2 />：<input type="text" name="emin" value="[#emin#]" size=2 />：<input type="text" name="esec" value="[#esec#]" size=2 />
+                   <!--
+                    <select name="ehour" style="position:relative;left:-14px;">
+            	<option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	</select>
+            	<select name="emin" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+            	<select name="esec" style="position:relative;left:-14px;">
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	<option value="24">24</option>
+            	<option value="25">25</option>
+            	<option value="26">26</option>
+            	<option value="27">27</option>
+            	<option value="28">28</option>
+            	<option value="29">29</option>
+            	<option value="30">30</option>
+            	<option value="31">31</option>            	
+            	<option value="32">32</option>
+            	<option value="33">33</option>
+            	<option value="34">34</option>
+            	<option value="35">35</option>
+            	<option value="36">36</option>
+            	<option value="37">37</option>
+            	<option value="38">38</option>
+            	<option value="39">39</option>
+            	<option value="40">40</option>
+            	<option value="41">41</option>
+            	<option value="42">42</option>
+            	<option value="43">43</option>
+            	<option value="44">44</option>
+            	<option value="45">45</option>
+            	<option value="46">46</option>
+            	<option value="47">47</option>
+            	<option value="48">48</option>
+            	<option value="49">49</option>
+            	<option value="50">50</option>
+            	<option value="51">51</option>
+            	<option value="52">52</option>
+            	<option value="53">53</option>
+            	<option value="54">54</option>
+            	<option value="55">55</option>
+            	<option value="56">56</option>
+            	<option value="57">57</option>
+            	<option value="58">58</option>
+            	<option value="59">59</option>
+            	
+            	</select>
+            	-->
+            	</td>
+    	</tr>
+    	
+    	
+    </table>
+  </td>
+  </tr>
+  <tr height="28"> 
+    <td colspan="2">&nbsp;
+    	<input name="search" type="submit" class="an3-0" value="查询" onclick="return idc_sel()">
+    	<input name="add" type="submit" class="an3-0" value="添加" onclick="return idc_add()">
+      <input name="modi" type="submit" class="an3-0" value="修改" onclick="return idc_mod()">
+      <input name="del" type="submit" class="an3-0" value="删除" Onclick="return idc_del()">
+    </td>
+   </tr>
+   
+   <tr><td colspan="2" width="100%">
+   	  <div class="tScrollw" id="tC">
+  <table id="DataTable" border="0" cellspacing="0" cellpadding="0">   
+  <tr> 
+    <td colspan="2"><img src="/tree/base.gif" width="19" height="16"> <a onClick="gotoRight('/pronline/Msg?FunName@ncsIdcRulekey_maintain&groupid@[#groupid#]');" href="#xxm">【[#i_Rname#]】策略</a></td>
+  </tr>
+<!-- [#SLPB#] -->
+  <tr  onclick="showf('[#idc_sid#]','[#idc_kname#]','[#idc_stime#]','[#idc_etime#]','[#idc_sflag#]')"> 
+    <td width="20%"><img src="/tree/joinbottom.gif" width="14" height="16"><input type="checkbox" style="width:18px;height:18px" name="chk[#num#]" value="[#idc_sid#]" onClick="gotoRight('/pronline/Msg?FunName@ncsIdcRulekey_maintain&kid@[#idc_sid#]&groupid@[#groupid2#]')" ></td>
+    <td width="80%" onClick="gotoRight('/pronline/Msg?FunName@ncsIdcRulekey_maintain&kid@[#idc_sid#]&groupid@[#groupid2#]')" ><a href="#xxm">[#idc_kname#]</a></td>
+  </tr>
+<!-- [#SLPE#] -->
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+</form>
+</body>
+</html>

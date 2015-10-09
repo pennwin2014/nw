@@ -1,0 +1,56 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function w1()
+{
+var yy='<tbody>';
+  yy=yy+'<table style="position:relative;top:-20px;"><tr><td>&nbsp;<input type="submit" name="imcheck" value="立即检查" class="an3-1" >&nbsp;<input type="submit" name="fobitvist" value="禁止上网" class="an3-1">&nbsp;<input type="submit" name="restor" value="恢复" class="an3"></td></tr></table>';
+	yy=yy+'<div  class="tScroll" id="tC" style="position:relative;top:-20px;"> ';
+  yy = yy + '<table cellspacing=0 bordercolor="#DFDFDF"  id="DataTable" class="listDataTable" border="0" align="center" width="100%" >';
+  yy = yy + '<tr bgcolor="#6382BD" height="18" class="tableHead"  style="top:expression(document.getElementById(\'tC\').scrollTop)">';
+  yy = yy + '<td width="46" align="center" class="bord2" ><input type="button" name="b1" value="选择" class="anniu_1" onClick="allChecked()"></td>';
+  yy = yy + '<td width="17%" class="bord2" > 姓名</td>';
+  yy = yy + '<td width="12%" align="center" class="bord2" > <font color="#FFFFFF">部门</font></td>';
+  yy = yy + '<td width="14%" align="center" class="bord2" ><font color="#FFFFFF">IP地址</font></td>';
+  yy = yy + '<td width="14%" align="center" class="bord2" > <font color="#FFFFFF">MAC 地址</font></td>';
+  yy = yy + '<td width="11%" align="center" class="bord2" ><font color="#FFFFFF">最后检测</font></td>';
+  yy = yy + '<td width="20%" align="center" class="bord2" > <font color="#FFFFFF">代理类型</font></td>';
+
+  yy = yy + '<td width="7%" align="center" class="bord2"> <font color="#FFFFFF">状态</font></td>';
+  yy = yy + '</tr>';
+
+         <!-- [#SLPB#] -->
+  yy = yy + '<tr onMouseOver="mouseovertr2(this)" height="18" onMouseOut="mouseouttr2(this)" bgcolor="#ffffff">';
+  yy = yy + '<td  align="center" class="bord1"> <input type="checkbox" name="ch[#num#]" value="[#userid#]"> </td>';
+  yy = yy + '<td class="bord1"   nowrap >&nbsp;[#name#]</td>';
+  yy = yy + '<td class="bord1"  nowrap  >&nbsp;[#dept#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  >&nbsp;[#ip#] </td>';
+  yy = yy + '<td class="bord1"   nowrap >&nbsp;[#mac#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  >&nbsp;[#checktime#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  >&nbsp;[#proxy_descc#] </td>';
+
+  yy = yy + '<td class="bord3"  nowrap  align="center">[#status#]&nbsp;</td>';
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->
+
+        
+  yy=yy+'</table>';
+  yy=yy+'</div>';
+  yy = yy + '</tbody>';
+ 
+  parent.document.all.ff.innerHTML=(yy);
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

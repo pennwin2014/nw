@@ -1,0 +1,342 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+		form1.FunName.value='nccWebShowIplog';
+    form1.CurPg.value = pagenum;
+}
+
+function goto(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:540px');
+}
+
+
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:no;dialogHeight:300px');
+}
+
+function init()
+{
+parent.form1.sdate.value=form1.sdate.value;
+parent.form1.edate.value=form1.edate.value;
+parent.document.all.wlj.innerHTML="远程日志([#title_name#])";
+}
+
+
+ 	//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+function changservice(){
+callServer();
+//document.all.service.options[0].value='1';
+//document.all.service.options[0].text="111";
+
+
+}
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Rmsg?FunName@ncWebShowServiceDet&ProId@[#did#]&groupid@'+form1.serviceclass.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+ 
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+        
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+document.all.service.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.service.options[i].value=aid[i];
+ document.all.service.options[i].text=aname[i];
+	}
+
+   }
+ 
+ }
+	
+
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script src="/js/drawtable.js"></script>
+<script src="/js/calendar.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('flexibleTable', '100%', '420', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('单位','姓名', '源IP地址', '目标IP端口', '协议','服务','访问时间','总流量(bytes)');
+Table.ColumnsWidth ('100','100',  '90', '110', '45', '50', '115', '85');
+Table.HeaderAligment ('center',  'center', 'center', 'center', 'center', 'center', 'center', 'center');
+Table.BodyAligment ('left', 'left','left', 'left', 'center','center', 'center', 'right');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('&nbsp;[#cname#] ','&nbsp;[#dispname#]','&nbsp;[#sip#]','&nbsp;[#dip#]','&nbsp;[#prot#]','&nbsp;[#service#]','&nbsp;[#sdate#]&nbsp;[#stime#]','[#ubytes#]&nbsp;');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+  .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+	
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#DEE8FA" leftMargin=2 topMargin=2 scroll=no onload="init();Table.Draw()">
+	<form name="form1" method="post" action="/pronline/Rmsg">
+		<TABLE style="BORDER-RIGHT: 1px inset; BORDER-TOP: 0px ; BORDER-LEFT: 0px inset; BORDER-BOTTOM: 0px inset" height="500" cellSpacing=0 cellPadding=0 width="100%" border=0>
+	
+    <tr> 
+      <td valign="bottom" width="100%"  valign=middle align=center height="28" bgcolor="#DEE8FA" > 
+        <table width="100%" border="0" cellspacing="0">
+          <tr > 
+           
+            <td colspan="2" height="23" > &nbsp;&nbsp;&nbsp;
+               <input name="hsear" type="button" class="an3"  onclick="goto('/pronline/Msg?FunName@ncWebCorpDepSearch&flag@51')" value="高级查询">
+              <input name="export" type="submit" class="an3" id="export"  value="导 出" onclick="form1.FunName.value='nccWebShowIplog'">
+              <input type="hidden" name="fname" value="nccWebShowIplog">
+              <input type="hidden" name="CurPg"      value="[#CurPg#]">
+              <input type="hidden" name="TotPg"      value="[#TotPg#]">
+              <input type="hidden" name="ProId"      value="[#did#]">
+              <input type="hidden" name="lcount"      value="[#TotRec#]">
+              <input type="hidden" name="FunName" value="ncWebReplace">
+              <input type="hidden" name="plate" value="ncc/ncsmsg_showncc.htm">
+              <input type="hidden" name="uid" value="[#uid#]">
+              <input type="hidden" name="did" value="[#did#]">
+
+              <input type="hidden" name="cname" value="[#cname#]">
+
+							<input type="hidden" name="cond" value="[#cond#]">
+
+              <input type="hidden" name="sorta" value="[#sorta#]">
+              <input type="hidden" name="ordera" value="[#ordera#]">
+              <input type="hidden" name="userid" value="">
+            </td>
+            <td width="37%" height="23"> 
+              <table align=right border=0 cellpadding=0 cellspacing=0 class=main>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=browsdopage size=8 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+    <td align=middle background="" width=92> 
+      <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+    </td>
+    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+    <td align=middle background="" width=92> 
+      <input  class=Main id=browsdopage1 maxlength=8 name=browsdopage12 size=8 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+    </td>
+    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+	
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	  	       	<tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td  align="center">&nbsp;上网时间</td>
+          	  	     	<td><input type="text" name="sdate" value="[#sdate#]" size="12" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="stime" value="[#stime#]" size="4" maxlength="5">&nbsp;</td> 
+          	  	     	<td  align="center">&nbsp;到</td>
+          	  	     	<td ><input type="text" name="edate" value="[#edate#]" size="12" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="etime" value="[#etime#]" size="4" maxlength="5">&nbsp;</td> 
+          	  	     	<td  align="center">&nbsp;MAC地址</td>
+          	  	     	<td ><input type="text" name="mac" value="[#mac#]" size="18"></td>
+          	  	     	<td>&nbsp;端口</td>
+          	  	     	<td><input type="text" name="port" value="[#port#]" size="5" maxlength="5"></td>
+          	  	     	<td align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td width="90" align="center">&nbsp;用户名</td>
+          	  	     	<td width="180">
+          	  	     		<input type="text" name="username" value="[#username#]" size="16" >
+
+          	  	     		</td>  
+          	  	     	<td width="80" align="center">&nbsp;证件号</td>
+          	  	     	<td width="180"><input type="text" name="idfyno" value="[#idfyno#]" size="19"></td>
+          	  	     	<td width="80" align="center">&nbsp;源IP</td>
+          	  	     	<td ><input type="text" name="sip" value="[#sip#]" size="18"></td>
+          	  	     	<td width="50">&nbsp;协议</td>
+          	  	     	<td><select name="trantype">
+                      <option value=" " selected>全部</option>
+                      <option value="17">UDP</option>
+                      <option value="6">TCP</option>
+                    </select></td>  
+          	  	     	<td width="120" align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td width="90" align="center">&nbsp;目标IP</td>
+          	  	     	<td width="160"><input type="text" name="dip" value="[#dip#]" size="22" ></td> 
+          	  	     	
+          	  	     	<td > 服务大类</td>
+          	  	     	<td colspan="2"><select name="serviceclass" style="width:90" onchange="changservice()">
+          	  	     	<option value="" selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#cgid#]">[#cgname#]</option>
+                      [#SLPE#]
+                      
+                    </select>&nbsp;细分服务
+          	  	     	<select name="service" style="width:100">
+          	  	     	<option value=" " selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#id_s#]">[#name_s#]</option>
+                      [#SLPE#]
+                      
+                    </select></td>
+          	  	     	<td colspan="4">&nbsp;&nbsp;</td>
+ 
+          	  	        	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  	
+  	
+  	
+ 	</TABLE>
+ 		
+ </form>	
+<script>
+  	if('[#trantype#]'!='') form1.prot.value='[#trantype#]';
+ 		if('[#service#]'!='') form1.service.value='[#service#]';
+ </script>	
+</BODY>
+</html>

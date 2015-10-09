@@ -1,0 +1,70 @@
+
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>上传文件</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<script language="javascript">
+	function init(){
+		//alert(form1.temp_file.value);
+		//alert(form1.fj_flag.value);
+		if(form1.fj_flag.value==1){
+			dialogArguments.form1.fname.value=form1.fname.value;
+			dialogArguments.form1.filedesc.value=form1.filedesc.value;
+			dialogArguments.form1.temp_file.value=form1.temp_file.value;	
+		}else if(form1.fj_flag.value==2){
+			dialogArguments.form1.fname_tw.value=form1.fname_tw.value;
+			dialogArguments.form1.filedesc_tw.value=form1.filedesc_tw.value;
+			dialogArguments.form1.temp_file_tw.value=form1.temp_file_tw.value;	
+		}else if(form1.fj_flag.value==3){
+			dialogArguments.form1.fname_th.value=form1.fname_th.value;
+			dialogArguments.form1.filedesc_th.value=form1.filedesc_th.value;
+			dialogArguments.form1.temp_file_th.value=form1.temp_file_th.value;	
+		}else if(form1.fj_flag.value==4){
+			dialogArguments.form1.fname_for.value=form1.fname_for.value;
+			dialogArguments.form1.filedesc_for.value=form1.filedesc_for.value;
+			dialogArguments.form1.temp_file_for.value=form1.temp_file_for.value;	
+		}else if(form1.fj_flag.value==5){
+			dialogArguments.form1.fname_fiv.value=form1.fname_fiv.value;
+			dialogArguments.form1.filedesc_fiv.value=form1.filedesc_fiv.value;
+			dialogArguments.form1.temp_file_fiv.value=form1.temp_file_fiv.value;	
+		}
+		self.close();
+		//window.close(0);		
+	}
+</script>
+</head>
+
+<body  bgcolor=#eeeeee text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" onload="init();">
+<form name="form1" id="form1" method="post" action="/pronline/Msg" >
+ <input type="hidden" name="filedesc" value="[#filedesc#]">
+ <input type="hidden" name="temp_file" value="[#temp_file#]">
+ <input type="hidden" name="fname" value="[#fname#]">
+ <input type="hidden" name="fj_flag" value="[#fj_flag#]">
+ <input type="hidden" name="filedesc_tw" value="[#filedesc_tw#]">
+ <input type="hidden" name="temp_file_tw" value="[#temp_file_tw#]">
+ <input type="hidden" name="fname_tw" value="[#fname_tw#]">
+ <input type="hidden" name="filedesc_th" value="[#filedesc_th#]">
+ <input type="hidden" name="temp_file_th" value="[#temp_file_th#]">
+ <input type="hidden" name="fname_th" value="[#fname_th#]">
+ <input type="hidden" name="filedesc_for" value="[#filedesc_for#]">
+ <input type="hidden" name="temp_file_for" value="[#temp_file_for#]">
+ <input type="hidden" name="fname_for" value="[#fname_for#]">
+ <input type="hidden" name="filedesc_fiv" value="[#filedesc_fiv#]">
+ <input type="hidden" name="temp_file_fiv" value="[#temp_file_fiv#]">
+ <input type="hidden" name="fname_fiv" value="[#fname_fiv#]">
+</form>
+</body>
+
+</html>  

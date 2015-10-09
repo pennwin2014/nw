@@ -1,0 +1,83 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<META content="text/html; charset="gb2312" http-equiv=Content-Type>
+<title>登录</title>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<style type="text/css">
+<!--
+.handme {  cursor: hand}
+.bord4 {  border: #999999; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+table {  font-size: 9pt}
+.anan {  width: 90px}
+-->
+</style>
+<script>
+function goto(y){
+
+window.open(y,"_self","")
+
+}
+
+
+function ncHead()
+{
+      curl = '[#url#]';
+      openwinflag=window.open("/proauth/Msg?FunName@ncBillHeat&userid@[#userid#]&sid@[#sid#]",'ncauth','fullscreen=0,titlebar=no,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+      if(curl != '') {
+          goto(curl); 
+      }
+      openwinflag.focus();
+}
+</script> 
+</head>
+<body topMargin=0 leftmargin=0 marginheight="0" bgColor=Menu  onload="ncHead()"  >
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg">  
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="84%">
+   <tr> 
+    <td valign="top"> <br>
+        <input type="hidden" name="FunName" value="ncBillAuth" >
+        <input type="hidden" name="url" value="[#url#]" >
+        <table width="80%" border="0" align="center">
+        <tr>
+          <td>[#username#],欢迎您，您已成功登录到Internet</td>
+        </tr>
+      </table>
+        <table width="60%" border="0" align="center" cellpadding="4">
+        <tr> 
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="19%">&nbsp;</td>
+          <td width="81%">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="19%">&nbsp;</td>
+          <td width="81%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="20" colspan="2">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td height="20" colspan="2">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="1">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="40"> 
+      <div align="right">        &nbsp;&nbsp; </div>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+
+</html>

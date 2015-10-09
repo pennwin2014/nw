@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+
+<body bgcolor="#DEE8FA">
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+  
+  <tr> 
+    <td align="center"> 
+    	<form action="/pronline/Msg" method="post"  name="form1" >
+
+        <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center"> 
+              <table width="100%" border="0" align="center" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+
+                <tr height="25"> 
+                  <td colspan="3">
+                    <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">共导入[#tot#]个网址策略</div>
+                  </td>
+                </tr>
+                 <tr>
+                 	<td height=50 colspan="3" align="center">
+                 		                        <input name="return" type="button" onClick="self.close()"   class="anuse3" value="关闭"></td>
+                 	</td>      
+          
+                
+                               
+              </table>
+						</td>
+          </tr>
+
+ 
+      
+          
+          
+          
+          
+        </table>
+      </form></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

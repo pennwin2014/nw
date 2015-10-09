@@ -1,0 +1,542 @@
+<html> 
+<head>
+	<meta http-equiv="Content-Language" content="zh-cn">
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">	
+<title>用户上网登记</title>
+ <link href="/css/css.css" rel="stylesheet" type="text/css">
+ <style>
+ .tScrollbb {
+    overflow: scroll;
+    overflow-x:hidden;
+    height:470px;
+    cursor: default;
+    }
+ </style>
+
+ <script>
+ 	var ll=[#CurPg#]
+  var yy=[#TotPg#]
+</script>
+<script> 
+
+  function addw(){
+  if(form1.position.value==''){
+     alert('请填写房间号');
+     return;
+     }
+   if(form1.dispname.value==''){
+   alert('请刷卡');
+   return;
+   }
+   if(form1.password.value!=form1.password1.value){
+   alert('密码不一致');
+   return;
+   }
+   form1.FunName.value='ncHotelUser_add';
+   form1.submit();
+   
+   
+  }
+     function Edit(userid)
+    {
+	      t = "/pronline/Msg?FunName@ncWebReplace&plate@vpn/nc_user_frm.htm&userid@"+userid;   
+    var oDia=showModalDialog(t,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:500px;scroll:none;dialogHeight:400px;overflow:none");	
+ 
+    }
+
+
+
+
+
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+function userdel()
+{
+    form1.FunName.value = "ncWebDelSomeUser_hotel";
+    form1.submit();
+}
+</script>
+
+ 
+ <script>
+ 	function   window::onbeforeunload(){   
+   var strScanResult=CVR_IDCard.DoFreeScanner; 
+   } 
+ 	
+ 	
+ 	function ClearIDCard() {
+   CVR_IDCard.IDName="";
+   CVR_IDCard.cust_name="";
+   CVR_IDCard.Sex="";
+   CVR_IDCard.gender="";
+   CVR_IDCard.Nation="";
+   CVR_IDCard.nationality="";
+   CVR_IDCard.Birthday="";  
+   CVR_IDCard.Addr="";
+   CVR_IDCard.address="";
+   CVR_IDCard.IDCode="";
+   CVR_IDCard.card_code="";
+   CVR_IDCard.Dep="";
+   CVR_IDCard.ValidTime="";
+   //CVR_IDCard.NewAddr="";
+   CVR_IDCard.MRZ1="";
+   CVR_IDCard.MRZ2="";
+   CVR_IDCard.SurnameCH="";
+   CVR_IDCard.nameCH="";
+   CVR_IDCard.SurnameEN="";
+   CVR_IDCard.nameEN="";
+   CVR_IDCard.image="";
+   CVR_IDCard.PPType="";  
+   return true;
+}
+ 	
+function DoScannerInitial() { 
+
+    CVR_IDCard.DoFreeScanner;
+/*
+  var obj = new ActiveXObject("WScript.Shell");
+     try{
+			var s="HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\CVR100Z562BS\\InstallDirectory";
+			var sBSPath = obj.RegRead(s);
+			if (sBSPath !=null) {
+				
+			} 
+		} catch(e){
+			alert("本机没有安装CVR100Z562 扫描仪控件，需要下载安装！");
+		}
+*/
+	
+   CVR_IDCard.ScanResultPath="C:/";
+   ClearIDCard(); 
+   ClearForm(); 
+   document.all['ScanResult'].value ="初始化扫描仪...";
+   var strScanResult=CVR_IDCard.DoScannerInitial;     
+   //FillForm();  
+   if(strScanResult=='0'){
+   document.all['ScanResult'].value ="设备准备就绪";
+   }
+   else{
+   document.all['ScanResult'].value ="初始化失败";
+   }
+   //alert(strScanResult);  
+
+   return true;
+  
+ }
+ 
+ 	function ClearForm(){
+			document.all['dispname'].value = '';  		
+		  document.all['sex'].value = '';  
+		  document.all['idfytype'].value='111'; 
+		  document.all['idfyunit'].value = ''; 
+		
+		  document.all['idfyno'].value = ''; 
+	}
+ 
+ function FillForm() {
+  var pName=CVR_IDCard.cust_name;     //IDName; 
+  var pSex=CVR_IDCard.gender;         //Sex;
+  var pNation=CVR_IDCard.nationality; //Nation;
+  var pBirthday=CVR_IDCard.Birthday;
+  var pAddr=CVR_IDCard.address;       //Addr;
+  var pIDCode=CVR_IDCard.card_code;   //IDCode;
+  var pDep=CVR_IDCard.Dep;
+  var pValidTime=CVR_IDCard.ValidTime;
+  //var pNewAddr=CVR_IDCard.NewAddr;
+  var pImage=CVR_IDCard.image;
+  var pMRZ1=CVR_IDCard.MRZ1;
+  var pMRZ2=CVR_IDCard.MRZ2;
+  var pSurnameCH=CVR_IDCard.SurnameCH;
+  var pnameCH=CVR_IDCard.nameCH;
+  var pSurnameEN=CVR_IDCard.SurnameEN;
+  var pnameEN=CVR_IDCard.nameEN;
+  var pPPType=CVR_IDCard.PPType;
+
+  
+   document.all['dispname'].value = pName;
+   document.all['sex'].value = pSex;   
+   document.all['idfytype'].value='111'; 
+   document.all['idfyunit'].value = pAddr; 
+   document.all['idfyno'].value = pIDCode;  
+  return true;
+}
+ 
+ 
+ 
+ 
+ function DoReadIDCard2() {   
+   CVR_IDCard.ScanResultPath="c:/";    
+   ClearIDCard(); 
+   ClearForm(); 
+   document.all['ScanResult'].value ="二代证读卡...";
+   var strReadResult=CVR_IDCard.getCardInfo;     
+   FillForm();  
+   if(strReadResult=='0'){  
+   document.all['ScanResult'].value ='读卡成功';
+   }
+   else{
+   document.all['ScanResult'].value ='读卡失败';
+   }
+   
+  
+
+   return true;
+}
+ function DoScanIDCard1() {    
+   CVR_IDCard.ScanResultPath='c:/'; 
+   ClearIDCard(); 
+   ClearForm(); 
+   document.all['ScanResult'].value ="扫描一代证...";
+   var strScanResult=CVR_IDCard.DoScanIDCard1;     
+   FillForm();  
+   document.all['ScanResult'].value =strScanResult;
+  
+
+   return true;
+}
+ function DoScanIDCard2() {  
+     CVR_IDCard.ScanResultPath='c:/';   
+   ClearIDCard(); 
+   ClearForm(); 
+   document.all['ScanResult'].value ="扫描二代证...";
+   var strScanResult=CVR_IDCard.DoScanIDCard2;     
+   FillForm();  
+   document.all['ScanResult'].value =strScanResult;
+  
+
+   return true;
+}
+ function DoScanPassport() {      
+    CVR_IDCard.ScanResultPath='c:/'; 
+   ClearIDCard(); 
+   ClearForm(); 
+   document.all['ScanResult'].value ="扫描护照...";
+   var strScanResult=CVR_IDCard.DoScanPassport;     
+   FillForm();  
+   document.all['ScanResult'].value =strScanResult;
+  
+   return true;
+}
+ 
+</script>
+ 
+ 
+</head>
+ <body onload="DoScannerInitial()" marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" style="overflow:hidden" >
+
+
+<form method="POST" action="/pronline/Msg" name="form1">
+	<input type="hidden" name="forbflag" value="0">
+  <input type="hidden" name="FunName" value="ncWebUserSearch_hotel">
+<table border="1" width=100% height=100% cellspacing="0" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" align=center bgcolor='#ffffff'>
+	<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0">
+         <tr height="26" bgcolor="#DEE8FA"> 
+        
+         <td  >        	
+         	 <table border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>               
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> 
+                 <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+               <td align=middle background="" width=92> 
+               <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+               </td>
+               <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         	
+         	 <td  id="aaaa"></td>
+         	
+         	
+         </tr>         
+         </table>
+      </td>
+  </tr>
+  
+  <tr><td>
+  	<table width="100%" cellspacing="0" cellpadding="0">
+  	 <tr bgcolor="#DEE8FA">
+  		 <td width="40">&nbsp;姓名</td>
+  		 <td>	<input type="text" name="dispname" value="" size="17" maxlength="30"> 
+  		 </td>
+  		 <td width="40">性别&nbsp;</td>
+  		 <td>
+  		<select name="sex" >
+  			<option value="1">男</option>
+  			<option value="2">女</option>
+  		</select> 		 	
+  		 </td>
+  		 <td>证件类型</td>
+  		 <td>
+  		 	<select name="idfytype" style="width:114px">
+  		 		<option value="111" selected>身份证</option>
+          <option value="133" >学生证</option>
+          <option value="123">军官证</option>
+          <option value="123" >警官证</option>
+          <option value="233">士兵证</option>
+          <option value="113">户口薄</option>
+          <option value="414">护照</option>
+          <option value="95">台胞证</option>
+          <option value="99">其他证件</option>
+        </select> 
+  		 </td>
+  		 <td>
+  		 	房间号
+  		</td>
+  		<td><input type="text" name="position" value="" size="15" maxlength="30"> 
+  		</td>
+  		
+  		<td colspan="2" rows="3" >
+  		 	
+  		</td>
+  			
+  	 </tr>
+  		
+  	<tr bgcolor="#DEE8FA">
+  		 <td>
+  		 	&nbsp;证件号
+  		 </td>
+  		 <td colspan="3">
+  		 	<input type="text" name="idfyno" value="" size="17" maxlength="30">  
+  		 	</td>
+  		
+  		 
+  		 <td>密码</td>
+  		 <td>
+  		 	<input type="password" name="password" value="" size="15" maxlength="30"> 
+  		</td>
+  		<td>密码确认</td>
+  		<td>
+  			<input type="password" name="password1" value="" size="15" maxlength="30">
+  		</td>
+  		
+
+  				
+  	 </tr>
+  		
+  	<tr bgcolor="#DEE8FA">
+  		 <td>
+  		 	&nbsp;住址
+  		 </td>
+  		 <td colspan="7">
+  		 	<input type="text" name="idfyunit" value="" size="40" maxlength="30"> 
+  		 	密码空时，自动取证件号后六位作为密码
+  		 	&nbsp;&nbsp;&nbsp;<font color="red">状态</font><input type="text" name="ScanResult" value="等待..." readonly size="14">
+  		 	</td>
+   		
+  			
+  	 </tr>	
+  		
+  		
+  		
+  		
+  	</table>
+  	
+  	
+  </td>
+  </tr>
+  
+  
+  
+  
+  
+          <tr bgcolor="#DEE8FA">
+            <td width="100%" height="30" >
+                &nbsp;
+                <input type="button" value="初始化" class="an3" name="ReadCardBtn1" onclick="DoScannerInitial()">
+                <input type="button" value="读卡" class="an3" name="ReadCardBtn" onclick="return DoReadIDCard2()">
+                <input name="add" type="button" class="an3"  onclick="addw()"  value="保存" >
+
+              <input name="del" type="button" class="an3"   onclick="userdel()" value="删除" >
+              <input name="pm" type="button" class="an3"   onclick="form1.forbflag.value='1';form1.FunName.value='ncUserFobflag_hotel';form1.submit()" value="退房" >           
+              <input type="text"  name="cond"  size="18" maxlength="31" value="[#cond#]">
+              <input name="search" type="submit" class="an3" value="查找" >
+              
+              <input type="button" value="扫描一代证" class="an3-1" name="ReadCardBtn2" onclick="DoScanIDCard1()">
+              <input type="button" value="扫描二代证" class="an3-1" name="ReadCardBtn2" onclick="DoScanIDCard2()">
+              <input type="button" value="扫描护照" class="an3-1" name="ReadCardBtn2" onclick="DoScanPassport()">
+              
+<!--
+              <input name="export"type="button" class="an3"   onClick="doexport()" value="导出" > 
+              <input name="export"type="button" class="an3"   onClick="openDr()" value="导入" > 
+              <input name="add" type="button" class="an3"   onclick="useradd()" value="增加" >
+               <input name="pm" type="button" class="an3"   onclick="form1.forbflag.value='0';form1.FunName.value='ncWebModSomeUserFobflag';form1.submit()" value="允许上网" >
+               <input name="pm" type="button" class="an3"   onclick="form1.forbflag.value='1';form1.FunName.value='ncWebModSomeUserFobflag';form1.submit()" value="禁止上网" >
+-->
+              <input type="hidden" name="groupid0" value="[#groupid0#]">
+
+              <input type="hidden" name="where" value="[#where#]">
+              <input type="hidden" name="sort" value="[#sort#]">
+              <input type="hidden" name="sortby" value="[#sortby#]">
+		  		   <input type="hidden" name="TotPg"      value="[#TotPg#]">
+             <input type="hidden" name="CurPg"      value="[#CurPg#]"> </td>
+             
+       </tr>
+  
+  
+  
+  <tr>
+      <td width="100%" align=center  valign=top bgcolor="#DEE8FA" > 
+      	<div class="tScrollbb"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="40" height="20" bgcolor="#6382BD" class="bord2"> 
+              <input type="button" name="b1" value="全选" class="anniu_1"  onClick="allChecked()">
+            </td>
+            <td width="125" bgcolor="#6382BD" class="bord2" onClick="DoSort('a.username')">姓 名</td>
+            <td width="105" bgcolor="#6382BD" class="bord2" onClick="DoSort('a.dispname')"><font color="#FFFFFF">登录名</font></div></td>
+            <td width="85" bgcolor="#6382BD" class="bord2" onClick="DoSort('a.ip')">IP地址</td>
+            <td width="89" bgcolor="#6382BD" class="bord2" onClick="DoSort('a.mac')">MAC地址</td>
+            <td width="150" bgcolor="#6382BD" class="bord2" >证件号码</td>
+            <td width="80" bgcolor="#6382BD" class="bord2" >房间号/位置</td>
+            <td width="80" bgcolor="#6382BD" class="bord2" >状态</td>
+            <td width="80" bgcolor="#6382BD" class="bord4" >操作</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#userid#]"></td>
+            <td   class="bord1">&nbsp;[#dispname#]</td>
+            <td   class="bord1">&nbsp;[#username#]</td>
+            <td   class="bord1">&nbsp;[#ip#] </td>
+            <td   class="bord1">&nbsp;[#mac#]</td>
+            <td   class="bord1">&nbsp;[#idfyno#]</td>
+            <td   class="bord1">&nbsp;[#position#]&nbsp;</td>
+            <td   class="bord1">&nbsp;[#status#]&nbsp;</td>
+            <td   class="bord3" >&nbsp;<a href="#xxm" onclick="Edit('[#userid#]')">修改</a></td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="20" id=[#snum#]> 
+            <td   class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </div> 
+
+      </td>
+  </tr>
+</table>
+
+</form>
+ <OBJECT classid="clsid:552E3172-72E5-4B2C-BDE0-E5E64C6C9022" codebase="./CVR100ZOCX.inf"	id="CVR_IDCard" name="CVR_IDCard" width=0 height=0 >
+</OBJECT> 
+
+
+</body>
+ 
+</html>

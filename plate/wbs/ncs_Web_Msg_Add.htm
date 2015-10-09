@@ -1,0 +1,129 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+     function Add()
+    {
+	    if(form1.service_code.value=='')
+	    {
+	    	alert('请填写服务场所代码');
+	    	return false;
+	    	}
+	    
+	    if(form1.message_code.value=='')
+	    {
+	    	alert('请填写消息编号');
+	    	return false;
+	    	}
+	    
+	    if(form1.send_time.value=='')
+	    {
+	    alert('请填写发送时间');
+	    return false;
+	    }	
+	    	
+	    	return true;
+    }
+	 
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncsWbsMsgAdd">
+  <input type="hidden" name="message_id" value="[#message_id#]">
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: right;">
+              <div align="center">添加修改消息</div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center" >  
+      	<div style="height:560px;overflow-y:scroll;">
+        <div align="center">
+          <table width="49%" height="177"   border="0"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top"><br> 
+                
+                <table width="115%" height="161" border="0" align="center">
+                  
+                  
+                  
+                  
+                  
+                  
+                  <tr height="26"> 
+                    <td height="32" ><div align="right">消息编号</div></td>
+                    <td height="32" > <input type="text" name="message_code" value="[#message_code#]" size="33" maxlength="31">                    </td>
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">服务场所编码</div></td>
+                    <td height="26" > <input type="text" name="service_code" value="[#service_code#]" size="33" maxlength="31">
+                    </td>
+				   				
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">发送时间(格式:YYYY-MM-DD HH:MM:SS)</div></td>
+                    <td height="26" > <input type="text" name="send_time" value="[#send_time#]" size="33" maxlength="31">                    </td>
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">发送方向</div></td>
+                    <td><select name="flags" style="width:80px">
+                        <option value="0">管理中心</option>
+                        <option value="1">场所端</option>
+                        <option value="2">待发送</option>
+                        </select>
+                   </td>
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">消息标题</div></td>
+                    <td height="26" > <input type="text" name="message_title" value="[#message_title#]" size="33" maxlength="31">                    </td>
+                  </tr>
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">消息内容</div></td>
+                    <td> <textarea type="text" name="message_content"  rows="4" cols="33">[#message_content#]</textarea>                    </td>
+                  </tr>
+                  
+                  <tr height="26">
+                   <td height="30" align="left"> <div align="right">
+                     <input type="submit" name="save" value="保 存" class="an3" onClick="return Add()">
+                   </div></td> 
+               &nbsp;&nbsp; 
+                <td align="left"><input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="history.back()">&nbsp;</td>
+                  </tr>
+                </table>              
+                <p>&nbsp;</p>   
+				      
+            </tr>
+          </table>
+      </div></td>
+	  
+   </tr>
+    
+  </table>
+           <script> 
+        form1.flags.value='[#flags#]'
+        </script>
+	</form>
+</BODY>
+</html>
+

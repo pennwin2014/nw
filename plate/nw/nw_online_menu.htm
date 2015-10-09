@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>计算机信息监控</title>
+<script>
+    function goto(t,o){
+        nclim_main.location.href=t;
+    }
+</script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bordercolor="#D4D4D4" bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table width=100% border="0" align=center cellpadding="0" cellspacing="0">
+    <tr> 
+      <td colspan="2"> 
+          <table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+            <tr > 
+              <td colspan="2"> <div align="center"><strong> <b><font color="#FFFFFF">[#dispname#]&nbsp;在线计算机监控信息</font></b></strong></div></td>
+            </tr>
+          </table>
+          <b></b></div></td>
+    </tr>
+    <tr> 
+      <td width="85%" height="21"> 
+        <div align="center"> 
+          <input name="base" type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@3',3)"   value="当前系统信息">
+          <input name="hardinfo" type="button" class="an3-1" onclick="goto('/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@2',2)" value="当前程序运行">
+          <input name="hardlog" type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@4',4)" value="当前屏幕内容">
+          <input name="softinfo" type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@5',5)" value="程序使用记录">
+        </div></td>
+      <td width="15%"> 
+        <div align="center"> </div></td>
+    </tr>
+    <tr> 
+      <td  colspan="2" valign="bottom"><table width="100%" border="0" height="660" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td><iframe name="nclim_main" src="/pronline/Msg?FunName@nwWebCompMon&gtype@[#gtype#]&id@[#id#]&opt@[#opt#]" width="100%" height="100%"  scrolling="Yes" FrameBorder=0></iframe> 
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

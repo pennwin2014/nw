@@ -1,0 +1,47 @@
+
+<html>
+<head>
+<title>服务器管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css.css" type="text/css">
+</head>
+
+<body bgcolor="#cccccc" text="#000000" leftmargin="12" topmargin="0">
+<table width="100%" border="0" bgcolor="#cccccc" height="100" class="bord4">
+  <tr> 
+    <td height="134"> 
+      <form name="form1" method="post" action="/pronline/Msg" >
+        <input type="hidden" name="FunName" value="zlRightSave">
+        <input type="hidden" name="opname"  value="[#opname#]">
+        <input type="hidden" name="lsum" value="[#lsum#]">
+
+        <table width="100%" border="0" bgcolor="#dfdfdf" cellspacing="0" cellpadding="4">
+          <tr bgcolor="Menu"> 
+            <td colspan="9" class="bord4"  height="23"> 
+              <div align="center"> 
+                <p><b><font color="#000000">资料属主</font></b></p>
+              </div>
+            </td>
+            <td class="bord4"  height="23" align="center">&nbsp;<input type="submit" name="add"   value="&nbsp;确认&nbsp;" ></td>
+          </tr>
+          [#SLPB#]
+		  <!--  -->
+          <tr>
+          [#SLPB#]
+            <td width="6%" valign="bottom" height="21" class="bord1"> 
+              <div align="right">
+                <input type="checkbox" name="ck[#i#]" value="[#owner#]" [#check#]>
+              </div>
+            </td>
+            <td width="14%" valign="bottom" height="21" class="bord1">[#owner#]</td>
+           [#SLPE#]
+          </tr>
+  		  <!--  --> 
+  		  [#SLPE#]     
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

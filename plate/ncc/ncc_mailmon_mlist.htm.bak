@@ -1,0 +1,279 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+    form1.FunName.value='nccMailMonList';
+    form1.CurPg.value = pagenum;
+}
+
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:620px');
+}
+
+function setSelect(o){
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+
+form1.ccode.value=ccod;
+
+}
+
+function mexp()
+{
+    form1.FunName.value = "nccWebMailMonExport";
+    form1.submit();
+}
+
+
+function cvtcode()
+{
+    form1.FunName.value = "nccWebMailMonCvtCode";
+    form1.submit();
+}
+
+function ggf(){
+document.all.ccll.innerHTML="到 &nbsp;<input type='text' id='zhuanfa' name='smail' value='' size=18 > <input type='submit' name='Button' value='确定' onclick='goto3()'>"
+}
+
+function ggs(){
+    tt=showModalDialog("/pronline/Msg?FunName@ncWebMailMonDispSform&username@[#dispname#]&flags@[#flags#]", window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:560px;scroll:no;dialogHeight:430px');
+}
+
+
+
+function goto3(){
+ form1.FunName.value = "ncWebMailMonFw";
+ form1.smail = document.all.smail.value;
+ form1.submit();
+}
+
+
+function goto(o)
+{
+var ccod=o.cells[0].childNodes[0].childNodes[1].value;
+var uid=o.cells[0].childNodes[0].childNodes[2].value;
+var msgfile=o.cells[0].childNodes[0].childNodes[3].value;
+var t="/pronline/Rmsg?FunName@nccWebMailMonRead&ProId@[#did#]&did@[#did#]&ccode@"+ccod+"&userid@"+uid+"&msgfile@"+msgfile;
+
+    openwinflag=window.open(t,'RUNMIT_New','left=100,top=200,width='+610+',height='+480+',fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+//    tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:480px');
+    }
+
+
+function init()
+{
+parent.form1.sdate.value=form1.sdate.value;
+parent.form1.edate.value=form1.edate.value;
+parent.document.all.wlj.innerHTML="远程日志([#title_name#])";
+}
+
+function cleara(){
+form1.sdate.value='';
+form1.edate.value='';
+form1.mailto.value='';
+form1.mailfrom.value='';
+form1.mailsub.value='';
+form1.username.value='';
+form1.uid.value='';
+form1.sip.value='';
+form1.mcontent.value='';
+}
+
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+
+<script src="/js/drawtable.js"></script>
+<script src="/js/calendar.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('DataTable', '100%', '420', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('<input type="button" name="b1" value="选&nbsp;&nbsp;&nbsp;"  class="anniu_1"  onClick="allChecked()">','单位名称', '姓名', '发件人', '收件人','主 题','发送时间','大 小','附 件');
+Table.ColumnsWidth ('30','80', '80', '98', '98', '146', '115', '55','40');
+Table.HeaderAligment ('left','center', 'center', 'center', 'center', 'center', 'center', 'center','center');
+Table.BodyAligment ('center','left', 'left', 'left', 'left', 'left', 'center','right','center');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" onClick=\"setSelect(this);\" onDblClick=\"goto(this)\" ");
+[#SLPB#]
+Table.Row('<input type="checkbox" name="chk[#num#]" value="[#sid#]"><input type="hidden" name="ccod[#num#]" value="[#ccode#]"><input type="hidden" name="userid[#num#]" value="[#userid#]"><input type="hidden" name="msgfile[#num#]" value="[#file#]">','&nbsp;[#cname#]','&nbsp;[#username#]','&nbsp;[#from#] ','&nbsp;[#to#] ','&nbsp;[#sub#] ','&nbsp;[#sdate#]','[#size#]&nbsp;','&nbsp;[#att#]');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#DEE8FA" leftMargin=2 topMargin=2 scroll=no onload="init();Table.Draw()">
+	<form name="form1" method="post" action="/pronline/Rmsg">
+		<TABLE  height="450" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <tr> 
+      <td width="100%"  valign=middle align=center height="25" bgcolor="#DEE8FA" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0">
+         
+          <tr> 
+            <td height="25"  align="left"  colspan="3">&nbsp;编码:
+              <select name="ccode"  onChange="cvtcode()">
+                <option value="0" selected>简体</option>
+                <option value="1">繁体</option>
+                <option value="2">UTF8</option>
+                <option value="3">日文</option>
+              </select> 
+
+      <!--        <input name="forward" type="button" class="an3"  onclick="goto1('/pronline/Msg?FunName@ncWebCorpDepSearch&flag@53')" value="高级查询"> 
+      -->
+              <input name="exp" type="button" class="an3"  onClick="mexp()"    value="导出内容"> 
+              <input name="exp1" type="submit" class="an3"  onclick="form1.CurPg.value='1';form1.FunName.value='nccMailMonList'"   value="导出列表"> 
+              <input type="hidden" name="fname" value="nccMailMonList">
+              <input type="hidden" name="CurPg"      value="[#CurPg#]">
+              <input type="hidden" name="TotPg"      value="[#TotPg#]">
+              <input type="hidden" name="ProId"      value="[#did#]">
+              <input type="hidden" name="lcount"      value="[#TotRec#]">
+              <input type="hidden" name="FunName" value="ncWebReplace">
+              <input type="hidden" name="plate" value="ncc/ncsmsg_showncc.htm">
+              <input type="hidden" name="uid" value="[#uid#]">
+              <input type="hidden" name="did" value="[#did#]">
+
+              <input type="hidden" name="cname" value="[#cname#]">
+              
+              <input type="hidden" name="sorta" value="[#sorta#]">
+              <input type="hidden" name="ordera" value="[#ordera#]"> 
+               <input type="hidden" name="userid" value="">
+                     </td>
+          
+            <td  colspan="1"><table align=right border=0 cellpadding=0 cellspacing=0 class=main width=200>
+                <tbody>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92> <input class=Main id=browsdopage2 maxlength=7  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)"> 
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> <input  class=Main id=browsdopage12 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'> 
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+                <td align=middle background="" width=92> <input  class=Main id=browsdopage12 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'> 
+                </td>
+                <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </table>&nbsp;&nbsp;
+              <div align="right">              </div></td>
+          </tr>
+        </table>  </td>
+  </tr>
+    
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	
+  	  	  	  	     <tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td width="100" align="center">&nbsp;收发时间</td>
+          	  	     	<td width="150"><input type="text" name="sdate" value="[#sdate2#]" size="11" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="sdate1" value="[#sdate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="75" align="center">&nbsp;到</td>
+          	  	     	<td width="155"><input type="text" name="edate" value="[#edate2#]" size="11" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-19px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-17px;" name="edate1" value="[#edate1#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="70" align="center">&nbsp;收件人</td>
+          	  	     	<td ><input type="text" name="mailto" value="[#mailto#]" size="17"></td>
+          	  	     	<td width="80">&nbsp;</td>
+          	  	     	<td width="80"> <input name="cxx" type="submit"  value="查 询" ></td>
+          	  	     	<td width="100" align="center"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td  align="center">&nbsp;用户名</td>
+          	  	     	<td ><input type="text" name="username" value="[#username#]" size="13" >
+
+          	  	     		</td>  
+          	  	     	<td  align="center" >&nbsp;有无附件</td>
+          	  	     	<td ><select name="fjflag" style="width:100"><option value="">不限</option>
+                  <option value="1">无</option><option value="2">有</option></select></td>
+          	  	     	<td  align="center">&nbsp;发件人</td>
+          	  	     	<td ><input type="text" name="mailfrom" value="[#mailfrom#]" size="17"></td>
+          	  	     	<td >&nbsp;</td>
+          	  	     	<td ><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>  
+          	  	     	<td  align="center"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td align="center">&nbsp;源IP</td>
+          	  	     	<td ><input type="text" name="sip" value="[#sip#]" size="16" ></td>  
+          	  	     	<td  align="center">邮件大于</td>
+          	  	     	<td  ><input type="hidden" name="ysf" value="3"><input type="text" name="mailsize" value="[#msize#]" size="12">
+                    </td>
+          	  	     	<td  align="center">主题包含</td>
+          	  	     	<td >
+                    <input type="text" name="mailsub" size="18" maxlength="44" value="[#mailsub#]" > 
+                   </td>
+ 
+          	  	   	<td colspan="3">&nbsp;正文包含&nbsp;<input type="text" name="mcontent" size="20" maxlength="44" value="[#mcontent#]" > 
+                   </td>  	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  	
+  	
+  	
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+</html>

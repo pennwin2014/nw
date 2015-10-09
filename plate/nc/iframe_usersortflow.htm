@@ -1,0 +1,45 @@
+<content>
+<table   width="100%" border="0" cellspacing="0" cellpadding="0"  >
+<tr  > 	
+<td width="130" class="bord1" height="22" align="center" >用户名</td>
+<td width="120" align="center" class="bord1" >IP地址</td>         
+<td class="bord1" align="center">流量(字节)</td>   
+<td class="bord1" align="center">带宽(bps)</td> 
+</tr>   
+[#SLPB#]
+<tr bgcolor="#ffffff" height="18">
+<td  class="bord1">&nbsp;<font color="#00237e"><a href="#xxm" onclick=openreport("/pronline/Msg?FunName@ncWebServiceStatByUserIf&userid@[#userid#]")>[#name#]</a></font> </td>
+<td  class="bord1">&nbsp;[#ip#]</td>         
+<td  class="bord1" align="right">[#sumbytes#]&nbsp;</td> 
+<td  class="bord1" align="right">[#band#]&nbsp;</td> 
+</tr>
+[#SLPE#]
+[#SLPB#]
+<tr bgcolor="#ffffff" id="[#snum#]" height="19">
+<td  class="bord1">&nbsp;</td>
+<td  class="bord1">&nbsp;</td>         
+<td  class="bord1">&nbsp;</td>  
+<td  class="bord1">&nbsp;</td> 
+</tr>
+[#SLPE#]
+</table>
+</content>
+<curtime>[#curtime#]</curtime>
+<curuser>[#curuser#]</curuser>
+<maxuser>[#maxuser#]</maxuser>
+<curip>[#curip#]</curip>
+<runtime>[#runtime#]</runtime>
+ 
+
+}
+
+ </SCRIPT> 
+
+</head>
+<body marginheight=0 leftmargin=5 marginwidth=0 topMargin="5" bottomMargin="5" rightMargin="5" BGCOLOR="#ffffff">
+<SCRIPT LANGUAGE="JavaScript">
+setTimeout(' w1()',1000)
+
+ </SCRIPT> 
+</body>
+</html>

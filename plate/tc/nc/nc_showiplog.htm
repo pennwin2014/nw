@@ -1,0 +1,220 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+		form1.FunName.value='nccWebShowIplog';
+    form1.CurPg.value = pagenum;
+}
+
+function goto(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:540px');
+}
+
+
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:no;dialogHeight:300px');
+}
+
+function init()
+{
+parent.form1.sdate.value=form1.sdate.value;
+parent.form1.edate.value=form1.edate.value;
+parent.document.all.wlj.innerHTML="远程日志([#title_name#])";
+}
+
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script src="/js/drawtable.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('flexibleTable', '100%', '500', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('单位','姓名', '源IP地址', '目标IP端口', '协议','服务','访问时间','总流量(bytes)');
+Table.ColumnsWidth ('100','100',  '90', '110', '45', '50', '115', '85');
+Table.HeaderAligment ('center',  'center', 'center', 'center', 'center', 'center', 'center', 'center');
+Table.BodyAligment ('left', 'left','left', 'left', 'center','center', 'center', 'right');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('&nbsp;[#cname#] ','&nbsp;[#dispname#]','&nbsp;[#sip#]','&nbsp;[#dip#]','&nbsp;[#prot#]','&nbsp;[#service#]','&nbsp;[#sdate#]&nbsp;[#stime#]','[#ubytes#]&nbsp;');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#DEE8FA" leftMargin=2 topMargin=2 scroll=no >
+	<form name="form1" method="post" action="/pronline/Msg">
+		<TABLE style="BORDER-RIGHT: 1px inset; BORDER-TOP: 0px ; BORDER-LEFT: 0px inset; BORDER-BOTTOM: 0px inset" height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+	
+    <tr> 
+      <td valign="bottom" width="100%"  valign=middle align=center height="28" bgcolor="#DEE8FA" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0">
+          <tr > 
+           
+            <td colspan="2" height="23" > &nbsp;&nbsp;&nbsp;
+               <input name="hsear" type="button" class="an3"  onclick="goto('/pronline/Msg?FunName@ncWebCorpDepSearch&flag@51')" value="高级查询">
+              <input name="export" type="submit" class="an3" id="export"  value="导 出" onclick="form1.FunName.value='nccWebShowIplog'">
+              <input type="hidden" name="fname" value="nccWebShowIplog">
+              <input type="hidden" name="CurPg"      value="[#CurPg#]">
+              <input type="hidden" name="TotPg"      value="[#TotPg#]">
+              <input type="hidden" name="ProId"      value="[#did#]">
+              <input type="hidden" name="lcount"      value="[#TotRec#]">
+              <input type="hidden" name="FunName" value="ncWebReplace">
+              <input type="hidden" name="plate" value="ncc/ncsmsg_showncc.htm">
+              <input type="hidden" name="uid" value="[#uid#]">
+              <input type="hidden" name="did" value="[#did#]">
+              <input type="hidden" name="sdate" value="[#sdate#]">
+              <input type="hidden" name="edate" value="[#edate#]">
+              <input type="hidden" name="cname" value="[#cname#]">
+              <input type="hidden" name="service" value="[#service#]">
+              <input type="hidden" name="trantype" value="[#trantype#]">
+              <input type="hidden" name="sip" value="[#sip#]">
+              <input type="hidden" name="dip" value="[#dip#]">
+              <input type="hidden" name="port" value="[#port#]">
+							<input type="hidden" name="cond" value="[#cond#]">
+              <input type="hidden" name="username" value="[#username#]">
+              <input type="hidden" name="sorta" value="[#sorta#]">
+              <input type="hidden" name="ordera" value="[#ordera#]">
+              <input type="hidden" name="userid" value="">
+            </td>
+            <td width="37%" height="23"> 
+              <table align=right border=0 cellpadding=0 cellspacing=0 class=main>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=browsdopage size=8 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+    <td align=middle background="" width=92> 
+      <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+    </td>
+    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+    <td align=middle background="" width=92> 
+      <input  class=Main id=browsdopage1 maxlength=8 name=browsdopage12 size=8 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+    </td>
+    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+	
+  	<TR>
+    		<TD valign="top">   			
+    		<div class="tScroll"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="47" height="20" bgcolor="#6382BD" class="bord2"> 
+              <input type="button" name="b1" value="全选" class="anniu_1"  onClick="allChecked()">
+            </td>
+            <td width="115" bgcolor="#6382BD" class="bord2" >姓 名</td>
+            <td width="105" bgcolor="#6382BD" class="bord2" ><font color="#FFFFFF">部门</font></div></td>
+            <td width="100" bgcolor="#6382BD" class="bord2" >服务名</td>
+            <td width="100" bgcolor="#6382BD" class="bord2" >时间</td>
+            <td width="112" bgcolor="#6382BD" class="bord2" >上行流量(bytes)</td>
+            <td width="121" bgcolor="#6382BD" class="bord2" >下行流量(bytes)</td>
+            <td width="123" bgcolor="#6382BD" class="bord4" >连接时间(s)</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onDblclick="goto('/pronline/Msg?FunName@ncWebDispUserModiForm&userid@[#userid#]')"> 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#userid#]"></td>
+            <td   class="bord1">&nbsp;[#username#]</td>
+            <td   class="bord1">&nbsp;[#dept#]</td>
+            <td   class="bord1" >&nbsp;[#service#] </td>
+            <td   class="bord1" >&nbsp;<a href="#xxm" onclick=showiplog("[#stime#]","[#etime#]","[#userid#]","[#lservice#]")>&nbsp;[#sdate#]</a></td>
+            <td   class="bord1" align="right">&nbsp;[#ubytes#]&nbsp;</td>
+            <td   class="bord1" align="right">[#dbytes#]&nbsp;</td>
+            <td   class="bord3" align="right">&nbsp;[#ctime#]&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="20" id=[#snum#]> 
+            <td   class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp; </td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </div> 	
+    			
+    			</TD>
+  	</TR>
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+</html>

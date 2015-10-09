@@ -1,0 +1,152 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script>
+	function init(){
+		document.getElementById("form1").status.value='[#status#]';
+		document.getElementById("form1").flags.value='[#flags#]';
+	}
+
+	      function openPic()
+        {
+              
+             
+          var htmlvar='<iframe src="/v8/softupdate/nc_pic_add.html" scrolling="no" name="drIframe" frameborder="no" style="width:480px;height:320px;"></iframe>';                       	
+		      var windr1 = new Ext.Window ({
+		                             id:"windr1",
+		                             title:"选择上传文件",
+		                             x:10,
+		                             y:0,
+		                             width:400,
+		                             height:200,
+		                             bodyPadding: 0,
+		                             modal:true,
+		//                         headerPosition: 'bottom',
+		                             resizable:true,
+		                             closable : true,
+		                             draggable:true,
+		                             html:htmlvar
+                                                
+         }
+        )
+
+         windr1.show();        
+                 
+                 
+                 
+                 
+    //            t="/v8/softupdate/ncs_soft_addmain.html";
+    
+  //              window.open(t,		                "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:400px;scroll:none;dialogHeight:200px;overflow:none");
+     //           var oDia=showModalDialog(t,window,
+		 //               "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:400px;scroll:none;dialogHeight:200px;overflow:none");
+                
+        }
+	
+function winclose(){
+var win = parent.Ext.getCmp('windr');
+    if (win) {
+       win.close();
+    }
+    }
+</script>
+
+</head>
+
+
+<body bgcolor="#DEE8FA" onload="init()">
+<form name="form1" id="form1" method="post" action="/pronline/Msg">
+
+	<input type="hidden" name="sid" value="[#sid#]">
+<table width="100%" border="0" height="230" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td valign="top"> 
+    	<table width="100%" height="24" border="0" cellpadding="0" cellspacing="0" >
+    	      <tr> 
+            <td >               
+                <table width="100%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" >
+                  <tr >              
+                    <td valign="middle">
+                      <div align="center"><strong><b> <font size="3">
+                    软件上传</b></font> </strong></div></td>                  
+                  </tr>
+                </table>
+              </td>
+          </tr>
+    	
+       
+      </table>
+     </td>
+  </tr>
+ 
+   <tr> 
+       <td>
+                    <table width="100%" border="0" height="230" align="center" cellpadding="0" cellspacing="0" bgcolor="#DEE8FA">
+                     
+
+                     <tr height="32"> 
+                        <td  valign="middle">&nbsp;软件名称</td>
+                        <td >&nbsp;<input type="text" name="softname" value="[#softname#]" style="width:140px"></td>
+                        <td >&nbsp;软件状态</td>
+                        <td >&nbsp;<select name="status" style="width:140px"><option value="0">可用</option><option value="1">不可用</option></select></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  >&nbsp;软件版本</td>
+                        <td >&nbsp;<input type="text" name="version" value="[#version#]" style="width:140px"></td>
+                        <td >&nbsp;适用范围</td>
+                        <td >&nbsp;<select name="flags" style="width:140px"><option value="0">对全部有效</option><option value="1">适用于XP 32位win7</option><option value="2">适用于win7（64)、win8(64位）</option><option value="3">适用于win8(32)</option></select></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  >上传软件
+                          
+                        <td colspan="3">
+                          <input type="text" name="filename" size="45" maxlength="63" value="[#filename#]" onfocus=this.blur()>
+                          <input type="button" name="Button" value="上传"  onClick="openPic()">
+
+                           </td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  >&nbsp;文件大小</td>
+                        <td >&nbsp;<input type="text" name="filesize" value="[#filesize#]" style="width:140px" readonly></td>
+                        <td >&nbsp;</td>
+                        <td >&nbsp;</td>
+                      </tr>
+                      <tr height="32"> 
+                   
+                        <td >&nbsp;MD5值</td>
+                        <td colspan="3"><input type="text" name="md5" value="[#md5#]" style="width:300px" readonly></td>
+                      </tr>
+                      <tr>
+                      	<td >&nbsp;备注</td>
+                      	<td colspan="3"><input type="text" name="note" value="[#note#]" style="width:300px">
+                        </td>
+                      	</tr>
+                    
+                      <tr bgcolor="#DEE8FA"> 
+                        <td height="40" colspan="4" align="center"> 
+                        
+                            <input name="ok" type="submit" class="an3" id="ok2" value="确 认">
+                            &nbsp; 
+                            <input name="return" type="button" onClick="winclose()"   class="an3" value="关闭">
+                            <input name="FunName" type="hidden" value="lanSoftUpload_save">
+                         </td>
+                      </tr>
+                    </table>
+       </td>
+    </tr>
+             
+        
+        </table>
+</form>
+
+</body>
+</html>

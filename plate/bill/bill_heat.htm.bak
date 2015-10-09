@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script>
+    var doflags=0;
+   function doBegin()
+   {
+        a=screen.width-310;
+        b=screen.height-210;
+        window.moveTo(a,b);
+        window.resizeTo(300,230);
+ 
+   }
+   function doEnd(){
+    if(confirm('关闭窗口时，请先检查是否已按断开连接按钮。\n按\"确认"关闭窗口,\"取消\"保留窗口'))
+     return ;
+    else
+     return false;
+   }
+  function doExit()
+  {
+      if(confirm("真的要断开连接吗?")) {
+           doflags = 1;
+           self.location.href="/proauth/Msg?FunName@ncBillLogout&userid@[#userid#]&sid@[#sid#]";
+           self.close();
+      }
+  }
+
+  function goto()
+   {
+       doflags = 1;
+       self.location.href="/proauth/Msg?FunName@ncBillHeat&userid@[#userid#]&sid@[#sid#]";
+   }
+
+
+  function gotoNew(t)
+  {
+       openwinflag=window.open(t,'ncpass','fullscreen=0,titlebar=no,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0,width=450,height=400');
+   }
+
+  function gotoDetail()
+  {
+       openwinflag=window.open("/proauth/Msg?FunName@ncWebBilFeeDetail&userid@[#userid#]&username@[#username#]",'ncpass','fullscreen=0,titlebar=no,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0,width=400,height=500');
+   }
+
+
+
+  function doConfirm()
+  {
+      if(doflags == 0) {
+          openwinflag=window.open("/proauth/Msg?FunName@ncBillHeat&userid@[#userid#]&sid@[#sid#]",'ncauth','fullscreen=0,titlebar=no,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+          return false;
+      }
+  }
+
+
+</script>
+<style type="text/css">
+<!--
+body {
+  font-size:9pt;
+	background-color: #ffffff;
+}
+-->
+</style></head>
+
+<body onload="doBegin();" onbeforeunload="return doEnd()">
+	<form name="form1" method="post" action="" >  
+  <input name="FunName" type="hidden" value="ncBillHeat" >
+  <input name="sid" type="hidden" value="[#sid#]" >
+  <input name="userid" type="hidden" value="[#userid#]">
+  <input name="flag" type="hidden" value="1"> 
+<table border="0" width="304" cellspacing="0" cellpadding="0">
+	<tr><td> <div id="xxd">
+			<table width="304" border="0" cellspacing="0" cellpadding="0">
+			  <tr >
+			    <td width="64">您的帐号</td>
+			    <td width="230">【[#username#]】</td>
+			  </tr>
+			  <tr>
+			    <td>起始时间</td>
+			    <td>【[#starttime#]】</td>
+			  </tr>
+			  <tr>
+			    <td>使用时间</td>
+			    <td>【[#sumtime#]】</td>
+			  </tr>
+			  <tr>
+			    <td>本次流量</td>
+			    <td>【[#sumflow#]KB】</td>
+			  </tr>
+			  <tr>
+			    <td>本次费用</td>
+			    <td>【[#sumfee#]元】</td>
+			  </tr>
+			 
+			  <tr>
+			    <td>剩余金额</td>
+			    <td>【[#leftfee#]元】</td>
+			  </tr>
+<!--			  
+			  <tr>
+			    <td>累计流量</td>
+			    <td>【[#totflow#]KB】</td>
+			  </tr>
+			  <tr>
+			    <td>累计时间</td>
+			    <td>【[#tottime#]】</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>累计费用</td>
+			    <td>【[#totfee#]元】</td>
+			  </tr>
+-->
+			</table>
+		</div>
+	</td>
+</tr>
+<tr height="30" >
+	<table cellspacing="0" cellpadding="0" border="0">
+  <tr >
+    <td colspan="2" height="30">
+    	  	
+     <input type="button" name="Button" value="修改口令" onClick="gotoNew('/proauth/Msg?FunName@ncWebBilDispUserPass&userid@[#userid#]&username@[#username#]')">
+      <input type="button" name="Button2" value="使用记录" onClick="gotoDetail()">
+
+      <input type="button" name="Button22" value="断开" onClick="doExit()">
+   
+   </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+<iframe name="main_if" id="data1" height="0" width="0" style="display:none" src="/proauth/Msg?FunName@ncBillHeat&userid@[#userid#]&sid@[#sid#]&flag@1"> </iframe>
+</body>
+</html>

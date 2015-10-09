@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<frameset rows="181,*" cols="*" framespacing="4" frameborder="yes" border="1" bordercolor="#0148b2">
+  <frame frameborder="no" src="/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&fname@ncImStatBySes&plate@tree/tree_group_imclient_top_0.htm" name="treeTop" noresize="noresize">
+<!-- 
+ <frame frameborder="no" src="/pronline/Msg?FunName@ncWebTreeDispGroup_New&plate@tree/tree_imclient_top.htm" name="treeTop" noresize="noresize">
+-->
+  <frame frameborder="no" src="/pronline/Msg?FunName@ncWebTreeDispUserRid&fname@ncWebImclientStatCont&plate@tree/tree_group_imclient_nolimit_2.htm" name="treeBot" >
+</frameset>
+<noframes><body>
+
+</body></noframes>
+</html>

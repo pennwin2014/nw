@@ -1,0 +1,181 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+self.location.href=t
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function showf(s1,s2,s3) {
+    form1.gid.value=s1;
+    form1.band.value=s2;
+    form1.dband.value=s3;
+
+}
+    function Add()
+    {
+	    if(form1.band.value=='')
+	    {
+	    	alert('请填写带宽');
+	    	return false;
+	    	}
+	    	return true;
+    }
+    function Mod()
+    {
+	    if(form1.gid.value=='')
+	    {
+	    	alert('请先选择要修改的内容');
+	    	return false;
+	    	}
+
+	    	return true;
+    }
+    function Del()
+    {
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要删除的内容');
+	    	return false;
+	    }
+	    	return true;
+    }
+    
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:548px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }   
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bgcolor="#DEE8FA">
+
+<table border="0" width=100%  cellspacing="0" cellpadding="0" align=center  bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <input type="hidden" name="FunName" value="ncGroupBandSet">                     
+  <input type="hidden" name="sid"  value="[#sid#]">
+  
+ 	<tr>
+	   <td valign="top"><table width="100%"  cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle1" >&nbsp;部门带宽对照表</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">        	
+         	 <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+             </tbody> 
+            </table>          	         	
+         	</td>
+         </tr>       
+         </table>
+      </td>
+   </tr>
+          <tr bgcolor="#DEE8FA" >
+            <td width="100%" height="30" colspan="2" >
+                  &nbsp; 上行带宽 
+                    <input type="text" name="band" size="16" value="[#band#]">(Mbps)
+                  &nbsp; 下行带宽 
+                    <input type="text" name="dband" size="16" value="[#dband#]">(Mbps)
+                   
+                   
+                    部门&nbsp;<select name="gid">
+                    	<option value="999999">全部</option>
+                    	[#SLPB#]
+                    	<option value="[#groupid#]">[#gname#]</option>
+                    	[#SLPE#]
+                    </select>
+       
+                   <input type="submit" name="add" value="添  加" onclick="return Add()" class="an3"> 
+                    <input type="submit" name="modi" value="修  改" class="an3" onclick="return Mod()"> 
+                    <input type="submit" name="del" value="删  除" class="an3" Onclick="return Del()"> 
+                    &nbsp;(部门带宽对照表的数据用于流量综合统计报表）
+                   
+           </td>
+       </tr> 
+  
+  
+  <tr>
+      <td width="100%"  valign=top align=center > 
+      	<div class="tScrollw" id="tC">
+        <table id="DataTable" width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA" >
+          <tr height="20" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td  bgcolor="#6382BD" class="bord2" align="center">&nbsp;</td>
+            <td  bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp;上行带宽(Mbps)</font></td>
+            <td  bgcolor="#6382BD" class="bord2" align="center"><font color="#FFFFFF">&nbsp;下行带宽(Mbps)</font></td>
+           <td  bgcolor="#6382BD" class="bord4" align="center"><font color="#FFFFFF">&nbsp; 
+              部门名称</font></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr bgcolor="#FFFFFF" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#gid#]','[#band#]','[#dband#]')" > 
+            <td class="bord1" width="25"> <input type="checkbox" name="chk[#iNum#]" value="[#gid#]"> 
+            </td>          
+            <td class="bord1">&nbsp;[#band#]</td>
+            <td class="bord1">&nbsp;[#dband#]</td>
+            <td class="bord3">&nbsp;[#groupname#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+        </div>
+</td>
+</tr>
+    </form>
+</table>
+
+
+</body>
+
+</html>

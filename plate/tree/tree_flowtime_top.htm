@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<script>
+   function gototot(groupid,userid){
+   top.frames.sbpm_right.form1.groupid.value=groupid;
+   top.frames.sbpm_right.form1.userid.value=userid;
+   top.frames.sbpm_right.form1.submit();
+      parent.treeBot.location.href='/pronline/Msg?FunName@ncWebTreeDispUser&plate@tree/tree_flowtime_bot.htm';
+   }
+   function goto(t){
+       parent.treeBot.location.href=t+'[#par#]&var@[#var#]';
+   }
+
+   function gotoRight(t){
+       top.sbpm_right.location.href=t+'[#par#]&var@[#var#]'
+   }
+
+   function clickImage(kk)
+   {
+       for(i=0;i<document.images.length;i++) {
+           if(document.images[i].src.search("/tree/folderopen.gif") != -1) {
+                document.images[i].src = "/tree/folder.gif";
+           }
+       }
+       kk.src = "/tree/folderopen.gif";
+   }
+       
+</script>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+<!--
+
+.css1 {
+	border: 1px solid #C5C5C5;
+	height: 15px;
+	font-size: 12px;
+}
+table {
+	font-size: 12px;
+	font-family: "Arial", "Helvetica", "sans-serif";
+	 "Verdana", "Arial", "Helvetica", "sans-serif", "宋体"; 
+}
+
+
+
+
+a:link {
+	text-decoration: none;	color: #00237e;
+}
+a:visited {
+	text-decoration: none;	color: #00237e;
+}
+a:hover {
+	text-decoration: none;
+	color: #00237e;
+}
+a:active {
+	text-decoration: none;
+	color: #00237e;
+    font-weight: bold;
+}
+
+
+-->
+</style>
+</head>
+
+<body leftmargin="0" bgcolor="#d0e1fa" topmargin="0" width="154" marginwidth="0" marginheight="0" style="SCROLLBAR-FACE-COLOR: #c1d8f9; OVERFLOW: scroll; SCROLLBAR-SHADOW-COLOR: #c1d8f9; SCROLLBAR-3DLIGHT-COLOR: #c1d8f9; SCROLLBAR-ARROW-COLOR: #5985ce; SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;">
+<table width="154" border="0" cellspacing="0" cellpadding="0" bgcolor="#d0e1fa">
+  <tr> 
+    <td colspan="2"><img src="/images/images2/tubiao.gif" > <a href="#xxm" onclick="gototot('','')">整个公司</a></td>
+  </tr>
+  <!-- [#SLPB#] -->
+  <tr> 
+    <td><img src="/tree/joinbottom.gif" width="14" height="16"><a onClick="clickImage(document.k[#groupid#]);goto('/pronline/Msg?FunName@ncWebTreeDispUser&groupid@[#groupid#]&plate@tree/tree_flowtime_bot.htm')" href="#xxm"><img name="k[#groupid#]" src="/images/images2/tubiao1.gif"  border="0"></a></td>
+    <td width="119"><div align="left"><a onClick="clickImage(document.k[#groupid#]);gototot('[#groupid#]','');goto('/pronline/Msg?FunName@ncWebTreeDispUser&groupid@[#groupid#]&plate@tree/tree_flowtime_bot.htm')" href="#xxm">[#groupname#]</a></div></td>
+  </tr>
+  <!-- [#SLPE#] -->
+</table>
+</body>
+</html>

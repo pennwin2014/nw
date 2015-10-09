@@ -1,0 +1,75 @@
+<html xmlns:x="urn:schemas-microsoft-com:office:excel">
+    <head>
+        <!--[if gte mso 9]><xml>
+            <x:ExcelWorkbook>
+                <x:ExcelWorksheets>
+                    <x:ExcelWorksheet>
+                        <x:Name>[#query#]_查询结果</x:Name>
+                        <x:WorksheetOptions>
+                            
+                        </x:WorksheetOptions>
+                    </x:ExcelWorksheet>
+                </x:ExcelWorksheets>
+            </x:ExcelWorkbook>
+        </xml>
+        <![endif]-->
+    </head>
+
+
+
+<table width="100%" border="0"  style="word-break:break-all" cellspacing="0" cellpadding="0">
+
+
+
+
+<tr><td class="greyborder">
+
+
+       <table border="1" align="center" width="100%" cellpadding="1" cellspacing="1"> 
+           <tr align="center">
+           
+              
+              <td class="TableTopHeader">&nbsp;作者
+              </td>
+              <td class="TableTopHeader">&nbsp;源IP地址/MAC地址
+              </td>
+              <td class="TableTopHeader">&nbsp;目的IP地址
+              </td>
+              <td class="TableTopHeader">&nbsp;时间
+              </td> 
+              
+              <td class="TableTopHeader">&nbsp;访问地址
+              </td>    
+              
+              <td class="TableTopHeader">&nbsp;标题
+              </td>
+              <td class="TableTopHeader">&nbsp;内容
+              </td>
+               
+            
+             
+            
+              
+          </tr>
+   <!-- [#SLPB#] -->
+         <tr class="even"> 
+             
+            
+             <td class="TableTopHeader">&nbsp;[#author#]</td> 
+             <td class="TableTopHeader">&nbsp;[#sip#]</td> 
+             <td class="TableTopHeader">&nbsp;[#dip#]</td> 
+             <td class="TableTopHeader">&nbsp;[#vtime#]</td>
+             <td class="TableTopHeader">&nbsp;[#url#]</td>  
+             <td class="TableTopHeader">&nbsp;[#subject#]</td>
+             <td class="TableTopHeader">&nbsp;[#content#]</td> 
+            
+             
+             
+            
+        </tr>
+<!-- [#SLPE#] -->
+     </table>
+</td></tr>
+
+</table>
+</html>

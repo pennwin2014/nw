@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>系统数据删除</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+<script> 
+	var dfd1="0"
+	function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=1;i<34;i++)
+	{
+    var temp_var;
+    temp_var="form1.s"+i;
+			if(dfd1=="1"){
+  			   eval(temp_var).checked="true";
+            }
+			else{
+			       eval(temp_var).checked="";
+            }
+        }
+}
+	
+function DoOk() {
+    if(confirm("真的要删除选中的数据吗？")) {
+	    form1.submit();
+	}
+	}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center" oncontextmenu="return false" >
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">数据手工清除</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td>
+        <table width="60%" border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td ><div align="center"><br>
+                <table width="86%" id="DataTable" border="0" align="center" bgcolor="#FFFF99">
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s1" value="即时通信内容">即时通信内容</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s2" value="即时通信备份">即时通信备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s3" value="监控表单内容">监控表单内容</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s4" value="监控表单备份">监控表单备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s5" value="监控邮件内容">监控邮件内容</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s6" value="监控邮件备份">监控邮件备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s7" value="拦截邮件内容">拦截邮件内容</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s8" value="拦截邮件备份">拦截邮件备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s9" value="IP访问记录">IP访问记录</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s10" value="IP访问备份">IP访问备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s11" value="网站访问记录">网站访问记录</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s12" value="网站访问备份">网站访问备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s13" value="阻断信息日志">阻断信息日志</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s14" value="阻断信息备份">阻断信息备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s15" value="系统访问日志">系统访问日志</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s16" value="系统访问备份">系统访问备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s17" value="系统运行日志">系统运行日志</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s18" value="系统运行备份">系统运行备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s19" value="系统告警信息">系统告警信息</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s20" value="系统告警备份">系统告警备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s21" value="各种统计数据">各种统计数据</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s22" value="基本信息备份">基本信息备份</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s23" value="其它日志信息">其它日志信息</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s24" value="访问控制规则">访问控制规则</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s25" value="用户基本信息">用户基本信息</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s26" value="带宽管理设置">带宽管理设置</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s27" value="邮件拦截设置">邮件拦截设置</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s28" value="邮件监控设置">邮件监控设置</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s29" value="表单监控设置">表单监控设置</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s30" value="网络设置">网络设置</td>
+                  </tr>
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s31" value="自定义网址库">自定义网址库</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s32" value="上网日志">上网日志</td>
+                  </tr>
+                  
+                  <tr bgcolor="#DEE8FA">
+                    <td width="50%" height="24"><input type="checkbox" name="s33" value="网络会话日志">网络会话日志</td>
+                    <td width="50%" height="24"><input type="checkbox" name="s34" value="数据库监控日志">数据库监控</td>
+                  </tr>
+                  
+                  <tr bgcolor="#DEE8FA">
+                    <td height="24" colspan="2">要删除数据的日期范围从
+                      <input name="start" type="text" id="start" size="10" maxlength="10">
+                    到
+                    <input name="end" type="text" id="end" size="10" maxlength="10"> 
+                    (日期格式: YYYY/MM/DD) </td>
+                  </tr>
+                      </table>
+            </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="70"><table width="50%" border="0" align="center">
+          <tr> 
+            <td><div align="center">
+                <input type="hidden" name="FunName" value="ncWebSystemDelete">
+                <input type="button" name="allselect" value="全选" class="an3" onClick="allChecked()">
+                <input type="button" name="save" value="确 认" class="an3" onClick="DoOk()">
+                <input type="reset" name="cancel" value="取消返回" class="an3-1">
+            </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

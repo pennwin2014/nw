@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>监控邮件查询</title>
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+    form1.CurPg.value = pagenum;
+}
+
+
+function goto(t)
+{
+    openwinflag=window.open(t,'RUNMIT_New','left=100,top=200,width='+610+',height='+520+',fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+//    tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:500px;scroll:yes;dialogHeight:480px');
+    }
+  
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[1])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[1].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[1].checked="";
+            }
+        }
+ 	}
+}
+
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<script src="/js/tablecssall.js"></script>
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu">
+<form name="form1" method="post" action="/pronline/Msg">
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+  <tr> 
+      <td width="100%"  valign=middle align=center height="25" bgcolor="#DEE8FA" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0">
+          <tr> 
+            <td width="56%">关键字:
+              <input type="text" name="cond"  size="16" maxlength="31" value="[#cond#]">
+              <input name="search" type="submit" class="an3" value="查 找" >
+              <input type="hidden" name="FunName" value="nwWebCompMon_CurProc">
+              <input type="hidden" name="id"      value="[#id#]">
+              <input type="hidden" name="gtype"      value="1"></td>
+            <td width="44%">数据采集时间:[#syntime#]</td>
+          </tr>
+        </table>  </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center bgcolor="#DEE8FA"> 
+        <table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr> 
+            <td width="5%" height="18" bgcolor="#6382BD" class="bord2"> 
+              <input type="button" name="b1" value="全选"  class="anniu_1" onClick="allChecked()">
+            </td>
+            <td width="25%" bgcolor="#6382BD" class="bord2"><font color="#FFFFFF">程序名</font></td>
+            <td width="30%" bgcolor="#6382BD" class="bord2"><div align="center"><font color="#FFFFFF">&nbsp;启动时间</font></div></td>
+            <td width="14%" height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;CPU时间(秒)</font></div></td>
+            <td width="14%" height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;CPU占用率(%)</font></div></td>
+            <td width="12%" bgcolor="#6382BD" class="bord4"><font color="#FFFFFF">&nbsp;内存使用(字节)</font></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onDblClick="goto('/pronline/Msg?FunName@nwWebCompInfo_Base&gtype@0&id@[#compid#]')"> 
+            <td height="18" nowrap class="bord1"> &nbsp; <input type="checkbox" name="chk[#num#]" value="[#pid#]"> 
+            </td>
+            <td height="18" nowrap class="bord1" title="&nbsp;[#username#]">[#name#]</td>
+            <td height="18" nowrap class="bord1" title="&nbsp;[#groupname#]">[#stime#]</td>
+            <td height="18" nowrap class="bord1" title="&nbsp;[#ip#]">&nbsp;[#cputime#] </td>
+            <td height="18" nowrap class="bord1"  title="&nbsp;[#mac#]">&nbsp;[#cpurate#]</td>
+            <td nowrap class="bord1" title="&nbsp;[#lasttime#]">&nbsp;[#mem#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#] onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"> 
+            <td height="18" class="bord1">&nbsp; </td>
+            <td height="18" class="bord1">&nbsp;</td>
+            <td height="18" class="bord1">&nbsp;</td>
+            <td height="18" class="bord1">&nbsp; </td>
+            <td height="18" class="bord1">&nbsp;</td>
+            <td class="bord1">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </tr>
+</table>
+ </form>
+</body>
+
+</html>

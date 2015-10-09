@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+self.location.href=t
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function showf(sid,num,sip,dip,protocol,flags,sport,dport) {
+    form1.sid.value=sid;
+    form1.num.value=num;
+    form1.sip.value=sip;
+    form1.eip.value=dip;
+    form1.protocol.value=protocol;
+    form1.flags.value=flags;
+    form1.sport.value=sport;
+    form1.dport.value=dport;
+}
+    function Add()
+    {
+	    if(form1.sip.value==''||form1.eip.value=='')
+	    {
+	    	alert('监控ip不能空');
+	    	return false;
+	    	}
+	    	return true;
+    }
+    function Mod()
+    {
+	    if(form1.sid.value=='')
+	    {
+	    	alert('请先选择要修改的内容');
+	    	return false;
+	    	}
+
+	    	return true;
+    }
+    function Del()
+    {
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要删除的内容');
+	    	return false;
+	    }
+	    	return true;
+    }
+    
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bgcolor="#DEE8FA">
+
+<table border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff width=100%  cellspacing="0" cellpadding="0" align=center  bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <input type="hidden" name="FunName" value="ncWebSystemSet_devrule">                     
+  <input type="hidden" name="sid"  value="[#sid#]">
+  <input type="hidden" name="did" value="[#did#]">
+          <tr bgcolor="#DEE8FA" >
+            <td width="100%" height="30" colspan="2" >
+            	 &nbsp;级别
+                    <input type="text" name="num" size="3" value="">
+            	  &nbsp;起始ip
+                    <input type="text" name="sip" size="15" value="">
+                  &nbsp;终止ip
+                    <input type="text" name="eip" size="15" value="">
+                  
+                  协议
+                  <select name="protocol" style="width:50">
+                  	<option value="0">全部</option>
+                  	<option value="6">TCP</option>
+                  	<option value="17">UDP</option>
+                  </select>
+                  &nbsp;起始端口
+                    <input type="text" name="sport" size="4" value="1">
+                  &nbsp;终止端口
+                    <input type="text" name="dport" size="4" value="65535">               
+             
+                  状态
+                  <select name="flags" style="width:60">
+                  	<option value="1">监控</option>
+                  	<option value="0">不监控</option>
+                  </select>   
+                  
+           </td>
+       </tr> 
+  
+            <tr bgcolor="#DEE8FA" >
+            <td width="100%" height="30" colspan="2" >
+             &nbsp;
+                   <input type="submit" name="add" value="添  加" onclick="return Add()" class="an3"> 
+                    <input type="submit" name="modi" value="修  改" class="an3" onclick="return Mod()"> 
+                    <input type="submit" name="del" value="删  除" class="an3" Onclick="return Del()"> 
+                    <input type="button" name="fh" value="返  回" onclick="goto('/pronline/Msg?FunName@ncWebSystemSet_dev')" class="an3">
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-size:12px;font-weight: bold;">接口说明:[#name#]</font>
+           </td>
+       </tr>
+  
+  
+  
+  <tr>
+      <td width="100%" height="400" valign=top align=center > 
+        <table id="DataTable" width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA" >
+          <tr height="20"> 
+            <td  bgcolor="#6382BD" width="45" class="bord2" align="center">&nbsp;</td>
+            <td  bgcolor="#6382BD" width="10%" class="bord2" align="center"><font color="#FFFFFF">&nbsp;级别</font></td>
+            <td  bgcolor="#6382BD" width="18%" class="bord2" align="center"><font color="#FFFFFF">&nbsp;起始ip</font></td>
+            <td  bgcolor="#6382BD" width="18%" class="bord2" align="center"><font color="#FFFFFF">&nbsp;终止ip</font></td>
+           <td  bgcolor="#6382BD" width="12%" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 起始端口</font></td>
+           <td  bgcolor="#6382BD" width="12%" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 终止端口</font></td>
+           <td  bgcolor="#6382BD" width="13%" class="bord2" align="center"><font color="#FFFFFF">&nbsp; 协议</font></td>
+           <td  bgcolor="#6382BD" width="13%" class="bord4" align="center"><font color="#FFFFFF">&nbsp; 状态</font></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr bgcolor="#FFFFFF" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#sid#]','[#num#]','[#sip#]','[#dip#]','[#protocol#]','[#flags#]','[#sport#]','[#dport#]')" > 
+            <td class="bord1" width="25" align="center"> <input type="checkbox" name="chk[#iNum#]" value="[#sid#]"> 
+            </td>
+            <td class="bord1">&nbsp;[#num#]</td>
+            <td class="bord1">&nbsp;[#sip#]</td>
+            <td class="bord1">&nbsp;[#dip#]</td>
+            <td class="bord1">&nbsp;[#sport#]</td>
+            <td class="bord1">&nbsp;[#dport#]</td>
+            <td class="bord1">&nbsp;[#protocol_desc#]</td>
+            <td class="bord3" align="center">&nbsp;[#flags_desc#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+<!--//鼠标显示//-->
+
+    </form>
+</table>
+
+
+</body>
+
+</html>

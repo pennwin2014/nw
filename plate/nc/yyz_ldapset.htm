@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+     function goto(t)
+    {
+	    self.location.href=t;
+    }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncYyzLdapSet_Save">
+
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: right;">
+              <div align="center"></div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                 
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">功能状态&nbsp;</div></td>
+                    <td> 
+                    	<select name="LocalAuth">
+                    		<option value="NTDOMAIN">启用</option>
+                    		<option value="No">停用</option>
+                    	
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;启用或停用远程验证功能。</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">验证方式&nbsp;</div></td>
+                    <td> 
+                    	<select name="AuthByCif">
+                    		<option value="No">LDAP方式</option>
+                    		<option value="Yes">CIF方式</option>
+                    	  <option value="Radius">Radius</option>
+                    	  <option value="mobile">手机验证</option>
+                    	  <option value="center">管理中心验证</option>
+                    	  <option value="Pop3">Pop3验证</option>
+                    	  <option value="Http">第三方HTTP验证</option>
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;选择验证协议LDAP或CIF</td>
+                  </tr>
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">强制修改初始密码&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" size="16" name="firtpasswd" value="[#firtpasswd#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;用在必须更改初始密码的场合，目前对于修改域用户密码需要在域中安装插件。</td>
+                  </tr>
+               
+                  
+                 
+                  
+                  
+                <tr height="60"><td colspan="3">&nbsp;</td></tr>
+                <tr height="40"><td colspan="3" style="padding:10px;line-height:13pt;">&nbsp;<img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;除了修改域用户密码外，不需要在域中安装插件，管理方式选择本地验证。<br>
+                	</td>
+                </tr>
+                
+                
+ 
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="submit" name="save" value="保存" class="an3"  >       
+               &nbsp;
+                           
+     
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table>
+ 
+	</form>
+<script>form1.LocalAuth.value="[#LocalAuth#]";
+	form1.AuthByCif.value="[#AuthByCif#]";
+	
+ 
+	
+	</script>
+</BODY>
+</html>
+

@@ -1,0 +1,357 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>监控邮件查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META content=no-cache http-equiv=Pragma>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.cccv {  border-style: inset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.xan3 {  width: 100px; font-size: 12px; font-weight: normal; font-family: "宋体"}
+.anjujue {  background-image: url(/images/anjj.gif); width: 60px; background-repeat: no-repeat; height: 30px}
+.anfasong {  background-image: url(/images/ansend.gif); width: 60px; background-repeat: no-repeat; height: 30px}
+
+-->
+</style>
+<script language="JavaScript">
+var uid = new Array();
+var uname=new Array();
+[#SLPB#]
+uid[[#num#]]='[#uid#]';
+uname[[#num#]]='[#uname#] ';
+[#SLPE#]
+
+function showtips(){
+var t_flag=0;
+e=event.keyCode;
+if(e==13) return;
+eo=event.srcElement;
+document.all.sel.length=0;
+var len=uid.length;
+var re=new RegExp("^"+eo.value,"i")
+var j=0
+for(i=0;i<len&&j<20;i++) {
+	if(re.test(uname[i])==true){ 
+	document.all.sel.style.display='';
+	document.all.sel.add(new Option(uname[i],uid[i]));
+	j++;
+	t_flag=1;}
+}
+if(t_flag==0) {document.all.sel.style.display='none';return;}
+document.all.sel.size = (j>1)?j:2;
+document.all.sel.selectedIndex =0;
+
+}
+
+function enterTips(){
+e=event.keyCode;
+if(document.all.sel.style.display!='none'){
+	if(e==13){
+	form1.userid.value=document.all.sel.value;
+	event.srcElement.value=document.all.sel.options(document.all.sel.selectedIndex).text;
+	document.all.sel.style.display='none';
+  return;
+	}
+	if(e==40) 
+	document.all.sel.focus();
+	}
+	else
+	form1.userid.value='';
+}
+function rv(){
+   form1.userid.value=document.all.sel.value;
+   document.all.txt.value=document.all.sel.options(document.all.sel.selectedIndex).text;
+   c()
+}
+function c(){
+document.all.sel.style.display='none';
+//document.all.txt.focus()
+}
+document.onclick=function(){
+  c()
+}
+
+
+function init()
+{
+	var len=uid.length;
+
+ if(dialogArguments.form1.userid.value!=''){
+ form1.userid.value=dialogArguments.form1.userid.value;
+ 	for(i=0;i<len;i++) {
+		if(uid[i]==dialogArguments.form1.userid.value){ 
+		form1.username.value=uname[i];
+		break;
+		}
+	}
+	}
+
+
+form1.groupid.value=dialogArguments.form1.groupid.value;
+form1.flags.value=dialogArguments.form1.flags.value;
+form1.mtype.value=dialogArguments.form1.mtype.value;
+
+form1.from.value=dialogArguments.form1.from.value;
+form1.to.value=dialogArguments.form1.to.value;
+form1.msize.value=dialogArguments.form1.msize.value;
+form1.asize.value=dialogArguments.form1.asize.value;
+
+form1.unit.value=dialogArguments.form1.unit.value;
+form1.ddd.value=dialogArguments.form1.ddd.value;
+
+form1.ip.value=dialogArguments.form1.ip.value;
+form1.content.value=dialogArguments.form1.content.value;
+form1.attfile.value=dialogArguments.form1.attfile.value;
+
+if(dialogArguments.form1.sdate.value!='')
+form1.sdate.value=dialogArguments.form1.sdate.value;
+
+if(dialogArguments.form1.edate.value!='')
+form1.edate.value=dialogArguments.form1.edate.value;
+
+if(dialogArguments.form1.sdate1.value!='')
+form1.sdate1.value=dialogArguments.form1.sdate1.value;
+else
+form1.sdate1.value="00:00";
+
+if(dialogArguments.form1.edate1.value!='')
+form1.edate1.value=dialogArguments.form1.edate1.value;
+else
+form1.edate1.value="23:59";
+
+form1.idfyno.value=dialogArguments.form1.idfyno.value;
+form1.bef.value=dialogArguments.form1.bef.value;
+form1.sub.value=dialogArguments.form1.sub.value;
+if(dialogArguments.form1.dtype.value=='unit'){
+	form1.sdate.value='';
+	form1.edate.value='';
+	form1.sdate1.value='';
+	form1.edate1.value='';
+	form1.dtype[0].checked=true;
+}
+else{
+	form1.dtype[1].checked=true;
+	form1.ddd.value='';
+	}
+
+}
+
+
+
+function queren()
+{
+if(form1.userid.value!=''){
+	 dialogArguments.form1.userid.value=form1.userid.value;
+ }
+ else
+   dialogArguments.form1.userid.value='';
+ 
+dialogArguments.form1.ip.value=form1.ip.value;
+dialogArguments.form1.content.value=form1.content.value;
+dialogArguments.form1.attfile.value=form1.attfile.value;
+dialogArguments.form1.groupid.value=form1.groupid.value;
+dialogArguments.form1.flags.value=form1.flags.value;
+dialogArguments.form1.mtype.value=form1.mtype.value;
+dialogArguments.form1.bef.value=form1.bef.value;
+dialogArguments.form1.from.value=form1.from.value;
+dialogArguments.form1.to.value=form1.to.value;
+
+dialogArguments.form1.sub.value=form1.sub.value;
+
+dialogArguments.form1.unit.value=form1.unit.value;
+
+dialogArguments.form1.ddd.value=form1.ddd.value;
+
+dialogArguments.form1.sdate.value=form1.sdate.value;
+dialogArguments.form1.edate.value=form1.edate.value;
+dialogArguments.form1.sdate1.value=form1.sdate1.value;
+dialogArguments.form1.edate1.value=form1.edate1.value;
+dialogArguments.form1.idfyno.value=form1.idfyno.value;
+dialogArguments.form1.msize.value=form1.msize.value;
+dialogArguments.form1.asize.value=form1.asize.value;
+dialogArguments.form1.dtype.value=form1.dtype.value;
+if(form1.dtype[0].checked==true){
+dialogArguments.form1.dtype.value='unit';
+dialogArguments.form1.sdate.value='';
+dialogArguments.form1.edate.value='';
+dialogArguments.form1.sdate1.value='';
+dialogArguments.form1.edate1.value='';
+}
+else if(form1.dtype[1].checked==true)
+dialogArguments.form1.dtype.value='date';
+
+dialogArguments.form1.CurPg.value=1;
+
+self.close();
+
+}
+function clear1()
+{
+  form1.userid.value='';
+	form1.username.value='';
+	form1.groupid.value='';
+	form1.flags.value='';
+	form1.mtype.value='';
+
+	form1.ddd.value='';
+	form1.bef.value='';
+  form1.idfyno.value='';
+	form1.sdate.value='';
+	form1.edate.value='';
+	form1.sdate1.value='';
+	form1.edate1.value='';
+
+	form1.from.value='';
+	form1.to.value='';
+	form1.sub.value='';
+	form1.asize.value='';
+	form1.msize.value='';
+	form1.ip.value='';
+  form1.content.value='';
+  form1.attfile.value='';
+}
+function changeuser(){
+var temp="/pronline/Msg?FunName@ncWebDispGroupUser&groupid@"+form1.groupid.value;
+document.all.xxs.src=temp;
+}
+</script>
+</head>
+
+<body bgcolor="#BED1F5" leftmargin="0" topmargin="0" onload="init()">
+<form name="form1" method="post" action="/pronline/Msg"  target="mainpronetway">
+		<input type="hidden" name="userid" value="">
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebMailMonHsear"> 
+  <table width="74%" height="10%" border="0" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td width="15" height="30" >&nbsp;</td>
+      <td width="150" ><table width="153" height="25" border="1" cellpadding="0"    cellspacing="0"   bordercolorlight=#6B9ADA   bordercolordark=#ffffff background="/images/cell_bg.gif" >
+          <tr> 
+            <td width="149" align="center"><strong><font color="#B08500">监控邮件查询</font></strong> 
+            </td>
+          </tr>
+        </table></td>
+        <td align="right"> 
+              <input name="ok1" type="submit" class="an3-1" onClick="queren()"  value="开始查询">
+              <input name="clearf" type="button" class="an3" onClick="clear1()" value="清零">
+              <input name="can1" type="button" class="an3" onClick="self.close()" value="返 回">
+              &nbsp;&nbsp;
+		</td>
+    </tr>
+    <tr> 
+      <td colspan="3" > <table width="555" height="10%" border="1"   cellpadding="0" cellspacing="0"   bordercolorlight=#89ACED   bordercolordark=#ffffff bgcolor="#DEE8FA">
+          <tr> 
+            <td valign="middle" > 
+              <table width="499" border="0" cellspacing="0" align="center" height="10%">
+                
+                <tr> 
+                  <td width="89" height="26">收发邮件</td>
+                  <td height="26" width="106">[#sflags#]</td>
+                  <td height="26" width="74">类别</td>
+                  <td height="26">[#smtype#]</td>
+                </tr>
+                <tr> 
+                	<td height="26" >部门</td>
+                  <td height="26">
+                  <select name="groupid" style="width:125" onchange="changeuser()">
+                  <option value="">全部</option>
+                  [#SLPB#]
+                  <option value="[#userid#]">[#dispname#]</option>
+                  [#SLPE#]
+                  </select> 
+                </td>
+                  <td  height="26">用户名</td>
+                  <td height="26"> <input id=txt onkeyup="showtips();if(event.keyCode==27) c();"  onkeydown='enterTips()' type="text" name="username" size="18" maxlength="32" > 
+                  	<br><div id="sss" style="position:absolute;">&nbsp;&nbsp;<select id=sel style='display:none;height:150;width:140' onclick=rv() onkeydown='if(event.keyCode==13)rv()'></select></div>
+                  </td>
+
+                </tr>
+                <tr> 
+                  <td width="89" height="26">源IP</td>
+                  <td height="26" width="106"> <input type="text"  name="ip" size="16" maxlength="16" value="" > 
+                  	
+                  </td>
+                  <td height="26" width="74">身份证号</td>
+                  <td height="26"><input type="text" name="idfyno" size="18">     
+                  </td>
+                </tr>
+               
+                <tr> 
+                  <td width="89" height="26">发件人包含</td>
+                  <td colspan="3" height="26"> <input type="text" name="from" size="28" > 附件名<input type="text" name="attfile" size="18" maxlength="31" value="[#attfile#]" >
+                  </td>
+                </tr>
+                <tr height="28"> 
+                  <td width="89" >收件人包含</td>
+                  <td height="28" colspan="3"> <input type="text" name="to" size="28" maxlength="63" > 
+                  </td>
+                </tr>
+                <tr> 
+                  <td rowspan="2" height="60">日期范围</td>
+                  <td height="28" colspan="3"> <input type="radio" name="dtype" value="unit" > 
+                    <input type="text" name="ddd" size="8" maxlength="8"> <select name="unit">
+                      <option value="1" selected>天</option>
+                      <option value="2">周</option>
+                      <option value="3">月</option>
+                    </select> <select name="bef">
+                      <option value="1" selected>以内</option>
+                      <option value="2">以前</option>
+                    </select> </td>
+                </tr>
+                <tr> 
+                  <td colspan="3" height="28"> <input type="radio" name="dtype" value="date" checked>
+                    从 
+                    <input type="text" name="sdate" size="12" maxlength="10" value="[#sdate#]" ><input type="text" name="sdate1" size="6" value="00:00" maxlength="5" >
+                    到 
+                    <input type="text" name="edate" size="12" maxlength="10" value="[#edate#]"> <input type="text" name="edate1" size="6" value="23:59" maxlength="5" >
+                  </td>
+                </tr>
+                <tr height="28"> 
+                  <td width="89" >主题包含</td>
+                  <td colspan="3" > <input type="text" name="sub" size="51" maxlength="63" > 
+                  </td>
+                </tr>
+               <tr height="28"> 
+                  <td width="89" >正文包含</td>
+                  <td colspan="3" ><input type="text" name="content" size="51" maxlength="51" value="" >
+                  </td>
+                </tr>
+                <tr height="28"> 
+                  <td width="89" >邮件大于</td>
+                  <td  width="106"> <input type="text" name="msize" size="12" > 
+                  </td>
+                  <td  width="74">附件大于</td>
+                  <td > <input type="text" name="asize" size="12" maxlength="12"> 
+                  </td>
+                </tr>
+                <tr height="28"> 
+                  <td width="89" >排序 </td>
+                  <td height="32" colspan="3"> <input type="radio" name="osort" value="date" checked>
+                    日期 
+                    <input type="radio" name="osort" value="from">
+                    发件人 
+                    <input type="radio" name="osort" value="to">
+                    收件人 
+                    <input type="radio" name="osort" value="msize">
+                    邮件大小 
+                    <select name="orderby">
+                      <option value="0" >升序</option>
+                      <option value="1" selected>降序</option>
+                    </select> </td>
+                </tr>
+              
+              </table>
+              <br>
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<iframe id="xxs" width="0" height="0" src="" display="no" ></iframe>
+</body>
+</html>

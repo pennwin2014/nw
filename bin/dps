@@ -1,0 +1,2 @@
+ps -e | grep nw
+ps -e | grep protectNw

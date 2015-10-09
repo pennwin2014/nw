@@ -1,0 +1,32 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+
+
+  	[#SLPB#]
+
+  	parent.sdate[[#num#]]='[#srate2#]';
+  	parent.sdate_desc[[#num#]]='[#groupname#]';
+  	parent.sdate_xh[[#num#]]='[#num1#]';
+  	parent.uid[[#num#]]='[#id#]';
+
+  	[#SLPE#]
+parent.unit="[#unit#]";
+
+   parent.drawzzt();
+
+
+
+ </SCRIPT> 
+
+</head>
+<body  >
+
+</body>
+</html>

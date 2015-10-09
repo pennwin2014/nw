@@ -1,0 +1,148 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>流量分析</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<script language = "Javascript" src = "/js/selecttime.js"></script>
+<script>
+function lprint(){
+  MM_showHideLayers('plabel','','hide')
+  window.print()
+  MM_showHideLayers('plabel','','show')
+}
+</script>
+<script language="JavaScript">
+<!--
+function lprint(){
+document.all.lpr.style.display="none";
+document.all.opt.style.display="none";
+document.all.save1.style.display="none";
+document.all.save2.style.display="none";
+  window.print();
+  document.all.lpr.style.display="";
+document.all.opt.style.display="";
+document.all.save1.style.display="";
+document.all.save2.style.display="";
+  
+}
+function queren()
+{
+	if(form1.opt.value=='1')
+	{	
+	form1.tjfun.value='DeptWebCount';
+	form1.plate.value='ncjstxmsg_tj.htm';
+		form1.submit();
+		return;
+	}
+	else
+	{	
+        var temp;
+        temp="/pronline/Msg?FunName@ncWebReplace&plate@nc/depcountzzt.htm&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#caGroupid#]&recnum@[#recnum#]&opedesc@[#opedesc#]&opt@"+form1.opt.value;
+        self.location.href=temp;
+	}
+
+}
+function  doCon(){
+  self.location.href="/pronline/Msg?FunName@ncDeptFlowDispForm&opt@[#opt#]&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#caGroupid#]&recnum@[#recnum#]";
+}
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.handhand {  cursor: hand}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+ <form name="form1" id="form1" method="post" action="/pronline/Msg">
+   <input type="hidden" name="FunName" value="ncWebCountTotalFlow">
+   <input type="hidden" name="plate" value="ncjstxmsg_tj.htm">
+  <input type="hidden" name="tjfun" value="DeptWebCount">
+  <input type="hidden" name="FunName" value="DeptWebCount">
+  <input type="hidden" name="sdate1"  value="[#sdate1#]">
+  <input type="hidden" name="sdate2" value="[#sdate2#]">
+  <input type="hidden" name="sort" value="[#sort#]">
+  <input type="hidden" name="recnum" value="[#recnum#]">
+<table width="100%" border="0"cellpadding="0" cellspacing="0" >
+  <tr>
+    <td><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">部门上网情况统计图表
+             </div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td > 
+      <table width="75%" border="0" align="center" cellpadding="8" cellspacing="0" >
+        <tr> 
+          <td>
+
+              <table width="850" border="0" align="center" cellpadding="0" cellspacing="0" >
+                  <tr > 
+                    <td width="100" height="30"> &nbsp;</td>                   
+                    <td width="400" ><div style="font-size: 10pt"> <strong>统计时间：[#sdate1#]--[#sdate2#]</div></strong></td>
+                    <td > 图表类型
+                      <select name="opt" style="width:115">         
+                      <option value="1">表格</option>
+                      <option value="2">流量柱状图</option>
+                      <option value="6">平均流量柱状图</option>
+                      <option value="7">平均时间柱状图</option>
+                      <option value="3">时间柱状图</option>
+                      <option value="4">流量饼图</option>
+                      <option value="5">时间饼图</option>
+                      </select>                
+                        <input name="save1" type="button" class="an3" onClick="queren()" value="确 定">
+                        <input name="save2" type="button" class="an3" onClick="doCon()" value="统计条件">
+                        <input name="lpr" type="button" class="an3" value="打 印" onClick="lprint()">
+                    </td>
+                  </tr>
+              </table>
+            </td>
+        </tr>
+
+        <tr  bgcolor=menu  > 
+          <td> 
+            <div align="center"> 
+              <table width="80%" border="0" cellpadding="0" cellspacing="0" >
+                <tr> 
+                <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <!--            <td><img src="/pronline/Msg?FunName@ncWebOutFlowChart&sdate@[#sdate#]&stime@[#stime#]&ctype@[#ctype#]&unit@[#unit#]"></td>   -->
+      		   <td><iframe src="/pronline/Msg?FunName@DeptWebCount&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&recnum@[#recnum#]&opt@[#opt#]" name="main" id="data"  width="800" height="500" border="0" frameborder="0"  ></iframe </td>
+                </tr>
+              </table>
+            </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+<script>form1.opt.value='[#opt#]';</script>
+</body>
+</html>

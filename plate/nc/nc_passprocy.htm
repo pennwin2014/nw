@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function setradio(ob,t){
+	   var j=ob.length;
+       if(t=='' || t == ' ') t = '0';
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+  }
+  function init(){ 
+     setradio(form1.authpwdflag,'[#authpwdflag#]');
+  }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  onload="init()">
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncPass_procy_Save">
+
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: right;">
+              <div align="center"></div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                 
+                  <tr height="26"> 
+                    <td height="26" ><div align="right"><input type="checkbox" name="firstchangpwd" value="1" [#chkpwd#]></div></td>
+                    <td>        	 
+                    	 第一次登录必须修改密码                    	 
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;本地验证第一次登录时，必须要修改密码。</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26"  width="150"><div align="right"><input name="authpwdflag" type="radio" value="1">
+  								</div></td>
+                    <td> 
+                    	使用统一密码&nbsp;<input type="text" size="16" maxlength="16" name="globpass" value="[#globpass#]">
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;在增加用户时，自动使用该密码。</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right"><input name="authpwdflag" type="radio" value="2">
+  								</div></td>
+                    <td> 
+                    	使用随机密码
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;在增加用户时，使用系统随机生成的密码。</td>
+                  </tr>
+               
+                 <tr height="26"> 
+                    <td height="26" ><div align="right"><input name="authpwdflag" type="radio" value="0">
+  								  </div></td>
+                    <td> 
+                    	未设置
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;在增加用户时，用户需要自己输入密码</td>
+                  </tr>
+                 
+                  
+                  
+                <tr height="60"><td colspan="3" >&nbsp;</td></tr>
+                <tr height="40"><td colspan="3" style="padding:10px;line-height:13pt;" >&nbsp;<img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;验证密码策略针对本地验证。<br>
+                	</td>
+                </tr>
+                
+                
+ 
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="submit" name="save" value="保存" class="an3"  >       
+               &nbsp;
+                           
+     
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table>
+ 
+	</form>
+<
+</BODY>
+</html>
+

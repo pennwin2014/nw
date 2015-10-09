@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>酒店计费用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function goto(t) {
+	    if(form1.limitid.value != '0') {
+            window.open(t+'&id@'+form1.limitid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 策略没有定义");
+		}
+	}
+
+    function goto1(t) {
+	    if(form1.userid.value != '') {
+            window.open(t+'&id@'+form1.userid.value,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+		}
+		else {
+		    alert(" 请先保存用户信息");
+		}
+	}
+	 
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" >
+<form name="form1" method="post" action="/proauth/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="19" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td height="19" colspan="2"> <div align="center"><strong><font color="#FFFFFF">[#title#]</font></strong></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="100%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>              <table width="100%" border="0" align="center">
+                <tr>
+                  <td width="100%" height="17"><div align="center">[#message#]</div></td>
+                </tr>
+                <tr> 
+                  <td><div align="center">
+                      <input type="hidden" name="FunName" value="ncWebBilModiUserPass">
+                      <input type="hidden" name="userid" value="[#userid#]">
+                      <input type="button" name="save" value="确认" class="an3" onClick="self.close()">
+&nbsp;&nbsp;
+                  </div></td>
+                </tr>
+              </table>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

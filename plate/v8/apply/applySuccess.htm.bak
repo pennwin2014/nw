@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>内网管理系统用户申请成功</title>
+
+</head>
+<body>
+	<div style= "position:absolute; top:150px;left:500px;width:500px;height:200px;border:1px solid #F00"><br/><br/></><p align ="center">您的申请已提交，新网程将会尽快与您联系，谢谢！</p><br/>
+		<div><input type="button" style="margin-left:200px;background:#0066ff;color:#fff;width:100px;height:30px" value="确 定" onclick="window.location.href='http://180.169.1.206/products13.html'"></div>
+	</div>
+</body>

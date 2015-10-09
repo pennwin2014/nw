@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>计费策略设置</title>
+<script>
+    function goto(t){
+        nclim_main.location.href=t;
+    }
+</script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bordercolor="#D4D4D4" bgcolor="#DEE8FA" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table width=100% border="0" align=center cellpadding="0" cellspacing="0">
+    <tr> 
+      <td colspan="2"> 
+          <table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+            <tr > 
+              <td colspan="2"> <div align="center"><strong> <b><font color="#FFFFFF">[#name#]&nbsp;计费策略定义</font></b> </iframe> 
+                  </strong></div></td>
+            </tr>
+          </table>
+          <b></b></div></td>
+    </tr>
+    <tr> 
+      <td width="85%" height="35"> 
+        <div align="center"> 
+          <input name="summ"     type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@ncBilFeeSetProc&opt@1&pid@[#pid#]&name@[#name#]')" value="基本参数设置">
+          <input name="promrate" type="button" class="an3-1" onclick="goto('/pronline/Msg?FunName@ncBilFeeSetProc&opt@2&pid@[#pid#]&name@[#name#]')" value="时间段优惠设置">
+          <input name="timeeate" type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@ncBilFeeSetProc&opt@3&pid@[#pid#]&name@[#name#]')" value="时间费率设置">
+          <input name="flowrate" type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@ncBilFeeSetProc&opt@4&pid@[#pid#]&name@[#name#]')" value="流量费率设置">
+          <input name="feetest"  type="button" class="an3-1" onClick="goto('/pronline/Msg?FunName@ncBilFeeSetProc&opt@5&pid@[#pid#]&name@[#name#]')" value="计费数据测试">
+        </div></td>
+      <td width="15%"> 
+        <div align="center"> <a href="/pronline/Msg?FunName@ncBilFeeSetProc&opt@9"><img src="/images/sety.gif" width="16" height="16" alt="使新设置参数起作用" border="0"></a> 
+        </div></td>
+    </tr>
+    <tr> 
+      <td  colspan="2" valign="bottom"><table width="100%" border="0" height="590" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td><iframe name="nclim_main" src="/pronline/Msg?FunName@ncBilFeeSetProc&opt@1&pid@[#pid#]&name@[#name#]" width="100%" height="100%"  scrolling="no" FrameBorder=0></iframe> 
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

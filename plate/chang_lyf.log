@@ -1,0 +1,51 @@
+plate/main_right_cssz.htm
+plate/nc/ncsys_net.htm
+plate/mail/nc_form_mailPriAddrctlset.htm
+plate/mail/nc_upload_mlist.htm
+plate/mail/nc_formmon_fllist.htm
+plate/nc/nc_limweblist.htm
+plate/nc/ncsortflow.htm
+plate/nc/nc_deptswqk_menu.htm
+plate/mail/nc_mailctl_countg.htm
+plate/mail/nc_mailmon_countg.htm
+plate/nc/ncflowcount.htm
+plate/nc/nc_print_webusemenu.htm
+plate/mail/nc_mailctl_audit1.htm
+plate/mail/nc_mailctl_audit.htm
+plate/mail/nc_mailctl_rlist.htm
+plate/mail/nc_mailctl_fl.htm
+
+
+
+
+src=/home/ncmysql/nc/html_h/images
+cp $src/dl.gif
+cp $src/gbck.gif
+cp $src/login.gif
+cp $src/zbuyer-05.gif
+cp $src/zbuyer-06.gif
+cp $src/zbuyer-08.gif
+cp $src/zbyer-09.gif
+cp $src/zin1.gif
+cp $src/zin3.gif
+
+修改plate/nc/ncsys_port.htm
+plate/nc_list_onlineuser.htm
+/js/selecttime.js  时间选择脚本
+/plate/nc/iframe_nc_outflow.htm
+js/draw.js
+/plate/nc/modify_time.htm
+/plate/nc/ncsys_back.htm
+/plate/nc/nc_im_hsear.htm
+/plate/nc/nc_limipgroup.htm
+plate/nc_syssettree.htm
+plate/nc/nc_list_ipmac.htm
+plate/nc/nc_limrulegroup.htm
+
+05/11/08
+
+//BIG5转换后修改页面
+plate/nc/ncsys_back.htm
+plate/nc/ncsys_net.htm
+plate/nc/ncsys_delete.htm
+plate/nc/ncsys_clean.htm

@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/mailcss.css" type="text/css">
+
+</head>
+
+<script language="javascript">
+function goBack()
+{
+	history.back();
+	return false;
+}
+function OK(){
+	if(form1.filedesc.value==''){
+		alert('文件说明不能为空');
+		return;
+	}
+	if(form1.fname.value==''){
+		alert('文件名不能为空');
+		return;
+	}
+	form1.submit();
+	//self.close();
+//onunload="dialogArguments.window.close();"
+}
+</script>
+<style>
+	.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    cursor: default;
+    }  
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<body leftmargin="0" topmargin="0"  class="tScrollw">
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" onunload="dialogArguments.window.close();">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" height="24" border="0" cellpadding="0" cellspacing="1" bgcolor="#DEE8FA">
+        <tr> <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b >文件上传</b></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                <tr> 
+                  <td>
+                    <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F5F5F5">
+                      <tr> 
+                        <td height="20">&nbsp;</td>
+                        <td height="20">&nbsp;</td>
+                      </tr>
+                      <tr> 
+                        <td width="16%" height="20"><div align="right">文&nbsp;件&nbsp;名</div>
+                          <input type="hidden" name="UploadPath" value="/home/ncmysql/nc/upload"></td>
+                        <td width="84%" height="20"> <input type="file" name="fname" style="width:250px">
+                           </td>
+                      </tr>
+                      
+                        <tr> 
+                        <td width="16%" height="40"><div align="right">文件说明</div>
+                          </td>
+                        <td width="84%" height="20"><input type="text" name="filedesc"  size="24" value="[#filedesc#]">
+                           </td>
+                      </tr>
+                      
+                      <tr> 
+                        <td height="20">&nbsp;</td>
+                        <td height="20" valign="baseline">&nbsp;</td>
+                      </tr>
+                      <tr bgcolor="#FFFFFF"> 
+                        <td height="35" colspan="2"> 
+                          <div align="center"> 
+                            <input name="ok" type="button" class="an3" id="ok2" value="确 认" onclick="OK()">
+                            &nbsp; 
+                            <input name="return" type="button" onClick="self.close();"   class="an3" value="返 回">
+                            <input name="id" type="hidden" value="[#vistlog_id#]">
+                            <input name="now_man" type="hidden" value="[#khwt_now_man#]">
+                            <input type="hidden" name="fj_flag" value="[#fj_flag#]">
+                            <input name="FunName" type="hidden" value="nc_testmailUpload">
+                          </div></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table>
+</td>
+
+          </tr>
+        </table>
+      </td>
+  </tr>
+</table></form>
+<br>
+</body>
+</html>

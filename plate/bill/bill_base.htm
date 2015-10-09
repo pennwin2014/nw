@@ -1,0 +1,195 @@
+<html>
+<head>
+<title>计费基本参数</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function InitValue() {
+        setradio(form1.ipaccess,'[#ipaccess#]');
+        setradio(form1.httpaccess,'[#httpaccess#]');
+        setradio(form1.postsend,'[#postsend#]');
+        setradio(form1.httpbyip,'[#httpbyip#]');
+        setcheck(form1.limitunit,'[#limitunit#]');
+        setradio(form1.ipbind,'[#ipbind#]');
+        setradio(form1.macbind,'[#macbind#]');
+        setradio(form1.namebind,'[#namebind#]');
+        setradio(form1.overctl,'[#overctl#]');
+        setradio(form1.onlyone,'[#onlyone#]');
+	}
+
+    function SetDefault() {
+        setradio(form1.ipaccess,'9');
+        setradio(form1.httpaccess,'9');
+        setradio(form1.postsend,'9');
+        setradio(form1.httpbyip,'9');
+        setcheck(form1.limitunit,'9');
+        setradio(form1.ipbind,'9');
+        setradio(form1.macbind,'9');
+        setradio(form1.namebind,'9');
+        setradio(form1.overctl,'9');
+        setradio(form1.onlyone,'9');
+        setcheck(form1.feeid,'9');
+        setcheck(form1.overid,'0');
+
+	}
+
+ 	function setradio(ob,t){
+	   var j=ob.length;
+       if(t=='' || t == ' ') t = '9';
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+
+    function setcheck(ob,t){
+       j=ob.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = ob.options[i].value;
+           if(gv == t) {
+               ob.selectedIndex = i;
+           }
+       }
+    }
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+.style2 {
+	color: #000000;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false"  onLoad="InitValue()">
+<form action="/pronline/Msg" method="post" name="form1" target="_parent">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="20" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2" bordercolor="#003366"> <div align="center" class="style2">[#gname#][#name#]综合访问控制参数</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="74%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br> 
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td><div align="center">计费基本参数设置</div></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">策略名称</td>
+                  <td width="62%" height="26"><input type="text" name="timelimit2" value="[#timelimit#]" size="12" maxlength="12"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">说明</td>
+                  <td height="26"><input type="text" name="timelimit22" value="[#timelimit#]" size="12" maxlength="12"></td>
+                </tr>
+                <tr>
+                  <td rowspan="2">&nbsp;</td>
+                  <td height="26" rowspan="2">时间计算方式</td>
+                  <td height="12"><input name="ipaccess" type="radio" value="1"> 
+                  登录结束和开始时间之差</td>
+                </tr>
+                <tr>
+                  <td height="12"><input name="ipaccess" type="radio" value="1">
+实际上网时间</td>
+                </tr>
+                <tr>
+                  <td width="11%" rowspan="2">&nbsp;</td> 
+                  <td width="27%" height="26" rowspan="2"><div align="left">付费方式</div></td>
+                  <td height="12"><p>
+                      <input name="ipaccess" type="radio" value="1"> 
+                    先用后付
+</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="12">
+                    <input name="ipaccess" type="radio" value="0">
+预付费</td>
+                </tr>
+                <tr>
+                  <td rowspan="4">&nbsp;</td>
+                  <td height="26" rowspan="4">结算时间</td>
+                  <td height="12"><input name="httpaccess" type="radio" value="1">
+每月结算, 结算时间,每月
+  <input type="text" name="flowlimit2" value="[#flowlimit#]" size="12" maxlength="12">
+  日</td>
+                </tr>
+                <tr>
+                  <td height="12"><input name="httpaccess" type="radio" value="1">
+每季结算, 结算时间,第
+  <select name="select">
+    <option value="1">每日</option>
+    <option value="2">每周</option>
+    <option value="3">每月</option>
+    <option value="4">全部</option>
+    <option value="9" selected>未设置</option>
+  </select>
+  月
+  <input type="text" name="flowlimit22" value="[#flowlimit#]" size="12" maxlength="12">
+  日</td>
+                </tr>
+                <tr>
+                  <td height="16"><input name="httpaccess" type="radio" value="1">
+每日结算,　结算时间，每日
+  <input type="text" name="flowlimit222" value="[#flowlimit#]" size="12" maxlength="12"> 
+  (HH:MM:SS) </td>
+                </tr>
+                <tr>
+                  <td height="21"><input name="httpaccess" type="radio" value="1"> 
+                    一次性结算</td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td  align="center"  ><table width="50%" border="0" align="center">
+          <tr> 
+            <td height="26"> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebSetLimSummary">
+                <input type="hidden" name="opt" value="1">
+                <input type="hidden" name="id" value="[#id#]">
+                <input type="hidden" name="sid" value="[#sid#]">                
+                <input type="hidden" name="name" value="[#name#]">
+                <input type="submit" name="save" value="保 存" class="an3">
+&nbsp;                &nbsp; 
+                <input type="reset" name="cancel" value="取消" class="an3-1">
+                &nbsp;
+                <input type="button" name="cancel2" value="置为缺省" class="an3-1" onClick="SetDefault()"> 
+            &nbsp; </div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

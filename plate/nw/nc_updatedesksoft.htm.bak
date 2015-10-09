@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>在线升级</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function openreport(t){
+
+		window.open(t,'open_report2','height=520, width=600, top=50, left=150,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}	
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" style="overflow:hidden" >
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  >        <div align="left">
+        <table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+            <tr > 
+              <td colspan="2"> <div align="center"><strong>客户端软件自动升级</strong></div></td>
+            </tr>
+            </table>
+      </div></td></tr>
+    <tr> 
+      <td align="center"  >
+        <table width="92%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+        
+        	<tr> 
+             <td align="center" height="25"><strong>上传客户端软件</strong></td>
+         </tr>
+        	   <tr> 
+            <td >
+     <form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" >  
+	<input type="hidden" name="FunName" value="">       	
+              <table width="100%" border="0" align="center">
+
+                <tr height="30px">
+                	<td>
+                	&nbsp;上传软件名
+           <input type="file" name="fname" style="width:400px">
+
+            <input name="cmd"  id="cmd1" type="submit" class="an3" value="上传软件" Onclick="if(form1.fname.value=='') {alert('请先上传文件');return false;}form1.FunName.value='ncWebDeskSoft_upload';form1.target='pingd';document.all.ff.innerHTML='正在上传，请稍候...'">
+            &nbsp;(将需要升级的客户端软件上传到服务器比如proclient.exe,ProAuth.exe等)
+           
+                </td>
+                	<td id="ff" style="font-size:9pt;color:red;"></td>
+                </tr>
+              </table>
+            </form>
+        	   </td>
+        	  </tr>
+        	
+        <form name="form2" method="post" action="/pronline/Msg">  
+    	  	<input type="hidden" name="FunName" value="">  
+           <tr> 
+            <td >
+              <table width="100%" border="0" align="center">
+
+                <tr height="30px">
+                	<td>
+                	&nbsp;升级程序名
+                  <input type="text" name="proname" style="width:200px" value="[#proname#]">
+                  &nbsp;版本号&nbsp;
+                  <input type="text" name="version" value="[#version#]">&nbsp;(只有设置的版本号大于正在运行的客户端的版本号时，才会自动升级）
+            
+           
+                </td>
+
+                </tr>
+              </table>
+        	   </td>
+        	  </tr>
+        
+            <tr> 
+            <td >
+              <table width="100%" border="0" align="center">
+
+                <tr height="50px">
+                	<td align="center">
+                     <input name="save"  type="submit" class="an3" value="保存" Onclick="form2.FunName.value='ncWebUpdateDeskSoftSave';">&nbsp;
+                <input name="log"  type="button" class="an3" value="升级日志" Onclick="">&nbsp;
+           
+                </td>
+
+                </tr>
+              </table>
+        	   </td>
+        	  </tr>
+        
+</form>
+   
+  </table>
+  <iframe id="pingd" name="pingd" height="0" style="display:none;" src="" width=0  FrameBorder=0 scrolling="auto"></iframe
+
+</body>
+</html>

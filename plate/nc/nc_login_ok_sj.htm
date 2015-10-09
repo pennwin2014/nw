@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<META HTTP-EQUIV="Expires" CONTENT="0">
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache,must-revalidate">
+		<META HTTP-EQUIV="Pragma"  		CONTENT="no-cache">
+		<META HTTP-EQUIV="Jon Eyrick"  CONTENT="no-cache">
+<title>手机短信上网验证服务</title>
+
+<style>
+			a:link {text-decoration: none;color: #666666;}
+    a:visited {text-decoration: none;color: #666666;}
+  a:active {color: #666666;}
+.table, td, tr, th {font-size: 12px;}
+.table {border-collapse: collapse;border-spacing: 0px;}preview
+	.body {background: #FFF;color: #666;font-size: 12px;font-family:"宋体", Times New Romar;;
+      line-height: 180%;  }
+ 			
+</style>
+<script language="javascript" type="text/javascript">
+    		function byby(){
+if('[#beat_flag#]'=='1'){
+//	if(confirm('关闭本页面，您将不能上网了?')){
+	self.location.href='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebInternetLogout' ;
+}
+////	}
+//	return false;
+	}
+	
+		
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+		 	//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+	
+
+var xmlHttp = false;
+var flesh_flag;
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+
+   xmlHttp = createXMLHttpRequest();
+   
+   if( xmlHttp)
+   {
+
+    var web_url='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebLoginHeat&sid@'+document.getElementById("nclogin_0").sid.value+'&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    
+   
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+    
+  }
+
+ }
+
+
+function initAjax(){
+	if('[#beat_flag#]'=='1'){
+	callServer();
+	setInterval('callServer()',[#beattime#]);
+	}
+
+}
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+
+     var temp_date=getxmlbyname(response,"<starttime>","</starttime>");
+     var mesg="<font color='white'>请不要关闭本页面，否则需要重新验证<br>";
+     
+     var temp_date=getxmlbyname(response,"<sumtime>","</sumtime>");
+     
+     mesg=mesg+"<br>已连接时间:"+temp_date;
+     
+    
+     mesg=mesg+"</font>";
+//     document.all.mesga.innerHTML=mesg;
+     document.getElementById("mesga").innerHTML=mesg;
+   
+    
+//alert(response);
+   }
+ 
+ }
+
+</script>
+</head>
+
+<body leftMargin=0 topMargin=0 onload="initAjax();" onunload="byby()"  marginheight="0" marginwidth="0">
+	 <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncWebInternetLogout">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+
+<table border="0" width="480px" cellspacing="0" cellpadding="0" height="800" align="center">
+	<tr >
+		<td height="82px" ><img src="/images/sjimage/[#titleimage#]" width="480" height="82" /></td>
+	</tr>
+	<tr>
+		<td height="238px" background="/images/sjimage/sms2.jpg" width="480px"><table width="480" border="0" cellspacing="0" cellpadding="0" height="238">
+		  <tr>
+		    <td width="120" height="33">&nbsp;</td>
+		    <td width="237">&nbsp;</td>
+		    <td width="99"><!--<a href="smslogin.html" ><font color="white" size="2">中文</font></a><font color="white" size="2">|</font><a href="smslogin-e.html" ><font color="white" size="2">English</font></a>--></td>
+		    <td width="24">&nbsp;</td>
+	      </tr>
+		  
+		  <tr>
+		    <td height="105">&nbsp;</td>
+		    <td colspan="2"><p ><font color="white"><strong> 登录成功,您可以上网了。</strong></font></p>
+	        <p ><font color="white"><strong>请保存您的上网帐号以便下次使用。</strong></font></p>
+	        <p >&nbsp;</p>
+	        <p id="mesga"><font color="white"></font></p>
+	       
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td height="28">&nbsp;</td>
+		    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/images/sjimage/smstc.jpg" width="112" height="25" align="absmiddle" onClick="tuichu()" /></td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+	      </tr>
+	    </table></td>
+	</tr>
+	
+	<tr height="368">
+		<td   width="480px" background="/images/sjimage/sms3.jpg">
+		</td>
+	</tr>
+	<tr><td height="112"  background="/images/sjimage/sms4.jpg">
+			<div style="margin-left:80px; margin-bottom:30px;">
+			  <p><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请遵守中国法律，文明上网。</font></p>
+</div>
+		</td>
+		
+	</tr>
+</table>
+
+    	
+
+
+</form>
+</body>
+</html>

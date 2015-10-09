@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" width="100%"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">连接管理中心通讯参数设置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+ 	
+       
+
+        </table></td>
+    </tr>
+    	
+    <tr> 
+      <td>
+        <table width="100%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+        	<tr>
+        	<td> &nbsp;1.带“＃”的为注释行<br>	
+        		&nbsp;2.NcServer:IP:端口（探针端和中心通讯的IP和端口,可以有多个，前个不通会自动尝试下个)<br>
+        		&nbsp;3.ProServer:IP:端口（管理中心查看远程日志使用的IP和端口)<br>
+        		&nbsp;4.NcPassWord:Pronetway(登录密码)<br>
+        		&nbsp;5.不要随便修改配置参数，否则会导致通讯和程序运行不正常
+        	</tr>
+          <tr> 
+            <td> <p align="center">
+                <textarea name="ncclient" cols="70" rows="18">[#ncclient#]</textarea>
+             
+              </p></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td height="70"><table width="100%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncShowClientConf">
+                <input type="submit" name="ok" value="保 存" class="an3">
+                &nbsp; 
+
+                &nbsp; 
+
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+
+</body>
+</html>

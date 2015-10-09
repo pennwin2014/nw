@@ -1,0 +1,172 @@
+
+<!--新建,编辑,删除页面模版-->
+<html>
+
+<head>
+
+<title>客户资料</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<style>
+.tab{border-top:solid thin #E0E0E0;border-right:solid thin gray;border-left:solid thin #E0E0E0;font-family:Verdana;font-size:10pt;text-align:center;font-weight:normal;cursor:default}
+.selTab{border-left:solid thin white ;border-top:solid thin white;border-right:solid thin black;font-weight:bold;text-align:center;background-color:D8E1E7;cursor:default}
+.selTabBase{border-top:solid thin #dfdfdf}
+.TabBase{border-top:solid thin #ffffff}
+ .an328 { font-size: 9pt; background-color: #D8E1E7; 
+  vertical-align: middle; height: 20px; width: 75px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand;background-image: url(/images/antongguo.gif); background-repeat: no-repeat}
+ .an308 { font-size: 9pt; background-color: #D8E1E7; 
+  vertical-align: middle; height: 20px; width: 70px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand;background-image: url(/images/anshanchu.gif); background-repeat: no-repeat}
+</style>
+
+<script>
+function showQuery()
+
+{
+frames.list.form1.macno.value=form1.serno_macno.value;
+frames.list.form1.serno.value=form1.serno_serno.value;
+frames.list.form1.CurPg.value='1';
+frames.list.form1.FunName.value='sernoShowList';
+frames.list.form1.submit();
+}
+function ss()
+{
+	if(window.event.keyCode==13)
+	{
+	frames.list.form1.macno.value=form1.serno_macno.value;
+	frames.list.form1.serno.value=form1.serno_serno.value;
+	frames.list.form1.CurPg.value='1';
+	frames.list.form1.FunName.value='sernoShowList';
+	frames.list.form1.submit();
+	}
+}
+function Add()
+{
+if(form1.groupname.value=='')
+{
+	alert('组名不能为空');
+	return;
+}
+
+frames.list.form1.groupname.value=form1.groupname.value;
+frames.list.form1.groupid.value='';
+frames.list.form1.FunName.value='group_add';
+form1.groupname.value='';
+frames.list.form1.submit();
+
+}
+function Edit()
+{
+if(form1.groupname.value=='')
+{
+	alert('组名不能为空');
+	return;
+}
+
+frames.list.form1.groupname.value=form1.groupname.value;
+frames.list.form1.FunName.value='group_add';
+form1.groupname.value='';
+frames.list.form1.submit();
+
+}
+function Del()
+{
+	if(frames.list.form1.cheID.value=='')
+	{
+		alert('请选择要删除的记录');
+		return;
+	}
+	frames.list.form1.FunName.value='groupDel';
+	frames.list.form1.submit();
+}
+function init()
+{
+var temp;
+temp="/pronline/Msg?FunName@zlRightShowList+opname@"+form1.opman.value;
+frames.list.location.href=temp;
+}
+function changeselect()
+{
+var temp;
+temp="/pronline/Msg?FunName@zlRightShowList+opname@"+form1.opman.value;
+frames.list.location.href=temp;
+}
+</script>
+<link rel="stylesheet" href="/css/oitcss.css" type="text/css">
+</head>
+
+<body  bgcolor=Menu text="#000000" leftmargin="0" topmargin="0"  style="overflow:hidden" onload="init()">
+
+<form name="form1" id="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="FunName" value="">
+
+  <table width="98%"  border="0" cellspacing="0" cellpadding="0" align="center" height="100%"> 
+    <tr valign="top"> 
+    <td width="100%" valign="top">
+     <table width="100%"  border=1 bordercolordark=#ffffff bordercolorlight=#999999 cellspacing="0" cellpadding="5">
+     
+      <tr height="25">
+       <td colspan="2" valign="top">
+         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+         <tr>
+           <td height="25" width="100"> 
+              <table width="100" height="25" border=1 cellpadding="0" cellspacing="0"    bordercolorlight=#000000 bordercolordark=#ffffff background="/images/pic_3.gif"   >
+                <tr> 
+                  <td width="160" height="22"  > 
+                    <div align="center">
+                      <table width="160" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="20">&nbsp;</td>
+                          <td width="120" > 
+ 				          <div align="center" style="font-size: 11pt">资料查看权限管理 
+                            </div></td>
+                          <td width="20">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </div></td>
+                </tr>
+              </table>
+            </td>
+           <td  align="right">关键字
+              <input name="groupname" type="text" value="" size="16" onkeypress="ss()">             
+              <input type="button" name="Buttonyj" value="&nbsp;查询&nbsp;"  style="display:" onClick="Add()">&nbsp;&nbsp;  
+			  操作员&nbsp;<select name="opman" style="width:120px" onchange="changeselect()">
+
+			  		[#SLPB#]
+			  		<option value="[#opname#]">[#opname#]</option>
+			  		[#SLPE#]
+			  		</select>
+           </td>
+          </tr>
+          </table>
+         </td>
+      </tr>
+      
+       <tr>
+	      <td height="635"  valign="top" width="100%">
+	       <iframe  height="635" name="list" id="list" width="100%"  border="0" frameborder="0" src="" scrolling="yes"> </iframe>      
+	      </td>
+	      
+	   
+      </tr>
+
+		 </table>
+      </td>
+      </tr>
+
+  </table>
+   
+</form>
+</body>
+
+</html>  

@@ -1,0 +1,3 @@
+DEVICE=[#devname#]
+BOOTPROTO=dhcp
+ONBOOT=yes

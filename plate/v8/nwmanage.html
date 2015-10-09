@@ -1,0 +1,486 @@
+<html>
+	<head>
+		<!-- Force IE9 Standards mode -->
+		<meta http-equiv="X-UA-Compatible" content="IE=9">
+		<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+		<title>新网程内网管理系统-客户管理中心</title>
+		<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+		<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />	
+		<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+		<script type="text/javascript" src="/js/tools/check.js"></script>
+		<style>
+			.mainTitle{
+				width: 620px;
+				margin: 30px auto;
+				font-family: "黑体";
+				font-size:  40px;
+			}
+			#mainBody{
+				width:1024px;
+				margin: 30px auto;
+				border:1px solid #F00; 
+			}
+		</style>
+		<script>
+			var nwGlobalCtx = new f_NwGlobalContext();
+			
+			Ext.onReady(function () {
+
+				var accountStore = Ext.create('Ext.data.Store', {
+					fields: ['sid', 'compname', 'shortname', 'clientnums', 'datebegs', 'days', "compaddr", "compsize", "compphone", "compfax", "compweb", "compmail", "compband", "applname", "applsex", "appljob", "appldepart", "applphone", "applmobile", "applmail", "applqq", "bindmail", "remaindays"],
+
+					proxy: {
+						type: 'ajax',
+						url: '/pronline/Msg?FunName@lan_compuser',
+						reader: {
+							type: 'json',
+							root: 'data',
+							totalProperty: 'totalCount',
+							idProperty: 'sid'
+						}
+					}
+				});
+
+				function checkValid(record){
+					//公司名
+					if(!nwGlobalCtx.isEnglish(record.shortname)){
+						alert("公司简称不能为中文");
+						return false;
+					}
+					
+					//手机号是否存在非数字
+					if(!nwGlobalCtx.isPhone(record.applphone)){
+						alert('申请人详情座机有误');
+						return false;
+					}
+					if(!nwGlobalCtx.isPhone(record.applmobile)){
+						alert('申请人详情手机号有误');
+						return false;
+					}
+					if(!nwGlobalCtx.isMail(record.applmail)){
+						alert('申请人详情邮箱格式不正确');
+						return false;
+					}
+					if(!nwGlobalCtx.isQQ(record.applqq)){
+						alert("申请人详情qq有误");
+						return false;
+					}
+					if(record.compphone.length > 0){
+						if(!nwGlobalCtx.isPhone(record.compphone)){
+							alert("公司详情总机有误");
+							return false;
+						}
+					}
+					if(record.compfax.length > 0){
+						if(!nwGlobalCtx.isPhone(record.compfax)){
+							alert("公司详情传真有误");
+							return false;
+						}
+					}
+					if(record.compmail.length > 0){
+						if(!nwGlobalCtx.isMail(record.compmail)){
+							alert("公司详情邮箱有误");
+							return false;
+						}
+					}
+					if(record.compweb.length > 0){
+						if(!nwGlobalCtx.isWebUrl(record.compweb)){
+							alert("公司详情网站有误");
+							return false;
+						}
+					}					
+					return true;
+				}								
+
+				var addWin = null;
+
+				function showForm(record) {
+
+					addWin = null;
+					addWin = Ext.create('Ext.window.Window', {
+						title: "公司信息",
+						width: 650,
+						//height: 600,
+						modal: true,
+						items: [{
+							xtype: 'form',
+							items: [{
+								layout: "hbox",
+								items: [{
+									xtype: 'fieldcontainer',
+									margin: "8 4 0 8",
+									width: 300,
+									items: [{
+										xtype: "textfield",
+										name: "compname",
+										allowBlank: false,
+										disabled: (record != ''),
+										fieldLabel: "<font color='red'>*</font>公司名称",
+										listeners: {
+											'blur': function (thisTF, eOpts) {
+												Ext.Ajax.request({
+													url: '/pronline/Msg',
+													params: {
+														FunName: "checkcompname",
+														compname: thisTF.getValue()
+													},
+													success: function (response) {
+														var text = Ext.decode(response.responseText);
+
+														//alert(text.value);
+														if (text.value == 'failure') {
+															alert("公司名已被注册！");
+															thisTF.setValue("");
+														}
+													}
+												});
+											}
+										}
+									}, {
+										xtype: "textfield",
+										name: "shortname",
+										allowBlank: false,
+										disabled: (record != ''),
+										fieldLabel: "<font color='red'>*</font>公司简称",
+										regex: nwGlobalCtx.RegEnglish,
+										regexText:"公司简称不能为中文",
+										listeners: {
+											'blur': function (thisTF, eOpts) {
+												Ext.Ajax.request({
+													url: '/pronline/Msg',
+													params: {
+														FunName: "checkshortname",
+														shortname: thisTF.getValue()
+													},
+													success: function (response) {
+														var text = Ext.decode(response.responseText);
+
+														//alert(text.value);
+														if (text.value == 'failure') {
+															alert("公司简称已被注册！");
+															thisTF.setValue("");
+														}
+													}
+												});
+											}
+										}
+									}, {
+										xtype: "textfield",
+										name: "bindmail",
+										allowBlank: false,
+										disabled: (record != ''),
+										fieldLabel: "<font color='red'>*</font>绑定邮箱"
+									}, {
+										xtype: 'fieldset',
+										title: '公司详细',
+										collapsible: true,
+										items: [{
+											xtype: 'numberfield',
+											fieldLabel: "&nbsp;&nbsp;规模",
+											name: 'compsize'
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;总机",
+											name: "compphone",
+											regex: nwGlobalCtx.RegPhone,
+											regexText:"无效电话号码"
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;传真",
+											name: "compfax"
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;网站",
+											name: "compweb"
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;邮箱",
+											name: "compmail",
+											regex: nwGlobalCtx.RegMail,
+											regexText:"无效邮箱"
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;带宽",
+											name: "compband"
+										}, {
+											xtype: 'textfield',
+											fieldLabel: "&nbsp;&nbsp;地址",
+											name: "compaddr"
+										}]
+									}]
+								}, {
+									xtype: 'fieldcontainer',
+									margin: "8 4 0 8",
+									width: 300,
+									items: [{
+										xtype: "numberfield",
+										minValue: 1,
+										allowBlank: false,
+										name: "clientnums",
+										fieldLabel: "<font color='red'>*</font>授权客户端数"
+									}, {
+										xtype: "datefield",
+										name: "datebegs",
+										format: "Y/m/d",
+										allowBlank: false,
+										fieldLabel: "<font color='red'>*</font>授权起始日期"
+									}, {
+										xtype: "numberfield",
+										minValue: 1,
+										name: "days",
+										allowBlank: false,
+										fieldLabel: "<font color='red'>*</font>授权有效天数"
+									}, {
+										xtype: 'fieldset',
+										title: '申请人详情',
+										collapsible: true,
+										items: [{
+											xtype: "textfield",
+											name: "applname",
+											allowBlank: false,
+											fieldLabel: "<font color='red'>*</font>姓名"
+										}, {
+											xtype: "radiogroup",
+											fieldLabel: "<font color='red'>*</font>性别",
+											columns: 2,
+											value: record ? record.get('applsex') : 1,
+											items: [{
+												boxLabel: '男',
+												name: 'applsex',
+												inputValue: '1',
+												checked: true
+											}, {
+												boxLabel: '女',
+												name: 'applsex',
+												inputValue: '2'
+											}]
+										}, {
+											xtype: "textfield",
+											name: "appljob",
+											allowBlank: false,
+											fieldLabel: "<font color='red'>*</font>职位"
+										}, {
+											xtype: "textfield",
+											allowBlank: false,
+											name: 'appldepart',
+											fieldLabel: "<font color='red'>*</font>部门"
+										}, {
+											xtype: "textfield",
+											name: "applphone",
+											fieldLabel: "&nbsp;&nbsp;座机"
+										}, {
+											xtype: "textfield",
+											name: "applmobile",
+											allowBlank: false,
+											fieldLabel: "<font color='red'>*</font>手机"
+										}, {
+											xtype: "textfield",
+											name: "applmail",
+											allowBlank: false,
+											fieldLabel: "<font color='red'>*</font>邮箱"
+										}, {
+											xtype: "textfield",
+											name: "applqq",
+											fieldLabel: "&nbsp;&nbsp;QQ"
+										}]
+									}]
+								}]
+							}],
+							buttons: [{
+								text: "提交",
+								handler: function () {
+									var form = this.up('form').getForm();
+									if (form.isValid()) {
+										var deal = "";
+										if (record != '') {
+											deal = "update";
+										} else {
+											deal = "insert";
+										}
+										if(!checkValid(form.getValues())){
+											return;
+										}
+		
+										accountStore.load({
+											params: {
+												deal: deal,
+												sid: record != "" ? record.get('sid') : "",
+												compname: form.getValues().compname,
+												shortname: form.getValues().shortname,
+												clientnums: form.getValues().clientnums,
+												bindmail: form.getValues().bindmail,
+												datebeg: form.getValues().datebegs,
+												days: form.getValues().days,
+												compaddr: form.getValues().compaddr,
+												compsize: form.getValues().compsize,
+												compphone: form.getValues().compphone,
+												compweb: form.getValues().compweb,
+												compmail: form.getValues().compmail,
+												compband: form.getValues().compband,
+												applname: form.getValues().applname,
+												applsex: form.getValues().applsex,
+												appljob: form.getValues().appljob,
+												appldepart: form.getValues().appldepart,
+												applphone: form.getValues().applphone,
+												applmobile: form.getValues().applmobile,
+												applmail: form.getValues().applmail,
+												applqq: form.getValues().applqq
+											}
+										});
+										addWin.close();
+									}
+								}
+							}, {
+								text: "重置",
+								disabled: (record != ""),
+								handler: function () {
+									this.up('form').getForm().reset();
+								}
+							}]
+						}]
+					});
+					if (record != "") {
+						addWin.down('form').loadRecord(record);
+					}
+					addWin.show();
+				}
+
+				var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+				var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+				var sm = Ext.create('Ext.selection.CheckboxModel',{
+					listeners: {
+						selectionchange: function(sm, selections) {
+							Ext.getCmp("btnRemove").setDisabled(selections.length == 0);
+						}
+					}
+				});
+				Ext.create('Ext.grid.Panel', {
+					renderTo: "mainBody",
+					height: h - 140,
+					xtype: 'grid',
+					store: accountStore,
+					selModel: sm,
+					tbar: ['-', '-', {
+						xtype: 'pagingtoolbar',
+						store: accountStore,
+						border: 0
+					}, '-', {
+						xtype: 'textfield',
+						width: 200,
+						id: 'keywords',
+						fieldLabel: '关键字',
+						labelWidth: 60,
+						emptyText: "",
+						enableKeyEvents: true,
+						listeners: {
+							'keydown': function (i, e) {
+								var aae = e.getKey();
+								if (aae == 13) {
+									accountStore.load({
+										params: {
+											deal: "select",
+											keywords: this.getValue()
+										}
+									});
+								}
+							}
+						}
+					}, {
+						text: '确定',
+						handler: function () {
+							accountStore.load({
+								params: {
+									deal: "select",
+									keywords: Ext.getCmp('keywords').getValue()
+								}
+							});
+						}
+					}, '-', {
+						text: '增加',
+						handler: function () {
+							showForm("");
+						}
+					}, '-',{
+						id:"btnRemove",
+						text:"删除",
+						disabled: true,
+						handler:function(){
+							if(confirm('您真的要执行删除操作吗？')){                  
+								var selsid;  
+								var rows=sm.getSelection();
+								selsid='';
+								for(var i=0;i<rows.length;i++){
+									if(i==0){
+										selsid="'"+rows[i].data.shortname+"'";
+									}
+									else{
+										selsid=selsid+",'"+rows[i].data.shortname+"'";
+									}
+								}
+								alert(selsid);
+								accountStore.load({
+									params: {
+										deal: "delete",selshortnames:selsid
+									}
+								});
+							}
+						}
+					},{
+						text: '导入',
+						hidden:true
+					}],
+					columns: [{
+						text: "公司名称",
+						dataIndex: 'compname',
+						hidden: false,
+						width: 150
+					}, {
+						text: "公司简称",
+						dataIndex: "shortname",
+						width: 100
+					}, {
+						text: "用户数",
+						dataIndex: "clientnums",
+						width: 50
+					}, {
+						text: "起始时间",
+						dataIndex: "datebegs",
+						width: 80
+					}, {
+						text: "剩余天数",
+						dataIndex: "remaindays",
+						width: 60
+					}, {
+						text: "申请人",
+						dataIndex: "applname"
+					}, {
+						text: "申请人手机",
+						dataIndex: "applmobile",
+						width: 90
+					}, {
+						text: "申请人邮箱",
+						dataIndex: "applmail",
+						width: 130
+					}],
+					listeners: {
+						'itemdblclick': function (thisGrid, record, item, index, e, eOpts) {
+							showForm(record);
+						}
+					}
+				});
+				accountStore.load({
+					params: {
+						deal: "select"
+					}
+				});
+
+			});
+		</script>
+	</head>
+	<body>
+		<div class="mainTitle">新网程内网管理系统-客户管理中心</div>
+		<div id="mainBody"></div>
+	</body>
+</html>
+

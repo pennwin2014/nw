@@ -1,0 +1,237 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+function writexxm()
+{
+var temp="/pronline/Msg?FunName@ncWebclassSelect";
+document.all.xxs.src=temp;
+
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function showuserinfo(uid){
+	var temp="/pronline/Msg?FunName@ncWebDispUserInfo2&userid@"+uid;
+
+ showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:660px;scroll:no;dialogHeight:600px');
+}
+
+function passdate()
+{
+if('[#TotRec#]'>'1'){
+parent.form1.lcount.value='[#TotRec#]';
+}
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.form1.urlid.value=form1.urlid2.value;
+
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#333333;">[#title_name#] 网站访问日志</b>';
+}
+
+
+function qr(){
+  if(form1.dispname.value!=form1.old_dispname.value){
+  form1.userid.value='';
+  }
+ 
+	parent.form1.userid.value=form1.userid.value;
+	parent.form1.groupid.value=form1.groupid.value;
+	parent.form1.sdate.value=form1.sdate.value;
+	parent.form1.stime.value=form1.stime.value;
+	parent.form1.edate.value=form1.edate.value;
+	parent.form1.etime.value=form1.etime.value;
+
+	parent.form1.host.value=form1.host.value;
+	parent.form1.username_match.value=form1.username_match.value;
+	parent.form1.dispname.value=form1.dispname.value;
+	parent.form1.idfyno.value=form1.idfyno.value;
+	parent.form1.sip.value=form1.sip.value;
+	parent.form1.webtitle.value=form1.webtitle.value;
+	parent.form1.dip.value=form1.dip.value;
+	parent.form1.uri.value=form1.uri.value;
+	parent.form1.byt.value=form1.byt.value;
+	parent.form1.byt_in.value=form1.byt_in.value;
+  parent.form1.urlid.value=form1.urlid2.value;
+
+}
+
+function cleara(){
+form1.userid.value='';
+form1.groupid.value='';
+form1.sdate.value='';
+form1.edate.value='';
+form1.stime.value='';
+form1.etime.value='';
+form1.dispname.value='';
+form1.idfyno.value='';
+form1.sip.value='';
+form1.urname.value='';
+form1.old_dispname.value='';
+form1.stime.value='';
+form1.etime.value='';
+form1.host.value='';
+form1.dispname.value='';
+form1.webtitle.value='';
+form1.dip.value='';
+form1.uri.value='';
+form1.urlid2.value='';
+form1.byt.value='';
+parent.form1.userid.value='';
+parent.form1.groupid.value='';
+parent.form1.sdate.value='';
+parent.form1.edate.value='';
+parent.form1.stime.value='';
+parent.form1.etime.value='';
+
+parent.form1.dispname.value='';
+parent.form1.idfyno.value='';
+parent.form1.sip.value='';
+
+parent.form1.webtitle.value='';
+
+parent.form1.dip.value='';
+parent.form1.uri.value='';
+parent.form1.urlid.value='';
+parent.form1.byt.value='';
+}
+</script>
+
+<script src="/js/drawtable.js"></script>
+<script src="/js/calendar.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('flexibleTable', '100%', '458', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('姓名', '本人地址', '网址', '网址类别','目标ip','访问时间','流量','网页快照');
+Table.ColumnsWidth ('80', '80', '270', '80', '100', '100', '60','60');
+Table.HeaderAligment ('center', 'center','center', 'center', 'center', 'center', 'center','center');
+Table.BodyAligment ('left', 'left', 'left','left', 'left','center', 'right','left');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('<a href="#xxm" onclick=showuserinfo("[#userid#]")>&nbsp;[#dispname#] </a>','&nbsp;[#sip#]','&nbsp;<a href="[#urllnk#]" target="_blank">[#url#]</a>','&nbsp;[#urltype#]','&nbsp;[#dip#]','&nbsp;[#sdate#]','[#bytes#]&nbsp;','&nbsp;[#wykz#]');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+  .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#eaf3f5" leftMargin=2 topMargin=2 scroll=no onload="Table.Draw();passdate()">
+	<form name="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" name="where"      value="[#where#]">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebHttpHSearch"> 
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="userid" value="[#userid#]">
+	<input type="hidden" name="groupid" value="[#groupid#]">
+	<input type="hidden" name="old_dispname" value="[#dispname#]">
+	<input type="hidden" name="urlid2" value="[#urlid#]">
+		<TABLE style="BORDER-RIGHT: 1px inset; BORDER-TOP: 1px inset; BORDER-LEFT: 1px inset; BORDER-BOTTOM: 1px inset" height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+		
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	
+  	  	       	  <tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td width="90" align="center">&nbsp;上网时间</td>
+          	  	     	<td width="150"><input type="text" name="sdate" value="[#sdate#]" size="11" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="stime" value="[#stime#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="60" align="center">&nbsp;到</td>
+          	  	     	<td width="145"><input type="text" name="edate" value="[#edate#]" size="10" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-16px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="etime" value="[#etime#]" size="4" maxlength="5"></td> 
+          	  	     	<td width="60" align="center">&nbsp;网址</td>
+          	  	     	<td ><input type="text" name="host" value="[#host#]" size="17"></td>
+          	  	     	<td width="65">&nbsp;标题</td>
+          	  	     	<td width="120"><input type="text" name="webtitle" value="[#webtitle#]" size="14" maxlength="25"></td>
+          	  	     	<td width="110" align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td  align="center">&nbsp;用户名</td>
+          	  	     	<td ><select name="username_match">
+                      <option value="0">等于</option>
+                      <option value="1">包含</option>
+                    </select><input type="text" name="dispname" value="[#dispname#]" size="13" >
+
+          	  	     		</td>  
+          	  	     	<td  align="center" >&nbsp;证件号</td>
+          	  	     	<td ><input type="text" name="idfyno" value="[#idfyno#]" size="16"></td>
+          	  	     	<td  align="center">&nbsp;路径</td>
+          	  	     	<td ><input type="text" name="uri" value="[#uri#]" size="17"></td>
+          	  	     	<td >网址类别</td>
+          	  	     	<td id="xxmd"><input type="text" name="urname" value="[#urname#]" size="14" onclick="writexxm()"></td>  
+          	  	     	<td  align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td align="center">&nbsp;目标IP</td>
+          	  	     	<td ><input type="text" name="dip" value="[#dip#]" size="21" ></td>  
+          	  	     	<td  align="center">&nbsp;源IP</td>
+          	  	     	<td  ><input type="text" name="sip" value="[#sip#]" size="16"></td>
+          	  	     	<td  align="center">流量</td>
+          	  	     	<td colspan="3">
+                    <input type="text" name="byt" size="9" maxlength="9" value="[#byt#]" > 
+                    <select name="byt_in">
+                      <option value="1">以内</option>
+                      <option value="2">以外</option>
+                    </select></td>
+ 
+          	  	     	<td  align="center">&nbsp;</td>	     	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  	
+  	
+  	
+  	
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+<iframe id="xxs" width="0" height="0" src="" display="no" ></iframe>
+</html>

@@ -1,0 +1,194 @@
+<html>
+<head>
+<title>归档日志</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.tab{
+width:90;
+text-align: center;
+background-image:url("/images/images2/biaoqian2.gif");background-repeat:no-repeat;
+color:#6b6b6b;
+font-weight:bold;
+cursor:hand;
+}
+.selTab{
+width:90;
+text-align: center;
+ background-image: url("/images/images2/biaoqian.gif"); background-repeat:no-repeat; 
+color:#00224f;
+font-weight:bold;
+cursor:hand;
+}
+
+
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+
+
+function gotoPage(nun)
+{
+	if(nun<1){
+	 form1.CurPg.value=1;
+	 return;
+	}
+	if(nun>form1.TotPg.value){
+		form1.CurPg.value=form1.TotPg.value;
+		return;
+	}
+	form1.CurPg.value=nun;
+	form1.submit();
+}
+
+function addfee()
+{
+	if(form1.fee.value==''){
+		alert('请填写金额');
+		return false;
+	}
+	if(form1.selecttype.value=='2'){
+		if(form1.cheID.value==''){
+			alert('请选择帐户');
+			return false;
+		}
+	}
+	
+	return true;
+}
+</script>
+<style>
+.conts  {visibility:hidden}
+
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0"   style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="pronc">
+<input type="hidden" name="FunName" value="ncWebFeeUserList">
+<input type="hidden" name="cheID" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="userid" value="">
+    <table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#8cb4e8 STYLE="width:100%; height:100%">
+      <tr height="27"><td  align="center" style="font-size:11pt;color:#00237e;" id="titlename"><b>&nbsp;账户充值操作</b></td></tr>      
+	   <tr>			
+	      <td align="center"  bgcolor="#DEE8FA"><br>
+        <table width="96%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>         	
+            <td valign="top" colspan="2">  
+              <table width="96%" border="0" align="center">
+                <tr height="19">
+                 
+                  <td width="50%"><b style="font-size: 10pt;color:#00237e;">&nbsp;&nbsp;用户</b>&nbsp;<input type="text" name="uname" size="16" >&nbsp;<input type="submit" name="search" value="查 询" class="an3" ></td>
+                  <td width="50%"><select name="selecttype"><option value="2">选中记录</option><option value="1">全部记录</option></select>&nbsp;<select name="optype"><option value="1">充值</option><option value="2">将帐号余额修改为</option></select>&nbsp;<input type="text" name="fee" size="16" >&nbsp;<input type="submit" name="feevalue" value="确 认" id="ok" class="an3" onclick="return addfee();"></td>
+      
+                </tr>
+              </table>            
+              </td>
+          </tr>
+           <tr>
+           	<td style="font-size:10pt;color:#00237e;">&nbsp;&nbsp<b>可以对选择的用户，也可以对全部显示的用户充值或修改余额</b></td>          	
+            <td width="40%" align="right" height="28" > 
+               <table align=right border=0 cellpadding=0 cellspacing=0 class=main>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)-1);' class='hand'>")}
+                   </script></td>
+
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=8 name=CurPg size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value=0  onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+						    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=7 name=TotPg size=4 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 45px" value='0'>
+						    </td>
+						    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=8 name=TotRec size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 50px" value='0'>
+						    </td>
+						    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+						                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)+1);' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage(form1.TotPg.value);' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>     
+           
+              </td>
+          </tr>
+          <tr>         	
+            <td valign="top" colspan="2" height="520">  
+
+             <iframe name="pronc" id="data1" width="100%" height="100%" src="/pronline/Msg?FunName@ncWebFeeUserList" frameborder="yes"> </iframe>
+          
+              </td>
+          </tr>
+          
+          
+          
+                   
+        </table></td>	
+		
+		
+</tr></table>
+
+	</form>	
+
+
+</body>
+</html>

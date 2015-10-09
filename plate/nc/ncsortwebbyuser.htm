@@ -1,0 +1,242 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.hand {  cursor: hand}
+.gray1{filter:gray}
+-->
+</style>
+<script src="/js/calendar.js"></script>
+<script language="JavaScript">
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function MM_findObj(n, d) 
+{ //v4.0
+  	var p,i,x;
+  	if(!d) d=document;
+  	if((p=n.indexOf("?"))>0&&parent.frames.length)
+  	{
+    	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+    }
+  	if(!(x=d[n])&&d.all) x=d.all[n];
+  	for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  	for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  	if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_changeProp(objName,x,theProp,theValue)
+{ //v3.0
+  	var obj = MM_findObj(objName);
+  	if (obj && (theProp.indexOf("style.")==-1 || obj.style)) eval("obj."+theProp+"='"+theValue+"'");
+}
+
+	function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+
+function cleara(){
+	form1.sdate.value='';
+	form1.edate.value='';
+	form1.sumrec.value='';
+	form1.groupid.value='';
+	form1.dispname.value='';
+	form1.stime.value='';
+	form1.etime.value='';
+}
+function  doCon(){
+  document.all.Layer3.style.display='';
+ 
+}
+function lprint(){
+
+	
+	document.all.lpr.style.display="none";
+	document.all.tjtj.style.display="none";
+	document.all.exp.style.display="none";
+	
+
+  window.print()
+	document.all.lpr.style.display="";
+	document.all.tjtj.style.display="";
+	document.all.exp.style.display="";
+}
+
+// -->
+<!-- Hide
+
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+</SCRIPT>
+<style type="text/css">
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:560px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }
+ -->   
+</style>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="groupid" value="[#groupid#]">
+	<input type="hidden" name="FunName" value="ncWebCountStatByUser">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+ 
+    <tr> 
+      <td valign="bottom" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr height="26"> 
+           
+            <td width="40%"> 
+             &nbsp;<input name="tjtj" type="button" class="an3" value="统计条件" onClick="doCon()">  
+              <input name="exp" type="submit" class="an3" value="导 出" >
+              <input name="lpr" type="button" class="an3" value="打 印" onClick="lprint()">
+             
+              
+              </td>
+              <td width="46%" align="center">
+              <font color="#000000" style="font-size:11pt"><strong>[#groupname#]用户网页点击数统计</strong></font> <b>（从[#sdate#]到[#edate#])</b>
+                  </td>
+              <td width="14%">
+            
+              </td>
+
+          </tr>
+
+        </table>
+        <div id="plabel"> </div>
+      </td>
+    </tr>
+  </table>
+  
+  <div class="tScrollw"  id="tC">
+  <table  cellspacing=0  cellpadding="0" bordercolor="#DFDFDF" border="0" align="center" width=100%>
+ <tr align="center" valign="middle" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+    <td  height="20" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">序号</font></div></td>
+    <td   height="20" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">姓名</font></td>
+
+    <td   height="20" bgcolor="#6382BD"  class="bord4"> <font color="#FFFFFF">网页总点击数(次)
+</font></td>
+
+  </tr>
+
+  [#SLPB#]
+  <tr bgcolor="#FFFFFF"> 
+    <td  height="17"  class="bord1" align="center"> &nbsp;[#num#]</td>
+    <td   height="17"  class="bord1">&nbsp;[#username#]</td>
+   
+     <td   height="17"  class="bord3" align="right">&nbsp; [#sumcount#]&nbsp;</td>
+  </tr>
+     [#SLPE#] 
+  </table>
+</div>
+
+  <div id="Layer3" style="position:absolute; left:0px; top:0px; width:730px; height:70px;background-color:#DFF0F7; z-index:1;display:none;">
+    <table width="100%" cellpadding=5 cellspacing=5>
+        <tr>
+	 <td>
+          <table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="100%">
+            <tr>
+              <td>
+
+	  <table border=0 cellpadding=0 cellspacing=0 width="100%">
+	     <tr height="40">
+		<td width="70" align="center">&nbsp;统计时间</td>
+		<td><input type="text" name="sdate" value="[#sdate#]" size="12" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false"><input type="text" style="position:relative;left:-19px;" name="stime" value="[#stime#]" size="2" maxlength="2">&nbsp;</td> 
+		<td width="30" align="center">&nbsp;到</td>
+		<td ><input type="text" name="edate" value="[#edate#]" size="12" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false"><input type="text" style="position:relative;left:-19px;" name="etime" value="[#etime#]" size="2" maxlength="2">&nbsp;</td> 
+		<td  align="center">&nbsp;显示记录数</td>
+		<td ><input type="text" name="sumrec"  size="6" maxlength="5" value="[#sumrec#]"></td>
+		<td>&nbsp;用户名&nbsp;</td>
+		<td><input type="text" name="dispname" value="[#dispname#]" size="14"  ></td>
+	     </tr>
+
+	    </table>
+          </td>
+        </tr>
+        <tr width="100%">
+          <td>
+	    <table width="30%" height="40" align="center">
+	     <tr>
+	       <td width="10%">
+	         <input name="cxx" type="submit" class="an3" value="确 定" >
+	       </td>
+	       <td width="10%">
+	         <input name="clearaq" type="button" class="an3" value="清除条件" onclick="cleara()">
+	       </td>
+	       <td width="10%">
+	         <input name="yc" type="button" value="隐藏" class="an3" onclick="document.all.Layer3.style.display='none';">
+	       </td>
+	     </tr>
+            </table>
+              <td>
+            </tr>
+          </table>
+	</td>
+      </tr> 
+    </table>
+  </div>
+</form1>
+
+</body>
+
+
+</html>

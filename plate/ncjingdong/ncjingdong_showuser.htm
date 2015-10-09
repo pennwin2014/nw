@@ -1,0 +1,436 @@
+
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<head>
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+	 <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+  <meta name="ProgId" content="VisualStudio.HTML">
+  <meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>上网流量排行榜</title>
+<style>
+	.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+	.style5 {color: #00237e; font-size: 12px; font-weight: bold; }
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+
+.anniu_3 {  background-color: #6382BD; height: 16px; width: 80px;font-size: 9pt; font-style: normal; font-weight: normal;BORDER-BOTTOM: 1px solid #6382BD; BORDER-LEFT:1px solid  #6382BD; BORDER-RIGHT: 1px solid #266AA8; BORDER-TOP: 1px solid  #6382BD; COLOR: #ffffff; top: 20px; clip:   rect(   )   cursor: hand}
+
+.bord2_2 {	border-top: 1px solid #666666;
+	border-right: 1px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+
+
+A:link {COLOR: #800080; TEXT-DECORATION: underline;}
+A:visited{
+color:#000000;text-decoration:none;
+font-size:9pt;
+}
+A:hover{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+A:active{color:#000000;text-decoration:underline;
+font-size:9pt;
+}
+	
+	
+TD {	FONT-SIZE: 9pt}
+</style>
+<script src="/js/calendar.js"></script>
+
+	<script LANGUAGE="JavaScript">	
+	function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}	
+		
+		
+ function openreport(tid){
+ 	  var t='/pronline/Msg?FunName@ncWebShowUserlog&uid@'+tid+'&git@'+form1.gitem.value+'&sdate@'+form1.sdate.value+'&edate@'+form1.edate.value+'&shour@'+form1.shour.value+'&ehour@'+form1.ehour.value;
+
+		window.open(t,'open_report','height=600, width=900, top=0, left=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}	
+ function getColor(){
+		   return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+    };
+ function maxs(mm){
+   var max1 = 0;
+     for(var i=0; i<mm.length; i++){
+     	
+      if(parseInt(mm[i]) > max1) max1 = mm[i];
+    }
+
+ return max1;
+ }
+  var tb_left=200;
+	var tb_top=120;
+	var tb_width=600;
+	var tb_height=600; 
+	var y_tot=5;
+	var x_tot=20;
+	var y_max=1500;
+  var to_day='[#today#]';
+	var sdate=new Array();
+	var sdate2=new Array();
+	var sdate_desc=new Array();
+	var sdate_xh=new Array();
+	var uid=new Array();
+	[#SLPB#]
+	sdate[[#num#]]='[#data#]';
+	sdate_desc[[#num#]]='[#name#]';
+	sdate_xh[[#num#]]='[#num1#]';
+	uid[[#num#]]='[#uid#]';
+	[#SLPE#]
+	
+	function drawzzt()
+  {
+ 	var step_scal=(tb_height)/y_tot;		
+	var temp_html;
+	y_max=(Math.round(maxs(sdate)/100)+2)*100;
+
+
+
+	var step=y_max/y_tot;
+  x_tot=sdate.length;
+  if(x_tot>20) x_tot=20;
+	var step_x=Math.floor(tb_width/x_tot);
+	var step_xx=Math.floor(tb_width/20);
+	var yzoom=tb_height/y_max; 
+	var temp_html;
+  //画坐标轴	
+   temp_html="<v:rect  alt='' style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' fillcolor='#ffffff' stroked='f'>";
+   temp_html=temp_html+"<v:fill rotate='t' angle='-45' focus='100%' type='gradient'/></v:rect>";
+ //下 左 右 上
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333' />";	 
+ 	 temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+tb_left+","+parseInt(tb_top-0)+"' to='"+tb_left+","+parseInt(tb_top+tb_height)+"' strokecolor='#333333'/> ";
+   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+tb_height)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top-0)+"' strokecolor='#dddddd' />";
+   temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+tb_top+"' to='"+parseInt(tb_left+tb_width)+","+tb_top+"' strokecolor='#333333'/>	";
+	
+	//画纵坐标刻度
+	temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left-200)+";top:"+parseInt(tb_top-12)+";width:200px;height:18px;z-index:1'>";
+	temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+	temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";
+	//最顶端单位刻度
+	temp_html=temp_html+"<tr><td align='right' class='style5'>[#unit#]</td></tr>";
+	temp_html=temp_html+"</table></v:textbox></v:shape>";
+   
+  var i;
+  if(form1.sumNum.value>20) form1.sumNum.value=20;
+  //y轴虚线
+  for(i=1;i<y_tot;i++){
+  	temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+step_scal*i)+","+parseInt(tb_top)+"' to='"+parseInt(tb_left+step_scal*i)+","+parseInt(tb_top+tb_height)+"' strokecolor='#dddddd'/>	";						
+  }
+	for(i=0;i<parseInt(form1.sumNum.value);i++){	   
+			
+			//y轴刻度
+			temp_html=temp_html+"<v:shape alt='' style='position:absolute;left:"+parseInt(tb_left-180)+";top:"+parseInt(tb_top-6+step_x*(i+1)-step_x*1/2)+";width:170px;height:18px;z-index:1'>";
+			temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+			temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";		
+			if(form1.sumNum.value==0){
+			}else
+			temp_html=temp_html+"<tr><td align='right'>"+sdate_desc[i]+"</td></tr>";
+			temp_html=temp_html+"</table></v:textbox></v:shape>";
+				   
+	}
+	var sbuf;
+	var hour;
+	var min;
+	var sec;
+   //画X轴刻度和柱状图
+	for(i=0;i<x_tot;i++){
+		var t_color=getColor();
+	
+	//柱状图
+		temp_html=temp_html+"<v:rect    style='cursor:hand;position:absolute;left:"+parseInt(tb_left)+";top:"+parseInt(tb_top-1+step_x*(i+1)-step_x*1/2)+ ";height:14px;width:"+parseInt(sdate[i]*yzoom)+";z-index:1' fillcolor='"+t_color+"'>";
+		temp_html=temp_html+"<v:fill color2='"+"#dddddd"+"' rotate='t' type='gradient'/><o:extrusion v:ext='view' backdepth='14pt' color='"+t_color+"' on='t'/></v:rect>";
+	//柱上刻度		
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+sdate[i]*yzoom-5)+";top:"+parseInt(tb_top+step_x*(i+1)-22)+";width:60px;height:18px;z-index:8'>";
+		temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+//柱上刻度内容
+//		temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'><tr><td align='center'>"+sdate[i]+"</td></tr></table>";
+		temp_html=temp_html+"</v:textbox></v:shape>";		
+				
+	}
+	
+	for(i=0;i<6;i++){
+		if(form1.sumNum.value==0){
+			sbuf="";
+		}else{
+			if(i==0)
+	  		sbuf="00:00:00";
+	  	else{
+	  		hour=parseInt(y_max/3600/5*i);
+	  		if(parseInt(y_max)/3600<5&&i>0&&parseInt(y_max)/3600>0){     //小时不可以分出5份  1~4小时
+	  			min=parseInt(y_max/300*i);
+	  			if(min/60>0){
+	  				hour=parseInt(min/60);
+	  				sec=parseInt(y_max%3600%60/5*i);
+	  				if(sec>60){
+	  					sec=sec-60;
+	  					min=parseInt(min-parseInt(min/60)*60)+1;
+	  				}else{
+	  					min=parseInt(min-parseInt(min/60)*60);
+	  				}//alert(min);
+	  			}else{
+	  				hour=0;
+	  				sec=parseInt(y_max%3600%60/5*i);
+	  				if(sec>60){
+	  					sec=sec-60;
+	  				}
+	  			}
+	  			
+	  		}else{
+		  		sec=parseInt(y_max%3600%60/5*i);
+		  		if(sec>60){
+		  			sec=sec-60;
+		  			min=parseInt(y_max%3600/60/5*i)+1;
+		  			if(min>60){
+		  				min=min-60;
+		  				hour=parseInt(y_max/3600/5*i)+1;
+		  			}else{
+		  				hour=parseInt(y_max/3600/5*i);
+		  			}
+		  		}else{
+		  			min=parseInt(y_max%3600/60/5*i);
+		  			if(min>60){
+		  				min=min-60;
+		  				hour=parseInt(y_max/3600/5*i)+1;
+		  			}else{
+		  				hour=parseInt(y_max/3600/5*i);
+		  			}
+		  		}		
+	  		}
+	  		if(sec<10) sec="0"+sec;
+	  		if(min<10) min="0"+min;
+	  		if(hour<10) hour="0"+hour;
+	  		sbuf=hour+":"+min+":"+sec;	
+	  	}	
+  }
+  				
+//  		alert("sec="+sec+"  min="+min+" hour="+hour);	
+	//X轴刻度标志	
+		temp_html=temp_html+"<v:shape   alt='' style='position:absolute;left:"+parseInt(tb_left+step_xx*(4*i+1)-step_xx*3/4-40)+";top:"+parseInt(tb_top+tb_height+1)+";width:40;height:30px;z-index:2'>";
+   	temp_html=temp_html+"	<table cellspacing='3' cellpadding='0' width='100%' height='100%' ><tr><td align='center' style='font-size:10pt'>"+sbuf+"</td></tr></table>";
+		temp_html=temp_html+"</v:shape>";
+	}
+	
+	
+//画单位
+  
+  		temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left-110)+";top:"+parseInt(tb_top-38)+";width:180px;height:28px;z-index:3'>";
+		  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+//		  temp_html=temp_html+"<tr><td align='right'>[#unit#]</td></tr>";
+		  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+
+
+//画标题
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+100)+";top:"+parseInt(tb_top-32)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style4'>"+"User(Usernames) versus Browsing Time (h:m:s)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+150)+";top:"+parseInt(tb_top+tb_height+28)+";width:390px;height:18px;z-index:1'>";
+
+		  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+		  temp_html=temp_html+"<tr><td align='center' class='style5'>"+"Browsing Time (h:m:s)"+"</td></tr>";
+		  temp_html=temp_html+"</table></v:shape>";
+
+
+  document.getElementById("test1").innerHTML=temp_html;
+   
+}
+    
+    
+function sort_hit(){
+	form1.order.value="1";	
+	form1.submit();
+}    
+	</script>
+	
+</head>
+
+<body topmargin=5 leftmargin=0 bgcolor="#DEE8FA" scroll=AUTO onload="drawzzt()">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+
+  <input type="hidden" name="FunName" value="nc_jingdong_user">
+  <input type="hidden" name="groupid" value="[#groupid#]">
+  <input type="hidden" name="userid" value="[#userid#]">
+  <input type="hidden" name="order" value="[#order#]">
+  <input type="hidden" name="sumNum" value="[#sumNum#]">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              User(Usernames) versus Browsing Time</div></td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2"> 
+        
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr height="30"> 
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+            	Time: From&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+            	<select name="shour" style="position:relative;left:-16px;width:38px;">
+              <option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+            	</select>
+      
+            	<span style="position:relative;left:-16px">to&nbsp;<input type="text" name="edate" size="11" value="[#edate#]" ><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+            	<select name="ehour" style="position:relative;left:-16px;width:38px;">
+            	<option value="00">00</option>
+            	<option value="01">01</option>
+            	<option value="02">02</option>
+            	<option value="03">03</option>
+            	<option value="04">04</option>
+            	<option value="05">05</option>
+            	<option value="06">06</option>
+            	<option value="07">07</option>
+            	<option value="08">08</option>            	
+            	<option value="09">09</option>
+            	<option value="10">10</option>
+            	<option value="11">11</option>
+            	<option value="12">12</option>
+            	<option value="13">13</option>
+            	<option value="14">14</option>
+            	<option value="15">15</option>
+            	<option value="16">16</option>
+            	<option value="17">17</option>
+            	<option value="18">18</option>
+            	<option value="19">19</option>
+            	<option value="20">20</option>
+            	<option value="21">21</option>
+            	<option value="22">22</option>
+            	<option value="23">23</option>
+
+            	</select>
+            	 </span>
+            	 <span style="position:relative;left:-32px">
+          
+            	<input name="submit1" type="submit" class="an3"  value="Confirm" >
+            	<input name="exppdf" type="submit" class="an3-1"    value="Export PDF" >
+          <!--  	
+            	<input name="exp" type="submit" class="an3"    value="导出EXCEL" > -->
+            </span>
+            	</td>
+          </tr>
+          <tr bgcolor="#ffffff">
+          	<td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+          				<td width="49%" id="test1" height="700"></td>
+          			
+           </tr>
+           <tr>
+           	<td>
+           		<table  id="DataTable"  class="listDataTable" width="840" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+
+                   <tr    bgcolor="#DEE8FA" height="22">
+				            <td width="30" align="center" class="bord2_1"> #</td>
+				            <td width="140" align="center" class="bord2_1" > User(Usernames)</td>
+				            <td width="120" align="center" class="bord2_1" > Hits</td>
+				            <td width="140" align="center" class="bord2_1" >Incoming(MB)</td>
+				            <td width="140" align="center" class="bord2_1" >Outcoming(MB)</td>
+				            <td width="200" align="center" class="bord2_1" >Browsing Time (h:m:s)</td>
+				            <td width="100" align="center" class="bord2_2" >% of Hits</td>
+				          </tr>
+          <!-- onclick="openreport('[#uid#]')" <input type=button value="Hits" class="anniu_3" onclick="sort_hit();">  -->
+				          [#SLPB#]
+				          <tr height="20"> 
+				
+				            <td class="bord1"   nowrap >&nbsp;[#num1#]</td>
+				            <td class="bord1"  nowrap  >&nbsp;[#name#]&nbsp;</td>
+				            <td class="bord1"   nowrap align="right">&nbsp;[#lhit#]</td>
+				          	<td class="bord1"  nowrap align="right" >&nbsp;[#ubytes#]</td>
+				            <td class="bord1"   nowrap align="right">[#dbytes#]&nbsp;</td>
+				            <td class="bord1"  align="right">[#time#]&nbsp;</td>
+				            <td class="bord3"  align="right">[#phit#]&nbsp;</td>
+				           
+				          </tr>
+                 [#SLPE#]
+                 <tr height="20"> 
+				
+				            <td class="bord1"   nowrap >&nbsp;</td>
+				            <td class="bord1"  nowrap  align="right" >&nbsp;Total:[#sunpeo#]&nbsp;</td>
+				            <td class="bord1"   nowrap align="right" >&nbsp;[#lSumcou#]</td>
+				          	<td class="bord1"  nowrap align="right" >&nbsp;[#lSumubytes#]</td>
+				            <td class="bord1"   nowrap align="right">[#lSumbytes#]&nbsp;</td>
+				            <td class="bord1"  align="right">[#lSumtime#]&nbsp;</td>
+				            <td class="bord3"  align="right">[#sumphit#]&nbsp;</td>
+				           
+				          </tr>
+                 
+          	    </table>
+          			 </td>
+          			</tr>
+          			
+          			  
+          			
+          			
+          	  </table>
+           	</td>
+          </tr>
+       
+        </table>
+     </td>
+    </tr>
+	</table>
+	<script> form1.shour.value="[#shour#]";		    
+		       form1.ehour.value="[#ehour#]";		  
+	</script>
+</form>
+</body>
+</html> 

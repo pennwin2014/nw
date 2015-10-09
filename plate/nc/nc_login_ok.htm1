@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<title>上网验证</title>
+
+
+
+<script>
+	
+		function byby(){
+
+//	if(confirm('关闭本页面，您将不能上网了?')){
+	self.location.href='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebInternetLogout' ;
+
+////	}
+//	return false;
+	}
+	
+	
+	
+		function showreport(){
+
+		window.open('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebShowMoveuser&username@[#username#]','open_report2','height=500, width=600, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+	
+</script>
+
+<style>
+	
+	.body {
+	font-family: "新宋体";
+	font-size: 12px;
+	line-height: 24px;
+	height: 385px;
+	width: 542px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 0px;
+	
+}
+#container {
+	height: 354px;
+	width: 536px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#container .toper {
+	height: 24px;
+	width: 289px;
+	margin-left: 135px;
+}
+#container .werper {
+	height: 313px;
+	width: 542px;
+	float: left;
+	background-image: url(/images/sb/jie33.gif);
+	background-repeat: no-repeat;
+	margin-top: 10px;
+}
+#container .werper .tittle {
+	height: 19px;
+	width: 104px;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	margin-left: 25px;
+}
+.werper .tittle1 {
+	height: 18px;
+	width: 227px;
+	margin-left: 25px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+#container .werper .buttom {
+	height: 32px;
+	width: 280px;
+	margin-left: 100px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #52b71d;
+	line-height: 32px;
+	margin-top: 5px;
+	vertical-align: middle;
+}
+
+#container .werper .buttom .btn_11 {
+	line-height: 32px;
+	background-image: url(/images/sb/jie3.gif);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 134px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	background-position: center;
+	margin-left: 80px;
+}
+.buttom li {
+	line-height: 32px;
+	height: 32px;
+	width: 280px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.buttom ul {
+	list-style-type: none;
+}
+
+#container .werper .zhuyi {
+	float: left;
+	height: auto;
+	width: 400px;
+	margin-left: 100px;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666;
+}
+#container .werper .zhuyi .mei {
+	font-size: 14px;
+	font-weight: bold;
+	color: #faaa44;
+}
+#container .bootom {
+	height: 24px;
+	margin-top: 8px;
+	margin-left: 80px;
+	width: 330px;
+	line-height: 24px;
+	float: left;
+	background-image: url(/images/sb/jie_23.gif);
+	background-repeat: no-repeat;
+	text-align: right;
+}
+#container .bootom .zz {
+	color: #52b71d;
+	font-size: 12px;
+}
+.werper .buttom_t {
+	height: 30px;
+	width: 315px;
+	margin-left: 80px;
+	margin-top: 50px;
+}
+#container .werper .container {
+	height: 70px;
+	margin-left: 110px;
+	font-size: 14px;
+	line-height: 24px;
+	font-weight: bold;
+	color: #52b71d;
+	width: 280px;
+	text-align: left;
+}
+
+
+	
+</style>
+
+
+
+</head>
+
+<body topmargin="60"  >
+	 <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncWebInternetLogout">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	
+<div id="container">
+  <div class="toper"><img src="/images/sb/jie_03.gif" alt="a" /></div>
+  <div class="werper">
+  <div style="margin-top:65px;margin-left:25px;	color: #52b71d;
+	font-size: 13px;">
+    <div class="container">&nbsp;<font color="red">[#message#]</font><br />
+<br />
+<!--请不要关闭本页面，否则您上网需要重新验证!--></div>
+<br>
+
+        
+     [#curinfo#]
+        
+<br>
+<br>
+	 <div align="center">
+
+
+   <input name="button" type="button" value="修改密码" onclick="window.open('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispModiPassLogin&username@[#username#]')">
+
+	 <input name="button" type="button"  value="查看上网报告" style="margin-left:25px;"/ onclick="showreport()">
+	 <input name="button" type="submit"  value="退出上网"/>
+	 </div>
+  </div>
+  </div>
+  <div class="bootom"><span class="zz">上海新网程信息技术有限公司承建</span></div>
+</div>
+
+</form>
+
+</body>
+</html>

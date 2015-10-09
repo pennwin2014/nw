@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<title>上网验证</title>
+<script>
+	function visturl(){
+		window.open('http://www.51suke.net','','height=768, width=1000, top=50, left=50');
+	}
+		
+	function showreport(){
+		window.open('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebShowMoveuser&username@[#username#]','open_report2','height=500, width=600, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+</script>
+
+<script>
+
+	function byby(){
+if('[#beat_flag#]'=='1'){
+
+	self.location.href='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebInternetLogout' ;
+
+	}
+
+//	return false;
+	}
+	
+		
+
+		 	//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+	
+
+var xmlHttp = false;
+var flesh_flag;
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+  {
+    xmlHttp.abort();
+  }
+
+   xmlHttp = createXMLHttpRequest();
+   
+   if( xmlHttp)
+   {
+
+   var web_url='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebLoginHeat&sid@'+document.getElementById("nclogin_0").sid.value+'&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    
+   
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+    
+  }
+
+ }
+
+
+function initAjax(){
+
+	if('[#beat_flag#]'=='1'){
+
+	callServer();
+
+	setInterval('callServer()',[#beattime#]);
+	}
+  window.resizeTo(500,500);
+var a=screen.width-500;
+var  b=screen.height-500;
+
+  window.moveTo(a,b);
+
+
+}
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    
+    var response = xmlHttp.responseText;
+
+     var temp_date=getxmlbyname(response,"<starttime>","</starttime>");
+     var mesg="请不要关闭本页面，否则需要重新验证";
+     mesg=mesg+"<br>开始上网时间："+temp_date;
+     
+     if('[#msgzs#]'!=''){
+     mesg=mesg+'<br>[#msgzs#]';
+     }
+  
+     var temp_date=getxmlbyname(response,"<sumtime>","</sumtime>");
+  
+     mesg=mesg+"<br>本次上网时间:"+temp_date;
+     
+      if('[#msgzs#]'==''){
+     var temp_date=getxmlbyname(response,"<sumflow>","</sumflow>");
+    mesg=mesg+"<br>本次上网流量："+temp_date+"KB";
+
+     temp_date=getxmlbyname(response,"<mesg>","</mesg>");
+     mesg=mesg+temp_date;
+     }
+
+     document.getElementById("mesga").innerHTML=mesg;
+//     document.all.mesga.innerHTML=mesg;
+   
+    
+//alert(response);
+   }
+ 
+ }
+
+
+
+
+	
+	
+	
+	
+	
+</script>
+
+<style>
+	
+	.body {
+	font-family: "新宋体";
+	font-size: 12px;
+	line-height: 24px;
+	height: 385px;
+	width: 542px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 0px;
+	
+}
+#container {
+	height: 354px;
+	width: 536px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#container .toper {
+	height: 24px;
+	width: 289px;
+	margin-left: 145px;
+}
+#container .werper {
+	height: 313px;
+	width: 542px;
+	float: left;
+	background-image: url(/images/sb/jie33.gif);
+	background-repeat: no-repeat;
+	margin-top: 10px;
+}
+#container .werper .tittle {
+	height: 19px;
+	width: 104px;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	margin-left: 25px;
+}
+.werper .tittle1 {
+	height: 18px;
+	width: 227px;
+	margin-left: 25px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+#container .werper .buttom {
+	height: 32px;
+	width: 280px;
+	margin-left: 100px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #52b71d;
+	line-height: 32px;
+	margin-top: 5px;
+	vertical-align: middle;
+}
+
+#container .werper .buttom .btn_11 {
+	line-height: 32px;
+	background-image: url(/images/sb/jie3.gif);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 134px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	background-position: center;
+	margin-left: 80px;
+}
+.buttom li {
+	line-height: 32px;
+	height: 32px;
+	width: 280px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.buttom ul {
+	list-style-type: none;
+}
+
+#container .werper .zhuyi {
+	float: left;
+	height: auto;
+	width: 400px;
+	margin-left: 100px;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666;
+}
+#container .werper .zhuyi .mei {
+	font-size: 14px;
+	font-weight: bold;
+	color: #faaa44;
+}
+#container .bootom {
+	height: 24px;
+	margin-top: 8px;
+	margin-left: 80px;
+	width: 330px;
+	line-height: 24px;
+	float: left;
+	background-image: url(/images/sb/jie_23.gif);
+	background-repeat: no-repeat;
+	text-align: right;
+}
+#container .bootom .zz {
+	color: #52b71d;
+	font-size: 12px;
+}
+.werper .buttom_t {
+	height: 30px;
+	width: 315px;
+	margin-left: 80px;
+	margin-top: 50px;
+}
+#container .werper .container {
+	height: 70px;
+	margin-left: 100px;
+	font-size: 14px;
+	line-height: 24px;
+	font-weight: bold;
+	color: #52b71d;
+	width: 580px;
+	text-align: left;
+}
+
+
+	
+</style>
+
+
+
+</head>
+
+<body topmargin="60"  onload="initAjax();" onbeforeunload="byby()">
+	 <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncWebInternetLogout">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	
+<div id="container">
+  <div class="toper"><img src="/images/sb/jie_03.gif" alt="a" /></div>
+  <div class="werper">
+  <div style="margin-top:35px;margin-left:25px;	color: #52b71d;
+	font-size: 13px;">
+    <div class="container">&nbsp;<font color="red">【[#username#]】[#message#]</font><br />
+    	 <p id="mesga" style="color: #0000ff;font-size: 13px;font-weight:bold;"></p>
+    	
+<br />
+<br>
+<!--请不要关闭本页面，否则您上网需要重新验证!-->
+     
+<!--     [#curinfo#]
+ -->
+  	
+  	
+
+	<p >
+   <input name="button" type="button" value="修改密码" onclick="window.open('http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispModiPassLogin&username@[#username#]')">
+
+   <input name="button2" type="button"  value="上网报告"  onclick="showreport()">
+
+	 <input name="button" type="submit"  value="退出上网"/>
+	 
+<!--	 <input name="button2" type="button"  value="注册"  onclick="visturl()">
+-->
+</p>
+  </div>
+</div>
+  </div>
+
+</div>
+<!-- <div align="center" ><a href="http://www.51suke.net" target="_blank">欢迎访问宿客网</a></div>-->
+</form>
+
+</body>
+</html>

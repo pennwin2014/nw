@@ -1,0 +1,279 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>Web地址列表</title>
+<script>
+    function goto(t){
+        self.location.href=t;
+    }
+    
+    function setgroup(t){
+       j=form1.group.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.group.options[i].value;
+           if(gv == t) {
+               form1.group.selectedIndex = i;
+           }
+       }
+    }
+
+    function setprot(t){
+       j=form1.prot.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.prot.options[i].value;
+           if(gv == t) {
+               form1.prot.selectedIndex = i;
+           }
+       }
+    }
+        
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#003399";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#ffffff";
+        }	
+    }
+
+    function showf(s1,s2,s3,s4,s5) {
+    document.all.mm.style.display='';
+        form1.sid.value=s1;
+        form1.pid.value=s2;
+        form1.name2.value=s3;
+		    form1.version.value=s4;
+		    form1.ctl.value=s5;
+		
+    }
+    
+    function Add(){
+    if(form1.cid.value==''){
+    alert('请先选择进程集合');
+    return false;
+    }
+    if(form1.name2.value==''){
+      alert('请输入进程名');
+      return false;
+      }
+      return true;
+    }
+    
+    
+    function Mod(){
+     if(form1.sid.value==''){
+    alert('请先选择要修改的记录');
+    return false;
+    }
+    if(form1.cid.value==''){
+    alert('请先选择进程集合');
+    return false;
+    }
+    if(form1.name2.value==''){
+      alert('请输入进程名');
+      return false;
+      }
+      return true;
+    }
+    
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function gotoPage(pagenum)
+    {
+        form1.CurPg.value = pagenum;
+    }
+
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+<!-- Hide
+var ll='[#CurPg#]'
+var yy='[#TotPg#]'
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+
+</script>
+
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:400px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    } 
+.ttt {  border-style: outset; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.nnoo {  filter: Gray}
+
+.classtitle{color:#00224f;font-weight:bold;}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="sid" value="" >	
+	<input type="hidden" name="pid" value="[#pid#]">			     
+  <input type="hidden" name="FunName" value="ncWebJoinClassDet">
+  <table width=100%cellspacing="0" border="0" align=center cellpadding="0" cellspacing="0">
+  	
+  	
+<tr height="50" class="classtitle"><td>&nbsp;准入规则类别：操作系统规则&nbsp;
+	<input name="del" type="button" class="an3" value="返 回" onclick="self.location.href='/pronline/Msg?FunName@nwWebLim_Joinlist&gtype@[#gtype#]&id@[#id#]'">
+	</td>
+</tr>
+  	  	
+  	
+    <tr> 
+    	
+      <td width="100%"  valign=middle align=center class="ttt"> 
+      	
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+          <td>  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              
+           
+                <tr height="30" >
+                  <td  >&nbsp;
+
+                    &nbsp;下面控制状态为‘禁止接入网络’、补丁版本号小于指定版本的操作系统，将被禁止上网。
+               
+                  </td>
+              </tr>
+
+            </table>
+   
+            </td>
+          </tr>
+        </table>
+      
+      </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+      	
+      	<div  id="tC" valign="top">
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"  id="DataTable">
+          <tr bgcolor="#6382BD" class="tableHead"  > 
+            <td width="40" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">
+                <input type="button" name="b1" value="全选"    class="anniu_1" onClick="allChecked()">
+                </font></div></td>
+             <td width="50" class="bord2" align="center">序号</td>
+            <td width="230" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;操作系统版本</font></div></td>
+            <td width="261" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">补丁版本</font></div></td>
+
+            <td width="76" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">控制状态</font></div></td>
+              	
+            <td width="76" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">操作</font></div></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"  > 
+            <td class="bord1"  align="center"> <input type="checkbox" name="ch[#num#]" value="[#sid#]"> 
+            </td>
+            <td class="bord1"  >&nbsp;[#num#]&nbsp;</td>
+            <td class="bord1"  >&nbsp;[#name#]&nbsp;</td>
+
+            <td class="bord1"  >&nbsp;[#version_desc#]&nbsp;</td>
+            <td class="bord1"  >&nbsp;[#ctl_desc#]&nbsp;</td>
+            <td class="bord3"  >&nbsp;<input type="button" class="an3" value="修改" onclick="showf('[#sid#]','[#id#]','[#name#]','[#version#]','[#ctl#]')">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td class="bord1" >&nbsp; </td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord3" >&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+      </div>
+      </td>
+    </tr>
+    
+    
+       <tr> 
+      <td width="100%" height="250" valign=top align=center > 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+          <td > <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              
+              <tr height="50" id="mm" style="display:none"> 
+                <td >
+                	&nbsp;操作系统&nbsp;<input type="text" name="name2" maxlength="20" size="25" value="[#name#]" readonly>
+                	               	  
+                  补丁版本号至少SP<input type="text" name="version" size="3">
+                  控制状态
+                     <select name="ctl" style="width:120px;"><option value="1">禁止上网</option><option value="0">允许上网</option></select> 
+                	<input name="modi" type="submit" class="an3" value="修 改" onclick="return Mod()">
+                  </td>
+                </tr>
+               
+    
+    
+    </table>
+  </form>
+
+</body>
+</html>

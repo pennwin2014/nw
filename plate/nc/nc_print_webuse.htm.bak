@@ -1,0 +1,116 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function gotoPg(t){
+  self.location.href="/pronline/Msg?FunName@ncWebPrintWebUse&dispname@[#dispname#]&sdate@[#sdate#]&edate@[#edate#]&sort@[#sort#]&time@[#time#]&groupid@[#groupid#]&recnum@[#rocnum#]&startpg@"+t+"&sumpage@[#sumpage#]&groupname@[#groupname#]&IP@[#IP#]&b_flag@[#b_flag#]&c_flag@[#c_flag#]&lcount@[#lcount#]&bytes@[#bytes#]&stime@[#stime#]&etime@[#etime#]";
+}
+
+function  doExport(){
+  self.location.href="/pronline/Msg?FunName@ncWebPrintWebUse&dispname@[#dispname#]&daochu@e&sdate@[#sdate#]&edate@[#edate#]&time@[#time#]&sort@[#sort#]&groupid@[#groupid#]&recnum@[#rownum#]&groupname@[#groupname#]&IP@[#IP#]&b_flag@[#b_flag#]&c_flag@[#c_flag#]&lcount@[#lcount#]&bytes@[#bytes#]&stime@[#stime#]&etime@[#etime#]";
+}
+
+function llprint(){
+// document.all.pprint.style.display="none"
+  window.print()
+
+}
+</script>
+<style type="text/css">
+<!--
+.tScrollw {
+    overflow-x:hidden;
+    OVERFLOW: scroll;
+    height:600px;
+    cursor: default;
+    }
+-->
+</style>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	
+<div class="tScrollw"  id="tC">
+	
+<!-- [#SLPB#] -->	
+	
+<table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+  <tr> 
+    <td colspan="8" height="30"  class="ttt"> <table width="100%" border="0">
+        <tr> 
+          <td height="24" width="56%"> 
+            <p align="right"><b>用户访问网站情况明细表</b><b>([#sdate#]--[#edate#]) </b></p></td>
+          <td width="14%" height="24"> <div align="right">
+              <input name="exp" type="button" class="an3" onClick="doExport()" value="导 出">
+            </div></td>
+          <td width="30%" height="24" id="pprint"> [#SLPB#]
+            <input name="B[#pnum#]" type="button" class="an3" onClick="[#prun#]" value="[#butname#]">
+            [#SLPE#]</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr align="center" valign="middle"> 
+    <td width="5%" height="18" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">序号</font></div></td>
+    <td  width="11%" height="18" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">姓名</font></div></td>
+    <td width="20%" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">访问站点</font></td>
+    <td width="13%" height="18" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">类别</font></div></td>
+    <td width="16%" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">网站说明</font></td>
+    <td width="10%" height="18" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">访问流量(Bytes)</font></div></td>
+    <td  width="12%" height="18" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">访问次数</font></div></td>
+<!--    <td  width="13%" height="18" bgcolor="#6382BD"  class="bord2" > 
+      <div align="center"><font color="#FFFFFF">访问时间</font></div></td>
+-->
+  </tr>
+  <!-- [#SLPB#] -->
+  <tr> 
+    <td width="5%" height="10" bgcolor="#FFFFFF"  class="bord1"> 
+      <div align="center"><b> [#num#]</b></div></td>
+    <td  width="11%" height="10" bgcolor="#FFFFFF"  class="bord1"><b> [#dispname#]</b></td>
+    <td width="20%" bgcolor="#FFFFFF"  class="bord1"><strong>[#username#]</strong></td>
+    <td width="13%" height="10" bgcolor="#FFFFFF"  class="bord1"><div align="left"><b>[#groupname#]&nbsp;</b></div></td>
+    <td width="16%" bgcolor="#FFFFFF"  class="bord1">&nbsp;</td>
+    <td width="10%" height="10" bgcolor="#FFFFFF"  class="bord1"> 
+      <div ></div><b>[#lbytes1#]&nbsp;</b></div></td>
+    <td width="12%" height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div><b>&nbsp;[#lcount1#]</b></div></td>
+ <!--   <td width="13%" height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div ><b>&nbsp;[#ltime1#]</b></div></td>
+ -->
+  </tr>
+  <!-- [#SLPB#] -->
+  <tr> 
+    <td width="5%" height="10" bgcolor="#FFFFFF"  class="bord1">&nbsp;</td>
+    <td  width="11%" height="10" bgcolor="#FFFFFF"  class="bord1">&nbsp;[#caUsername#]</td>
+    <td width="20%" bgcolor="#FFFFFF"  class="bord1">[#host#]</td>
+    <td width="13%" height="10" bgcolor="#FFFFFF"  class="bord1">&nbsp;[#urltype#]&nbsp;</td>
+    <td width="16%" bgcolor="#FFFFFF"  class="bord1">&nbsp;[#urlname#]</td>
+    <td width="10%" height="10" bgcolor="#FFFFFF"  class="bord1"> 
+      <div align="right">[#lbytes#]&nbsp;</div></td>
+    <td width="12%" height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div align="right">[#lcount#]&nbsp;</div></td>
+<!--    <td width="13%" height="10" bgcolor="#FFFFFF"  class="bord3"> 
+      <div align="right">[#ltime#]&nbsp;</div></td>
+-->
+  </tr>
+  <!-- [#SLPE#] -->
+  <!-- [#SLPE#] -->
+</table>
+	  
+<p align="center">第 [#pages#]页</p>
+<xmp style='page-break-after:always'></xmp>
+<!-- [#SLPE#] -->
+            
+          
+<p>&nbsp;</p>
+</div>
+</body>
+</html>

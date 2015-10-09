@@ -1,0 +1,1205 @@
+<html>
+<head>
+<base target="_self" />
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache" >
+<meta http-equiv="Cache-Control" content="must-revalidate" >
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv=Content-Type content=text/html; charset=gbk>
+<title>报表定制向导</title>
+
+<link type="text/css" href="/css/style_report.css" rel="Stylesheet">
+<!--javascript-->
+<script language=JavaScript src="/js/report.js" type=text/javascript></script>
+<script src="/js/ajax.js"></script>
+
+<SCRIPT language=JavaScript>
+	
+	 	function setradio(ob,t){
+	   var j=ob.length;
+    
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+
+function init(){
+setradio(form1.reporttable,'[#reporttable#]');
+setradio(form1.reporttype,'[#reporttype#]');
+
+}
+	
+	
+function changservice(){
+
+
+
+
+callServer();
+
+
+
+}
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowServiceDet&groupid@'+form1.serviceclass.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+//alert(response);         
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+document.all.service.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.service.options[i].value=aid[i];
+ document.all.service.options[i].text=aname[i];
+	}
+
+   }
+ 
+ }
+	
+
+
+
+
+
+//-->
+</SCRIPT>
+
+</head>
+
+<body class="bodybg" oncontextmenu="return true" onload="init()">
+
+<form name=form1 id=form1 action="/pronline/Msg" method=post>
+<input type="hidden" name="FunName" value="ncReportWizardSave">
+<input type="hidden" name="sid" value="[#sid#]">
+<table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">自定义报表向导</div></td>
+          </tr>
+    </table>
+
+
+<div >
+<table width="100%" align="center" cellspacing="0" cellpadding="0">
+<tr>
+  <td >
+    <div   class="table_top">
+    &nbsp;
+    </div>
+  </td>
+</tr>
+</table>
+
+
+
+
+
+
+<table id="wizard" width="100%" align="center" cellspacing="0" cellpadding="0" >
+<tr>
+<td><div class="table_new">
+
+<!--one/six table start-->
+<table width="100%" id="wizard_one" align="center" cellspacing="0" cellpadding="0">
+<tr>
+  <td style="padding-right:30px;">
+  	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+  <tbody>
+  <!--one/six des start-->
+	<tr id='one_des'> 
+	  <td class="left_dq" valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;说明:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	    <tr>
+	      <td>此向导可以引导您定义报表模板，生成您需要的报表</td>
+	    </tr>
+	    </table>
+	  </td>
+	</tr>
+	<!--one/six des end -->
+	<!--one/six set report table type start-->
+	<tr id="one_set">
+	  <td class="left_dq" valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第一步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	      <tr>
+	        <td>请选择报表类型
+	          <tr>
+	          <td>
+	            <input type=radio checked value=0 name="reporttype" id='one_six_raido'>排行报表
+	            <input type=checkbox  value=edit name="edit" style="display:none;">
+	          </td>
+	          </tr>
+      
+	    </table>
+	    
+	  </td>
+	</tr>
+	
+<!--tips start-->
+<!--tips end -->
+	    
+	<!--one/six set report table type end-->
+    <!--one/six report operation info start-->
+    <tr id='one_six' style="display:none"> 
+	  <td class="left_dq" valign="top" style=" padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;操作信息:&nbsp;
+	  </td>       
+	  <td align="left" style="padding:5px" id="one_six_seterrormsg"  name="seterrormsg" >
+	  <font id='one_six_errmsg' class=errorinfo>errinfo</font>  
+	  </td>
+    </tr>
+    <!--one/six report operation info end-->
+    <!--one/six report button start-->
+    <tr>
+      <td colspan=4  height="40" valign="bottom">
+      <table width="100%" align="center" cellspacing="0" cellpadding="0">
+	  <tbody>
+			<tr> 
+				<td align=center>
+			    <input type=button name="one_six_down" id="one_six_down" class="buttons" value="下一步" onclick="Check('wizard_one','one_six_raido');">&nbsp;
+			  </td>
+			</tr>
+	  </tbody>
+      </table>
+      </td>
+    </tr>
+    <!--one/six report button end-->
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--one/six table end 1001-->
+
+
+
+
+
+
+
+
+<!--two/six table start-->
+<!--two/six stat table start-->
+<table width="100%" id="wizard_two_stat" align="center" cellspacing="0" cellpadding="0" style="display:none">
+<tr>
+  <td style="padding-right:30px;">
+  	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+  <tbody>
+  <!--two/six stat des start-->
+	<tr id='two_oneselect'> 
+	  <td class="left_dq" valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第一步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	    <tr>
+	      <td>您选择了&nbsp排行报表</td>
+	    </tr>
+	    </table>
+	  </td>
+	</tr>
+	<!--two/six stat des end -->
+	<!--two/six stat set start-->
+	<tr id="two_set">
+	  <td class="left_dq" valign="top" style=" padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第二步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	      <tr>
+	        <td>请您选择统计排行对象
+	          <tr>
+	          <td>
+	            <input type=radio value=2 name="reporttable" id="two_stat_six_raido" onclick="javascript:setSteps('two_stat_six_raido');">网站访问排行
+	          </td>
+	          </tr>
+	          <tr>
+	          <td>
+			    <input type=radio  value=1   name="reporttable" id="two_stat_six_raido" onclick="javascript:setSteps('two_stat_six_raido');">使用服务目标IP排行
+			    </td>
+	          </tr>
+	         
+	    </table>
+	  </td>
+	</tr>
+	<!--two/six stat set end-->
+    <!--two/six stat operation info start-->
+    <tr id='two_six_stat' style="display:none"> 
+	  <td  class="left_dq" valign="top" style=" padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;操作信息:&nbsp;
+    </td>      
+	  <td align="left" style="padding:5px" id="two_six_stat_seterrormsg"  name="seterrormsg" >
+	  <font id='two_six_stat_errmsg' class=errorinfo>errinfo</font>  
+	  </td>
+    </tr>
+    <!--two/six stat operation info end-->
+    <!--two/six stat button start-->
+    <tr>
+      <td colspan=4  height="40" valign="bottom">
+      <table width="100%" align="center" cellspacing="0" cellpadding="0">
+	    <tbody>
+  			<tr> 
+  				<td align=center>
+  				<input type=button name="two_one_six_up" id="two_one_six_up" class="buttons" value="上一步" onclick="onShowTable('wizard_two_stat','wizard_one');"/>&nbsp;
+  			    <input type=button name="two_one_six_down" id="two_one_six_down" class="buttons" value="下一步" onclick="onShowTable('wizard_two_stat','wizard_three_stat');" />
+  			  </td>
+  			</tr>
+  	  </tbody>
+      </table>
+      </td>
+    </tr>
+    <!--two/six stat button end-->
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--two/six stat table end 1002-->  
+
+
+
+
+
+
+
+
+
+
+
+
+<!--three/six table start-->
+<!--three/six stat table start-->
+<table width="100%" id="wizard_three_stat" align="center" border="0" cellspacing="0" cellpadding="0" style="display:none">
+<tr>
+  <td style="padding-right:30px;">
+  	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+  <tbody>
+  <!--three/six stat one/six select  start-->
+	<tr id='three_oneselect'> 
+	  <td class="left_dq" valign="top" style=" padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第一步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	    <tr>
+	      <td>您选择了&nbsp;排行报表</td>
+	    </tr>
+	    </table>
+	  </td>
+	</tr>
+	<!--three/six stat one/six select  end -->
+	<!--three/six stat two/six select start-->
+	<tr id='three_twoselect'>
+	<td  class="left_dq" valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第二步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	    <tr>
+	      <td id='stattwoselect'>您选择了&nbsp;网站访问排行</td>
+	    </tr>
+	    </table>
+	  </td>
+	</tr>
+	<!--three/six stat two/six select end-->
+	<!--three/six stat set start-->
+	<tr id="three_set">
+	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第三步:</td>
+	  <td align="left" style="padding:5px">
+	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+	      <tr>
+	        <td>请选择要统计的内容
+	          <table>
+  	          <tr>
+  	          <td>
+  	            <input type="checkbox" name="flowck" id="statflux"  [#flowck#] value="1"  onclick="onchkthreeStat('statflux');">流量
+  	          </td>
+  	          </tr>
+  	          <tr>
+  	          <td>
+  			      <input type="checkbox" name="countck" id="statapp"  [#countck#] value="1"  onclick="onchkthreeStat('statapp');">访问次数
+  			      </td>
+  	          </tr>
+	          </table>
+	        </td>
+	      </tr>
+	    </table>
+	  </td>
+	</tr>
+	<!--three/six stat set end-->
+    <!--three/six stat operation info start-->
+      <tr id='three_six_stat' style="display:none"> 
+	    <td class="left_dq"valign="top" style="padding-top:10px">
+	    <img src="/images/wizard/arrow.gif" width="8" height="5">
+	    <span class="main-bg-02">&nbsp;操作信息:</span>&nbsp;
+      </td>
+          
+	  <td align="left" style="padding:5px" id="three_six_stat_seterrormsg"  name="seterrormsg" >
+	  <font id='three_six_stat_errmsg' class=errorinfo>errinfo</font>  
+	  </td>
+    </tr>
+    <!--three/six stat operation info end-->
+    <!--three/six stat button start-->
+    <tr>
+      <td colspan=4  height="40" valign="bottom">
+      <table width="100%" align="center" cellspacing="0" cellpadding="0">
+	  <tbody>
+			<tr> 
+				<td align=center>
+				<input type=button name="three_one_six_up" id="three_one_six_up" class="buttons" value="上一步" onclick="onShowTable('wizard_three_stat','wizard_two_stat');"/>&nbsp;
+			    <input type=button name="three_one_six_down" id="three_one_six_up" class="buttons" value="下一步" onclick="Check('wizard_three_stat','two_stat_six_raido','flowck');">
+			  </td>
+			</tr>
+	  </tbody>
+      </table>
+      </td>
+    </tr>
+    <!--three/six stat button end-->
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--three/six stat table end 1004-->
+
+
+
+
+
+
+
+
+
+
+
+<!--three/six table end 1005-->
+
+<!--four/six table start-->
+<!--four/six group ranking start-->
+<table width="100%" id="wizard_four_group_ranking" align="center" border="0" cellspacing="0" cellpadding="0" style="display:none">
+<tr>
+	
+  <td style="padding-right:30px;">
+     <table width="100%" align="center" cellspacing="0" cellpadding="0"> 
+      <!--four/six group ranking one/six select start-->
+    	<tr id='oneselect'> 
+    	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第一步:</td>
+    	  <td align="left" style="padding:5px">
+    	    <table width="100%" align="center" cellspacing="0" cellpadding="0">
+    	    <tr>
+    	      <td>您选择了&nbsp;排行报表</td>
+    	    </tr>
+    	    </table>
+    	  </td>
+    	</tr>
+      <!--four/six group ranking one/six select end -->
+      <!--four/six group ranking two/six select start-->
+    	<tr id='twoselect'>
+    	<td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第二步:</td>
+    	  <td align="left" style="padding:5px">
+    	    <table width="100%" align="center" cellspacing="0" cellpadding="0">
+    	    <tr>
+    	      <td id="statthreetitle">您选择了&nbsp网站访问排行</td>
+    	    </tr>
+    	    </table>
+    	  </td>
+    	</tr>
+      <!--four/six group ranking two/six select end-->
+      <!--four/six group ranking three/six select start-->
+      <tr id='threeselect'>
+        <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第三步:</td>
+        <td align="left" style="padding:5px">
+        <table width="100%" align="center" cellspacing="0" cellpadding="0">
+        <tr>
+          <td id='statthreeselectgroup'>您选择了&nbsp;流量、访问次数</td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <!--four/six group ranking three/six select end-->	
+      <!--four/six group ranking set start-->
+    	<tr id="groupranking">
+    	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第四步:</td>
+    	  <td align="left" style="padding-left:5px">
+    	    
+    	    <table width="100%" align="center"  cellspacing="0" cellpadding="0">
+    	      <tr>
+    	        <td colspan=2>设置报表过滤条件</td>
+    	      </tr>
+            	  <!--four/six group ranking set report group conditinos start-->
+            <tr>
+              <td class="left_dq"valign="top" style="width:100px;padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;部门:</td>
+              <td align="left" style="padding:5px">
+                <table width="100%" align="left" id="grouprank_group" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <!--select group start-->
+                    <td>
+                     <select name="groupid">
+                     	<option value="">全部</option>
+                     	[#SLPB#]
+                     	<option value="[#gid#]">[#gname#]</option>
+                     	[#SLPE#]
+                    </select>
+                    </td>
+                    <!--select group end-->
+                 </tr>
+                </table>  
+              </td>
+            </tr>
+            	
+               <tr id='statgroup_app' style="display:">
+                  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;网络服务大类:</td>
+                  <td align="left" style="padding:5px">
+                 <select name="serviceclass" style="width:90" onchange="changservice()">
+                 	 <option value="" selected>全部</option>
+                 	    [#SLPB#]
+                      <option value="[#cgid#]">[#cgname#]</option>
+                      [#SLPE#]
+                    </select>
+                    &nbsp;细分服务
+          	  	     	<select name="service" style="width:100">
+          	  	     	<option value="" selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#id_s#]">[#name_s#]</option>
+                      [#SLPE#]
+                      
+                    </select>
+                  </td>
+                </tr>
+        	   
+ 
+
+
+    	    </table>
+	  </td>
+	</tr>
+  <!--four/six group ranking set end-->
+  <!--four/six group ranking operation info start-->
+    <tr id='four_six_group_ranking' style="display:none"> 
+	  <td class="left_dq"valign="top" style="padding-top:10px">
+	    <img src="/images/wizard/arrow.gif" width="8" height="5">
+	    <span class="main-bg-02">&nbsp;操作信息:</span>&nbsp;
+      </td>
+          
+	  <td align="left" style="padding:5px" id="four_six_group_ranking_seterrormsg"  name="seterrormsg" >
+	  <font id='four_six_group_ranking_errmsg' class=errorinfo>errinfo</font>  
+	  </td>
+    </tr>
+  <!--four/six group ranking operation info end-->
+  <!--four/six group ranking button start-->
+    <tr>
+      <td colspan=4  height="40" valign="bottom">
+      <table width="100%" align="center" cellspacing="0" cellpadding="0">
+	  <tbody>
+			<tr> 
+				<td align=center>
+				<input type=button name="four_group_ranking_six_up" id="four_group_ranking_six_up" class="buttons" value="上一步" onclick="onShowTable('wizard_four_group_ranking','wizard_three_stat');"/>&nbsp;
+			    <input type=button name="four_group_ranking_six_down" id="four_group_ranking_six_up" class="buttons" value="下一步" onclick="onShowTable('wizard_four_group_ranking','wizard_five');"/>
+			  </td>
+			</tr>
+	  </tbody>
+      </table>
+      </td>
+    </tr>
+   <!--four/six group ranking button end-->
+</tbody>
+</table>
+</td>
+</tr>
+</table> 
+<!--four/six group ranking end 1006-->
+
+
+
+
+
+
+<!--five/six table start-->
+<table width="100%" id="wizard_five" align="center" border="0" cellspacing="0" cellpadding="0" style="display:none">
+<tr>
+	
+  <td style="padding-right:30px;">
+  	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+    <tbody>
+    <!--five/six des start-->
+  	<tr id='fivedes'> 
+  	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第五步:</td>
+  	  <td align="left" style="padding:5px">
+  	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+      	    <tr>
+      	      <td colspan=2 >统计周期设置</td>
+      	    </tr>
+          	<!--five/six des end -->
+
+          	<!--five/six set timerang table  start-->
+          	<!--time depict start-->
+
+<!--time depict end-->
+
+
+          	
+          	<!--five/six set cycle table start-->
+          	<tr id="cycle">
+            	<td colspan=2 height="30px" align="left" valign="top" style="padding-top:10px">
+        	       周期性报表
+        	       <select name="dateunit" class="input">
+        	               	        <option selected value="1">每天</option>
+        	               	        <option  value="2">每周</option>
+        	               	        <option  value="3">每月</option>
+        	               	      </select>
+        	     
+            	</td>
+          	</tr>
+          	
+          	<!--five/six set cycle table end-->
+            <!--five/six report operation info start-->
+            <tr id='five_six' style="display:none">
+          	  <td class="left_dq"valign="top" style="padding-top:10px">
+          	    <img src="/images/wizard/arrow.gif">&nbsp;操作信息;
+              </td>     
+          	  <td align="left" style="padding:5px" id="five_six_seterrormsg"  name="seterrormsg" >
+          	    <font id='five_six_errmsg' class=errorinfo>errinfo</font>  
+          	  </td>
+            </tr>
+            <!--five/six report operation info end-->
+            <!--five/six report button start-->
+            <tr>
+              <td colspan=4  height="40" valign="bottom">
+                <table width="100%" align="center" cellspacing="0" cellpadding="0">
+            	  <tbody>
+            			<tr> 
+            				<td align=center>
+            			    <input type=button name="five_six_up" id="five_six_up" class="buttons" value="上一步" onclick="checkfiveup();"/>&nbsp;
+            			    <input type=button name="five_six_down" id="five_six_down" class="buttons" value="下一步" onclick="onShowTable('wizard_five','wizard_six');"/>
+            			  </td>
+            			</tr>
+            	  </tbody>
+                </table>
+              </td>
+            </tr>
+            <!--five/six report button end-->
+          </table>
+        </td>
+      </tr>
+   </tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--five/six table end 1014-->
+
+
+
+
+
+
+
+
+
+
+
+<!--six/six table start-->
+<table width="100%" id="wizard_six" align="center" border="0" cellspacing="0" cellpadding="0" style="display:none">
+<tr>
+	
+  <td style="padding-right:30px;">
+  	<table width="100%" align="center" cellspacing="0" cellpadding="0">
+    <tbody>
+      <!--six/six des start-->
+  	<tr id='sixreport'> 
+  	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;第六步:</td>
+  	  <td align="left" style="padding-top:3px">
+  	    <table width="100%" align="center" border="0" cellspacing="1" cellpadding="3">
+    	    <tr colspan=2>
+    	      <td>报表设置</td>
+    	    </tr>
+          <!--six/six des end -->
+        	<!--six/six set lang  start-->
+        	<tr id="setlang">
+        	  <td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;排行设置:</td>
+        	  <td align="left">
+        			  统计排行显示前<input type=text class="input" name="recnum" size="4" value="[#recnum#]">名
+        	  </td>
+        	</tr>
+        	<!--six/six set lang end-->
+ 
+        	<!--six/six report name start-->
+        	<tr id="reportname">
+          	<td class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;报表名称:</td>
+          	<td align="left">
+          	    <input type=text  class="input" name="reportname" size="20" value="[#reportname#]" />
+          	</td>
+        	</tr>
+        	<!--six/six report name end-->
+        
+        	<!--six/six link end-->
+        	<!--six/six sub start-->
+        	<tr id="sixsub">
+          	<td  class="left_dq"valign="top" style="padding-top:10px"><img src="/images/wizard/arrow.gif">&nbsp;订阅:</td>
+          	<td align="left">
+            	<table width="100%" align="left" border="0" cellspacing="1" cellpadding="2">
+
+            	<tr>
+            	  <td>
+            	    <input type="checkbox" name="mailflag" value="1" [#mailflag#]>订阅此报表
+            	  </td>
+            	</tr>
+            	<tr>
+            	  <td>
+            	    接收邮箱:
+            	    <input type=text class="input auto_w" id="auto_w" name="mailreceiver" style="width:20%;" value="[#mailreceiver#]"/>&nbsp;
+            	    修改<a href="/pronline/Msg?FunName@ncMailSendSet_par" class="operate" >系统SMTP设置</a>
+            	    <font style="color:Red">(多个邮件接收人以逗号间隔)</font>
+            	  </td> 
+            	</tr>       	  
+            	<tr></tr>
+            	<tr>
+            	<td>
+            	  &nbsp;
+            	</td>
+            	</tr>
+            	</table>
+          	</td>
+        	</tr>
+        	<!--six/six sub end-->
+        	<!--six/six generation time start-->
+        	<tr id="generation">
+          	<td colspan=2  class="left_dq"valign="top" style="padding-top:10px"><!--<img src="/images/wizard/arrow.gif">
+          	  目前自定义报表是每天00:00到06:00之间随机生成，您可以使用<a href="sysconfig.php" class="operate" target=_blank>系统设置</a>进行修改 -->
+          	</td>
+        	</tr>
+        	<!--six/six generation time end-->
+          <!--six/six report operation info start-->
+          <tr id='six_six' style="display:none">
+        	  <td class="left_dq"valign="top" style="padding-top:10px">
+        	    <img src="/images/wizard/arrow.gif">
+        	    &nbsp;操作信息:
+            </td>        
+        	  <td align="left"id="six_six_seterrormsg"  name="seterrormsg" >
+        	    <font id='six_six_errmsg' class=errorinfo>errinfo</font>  
+        	  </td>
+          </tr>
+          <!--six/six report operation info end-->
+         </table>
+       </td>
+      </tr>
+      <!--six/six report button start-->
+      <tr>
+        <td colspan=4  height="40" valign="bottom">
+        <table width="100%" align="center" cellspacing="0" cellpadding="0">
+    	  <tbody>
+    			<tr> 
+    				<td align=center>
+    			    <input type=button name="six_six_up" id="six_six_up" class="buttons" value="上一步" onclick="onShowTable('wizard_six','wizard_five');"/>&nbsp;
+    			    <input type=button name="six_six_achieve" id="six_six_achieve" class="buttons" value="完 成" onclick="form1.submit()"/>
+    			  </td>
+    			</tr>
+    	  </tbody>
+        </table>
+        </td>
+      </tr>
+      <!--six/six report button end-->  
+     </tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--six/six table end 1015-->
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+</table>
+<!--operation info end 1016-->
+</div>
+</td>
+</tr>
+</table>
+<!--bottom-->
+<div class="title_nei_top_1px"></div>
+</div> 
+<!--report guide end-->
+
+<style>
+.auto_w{
+	overflow: visible; padding-right:10px;
+    }
+</style>
+
+
+
+
+<script language=javascript>
+
+function onShowTable(hiddentid,showid)
+{  
+    var report_type = radioVal('one_six_raido');
+   
+    
+   
+    objhide(hiddentid);
+    objshow(showid);
+}
+function ShowOperateTable(hiddentid,showid)
+{
+    var period = radioVal('five_six_radio');
+    
+    objhide(hiddentid);
+    showid = showid + '_' + period;    
+    objshow(showid);
+}
+
+function statshowdate()
+{
+  var radioname=document.getElementsByName('five_six_radio');
+  var d = document.getElementsByName('one_six_raido');
+  for(var j = 0; j < d.length; j++)
+  {
+    if(d[j].checked)
+    {        
+      switch (d[j].value) 
+      {
+        case "0": 
+                for(var i = 0; i < radioname.length; i++)
+                {
+                  if(radioname[i].checked)
+                  { //alert(radioname[i].value);            
+                    switch (radioname[i].value) 
+                    {
+                      case 'once':
+                          objshow('statdate');
+                          break;
+                      case 'cycle':
+                          objhide('statdate');
+                          break;
+                      default: 
+                          break;
+                    }
+                 }
+                }
+                break;
+        case "trend": 
+        case "summary": 
+        default: 
+             break;
+       }
+      }
+   }
+}
+
+function Check(hiddentid,name,checkname) 
+{
+
+var d = document.getElementsByName(name);
+
+if(checkname)
+{
+  var elts = document.getElementsByName(checkname);
+  var t=0;
+  for(var i = 0; i < elts.length; i++)
+ {
+  if(elts[i].checked)
+  { 
+      t++;
+     
+  }
+ }
+ if(!t){
+
+  var elts = document.getElementsByName("countck");
+  var t=0;
+  for(var i = 0; i < elts.length; i++)
+ {
+  if(elts[i].checked)
+  { 
+      t++;
+     
+  }
+ }
+ 
+ }
+
+ if(  ( checkVal("statflux") && !checkVal("statapp") ) )
+  {
+ // alert('ggggg');
+ 
+//    document.getElementById('statgroup_app').style.display="none";
+
+//    document.getElementById('user').style.display="none";
+  
+//    document.getElementById('ip').style.display="none";
+ 
+ //   document.getElementById('app').style.display="none";
+//alert('fffffff');    
+    //the three select flux or action show difficent app table start
+//    document.getElementById('grouprank_app_show_height').style.display="none";
+   
+//    document.getElementById('grouprank_app_no_show').style.display="";
+ //   document.getElementById('userapp_ranking_show_height').style.display="none";
+//    document.getElementById('userapp_ranking_no_show').style.display="";
+//    document.getElementById('ip_app_ranking_show_height').style.display="none";
+//    document.getElementById('ip_app_ranking_no_show').style.display="";
+    //document.getElementById('app_app_ranking_show_height').style.display="none";
+    //document.getElementById('app_app_ranking_no_show').style.display="";
+    //the three select flux or action show difficent app table end
+  }
+
+ if(!t)
+ {
+    alert("请您选择要统计的内容");
+    return false;
+ }
+}
+
+  for(var i = 0; i < d.length; i++)
+  { 
+    if(d[i].checked)
+    { 
+    
+      switch (d[i].value) 
+      {
+        case "0": 
+
+                onShowTable(hiddentid,'wizard_two_stat');
+ 
+                document.getElementById("graptype").style.display="";
+                document.getElementById("timedepict").style.display="";
+                document.getElementById("setlang").style.display="";
+                statshowdate();
+                break;
+        case "2": onShowTable(hiddentid,'wizard_four_group_ranking');
+        document.getElementById('statgroup_app').style.display="none";
+                break;
+        case "1": onShowTable(hiddentid,'wizard_four_group_ranking');
+                document.getElementById('statgroup_app').style.display="";
+                break;
+        case "twostatip": onShowTable(hiddentid,'wizard_four_ip_ranking');
+                break;
+        case "twostatapp": onShowTable(hiddentid,'wizard_four_app_ranking');
+                break;
+        case "twotrendgroup": onShowTable(hiddentid,'wizard_four_group_trend');
+                break;
+        case "twotrenduser": onShowTable(hiddentid,'wizard_four_user_trend');
+                break;
+        case "twotrendip": onShowTable(hiddentid,'wizard_four_ip_trend');
+                break;
+        case "twotrendapp": onShowTable(hiddentid,'wizard_four_app_trend');
+                break;
+        default: 
+                break;
+      }
+    } 
+  } 
+}
+function checkfiveup()
+{
+  var f=document.getElementsByName('one_six_raido');  
+  for(var i = 0; i < f.length; i++)
+  {
+    if(f[i].checked)
+    {
+   
+      switch(f[i].value)
+      {
+        case "0":checkfiveuptwo('two_stat_six_raido');
+                break;
+       
+        default:
+                break;
+      }
+    }
+  }
+}
+function checkfiveuptwo(name)
+{
+  var f=document.getElementsByName(name);
+  for(var i = 0; i < f.length; i++)
+  {
+    if(f[i].checked)
+    {
+
+      switch(f[i].value)
+      {
+        case "0":onShowTable('wizard_five','wizard_four_group_ranking');
+              break;
+        case "1":onShowTable('wizard_five','wizard_four_group_ranking');
+              break;
+      
+        default:
+              break;
+      }
+    }
+  } 
+}
+
+function DeleteTable(table)
+{
+  var t = GetId(table);
+  var len = t.rows.length;
+  for (var i = 1; i < len; i++) {
+    t.deleteRow(1);
+  }
+}
+
+function GetArrayIndex(s, arr)
+{
+  for (var i = 0; i < arr.length; i++) {
+    if(s == arr[i])
+      return i;
+  }
+  return -1;
+}
+
+
+
+function oncheckflux(id)
+{
+    if (checkVal(id))
+    {
+     objshow("threetrendflux");
+    }
+    else 
+    {
+       objhide("threetrendflux");
+    }
+}
+function onchkthreeStat(id)
+{
+
+  if(checkVal(id))
+  {
+    if(id=="statflux")
+    {
+      if(checkVal("statapp"))
+      {
+        GetId("statthreeselectgroup").innerHTML="您选择了 流量、访问次数";
+   //     GetId("statthreeselectuser").innerHTML="您选择了 流量、行为";
+    //    GetId("statthreeselectip").innerHTML="您选择了 流量、行为";
+  //      GetId("statthreeselectapp").innerHTML="您选择了 流量、行为";
+      }
+      else
+      {
+        GetId("statthreeselectgroup").innerHTML="您选择了 流量";
+        GetId("statthreeselectuser").innerHTML="您选择了 流量";
+        GetId("statthreeselectip").innerHTML="您选择了 流量";
+        GetId("statthreeselectapp").innerHTML="您选择了 流量";
+
+        
+      }
+    }
+    else
+    {
+      if(checkVal("statflux"))
+      {
+        GetId("statthreeselectgroup").innerHTML="您选择了 流量、访问次数";
+       
+      }
+      else
+      {
+         GetId("statthreeselectgroup").innerHTML="您选择了 访问次数";
+       
+      }
+    }
+  }
+  else
+  {
+    if(id=="statflux" && checkVal("statapp"))
+    {
+
+        GetId("statthreeselectgroup").innerHTML="您选择了 访问次数";
+       
+    }
+    else if(id=="statapp" && checkVal("statflux"))
+    {
+        GetId("statthreeselectgroup").innerHTML="您选择了 流量";
+        GetId("statthreeselectuser").innerHTML="您选择了 流量";
+        GetId("statthreeselectip").innerHTML="您选择了 流量";
+        GetId("statthreeselectapp").innerHTML="您选择了 流量";
+    }
+    else
+    {
+        GetId("statthreeselectgroup").innerHTML="";
+        GetId("statthreeselectuser").innerHTML="";
+        GetId("statthreeselectip").innerHTML="";
+        GetId("statthreeselectapp").innerHTML="";
+    }
+  }
+} 
+function onchkthreeTrend(id)
+{
+alert(id);
+  if(checkVal(id))
+  {
+    if(id=="flux")
+    {
+      if(checkVal("trendapp"))
+      {
+         GetId("trendthreeselectgroup").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectuser").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectip").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectapp").innerHTML="您选择了 流量、行为";
+      }
+      else
+      {
+        GetId("trendthreeselectgroup").innerHTML="您选择了 流量";
+        GetId("trendthreeselectuser").innerHTML="您选择了 流量";
+        GetId("trendthreeselectip").innerHTML="您选择了 流量";
+        GetId("trendthreeselectapp").innerHTML="您选择了 流量";
+      }
+    }
+    else
+    {
+      if(checkVal("flux"))
+      {
+         GetId("trendthreeselectgroup").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectuser").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectip").innerHTML="您选择了 流量、行为";
+         GetId("trendthreeselectapp").innerHTML="您选择了 流量、行为";
+      }
+      else
+      {
+          GetId("trendthreeselectgroup").innerHTML="您选择了 行为";
+          GetId("trendthreeselectuser").innerHTML="您选择了 行为";
+          GetId("trendthreeselectip").innerHTML="您选择了 行为";
+          GetId("trendthreeselectapp").innerHTML="您选择了 行为";
+      }
+    }
+  }
+  else
+  {
+    if(id=="flux" && checkVal("trendapp"))
+    {
+
+        GetId("trendthreeselectgroup").innerHTML="您选择了 行为";
+        GetId("trendthreeselectuser").innerHTML="您选择了 行为";
+        GetId("trendthreeselectip").innerHTML="您选择了 行为";
+        GetId("trendthreeselectapp").innerHTML="您选择了 行为";
+    }
+    else if(id=="trendapp" && checkVal("flux"))
+    {
+        GetId("trendthreeselectgroup").innerHTML="您选择了 流量";
+        GetId("trendthreeselectuser").innerHTML="您选择了 流量";
+        GetId("trendthreeselectip").innerHTML="您选择了 流量";
+        GetId("trendthreeselectapp").innerHTML="您选择了 流量";
+    }
+    else
+    {
+        GetId("trendthreeselectgroup").innerHTML="";
+        GetId("trendthreeselectuser").innerHTML="";
+        GetId("trendthreeselectip").innerHTML="";
+        GetId("trendthreeselectapp").innerHTML="";
+    }
+  }
+} 
+  
+function showobj(id)
+{
+  
+    var rankidlist="apprank_group_obj,apprank_user_obj,apprank_ip_obj";
+	var alllist=rankidlist.split(',');
+	var i=0;
+	for(i=0;i<alllist.length;i++)
+	{
+		if(id!=alllist[i])
+		{
+			document.getElementById(alllist[i]).style.display="none";
+		}else
+		{
+			document.getElementById(alllist[i]).style.display="block";
+		}
+	}
+}
+function showtrendobj(id)
+{
+   var trendidlist="apptrend_group_obj,apptrend_user_obj,apptrend_ip_obj";
+    var trendlist=trendidlist.split(',');
+    var i=0;
+    for(i=0;i<trendlist.length;i++)
+	{
+		if(id!=trendlist[i])
+		{
+			document.getElementById(trendlist[i]).style.display="none";
+		}else
+		{
+			document.getElementById(trendlist[i]).style.display="block";
+		}
+	}
+}
+
+function setSteps(name)
+{
+
+  var f=document.getElementsByName(name);
+  for(var i = 0; i < f.length; i++)
+  {
+    if(f[i].checked)
+    {
+      switch(f[i].value)
+      {
+        case "0":
+        GetId("stattwoselect").innerHTML="您选择了 网站访问排行";
+        GetId("statthreetitle").innerHTML="您选择了 网站访问排行";
+              break;
+        case "1":
+        GetId("stattwoselect").innerHTML="您选择了 使用服务目标IP排行";
+        GetId("statthreetitle").innerHTML="您选择了 使用服务目标IP排行";
+              break;
+        default:
+              break;
+      }
+}
+}
+}
+
+
+</script>
+
+  
+</form>
+<script>
+	form1.dateunit.value="[#dateunit#]";
+	form1.groupid.value="[#groupid#]";
+	form1.service.value="[#service#]";
+</script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,456 @@
+<html>
+<head>
+<title>分类管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DFF0F7" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+ <form name="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="FunName" value="ncWebLimSaveDefault_adt" >
+<table width="100%" border="0"  align="center" cellpadding="0" cellspacing="0">
+  <tr> 
+	<td height="8">
+	</td>
+  </tr>
+  <tr> 
+    <td >
+        <div align="center" style="height:800px;overflow-y:hidden">
+          <table width="100%" height="100%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff   cellpadding="0" cellspacing="0">
+          	
+          	          	<tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于IP管理策略</strong></div></td>
+                    <td height="28" >&nbsp;</td>
+                    <td ><div align="left"></div></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="IpIfNoUser" style="width:100px">
+                    	<option value="AddUser">添加用户</option>
+                    	<option value="NoMon">免监控</option>
+                    	<option value="Forbit">禁止上网</option>
+                    	<option value="Auth">本地验证</option>
+                    	<option value="Mac">基于Mac管理</option>
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="IPNamedOpt">
+                    		<option value="Wins,Ip">先Wins请求取计算机名，获取不到IP命名</option>
+                    		<option value="Mac">Mac地址</option>
+                    		<option value="Ip">Ip地址</option>
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+                    		<option value="Port">使用端口命名</option>
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>
+                    		
+                    		</select></td>
+                    		<td width="200" align="left"></td>
+                    		<td>&nbsp;</td>
+                  </tr>
+                  
+          			</table>
+          			</td>
+          	</tr>
+          	
+          	
+          <tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于MAC管理策略</strong></div></td>
+                    <td height="28" > <div align="left"></div></td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="MacIfNoUser" style="width:100px">
+                    	<option value="AddUser">添加用户</option>
+                    	<option value="NoMon">免监控</option>
+                    	<option value="Forbit">禁止上网</option>
+                    	<option value="Auth">本地验证</option>
+                    	<option value="ip">基于ip管理</option>
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="MACNamedOpt">
+                    		<option value="Wins,Ip">先Wins请求取计算机名，获取不到IP命名</option>
+                    		<option value="Mac">Mac地址</option>
+                    		<option value="Ip">Ip地址</option>
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+                    		<option value="Port">使用端口命名</option>
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>                 		
+                    		</select></td>           		
+                      <td>当MAC不存在时
+                    	<select name="MacIdUnknow" style="width:100px">
+                    	  <option value="Ip">基于ip管理</option>
+                    		<option value="Auth">本地验证</option>
+                    	  <option value="NoMon">免监控</option>                    
+                    	  <option value="Vlan">基于VlanId管理</option>
+                        <option value="Port">基于端口管理</option>
+                    	</select></td> 
+                    	<td></td>                  		                    		
+                  </tr>      
+          			</table>
+          			</td>
+          	</tr>
+          	
+          	
+          	<tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于本地验证策略</strong></div></td>
+                    <td height="28" > <div align="left"></div></td>
+                    <td></td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="AuthIfNoUser" style="width:100px">
+                    <option value="Forbit">禁止上网</option>
+                    	<option value="NoMon">免监控</option>
+                    	<option value="Auth">本地验证</option>
+                    	<option value="Mac">基于Mac管理</option>
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+                      <option value="AddUser">添加用户</option>
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="AUTHNamedOpt">
+                    		<option value="Wins,Ip">先Wins请求取计算机名，获取不到IP命名</option>
+                    		<option value="Mac">Mac地址</option>
+                    		<option value="Ip">Ip地址</option>
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+                    		<option value="Port">使用端口命名</option>
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>
+                    		
+                    		</select></td>
+                    		<td>
+                          关闭验证界面&nbsp;<select name="BeatHeat" style="width:100px"><option value="Yes">不能上网</option><option value="No">能够上网</option></select>
+                          心跳超时时间<input type="text" name="beattimeout" size="4" value="[#beattimeout#]">秒
+                    		</td>
+                  </tr>
+                  
+          			</table>
+          			</td>
+          	</tr>
+          	
+
+          	
+          	
+          	<tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于名字管理策略</strong></div></td>
+                    <td height="28" > <div align="left"></div></td>
+                    <td></td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="NameIfNoUser" style="width:100px">
+                      <option value="AddUser">添加用户</option>
+                      <option value="ip">IP管理</option>
+                      <option value="Mac">基于Mac管理</option>
+                      <option value="Auth">本地验证</option>
+                      <option value="Forbit">禁止上网</option>
+                    	<option value="NoMon">免监控</option>
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="NameNamedOpt">
+                    		<option value="Wins,Ip">先Wins请求取计算机名，获取不到IP命名</option>
+                    		<option value="Ip">Ip地址</option>
+                    		<option value="Mac">Mac地址</option>
+
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+                    		<option value="Port">使用端口命名</option>
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>
+                    		
+                    		</select></td>
+                    		<td align="left">
+                    		当名字不存在时
+                    	<select name="NameIdUnknow" style="width:100px">
+                    	  <option value="Ip">基于ip管理</option>
+                    	  <option value="Mac">基于Mac管理</option>
+                    		<option value="Auth">本地验证</option>
+                    	  <option value="NoMon">免监控</option>                    
+                    	  <option value="Vlan">基于VlanId管理</option>
+                        <option value="Port">基于端口管理</option>
+                    	</select>
+                    		</td>
+                  </tr>
+                  
+          			</table>
+          			</td>
+          	</tr>
+          	
+          	
+          	
+          	  <tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于端口管理策略</strong></div></td>
+                    <td height="28" > <div align="left"></div></td>
+                    <td></td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="PortIfNoUser" style="width:100px">
+                    	<option value="AddUser">添加用户</option>
+                    	<option value="Ip">基于Ip管理</option>
+                    	<option value="Mac">基于Mac管理</option>
+                    	 <option value="Auth">本地验证</option>
+                      <option value="Forbit">禁止上网</option>
+                    	<option value="NoMon">免监控</option>
+
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="PortNamedOpt">
+                    	 <option value="Port">使用端口命名</option>
+                    		<option value="Mac">Mac地址</option>
+                    		<option value="Ip">Ip地址</option>
+                    	  <option value="Wins">Wins请求获得计算机名</option>
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>
+                    		
+                    		</select></td>
+                    		<td>
+                    		当端口不存在时
+                    	<select name="PortIdUnknow" style="width:100px">
+                    		<option value="Mac">基于Mac管理</option>
+                    	  <option value="Ip">基于ip管理</option>                    	 
+                    		<option value="Auth">本地验证</option>
+                    	  <option value="NoMon">免监控</option>                    
+                    	  <option value="Vlan">基于VlanId管理</option>
+
+                    	</select>
+                    		</td>
+                  </tr>                  
+          			</table>
+          			</td>
+          	</tr>
+          	
+          	 <tr>
+          		<td height="30">
+          			<table width="95%" border="0" align="center">
+          			 <tr> 
+                    <td height="28" align="center" valign="middle" width="200"><div align="left"><strong>基于VlanID管理策略</strong></div></td>
+                    <td height="28" > <div align="left"></div></td>
+                    <td></td>
+                  </tr>
+                  
+                   <tr> 
+                    <td height="28"  >用户不存在时&nbsp;
+                    	<select name="VLANIfNoUser" style="width:100px">
+                    	<option value="AddUser">添加用户</option>
+                    	<option value="Ip">基于Ip管理</option>
+                    	<option value="Mac">基于Mac管理</option>
+                    	 <option value="Auth">本地验证</option>
+                      <option value="Forbit">禁止上网</option>
+                    	<option value="NoMon">免监控</option>
+
+                    	<option value="VlanId">基于VlanId管理</option>
+                      <option value="Port">基于端口管理</option>
+
+                    	</select></td>
+                    <td height="28" width="480"> 用户命名方式&nbsp;
+                    	<select  name="VlanNamedOpt">
+                    	 <option value="VlanIdPosUser, VlanIdPos,VlanId,Mac">VlanIdPosUser, VlanIdPos,VlanId,Mac</option>
+                    		<option value="Mac">Mac地址</option>
+                    		<option value="Ip">Ip地址</option>
+                    	  <option value="Wins">Wins请求获得计算机名</option>
+                    		<option value="Third">第三方同步过来的用户</option>
+                    		<option value="QqNumber">QQ号</option>
+                    		<option value="Pop3">Pop3用户</option>
+                    		<option value="PPPOE">PPPOE用户</option>
+                    		<option value="Cams">Cams系统中的用户</option>
+                    		
+                    		<option value="VlanId">使用VlanID命名</option>
+                    		<option value="Auth">本地验证用户</option>
+
+                    		<option value="VlanIdPosUser">将VlanID对应到位置，根据位置对应到用户信息</option>
+                    		<option value="VlanIdPosLog">将VlanID 对应到位置，根据该位置的使用记录定位用户</option>
+                    		<option value="PortPosLog">将端口对应到位置，根据该位置的使用日志中的信息命名</option>
+                    		
+                    		</select></td>
+                    		<td>
+                    		当VlanID不存在时
+                    	<select name="VlanIdUnknow" style="width:100px">
+                    		<option value="Mac">基于Mac管理</option>
+                    	  <option value="Ip">基于ip管理</option>                    	 
+                    		<option value="Auth">本地验证</option>
+                    	  <option value="NoMon">免监控</option>                    
+                    	  <option value="Vlan">基于VlanId管理</option>
+
+                    	</select>
+                    		</td>
+                  </tr>                  
+          			</table>
+          			</td>
+          	</tr>
+          	
+          	
+            <tr> 
+              <td> 
+                <table width="98%" border="0" align="center">
+       
+                  <tr> 
+                    <td height="28" align="center" valign="middle" width="45%"><div align="left"><strong>参数名称</strong></div></td>
+                    <td height="28" width="55%"> <div align="left"><strong>说明</strong></div></td>
+                  </tr>
+                  
+                    <tr>
+                  	<td>控制方式 <select name="IpControlBy">
+                  		          <option value="Meta">Meta方式</option>
+                  		          <option value="TcpCtl">TcpCtl方式</option>
+                  		          <option value="iptables">iptables方式</option>
+                  		          <option value="Nsa3">Nsa3方式</option>
+                  		          <option value="Nsa4">Nsa4方式</option>
+                  		          <option value="Nsa5">Nsa5方式</option>
+                  		          <option value="None">不控制</option>
+                  	    </select>
+                  	   </td>
+                  	   <td>
+                  	   	Meta,iptables方式一般用于网桥、网关连接，TcpCtl可用于旁路方式下的控制，Nsa方式针对于加速卡设备
+                  	  </td>
+                  </tr>
+               <!--
+                  <tr> 
+                    <td height="40" align="center" valign="middle" width="45%"> 
+                      <div align="left"> 
+                        <input type="checkbox" name="adduser" value="adduser" [#adduser#]>
+                        自动增加用户</div></td>
+                    <td height="22" width="55%">当出现系统中不存在的用户时，系统将自动添加一个。</td>
+                  </tr>
+                  <tr> 
+                    <td height="40" width="45%"> 新增用户命名方式 [#defusername#]</td>
+                    <td height="30" width="55%">自动增加的用户的命名方式。</td>
+                  </tr>
+                  -->
+                  <tr> 
+                    <td height="40" width="45%"> <input type="checkbox" name="defaultaccess" value="defaultaccess" [#defaultaccess#]>
+                      缺省时禁止访问外部网</td>
+                    <td height="30" width="55%">当访问控制中没有设定时缺省的访问策略。</td>
+                  </tr>
+                  <tr> 
+                    <td height="40" width="45%"> <input type="checkbox" name="checkmac" value="checkmac" [#checkmac#]>
+                      检查IP地址和MAC地址</td>
+                    <td height="30" width="55%">根据用户信息检查IP和MAC地址，若不一致，将禁止该用户访问外部网</td>
+                  </tr>
+                  <tr> 
+                    <td height="40" width="45%"> <input type="checkbox" name="postflags" value="postflags"  [#postflags#]>
+                      检查是否是“网站访问表单的提交”</td>
+                    <td height="28" width="55%">只有选择该选项，访问控制中“在网站访问时禁用表单提交”的功能才起作用。</td>
+                  </tr>
+                  <tr> 
+                    <td height="40" width="45%"> <input type="checkbox" name="webip" value="webip"  [#webip#]>
+                      检查是否是“用IP地址访问网站”</td>
+                    <td height="28" width="55%">只有选择该选项，访问控制中“限制通过IP地址访问网站”的功能才起作用。</td>
+                  </tr>
+                  
+                  
+                  <tr> 
+                    <td height="60" colspan="2" align="center">&nbsp; <input type="submit" name="ok" class="an3" value="保 存"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+     </td>
+  </tr>
+ 
+</table>
+ </form>
+  <script>
+ 	 form1.IpIfNoUser.value='[#IpIfNoUser#]';
+ 	 form1.IPNamedOpt.value='[#IPNamedOpt#]';
+ 	 form1.MacIfNoUser.value='[#MacIfNoUser#]'; 	 
+ 	 form1.MACNamedOpt.value='[#MACNamedOpt#]';
+ 	 form1.MacIdUnknow.value='[#MacIdUnknow#]';
+ 	 form1.AuthIfNoUser.value='[#AuthIfNoUser#]'; 	 
+ 	 form1.AUTHNamedOpt.value='[#AUTHNamedOpt#]';
+ 	 form1.BeatHeat.value='[#BeatHeat#]';
+ 	 form1.NameIfNoUser.value='[#NameIfNoUser#]'; 	 
+ 	 form1.NameNamedOpt.value='[#NameNamedOpt#]';
+ 	 form1.NameIdUnknow.value='[#NameIdUnknow#]';
+ 	 form1.PortIfNoUser.value='[#PortIfNoUser#]';
+ 	 
+ 	 
+ 	 form1.PortNamedOpt.value='[#PortNamedOpt#]';
+ 	 form1.PortIdUnknow.value='[#PortIdUnknow#]'; 	 
+ 	 form1.VLANIfNoUser.value='[#VLANIfNoUser#]';
+ 	 form1.VlanNamedOpt.value='[#VlanNamedOpt#]';
+ 	 form1.VlanIdUnknow.value='[#VlanIdUnknow#]'; 	 
+ 	 form1.IpControlBy.value='[#IpControlBy#]';
+
+
+ 	</script>
+ 
+</body>
+</html>

@@ -1,0 +1,7 @@
+DEVICE=[#devname#]
+BOOTPROTO=static
+IPADDR=[#ip#]
+NETMASK=[#mask#]
+NETWORK=[#network#]
+ONBOOT=yes
+TYPE=Ethernet

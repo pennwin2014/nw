@@ -1,0 +1,222 @@
+
+<html>
+<head>
+<title>聊天记录统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+var xmlHttp = false;
+function showcont(t){
+
+    window.open(t,'open_report1','height=600, width=900, top=0, left=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+ }
+ 
+function goto(t){
+self.location.href=t
+}
+</script>
+<script language="JavaScript">
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+
+//-->
+</script>
+<style type="text/css">
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:470px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }   
+
+
+-->
+</style>
+<script src="/js/calendar.js"></script>
+<script src="/js/ajax.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0"  topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden">
+<table border=0 cellspacing=0 width="100%" cellpadding=0 align="center">
+  <tr> 
+    <td id=clearStart  height="32"> 
+      <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+        [#depname#]聊天时间统计
+      </div>
+    </td>
+  </tr>
+  <tbody> 
+  
+  <tr>
+    <td id=clearStart  valign="top" > 
+    <form method="post" name="form1" id='interip' action="/pronline/Msg" >
+      <input type="hidden" name="FunName" value="ncWebReplace">
+      <input type="hidden" name="fun" value="ncImStatBySesDep">
+      <input type="hidden" name="plate" value="ncmsg_ipquery.htm">
+      <input type="hidden" name="userid" value="[#userid#]">
+    
+  		<input type="hidden" name="TotPg"      value="[#TotPg#]">
+      <input type="hidden" name="CurPg"      value="[#CurPg#]">
+          <table border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff align="center" cellpadding="0" cellspacing="0" width="99%" >
+  
+          	            <tr height="30"><td>
+          	            	
+														
+                  	               
+                  	     &nbsp;聊天时间
+							         <input type="text" name="sdate" style="width:100" value="[#sdate#]" >
+                      <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+                      <input type="text" style="position:relative;left:-28px;" name="stime" value="[#stime#]" size="4" maxlength="6">
+                       &nbsp;&nbsp;到
+                       <input type="text" name="edate" style="width:90" value="[#edate#]" >
+                      <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+                      <input type="text" style="position:relative;left:-28px;" name="etime" value="[#etime#]" size="4" maxlength="6">       
+                  	    
+                  	   	
+          	            	                  &nbsp; <input type="button"  name="Search"  class="an3" value="查询" onclick="form1.submit()">&nbsp;<input name="exp" type="submit" class="an3" value="导 出" onclick="form1.FunName.value='ncImStatBySesDep'">&nbsp;&nbsp;&nbsp;&nbsp;
+          	            	
+          	            	
+          	            	
+          	            	</td>  
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+          	              
+                         </table>
+                        </td>
+                       </tr>
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+          <tr> 
+            <td colspan="3" >
+            	 <div class="tScrollw"  id="tC">
+              <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr bgcolor="#6382BD" height="22" bgcolor="#6382BD" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+                    <td width="160"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">用户</font></div></td>
+                    <td width="160"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">部门</font></div></td>
+                    <td width="102"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">聊天工具</font></div></td>
+                    <td width="102"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">聊天人数</font></div></td>
+                        <td width="100"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">平均回复时间</font></div></td>	
+                   <td width="100"  class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">最长回复时间</font></div></td>	
+                    <td   class="bord2"> 
+                      <div align="center"><font color="#FFFFFF">总聊天时间</font></div></td>	
+
+
+                  </tr>
+                  <!-- [#SLPB#]-->
+                  <tr bgcolor="#FFFFFF" height="20px"> 
+       
+                    <td class="bord1">&nbsp;[#dispname#]</td>
+                    <td class="bord1">&nbsp;[#gname#]</td>
+
+                    <td  class="bord1">&nbsp;[#sername#]</td>
+                    <td class="bord1">&nbsp;[#count_rs#]</td>
+                    <td  class="bord1">&nbsp;[#avtime#]</td>
+                    <td  class="bord1">&nbsp;[#maxtime#]</td>
+                    <td  class="bord3">&nbsp;[#tottime#]</td>
+                  
+                  </tr>
+                  <!-- [#SLPE#] -->
+                 
+                 
+                   <tr bgcolor="#FFFFFF" height="20px"> 
+       
+                    <td class="bord1">&nbsp;合计</td>
+                    <td class="bord1">&nbsp;</td>
+
+                    <td  class="bord1">&nbsp;<font color="red">[#ser_count#]</font></td>
+                    <td class="bord1">&nbsp;<font color="red">[#tot_rs#]</font></td>
+                    <td  class="bord1">&nbsp;<font color="red">[#tot_avtime#]</font></td>
+                    <td  class="bord1">&nbsp;<font color="red">[#tot_maxtime#]</font></td>
+                    <td  class="bord3">&nbsp;<font color="red">[#tot_tottime#]</font></td>
+                  
+                  </tr>
+                 
+                 
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    
+  </tr>
+  </tbody> 
+</table>
+  <div id="Layer3" style="position:absolute; left:250px; top:125px;overflow-y:auto; width:450px; height:400px; background-color:#DEE8FA; z-index:1;display:none">
+
+ </div>                   
+</body>
+</html>

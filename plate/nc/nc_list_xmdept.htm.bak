@@ -1,0 +1,382 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+
+
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+
+
+
+function userdel()
+{
+var flag=0;
+  for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+
+  			    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked){
+  			   flag=1; 
+  			    if(document.all.DataTable.rows[i].cells[0].childNodes[0].value=='0'){
+  			    alert('未知部门不允许删除');
+  			    return false;
+  			    }
+	 			    if(document.all.DataTable.rows[i].cells[0].childNodes[1].value>0){
+	 			    alert('由于该部门下存在用户，请选择这些用户的处理方式后，再按“确认"删除！');
+	 			    document.all.Layer3.style.display=''
+	 			    return false;
+	 			    }
+  			    }
+            
+
+        }
+ 	}
+ 	if(flag==1){
+ 	  return true;
+ 	  }
+ 	 else{
+ 	 alert('请选择要删除的部门');
+ 	 return false;
+ 	 }
+}
+
+function doModiBm()
+{
+   var flag=0;
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+		{
+			flag=1;
+			break;
+		}
+	}
+	if(flag==0)
+	{
+		alert('请先选择要移动部门的用户');
+		return false;
+	}
+ //   form1.FunName.value = "ncWebModiSomeUserBm";
+    form1.submit();
+}
+
+
+
+ 
+function goto(t){
+self.location.href=t+'&groupid0@[#groupid0#]&cond@[#cond#]&CurPg@[#CurPg#]'
+}
+function useradd(){
+goto('/pronline/Msg?FunName@ncWebDispUserAddForm&gid@[#groupid0#]');
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+function checkme(p)
+{
+	var tt=p.value
+	if (tt>yy)
+	{
+		MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	}
+	if (tt==0)
+	{
+		MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	}
+}
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+
+// -->
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.anuse3 { font-size: 9pt; background-color: dfdfdf; 
+  vertical-align: middle; height: 20px; width: 45px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand}
+-->
+</style>
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="forbflag" value="0">
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+	<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle" >部门管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">        	
+         	 <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>               
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> 
+                 <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+               <td align=middle background="" width=92> 
+               <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+               </td>
+               <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>
+  
+          <tr bgcolor="#DEE8FA">
+            <td width="100%" height="30" >
+            	&nbsp;部门名包含&nbsp;<input type="text" name="groupname" value="[#groupname#]" size="30">&nbsp;<input name="search" type="submit" class="an3" value="查询" >
+           将选择的部门移到&nbsp;<input type="text" name="bname" value="点击选择部门" size="16" onclick="showtree('nbm','bname')" readonly >后面
+            <input type="hidden" name="nbm" value="">
+            <input name="mvdep" type="submit" class="an3"   onClick="return doModiBm()" value="确认" >
+             
+              <input name="add" type="button" class="an3"   onclick="document.all.Layer5.style.display='';" value="增加" >
+              <input name="del" type="submit" class="an3"   onclick="return userdel()" value="删除" >
+           
+              <input type="hidden" name="FunName" value="ncWebDeptlist_xm">
+             
+		  		   <input type="hidden" name="TotPg"      value="[#TotPg#]">
+             <input type="hidden" name="CurPg"      value="[#CurPg#]"> </td>
+       </tr>
+  
+  
+  
+  <tr>
+      <td width="100%" align=center  valign=top bgcolor="#DEE8FA" > 
+      	<div class="tScroll"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="40" height="20" bgcolor="#6382BD" class="bord2"> 
+              <input type="button" name="b1" value="全选" class="anniu_1"  onClick="allChecked()">
+            </td>
+            <td  bgcolor="#6382BD" class="bord2" >部 门 名</td>
+            <td  bgcolor="#6382BD" width="100" class="bord2" >用户数</td>
+            <td  bgcolor="#6382BD" width="60" class="bord4" >修改</td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#groupid#]"><input type="hidden" name="uc[#num#]" value="[#gcount#]"></td>         
+            <td   class="bord1">&nbsp;[#groupname#]</td>
+             <td   class="bord1" align="right">&nbsp;[#gcount#]&nbsp;&nbsp;</td>
+             <td   class="bord3" align="center"><a href="#xxm" Onclick="form1.prebm.value='[#pgname#]';document.all.Layer4.style.display='';">&nbsp;修改</a></td>
+            
+          
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr height="20" id=[#snum#]> 
+            <td   class="bord1">&nbsp; </td>
+            <td   class="bord1">&nbsp; </td>
+            <td   class="bord1">&nbsp; </td>
+            <td  class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+  </div> 
+
+      </td>
+  </tr>
+</table>
+
+       <div id="Layer3" style="position:absolute; left:300px; top:68px; width:410px; height:80px;background-color:#DEE8FA; z-index:1;display:none">
+       	    <table width="100" cellpadding=3 cellspacing=3>
+       	    	<tr height="35">
+       	    	<td>
+       	    	<table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="730px">
+       	        <tr>
+
+                <td height="35">&nbsp;
+                	<input name="sdl" type="radio" value="1" checked>删除该部门和其下面的用户
+		                 <input name="sdl" type="radio" value="2"> 将该部门下的用户移到<select name="degid">[#SLPB#]<option value="[#gid#]">[#gname#]</option>[#SLPE#]</select>&nbsp;后删除
+                </td>
+              </tr>
+              <tr>
+              	<td height="35" align="center">
+                	&nbsp;&nbsp;<input name="dem" type="submit" class="an3" value="确认" >
+                  &nbsp;<input name="back" type="button" class="an3" value="隐藏"  Onclick="document.all.Layer3.style.display='none';">
+                	
+       	        	</td>
+       	        </tr>
+       	      </table>
+       	    </td>
+       	  </tr>
+       	</table>
+      </div>
+
+       <div id="Layer4" style="position:absolute; left:500px; top:68px; width:310px; height:80px;background-color:#DEE8FA; z-index:1;display:none">
+       	    <table width="100" cellpadding=3 cellspacing=3>
+       	    	<tr height="35">
+       	    	<td>
+       	    	<table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="730px">
+       	        <tr>
+
+                <td height="35">&nbsp;将部门名由<input type="text" size="16" name="prebm" value="" readonly>改成<input type="text" name="afbm" value="" size="20">
+                	
+                </td>
+              </tr>
+              <tr>
+              	<td height="35" align="center">
+                	&nbsp;&nbsp;<input name="mdepname" type="submit" class="an3" value="确认" >
+                  &nbsp;<input name="back" type="button" class="an3" value="隐藏"  Onclick="document.all.Layer4.style.display='none';">
+                	
+       	        	</td>
+       	        </tr>
+       	      </table>
+       	    </td>
+       	  </tr>
+       	</table>
+      </div>
+
+       <div id="Layer5" style="position:absolute; left:300px; top:68px; width:410px; height:80px;background-color:#DEE8FA; z-index:1;display:none">
+       	    <table width="100" cellpadding=3 cellspacing=3>
+       	    	<tr height="35">
+       	    	<td>
+       	    	<table border=1 bordercolorlight=#999999   bordercolordark=#ffffff cellpadding=0 cellspacing=0 width="730px">
+       	        <tr>
+
+                <td height="35">&nbsp;
+                
+		                上级部门<select name="agid"><option value="">公司</option>[#SLPB#]<option value="[#gid#]">[#gname#]</option>[#SLPE#]</select>&nbsp;添加的部门名<input type="text" name="adepname" size="30">
+                </td>
+              </tr>
+              <tr>
+              	<td height="35" align="center">
+                	&nbsp;&nbsp;<input name="adddep" type="submit" class="an3" value="确认" >
+                  &nbsp;<input name="back" type="button" class="an3" value="隐藏"  Onclick="document.all.Layer5.style.display='none';">
+                	
+       	        	</td>
+       	        </tr>
+       	      </table>
+       	    </td>
+       	  </tr>
+       	</table>
+      </div>
+
+
+
+
+ </form>
+ <script>form1.agid.value='[#ggid#]';</script>
+</body>
+
+</html>

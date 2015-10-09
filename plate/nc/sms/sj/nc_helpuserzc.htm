@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>上网用户注册</title>
+
+<style type="text/css">
+<!--
+/* 全局样式 */
+html, body, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, object, iframe, form, blockquote, fieldset, input, textarea, code, address, caption, cite, code, em, i, ins {margin: 0px;
+	padding: 0px;font-style: normal;font-size: 14px;font-weight: normal;}
+body {background: #FFF;color: #666;font-size: 14px;font-family:"宋体", Times New Romar;;
+      line-height: 180%;  }
+fieldset, img {border: 0;}
+table, td, tr, th {font-size: 14px;}
+table {border-collapse: collapse;border-spacing: 0px;}preview
+caption,th {text-align: left;}
+li{list-style-type: none;}
+ul,ol {list-style: none;}
+select, input, img {vertical-align: middle;}
+h1, h2, h3, h4, h5, h6 {font-size: 14px;font-weight: normal;}
+q:before, q:after {content: '';}
+abbr, acronym {border: 0;}
+a:link {text-decoration: none;color: #666666;}
+a:visited {text-decoration: none;color: #666666;}
+a:hover {color: #003399!important;}
+a:active {color: #666666;}
+/* 通用样式 */
+container {height: auto;width: 1003px;}
+#container {height: auto;width: 947px;margin-right: auto;margin-left: auto;}
+#container #header {height: 90px;width: 947px;}
+
+#container #header .logo {background-image: url(/images/authimage/logo.png);background-repeat: no-repeat;
+	float: left;height: 55px;width: 280px;margin-top: 30px;margin-left: 5px; }
+#container #header .tell {
+	
+	background-color: #ebf3fe;
+	float: right;
+	height: 40px;
+	width: 640px;
+	margin-top: 35px;
+	margin-right: 0px;
+	
+}
+.news_banner {
+	height: 310px;
+	width: 947px;
+	margin-bottom: 10px;
+	background-repeat: no-repeat;
+	clear: both;
+	margin-top: 15px;
+	
+}
+.news_banner_a {
+	height:270px;
+	width: 230px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;	
+}
+.news_banner_b {
+	height: 270px;
+	width: 270px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;
+	
+}
+.news_banner_b_1 {
+	height: 240px;
+	margin-left:0px;
+	margin-top:10px;
+	width: 260px;
+}	
+.news_banner_c {
+	height: 250px;
+	width: 410px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	border-right-width: 1px;border-bottom-width: 1px;border-top-width: 1px;
+	border-left-width: 1px;border-right-style: solid;border-bottom-style: solid;border-top-style: solid;
+	border-left-style: solid;border-right-color: #b9c0ca;border-bottom-color: #b9c0ca;
+	border-left-color: #b9c0ca;border-top-color: #b9c0ca;
+	background-color: #f6f9fe;
+	
+	margin-top: 10px;
+	
+}
+.news_banner_c-1 {
+	height: 230px;
+	width: 228px;
+	float: left;
+	margin-left:0px;
+	background-repeat: no-repeat;	
+	margin-top: 30px;
+	
+}
+.bottom_line {
+	width: 947px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #abcbe4;
+	height: 1px;
+}
+.bottom_container {
+	line-height: 29px;
+	clear: both;
+	height: 29px;
+	width: 947px;
+}
+.news_nav {
+	line-height: 24px;
+	background-color:#ebf3fe;
+	
+	background-position: left center;
+	height: 30px;
+	padding-left: 0px;
+	padding-top:5px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e8e8e8;
+	margin-bottom: 10px;
+	
+	clear: both;
+}
+.input-submit {
+	BORDER-RIGHT: #afbdd2 1px solid;BORDER-LEFT: #afbdd2 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #afbdd2 1px solid;BORDER-BOTTOM: #afbdd2 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 2px; ; BEHAVIOR: expression(function(ele){ele.style.behavior='none';if(ele.disabled){ele.style.;ele.style.border='0'};}(this)); CURSOR: pointer; PADDING-TOP: 2px; BACKGROUND-COLOR: #e9f1fd; TEXT-ALIGN: center; _padding: 3px 10px
+}
+
+.lines-1 {
+	background-image: url(/images/authimage/join_us-1.gif);
+	background-repeat: no-repeat;
+	height: 1px;
+	width: 648px;
+	line-height: 1px;
+	margin-bottom: 10px;
+	margin-left:10px;
+	
+}
+ 			
+-->
+</style>
+
+
+<SCRIPT language=Javascript>
+	function spylogin(){
+		if (document.getElementById("username").value=="" || document.getElementById("passwd").value=="") {
+			window.alert("用户名或Key不能为空！");
+			return false;
+		}//alert(nclogin.FunName.value);
+      return true;
+	//	document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+		
+	}
+ function gochange(){
+	  document.getElementById("nclogin").FunName.value="ncWebShowHelpUser";
+	  document.getElementById("nclogin").submit();
+
+	}
+    function changlogin(flag){    	
+			document.getElementById("nclogin").FunName.value="ncWebShowHelpUser";
+			document.getElementById("nclogin").eng_flag.value=flag;
+			document.getElementById("nclogin").submit();		
+      }
+
+
+</SCRIPT>
+
+
+</head>
+
+<body>
+	<form name="nclogin" id="nclogin" method="post" action="/proauth/Msg">
+ <input type="hidden" name="FunName" value="ncHelpUserLogin">
+ <input type="hidden" name="eng_flag" value="0">
+ <input type="hidden" name="sid" value="[#sid#]" >
+<div id="container">
+<div id="header">
+      
+	  <div class="tell"></div>
+      <div class="logo"><img src="/images/authimage/zhzc.png" width="274" height="54" /></div>
+  </div>
+  <div class="news_banner">
+<div class="news_banner_a"><div class="news_banner_c-1"><img src="/images/authimage/xh.png" width="218" height="225" /></div>
+</div><div class="news_banner_b"><div class="news_banner_b_1"><p align="left">&nbsp;</p>
+    <p align="left">&nbsp;</p>
+    <p align="left"><font color="#231815" >请服务员检查您的输入信息,<br>并由服务员确认后，输入KEY登录。
+      
+      
+    </font></p>
+</div> </div><div class="news_banner_c"><table width="410" border="0" cellspacing="0" cellpadding="0" height="100%">
+  <tr>
+    <td width="95" height="13"></td>
+    <td width="99"></td>
+    <td width="19"></td>
+    <td colspan="2"></td>
+  </tr>
+  <tr>
+    <td height="38" colspan="3">&nbsp;&nbsp;<input name="zcrx" type="radio" value="0" [#djcheck#] onclick='gochange()'> <font color="#146db9" >登机牌</font>
+		 <input name="zcrx" type="radio" value="1" [#zjcheck#] onclick='gochange()'><font color="#146db9" > 证件</font>&nbsp;
+      
+   </td>
+    <td>&nbsp;</td>
+    <td><a href="#xxm" onclick="changlogin('0')" ><font color="#146db9";font-size="14px"><strong>中文</strong></font></a>|<a href="#xxm" onclick="changlogin('1')" ><font color="#146db9";font-size="14px"><strong>English</strong></font></a></td>
+  </tr>
+  <tr>
+    <td height="10" colspan="5"><div class="lines-1" style="width:380px; margin-top:0px;"></div></td>
+    </tr>
+  <tr>
+    <td height="14"></td>
+    <td></td>
+    <td></td>
+    <td colspan="2"></td>
+  </tr>
+  <tr>
+    <td height="33"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;<strong>姓&nbsp;&nbsp;名</strong></font></td>
+    <td colspan="2"><input type="text" id="username" name="dispname" style="width:90px" /></td>
+    <td width="69"><font color="#146db9" style="font-size:14px"><strong>航&nbsp;&nbsp;班</strong></font></td>
+    <td width="128"><input type="text" id="flyno" name="flyno" style="width:90px" /></td>
+  </tr>
+  <tr>
+    <td height="35"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;<strong>日&nbsp;&nbsp;期</strong></font></td>
+    <td colspan="2"><input type="text" id="stime" name="stime" style="width:90px" value="[#stime#]"></td>
+    <td><font color="#146db9" style="font-size:14px"><strong>座&nbsp;&nbsp;位</strong></font></td>
+    <td><input type="text" id="seat" name="seat" style="width:90px" /></td>
+  </tr>
+  <tr>
+    <td height="38"><font color="#146db9" style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;<strong>KEY</strong></font></td>
+    <td colspan="2"><input type="text"  name="passwd"  onpaste="return false" id="passwd" style="width:90px" /></td>
+    <td colspan="2"><font color="#ff000c" style="font-size:14px">[#msg#]</font></td>
+  </tr>
+  <tr>
+    <td height="8"></td>
+    <td></td>
+    <td></td>
+    <td colspan="2"></td>
+  </tr>
+  <tr>
+    <td colspan="5"></td>
+    </tr>
+  <tr>
+    <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input-submit login-btn" id=login tabindex=5 type=submit value=&nbsp;登录&nbsp; onclick="return spylogin()" />&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="input-submit login-btn" id=login tabindex=5 type=submit onclick=document.getElementById("nclogin").FunName.value="ncWebDispLogin"; value=&nbsp;返回&nbsp; />
+    
+    </td>
+    </tr>
+  <tr>
+    <td height="21" colspan="5">&nbsp;</td>
+  </tr>
+  </table></div></div>
+	  <div class="news_nav">
+<div align="center"><a href="http://www.pronetway.com"><font color="#595757" style="font-size:14px" >上海新网程信息技术有限公司承建</font></a></div>
+	  </div>
+ 
+ <div id="footer">
+  <div class="bottom_line"></div>
+  <div class="bottom_container"></div>
+  </div>
+</div>
+
+</form>
+
+</body>
+</html>
+

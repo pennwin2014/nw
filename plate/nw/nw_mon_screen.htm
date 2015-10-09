@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<meta http-equiv="refresh" content="15">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>计算机信息监控</title>
+
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+	function showfrm(sid)
+	{
+		if(parent.form1.temp_id.value!=''){
+			if(parent.form1.cheID.value==sid)
+			parent.form1.cheID.value=parent.form1.temp_id.value;
+		else
+			parent.form1.cheID.value=sid;
+		}
+
+		parent.form1.FunName.value='nwWebScreenShowFrm';
+		parent.form1.submit();
+	}
+	</script>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bordercolor="#D4D4D4" bgcolor="#DEE8FA">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table width=100% border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff align=center cellpadding="0" cellspacing="0">
+   
+    <tr>
+      <td height="21"><div >&nbsp;设备名：[#devname#] 截屏时间:[#syntime#] 
+         
+          <input name="FunName" type="hidden" value="nwWebCompMon_Screen" >
+      </div></td>
+    </tr>
+    <tr> 
+      <td height="21"> 
+        <div align="center">        
+          <table  border="0">
+            <tr>
+              <td ><img src="/pronline/Msg?FunName@nwWebCompMon_ShowScreen&sid@[#sid#]" ondblclick="showfrm('[#id#]')"></td>
+            </tr>
+          </table>
+        </div></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

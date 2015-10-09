@@ -32,12 +32,13 @@ char* getLoginShortName()
     static char shortname[256] = "";
     dsCltGetMyInfo(1, "Userid", &lUserid);
     sprintf(sql, "select groupid from dsuser where id = %lu", lUserid);
+	printf("sql=[%s]\n", sql);
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &lGroupid);
     pid = findCompanyByGroupid(lGroupid);
     sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
     memset(shortname, 0, sizeof(shortname));
     pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname) - 1, shortname);
-	printf("get shortname=%s, pid=%lu", shortname, pid);
+	printf("get shortname=%s, pid=%lu, groupid=%lu", shortname, pid, lGroupid);
     return shortname;
 }
 

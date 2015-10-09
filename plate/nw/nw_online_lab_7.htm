@@ -1,0 +1,455 @@
+<html>
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+.tab{
+	border-top:thin solid #FFFFFF;
+	border-right:thin solid gray;
+	border-left:thin solid #FFFFFF;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+	border-bottom-width: thin;
+	border-bottom-style: double;
+	border-bottom-color: gray;
+}
+.tab1{
+	border-top:thin none #FFFFFF;
+	border-right:thin solid gray;
+	border-left:thin none #FFFFFF;
+	font-family:Verdana;
+	font-size:10pt;
+	text-align:center;
+	font-weight:normal;
+	border-bottom-width: thin;
+	border-bottom-style: none;
+	border-bottom-color: gray;
+}
+.selTab{border-left:solid thin white;
+border-top:solid thin white;
+border-right:solid thin black;
+font-weight:bold;
+text-align:center}
+
+.tScroll2 {
+    overflow: scroll;  
+    height:575px;
+   
+    cursor: default;
+    }
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+function setscrollvaue()
+{
+	form1.sctop.value=document.all.tC.scrollTop;
+
+}
+
+function sx()
+{
+	if(form1.refresh_flag.value!='1'){
+		form1.refresh_flag.value='1';
+		form1.opmsg.value='';
+ 		form1.submit();
+  }
+}
+setInterval('sx()',7000);
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function execstop(cid,cname){
+	var temp;
+	temp="您真的要停止计算机"+cname+"的客户端进程吗?";
+	if(confirm(temp)){
+//		window.open('/pronline/Msg?FunName@nwWebCompMon_Stop&id@'+cid,'RUNMIT_new','width=800,height=600,fullscreen=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0');
+   temp='/pronline/Msg?FunName@nwWebCompMon_Stop&id@'+cid;
+	showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:420px;scroll:yes;dialogHeight:280px');	
+	}
+	
+}
+function execunstall(cid,cname){
+	var temp;
+	temp="您真的要卸载计算机"+cname+"的客户端吗?";
+	if(confirm(temp)){
+   temp='/pronline/Msg?FunName@nwWebCompMon_Uninstall&id@'+cid;
+	 showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:420px;scroll:yes;dialogHeight:280px');	
+	}
+}
+function goto(t){
+self.location.href=t
+}
+
+
+var cno;
+var currentTab;
+var tabBase;
+var firstFlag = true;
+
+function changeTabs(){
+if(firstFlag == true){
+currentTab = t0;
+tabBase = t0base;
+cno=currentTab.id.substring(1);
+firstFlag = false;
+}
+
+if(window.event.srcElement.className == "tab4"||window.event.srcElement.className == "tab5"||window.event.srcElement.className == "tab7"||window.event.srcElement.className == "tab8"||window.event.srcElement.className == "tab9"){
+	var tt;
+	tt=window.event.srcElement;
+
+	if((tt.id!='t0')){
+		if((form1.id.value=='')&&(form1.cheID.value=='')){
+			  alert('请点击左边树中的计算机名，选择计算机');
+			  return;
+		 }
+		}
+	var cno2=parseInt(cno)+1;
+	if(cno==0)
+		currentTab.className = "tab7";
+	else if(cno==3)
+		currentTab.className="tab8";
+	else
+		currentTab.className="tab5";
+
+  if(cno2<3)
+  	eval('document.all.t'+cno2).className="tab5";
+  else if(cno2==3)
+  	eval('document.all.t'+cno2).className="tab8";
+  	
+	currentTab = window.event.srcElement;
+	cno=currentTab.id.substring(1);
+	var cno1=parseInt(cno)+1;
+	if(cno==3){
+		currentTab.className = "tab6";
+	}
+  else if(cno==2){
+   currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab9";
+  }
+  else{
+	 currentTab.className="tab3";	 
+	 eval('document.all.t'+cno1).className="tab4";
+	}
+	 
+		
+
+	
+tabContentID = currentTab.id + "Contents";
+tabContent = document.all(tabContentID);
+
+var temp_desc;
+	if(tabContent.id=="t0Contents"){		
+		temp_desc='&nbsp;<input type="text" name="cond"  size="18" maxlength="31" value="[#cond#]">';
+	  temp_desc=temp_desc+'<input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value=1">';
+    document.all.wlj.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='<b>'+'联网客户端</b>';
+   
+		form1.FunName.value='nwWebShowOnlineCompute';
+		form1.CurPg.value='1';
+		form1.opmsg.value='1070';
+		document.all.xmm.style.display="";
+		form1.refresh_flag.value='1';
+		form1.submit();
+	}
+//	else if(tabContent.id=="t1Contents"){
+	
+//		temp_desc='&nbsp;<input type="text" name="cond"  size="18" maxlength="31" value="[#cond#]">';
+//	  temp_desc=temp_desc+'&nbsp;<input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value=1">';
+//	document.all.xmm.style.display="";
+//    document.all.wlj.innerHTML=temp_desc;
+//    document.all.wlj3.innerHTML='<b>客户端聊天内容监控</b>';
+//		form1.FunName.value='ncClientImList';
+//		form1.CurPg.value='1';
+//		form1.opmsg.value='1072';
+
+//		form1.refresh_flag.value='1';
+//		form1.submit();
+	
+//}
+	else if(tabContent.id=="t1Contents"){
+		temp_desc='&nbsp;'
+    document.all.wlj.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='<b>'+form1.dvname.value+'计算机当前信息</b>';
+		form1.FunName.value='nwWebCompMon_SysInfo';
+		form1.CurPg.value='1';
+		form1.opmsg.value='1071';
+		document.all.xmm.style.display="none";
+		form1.refresh_flag.value='1';
+		form1.submit();
+	}
+	else if(tabContent.id=="t2Contents"){
+		temp_desc='&nbsp;';
+	  temp_desc=temp_desc+'<input name="killproc" type="submit" class="an3-2" value="杀掉选择进程" onclick="form1.CurPg.value=1">';
+    document.all.wlj.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='<b>当前运行进程</b>';
+    	document.all.xmm.style.display="";
+		form1.FunName.value='nwWebCompMon_CurProc';
+		form1.CurPg.value='1';
+		form1.opmsg.value='1072';
+		document.all.xmm.style.display="none";
+		form1.refresh_flag.value='1';
+		form1.submit();
+	}
+	else if(tabContent.id=="t3Contents"){
+		temp_desc='&nbsp;';
+	  temp_desc=temp_desc+'<input name="redraw" type="submit" class="an3-2" value="重置画面" onclick="form1.cheID.value=top.sbpm_left.form1.cheID.value;form1.CurPg.value=1">';
+
+    document.all.wlj.innerHTML=temp_desc;
+    document.all.wlj3.innerHTML='<b>当前屏幕信息</b>&nbsp;&nbsp;&nbsp;&nbsp;nbsp;&nbsp;&nbsp;&nbsp;选择多台电脑可以同时监控多个屏幕';
+		form1.FunName.value='nwWebScreenShowFrm';
+		form1.opmsg.value='1073';
+		document.all.xmm.style.display="none";
+		form1.refresh_flag.value='1';
+		form1.submit();
+	}
+
+
+}
+}
+
+
+
+function showform(t)
+{
+	      window.open(t,'readpost','left=100,top=50,width=700,height=600,fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function gotoPage(nun)
+{
+	form1.CurPg.value=nun;
+	form1.submit();
+}
+var dfd1="0"
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+
+function doSort(iSort)
+{
+    form1.sortby.value = iSort;
+	 form1.submit();
+}
+
+</script>
+<style>
+.conts  {visibility:hidden}
+.tab{border-top:solid thin #E0E0E0;border-right:solid thin gray;border-left:solid thin #E0E0E0;font-family:Verdana;font-size:10pt;text-align:center;font-weight:normal;background-color:dfdfdf;cursor:default}
+.selTab{border-left:solid thin white;border-top:solid thin white;border-right:solid thin black;font-weight:bold;text-align:center;background-color:Dfdfdf;cursor:default}
+.selTabBase{border-top:solid thin #dfdfdf }
+.TabBase{border-top:solid thin #DEE8FA}
+table {  font-size: 9pt}
+ .style2 {
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: #0000ff;
+}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="1" topmargin="0" onclick="changeTabs()"  style="overflow:hidden" >
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main_f">
+<input type="hidden" name="FunName" value="nwWebShowOnlineCompute">
+<input type="hidden" name="opmsg" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="id" value="">
+<input type="hidden" name="cheID" value="">
+<input type="hidden" name="dvname" value="">
+<input type="hidden" name="con_flag" value="2">
+<input type="hidden" name="temp_id" value="">
+<input type="hidden" name="refresh_flag" value="2">
+<input type="hidden" name="sctop" value="0">
+	<iframe name="main_f" id="data1" style="display:none" src="/pronline/Msg?FunName@nwWebShowOnlineCompute"> </iframe>
+  
+    <table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0"  STYLE="width:100%; height:100%">
+      <tr height="22">
+      	<td colspan="5">
+      		<table border="0"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" STYLE="width:100%; height:100%" bgcolor=#8cb4e8>
+      		  <tr>
+					    <td ID="t0" CLASS="tab3">联网客户端</td>
+	<!--				    <td ID="t1" CLASS="tab4">聊天内容监控</td>    -->
+					    <td ID="t1" CLASS="tab4">当前系统信息</td> 
+					    <td ID="t2" CLASS="tab5" >当前运行进程</td>    
+					    <td ID="t3" CLASS="tab8" >当前屏幕</td>
+					    <td ID="t4"  class="tab10" >&nbsp;</td>	
+			     </tr>
+			   </table>
+       </tr> 
+
+			<tr > 
+			<td ID="t0base"  STYLE="height:1; border-left:solid thin white" ></td>
+			<td ID="t1base" STYLE="height:1; border-left:solid thin white" ></td>
+			<td ID="t2base" STYLE="height:1; border-left:solid thin white" > </td>
+			<td ID="t3base" STYLE="height:1; border-left:solid thin white" > </td>
+			
+			</tr> 
+		<tr>
+			<td colspan="4" valign="top">			
+				<table  cellspacing=0   cellpadding="0" bgcolor="#DEE8FA" border="0" align="center" width="100%">
+				    <tr >
+				      <td colspan="7">
+				        <table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg8.jpg">
+				          <tr > 
+				          	<td  width="300">
+				          		<div id="wlj">&nbsp;关键字
+	                   <input type="text" name="cond"  size="18" maxlength="31" value="[#cond#]"> 
+	                   <input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value='1'">
+	                 
+				          		</div>
+				          	</td>
+				          	<td >
+				          		<div id="wlj3" align="left">
+				          		<b style="font-size: 10pt;color:#333333;">在线计算机</b>	
+				          			</div>
+				          	</td>
+				           
+				        <td width="30%" height="23" id="xmm"> 
+              <table align=right border=0 cellpadding=0  cellspacing=0  >
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)-1);' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=CurPg size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 30px" value=0 onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                
+                
+						    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=5 name=TotPg size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=8 name=TotRec size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+						                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)+1);' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage(form1.TotPg.value);' class='hand'>")}
+                    </script></td>
+              </tbody> 
+              </table>
+            </td>
+				            					            
+				          </tr>
+				        </table>
+				     </td>
+				    </tr>    
+				</table>	
+		</td>
+		</tr>	
+<tr> 
+
+	
+<td HEIGHT="*" COLSPAN="5" ID="tabContents" bgcolor="#DEE8FA" align="left" valign="top" > 
+<div id="ff" name='ff'>
+</div>
+
+</td></tr></table>
+
+	</form>	
+
+<div CLASS="conts" ID="t0Contents"> 0 </div>
+<div CLASS="conts" ID="t1Contents"> 1 </div>
+<div CLASS="conts" ID="t2Contents"> 2 </div>
+<div CLASS="conts" ID="t3Contents"> 3 </div>
+<div CLASS="conts" ID="t4Contents"> 4 </div>
+<div CLASS="conts" ID="t5Contents"> 5 </div>
+
+</body>
+</html>

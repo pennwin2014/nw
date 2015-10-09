@@ -1,0 +1,650 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>流量统计综合报表</title>
+<style>
+	v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+TD {	FONT-SIZE: 10pt}
+ tr.tableHead {
+    position:relative;
+    text-align: center;
+    }
+.tScrolld {
+    overflow: scroll;
+    overflow-x:hidden;
+    height:600px;
+    cursor: default;
+    }
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	
+		.bord2_2 {	border-top: 1px solid #666666;
+	border-right: 1px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	
+	
+	
+A.a2:link{
+color:#000000;text-decoration:none;
+font-size:9pt;
+font-weight: normal;
+}
+A.a2:visited{
+color:#000000;text-decoration:none;
+font-size:9pt;
+font-weight: normal;
+}
+A.a2:hover{color:#000000;text-decoration:underline;
+font-size:9pt;
+font-weight: normal;
+}
+A.a2:active{color:#000000;text-decoration:underline;
+font-size:9pt;
+font-weight: normal;
+}
+
+A:link{
+color:BLUE;;text-decoration:none;
+font-weight: bold;
+font-size:10pt;
+}
+A:visited{
+color:#000000;text-decoration:none;
+font-weight: bold;
+font-size:10pt;
+}
+A:hover{color:#000000;text-decoration:underline;
+font-weight: bold;
+font-size:10pt;
+}
+A:active{color:#000000;text-decoration:underline;
+font-weight: bold;
+font-size:10pt;
+}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+		.bord3 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 1px 1px 1px}
+	
+</style>
+<script src="/js/calendar.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	
+	function openreport(t){
+		window.open(t,'open_report','height=600, width=900, top=0, left=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}		
+	
+function netflow(flag)
+{
+	form1.pdf.value='';
+	form1.pre_flag.value=flag;
+	form1.submit();
+	
+}
+	
+	function getColor(){
+		return "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+  };
+	//求数据对象的最大Value
+function maxs(mm){
+ var max1 = 0;
+ for(var i=0; i<mm.length; i++){
+  if(parseInt(mm[i]) > max1) max1 = parseInt(mm[i]);
+ }
+ return max1;
+}
+	
+function cg(){
+	
+	if(form1.av_un.value=='2'){
+		if(form1.sdate.value==form1.edate.value){
+			form1.sdate.value='[#wsdate#]';
+			form1.edate.value='[#wedate#]';
+		}
+	}
+else{
+	if(form1.sdate.value!=form1.edate.value){
+		form1.sdate.value='[#tdate#]';
+		form1.edate.value='[#tdate#]';
+	}
+}
+}	
+</script>
+
+
+</head>
+<body topmargin=5 leftmargin=0  bgcolor="#DEE8FA">
+	 <form name="form1" method="post" action="/pronline/Msg">
+    <input type="hidden" name="FunName" value="ncWebShowAllFlowStat">
+    <input type="hidden" name="wsdate" value="[#wsdate#]">
+    <input type="hidden" name="wedate" value="[#wedate#]">
+    <input type="hidden" name="tdate" value="[#tdate#]">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+	<tr>
+	<td valign="top">
+<div class="tScrolld" >
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" valign="top">
+   
+
+ 
+
+  <tr> 
+    <td colspan="2" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+             [[#groupname#]]流量统计综合报表</div></td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2">         
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr height="30"> 
+            <td colspan="2">&nbsp;部门&nbsp;
+            	<select name="groupid" style="width:75px;">
+             <option value="">全部</option>
+            	[#SLPB#]
+            	<option value="[#gid#]">[#gname#]</option>
+            	[#SLPE#]
+            	</select>
+            	 类型&nbsp;<select name="av_un" onchange="cg()">
+             	  <option value="1"> 日报</option>
+             	   <option value="2">周报</option>
+             	 </select>
+            	开始时间&nbsp;<input type="text" name="sdate" size="11" value="[#sdate#]"><input type="button" name="sdate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Down');return false">
+              <input type="text" name="stime" size="4" value="[#stime#]" style="position:relative;left:-15px;">
+            	结束时间<input type="text" name="edate" size="11" value="[#edate#]"><input type="button" name="edate_but" style="position:relative;left:-15px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Down');return false">
+              <input type="text" name="etime" size="4" value="[#etime#]" style="position:relative;left:-15px;">
+           	  
+            	<input name="submit1" type="submit" class="an3"    value="确认" >
+            	<input name="pdf" type="submit" class="an3"    value="导出PDF" >
+            	</td>
+          </tr>
+
+	          <tr bgcolor="#ffffff">
+          	<td colspan="2">
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+         			
+          			<tr>
+          				<td  id="test1" height="450">
+	
+									<div id="test1">
+								
+									<script LANGUAGE="JavaScript">	
+									
+									var tb_left=120;
+									var tb_top=120;
+									var tb_width=620;
+									var tb_height=240;
+									
+									var tb_sjx=40;
+									
+									var y_tot=10;
+									var x_tot=7;
+									var y_max=0;
+									
+								     //服务数
+									
+									var dev_desc=new Array();
+								
+									dev_desc[0]='Traffic UP';
+								  dev_desc[1]='Traffic DOWN';
+									
+									
+									
+											var dev_color=new Array();
+									    dev_color[0]='#00FA9A';
+									    dev_color[1]='#FF0000';
+									    
+								
+									var sdate=new Array();
+								
+									[#SLPB#]
+									 sdate[[#num#]]='[#sdate#]';
+									[#SLPE#]
+								
+								
+									var sdate_y0=new Array();
+								  var sdate_y1=new Array();
+									[#SLPB#]
+									sdate_y0[[#num2#]]=[#ubytes#];
+									sdate_y1[[#num2#]]=[#dbytes#];
+									[#SLPE#]
+									
+									var dev_count='2';  
+									var lCount='[#sum_d#]';     //数据实际数量
+									var temp_html;
+									
+								
+								//求数据中Y轴的最大数
+								y_max=0;
+								//y_max=[#maxrate#];
+								var t_d=Array();
+								
+								
+								for(var i=0;i<dev_count;i++){
+									var obj="sdate_y"+i;
+									var t_len=eval(obj).length;
+									for(j=0;j<t_len;j++){
+										if(i==0)
+										t_d[j]=eval(obj)[j];
+									else
+										t_d[j]=t_d[j]+eval(obj)[j];
+								
+								  }
+								}
+								
+									 y_max=100;
+								
+								
+								
+								
+								
+								
+								  var step_scal=tb_height/y_tot;			
+									var step=y_max/y_tot;
+								  x_tot=sdate.length;
+									var step_x=Math.floor(tb_width/x_tot);
+									var yzoom=tb_height/y_max;
+								
+								
+								   temp_html="<v:rect   style='position:absolute;left:"+tb_left+";top:"+tb_top+";width:"+tb_width+";height:"+tb_height+";z-index:-1' filled='f' fillcolor='#000000' strokecolor='#000000' strokeweight='1' stroked='t'>";
+								   temp_html=temp_html+"</v:rect>";
+								 
+								 //画边框  
+								   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:2' from='"+parseInt(tb_left-1)+","+parseInt(tb_top-1)+"' to='"+parseInt(tb_left+tb_width+1)+","+parseInt(tb_top-1)+"'  strokecolor='#000000'/> ";
+								   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:2' from='"+parseInt(tb_left-1)+","+parseInt(tb_top+tb_height+1)+"' to='"+parseInt(tb_left+tb_width+1)+","+parseInt(tb_top+tb_height+1)+"'  strokecolor='#000000'/> ";
+								   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:2' from='"+parseInt(tb_left-1)+","+parseInt(tb_top-1)+"' to='"+parseInt(tb_left-1)+","+parseInt(tb_top+tb_height+1)+"'  strokecolor='#000000'/> "; 
+								   temp_html=temp_html+"<v:line   style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:2' from='"+parseInt(tb_left+tb_width+1)+","+parseInt(tb_top-1)+"' to='"+parseInt(tb_left+tb_width+1)+","+parseInt(tb_top+tb_height+1)+"'  strokecolor='#000000'/> ";  
+								      
+								//画Y轴	
+									var i;
+								
+									for(i=0;i<=y_tot;i++){	   
+											temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left)+","+parseInt(tb_top+step_scal*i)+"' to='"+parseInt(tb_left+tb_width)+","+parseInt(tb_top+step_scal*i)+"'  strokecolor='#dfdfdf' />	";		
+								
+										  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left-45)+";top:"+parseInt(tb_top+tb_height-i*step_scal-10)+";width:40px;height:18px;z-index:1'>";
+										  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+										  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+										  temp_html=temp_html+"<tr><td align='right'>"+i*step+"</td></tr>";
+										  temp_html=temp_html+"</table></v:textbox></v:shape>";
+								
+												   
+									}
+								//画标题
+									
+								
+								//画统计时间
+										 temp_html=temp_html+"<v:shape   style='position:absolute;left:"+parseInt(tb_left+tb_width-420)+";top:"+parseInt(tb_top+tb_height-i*step_scal-8)+";width:240px;height:18px;z-index:1'>";
+										  temp_html=temp_html+"<v:textbox inset='0px,0px,0px,0px'>";
+										  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+										  temp_html=temp_html+"<tr><td align='center' style='font-size:10pt;color:#00237e;font-weight:bold;text-align: center;'>[#title#]</td></tr>";
+										  temp_html=temp_html+"</table></v:textbox></v:shape>"; 
+								
+								//画y轴标签
+								    temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left-125)+";top:"+parseInt(tb_top+20)+";width:165px;height:30px;z-index:8'>";
+									  temp_html=temp_html+"<table cellspacing='0' cellpadding='0' width='100%' height='100%' style='FILTER: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);'>";	
+									  temp_html=temp_html+"<tr><td align='left'  style='font-size:10pt;color:#00237e;font-weight:bold;'>Traffic(% 使用率)</td></tr>";
+									  temp_html=temp_html+"</table></v:shape>";
+								
+								
+								//画X轴
+								
+								 for(i=0;i<x_tot;i++){
+								 	
+								 		temp_html=temp_html+"<v:line  alt='' style='position:absolute;left:0;text-align:left;top:0;flip:y;z-index:1' from='"+parseInt(tb_left+i*tb_width/(x_tot-1))+","+parseInt(tb_top)+"' to='"+parseInt(tb_left+i*tb_width/(x_tot-1))+","+parseInt(tb_top+tb_height)+"' strokecolor='#dfdfdf'/>";			
+									  temp_html=temp_html+"<v:shape  alt='' style='position:absolute;left:"+parseInt(tb_left+i*tb_width/(x_tot-1)-18)+";top:"+parseInt(tb_top+tb_height+7)+";width:40px;height:30px;z-index:8'>";
+								
+									  temp_html=temp_html+"<table cellspacing='0' cellpadding='0' width='100%' height='100%' style='FILTER: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);'>";	
+									  temp_html=temp_html+"<tr><td align='left'  >"+sdate[i]+"</td></tr>";
+									  temp_html=temp_html+"</table></v:shape>";
+								 	
+								}
+								
+								
+								
+								//画线
+								var p1='';
+								
+								
+								var temp_data=new Array();
+								var i;
+								
+								//初始化temp_data
+								
+								for(i=0;i<sdate_y0.length;i++){
+									temp_data[i]=0;
+								}
+								
+								
+								
+								var minlen;
+								
+								 minlen=sdate_y0.length;
+								
+								if(dev_count<11)
+								  dev_count=dev_count-1;
+								  
+								  
+								for(j=0;j<=dev_count;j++){
+									var obj_y1,obj1;
+									var obj="sdate_y"+j;
+								  if(j==11) break;													///
+									if(j>0)
+									 obj1="sdate_y"+(parseInt(j-1));
+									 
+								
+									var obj_y=eval(obj);
+									if(j>0)
+									  obj_y1=eval(obj1);
+									  
+									var y_len=eval(obj).length;
+								 
+								
+								      p1='';	
+										  for(i=0;i<minlen;i++){
+								     if(i==0)
+								         p1=parseInt(tb_left+i*tb_width/(y_len-1))+','+parseInt(tb_top+tb_height-obj_y[i]*yzoom);
+								     else
+									       p1=p1+','+parseInt(tb_left+i*tb_width/(y_len-1))+','+parseInt(tb_top+tb_height-obj_y[i]*yzoom);
+								
+										  }
+										  
+										  		temp_html=temp_html+'<v:polyline style="Z-INDEX:1;LEFT:0;POSITION:absolute;TOP:0"  points=" '+p1+'" filled="f" strokecolor="'+dev_color[j]+'" />';
+										  
+								  
+								}
+								
+								
+								
+								//画图例
+								
+								   var mmm=0;
+								   for(i=0;i<=dev_count;i++){
+											if(i==11) break;													/////
+								      temp_html=temp_html+"<v:rect style='position:absolute;left:"+parseInt(tb_left-38)+";top:"+parseInt(tb_top+tb_height+i*20+109)+";width:12;height:12;z-index:1' fillcolor='"+dev_color[i]+"' strokecolor='"+dev_color[i]+"' strokeweight='1' stroked='t'></v:rect>";
+								      
+								      temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left-18)+";top:"+parseInt(tb_top+tb_height+i*20+106)+";width:230px;height:18px;z-index:1'>";
+								
+										  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+								
+										   temp_html=temp_html+"<tr><td align='left'>"+dev_desc[i]+"</td></tr>";
+										  
+										  temp_html=temp_html+"</table></v:shape>";
+										  mmm++;
+								//     }
+								   }
+								   
+								 //画说明  
+								       temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+253)+";top:"+parseInt(tb_top+tb_height+50)+";width:130px;height:18px;z-index:1'>";
+								
+										  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+								
+										   temp_html=temp_html+"<tr><td style='font-size:10pt;color:#00237e;font-weight:bold;text-align: center;'>Time</td></tr>";
+										  
+										  temp_html=temp_html+"</table></v:shape>";
+										  
+								          temp_html=temp_html+"<v:shape  style='position:absolute;left:"+parseInt(tb_left+123)+";top:"+parseInt(tb_top+tb_height+80)+";width:420px;height:70px;z-index:1'>";
+								
+										  temp_html=temp_html+"<table cellspacing='3' cellpadding='0' width='100%' height='100%'>";	
+								
+										   temp_html=temp_html+"<tr height='22'><td colspan='4' style='font-size:10pt;color:#00237e;font-weight:bold;text-align: center;'>计算使用率的上行速率为[#upband#]M bps 下行速率为[#downband#]M bps</td></tr>";
+										 
+										   temp_html=temp_html+"<tr height='18'><td >最小:[#minup#]%</td><td >最大:[#maxup#]%</td><td >平均:[#avup#]%</td><td >96百分点:[#avup96#]%</td></tr>";
+										   temp_html=temp_html+"<tr height='18'><td >最小:[#mindown#]%</td><td >最大:[#maxdown#]%</td><td >平均:[#avdown#]%</td><td >96百分点:[#avdown96#]%</td></tr>";
+										  
+										  temp_html=temp_html+"</table></v:shape>";
+								   
+								   
+								  
+								  document.write(temp_html);
+								</script>
+								
+								  </div>
+								</td>
+	             <tr>
+	          </table>
+           </td>
+          </tr>
+
+				<tr bgcolor="#ffffff"  >
+					<td height=32 class='style4'  align="left">&nbsp;&nbsp;<span style="color: #000000;font-size: 11pt; font-weight: bold;">排行报表&nbsp;</span><span style="color: #000000;font-size: 9pt; font-weight: normal;" >&nbsp;&nbsp;&nbsp;</span></td>
+				</tr>
+
+          <tr bgcolor="#ffffff" valign="top">
+          	<td>
+          		<table  width="740" align="left" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="SCROLLBAR-FACE-COLOR: #c1d8f9; OVERFLOW: scroll; SCROLLBAR-SHADOW-COLOR: #c1d8f9; SCROLLBAR-3DLIGHT-COLOR: #c1d8f9; SCROLLBAR-ARROW-COLOR: #5985ce; SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;">
+          		 <tr>
+          		 	<td colspan="4" height="10">&nbsp;</td>
+          		 </tr>
+          		     
+          		     
+          			<tr>
+          				<td width="70">&nbsp;</td>
+          				<td width="43%" valign="top">
+               					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" style="top:expression(document.getElementById('tC').scrollTop)">
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;服务-下行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#servicedown#]</td>
+				            <td class="bord1" align="right">[#adbyts#] MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#drate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table>
+   
+          			 </td>
+          			 <td width="70">&nbsp;</td>
+          			 <td width="43%" valign="top">              					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" style="top:expression(document.getElementById('tC').scrollTop)">
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;服务-上行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#serviceup#]</td>
+				            <td class="bord1" align="right">[#aubyts#]MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#uprate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table> 
+          			 </td>
+    			 
+          </tr>
+	     <tr height="12">
+          			<td  colspan="4" >&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+
+		</table>
+		</td>
+		      </tr>
+
+
+
+          <tr bgcolor="#ffffff" valign="top">
+          	<td>
+          		<table  width="740" align="left" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          		 <tr>
+          		 	<td colspan="4" height="10">&nbsp;</td>
+          		 </tr>
+          		     
+          		     
+          			<tr>
+          				<td width="70">&nbsp;</td>
+          				<td width="43%" valign="top">
+               					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" >
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;目标IP-下行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#dip_d#]</td>
+				            <td class="bord1" align="right">[#ipdbyts#] MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#ipdrate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table>
+   
+          			 </td>
+          			 <td width="70">&nbsp;</td>
+          			 <td width="43%" valign="top">              					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" style="top:expression(document.getElementById('tC').scrollTop)">
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;目标IP-上行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#dip#]</td>
+				            <td class="bord1" align="right">[#ipubyts#]MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#ipurate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table> 
+          			 </td>
+    			 
+          </tr>
+	     <tr height="12">
+          			<td  colspan="4" >&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+
+		</table>
+		</td>
+		      </tr>
+
+
+
+          <tr bgcolor="#ffffff" valign="top">
+          	<td>
+          		<table  width="740" align="left" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          		 <tr>
+          		 	<td colspan="4" height="10">&nbsp;</td>
+          		 </tr>
+          		     
+          		     
+          			<tr>
+          				<td width="70">&nbsp;</td>
+          				<td width="43%" valign="top">
+               					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" >
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;源IP-下行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#userdip#]</td>
+				            <td class="bord1" align="right">[#userdbyts#] MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#userdrate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table>
+   
+          			 </td>
+          			 <td width="70">&nbsp;</td>
+          			 <td width="43%" valign="top">              					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  class="tableHead"  bgcolor="#DEE8FA" height="25" style="top:expression(document.getElementById('tC').scrollTop)">
+				           
+				            <td width="150" align="center" class="bord2_1"> &nbsp;源IP-上行</td>
+				           
+				            <td  align="center" width="90" class="bord2_1" >流量</td>
+				            <td  align="center" class="bord2_2" >流量百分比</td>
+				           
+				          </tr>
+				         [#SLPB#]      
+				          <tr height="20"> 			
+				            <td class="bord1"   nowrap >&nbsp;[#useruip#]</td>
+				            <td class="bord1" align="right">[#userubyts#]MB&nbsp;</td>
+
+				           <td class="bord3" align="right">[#userurate#]%&nbsp;</td>
+				          </tr>
+				             [#SLPE#]         
+				          
+        
+          	    </table> 
+          			 </td>
+    			 
+          </tr>
+	     <tr height="12">
+          			<td  colspan="4" >&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+
+		</table>
+		</td>
+		      </tr>
+
+
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+</form>
+	<script> 
+		       form1.av_un.value="[#avun#]";
+		       form1.groupid.value="[#groupid#]";
+	</script>
+
+	
+</body>

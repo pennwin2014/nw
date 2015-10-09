@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>用户信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden">
+<div align="center"></div>
+<form name="form1" method="post" action="/pronline/Msg" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">系统用户信息</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td height="108"> 
+        <input type="hidden" name="FunName" value="ncAdminUserSave">
+        <input type="hidden" name="userid"  value="[#userid#]">
+        <input type="hidden" name="sumright"  value="[#sumright#]">
+        
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>
+        <table width="90%" border="0" align="center" cellspacing="0">
+                <tr> 
+                  <td width="17%" valign="bottom" height="21" > <div align="right">登录名&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" > <input type="text" name="name" size="20" maxlength="31" value="[#name#]"> 
+                  </td>
+                  <td width="11%" valign="bottom" height="21" > <div align="right">姓 
+                      &nbsp;名&nbsp;</div></td>
+                  <td width="35%" height="21" colspan="2" valign="bottom" > <div align="left"> 
+                      <input type="text" name="dispname" size="20" maxlength="31" value="[#dispname#]">
+                    </div></td>
+                </tr>
+                <tr> 
+                  <td width="17%" valign="bottom" height="21"> <div align="right">口&nbsp; 
+                      令&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" > <input type="password" name="password" size="20" maxlength="31"> 
+                  </td>
+                  <td width="11%" valign="bottom" height="21"> <div align="right">口令确认&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" > <input type="password" name="password2" size="20" maxlength="31"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="17%" valign="bottom" height="21"> <div align="right">第二密 
+                      码&nbsp;</div></td>
+                  <td width="34%" valign="bottom" height="21" > <input type="password" name="key2" size="21" maxlength="31" value=""> 
+                  </td>
+                  <td width="14%" valign="bottom" height="21"> <div align="right">第二密码确认&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" > <input type="password" name="key22" size="21" maxlength="31"> 
+                  </td>
+                </tr>
+                
+                <tr> 
+                  <td width="17%" valign="bottom" height="21" > <div align="right">管理组&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" > [#sgroup#]</td>
+                  <td width="11%" valign="bottom" height="21" > <div align="right">用户级别&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" > [#slevel#]</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="21" valign="bottom" > 
+                    <div align="right">加入时间&nbsp;</div></td>
+                  <td width="37%" valign="bottom" > 
+                    <input type="text" name="addtime" value="[#addtime#]"  disabled >
+                  </td>
+                  <td width="11%" valign="bottom" >
+<div align="right">修改时间&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" > 
+                    <input type="text" name="moditime" value="[#moditime#]" disabled>
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="17%" valign="bottom" height="29"> <div align="right">Email&nbsp;</div></td>
+                  <td colspan="4" valign="bottom" height="29" > <div align="left"> 
+                      <input type="text" name="email" size="63" maxlength="64" value="[#email#]">
+                    </div></td>
+                </tr>
+                <tr> 
+                  <td colspan="5" height="27" > 
+                    <div align="center"><strong>使用权限</strong></div></td>
+                </tr>
+                <!-- [#SLPB#] -->
+                <tr> 
+                  <td width="17%" valign="bottom" height="21"> <div align="right"> 
+                      <input type="checkbox" name="[#vara#]" value="[#rolea#]"  [#checka#]>
+                    </div></td>
+                  <td width="37%" valign="bottom" height="21">[#labela#]</td>
+                  <td width="11%" valign="bottom" height="21" > <div align="right"> 
+                      <input type="checkbox" name="[#varb#]" value="[#roleb#]" [#checkb#]>
+                    </div></td>
+                  <td colspan="2" valign="bottom" height="21" >[#labelb#]</td>
+                </tr>
+                <!-- [#SLPE#] -->
+                <tr> 
+                  <td colspan="5" height="12" > <div align="left"> </div></td>
+                </tr>
+              </table>
+</td>
+          </tr>
+        </table>
+        <div align="center"></div>
+      </td>
+  </tr>
+  <tr>
+    <td height="70"><table width="50%" border="0" align="center">
+        <tr> 
+          <td> <div align="right">
+              <input name="ok" type="submit" class="an3"   value="确 认" >
+              &nbsp; 
+              <input name="cancel" type="reset" class="an3-1"  onClick="history.back(-1)"   value="取消返回">
+              &nbsp; </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

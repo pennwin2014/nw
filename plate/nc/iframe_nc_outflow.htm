@@ -1,0 +1,71 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns:v="urn:schemas-microsoft-com:vml">
+<HEAD>
+<TITLE> Test VML Chart for Version 1.0.1 </TITLE>
+<STYLE>
+    v\:* { BEHAVIOR: url(#default#VML) }
+</STYLE>
+<script language="Javascript" src="/js/draw.js"></script>
+</HEAD>
+
+<BODY>
+<div id=test1>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var tmp = new Array();
+
+//柱状图
+[#tbtype#]
+
+chart.Text.Font.Size = 20;
+chart.Text.Font.Style = fstBold;
+chart.Shadow = false;
+chart.Container = test1;
+chart.Text.Text="[#caLabel#]([#unit#])";
+chart.initialise();
+
+var s = new Series();
+var label = new Array([#SLPB#]"[#sdate#]",[#SLPE#]"");
+
+for(var i=0;i<label.length-1;i++){
+temp_fs=new Array([#SLPB#]"[#upbit#]",[#SLPE#]"")
+v=Math.round(temp_fs[i]);
+  tmp[tmp.length] = v;
+  s.addData(label[i],v);
+}
+s.Title = "上行";
+s.Color = "red";
+chart.addSeries(s);
+
+s = new Series();
+for(var i=0;i<label.length-1;i++){
+temp_js=new Array([#SLPB#]"[#dowbit#]",[#SLPE#]"")
+v=Math.round(temp_js[i]);
+  tmp[tmp.length] = v;
+  s.addData(label[i],v);
+}
+s.Title = "下行";
+s.Color = "blue";
+chart.addSeries(s);
+
+temp_tot=new Array([#SLPB#]"[#totbit#]",[#SLPE#]"")
+s = new Series();
+for(var i=0;i<label.length-1;i++){
+  v = Math.round(temp_tot[i]);
+  tmp[tmp.length] = v;
+  s.addData(label[i],v);
+}
+s.Title = "合计";
+s.Color = "green";
+chart.addSeries(s);
+
+chart.draw();
+
+//-->
+</SCRIPT>
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,209 @@
+<html>
+
+<head>
+<title>查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<script>
+var uid = new Array();
+var uname=new Array();
+[#SLPB#]
+uid[[#num#]]='[#uid#]';
+uname[[#num#]]='[#uname#] ';
+[#SLPE#]
+
+function showtips(){
+var t_flag=0;
+e=event.keyCode;
+if(e==13) return;
+eo=event.srcElement;
+document.all.sel.length=0;
+var len=uid.length;
+var re=new RegExp("^"+eo.value,"i")
+var j=0
+for(i=0;i<len&&j<20;i++) {
+	if(re.test(uname[i])==true){ 
+	document.all.sel.style.display='';
+	document.all.sel.add(new Option(uname[i],uid[i]));
+	j++;
+	t_flag=1;}
+}
+if(t_flag==0) {document.all.sel.style.display='none';return;}
+document.all.sel.size = (j>1)?j:2;
+document.all.sel.selectedIndex =0;
+
+}
+
+function enterTips(){
+e=event.keyCode;
+if(document.all.sel.style.display!='none'){
+	if(e==13){
+	form1.userid.value=document.all.sel.value;
+	event.srcElement.value=document.all.sel.options(document.all.sel.selectedIndex).text;
+	document.all.sel.style.display='none';
+  return;
+	}
+	if(e==40) 
+	document.all.sel.focus();
+	}
+	else
+	form1.userid.value='';
+}
+function rv(){
+   form1.userid.value=document.all.sel.value;
+   document.all.txt.value=document.all.sel.options(document.all.sel.selectedIndex).text;
+   c()
+}
+function c(){
+document.all.sel.style.display='none';
+//document.all.txt.focus()
+}
+document.onclick=function(){
+  c()
+}
+</script>
+
+<script>
+
+	function init()
+	{
+	 if((dialogArguments.form1.userid.value!='')&&(dialogArguments.form1.username.value!=''))
+ form1.userid.value=dialogArguments.form1.userid.value;
+	
+	form1.mailsub.value=dialogArguments.form1.sub.value;
+	form1.mailfrom.value=dialogArguments.form1.from.value;
+	form1.mailto.value=dialogArguments.form1.to.value;
+	form1.flags.value=dialogArguments.form1.flags.value;
+	form1.mailsize.value=dialogArguments.form1.msize.value;
+	form1.fjflag.value=dialogArguments.form1.fjflag.value;	
+	form1.username.value=dialogArguments.form1.username.value;
+	
+		}
+function queren()
+{
+if(form1.userid.value!=''){
+	 dialogArguments.form1.userid.value=form1.userid.value;
+ }
+ else
+   dialogArguments.form1.userid.value='';
+   
+dialogArguments.form1.sub.value=form1.mailsub.value;
+dialogArguments.form1.groupid.value="";
+dialogArguments.form1.from.value=form1.mailfrom.value;
+dialogArguments.form1.to.value=form1.mailto.value;
+dialogArguments.form1.flags.value=form1.flags.value;
+dialogArguments.form1.msize.value=form1.mailsize.value;
+dialogArguments.form1.username.value=form1.username.value;
+dialogArguments.form1.fjflag.value=form1.fjflag.value;
+dialogArguments.form1.submit();
+
+self.close();
+
+}
+function clear1()
+{
+  form1.userid.value='';
+	form1.mailsub.value='';
+	form1.mailfrom.value='';
+	form1.mailto.value='';
+	form1.flags.value='';
+	form1.mailsize.value='';
+	form1.username.value='';
+	form1.fjflag.value='';
+}
+	
+</script>
+
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  oncontextmenu="return true" onload="init()">
+  <form name="form1" method="post" action="/pronline/Msg" target="main">
+  <input type="hidden" name="FunName" value="ncsWebMailOnline">
+  <input type="hidden" name="userid" value="">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr> 
+    <td colspan="2"><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+        <tr > 
+          <td colspan="2" > <div align="center"><strong><font color="#FFFFFF">             
+              当前收发邮件过滤条件设置</font></strong></div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <br>
+        <table width="95%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+             <table width="100%" border="0" align="center" >
+               <tr height="35">
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">主题</font></b></font></td>
+                  <td > <input type="text" name="mailsub" size="27"></td>
+                  <td > </td>
+                </tr> 
+                <tr height="35">
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">发件人</font></b></font></td>
+                  <td > <input type="text" name="mailfrom" size="27"></td>
+                  <td > </td>
+                </tr>             
+                <tr height="35">
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">收件人</font></b></font></td>
+                  <td > <input type="text" name="mailto" size="27"></td>
+                  <td > </td>
+                </tr> 
+                <tr height="35"> 
+                  <td ></td>
+                  <td> <font color="#000000"><b><font size="2"> 邮件类型</font></b></font></td>
+                  <td ><select name="flags" style="width:200"><option value="">不限</option>
+                  <option value="1">SMTP</option><option value="2">POP3</option><option value="3">WebMail</option></select></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+               <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">邮件大于</font></b></font></td>
+                  <td > 
+                   <input type="text" name="mailsize" size="27"></td>
+                  <td >&nbsp;&nbsp; </td>
+                </tr> 
+            
+                <tr height="45"> 
+                  <td ></td>
+                  <td> <font color="#000000"><b><font size="2">有无附件</font></b></font></td>
+                  <td ><select name="fjflag" style="width:200"><option value="">不限</option>
+                  <option value="1">无</option><option value="2">有</option></select></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+              <tr height="35"> 
+                  <td ></td>
+                  <td valign="top"> <font color="#000000"><b><font size="2">用户名</font></b></font></td>
+                  <td valign="top"> <input id=txt onkeyup="showtips();if(event.keyCode==27) c();"  onkeydown='enterTips()' type="text" name="username" size="27">
+                  	<br><select id=sel style='display:none;height:150;width:200' onclick=rv() onkeydown='if(event.keyCode==13)rv()'></select>
+                  	</td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+              </table>
+            </td>
+          </tr>
+ 
+        </table>
+
+      </td>
+  </tr>
+           
+</table>
+          <p align="center"><input name='Button' type='button' class='an3' onClick='queren()' value='确 认'> 
+          	<input name='Button' type='button' class='an3' onClick='clear1()' value='清零'>
+          	</p>
+ </form>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>Web地址列表</title>
+<script language="JavaScript" src="/js/weblisttype.js"> </script>	
+<script>
+	function cx(){
+	if(form1.weburl.value==''){
+	alert('请输入网址');
+	rturn;
+	}
+	callServer();
+	}
+	
+	
+	
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowUrlCx&weburl@'+form1.weburl.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 1) 
+   {
+    document.getElementById("result").innerHTML = "正在查询......";
+   }
+
+   if (xmlHttp.readyState == 2) 
+   {
+    document.getElementById("result").innerHTML = "连接对象加载完毕。";
+   }
+
+   if (xmlHttp.readyState == 3) 
+   {
+    document.getElementById("result").innerHTML = "数据获取中......";
+   }
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+         
+    document.getElementById("result").innerHTML = response;
+   }
+ 
+ }
+	
+	
+	
+	function yd(){
+	if(form1.weburl.value==''){
+	alert('请输入移动的网址');
+	return;
+	}
+    t = "/pronline/Msg?FunName@ncWebReplace&plate@nc75/movwebfrm.htm&weburl@"+form1.weburl.value;  
+
+ 
+    var oDia=showModalDialog(t,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:450px;scroll:none;dialogHeight:200px;overflow:none");	
+
+	}	
+	
+	function showhide(){
+	if(document.all.xtwzk.style.display=='none')
+	  document.all.xtwzk.style.display='';
+	else
+	  document.all.xtwzk.style.display='none';
+	}
+	
+	
+	
+	function openDr()
+{
+  t="/web_dr_frm.htm";
+  showModalDialog(t,window,"status:no;center:yes;help:no;minimize:no;maximize:no;border:tick;statusbar:no;dialogWidth:500px;scroll:none;dialogHeight:350px;overflow:none");
+  }
+ 
+	
+	
+     function goto(t){
+        self.location.href=t;
+    }
+    
+    function setid(t){
+	    ido = 0;
+       j=form1.id.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.id.options[i].value;
+           if(gv == t) {
+		        ido = 1;
+               form1.id.selectedIndex = i;
+           }
+       }
+    }
+        
+	
+    function showf(id,flags,sid,url,name) {
+	    setid(id);
+        form1.sid.value=sid;
+		form1.flags.value = flags;
+        form1.url.value=url;
+        form1.name.value=name;
+		if(flags == '1') {
+    		form1.add.disabled = false;
+    		form1.modi.disabled = false;
+    		form1.del.disabled = false;
+			form1.modlb.disabled = false;
+		}
+		else {
+    		form1.add.disabled = false;
+    		form1.modi.disabled = false;
+    		form1.del.disabled = false;
+			form1.modlb.disabled = false;
+		}
+    }
+    
+ function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#ffff00";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }	
+    }
+
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function gotoPage(pagenum)
+    {
+        form1.CurPg.value = pagenum;
+    }
+
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+<!-- Hide
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+
+</script>
+
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<script src="/js/ajax.js"></script>
+<style type="text/css">
+<!--
+A:link {COLOR: #800080; TEXT-DECORATION: underline;}
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:415px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    }   
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA"  onLoad="showf('[#lid#]','[#flags#]','','','')" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+	<table border="0" width="97%"  cellspacing="0" cellpadding="0" align=center>
+		 <tr> 
+      <td   height="30" > <a href="#xxm" onclick="showhide()">显示或隐藏内置网址类别</a></td>
+      <td>网址库引擎版本号：[#softversion#]&nbsp;&nbsp;网址库版本号:[#webversion#]&nbsp;&nbsp;更新时间:[#update#]&nbsp;&nbsp;总数:[#isum#]
+    </tr>
+	</table>
+	
+	
+	
+	
+	
+	
+  <table border="1" width=100%  cellspacing="0" cellpadding="0" bordercolorlight=#89ACED   bordercolordark=#ffffff align=center>
+  	
+  	<tr ><td id="xtwzk" style="display:none">
+  		<table bgcolor="#ffffff" style="color:black;" width="98%" border="0" cellpadding="0" align="center" cellspacing="0">
+  			<tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;娱乐场所</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;福利彩票</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;占卜星座</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;餐饮美食</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;汽车时尚</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;旅游交通</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;漫画幽默</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;网上读物</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;体育健身</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;音乐影视</td>
+        </tr>
+   			<tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;网络游戏</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;休闲娱乐</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;娱乐新闻</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;广播电视</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;报纸杂志</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;天气预报</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;新闻资讯</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;搜索导航</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;综合门户</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;软件升级</td>
+        </tr>
+        
+         <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;国外网站</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;ISP服务</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;P2P及下载</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;交友聊天</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;网络电话</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;邮件服务</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;代理服务器</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;论坛博客</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;网络空间</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;即时消息</td>
+        </tr>
+        
+         <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;黑客技术</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;IT技术</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;科研技术</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;百科知识</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;教育相关</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;少年儿童</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;网上教育</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;教育机构</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;教学素材</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;出国留学</td>
+        </tr>
+        
+        <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;民族宗教</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;政治</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;政府</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;社团</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;军事知识</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;法律相关</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;广告传销</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;生活家政</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;酒店宾馆</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;医疗卫生</td>
+        </tr>
+        
+        <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;服务业</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;邮政电信</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;企业网站</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;金融保险</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;财经网站</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;房产家居</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;行业资讯</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;求职招聘</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;电子商务</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;数码网络</td>
+        </tr>
+        
+         <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;股票证券</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;种族</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;邪教</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;黑社会</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;暴力</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;反华</td>
+  				  <td> <img src="/images/adt/tree_base.gif">&nbsp;毒品</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;病毒木马</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;成人网站</td>
+  				  <td><img src="/images/adt/tree_base.gif"> &nbsp;色情网站</td>
+        </tr>
+        
+         <tr height="28">
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;赌博 </td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;IP地址网站</td>
+  				  <td><img src="/images/adt/tree_base.gif">&nbsp;环境保护</td>
+  				  <td> &nbsp;</td>
+  				  <td>&nbsp;</td>
+  				  <td>&nbsp;</td>
+  				  <td> &nbsp;</td>
+  				  <td>&nbsp;</td>
+  				  <td>&nbsp;</td>
+  				  <td> &nbsp;</td>
+        </tr>
+        
+      </table>
+    </td>
+    </tr>
+  	
+  	
+  	
+  	
+  	
+  	<tr height="30"><td>
+  		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  			<tr><td width="420">
+  		&nbsp;查询系统网址&nbsp;<input type="text" name="weburl" size="26"  onKeyPress="if (event.keyCode == 13) return false;">&nbsp;<input name="sear2" type="button" class="an3" value="确认" onclick="cx()" >&nbsp;<input name="sear3" type="button" class="an3" value="移动" onclick="yd()" ></td>
+  	    </td>
+  	    <td align="right" width="80" >查询结果：</td>
+  	    <td id="result" style="color:red">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+    </tr>
+  	
+  	
+  	 <tr height="30" style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;"><td align="center">
+       自定义网址库
+    </td>
+    </tr>
+  	
+  	<tr height="30">                  
+        <td > &nbsp;自定义类别&nbsp;[#id#]&nbsp;网址 <input type="text" name="url" size="31" value="[#url#]" maxlength="63">                  
+           说明
+         <input type="text" name="name" size="31" value="[#name#]" maxlength="63"> 
+        </td>
+   </tr>
+  	
+    <tr> 
+      <td width="100%" valign="top" > 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+
+          <tr> 
+            <td height="26"> 
+              <table width="100%" border="0">
+
+                <tr> 
+                  <td width="1%" height="2"> </td>
+                  <td height="2">
+                  	   <input name="add" type="submit" class="an3" value="添 加" >
+                      <input name="modi" type="submit" class="an3" value="修 改" >
+                      <input name="del" type="submit" class="an3" value="删 除" >
+<input name="imp" type="button" class="an3" value="导入网址" onclick="openDr()">
+<!--                      <input name="app" type="submit" class="an3" value="应 用" >
+-->
+                      <input type="hidden" name="FunName" value="ncWebLimWebList_new">
+                      <input type="hidden" name="sid"   value="[#sid#]">
+                      <input type="hidden" name="flags"   value="[#flags#]">
+                      <input type="hidden" name="CurPg"      value="[#CurPg#]">
+                      <input type="hidden" name="TotPg"      value="[#TotPg#]">
+                      <input type="hidden" name="where"      value="[#where#]">
+                      <input type="hidden" name="TotRec"     value="[#TotRec#]">
+                  	</td>
+                  <td height="2" colspan="2"> <div align="center"> 
+                  <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+                      <tbody>
+                      <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                      <td width="10%"> <script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script> </td>
+                      <td width="20%" valign="top"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                      <td align=middle background="" width=92> <input class=Main id=browsdopage3 maxlength=7  name=browsdopage size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)"> 
+                      </td>
+                      <td width="10%" valign="top"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                      <td width="10%" valign="top"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                      <td width="10%" valign="top"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                      <td align=middle background="" width=92> <input  class=Main id=browsdopage122 maxlength=7 name=browsdopage12 size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotPg#]'> 
+                      </td>
+                      <td width="10%" valign="top"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+                      <td align=middle background="" width=92> <input  class=Main id=browsdopage122 maxlength=7 name=browsdopage12 size=7 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px;position:relative;top:-2px;" value='[#TotRec#]'> 
+                      </td>
+                      <td width="10%" valign="top"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                      <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script> </td>
+                      <td width="10%"> <script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script> </td>
+                    </tbody></table>
+
+
+
+
+
+                  
+                    </div></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+      </table>      </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+      	
+      	<div class="tScrollw" id="tC">
+        <table  id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          <tr bgcolor="#6382BD" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD" >
+            <td width="47" height="18" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">
+                <input type="button" name="b1" value="全选"    class="anniu_1" onClick="allChecked()">
+                </font></div></td>
+            <td width="199" height="18" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;网址</font></div></td>
+            <td width="239" bgcolor="#6382BD" class="bord2"><div align="center"><font color="#FFFFFF">&nbsp;网址类别</font></div></td>
+            <td width="524" height="18" bgcolor="#6382BD" class="bord2"> 
+              <div align="center"><font color="#FFFFFF">说明</font></div></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#lid#]','[#lflags#]','[#lsid#]','[#lurl#]','[#lname#]')"> 
+            <td width="47" height="21" class="bord1"> <input type="checkbox" name="ch[#num#]" value="[#lsid#]">            </td>
+            <td width="199" height="21" class="bord1">&nbsp;[#lurl#]</td>
+            <td width="239" height="21" class="bord1">&nbsp;[#ltname#]</td>
+            <td width="524" height="21" class="bord3">&nbsp;[#lname#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td width="47" height="21" class="bord1">&nbsp; </td>
+            <td width="199" height="21" class="bord1">&nbsp;</td>
+            <td width="239" height="21" class="bord1">&nbsp;</td>
+            <td width="524" height="21" class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+       </div>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

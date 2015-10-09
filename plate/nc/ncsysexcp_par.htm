@@ -1,0 +1,194 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function Add(){
+	if((form1.paceth0.value==form1.paceth1.value)||(form1.Floweth0.value==form1.Floweth1.value)){
+	alert('两个网络设备名不能同名');
+	return false;
+	}
+	return true;
+	}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">网络异常状态检测参数设置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="70%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="411"> <table width="90%" border="0" align="center">
+                <tr> 
+                 <td colspan="3" height="25">
+                 	<b><font color="red">针对网络出现的异常现象,系统将根据下面的设定自动进入BYPASS状态.</font></b>
+                 	</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> 网络异常检测功能是否启用</b> </td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="30">&nbsp;</td>
+                  <td height="40" width="67%" align="center"> <table width="100%" border="0"  bordercolorlight=#848284   bordercolordark=#ffffff>
+                      <tr> 
+                        <td width="44%"> <select name="NetAutoCheck" style="width:200"><option value="Yes">启用</option><option value="No">不启用</option></select></td>
+                        <td width="56%">
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> 网络接口流量阀值设定</b></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="93">&nbsp;</td>
+                  <td  width="67%" align="center" height="93"> 
+                  	<table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0">
+                      <tr> 
+                        <td rowspan="2" align="center"> 网络设备名</td>
+                        <td colspan="2" align="center">流量(Bytes/s)</td>
+                        <td colspan="2" align="center">数据包(packets/s)</td>
+                      </tr>
+                     
+                      <tr> 
+                        <td align="center"> 正常值</td>
+                        <td align="center"> 最大值 </td>
+                        <td align="center"> 正常值</td>
+                        <td align="center"> 最大值 </td>
+                      </tr>
+                    [#SLPB#] 
+                      <tr> 
+                        <td align="center"><select name="Floweth[#iNum#]" style="width:60"><option value="eth0">eth0</option><option value="eth1">eth1</option><option value="eth2">eth2</option><option value="eth3">eth3</option></select></td>
+                        <td align="center"><input type="text" name="SafeFlow-eth[#iNum#]" size="8" maxlength="10" value="[#SafeFlow-eth#]"> </td>
+                        <td align="center"><input type="text" name="MaxFlow-eth[#iNum#]" size="8" maxlength="10" value="[#MaxFlow-eth#]"></td>
+                        <td align="center"><input type="text" name="SafePacket-eth[#iNum#]" size="8" maxlength="10" value="[#SafePacket-eth#]"></td>
+                        <td align="center"><input type="text" name="MaxPacket-eth[#iNum#]" size="8" maxlength="10" value="[#MaxPacket-eth#]"></td>
+                      </tr>
+                    [#SLPE#]
+
+                     
+                    </table>
+                    <b> </b></td>
+                  <td width="16%" height="93">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> 网络连通测试</b></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" align="center"><table width="100%" border="1" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0">
+                      <tr height="22"> 
+                        <td width="19%" align="center"> 网络设备名</td>
+                        <td width="81%" align="center">基准IP地址(若有多个,可用","分隔</td>
+                      </tr>
+ [#SLPB#] 
+                      <tr height="22"> 
+                        <td  align="center"><select name="paceth[#iNum#]" style="width:60"><option value="eth0">eth0</option><option value="eth1">eth1</option><option value="eth2">eth2</option><option value="eth3">eth3</option></select></td>
+                        <td  align="center"><input type="text" name="TestNet-eth[#iNum#]" size="40"  value="[#TestNet-eth#]"></td>
+                      </tr>
+ [#SLPE#]                     
+
+                    </table>
+                    </td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+
+                <tr> 
+                  <td width="15%">&nbsp;</td>
+                  <td width="75%">
+                  	<table width="100%" >
+                      <tr height="22"> 
+                        <td >每次测试发送数据包数量</td>
+                        <td ><input type="text" name="PingPacketNumber" size="4" maxlength="8" value="[#PingPacketNumber#]"></td>
+                        <td >发送间隔</td>
+                        <td ><input type="text" name="PingStepTime" size="4" maxlength="8" value="[#PingStepTime#]">&nbsp;秒</td>
+                      </tr>
+                      
+                      <tr height="22"> 
+                        <td >最大丢包数量</td>
+                        <td ><input type="text" name="MaxLostPacket" size="4" maxlength="8" value="[#MaxLostPacket#]">&nbsp;个</td>
+                        <td >正常允许丢包数量</td>
+                        <td ><input type="text" name="SafeLostPacket" size="4" maxlength="8" value="[#SafeLostPacket#]">&nbsp;个</td>
+                      </tr>
+                      <tr height="22"> 
+                        <td >最大平均延迟时间</td>
+                        <td ><input type="text" name="MaxPacketTime" size="4" maxlength="8" value="[#MaxPacketTime#]">&nbsp;ms</td>
+                        <td >正常平均延迟时间</td>
+                        <td ><input type="text" name="SafePacketTime" size="4" maxlength="8" value="[#SafePacketTime#]">&nbsp;ms</td>
+                      </tr>
+                      
+                     <tr height="22"> 
+                        <td >状态检测时间间隔</td>
+                        <td ><input type="text" name="TestStepTime" size="4" maxlength="8" value="[#TestStepTime#]">&nbsp;秒</td>
+                        <td ></td>
+                        <td >&nbsp;</td>
+                      </tr>
+                      <tr height="22"> 
+                        <td colspan="4">当前状态大于最大值连续出现
+                        <input type="text" name="ExceedMaxTime" size="4" maxlength="8" value="[#ExceedMaxTime#]">&nbsp;次,自动进入BYPASS状态</td>                        
+                      </tr>
+                      <tr height="22"> 
+                        <td colspan="4">当前状态回复正常,连续
+                        <input type="text" name="SafeTimes" size="4" maxlength="8" value="[#SafeTimes#]">&nbsp;次,自动恢复正常运行</td>
+                      
+                        
+                      </tr>
+
+                      
+                  	</table>
+                  	</td>
+                  <td width="14%">&nbsp;</td>
+                </tr>
+
+              </table></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="50" ><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebSystemExcpSave_par">
+                <input type="submit" name="next" value="保 存" class="an3" onclick="return Add()">
+                &nbsp; 
+                <input type="submit" name="app" value="应 用" class="an3">
+                &nbsp; 
+
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>form1.NetAutoCheck.value='[#NetAutoCheck#]';</script>
+[#SLPB#]
+<script>form1.Floweth[#iNum#].value='[#Floweth#]';</script>
+<script>form1.paceth[#iNum#].value='[#Packeth#]';</script>
+[#SLPE#]
+
+</body>
+</html>

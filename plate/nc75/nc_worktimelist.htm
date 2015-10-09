@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>Web地址列表</title>
+<script>
+    function goto(t){
+        self.location.href=t;
+    }
+    
+	function dochange() {
+		if(form1.timetype.value == '1') {
+		    form1.llower.value = "2009/07/01";
+		    form1.lupper.value = "2009/07/05";
+		}
+		if(form1.timetype.value == '2') {
+		    form1.llower.value = "1";
+		    form1.lupper.value = "5";
+		}
+		if(form1.timetype.value == '3') {
+		    form1.llower.value = "01";
+		    form1.lupper.value = "30";
+		}
+		if(form1.timetype.value == '4') {
+		    form1.llower.value = "10/01";
+		    form1.lupper.value = "10/06";
+		}
+	}
+
+	
+	  
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#ffff00";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }	
+    }
+
+    function showf(sid,sdate,edate,timetype,starttime,stoptime,flags) {
+
+        form1.sid.value=sid;
+        form1.timetype.value=timetype;
+        form1.llower.value=sdate;
+	      form1.lupper.value=edate;
+        form1.starttime.value=starttime;
+        form1.stoptime.value=stoptime;
+        form1.flags.value=flags;
+    }
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function checkme(p)
+    {
+	    var tt=p.value
+	    if (tt>yy)
+	    {
+		    MM_changeProp('browsdopage','','value',yy,'INPUT/TEXT')
+	    }
+	    if (tt==0)
+	    {
+		    MM_changeProp('browsdopage','','value','1','INPUT/TEXT')
+	    }
+    }
+
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+             dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+<!-- Hide
+    function killErrors() {
+        return true;
+    }
+    window.onerror = killErrors;
+// -->
+
+</script>
+
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" onload="dochange()">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center>
+    <tr> 
+      <td width="100%" valign="top" class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+         
+          <tr> 
+            <td width="100%" height="34">&nbsp;
+                <select name="timetype" onChange="dochange()">
+                  <option value="1" selected>某日</option>
+                  <option value="2">每周</option>
+                  <option value="3">每月</option>
+                  <option value="4">每年</option>
+                </select>
+                <input type="text" name="llower" size="9" value="[#llower#]" maxlength="10">
+                到 
+                <input type="text" name="lupper" size="9" value="[#lupper#]" maxlength="10">
+                开始时间
+                <input type="text" name="starttime" size="7" value="[#starttime#]" maxlength="10">
+                结束时间
+                <input type="text" name="stoptime" size="7" value="[#stoptime#]" maxlength="10">
+                <select name="flags">
+                	<option value="0">上班时间</option>
+                	<option value="1">不上班时间</option>
+                </select>
+                
+               
+                <input name="add" type="submit" class="an3" value="添 加" >
+                <input name="modi" type="submit" class="an3" value="修 改" >
+                <input name="del" type="submit" class="an3" value="删 除" >
+                缺省<select name="DefWorkDayTime"><option value="WorkTime">工作时间</option><option value="NoWorkTime">非工作时间</option></select>
+                <input name="bcqs" type="button" class="an3" value="保存" onclick="FunName.value='ncWebSave_Defworktime';form1.submit()" >
+<!--                <input name="app" type="submit" class="an3" value="应 用" >
+-->
+                <input type="hidden" name="FunName" value="ncWebWorkTimeList">
+                <input type="hidden" name="sid"   value="[#sid#]">
+             </td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+        <table  id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" height="100%">
+          <tr bgcolor="#6382BD"> 
+            <td width="40" height="18" class="bord2">
+            <div align="center"><font color="#FFFFFF">
+                <input type="button" name="b1" value="全选"    class="anniu_1" onClick="allChecked()">
+                </font></div></td>
+
+            <td width="88" height="18" class="bord2">
+              <div align="center"><font color="#FFFFFF">频度</font></div></td>
+            <td width="120" height="18" class="bord2">
+              <div align="center"><font color="#FFFFFF">&nbsp;开始日期</font></div></td>
+            <td width="120" height="18" class="bord4">
+              <div align="center"><font color="#FFFFFF">结束日期</font></div></td>
+            <td width="100" height="18" class="bord2">
+              <div align="center"><font color="#FFFFFF">&nbsp;开始时间</font></div></td>
+            <td width="100" height="18" class="bord4">
+              <div align="center"><font color="#FFFFFF">结束时间</font></div></td> 	
+           <td height="18" class="bord4">
+              <div align="center"><font color="#FFFFFF">名称</font></div></td> 	 	
+              	
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#sid#]','[#sdate#]','[#edate#]','[#timetype#]','[#starttime#]','[#stoptime#]','[#flags#]')" > 
+            <td class="bord1" > <input type="checkbox" name="ch[#num#]" value="[#sid#]"> 
+            </td>
+
+            <td class="bord1" align="center">[#stype#]</td>
+            <td class="bord1" >&nbsp;[#sdate#]</td>
+            <td class="bord1" >&nbsp;[#edate#]</td>
+            <td class="bord1" >&nbsp;[#starttime#]</td>
+            <td class="bord1" >&nbsp;[#stoptime#]</td>
+             <td class="bord3" >&nbsp;[#flags_desc#]</td>
+            
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td class="bord1" >&nbsp; </td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord3" >&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+<!--//鼠标显示//-->
+              
+    </table>
+  </form>
+<script>
+	form1.DefWorkDayTime.value='[#defworktime#]';
+</script>
+</body>
+</html>

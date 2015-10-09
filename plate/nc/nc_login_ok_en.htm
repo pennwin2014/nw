@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<META HTTP-EQUIV="Expires" CONTENT="0">
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache,must-revalidate">
+		<META HTTP-EQUIV="Pragma"  		CONTENT="no-cache">
+		<META HTTP-EQUIV="Jon Eyrick"  CONTENT="no-cache">
+<title>Auth</title>
+
+<style>
+ 	a:link {text-decoration: none;color: #666666;}
+  a:visited {text-decoration: none;color: #666666;}
+  a:active {color: #666666;}
+.table, td, tr, th {font-size: 12px;}
+.table {border-collapse: collapse;border-spacing: 0px;}preview
+	.body {background: #FFF;color: #666;font-size: 12px;font-family:"宋体", Times New Romar;;
+      line-height: 180%;  }
+</style>
+
+<script language="javascript" type="text/javascript">
+    
+	function byby(){
+if('[#beat_flag#]'=='1'){
+//	if(confirm('关闭本页面，您将不能上网了?')){
+	self.location.href='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebInternetLogout' ;
+}
+////	}
+//	return false;
+	}
+	
+		
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+		 	//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+	
+
+var xmlHttp = false;
+var flesh_flag;
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+
+   xmlHttp = createXMLHttpRequest();
+   
+   if( xmlHttp)
+   {
+
+    var web_url='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebLoginHeat&sid@'+document.getElementById("nclogin_0").sid.value+'&xx@'+Math.random()*999;
+
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    
+   
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+    
+  }
+
+ }
+
+
+function initAjax(){
+	if('[#beat_flag#]'=='1'){
+	callServer();
+	setInterval('callServer()',[#beattime#]);
+	}
+
+}
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+
+     var temp_date=getxmlbyname(response,"<starttime>","</starttime>");
+     var mesg="<font color='white'>Please do not close this page,otherwiae you have to re-login.<br>";
+     
+     var temp_date=getxmlbyname(response,"<sumtime>","</sumtime>");
+     
+     mesg=mesg+"<br>Elasped time:"+temp_date;
+     
+    
+     mesg=mesg+"</font>";
+//     document.all.mesga.innerHTML=mesg;
+     document.getElementById("mesga").innerHTML=mesg;
+   
+    
+//alert(response);
+   }
+ 
+ }
+</script>
+</head>
+
+<body leftMargin=0 topMargin=0  onload="initAjax();" onunload="byby()"  marginheight="0" marginwidth="0">
+	 <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncWebInternetLogout">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+  <input type="hidden" name="eng_flag" value="1">
+
+<table border="0" width="800px" cellspacing="0" cellpadding="0" height="600" align="center">
+	<tr >
+		<td height="82px" ><img src="/images/mobimage/[#titleimage#]" width="800" height="96" /></td>
+	</tr>
+	<tr>
+		<td height="227px" background="/images/mobimage/pc_sms2.jpg" width="480px"><table width="800" border="0" cellspacing="0" cellpadding="0" height="100%">
+  <tr>
+    <td width="184" height="13">&nbsp;</td>
+    <td width="339">&nbsp;</td>
+    <td width="91">&nbsp;</td>
+    <td width="186">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="125">&nbsp;</td>
+    <td colspan="2"><p align="center"><font color="white">Successful login, then you can get on the internet.</font></p>
+	        <p align="center"><font color="white">Please keep your account information so as use it next time</font>	        </p>
+	          <p >&nbsp;</p>
+	        <p align="center" id="mesga"></p></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="28">&nbsp;</td>
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/images/mobimage/e-pc_smstc.jpg" width="116" height="26" onClick="tuichu()" /></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="15">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
+		
+		</td>
+        
+	</tr>
+    <tr>
+		<td height="79px" background="/images/mobimage/pc_sms3.jpg" width="800px">
+        <div style="margin-left:0px; margin-bottom:0px;font:10px/10px">
+        <p align="center"><font color="b">Please comply with Chinese laws and regulations, and be cicilized online
+</font>
+</div>
+		
+		</td>
+        
+	</tr>
+	
+	<tr height="205">
+		<td   width="800px" background="/images/mobimage/e-pc_sms4.jpg" >
+		</td>
+	</tr>
+	<tr><td height="36"  background="/images/mobimage/e-pc_sms5.jpg">
+			
+		</td>
+		
+	</tr>
+</table>
+
+
+
+
+</form>
+</body>
+</html>

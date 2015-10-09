@@ -1,0 +1,159 @@
+<html>
+
+<head>
+<title>排行榜查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<script>
+function queren()
+{
+self.close();
+form1.submit();
+}
+</script>
+
+<script language = "Javascript" src = "/js/selecttime.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  oncontextmenu="return true">
+  <form name="form1" method="post" action="/pronline/Msg" target="sbpm_right">
+  <input type="hidden" name="sort_flag" value="[#sort_flag#]">
+  <input type="hidden" name="group" value="[#group#]">
+  <input type="hidden" name="FunName" value="ncWebSortAll">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr> 
+    <td colspan="2"><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+        <tr > 
+          <td colspan="2" > <div align="center"><strong><font color="#FFFFFF">
+             
+              排行榜统计条件定义</font></strong></div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <br>
+        <table width="95%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+             <table width="100%" border="0" align="center" >
+                <tr>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+
+                <tr> 
+                  <td width="20%" align="right"> <font color="#000000"><b><font size="2">部 门</font></b></font></td>
+                  <td width="40%" align="left"><font color="#000000"> [#sgroup#]</font></td>
+                  <td width="40%">                   
+                  </td>
+                </tr>
+                <tr> 
+
+                  <td align="right"><font color="#000000"><b><font size="2">用户名</font></b></td>
+                  <td > <input type="text" name="dispname" size="18"></td>
+                  <td >&nbsp;</td>
+                </tr> 
+                <tr> 
+                  <td align="right"> <font color="#000000"><b><font size="2">MAC地址</font></b></font></td>
+                  <td > <input type="text" name="mac" size="18"></td>
+                  <td > </td>
+                </tr> 
+                <tr> 
+                  <td align="right"> <font color="#000000"><b><font size="2">用户IP</font></b></font></td>
+                  <td > <input type="text" name="IP" size="18"></td>
+                  <td > </td>
+                </tr> 
+                <tr> 
+                  <td > <div align="right"><font color="#000000"><b><font size="2">起始时间</font></b></font></div></td>
+                  <td align="left"> 
+                      <input type="text" name="sdate1" style="width:115" value="[#sdate1#]" maxlength="10"><input type="text" name="stime" style="width:25" value="[#stime#]" maxlength="2">
+                      </td>
+                  <td > <div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('form1.sdate1')></a></font></div></td>                 
+                </tr>
+                <tr> 
+                  <td  height="21"> <div align="right"><font color="#000000"><b><font size="2">终止时间</font></b></font></div></td>
+                  <td  height="21">
+                    <input type="text" name="sdate2" style="width:115" value="[#sdate2#]" maxlength="10"><input type="text" name="etime" style="width:25" value="[#etime#]" maxlength="2">
+                  
+                  </td>
+                  <td  height="21"><div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('form1.sdate2')></a></font></div></td>
+                </tr>
+                
+                
+                               <tr> 
+                 
+                  <td  height="21"> <div align="right"><font color="#000000"><b><font size="2">时间段</font></b></font></div></td>
+                  <td  height="21"><font color="#000000"> 
+                   <select name="time">
+										<option value=" ">全部</option>
+										<option value="WorkTime">工作时间</option>
+										<option value="NoWorkTime">非工作时间</option>
+										</select>
+                    </font></td>
+                 
+                  <td  height="21" align="center">&nbsp;</td>
+                </tr>
+                
+                
+                
+                
+                
+                <tr> 
+                  <td align="right"> <font color="#000000"><b><font size="2">显示行数</font></b></font></td>
+                  <td > <input type="text" name="sunrec" style="width:140" maxlength="5" value="[#sunrec#]"></td>
+                  <td > </td>
+                </tr> 
+                <script>
+                if('[#sort_flag#]'=='4')
+                document.write("<tr><td align='right'><font color='#000000'><b><font size=2>服务类型</font></b></font></td><td>"); 
+                </script>               
+                [#sserv#]
+                <script>
+                 if('[#sort_flag#]'=='4')
+                document.write("</td><td></td></tr>");      
+                </script>
+                
+                <script>
+                if(('[#sort_flag#]'=='7')||('[#sort_flag#]'=='8'))
+                document.write("<tr>\
+                  <td align='right'> <font color='#000000'><b><font size='2'>排序</font></b></font></td>\
+                  <td > \
+                  <select name='order' style='width:140'>  \
+                  <option value='被禁次数'>被禁次数</option>\
+                  </select> </td>\
+                  <td align='center'>\
+                  <input name='Button' type='button' class='an3' onClick='queren()' value='确 认'>\
+                   </td>\
+                </tr>");
+                else
+                document.write("<tr>\
+                  <td align='right'> <font color='#000000'><b><font size='2'>排序</font></b></font></td>\
+                  <td > \
+                  <select name='order' style='width:140'>  \
+                  <option value='流量'>流量</option>\
+                  <option value='时间'>时间</option>\
+                  <option value='次数'>次数</option>\
+                  </select> </td>\
+                  <td align='center'>\
+                  <input name='Button' type='button' class='an3' onClick='queren()' value='确 认'>\
+                   </td>\
+                </tr>"); 
+                </script>
+ 
+              </table>
+            </td>
+          </tr>          
+        </table>
+
+      </td>
+  </tr>
+</table>
+ </form>
+</body>
+</html>

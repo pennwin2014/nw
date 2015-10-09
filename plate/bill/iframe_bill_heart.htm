@@ -1,0 +1,33 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="refresh" content="30">
+<SCRIPT LANGUAGE="JavaScript">
+	function init()
+	{
+		var tepdesc;
+		tepdesc='<table width="304" border="0" cellspacing="0" cellpadding="0">';
+		tepdesc=tepdesc+'<tr><td width="64">您的帐号</td><td width="230">【[#username#]】</td></tr>';
+		tepdesc=tepdesc+'<tr><td>起始时间</td><td>【[#starttime#]】</td></tr>';
+		tepdesc=tepdesc+'<tr><td>使用时间</td><td>【[#sumtime#]】</td></tr>';
+		tepdesc=tepdesc+'<tr><td>本次流量</td><td>【[#sumflow#]KB】</td></tr>';
+		tepdesc=tepdesc+'<tr><td>本次费用</td><td>【[#sumfee#]元】</td></tr>';
+		tepdesc=tepdesc+'<tr><td>剩余金额</td><td>【[#leftfee#]元】</td></tr>';
+//		tepdesc=tepdesc+'<tr><td>累计时间</td><td>【[#tottime#]】</td></tr>';
+//		tepdesc=tepdesc+'<tr><td>累计流量</td><td>【[#totflow#]KB】</td></tr>';
+//		tepdesc=tepdesc+'<tr><td>累计费用</td><td>【[#totfee#]元】</td></tr>';
+		tepdesc=tepdesc+'</table>';
+
+		parent.document.all.xxd.innerHTML=tepdesc;
+		
+	}
+  setTimeout('init()',1000);
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

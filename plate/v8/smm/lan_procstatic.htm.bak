@@ -1,0 +1,14 @@
+{"data": [[#SLPB#][#dh#]{
+  "type":"[#typename#]",
+  "name":"[#procname#]",
+  "runtime":"[#runtime#]",
+  "activetime":"[#activetime#]",
+  "nettime":"[#nettime#]"
+}[#SLPE#]]}
+{"data": [[#SLPB#][#dh#]{
+  "type":"[#typename#]",
+  "name":"[#procname#]",
+  "runtime":"[#runtime#]",
+  "activetime":"[#activetime#]",
+  "nettime":"[#nettime#]"
+}[#SLPE#]]}

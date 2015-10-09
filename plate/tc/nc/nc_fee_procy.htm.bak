@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>访问控制综合设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+ function xg(){
+ if(form1.sid2.value==''){
+ alert('请选择要修改的策略');
+ return;
+ }
+ frames.pronc.form1.sid.value=form1.sid2.value;
+ frames.pronc.form1.feeid.value=form1.feeid2.value;
+ frames.pronc.form1.mod.value="mod";
+ frames.pronc.form1.del.value="";
+ frames.pronc.form1.submit();
+}
+function delf(){
+frames.pronc.getCheID();
+ if(frames.pronc.form1.cheID.value==''){
+ alert('请选择要删除的策略');
+ return;
+ }
+ 
+ frames.pronc.form1.del.value="del";
+ frames.pronc.form1.mod.value="";
+ frames.pronc.form1.submit();
+}
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"    style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="FunName" value="ncWebSetFeeProcy">
+ <input type="hidden" name="gtype" value="[#gtype#]">
+ <input type="hidden" name="id" value="[#id#]">
+ <input type="hidden" name="sid" value="[#sid#]">
+ <input type="hidden" name="sid2" value="">
+ <input type="hidden" name="name" value="[#name#]">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+    <tr> 
+      <td align="center"  ><br>
+        <table width="96%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr>         	
+            <td valign="top">  
+              <table width="96%" border="0" align="center">
+                <tr height="19">
+                  <td width="11%">&nbsp;</td> 
+                  <td width="27%" align="right"><b style="font-size: 10pt;color:#00237e;">[#diname#]&nbsp;&nbsp;使用计费策略</b>&nbsp;&nbsp;</td>
+                  <td width="42%">[#feeid#]</td>
+                  <td><input type="submit" name="save" value="保 存" class="an3" onclick="frames.pronc.form1.del.value='';frames.pronc.form1.mod.value='';"></td>
+                </tr>
+              </table>            
+              </td>
+          </tr>
+           <tr>          	
+            <td  align="center" height="28" >  <div id="xx6">
+              <table width="100%" border="0" align="center">
+                <tr height="28">
+                  <td  align="left">&nbsp;<b style="font-size: 10pt;color:#00237e;">[#diname#]下一级成员&nbsp;<input type="text" name="diname" value="" size="20" readonly>&nbsp;使用计费策略</b>
+                 [#feeid2#]
+                
+                  <input type="button" name="mod" value="修改" class="an3" onclick="xg()">
+                  <input type="button" name="del" value="删除" class="an3" onclick="delf()">
+                  </td>
+                </tr>
+              </table>        
+           </div> 
+          
+              </td>
+          </tr>
+          <tr>         	
+            <td valign="top" height="520">  
+
+             <iframe name="pronc" id="data1" width="100%" height="100%" src="/pronline/Msg?FunName@ncWebNextFeeProcy&gtype@[#gtype#]&id@[#id#]" frameborder="yes"> </iframe>
+          
+              </td>
+          </tr>
+          
+          
+          
+                   
+        </table></td>
+    </tr>
+
+  </table>
+</form>
+
+</body>
+</html>

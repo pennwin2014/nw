@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	<title>内网用户申请信息</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	<script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>
+	<style type="text/css">
+		.add {
+        background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+    }
+    .remove {
+        background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+    }
+    .exp {
+        background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+    }
+  </style>
+  <script type="text/javascript">
+  	Ext.onReady(function() {
+  		
+  		var sdate = edate = new Date();  		
+  		
+  		Ext.define('UserInfo', {
+	      extend: 'Ext.data.Model',
+	      fields: ['compname','compaddr','compsize','compphone','compfax','compweb','compmail','compband','applname','applsex','appljob','appldepart','applphone','applmobile','applmail','applqq','clientnum','requirement','modtime']
+	    });
+  		
+  		var w=window.innerWidth
+			|| document.documentElement.clientWidth
+			|| document.body.clientWidth;
+			
+			var h=window.innerHeight
+			|| document.documentElement.clientHeight
+			|| document.body.clientHeight;
+  		
+  		var userStore = Ext.create('Ext.data.Store', {
+	      pageSize: 40,
+	      model: 'UserInfo',
+	      remoteSort: true,
+	      proxy: {
+	        type: 'ajax',
+	        url: '/pronline/Msg?FunName@getApplyInfo',
+	        reader: {
+	          type:'json',
+	          root: 'eimdata',
+	          totalProperty: 'totalCount'
+	        },         
+	        simpleSortMode: true
+	      }
+	    });
+	    
+  		function userFlush(){
+  			userStore.load({params:{sdate:sdate,edate:edate}});
+  		}
+  		 
+  		Ext.create('Ext.grid.Panel',{
+				renderTo:'grid',
+				width: w,
+				height: h-50,
+				autoScroll:true, 
+				store: userStore,
+				tbar: [{
+					xtype: 'pagingtoolbar',
+					border:0,
+					width: w-20,
+					store: userStore,
+          displayInfo: true,
+          displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+          emptyMsg: "没有记录可显示",    
+          items: ['-',{   						
+          	fieldLabel:'起始日期',
+          	xtype: 'datefield',
+	      		labelWidth: 60,
+          	format: "Y/m/d",
+          	value:sdate,
+          	listeners:{
+          		'change': function(thisField,newValue,oldValue,eOpts){
+          			sdate = newValue;
+          			userFlush();
+          		}
+          	}
+        	},'-',{   						
+          	fieldLabel:'结束日期',
+          	xtype: 'datefield',
+	      		labelWidth: 60,
+          	format: "Y/m/d",
+          	value:edate,
+          	id:'edate',
+          	listeners:{
+          		'change': function(thisField,newValue,oldValue,eOpts){
+          			edate = newValue;
+          			userFlush();
+          		}
+          	}
+        	},{
+        		text: '导出',
+	          iconCls:'exp',
+        		handler:function(){
+        			document.getElementById('form1').sdate.value = Ext.Date.format(sdate,"Y-m-d");
+        			document.getElementById('form1').edate.value = Ext.Date.format(edate,"Y-m-d");
+        			document.getElementById('form1').start.value = (userStore.currentPage-1)*40;
+        			document.getElementById('form1').limit.value = 40;
+        			
+	       			document.getElementById("form1").submit();
+        		}
+        	}],
+          doRefresh:function(){ 
+      			userFlush();
+			    },
+			    moveLast:function(){
+			    	var b=this,a=b.getPageData().pageCount;
+			    	if(b.fireEvent("beforechange",b,a)!==false){
+			    		userStore.currentPage=a;
+			    		userFlush();
+			      }
+			    },
+			    moveFirst:function(){
+				    if(this.fireEvent("beforechange",this,1)!==false){
+				     	userStore.currentPage=1;
+				    	userFlush();
+				    }
+				  }, 
+			   	movePrevious:function(){
+			   		var b=this,a=b.store.currentPage-1;
+			   		if(a>0){
+			   			if(b.fireEvent("beforechange",b,a)!==false){
+			   				userStore.currentPage=a;
+			   				userFlush();
+			   			}
+			   		}
+			   	},
+			   	moveNext:function(){
+			   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+			   		if(a<=b){
+			   			if(c.fireEvent("beforechange",c,a)!==false){
+			   				userStore.currentPage=a;
+			   				userFlush();
+			   			}
+			   		}
+			   	},  
+			    onPagingKeyDown:function(i,h){
+			    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			    	if(b==h.RETURN){
+			    		h.stopEvent();
+			    		g=d.readPageFromInput(c);
+			        if(g!==false){
+			        	g=Math.min(Math.max(1,g),c.pageCount);
+			         	if(d.fireEvent("beforechange",d,g)!==false){
+					        //d.userStore.loadPage(g)
+					        d.store.currentPage=g;
+				         	userFlush();
+				        }        
+				      }
+				    }else{
+			      	if(b==h.HOME||b==h.END){
+			    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+			       	}else{
+			        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+				          h.stopEvent();g=d.readPageFromInput(c);
+				          if(g){
+				            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+				            g+=a;
+				            if(g>=1&&g<=c.pages){
+				            	i.setValue(g)
+				            }
+				          }
+			         	}
+			        }
+			      }  
+			    } 
+				}],
+				columns: [{
+					text: "申请时间",
+					dataIndex:	'modtime'	
+				},{
+					text: "公司名称",
+					dataIndex:	'compname'	
+				},{
+					text: "公司地址",
+					dataIndex:	'compaddr'	
+				},{
+					text: "公司规模",
+					dataIndex:	'compsize'	
+				},{
+					text: "公司电话",
+					dataIndex:	'compphone'	
+				},{
+					text: "公司传真",
+					dataIndex:	'compfax'	
+				},{
+					text: "公司网站",
+					dataIndex:	'compweb'	
+				},{
+					text: "公司邮箱",
+					dataIndex:	'compmail'	
+				},{
+					text: "公司带宽",
+					dataIndex:	'compband'	
+				},{
+					text: "申请人姓名",
+					dataIndex:	'applname'	
+				},{
+					text: "申请人性别",
+					dataIndex:	'applsex'	
+				},{
+					text: "申请人工作",
+					dataIndex:	'appljob'	
+				},{
+					text: "申请人部门",
+					dataIndex:	'appldepart'	
+				},{
+					text: "申请人电话",
+					dataIndex:	'applphone'	
+				},{
+					text: "申请人手机",
+					dataIndex:	'applmobile'	
+				},{
+					text: "申请人邮箱",
+					dataIndex:	'applmail'	
+				},{
+					text: "申请人QQ",
+					dataIndex:	'applqq'	
+				},{
+					text: "申请客户端数量",
+					dataIndex:	'clientnum'	
+				},{
+					text: "需求功能",
+					dataIndex:	'requirement'	
+				}]
+  		});
+  		
+      userFlush();
+  	});
+  </script>
+</head>
+<body>
+	<div style="width:300px;height:50px;font-family:'黑体';font-size:40px;margin:0 auto;">用户申请信息</div>
+	<div id="grid"></div>
+	<form name="form1" id="form1" action="/pronline/Msg">	
+			<input type="hidden" name="FunName" value='getApplyInfo'>	
+			<input type="hidden" name="sdate" value="">
+			<input type="hidden" name="edate" value="">
+			<input type="hidden" name="start" value="">
+			<input type="hidden" name="limit" value="">
+			<input type="hidden" name="exp" value="exp">
+	</form>
+</body>
+</html>

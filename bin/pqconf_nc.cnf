@@ -1,0 +1,88 @@
+#     nc version 7.x  ProEIM-100
+#     Memory  1024 MB
+#     This File is the Configuration of Proeim  Server.
+#     Last Modified by Liyunming, 2007/11
+#     Writen by LiYunming, 2000/1/1
+***************************************************************
+MsgCode = 990118
+ShmKey =  983241
+ShmMaxPages = 20
+# 基本共享内存数
+ShmBaseSize =109607936
+# 每次可扩充共享内存
+ShmExtendSize = 16777216
+MaxShareData = 40
+# 初始最大注册用户数
+MaxRegUser = 1000
+# 内容监控交换内存(字节)
+#MaxPkgLogBuf = "15000000"
+# 数据包交换内存(字节)
+MaxPkgBuf = "30000000"
+ShmMaxLnk =  100
+DebugLevel = 13
+MaxTcpBuffer = 10240000
+dbname = "nw"
+dbuser = "nc"
+dbpassword = "nc"
+TcpPort = "9184"
+TcpBakPort="6185"
+Udpport = "10004"
+MinTcpProcess = "16"
+MaxTcpProcess = "32"
+PlatePath = "/home/ncmysql/nw/plate"
+dsService = ON
+dsCltConfFile = "ncdsclt.cnf"
+UdpTimeOut = 180
+AccessList = "pasaccess.cnf"
+#ProductSN = "nwtest01"
+ProductSN = "PK360302"
+AdminIp = "192.168.20.91"
+AdminMask = "255.255.255.0"
+AdminHost = "192.168.20.91"
+AdminPort = "80"
+dnsserver1 = "202.96.209.5"
+dnsserver2 = "202.96.199.133"
+defgateway = "140.207.3.109"
+eth0IP = "140.207.3.110"
+eth1IP = "192.168.0.94"
+eth2IP = "192.168.218.218"
+eth0Mask = "255.255.255.252"
+eth1Mask = "192.168.0.94"
+eth2Mask = "255.255.255.0"
+ProcessDebug = "Yes"
+StartIntelNet = "Yes"
+StartDeskMgr = "Yes"
+ethcount = "3"
+ethlabel= "eth0:eth0,eth1:eth1,eth2:eth2"
+BrDev = "eth0,eth1,"
+brgip = "192.168.20.38"
+brgmask = "255.255.255.224"
+rootname = "上海新网程"
+Load2DbSrcPath="/home/ncmysql/nw/log"
+Load2DbBakPath="/home/ncmysql/nw/keep"
+Load2DbErrPath="/home/ncmysql/nw/error"
+Load2DbNameKey=".dat"
+Load2DbTabStru="/home/ncmysql/nw/bin/ncdbinfo.cnf"
+Load2DbDbDbEng="MyISAM"
+DebugInfo1 = "1201,1020,sql.log"
+StartClean = "Yes"
+CleanupTime = "01:00:00"
+InstantKeepMon = "2"
+InstantBakKeep = "2"
+ScreenKeepMon = "2"
+ScreenBakKeep = "2"
+WebKeepMon = "2"
+WebBakKeep = "2"
+ProcKeepMon = "2"
+ProcBakKeep = "2"
+DevKeepMon = "2"
+DevBakKeep = "2"
+FileKeepMon = "0"
+FileBakKeep = "2"
+WarnKeepMon = "2"
+WarnBakKeep = "2"
+dispgname = "ip"
+unstall_key = ""
+ncip="192.168.0.5"
+ncport="9185"
+StartSynComp="Yes"

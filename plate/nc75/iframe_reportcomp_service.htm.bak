@@ -1,0 +1,162 @@
+
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+
+</style>
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<head>
+	<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+	 <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+  <meta name="ProgId" content="VisualStudio.HTML">
+  <meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>网址访问统计图表</title>
+<style>
+	.bord2_1 {	border-top: 1px solid #666666;
+	border-right: 0px solid #294767;
+	border-bottom: 1px solid #666666;
+	border-left: 1px solid #666666;}
+	.bord1 { left: 5px; top: 5px; clip:  rect(5px 5px 5px 5px); border: #999999 solid; border-width: 0px 0px 1px 1px}
+A:link{
+text-decoration:underline;
+font-size:9pt;
+}
+A:visited{
+text-decoration:underline;
+font-size:9pt;
+}
+A:hover{text-decoration:underline;
+font-size:9pt;
+}
+A:active{text-decoration:underline;
+font-size:9pt;
+}
+	
+	
+TD {	FONT-SIZE: 9pt}
+</style>
+<script src="/js/calendar.js"></script>
+<script>
+	function savexp(){
+	if(confirm("统计结果将被保存，您可以在历史报表查看中查看!")){
+	return true;
+	}
+	return false;
+	}
+	
+	
+		function openreport(t){
+		window.open(t,'open_report','height=600, width=900, top=50, left=50,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+</script>
+
+
+</head>
+
+<body topmargin=5 leftmargin=0 bgcolor="#DEE8FA" scroll=AUTO >
+
+	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+    <form name="form1" method="post" action="/pronline/Msg">
+
+  <input type="hidden" name="FunName" value="ncShowCompReport">
+  [#SLPB#]
+  <input type="hidden" name="ch[#repnum#]" value="[#sid#]">
+  [#SLPE#]
+  <input type="hidden" name="sum" value="[#sum#]">
+  <input type="hidden" name="reporttype" value="[#reporttype#]">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td  > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+             
+              对比报表</div></td>
+            <td align="right" width="80"><input name="exp" type="submit" class="an3"    value="导出" >&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+
+<tr> 
+    <td colspan="2"> 
+        
+        <table width="99%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+        
+          <tr bgcolor="#ffffff">
+          	<td>
+          		<table  width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          			<tr>
+          			
+          				<td width="98%" valign="top">
+          					
+          				<table id="DataTable"  class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          				
+                   <tr  height="16" bgcolor="#DEE8FA">
+				            <td width="40" align="center" class="bord2_1" rowspan="2"> &nbsp;序号</td>
+
+				            <td width="100" align="center" class="bord2_1" rowspan="2"> &nbsp;目标IP</td>
+				            <td width="100" align="center" class="bord2_1" rowspan="2"> &nbsp;IP位置</td>
+				            [#SLPB#]
+				            <td  align="center" class="bord2_1" colspan="2"> [#descr#]</td>
+				            [#SLPE#]
+				           
+				           
+				          </tr>
+				          <tr bgcolor="#DEE8FA" height="16">		
+				          	[#SLPB#]	  
+				          	 <td width="80" align="center" class="bord1" > 总流量(MB)</td>	
+				          	<td width="80" align="center" id="s[#repnum#]" class="bord1" >上行流量(MB)</td>
+				            <td width="80" align="center" class="bord1" > 下行流量(MB)</td>
+
+				            [#SLPE#]
+				          	
+				          </tr>
+				          
+				        [#SLPB#] 
+				         <tr bgcolor="#FFFFFF" height="22">			          	
+				          	<td  align="center" class="bord1" >[#num#]</td>
+
+				          	<td   class="bord1" >&nbsp;[#ip#]</td>
+				            <td  class="bord1" > &nbsp;[#ip_desc#]</td>
+				            [#SLPB#]
+				          	<td   class="bord1" align="right">[#bytes#]&nbsp;</td>
+				          	
+				          	<td   class="bord1" align="right">[#ubytes#]&nbsp;</td>
+				          	<td   class="bord1" align="right">[#dbytes#]&nbsp;</td>
+				          	[#SLPE#]
+				           
+				          </tr>
+				          
+       [#SLPE#]
+          	    </table>
+          			 </td>
+          			
+          			</tr>
+      			
+          			
+          	  </table>
+          	
+          </tr>
+       
+ 
+
+       
+        </table>
+     </td>
+    </tr>
+	</table>
+
+</form>
+<script>
+	 form1.order.value='[#order#]';
+	</script>
+</body>
+</html> 

@@ -1,0 +1,137 @@
+<html>
+
+<head>
+<title>上网时间统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<style>
+	.styletab {
+  font-size: 13px;
+  text-align:right;
+	color: black;	
+	font-weight: bold;
+}
+</style>
+<script>
+function qr(){
+if(tj1.website.value==''){
+alert('请输入要统计的网站域名');
+return;
+}
+this.disabled=1;
+tj1.submit();
+}
+</script>
+
+<script language = "Javascript" src = "/js/selecttime.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  oncontextmenu="return true">
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="tj1" method="post" action="/pronline/Msg">
+	    <input type="hidden" name="groupid">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+              <input type="hidden" name="FunName" value="ncWebVistPlate">
+              网站页面访问情况统计条件</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <div align="center"> <b>
+          </b></div>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+        <table width="90%" border="0" align="center" >
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+                
+               
+                
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 起始时间</td>
+                  <td width="33%"> <div align="left"><font color="#000000"> 
+                      <input type="text" name="sdate" value="[#sdate#]" size="10">
+                      
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('tj1.sdate')></a></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%"> <div id="plabel" align="center"><font color="#000000"> 
+                      </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%" height="21">&nbsp;</td>
+                  <td width="18%" height="21" class="styletab"> 终止时间</td>
+                  <td width="33%" height="21"><font color="#000000"> 
+                    <input type="text" name="edate" value="[#edate#]" size="10">
+                   
+                    </font></td>
+                  <td width="9%" height="21"><div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('tj1.edate')></a></font></div></td>
+                  <td width="6%" height="21">&nbsp;</td>
+                  <td width="33%" height="21">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab">网站域名</td>
+                  <td width="33%"> <input type="text" name="website" value="[#website#]" size="30"> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;(为提高统计效率，不支持模糊查询)</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab">页面路径</td>
+                  <td width="33%"> <input type="text" name="webplate" value="[#webplate#]" size="30"> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;(支持模糊查询)</td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%"> <div align="center"><font color="#000000"><b></b></font></div></td>
+                  <td width="33%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%">&nbsp; </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td height="70" colspan="2">
+<table width="50%" border="0" align="center">
+        <tr> 
+          <td> <div align="right">
+              <input name="Buttonqr" type="button" class="an3" onClick="qr()" value="确 认">
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+ </form>
+<script> tj1.sortby.value='[#sortby#]';
+	
+</script>
+</table>
+</body>
+</html>

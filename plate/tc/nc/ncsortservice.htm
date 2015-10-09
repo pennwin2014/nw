@@ -1,0 +1,230 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>上网排行榜</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function goto(t){
+self.location.href=t
+}
+function lprint(){
+  MM_showHideLayers('plabel','','hide')
+  MM_showHideLayers('mybut','','hide')
+  window.print()
+  MM_showHideLayers('mybut','','show')
+  MM_showHideLayers('plabel','','show')
+}
+function goto1(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:no;dialogHeight:500px');
+}
+function changeselect()
+{
+var fg;
+	if(form1.group.value=="日"){
+	fg="day"
+	}else if(form1.group.value=="月"){
+	fg="month"
+	}
+	else
+	{
+	fg="week"
+	}
+	if(form1.group.value=='9')
+	document.all.xxm.rows[0].cells[1].innerHTML="&nbsp;<input type='text' name='sdate' value='[#sdate1#]' size='9' ><input type='text' name='stime' value='[#stime#]' size='1' maxlength='2' >&nbsp;到&nbsp;<input type='text' name='edate' value='[#sdate2#]' size='9' ><input type='text' name='etime' value='[#etime#]' size='1' maxlength='2' >";
+	else
+	{
+	document.all.xxm.rows[0].cells[1].innerHTML="<img src='/images/pre"+fg+".gif' onclick=goto('/pronline/Msg?FunName@ncWebSortService&ltime@[#prev#]&group@[#group#]&order@[#order#]')><img src='/images/next"+fg+".gif' onClick=goto('/pronline/Msg?FunName@ncWebSortService&ltime@[#next#]&group@[#group#]&order@[#order#]')>";
+	}
+}
+</script>
+<script language="JavaScript">
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+
+<style type="text/css">
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:535px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }   
+
+}
+
+-->
+</style>
+
+
+</head>
+
+<body bgcolor="#DEE8FA"  topmargin="0" leftmargin="0" )" style="overflow:hidden">
+<form method="post" id='interip' name="form1" action="/pronline/Msg" >
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%"  align="center">
+  <tr height="30"> 
+    <td id=clearStart  valign="top" > 
+      <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;" >
+ <!--       <input type="button" name="Button" value="[#title_name#]Internet服务排行榜  日期:[#sdate1#]--[#sdate2#]" class="anniu100">         -->
+     [#title_name#]Internet服务排行榜 日期:[#sdate1#]--[#sdate2#]
+    &nbsp;&nbsp;&nbsp;&nbsp;报表类型&nbsp;<select name="rptype" ><option value="1">表格</option><option value="2">饼图</option></select>
+ 
+      </div>
+    </td>
+  </tr>
+  <tbody> 
+  
+  <tr>
+    <td id=clearStart height="467" valign="top"  > 
+    
+      <input type="hidden" name="FunName" value="ncWebSortService">
+      <input type="hidden" name="ltime" value="[#current#]">
+      <input type="hidden" name="userid" value="[#userid#]">
+      <input type="hidden" name="groupid" value="[#groupid#]">
+          <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%" >
+            <tr  > 
+              <td height="30" colspan="5"   class="ttt" > 
+                <table width="100%" border="0" id="xxm" >
+                  <tr > 
+                    <td width="415" height="21"> 
+                      <div >排序
+                      <select name="order" style="position:relative;top:-1px;">
+                      <option value="流量">流量</option>
+                      <option value="时间">时间</option>                                                
+                      </select>  
+                       [#sserv#]
+                            统计时间 
+                                                <select name="group" style="position:relative;top:-1px;" onchange="changeselect()">
+                                                 <option value="周">周</option>
+                                                 <option value="日">日</option>
+                                                 <option value="月">月</option>
+                                                 <option value="9">时间段</option>
+                                                </select>&nbsp;显示<input name="sumrec" size="2" style="position:relative;top:-1px;" value="[#sumrec#]">&nbsp;行</div></td>
+
+                    <td > 
+                      <script>
+			var fg
+			if("[#group#]"=="日"){
+			fg="day"
+			}else if("[#group#]"=="月"){
+			fg="month"
+			}
+			else if ("[#group#]"=="9"){
+			fg="9";
+			}
+			else{
+			fg="week"
+			}
+			if((fg=="day")||(fg=="month")||(fg=="week"))
+			{
+			document.write("<img src='/images/pre"+fg+".gif' onclick=goto('/pronline/Msg?FunName@ncWebSortService&ltime@[#prev#]&group@[#group#]&order@[#order#]&service@[#service#]')> ")
+			document.write("<img src='/images/next"+fg+".gif' onClick=goto('/pronline/Msg?FunName@ncWebSortService&ltime@[#next#]&group@[#group#]&order@[#order#]&service@[#service#]')> ")
+			}
+			if(fg=="9")
+			{
+				document.write("&nbsp;<input type='text' name='sdate' value='[#sdate#]' size='9' ><input type='text' name='stime' value='[#stime#]' size='1' maxlength='2' >&nbsp;到&nbsp;<input type='text' name='edate' value='[#edate#]' size='9' ><input type='text' name='etime' value='[#etime#]' size='1' maxlength='2' >");
+			}
+                      </script>
+                    </td>
+                 
+                    <td  >
+                      <input type="button"  name="Search"  class="an3-0" value="查询" onclick="form1.submit()">
+                      <input name="cx" type="button" class="an3-0" onClick="goto1('/pronline/Msg?FunName@ncSortDispForm+sort_flag@4+group@9')"  value="高级">
+                     <input name="exp" type="submit" class="an3-0" value="导出">
+                      <input name="save1" type="button" class="an3-0" onClick="lprint()"  value="打印">
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr >
+            	        
+              <td height="30" colspan="5" > 
+              	
+              	<div class="tScrollw"  id="tC">
+                <table width="100%" border=0 cellspacing=0 cellpadding=0  >
+                  <tr bgcolor="#6382BD" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)">             	 
+		              <td width="72" height="18" class="bord2"> 
+		                <div align="center"><font color="#FFFFFF">序号</font></div></td>
+		                 <td width="140" height="18" class="bord2"> 
+		                      <div align="center"><font color="#FFFFFF">部门</font></div></td>
+		              <td width="280" height="18" class="bord2"> 
+		                <div align="center"><font color="#FFFFFF">姓名</font></div></td>
+		              <td width="400" height="18"  class="bord2"> 
+		                <div align="center"><font color="#FFFFFF">流量[KB]</font></div></td>
+		              <td width="430" height="18"class="bord2"> 
+		                <div align="center"><font color="#FFFFFF">时间</font></div></td>
+		            </tr>
+		            <!-- [#SLPB#]-->
+		            <tr bgcolor="#FFFFFF"> 
+		              <td  class="bord1"> 
+		                <div align="center">[#num#] </div></td>
+		                <td class="bord1">&nbsp;[#groupname#]</td>
+		              <td  class="bord1">&nbsp;[#username#]</td>
+		              <td  class="bord1" align="right">[#bytes#]&nbsp;</td>
+		              <td  class="bord3" align="right">[#ctime#]&nbsp;</td>
+		            </tr>
+	            <!-- [#SLPE#] -->
+	            <tr> 
+	              <td >&nbsp;</td>
+	              <td >&nbsp;</td>
+	              <td >&nbsp;</td>
+	              <td >&nbsp;</td>
+	              <td >&nbsp;</td>
+	            </tr>
+             </table>
+            </div>
+            </td>
+          </tr>
+          </table>
+    </form>
+     <script>form1.group.value='[#group#]';
+      form1.order.value='[#order#]';
+      </script>
+  </tr>
+  </tbody> 
+</table>
+            
+          
+<p>&nbsp;</p>
+</body>
+</html>

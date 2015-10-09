@@ -1,0 +1,77 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll=[#CurPg#];
+var yy=[#TotPg#];
+parent.form1.CurPg.value=ll;
+parent.form1.TotPg.value=yy;
+parent.form1.TotRec.value='[#TotRec#]';
+
+function w1()
+{
+var yy='<tbody>';
+  yy=yy+'<div class="tScroll" id="tC" valign="top" onscroll="setscrollvaue()">';
+  yy = yy + '<table cellspacing=0 id="DataTable" bgcolor="#ffffff" bordercolor="#DFDFDF"  class="listDataTable" border="0" align="center" width="100%" >';  
+  yy = yy + '<tr bgcolor="#6382BD" height="18" class="tableHead"  style="top:expression(document.getElementById(\'tC\').scrollTop)">';
+  yy=yy+'<td width="40" align="center" class="bord2"><input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()"></td>';
+  yy = yy + '<td width="14%" align="center" class="bord2"> <font color="#FFFFFF">用户名</font></td>';
+  yy = yy + '<td width="12%" align="center" class="bord2"> <font color="#FFFFFF">发件人</font></td>';
+  yy = yy + '<td width="13%" align="center" class="bord2"><font color="#FFFFFF">收件人 </font></td>';
+  yy = yy + '<td width="33%" align="center" class="bord2"> <font color="#FFFFFF">主题</font></td>';
+  yy = yy + '<td width="14%" align="center" class="bord2"><font color="#FFFFFF">发送时间</font></td>';
+  yy = yy + '<td width="7%" align="center" class="bord2"><font color="#FFFFFF">大小</font></td>';
+    yy = yy + '<td width="4%" align="center" class="bord2"><font color="#FFFFFF">附件</font></td>';
+
+  yy = yy + '</tr>';
+
+         <!-- [#SLPB#] -->
+  yy = yy + '<tr onMouseOver="mouseovertr2(this)"  onMouseOut="mouseouttr2(this)" ondblclick=showform("/pronline/Msg?FunName@ncWebMailMonRead&ProId@[#did#]&did@[#did#]&userid@[#userid#]&msgfile@[#file#]&ccode@[#ccode#]");bgcolor="#ffffff">';
+ yy=yy+'<td class="bord1" align="center"><input type="checkbox" name="chk[#num#]" value="[#sid#]"></td>';
+  yy = yy + '<td class="bord1"   nowrap title="[#username#] ">&nbsp;[#username#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  title="[#from#] ">&nbsp;[#from#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  title="[#to#] ">&nbsp;[#to#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  title="[#sub#] ">&nbsp;[#sub#] </td>';
+  yy = yy + '<td class="bord1"  nowrap  >&nbsp;[#sdate#] </td>';
+  yy = yy + '<td class="bord1" align="right" nowrap  >[#size#]&nbsp;</td>';
+  yy = yy + '<td class="bord3"  nowrap  align="center">[#att#]&nbsp;</td>';
+
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->
+
+        
+          <!-- [#SLPB#] -->
+  yy = yy + '<tr id=[#snum#] bgcolor="#ffffff">';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord3" >&nbsp;</td>';
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->  
+  yy=yy+'</table>';
+  yy=yy+'</div>';
+  yy = yy + '</tbody>';
+
+  var temp_desc;
+  temp_desc='<b style="font-size: 10pt;color:#333333;">&nbsp;[#title_name#]实时邮件收发监控</b>';
+	parent.document.all.wljtitle.innerHTML=temp_desc;
+  parent.ff.innerHTML=(yy);
+  parent.form1.refresh_flag.value='2';
+  parent.document.getElementById("tC").scrollTop=parent.form1.sctop.value;
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body>
+
+</body>
+</html>

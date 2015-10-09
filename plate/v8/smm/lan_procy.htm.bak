@@ -1,0 +1,19 @@
+{"data": [[#SLPB#][#dh#]{
+  "recno":"[#recno#]",
+  "groupname":"[#groupname#]",
+  "ip":"[#ip#]",
+  "timeid":"[#timeid#]",
+  "timename":"[#timename#]",
+  "softid":"[#softid#]",
+  "softname":"[#softname#]",
+  "usbid":"[#usbid#]",
+  "softname":"[#usbname#]",
+  "procytype":"[#procytype#]",
+  "levelremain":"[#levelremain#]",
+  "levelname":"[#levelname#]",
+  "modtime":"[#modtime#]",
+  "text":"[#text#]",
+  "controlmark":"[#controlmark#]",
+  "controlmark2":"[#controlmark2#]",
+  "snap":"[#snap#]"
+}[#SLPE#]]}

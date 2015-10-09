@@ -1,0 +1,31 @@
+<html>
+  <body BGCOLOR="#FFFFFF" leftmargin="0" topMargin="0" marginwidth="0" marginheight="0">
+    <table border="0" width="100%" style="font-size:9pt;" height="100%" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+     <tr height="30">
+         <td colspan="6" BGCOLOR="#DEE8FA"><div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">系统登录日志信息([#sdate#]-[#edate#])</div></td>
+     </tr>    	
+     <tr  height="21" bgcolor="#6382BD">
+
+      <td width="120" style="border-top: 1px solid #9AC7F0;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #9AC7F0;" align="center"><font color="#FFFFFF">姓名</font></td>
+      <td width="120" style="border-top: 1px solid #9AC7F0;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #9AC7F0;" align="center"><font color="#FFFFFF"> IP地址</font></td>
+      <td width="120" style="border-top: 1px solid #9AC7F0;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #9AC7F0;" align="center"><font color="#FFFFFF"> 行为类型</font></td>
+      <td width="120" style="border-top: 1px solid #9AC7F0;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #9AC7F0;" align="center"><font color="#FFFFFF"> 结果</font></td>
+      <td width="300" style="border-top: 1px solid #9AC7F0;border-right: 1px solid #294767;border-bottom: 1px solid #294767;border-left: 1px solid #9AC7F0;" align="center"><font color="#FFFFFF"> 事件描述</font></td>
+     </tr>
+     [#SLPB#]
+     <tr height="18">
+
+      <td style="border:#999999 solid; border-width: 0px 0px 1px 1px">&nbsp;[#name#]</td>
+      <td style="border:#999999 solid; border-width: 0px 0px 1px 1px">&nbsp;[#ip#]</td>
+      <td style="border:#999999 solid; border-width: 0px 0px 1px 1px">&nbsp;[#action#]</td>
+      <td style="border:#999999 solid; border-width: 0px 0px 1px 1px" >[#result#]&nbsp;</td>
+      <td style="border:#999999 solid; border-width: 0px 1px 1px">[#mesg#]&nbsp;</td>
+    </tr>
+    [#SLPE#]
+    
+     <tr> 
+       <td  colspan="6" align="center"></td>
+     </tr>
+    </table>   
+  </body>
+</html>

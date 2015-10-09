@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<script language="javascript">
+
+
+function goBack()
+{
+	history.back();
+	return false;
+}
+
+
+</script>
+
+<body bgcolor="#DEE8FA">
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+  
+  <tr> 
+    <td align="center"> 
+    	<form action="/pronline/Msg" method="post"  name="form1" >
+    	<input name="FunName" type="hidden" value="userinfo_imp">
+    	<input type="hidden" name="fname" value="[#fname#]">
+        <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center"> 
+              <table width="100%" border="1" align="center" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+
+                <tr> 
+                  <td align="center">
+                    <table width="100%" border="0" align="center" cellpadding="0"  bgcolor="#DEE8FA">
+
+                      <tr>
+                        <td width="16%" height="25"><div align="right">登录名&nbsp;</div></td>
+                        <td width="84%" height="25" valign="baseline">
+                        <select name="username" style="width:300px">
+                        <option value="[#username_num#]">[#username#]</option>
+                        [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">密&nbsp;&nbsp;码&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="upassword" style="width:300px">
+                        <option value="[#password_num#]">[#upassword#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">部&nbsp;&nbsp;门&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="groupid" style="width:300px">
+                       <option value="[#group_num#]">[#groupname#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="0">未知部门</option>
+                        </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">显&nbsp;示&nbsp;名&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="dispname" style="width:300px">
+                        <option value="[#dispname_num#]">[#dispname#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">电子邮件&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="email" style="width:300px">
+                        <option value="[#email_num#]">[#email#]</option>
+            			[#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">计算机名&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="compname" style="width:300px">
+                        <option value="[#compname_num#]">[#compname#]</option>
+            			[#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">IP地址&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="ip" style="width:300px">
+                        <option value="[#ip_num#]">[#ip#]</option>
+            			[#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">Mac地址&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="mac" style="width:300px">
+                        <option value="[#mac_num#]">[#mac#]</option>
+            			[#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                     <tr>
+                        <td height="25"><div align="right">默认密码</div></td>
+                        <td height="25" valign="baseline">
+                        	<input type="text" name="defpw" value="" style="width:300px">
+                        	</td>
+                      </tr>
+                                
+                      <tr>
+                        <td height="25"><div align="right">忽略第一行</div></td>
+                        <td height="25" valign="baseline"><input type="checkbox" name="first" value="checkbo"  >
+                        	&nbsp;&nbsp;导入前是否删除用户和部门信息<input type="checkbox" name="delflag" value="checdel">
+                        	</td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right"> </div></td>
+                        <td height="25" valign="baseline" id="xxm2"> <input name="ok" type="button" class="anuse3" id="ok" value="确 认" onclick="form1.submit();document.all.ok.disabled=1;document.all.xxm2.innerHTML='<font color=red size=3>正在导入,请稍候...</font>' ">
+                        <input name="return" type="button" onClick="javascript:history.back();"   class="anuse3" value="返 回"></td>
+                      </tr>
+                     
+                    </table></td>
+                </tr>
+              </table>
+</td>
+
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

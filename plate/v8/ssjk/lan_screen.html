@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>实时屏幕</title>
+		<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+		<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+	  <script type="text/javascript" src="/newver/resources/locale/ext-lang-zh_CN.js"></script>  
+	</head>
+	
+	<body  ondblclick = "parent.captureScreen('[#compid#]','[#path#]','[#gname#]','[#sip#]','[#compname#]')">
+		<div><p align = "center"><b>部门:</b>[#gname#] [#value#]</p><div style="width:20px;height:20px;float:right;margin-top:-15px;" onclick="parent.imgClose('[#compid#]')"><img width="20px" height="20px" src = "/v8/images/icon/close.gif"></div></div>
+		<img id="imaget" hspace="5" vspace="5" width = "[#width#]" height = "[#height#]" src = "[#path#]">
+		
+		<form id="form1">
+			<input type="hidden" name="compid" value="[#compid#]">	
+		</form>
+		
+		<script>
+			var sh;
+			function reflash(){
+				var form2 = Ext.create('Ext.form.Panel').getForm();
+				var compid = document.getElementById("form1").compid.value;
+				form2.submit({
+          url: '/pronline/Msg?FunName@lan_setScreenHeart',
+					clientValidation: true,
+    			//waitMsg: '正在连接，请稍候...',
+          params: {
+		        compid: compid
+			    },
+			    method: 'get',
+          success: function(fp, o) {
+          	var img=document.getElementById("imaget");
+						var src = img.src.split("&n@");
+						img.src = src[0]+"&n@"+Math.random();
+						//alert(img.src);
+          }
+        });
+			}
+			
+  		if(parent.parent.bStartim==2 && parent.parent.bStartcomp==0){
+				sh=setInterval('reflash()',3000);
+			}else {
+				clearInterval(sh);
+			}
+		</script>
+	</body>
+	
+</html>

@@ -1,0 +1,308 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>用户带宽设置</title>
+<script>
+    function goto(t){
+        self.location.href=t;
+    }
+    
+      
+	function setprio(t){
+       j=form1.prio.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.prio.options[i].value;
+           if(gv == t) {
+               form1.prio.selectedIndex = i;
+           }
+       }
+    }
+
+	function setservice(t){
+       j=form1.service.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = form1.service.options[i].value;
+           if(gv == t) {
+               form1.service.selectedIndex = i;
+           }
+       }
+    }
+	  
+	function setcname(t){
+	   j=form1.cname.options.length; 
+	   for(i=0;i<j;i++) { 
+           gv = form1.cname.options[i].value;
+           if(gv == t) {
+               form1.cname.selectedIndex = i;
+           }
+       }
+    }
+	
+	
+
+	  
+    function mouseovertr2 (o){
+        var i;
+        df=o.style.backgroundColor
+	    o.style.backgroundColor= "#003399";
+	    o.style.borderColor= "#FFFF00";
+	    o.style.cursor="hand";	
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#ffffff";
+        }	
+    }
+    function checkme()
+    { 
+    	var i=0,j=0,z=0;
+    	var str1=form1.urate.value;
+    	var str2=form1.drate.value;
+    	for(i=0;i<str1.length;i++)
+    	{
+    		if(str1.charCodeAt(i)<47||str1.charCodeAt(i)>58)
+    		{
+    			alert("上传速率请输入整数");
+    			return false;
+    		}
+    	}
+    	for(i=0;i<str2.length;i++)
+    	{
+    		if(str2.charCodeAt(i)<47||str2.charCodeAt(i)>58)
+    		{
+    			alert("下传速率请输入整数");
+    			return false;
+    		}
+    	}
+    	if((form1.urate.value>2147483647)||(form1.drate.value>214783647))
+    	{
+    	   alert("上传速率和下传速率不能超过2147483647");
+    	   return false;
+    	   }
+    	   return true;
+    }
+
+
+    function Del()
+    {
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要删除的策略');
+	    	return false;
+	    }
+	    	return true;
+    }
+    function showf(lsid,lnum,ldip,ldmask,lservice,lprio,lcalss,lurate,ldrate) {
+        form1.sid.value=lsid;
+        form1.gnum.value=lnum;
+        form1.dip.value=ldip;
+		form1.dmask.value=ldmask;
+		setservice(lservice);
+		form1.urate.value=lurate;
+		form1.drate.value=ldrate;
+		setcname(lcalss);
+		setprio(lprio);
+    }
+    
+    function mouseouttr2(o){
+	    o.style.backgroundColor=df
+        for(i=0; i<o.cells.length; i++)
+        {
+	        o.cells(i).style.color="#000000";
+        }
+    }
+
+    var dfd1="0"
+    function allChecked(){
+        if(dfd1=="1"){
+            dfd1="0"
+        }
+        else {
+            dfd1="1"
+        }
+	    for(var i=0;i<document.all.DataTable.rows.length;i++)
+	    {
+		    if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			    if(dfd1=="1"){
+  			        document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+                }
+			    else{
+                    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+                }
+            }
+ 	    }
+    }
+    
+</script>
+
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:445px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 21px; 
+    text-align: center;
+    }   
+
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="#DEE8FA" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg"> 
+  <table border="0" width=100% cellspacing="0" cellpadding="0" align=center>
+    <tr> 
+      <td width="100%" align=center class="ttt"> 
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td colspan="2"><table width="100%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/images2/chaxun2-1.gif">
+                <tr > 
+                	
+                  <td colspan="2" > <div style="font-size:10pt;color:#00237e;font-weight:bold;text-align: center;">[[#gname#]]&nbsp;带宽设置</div></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr> 
+            <td colspan="2"> <table width="100%" border="0">
+                <tr> 
+                  <td width="91" height="16"> <p align="right">序号</p></td>
+                  <td width="170" height="16"> <input name="gnum" type="text" id="gnum" value="[#num#]" size="11" maxlength="11" > 
+                  </td>
+                  <td width="119" height="16"> <p align="right">目标地址</p></td>
+                  <td width="170" height="16"> <input name="dip" type="text" id="dip" value="[#dip#]" size="15" maxlength="15"> 
+                  </td>
+                  <td width="89" height="16"> <p align="right">掩码</p></td>
+                  <td width="180" height="16"> <p align="left"> 
+                      <input name="dmask" type="text" id="dmask" value="[#dmask#]" size="2" maxlength="2">
+                    </p></td>
+                </tr>
+                <tr> 
+                  <td height="2"><div align="right">服务</div></td>
+                  <td height="2">[#sservice#]</td>
+                  <td height="2"><div align="right">网络通道</div></td>
+                  <td height="2">[#scname#]</td>
+                  <td height="2"><div align="right">优先级</div></td>
+                  <td height="2">[#sprio#]</td>
+                </tr>
+                <tr> 
+                  <td width="91" height="2"> <p align="right">上传速率</p></td>
+                  <td width="170" height="2"> <input name="urate" type="text" id="urate" value="[#urate#]" size="11" maxlength="10">
+                    Kbit </td>
+                  <td width="119" height="2"> <p align="right">下传速率</p></td>
+                  <td width="170" height="2"> <input name="drate" type="text" id="drate" value="[#drate#]" size="11" maxlength="10">
+                    Kbit </td>
+                  <td height="2" colspan="2">(说明:不填表示不作限制)</td>
+                </tr>
+                <tr> </tr>
+                <tr> 
+                  <td colspan="6" height="25"> <div align="center"> 
+                      <table width="80%" border="0">
+                        <tr> 
+                        	<td width="50%">
+                       &nbsp;[#dateid#] 时间从 
+                      <input type="text" name="stime" size="7" value="[#stime#]" maxlength="8">
+                      到 
+                      <input type="text" name="etime" size="7" value="[#etime#]" maxlength="8">
+                        		
+                        		</td>
+                          <td width="50%" height="26"> <div align="right"> 
+                              <input type="hidden" name="flags"     value="[#flags#]">
+                              <input name="add" type="submit" class="an3" value="添 加" onclick="return checkme()">
+                              <input name="modi" type="submit" class="an3" value="修 改" onclick="return checkme()">
+                              <input name="del" type="submit" class="an3" value="删 除" onclick="return Del()">
+                              <input name="app" type="submit" class="an3" value="应 用" >
+                              <input type="hidden" name="FunName" value="ncWebTcUserList">
+                              <input type="hidden" name="sid"   value="[#sid#]">
+                              <input type="hidden" name="gid"   value="[#gid#]">
+                              <input type="hidden" name="gname"   value="[#gname#]">
+                            </div></td>
+                        </tr>
+                      </table>
+                    </div></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>  
+      </td>
+  </tr>
+  <tr>
+      <td width="100%"  valign=top align=center> 
+       <div class="tScrollw"  id="tC">	
+        <table  id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" >
+          <tr bgcolor="#6382BD"  height="21" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="40" height="18" class="bord2"> <div align="center"><font color="#FFFFFF"> 
+                <input type="button" name="b1" value="全选"    class="anniu_1" onClick="allChecked()">
+                </font> </div></td>
+            <td width="60" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">序号</font></div></td>  
+            <td width="60" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">日期</font></div></td>
+            <td width="147" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">时间</font></div></td>          
+            <td width="170" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">目标地址</font></div></td>
+            <td width="117" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">服务</font></div></td>
+            <td width="141" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">网络通道</font></div></td>
+            <td width="129" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">上传速率</font></div></td>
+            <td width="142" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">下传速率</font></div></td>
+            <td width="60" height="18" class="bord2"> <div align="center"><font color="#FFFFFF">优先级</font></div></td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="18" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" onclick="showf('[#lsid#]','[#lnum#]','[#ldip#]','[#ldmask#]','[#lservice#]','[#lprio#]','[#lcname#]','[#lurate#]','[#ldrate#]')"> 
+            <td class="bord1"> 
+              <input type="checkbox" name="ch[#anum#]" value="[#lsid#]">
+            </td>
+            <td class="bord1" >&nbsp;[#lnum#]</td>
+            
+            <td class="bord1" >&nbsp;[#ldatename#]</td>
+            <td class="bord1" >&nbsp;[#lstime#]-[#letime#]</td>
+            
+            <td class="bord1" >&nbsp;[#ldip#][#lp#][#ldmask#]</td>
+            <td class="bord1" >&nbsp;[#lservname#]</td>
+            <td class="bord1" >&nbsp;[#lcdispname#]</td>
+            <td class="bord1" >&nbsp;[#lurate#]</td>
+            <td class="bord1" >&nbsp;[#ldrate#]</td>
+            <td class="bord3" >&nbsp;[#lprio#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#] height="18"> 
+            <td class="bord1" >&nbsp; </td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord1" >&nbsp;</td>
+            <td class="bord3" >&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+  </form>
+</body>
+</html>

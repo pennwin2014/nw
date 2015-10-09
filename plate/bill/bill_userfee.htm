@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>酒店计费用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function doDetail()
+	{
+        openwinflag=window.open("/pronline/Msg?FunName@ncWebBilFeeDetail&userid@[#userid#]&username@[#username#]",'ncpass','fullscreen=0,titlebar=no,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=0,width=400,height=500');
+	}
+
+
+    function doPrint()
+	{
+	   document.all.noprint.style.display="none";
+	   window.print();
+	   document.all.noprint.style.display="";
+	}
+
+	 
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" >
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  ><table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+          <tr > 
+            <td colspan="2"> <div align="center"><strong><font color="#FFFFFF">开户上网结算清单</font></strong></div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td height="26" width="23%">帐号ID</td>
+                  <td height="26" width="77%"><input type="text" name="username" value="[#username#]" size="15" maxlength="15">
+                  </td>
+                </tr>
+                <tr> 
+                  <td height="26" width="23%">用户姓名</td>
+                  <td height="26" width="77%"> <input type="text" name="dispname" value="[#dispname#]" size="15" maxlength="15"> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>房间号</td>
+                  <td><input type="text" name="position" size="31" maxlength="31" value="[#position#]"></td>
+                </tr>
+              </table>
+                           
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>结算时间</td>
+                  <td><input type="text" name="addtime2" value="[#nowtime#]" readonly></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td width="23%">预付金额</td>
+                  <td><input type="text" name="fee" value="[#fee#]元"  size="20" maxlength="20">
+                  </td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>上网时间</td>
+                  <td><input name="addtime3" type="text" value="[#sumtime#]" size="20" maxlength="20" readonly></td>
+                </tr>
+                <tr> 
+                  <td width="23%">上网流量</td>
+                  <td width="77%"> <input name="addtime" type="text" value="[#sumflow#]KB" size="20" maxlength="20" readonly> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>上网费用</td>
+                  <td><input name="expiretime" type="text" value="[#sumfee#]元" size="20" maxlength="20"></td>
+                </tr>
+                <tr> 
+                  <td width="23%">结余金额</td>
+                  <td width="77%"> <input name="lasttime" type="text" value="[#leftfee#]元" size="20" maxlength="20" readonly> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><div align="center" id="noprint">
+                      <input type="hidden" name="FunName" value="ncWebBillFeeOk">
+                      <input type="hidden" name="fee0" value="[#fee#]">
+                      <input type="hidden" name="feeid0" value="[#feeid0#]">
+                      <input type="hidden" name="userid" value="[#userid#]">
+                      <input type="button" name="save22" value="详单查询" class="an3" onClick="doDetail()">
+                      <input type="button" name="save2" value="打印账单" class="an3" onClick="doPrint()">
+                      <input type="submit" name="save" value="结算确认" class="an3">
+                      &nbsp; &nbsp;
+  <input type="reset" name="cancel" value="取消返回" class="an3-1" onClick="history.back()">
+                  </div></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

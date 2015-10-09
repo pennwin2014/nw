@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+body {
+        SCROLLBAR-FACE-COLOR: #9FC8D4;
+        scrollbar-highlight-color: #C4DEEA;
+        OVERFLOW: scroll;
+        SCROLLBAR-SHADOW-COLOR: #C4DEEA;
+        SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+        SCROLLBAR-ARROW-COLOR: #000000;
+        SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+        OVERFLOW: auto;
+	background-color: #DFF0F7;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.style2 {
+	color: #00237e;
+	font-size: 16px;
+	font-weight: bold;
+}
+.style3 {font-size: 14px}
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+.style5 {color: #FFFFFF}
+.style7 {
+  background-color:#F5F5F5;
+	font-size: 12px;
+	color: #00237e;
+	font-weight: bold;
+}
+.style8 {
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+	font-size: 12px;
+	text-align: center;
+	color: red;
+	background-color: #d0ecf3;
+	height:18px;
+	font-weight: bold;
+}
+.style9 {
+  font-size: 12px;
+	color: blue;	
+}
+.curat {
+  font-size: 9pt;
+	color: red;	
+	font-weight:normal;
+}
+.style10 {
+	border-top: 2px solid #b7cfe5;
+	border-right: 2px solid #b7cfe5;
+	border-bottom: 2px solid #b7cfe5;
+	border-left: 2px solid #b7cfe5;
+}
+ .listDataTable { 
+FONT-SIZE: 9pt; FONT-FAMILY: "Arial";TABLE-LAYOUT:FIXED
+} 
+.tScrollw {
+        SCROLLBAR-FACE-COLOR: #9FC8D4;
+        scrollbar-highlight-color: #C4DEEA;
+        OVERFLOW: scroll;
+        SCROLLBAR-SHADOW-COLOR: #C4DEEA;
+        SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+        SCROLLBAR-ARROW-COLOR: #000000;
+        SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+        OVERFLOW: hidden;
+	height:230px;
+	cursor: default;
+}
+.divBodyStyle {
+        SCROLLBAR-FACE-COLOR: #9FC8D4;
+        scrollbar-highlight-color: #C4DEEA;
+        OVERFLOW: scroll;
+        SCROLLBAR-SHADOW-COLOR: #C4DEEA;
+        SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+        SCROLLBAR-ARROW-COLOR: #000000;
+        SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+        OVERFLOW: auto;
+        height:100%;
+        cursor: default;
+}
+-->
+A:link {COLOR: #800080; TEXT-DECORATION: underline;}
+.bord1 { font-size:9pt; border: #8CB4E8 solid; border-width: 0px 0px 1px 1px}
+.bord2 { font-size:9pt; color:#00237e;border: #8CB4E8 solid; border-width: 0px 0px 1px 0px}
+
+
+</style></head>
+<script src="/js/ajax.js"></script>
+<script>
+	function openreport(t){
+		window.open(t,'open_report3','height=600, width=900, top=0, left=0,toolbar=no,scrollbars=no,resizable=1,menubar=no,status=no;');
+	}
+
+	function showservice(){
+	 if(form1.serv_flag.value<='2'){
+	    document.all.xxmwlj.src="/pronline/Msg?FunName@ncWebShowServiceClassFirst&serv_flag@"+form1.serv_flag.value;
+	 }
+	 else if(form1.serv_flag.value=='3'){
+	    parent.sbpm_right.location.href="/pronline/Msg?FunName@ncWebShowServiceFirstCx";
+	  }
+	 else if(form1.serv_flag.value=='4'){
+	    parent.sbpm_right.location.href="/pronline/Msg?FunName@ncWebShowServiceBytime";
+	  }
+	 else if(form1.serv_flag.value=='5'){
+	    parent.sbpm_left.location.href="/pronline/Msg?FunName@ncWebTreeDispService";
+	    parent.sbpm_right.location.href="/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_ssjkservice_lab.htm";
+	  }
+	}	
+
+	function goto(t1,t2){
+parent.sbpm_right.location.href=t2;
+parent.sbpm_left.location.href=t1;
+}
+function goto2(t1){
+parent.sbpm_right.location.href=t1;
+parent.sbpm_left.location.href="/no.htm";
+parent.parent.go_hide();
+}
+function sxserver(flag)
+{
+
+frames.xxmwlj.location="/pronline/Msg?FunName@ncWebOnlieServiceStat_first&serv_flag@"+form1.serv_flag.value+"&pdf@"+flag;
+
+}
+
+function sxweb(t)
+{
+frames.wljxxm2.form1.pdf.value='1';
+frames.wljxxm2.form1.submit();
+
+}
+
+var xmlHttp = false;
+var flesh_flag;
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp&&flesh_flag==0 )
+   {
+   flesh_flag=1;
+//   var web_url='/pronline/Msg?FunName@ncShowOnlineuserBand&xx@'+Math.random()*999;
+    var web_url='/pronline/Msg?FunName@ncWebShowMainOnlineuser&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    
+   
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+    
+  }
+
+ }
+
+
+function initAjax(){
+flesh_flag=0;
+callServer();
+var onuserstep=0;
+if('[#onuserstep#]'==''){
+ onuserstep=6000;
+ }
+ else{
+ onuserstep=[#onuserstep#]*1000;
+ }
+setInterval('callServer()',onuserstep);
+setInterval('sxserver("")',26000);
+
+}
+
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+
+     var temp_date=getxmlbyname(response,"<content>","</content>");
+     document.all.wlj2.innerHTML=temp_date;
+
+     temp_date=getxmlbyname(response,"<curtime>","</curtime>");
+     document.all.liveclock.innerHTML=temp_date;
+     
+     temp_date=getxmlbyname(response,"<curuser>","</curuser>");
+     document.all.curuser.innerHTML=temp_date;
+     
+     temp_date=getxmlbyname(response,"<maxuser>","</maxuser>");
+     document.all.zcuser.innerHTML=temp_date;
+     
+     temp_date=getxmlbyname(response,"<curip>","</curip>");
+     document.all.curip.innerHTML=temp_date;
+     
+     temp_date=getxmlbyname(response,"<runtime>","</runtime>");
+     document.all.runtime.innerHTML=temp_date;
+     if(temp_date.length>4){
+        flesh_flag=0;
+        }
+//alert(response);
+   }
+ 
+ }
+
+
+
+</script>
+
+
+
+<body  onload="initAjax();">
+	
+ <form name="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="ctime" value="">
+
+<div id="divBody" height="100%" width="100%" class="divBodyStyle">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td valign="top"  >
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="3" bgcolor="#8CB4E8"></td>
+      </tr>
+
+      <tr>
+        <td  width="100%" height="30" align="center" bgcolor="#ffFFFF">
+        <table bgcolor="#ffffff" width="100%"  height="30"   border="0" cellpadding="0" cellspacing="0"> <!-- 首行状态信息 -->
+         <tr >          	  
+            <td width="85" class="style7">&nbsp;系统连续运行</td>
+            <td width="115" class="style8" id="runtime">0</td>
+           
+            <td width="60" class="style7">&nbsp;在线用户</td>
+            <td width="50" class="style8" id="curuser">0</td>            
+            <td width="60" class="style7" >注册用户</td>
+            <td width="50" class="style8" id="zcuser">0</td>
+            <td width="80" class="style7">当前ip连接数</td>
+            <td width="50" class="style8" id="curip">100</td>            
+            <td width="80" class="style7">当前系统时间</td>
+            <td  class="style8" id=liveclock></td>
+          </tr> 
+
+        </table>
+        </td>
+
+      </tr>
+   
+      <tr>
+        <td height="9" bgcolor="#8CB4E8"></td>
+        
+      </tr>
+      <tr>
+        <td height="4" bgcolor="#0148b2"></td>
+      </tr>
+      <tr>
+        <td height="9"  bgcolor="#8CB4E8"></td>
+      </tr>
+     
+      
+      <tr width="100%">
+        <td width="100%" height="262"  bgcolor="#E1ECFB">
+        <table width="100%" height="262"  border="0" cellpadding="0" cellspacing="0">
+          <tr>		<!-- 第一行标题 -->
+            <td width="6" height="25">&nbsp;</td>
+            <td width="42%" height="20"> <div align="left" class="style4" >
+            	流量分布图
+            	<select name="serv_flag" onchange="showservice()">
+            		<option value="1">网络服务流量分布图</option>
+ <!--           		<option value="2">服务大类流量分布图</option>
+ -->
+            		<option value="3">流量分布详细查询</option>
+            		<option value="4">网络服务流量趋势图</option>
+            		<option value="5">实时服务流量监控</option>
+            	</select>
+            	&nbsp;&nbsp;&nbsp;<a href="#xxm" onclick="sxserver('')"><font style="font-size:9pt;font-weight:Normal;">刷新</font></a>
+            	<a href="#xxm" onclick="sxserver('2')"><font style="font-size:9pt;font-weight:Normal;">导出PDF</font></a>
+            	</div></td>
+            <td width="6" height="20">&nbsp;</td>
+            <td width="50%" height="20">
+            	
+	      <div class="style4" align="right">
+		网络接口速率趋势图&nbsp;&nbsp;&nbsp;
+		<a href="#xxm" onclick="self.location.href='/main_netflow.htm'">
+		  <font style="font-size:9pt;font-weight:Normal;">更多信息</font></a>
+		<span id="currat" class="curat" >&nbsp;<font color="black">当前速率:</font>1000kbps</span>
+	      </div>
+	    
+	    </td>
+
+            <td width="6" height="20">&nbsp;</td>
+          </tr>
+          
+          <tr>		<!-- 第一行 contents -->
+            <td width="6" height="242">&nbsp;</td>
+            <td width="42%" height="242" bgcolor="#DFF0F7">	<!-- 服务流量分析 -->
+
+
+             <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+              <tr>
+               <td height="232" class="style10" bgcolor="white">
+                <iframe  id="xxmwlj" src="/pronline/Msg?FunName@ncWebOnlieServiceStat_first" width="100%"  height="232" frameborder="no"  ></iframe>                  	                             	               	
+               </td>
+              </tr>
+          </table>
+
+            </td>
+            <td width="6" height="242">&nbsp;</td>
+            <td width="50%" height="242" bgcolor="#DFF0F7">	<!-- 網絡接口速率 -->
+	
+
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+               <td height="232" class="style10" bgcolor="white">
+
+
+       <iframe id="wljk" src="/pronline/Msg?FunName@ncWebShowNetflowFirst" width="100%" height="232" frameborder="no"  ></iframe>
+               </td>
+              </tr>
+            </table>
+
+            </td>
+
+           <td width="6" height="242">&nbsp;</td> 
+          </tr>
+        </table>
+       </td>
+      </tr>
+      <tr width="100%">
+        <td height="6">&nbsp;</td>
+      </tr>
+      
+      <tr>
+        <td height="3"  background="/images/images2/bg6.gif"></td>
+      </tr>
+ 
+ 
+ 
+ 
+
+      <tr width="100%">
+        <td width="100%" height="262"  bgcolor="#E1ECFB">
+         <table width="100%" height="262"  border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="6" height="25">&nbsp;</td>
+            <td height="20" class="style4" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户流量(TOP10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+            <td width="6" height="20">&nbsp;</td>
+            <td height="20" class="style4" align="center">&nbsp;&nbsp;&nbsp;&nbsp;
+  <!--          	 <a href="#xxm" onclick="sxweb('/pronline/Msg?FunName@ncWebShowWebClassFirst&preflag@1')"><font style="font-size:9pt;font-weight:Normal;">上日</font></a> 
+            	<a href="#xxm" onclick="sxweb('/pronline/Msg?FunName@ncWebShowWebClassFirst&nextflag@1')">
+            		
+            		<font style="font-size:9pt;font-weight:Normal;">下日</font></a>
+ -->           			
+            			&nbsp;&nbsp;&nbsp;网站访问趋势图（请求数TOP10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            			<a href="#xxm" onclick="sxweb('1')"><font style="font-size:9pt;font-weight:Normal;">导出PDF</font></a>
+ <!--           			<a href="#xxm" onclick="self.location.href='/main_hismon.htm'"><IMG height=5 
+                        src="/images/images2/more.gif" width=37  border=0></a>
+  -->
+                     </td>
+
+            <td width="6" height="20">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="6"></td>
+            <td width="42%" height="242" bgcolor="#E1ECFB">
+             <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+              <tr>
+               <td height="232" class="style10"   bgcolor="white">
+           	<div id="wlj2" width="100%" height="100%" class="tScrollw"></div>                      	               	
+               </td>
+              </tr>
+             </table>
+            </td>
+            <td width="6" height="242"></td>
+            <td width="50%" height="242" bgcolor="#e1ecfb">
+             <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="232" class="style10" bgcolor="white">
+<!--                  <iframe  src="/pronline/Msg?FunName@ncWebShowWebClassFirst" id="wljxxm2" height="232" width="100%" frameborder="no"  ></iframe>   -->
+
+                  <iframe  src="/nc_mainfirst_webtrac.htm" id="wljxxm2" height="232" width="100%" frameborder="no"  ></iframe>
+                </td>
+              </tr>
+
+             </table>
+            </td>
+
+            <td width="6" height="242" bgcolor="#E1ECFB">&nbsp;</td>
+          </tr>
+        </table>
+        </td>
+                
+      </tr>
+
+
+    
+    </table></td>
+  </tr>
+</table>
+ </form>
+</div>
+</body>
+</html>

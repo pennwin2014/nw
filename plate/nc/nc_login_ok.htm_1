@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<title>上网验证</title>
+
+
+</head>
+
+<body topmargin="60"  onload="self.location.href='http://[#ip#]/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_login_ok2.htm&ip@[#ip#]&port@[#port#]&username@[#username#]&message@[#message#]&msgzs@[#msgzs#]&beat_flag@[#beat_flag#]&beattime@[#beattime#]'">
+	
+</body>
+</html>

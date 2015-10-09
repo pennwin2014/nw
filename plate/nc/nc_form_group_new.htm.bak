@@ -1,0 +1,201 @@
+<html>
+<head>
+<title>部门管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function doform(f)
+{
+    form1.FunName.value = f;
+    form1.submit();
+}
+
+function domodi()
+{
+    form1.FunName.value = "ncWebDeptModi_new";
+    form1.submit();
+}
+
+function domodimov()
+{
+		if(form1.mnewgid.value==form1.mgid.value){
+		alert('不能把部门移动到自己的下面');
+		return ;
+		}
+		if(form1.mnewgid.value==''||form1.mgid.value==''){
+		alert('请先选择移动的部门');
+		return;
+		}
+    form1.FunName.value = "ncWebDeptMove_new";
+    form1.submit();
+}
+
+
+function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('form1.'+id);
+	objEva[1]=eval('form1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+</script>
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="form1" method="post" action="/pronline/Msg">
+<input type="hidden" name="FunName">
+<input type="hidden" name="gid2" value="[#gid#]">
+<input type="hidden" name="level" value="[#level#]">
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0"  >
+    <tr>
+      <td><table width="100%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2" width="470" > <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align:right;">部门管理</div></td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr><td>
+    	   <table width="70%" cellpadding="0" cellspacing="0" >
+          <tr>
+          	<td width="200">&nbsp;</td>
+          	<td width="600"><strong>上级部门:[#gname#]</strong></td>
+          	<td><input type="button" name="sxbm" value="刷新部门树" onclick="parent.sbpm_left.location.href='/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&fname@ncWebDispDeptForm_new&plate@tree/tree_group_nolimit.htm'" class="an3-1">
+          		
+          		</td>
+          </tr>
+    	</table>
+    </td>
+  </tr>
+    <tr> 
+      <td><br>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td valign="top" > 
+              <table width="85%" border="0" align="center">
+                <tr>
+                  <td height="30" colspan="3"><strong>新建部门</strong></td>
+                </tr>
+                <tr> 
+                  <td height="47" colspan="3"><img src="/images/ans4-1.gif" width="32" height="27" align="absmiddle"> 
+                    添加部门<br> </td>
+                </tr>
+                <tr> 
+                  <td width="20%">部门名</td>
+                  <td width="60%"> <input type="text" name="groupname" size="16" maxlength="15"> 
+                  </td>
+                  <td width="20%"> <input type="button" name="addbm" value="新 建" onclick="doform('ncWebDeptAdd_new')" class="an3"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td colspan="3"> <div align="center">
+                    </div></td>
+                </tr>
+              </table>
+         
+              <table width="85%" border="0" align="center">
+                <tr>
+                  <td colspan="5" height="30"><strong>修改部门信息</strong></td>
+                </tr>
+                <tr> 
+                  <td colspan="5" height="37"><img src="/images/ans4-1.gif" width="32" height="27" align="absmiddle"> 
+                    修改部门名称<br> </td>
+                </tr>
+                <tr> 
+                  <td width="20%">要修改的部门</td>
+                  <td>[#mdept#]</td>
+                  <td>改为</td>
+                  <td> <input type="text" name="newname" size="15" maxlength="15"> 
+                  </td>
+                  <td width="20%"> <input type="button" name="bmdel" value="确 认"  onclick="domodi()" class="an3"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td colspan="5"> <div align="center">
+                    </div></td>
+                </tr>
+              </table>
+                            
+               <table width="85%" border="0" align="center">
+                <tr>
+                  <td colspan="5" height="30"><strong>移动部门</strong></td>
+                </tr>
+                <tr> 
+                  <td colspan="5" height="37"><img src="/images/ans4-1.gif" width="32" height="27" align="absmiddle"> 
+                    将部门移动到某一部门下<br> </td>
+                </tr>
+                <tr> 
+                  <td width="20%">要移动的部门</td>
+                  <td>[#mmdept#]</td>
+                  <td>移到</td>
+                  <input type="hidden" name="mnewgid" value="">
+                  <td> <input type="text" name="mgname" size="15" value="点击选择部门" maxlength="15" onclick="showtree('mnewgid','mgname')" readonly> 
+                  </td>
+                  <td width="20%"> <input type="button" name="bmmov" value="确 认"  onclick="domodimov()" class="an3"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td colspan="5"> <div align="center">
+                    </div></td>
+                </tr>
+              </table>
+              
+              
+              
+              
+              <table width="85%" border="0" align="center">
+                <tr>
+                  <td colspan="3" height="30"><strong>删除部门</strong></td>
+                </tr>
+                <tr> 
+                  <td colspan="3" height="37"><img src="/images/ans4-1.gif" width="32" height="27" align="absmiddle"> 
+                    删除已经建立的部门<br> </td>
+                </tr>
+                <tr> 
+                  <td width="20%">要删除的部门</td>
+                  <td width="60%"> [#dept#]</td>
+                  <td width="20%"> <input type="button" name="bmdel2" value="删 除"  onClick="doform('ncWebDeptDel_new')" class="an3"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td colspan="3"> <div align="center">
+                    </div></td>
+                </tr>
+              </table>
+              
+              
+              <table width="85%" border="0" align="center">
+                <tr>
+                  <td colspan="3" height="30"><strong>修改根名称</strong></td>
+                </tr>
+                <tr> 
+                  <td colspan="3" height="37"><img src="/images/ans4-1.gif" width="32" height="27" align="absmiddle"> 
+                    将根名称修改成自己喜爱的名称,默认为公司<br> </td>
+                </tr>
+                <tr> 
+                  <td width="20%">将根名称修改为</td>
+                  <td width="60%"> <input type="text" name="rootname" value="[#rootname#]" size="20">&nbsp;</td>
+                  <td width="20%"> <input type="button" name="bmroot" value="确认"  onClick="doform('ncWebDeptModRootname_new')" class="an3"> 
+                  </td>
+                </tr>
+                <tr> 
+                  <td colspan="3"> <div align="center"><br>
+                    </div></td>
+                </tr>
+              </table>
+               </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

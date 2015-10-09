@@ -1,0 +1,161 @@
+
+
+
+
+<html>
+<head>
+<META content="text/html; charset=gb2312"gb2312" http-equiv=Content-Type>
+<title>新网程网络督察-(管理员)</title>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script>
+<!--
+
+function go_hide()
+{
+	index_left.style.display='none';
+}
+function go_show()
+{
+	index_left.style.display='block';
+}
+function hide_bar()
+{
+	//sbpm_top.style.display='none';
+
+	document.all.main_header.height=1;
+}
+function show_bar()
+{
+//sbpm_top.document.all.toolbar.style.display='block';
+	document.all.main_header.height=35;
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+function changeWin(){
+	if(index_left.style.display=='none'){
+		go_show();
+	document.all.menuSwitch1.innerHTML = "<img src='/images/arrow1.gif' width='8' height='50' border='0' alt='隐藏树结构' name='Image7' onMouseOut=\"MM_swapImgRestore();window.status='网络督察'\" onMouseOver=\"MM_swapImage('Image7','','/images/arrow1-1.gif',1);window.status='隐藏树结构'\" onclick='changeWin()' >";
+	}
+	else{
+		go_hide();
+		document.all.menuSwitch1.innerHTML = "<img src='/images/arrow2.gif' width='8' height='50' border='0' alt='显示树结构' name='Image8' onMouseOut=\"MM_swapImgRestore();window.status='网络督察'\" onMouseOver=\"MM_swapImage('Image8','','/images/arrow2-1.gif',1);window.status='显示树结构'\" onclick='changeWin()' >";
+	}
+}
+function changeWin2(){
+	if(document.all.main_header.height==1){
+		show_bar();
+	document.all.menuSwitch2.innerHTML = "<img src='/images/arrow4.gif' width='8' height='50' border='0' alt='隐藏工具条' name='Image5' onMouseOut=\"MM_swapImgRestore();window.status='网络督察'\" onMouseOver=\"MM_swapImage('Image5','','/images/arrow4-1.gif',1);window.status='隐藏工具条'\" onclick='changeWin2()' >";
+	}
+	else{
+		hide_bar();
+	document.all.menuSwitch2.innerHTML = "<img src='/images/arrow3.gif' width='8' height='50' border='0' alt='显示工具条' name='Image6' onMouseOut=\"MM_swapImgRestore();window.status='网络督察'\" onMouseOver=\"MM_swapImage('Image6','','/images/arrow3-1.gif',1);window.status='显示工具条'\" onclick='changeWin2()' >";
+	}
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.handme {  cursor: hand}
+.bord4 {  border: #999999; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+body {
+	background-color: #E6FFFD;
+}
+-->
+</style>
+</head>
+<body topMargin=0 leftmargin=0 marginheight="0" oncontextmenu="return false" >
+<table width="710" border="0">
+  <tr>
+    <td width="45">&nbsp;</td>
+    <td width="584">&nbsp;</td>
+    <td width="67">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="center"><strong>许可证到期通知</strong></div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>尊敬的用户:</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td> <p> &nbsp;&nbsp;&nbsp;本系统使用的是临时许可证，该许可证将于[#edate#]到期，为了保证系统能正常运行，请和您的供应商联系，及时更换新的许可证。</p>    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;&nbsp;&nbsp;以下为您申请许可证需要提供的资料，您可以按[下载申请资料]按钮,将该信息下载到本地发送给他们。</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="center">谢谢!</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><form name="form1" method="post" action="">
+      <table width="575" border="0">
+        <tr>
+          <td width="240"><div align="right">单位名称:</div></td>
+          <td width="325"><input name="name" type="text" id="name" value="[#name#]" size="63" maxlength="63"></td>
+        </tr>
+        <tr>
+          <td><div align="right">产品序列号:</div></td>
+          <td><input name="prodsn" type="text" id="prodsn" value="[#prodsn#]" size="31" maxlength="31"></td>
+        </tr>
+        <tr>
+          <td><div align="right">主机码：</div></td>
+          <td><input name="hostinfo" type="text" id="hostinfo" value="[#hostinfo#]" size="63" maxlength="63" readonly="Yes"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="submit" name="Submit" value="下载申请资料">
+            <input type="submit" name="Submit2" value="继续使用">
+            <input type="submit" name="Submit22" value="输入许可证">
+            <input name="username" type="hidden" id="username" value="[#username#]">
+            <input name="passwd" type="hidden" id="passwd" value="[#passwd#]"></td>
+        </tr>
+      </table>
+    </form></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<script>
+var openwinflag;
+function wqp()
+{
+  a=screen.width-3;
+  b=screen.height-30;
+  window.moveTo(1,1);
+  window.resizeTo(a,b);
+}
+
+wqp();
+</script>
+</body>
+
+</html>

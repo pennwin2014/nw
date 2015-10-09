@@ -1,0 +1,66 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+parent.form1.CurPg.value=ll;
+parent.form1.TotPg.value=yy;
+parent.form1.TotRec.value='[#TotRec#]';
+
+function w1()
+{
+
+	var yy='<tbody>';
+	yy=yy+'<div  class="tScroll" id="tC" onscroll="setscrollvaue()"> ';
+	  yy = yy + '<table cellspacing=0 bordercolor="#DFDFDF" class="listDataTable" border="0" align="center" >';
+	  yy=yy+'<tr class="tableHead" style="top:expression(document.getElementById(\'tC\').scrollTop)"> ';
+
+    yy=yy+'<td width="25%" height=20 bgcolor="#6382BD"  class="bord2"> 部门名</td>';
+    yy=yy+'<td width="25%" height=20 bgcolor="#6382BD"  class="bord2"> 下行带宽(bps)</td>';
+    yy=yy+'<td width="25%" height=20 bgcolor="#6382BD"  class="bord2"> 上行带宽(bps)</td>';
+
+    yy=yy+'<td width="25%" bgcolor="#6382BD"  class="bord4"> 总带宽(bps)</td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+  yy = yy + '<tr height="18" bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)">';
+
+  yy = yy + '<td   class="bord1"  valign="bottom"  nowrap>&nbsp;&nbsp;[#groupname#]</td>';
+  yy = yy + '<td   class="bord1"   valign="bottom" align="right" nowrap>[#drate#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord1"  align="right">&nbsp;[#urate#]&nbsp;&nbsp;</td>';
+  yy = yy + '<td   class="bord3"  align="right">&nbsp;[#srate#]&nbsp;&nbsp;</td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+          <!-- [#SLPB#] -->
+  yy = yy + '<tr height="18" bgcolor="#ffffff">';
+  yy = yy + '<td class="bord1" id=[#snum#]>&nbsp;</td>';
+  yy = yy + '<td class="bord1" id=[#snum#]>&nbsp;</td>';
+  yy = yy + '<td class="bord1" id=[#snum#]>&nbsp;</td>';
+  yy = yy + '<td class="bord3" >&nbsp;</td>';
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->  
+
+  yy=yy+'</table>';
+  yy=yy+'</div>';
+  yy=yy+'</tbody>';
+
+  parent.document.all.ff.innerHTML=(yy);
+
+
+  var temp_desc;
+	 
+  parent.document.getElementById("tC").scrollTop=parent.form1.sctop.value;
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body  >
+
+</body>
+</html>

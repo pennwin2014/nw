@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#003399";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#ffffff";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+<script src="/js/rmenu.js"></script>
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.anuse3 { font-size: 9pt; background-color: dfdfdf; 
+  vertical-align: middle; height: 20px; width: 45px; border-top-width: 1px; border-right-width: 
+  1px; border-bottom-width: 1px; border-left-width: 1px; cursor: hand}
+-->
+</style>
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" BGCOLOR="Menu" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+	<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle" >系统运行参数统计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">        	
+         	&nbsp;
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>
+  
+
+  
+  <tr>
+      <td width="100%" align=center  valign=top bgcolor="#DEE8FA" > 
+      	<div class="tScroll"  id="tC">
+        <table id="DataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+            <td width="47" height="20" bgcolor="#6382BD" class="bord2"> 
+             &nbsp;
+            </td>
+            <td  bgcolor="#6382BD" class="bord2">参数/设备名</td>
+            <td width="200" bgcolor="#6382BD" class="bord2" ><font color="#FFFFFF">设定值(网卡为数据包峰值)</font></div></td>
+            <td width="200" bgcolor="#6382BD" class="bord2" >平均值</td>
+            <td width="200" bgcolor="#6382BD" class="bord4" >峰值</td>
+
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="20" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" > 
+            <td  class="bord1" align="center"> <input type="checkbox" name="ch[#num#]" value="[#userid#]"></td>
+            <td   class="bord1" >&nbsp;[#name#]&nbsp;&nbsp;</td>
+            <td   class="bord1" align="right">&nbsp;[#maxv#]&nbsp;&nbsp;</td>
+            <td   class="bord1" align="right">&nbsp;[#avnowv#]&nbsp;&nbsp; </td>
+            <td   class="bord3" align="right">&nbsp;[#maxnowv#]&nbsp;&nbsp;</td>          
+          </tr>
+          <!-- [#SLPE#] -->
+         
+        </table>
+  </div> 
+
+      </td>
+  </tr>
+</table>
+ </form>
+</body>
+
+</html>

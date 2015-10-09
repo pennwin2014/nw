@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+</head>
+
+<style type="text/css">
+<!--
+
+a:link {
+	text-decoration: none;	color: #00237e;
+	cursor:hand;
+}
+a:visited {
+	text-decoration: none;	color: #00237e;
+	cursor:hand;
+}
+a:hover {
+	text-decoration: none;
+	color: #00237e;
+	cursor:hand;
+}
+a:active {
+	text-decoration: none;
+	color: #00237e;
+    font-weight: bold;
+    cursor:hand;
+}
+
+-->
+
+</style></head>
+<style>
+<!--
+.css1 {
+	border: 1px solid #C5C5C5;
+	height: 15px;
+	font-size: 12px;
+}
+table {
+	font-size: 12px;
+	font-family: "Arial", "Helvetica", "sans-serif";
+	 "Verdana", "Arial", "Helvetica", "sans-serif", "宋体"; 
+}
+
+
+-->
+</style>
+<script>
+	function changeuser(gid,num,level,pid){
+var temp="/pronline/Msg?FunName@ncWebTreeDispGroup_New&plate@nc/nc_groupgroup.htm&pid@"+pid+"&groupid@"+gid+"&num@"+num;
+
+document.all.xxs.src=temp;
+
+
+}
+function opim(num,gid,level,pid){
+  if(eval('document.all.divu_'+num).style.display=='none'){  
+  eval('j_img_'+num).src='/images/minusbottom.gif';
+	eval('document.all.divu_'+num).style.display='';
+  changeuser(gid,num,level,pid);
+  }
+  else{
+	 eval('document.all.divu_'+num).style.display='none';
+	 eval('j_img_'+num).src='/images/plusbottom.gif';
+	}	
+	}
+	
+   function gotoRight(num,gid,level,pid){
+ 
+    if(top.sbpm_right.form1.labname.value=='gdrz')
+   {
+       top.sbpm_right.form1.lcount.value='';
+       top.sbpm_right.form1.groupid.value=gid;
+       top.sbpm_right.form1.userid.value='';
+       top.sbpm_right.form1.username.value='';
+       top.sbpm_right.form1.where.value='';
+       top.sbpm_right.form1.temp_plate.value=top.sbpm_right.form1.plate.value;
+       top.sbpm_right.form1.plate.value='/ncmsg_tj.htm';
+       top.sbpm_right.form1.tjfun.value=top.sbpm_right.form1.FunName.value;
+       top.sbpm_right.form1.FunName.value='ncWebReplace';
+
+       top.sbpm_right.form1.submit();
+       top.sbpm_right.form1.plate.value=top.sbpm_right.form1.temp_plate.value;
+       top.sbpm_right.form1.FunName.value=top.sbpm_right.form1.tjfun.value;
+       }
+       else{
+       top.sbpm_right.form1.groupid.value=gid;
+       top.sbpm_right.form1.userid.value='';
+       top.sbpm_right.form1.where.value='';
+       top.sbpm_right.form1.submit();
+       }
+       parent.treeBot.location.href="/pronline/Msg?FunName@ncWebTreeDispUser&groupid@"+gid+"&plate@tree/tree_ssjk_bot.htm";
+ 
+//     parent.sbpm_right.location.href="/pronline/Msg?FunName@ncWebDispDeptForm_new&level@"+1+"&pid@"+pid+"&gid2@"+gid;
+ //     opim(num,gid,level,pid);
+   }
+
+ function gtu(gid,level,pid){
+   gotoRight('',gid,level,pid)
+//      parent.sbpm_right.location.href="/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_ipquery.htm&fun@ncWebUserSearch&groupid@"+gid+"&level@"+1+"&pid@"+pid;
+   }		
+</script>
+
+<body leftmargin="0" bgcolor="#d0e1fa" topmargin="0" marginwidth="0" marginheight="0" style="SCROLLBAR-FACE-COLOR: #c1d8f9; OVERFLOW: scroll; SCROLLBAR-SHADOW-COLOR: #c1d8f9; SCROLLBAR-3DLIGHT-COLOR: #c1d8f9; SCROLLBAR-ARROW-COLOR: #5985ce; SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;" onunload="parent.parent.document.getElementById('changyj').src='/images/images2/yuanjiao2-1.gif' " onload="parent.parent.document.getElementById('changyj').src='/images/images2/yuanjiao2.gif' ">
+<table cellSpacing=0 cellPadding=0 border=0>
+	  <tr> 
+    <td ><img src="/images/base.gif" > <a href="#xxm"  onclick=gotoRight('','','','')>整个公司</a></td>
+  </tr>
+</table>
+[#SLPB#]
+<table cellSpacing=0 cellPadding=0 border=0>
+ <tr >
+  <td noWrap ><A ><img src="/images/plusbottom.gif" align=absBottom border="0" name=j_img_[#iNum#] onclick="opim('[#iNum#]','[#groupid#]','[#level#]','[#pid#]')"></A>
+  	<A href="#XXm" onclick=gotoRight('[#iNum#]','[#groupid#]','[#level#]','[#pid#]')>[#groupname#]</A>
+   </td>
+   </tr>
+  
+   </table>
+   <div id=divu_[#iNum#] style="display:none">  	
+   	</div>
+  [#SLPE#] 
+  
+      <iframe id="xxs" width="0" height="0" src="" display="no" ></iframe>
+  </body>
+ 
+</html>

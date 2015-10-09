@@ -1,0 +1,209 @@
+<html>
+
+<head>
+<title>上网时间统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<!-- Infrastructure code for the tree -->
+<style>
+	.styletab {
+  font-size: 13px;
+  text-align:right;
+	color: black;	
+	font-weight: bold;
+}
+</style>
+<script>
+	function showtree(id,cna){
+	var objEva=new Array();
+
+	objEva[0]=eval('tj1.'+id);
+	objEva[1]=eval('tj1.'+cna);
+
+showModalDialog('/pronline/Msg?FunName@ncWebTreeDispGroup_nolimit&plate@tree/tree_group_select.htm',objEva,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:200px;scroll:none;dialogHeight:620px;overflow:none");	
+
+}
+
+function goto99(){
+  parent.sbpm_left.location.href='/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_webuse_left.htm&sdate@'+tj1.sdate.value +'&edate@'+tj1.edate.value+'&recnum@'+tj1.recnum.value+'&sort@'+tj1.sort.value+'&time@'+tj1.time.value+'&IP@'+tj1.IP.value+'&b_flag@'+tj1.b_flag.value+'&c_flag@'+tj1.c_flag.value+'&lcount@'+tj1.lcount.value+'&bytes@'+tj1.bytes.value+'&stime@'+tj1.stime.value+'&etime@'+tj1.etime.value;
+}
+</script>
+
+<script language = "Javascript" src = "/js/selecttime.js"></script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginheight="0"  oncontextmenu="return true">
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <form name="tj1" method="post" action="/pronline/Msg">
+	    <input type="hidden" name="groupid">
+  <tr> 
+    <td colspan="2"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">
+              <input type="hidden" name="FunName" value="ncWebPrintWebUse">
+              用户访问网站统计条件</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+        <div align="center"> <b>
+          </b></div>
+        <table width="70%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td> 
+        <table width="90%" border="0" align="center" >
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 部 门</td>
+                  <td width="33%"> <div align="left"><input type="text" name="groupname" value="点击选择部门" size="10" onclick="showtree('groupid','groupname')" readonly ></div></td>
+                  <td colspan="3"> <div align="center"><font color="#000000"></font></div>
+                    <div align="center"><font color="#000000"> </font></div>
+                    <div id="plabel" align="center"><font color="#000000"> </font></div></td>
+                </tr>
+                 <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> <div align="right"><font color="#000000"><b>用户名
+                     </b></font></div></td>
+                  <td width="33%"> <input type="text" name="dispname" size="18"></td>
+                  <td colspan="3">
+                 
+                   </td>
+                </tr> 
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab">MAC地址
+                      </td>
+                  <td width="33%"> <input type="text" name="mac" size="18"></td>
+                  <td colspan="3">                
+                   </td>
+                </tr> 
+                 <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 用户IP</td>
+                  <td width="33%"> <input type="text" name="IP" value="[#IP#]" size="18"> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                
+               <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 流&nbsp;&nbsp;&nbsp;量 </td>
+                  <td width="33%"> <input type="text" name="bytes" value="[#bytes#]" size="12"> 
+                  <select style="width:50px" name="b_flag">
+                  <option value="1">以内</option>
+                  <option value="2">以外</option>
+                  </select>
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 点击次数</td>
+                  <td width="33%"> <input type="text" name="lcount" value="[#lcount#]" size="12"> 
+                  <select style="width:50px" name="c_flag">
+                  <option value="1">以内</option>
+                  <option value="2">以外</option>
+                  </select>
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%" class="styletab"> 起始时间</td>
+                  <td width="33%"> <div align="left"><font color="#000000"> 
+                      <input type="text" name="sdate" value="[#sdate#]" size="10">
+                      <input type="text" name="stime" size="2" maxlength="2" value="[#stime#]" >
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('tj1.sdate')></a></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%"> <div id="plabel" align="center"><font color="#000000"> 
+                      </font></div></td>
+                </tr>
+                <tr> 
+                  <td width="1%" height="21">&nbsp;</td>
+                  <td width="18%" height="21" class="styletab"> 终止时间</td>
+                  <td width="33%" height="21"><font color="#000000"> 
+                    <input type="text" name="edate" value="[#edate#]" size="10">
+                    <input type="text" name="etime" size="2" maxlength="2" value="[#etime#]" >
+                    </font></td>
+                  <td width="9%" height="21"><div align="center"><font color="#000000"><a href="#xxm"><img src="/images/date.gif"  border="0" onClick=show_calendar('tj1.edate')></a></font></div></td>
+                  <td width="6%" height="21">&nbsp;</td>
+                  <td width="33%" height="21">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab">每人记录数</td>
+                  <td width="33%"> <input type="text" name="recnum" value="[#recnum#]" size="15"> 
+                  </td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab">排列顺序</td>
+                  <td width="33%">[#sort#]</td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%">&nbsp;</td>
+                  <td width="18%" class="styletab"> 时&nbsp;间&nbsp;段</td>
+                  <td width="33%"> [#time#]</td>
+                  <td width="9%">&nbsp;</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="33%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="1%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="18%"> <div align="center"><font color="#000000"><b></b></font></div></td>
+                  <td width="33%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="9%"> <div align="center"><font color="#000000"></font></div></td>
+                  <td width="6%"> <div align="center"><font color="#000000"> 
+                      </font></div></td>
+                  <td width="33%">&nbsp; </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+      </form></td>
+  </tr>
+  <tr>
+    <td height="70" colspan="2">
+<table width="50%" border="0" align="center">
+        <tr> 
+          <td> <div align="right">
+              <input name="Buttonqr" type="button" class="an3" onClick="this.disabled=1;tj1.submit();goto99();" value="确 认">
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+ </form>
+<script> tj1.b_flag.value='[#b_flag#]';
+		 tj1.c_flag.value='[#c_flag#]';
+</script>
+</table>
+</body>
+</html>

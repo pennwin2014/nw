@@ -1,0 +1,203 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+
+     function goto(t)
+    {
+	    self.location.href=t;
+
+    }
+	  
+</script>
+
+</head>
+
+<BODY bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
+	<form name="form1" method="post" action="/pronline/Msg">
+  <input type="hidden" name="FunName" value="ncYyzBas_Save">
+
+<TABLE id=table1 style="BORDER-COLLAPSE: collapse" align="center" cellPadding=0 width=100% border=0>
+  <TR>
+      <td align="center"  >
+      	<table width="100%" height="45" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="3" width="90%"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: right;">
+              <div align="right">
+              	<input type="button" name="sec" value="同步部门" class="an3-1"  onclick="goto('/pronline/Msg?FunName@ncSysDomainDeptfirst')">
+              	 <input type="button" name="sec" value="同步域策略" class="an3-1"  onclick="goto('/pronline/Msg?FunName@ncSysDomainProcy')">
+            	  <input type="button" name="sec" value="同步用户" class="an3-1"  onclick="goto('/pronline/Msg?FunName@ncSysDomainUserFirst')">
+        	
+              	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+              	</div>
+            </div></td>
+            
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+
+      <td height="163" align="center"  valign="top">  
+      	
+        <div align="center" valign="top">
+          <table width="90%" height="177"   border="1"    cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+            <tr> 
+              <td height="177" valign="top">
+                
+                <table width="100%" height="81" border="0" align="center">
+                                   
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">域服务器IP&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" name="NtDoMainServer" size="20" value="[#NtDoMainServer#]">
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;设置域服务器的IP地址。</td>
+                  </tr>
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">域帐号(DN)&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" name="NtDoMainUser" size="20" value="[#NtDoMainUser#]">
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;用于查询域中的用户信息。</td>
+                  </tr>
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">帐号密码&nbsp;</div></td>
+                    <td> 
+                    	<input type="password" name="NtDoMainPass" size="21" value="[#NtDoMainPass#]">
+                    	<td>&nbsp;</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">根条目DN&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" name="RootDc" size="60" value="[#RootDc#]">
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;查询用户时开始节点，对于域名为example.com 可以写成dc=example,dc=com</td>
+                  </tr>
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">过滤条件&nbsp;</div></td>
+                    <td> 
+                    	<input type="text" name="searchfilter" size="60" value="[#searchfilter#]">
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;可以对指定OU或GROUP的用户进行同步</td>
+                  </tr>
+                  
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">用户显示名对应于域&nbsp;</div></td>
+                    <td> 
+                    	<select name="NtDispName">
+                    		<option value="Dispname">显示名</option>
+                    		<option value="None">无</option>
+                    	
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;用域用户的显示名同步上网用户的显示名</td>
+                  </tr>
+                  
+                   <tr height="26"> 
+                    <td height="26" ><div align="right">域用户的OU对应于&nbsp;</div></td>
+                    <td> 
+                    	<select name="NtOu">
+                    		<option value="Group">部门名</option>
+                    		<option value="CtlProcy">访问策略</option>
+                    		<option value="None">无</option>
+                    		
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;用域用户的OU同步上网用户的部门或策略</td>
+                  </tr>
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">域中的GROUP对应于&nbsp;</div></td>
+                    <td> 
+                    	<select name="NtGroup">
+                    		<option value="Group">部门名</option>
+                    		<option value="CtlProcy">访问策略</option>
+                    		<option value="None">无</option>
+                    		
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;用域用户的GROUP属性同步上网用户的部门或策略</td>
+                  </tr>
+                 <tr height="26"> 
+                    <td height="26" ><div align="right">是否自动添加部门</div></td>
+                    <td> 
+                    	<select name="AddGroupByNt">
+                    		<option value="Yes">自动添加</option>
+                    		<option value="No">不自动添加</option>
+                    	
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;选择自动添加，同步域用户时如果系统中不存在该部门，自动增加部门。</td>
+                  </tr>
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">是否删除域中不存在的用户</div></td>
+                    <td> 
+                    	<select name="DelUserNotInDm">
+                    		<option value="Yes">删除</option>
+                    		<option value="No">不删除</option>
+                    	
+                    	</select>
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;如果选择删除，在同步域用户时，将删除域中不存在的部门</td>
+                  </tr>
+                  
+                  <tr height="26"> 
+                    <td height="26" ><div align="right">是否自动同步</div></td>
+                    <td> 
+                    	<select name="StartSysLdap">
+                    		<option value="Yes">是</option>
+                    		<option value="No">不</option>             	
+                    	</select>
+                    	&nbsp;同步间隔
+                    	<input type="text" name="SysStep" value="[#SysStep#]" size="6">&nbsp;小时
+                    	</td>
+                    	<td><img src="/images/helps1.gif" style="position:relative;top:3px;"> &nbsp;如果选择自动同步，系统将每隔设定的时间同步一次</td>
+                  </tr>
+                  
+                <tr height="60"><td colspan="3">&nbsp;</td></tr>
+                <tr height="40"><td colspan="3" style="padding:10px;line-height:13pt;">&nbsp;<img src="/images/helps1.gif" style="position:relative;top:3px;">&nbsp;本界面设置的参数对应域验证的透明方式和通过LDAP/CIF验证方式都起作用。<br>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;透明方式指的是当用户登录到域后就可以上网，监控系统不再对用户进行重复验证，目前需要在域中安装同步插件。<br>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;远程验证方式指的是监控系统通过LDAP或CIF协议，将验证信息发到LDAP/CIF服务器（域服务器），由LDAP\CIF服务器验证,如果输入密码后等很长时间才提示验证通过，<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尝试一下将监控系统第一个DNS设成域服务器的IP</td>
+                </tr>
+                
+                
+ 
+
+                </table>              
+               </td>
+            </tr>
+            <tr height=50><td align="center">
+            	   <input type="submit" name="save" value="保存" class="an3"  >       
+               &nbsp;
+                   <input type="button" name="sec" value="第二域控制器" class="an3-1"  onclick="goto('/pronline/Msg?FunName@ncYyzBase2')">           
+     
+            	</td></tr>
+          </table>
+     </td>
+	  
+   </tr>
+    
+  </table>
+ 
+	</form>
+<script>form1.NtDispName.value="[#NtDispName#]";
+	form1.NtOu.value="[#NtOu#]";
+	
+  form1.NtGroup.value="[#NtGroup#]";
+	form1.AddGroupByNt.value="[#AddGroupByNt#]";	
+  form1.DelUserNotInDm.value="[#DelUserNotInDm#]";
+	form1.StartSysLdap.value="[#StartSysLdap#]";
+	
+	</script>
+</BODY>
+</html>
+

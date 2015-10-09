@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/mailcss.css" type="text/css">
+
+</head>
+
+<script language="javascript">
+function goBack()
+{
+	history.back();
+	return false;
+}
+
+</script>
+
+<body>
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" height="24" border="0" cellpadding="0" cellspacing="1" bgcolor="#dfdfdf">
+        <tr> <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b >资料导入【[#alias#]】</b></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                <tr> 
+                  <td>
+                    <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F5F5F5">
+                      <tr> 
+                        <td height="20">&nbsp;</td>
+                        <td height="20">&nbsp;</td>
+                      </tr>
+                      <tr> 
+                        <td width="16%" height="20"><div align="right">导入文件名</div>
+                          <input type="hidden" name="UploadPath" value="/home/nccrm/upload"></td>
+                        <td width="84%" height="20"> <input type="file" name="fname" style="width:450px">
+                          (导入文件必须是csv格式) </td>
+                      </tr>
+                      <tr> 
+                        <td height="20">&nbsp;</td>
+                        <td height="20" valign="baseline">&nbsp;</td>
+                      </tr>
+                      <tr bgcolor="#FFFFFF"> 
+                        <td height="35" colspan="2"> 
+                          <div align="center"> 
+                            <input name="ok" type="submit" class="anniu01" id="ok2" value="确 认">
+                            &nbsp; 
+                            <input name="return" type="button" onClick="javascript:history.back();"   class="anniu01" value="返 回">
+                            <input name="zl_type" type="hidden" value="[#markzl_type#]">
+                            <input name="FunName" type="hidden" value="MarkShowDrNext">
+                          </div></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table>
+</td>
+
+          </tr>
+        </table>
+      </td>
+  </tr>
+</table></form>
+<br>
+</body>
+</html>

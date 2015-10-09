@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>系统告警信息</title>
+<script>
+var dfd1="0"
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+
+
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[1])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[1].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[1].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[1].checked="";
+            }
+        }
+ 	}
+}
+
+function passdate()
+{
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#00237e;">[#title_name#] 上网告警日志</b>';
+}
+
+</script>
+
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<script src="/js/tablecssall.js"></script>
+<script src="/js/rmenu.js"></script>
+<script src="/js/calendar.js"></script>
+<style type="text/css">
+<!--
+.bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.tScrollw {
+
+      overflow: scroll;
+    overflow-x:hidden;
+    height:500px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+
+    height: 18px; 
+    text-align: center;
+    }   
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=1 marginwidth=0 topMargin="0" bgcolor="#eaf3f5" style="overflow:hidden" onload="passdate()">
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="del" value="">
+	<input type="hidden" name="FunName" value="ncWebWarnLog">
+	<input type="hidden" name="where"      value="[#where#]">
+<table border="0" width=100% height=100% cellspacing="0" cellpadding="0" align=center bgcolor='#ffffff'>
+
+  <tr>
+      <td width="100%"  valign=top align=center bgcolor="#DEE8FA"> 
+      	<div class="tScrollw" id="tC">
+        <table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD"> 
+            <td width="50" height="18"  class="bord2"> 
+              <div align="center"><font color="#FFFFFF"> 
+                <input type="button" name="b1" value="全选"  class="anniu_1"  onClick="allChecked()">
+            </font></div></td>
+            <td width="95" height="18"  class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;姓名</font></div></td>
+            <td width="95" height="18"  class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;部门</font></div></td>
+            <td width="91"  class="bord2"> <div align="center"><font color="#FFFFFF">&nbsp;时间</font></div></td>
+
+            <td width="113"  class="bord2"><div align="center"><font color="#FFFFFF">告警级别</font></div></td>
+            <td  height="18"  class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;内容</font></div>              </td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"> 
+            <td  height="18" nowrap class="bord1"> &nbsp; <input type="checkbox" name="chk[#num#]" value="[#sid#]">            </td>
+            <td  height="18" nowrap class="bord1" title="&nbsp;[#username#]">&nbsp;[#username#]</td>
+            <td  height="18" nowrap class="bord1" title="&nbsp;[#groupname#]">&nbsp;[#groupname#]</td>
+            <td  height="18" nowrap class="bord1" title="&nbsp;[#sdate#]">&nbsp;[#sdate#]</td>
+
+            <td  class="bord1" title="&nbsp;[#warnname#]">&nbsp;[#warnname#]</td>
+         
+            <td  height="18"   class="bord3" title="&nbsp;[#mesg#]">&nbsp;[#mesg#]&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr > 
+            <td  height="18" class="bord1" title="[#snum#]" >&nbsp;</td>
+            <td  height="18" class="bord1">&nbsp;</td>
+            <td  height="18" class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            <td  class="bord1">&nbsp;</td>
+            
+            <td  height="18" class="bord3">&nbsp;</td>
+          </tr>
+           <!-- [#SLPE#] -->
+        </table>      
+      </div> 
+   </td>
+  </tr>
+  
+  
+  
+  
+     <tr height="60">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="30">
+          	  	     	<td  align="left">&nbsp;&nbsp;告警时间&nbsp;
+          	  	     	<input type="text" name="sdate" value="[#sdate#]" size="12" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false">
+          	  	     
+          	  	      &nbsp;到&nbsp;<input type="text" name="edate" value="[#edate#]" size="12" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false">&nbsp;告警级别&nbsp;
+          	  	     <select name="warnid" ><option value="1">严重</option><option value="2">中度</option><option value="0">一般</option></select>
+          	  	     &nbsp;告警内容&nbsp;<input type="text" name="mesg" size="20" value="[#mesg#]">
+          	  	     
+          	  	     
+          	  	     &nbsp;<input name="cxx" type="submit"  value="查 询" onclick="form1.where.value=''"></td> 	  	     	
+          	  	    </tr>
+          	  	   
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  
+  
+  
+  
+</table>
+</form>
+<script>
+	form1.warnid.value="[#warnid#]";
+</script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+body {
+	background-color: #0148b2;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	overflow:hidden;
+}
+.style1 {
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.style2 {
+	color: #00237e;
+	font-size: 16px;
+	font-weight: bold;
+}
+.style3 {font-size: 14px}
+.style4 {color: #00237e; font-size: 13px; font-weight: bold; }
+.style5 {color: #FFFFFF}
+.style7 {
+  background-color:#F5F5F5;
+	font-size: 12px;
+	color: #00237e;
+	font-weight: bold;
+}
+.style8 {
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+	font-size: 12px;
+	text-align: center;
+	color: red;
+	background-color: #d0ecf3;
+	height:18px;
+	font-weight: bold;
+}
+.style9 {
+  font-size: 12px;
+	color: blue;	
+}
+
+.style10 {
+	border-top: 2px solid #b7cfe5;
+	border-right: 2px solid #b7cfe5;
+	border-bottom: 2px solid #b7cfe5;
+	border-left: 2px solid #b7cfe5;
+}
+ .listDataTable { 
+FONT-SIZE: 9pt; FONT-FAMILY: "Arial";TABLE-LAYOUT:FIXED
+} 
+.tScrollw {
+
+    overflow-y: hidden;
+    overflow-x:hidden;
+    height:232px;
+    cursor: default;
+    }
+-->
+A:link {COLOR: #800080; TEXT-DECORATION: underline;}
+.bord1 { font-size:9pt; border: #8CB4E8 solid; border-width: 0px 0px 1px 1px}
+.bord2 { font-size:9pt; color:#00237e;border: #8CB4E8 solid; border-width: 0px 0px 1px 0px}
+
+
+</style></head>
+
+<script>
+	function goto(t1,t2){
+parent.sbpm_right.location.href=t2;
+parent.sbpm_left.location.href=t1;
+}
+function goto2(t1){
+parent.sbpm_right.location.href=t1;
+parent.sbpm_left.location.href="/no.htm";
+parent.parent.go_hide();
+}
+function sxserver(t)
+{
+frames.xxmwlj.location=t+"&ctime@"+form1.ctime.value;
+
+}
+function sxweb(t)
+{
+frames.xxmwlj2.location=t;
+}
+</script>
+
+
+
+<body onunload="parent.document.getElementById('xyj1').src='/images/images2/yuanjiao3-1.gif' " onload="parent.document.getElementById('xyj1').src='/images/images2/yuanjiao3.gif' ">
+	
+	<form name="form1" method="post" action="/pronline/Msg">
+ <input type="hidden" name="ctime" value="">
+</form>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td valign="top"  ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="8" bgcolor="#8CB4E8"></td>
+      </tr>
+      <tr>
+        <td  width="1000%" height="30" align="center" bgcolor="#ffFFFF">
+        	<table bgcolor="#ffffff" width="100%"  height="30"   border="0" cellpadding="1" cellspacing="1">
+         <tr >          	  
+            <td width="85" class="style7">&nbsp;系统连续运行</td>
+            <td width="115" class="style8" id="runtime">0</td>
+           
+            <td width="60" class="style7">&nbsp;在线用户</td>
+            <td width="50" class="style8" id="curuser">0</td>            
+            <td width="60" class="style7" >注册用户</td>
+            <td width="50" class="style8" id="zcuser">0</td>
+            <td width="80" class="style7">当前ip连接数</td>
+            <td width="50" class="style8" id="curip">100</td>            
+            <td width="80" class="style7">当前系统时间</td>
+            <td  class="style8" id=liveclock></td>
+          </tr> 
+
+        </table>
+        </td>
+
+      </tr>
+      <tr>
+        <td height="9" bgcolor="#8CB4E8"></td>
+        
+      </tr>
+      <tr>
+        <td height="4" ></td>
+      </tr>
+      <tr>
+        <td height="9"  bgcolor="#8CB4E8"></td>
+      </tr>
+      
+      
+      <tr>
+        <td height="262"  bgcolor="#E1ECFB"><table width="100%" height="262"  border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="10" height="25">&nbsp;</td>
+            <td height="20"> <div align="center" class="style4">
+            	<a href="#xxm" onclick="sxserver('/pronline/Msg?FunName@ncWebShowServiceGrp&preflag@1')"><font style="font-size:9pt;font-weight:Normal;">上日</font></a> 
+            	<a href="#xxm" onclick="sxserver('/pronline/Msg?FunName@ncWebShowServiceGrp&nextflag@1')"><font style="font-size:9pt;font-weight:Normal;">下日</font></a>
+            	&nbsp;&nbsp;各种网络服务流量分析 &nbsp;&nbsp; <a href="#xxm" onclick="sxserver('/pronline/Msg?FunName@ncWebShowServiceGrp&refresh_flag@1')"><font style="font-size:9pt;font-weight:Normal;">刷新</font></a></div></td>
+            <td width="10" height="20">&nbsp;</td>
+            <td height="20"><div align="center" class="style4">网络接口速率趋势图&nbsp;&nbsp;&nbsp;&nbsp; <a href="#xxm" onclick="goto2('/main_netflow.htm')"><font style="font-size:9pt;font-weight:Normal;">更多信息</font></a></div></td>
+            <td width="10" height="20">&nbsp;</td>
+            <td height="20"><div align="center" class="style4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#xxm" onclick="goto('/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm','/pronline/Msg?FunName@ncWebReplace&opmsg@1071&warn_flag@1&plate@nc/nc_gdrz_lab.htm')"><IMG height=5 
+                        src="/images/images2/more.gif" width=37  border=0></a></div></td>
+            <td width="10" height="20">&nbsp;</td>
+          </tr>
+          
+          <tr >
+            <td width="10">&nbsp;</td>
+            <td width="280" height="242" bgcolor="#e1ecfb">
+            	<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+              <tr>
+                <td height="232" class="style10">
+              <iframe  id="xxmwlj" src="/pronline/Msg?FunName@ncWebShowServiceGrp"   height="232" frameborder="no"  ></iframe>                  	                             	               	
+                </td>
+        
+              </tr>
+              <tr>
+                <td height="10" bgcolor="#E1ECFB"></td>
+              </tr>
+            </table>
+            </td>
+            <td width="10" height="242">&nbsp;</td>
+            <td width="285" height="242" bgcolor="#e1ecfb">
+            	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="232" class="style10">
+                <iframe  src="/pronline/Msg?FunName@ncWebShowOutflowGrp"  height="232" frameborder="no"  ></iframe>	               	
+                	</td>
+              </tr>
+              <tr>
+                <td height="10" bgcolor="#E1ECFB"></td>
+              </tr>
+            </table></td>
+            <td width="10" height="242">&nbsp;</td>
+            <td height="242" bgcolor="#FFFFFF">
+            	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="232" width="220" class="style10" >
+                 <div id="wlj1" class="tScrollw">
+            
+							<marquee behavior="alternate" height="230" direction="up" scrollamount="2" scrolldelay="30" width="220" bgcolor="#ffffFF">
+							<marquee behavior="alternate" height="50" direction="left" scrollamount="2" scrolldelay="30" width="100%">
+							<font style="font-size: 20px;">实时告警信息<br>系统运行信息</font>
+							</marquee>
+							</marquee>
+             </div>
+                	</td>
+              </tr>            
+              <tr>
+                <td height="10" bgcolor="#E1ECFB">&nbsp;</td>
+              </tr>
+            </table></td>
+            <td width="10" height="242">&nbsp;</td>
+          </tr>
+        </table></td>
+         
+      </tr>
+      
+      
+      <tr>
+        <td height="3"  background="/images/images2/bg6.gif"></td>
+      </tr>
+ 
+ 
+ 
+ 
+
+      <tr>
+        <td height="262"  bgcolor="#E1ECFB"><table width="100%" height="262"  border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="10" height="25">&nbsp;</td>
+            <td height="20" class="style4" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#xxm" onclick="goto('/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm','/pronline/Msg?FunName@ncWebReplace&opmsg@1060&plate@nc/nc_ssjk_lab.htm')"><IMG height=5 
+                        src="/images/images2/more.gif" width=37 
+                        border=0></a></td>
+            <td width="10" height="20">&nbsp;</td>
+            <td height="20" class="style4" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;归档信息统计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#xxm" onclick="goto('/pronline/Msg?FunName@ncWebUserTree&plate@tree/tree_menu_ssjk.htm','/pronline/Msg?FunName@ncWebReplace&opmsg@1071&plate@nc/nc_gdrz_lab.htm')"><IMG height=5 
+                        src="/images/images2/more.gif" width=37  border=0></a></td>
+            <td width="10" height="20">&nbsp;</td>
+            <td height="20"><div align="center" class="style4"> <a href="#xxm" onclick="sxweb('/pronline/Msg?FunName@ncWebMainSortWeb&refresh_flag@1')"><font style="font-size:9pt;font-weight:Normal;">刷新</font></a>&nbsp;&nbsp;今日网站访问排行榜&nbsp;<a href="#xxm" onclick="goto('/nc_sort.htm','/pronline/Msg?FunName@ncWebReplace&plate@ncmsg_tj.htm&tjfun@ncWebSortByWeb&group@W')"><IMG height=5 
+                        src="/images/images2/more.gif" width=37  border=0></a></div></td>
+            <td width="10" height="20">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="10"></td>
+            <td width="295" height="242" bgcolor="#E1ECFB"><table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+              <tr>
+                <td height="232" class="style10" width="295" >
+           	       <div id="wlj2" width="295"  class="tScrollw"></div>                      	               	
+                	</td>
+        
+              </tr>
+              <tr>
+                <td height="10" bgcolor="#E1ECFB"></td>
+              </tr>
+            </table></td>
+            <td width="10" height="242"></td>
+            <td width="285" height="242" bgcolor="#e1ecfb"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="232" class="style10">
+                <iframe  src="/nc_mainfirst_sumrec.htm"  height="232" frameborder="no"  ></iframe>	               	
+                	</td>
+              </tr>
+              <tr>
+                <td height="10" bgcolor="#E1ECFB"></td>
+              </tr>
+            </table></td>
+            <td width="10" height="242">&nbsp;</td>
+            <td height="242" bgcolor="#FFFFFF"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="232" valign="top" width="220" class="style10">
+               <iframe id="xxmwlj2" src="/pronline/Msg?FunName@ncWebMainSortWeb"  width="100%" height="232" frameborder="no"  ></iframe>
+                	</td>
+              </tr>            
+              <tr>
+                <td height="10" bgcolor="#E1ECFB">&nbsp;</td>
+              </tr>
+            </table></td>
+            <td width="10" height="242" bgcolor="#E1ECFB">&nbsp;</td>
+            
+          </tr>
+        </table></td>
+                
+      </tr>
+
+
+      <tr>
+        <td height="8"  bgcolor="#8CB4E8"></td>
+      </tr>
+    
+    </table></td>
+  </tr>
+</table>
+  <iframe  src="/pronline/Msg?FunName@ncWebShowMainOnlineuser" display="no" width="290" height="232" frameborder="no"  ></iframe>
+  <iframe  src="/pronline/Msg?FunName@nc_warn_hist"  display="no" height="232" width="220" frameborder="no"  ></iframe>
+</body>
+</html>

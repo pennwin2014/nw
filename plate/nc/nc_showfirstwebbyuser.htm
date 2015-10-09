@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+
+
+var ll=[#CurPg#]
+var yy=[#TotPg#]
+
+function gotoPage(pagenum)
+{
+    form1.CurPg.value = pagenum;
+}
+</script>
+
+<script src="/js/drawtable.js"></script>
+
+<SCRIPT language=JavaScript>
+<!--
+
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+  .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#eaf3f5" leftMargin=2 topMargin=2 scroll=auto >
+	<form name="form1" method="post" action="/pronline/Msg">
+	
+	<input type="hidden" name="FunName" value="ncShowFirstWebByUser">
+
+	<input type="hidden" name="stime" value="[#stime#]">
+	<input type="hidden" name="etime" value="[#etime#]">
+	<input type="hidden" name="host_url" value="[#host_url#]">
+	<input type="hidden" name="TotPg"      value="[#TotPg#]">
+  <input type="hidden" name="CurPg"      value="[#CurPg#]"> 
+	
+		<tr>
+	   <td><table width="100%" cellspacing="0" cellpadding="0">
+         <tr height="30"> 
+         <td class="tabtitle" >网站访问统计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif">网站名称：[#host_url#] &nbsp;时间从[#sdate#]到[#edate#]</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">       	
+         	 <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]-1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=3  name=browsdopage size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value=[#CurPg#] onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="gotoPage(form1.browsdopage.value);form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>               
+                <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+                <td align=middle background="" width=92> 
+                 <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotPg#]'>
+                </td>
+                <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+               <td align=middle background="" width=92> 
+               <input  class=Main id=browsdopage1 maxlength=5 name=browsdopage12 size=3 style="FONT-SIZE: 12px; HEIGHT: 18px; TEXT-ALIGN: center; WIDTH: 50px" value='[#TotRec#]'>
+               </td>
+               <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage([#CurPg#]+1);form1.submit()' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage([#TotPg#]);form1.submit()' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         </tr>
+         
+         
+         </table>
+      </td>
+  </tr>
+	
+	
+		<TABLE style="BORDER-RIGHT: 1px inset; BORDER-TOP: 1px inset; BORDER-LEFT: 1px inset; BORDER-BOTTOM: 1px inset" height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>	
+  	<TR>
+    		<TD valign="top">
+    			
+    			<table id="DataTable" class="listDataTable" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr height="18" class="tableHead"  style="top:expression(document.getElementById('tC').scrollTop)" bgcolor="#6382BD"> 
+
+            <td width="140"   class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;姓名</font></div></td>
+            <td width="140"   class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;ip地址</font></div></td>
+            <td width="140"   class="bord2"> 
+            <div align="center"><font color="#FFFFFF">&nbsp;部门</font></div></td>
+            <td width="120"  class="bord2"> <div align="center"><font color="#FFFFFF">&nbsp;流量(Bytes)</font></div></td>
+
+            <td   class="bord2"> 
+              <div align="center"><font color="#FFFFFF">&nbsp;Http请求次数</font></div>              </td>
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr height="18" onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)" )"> 
+
+            <td   nowrap class="bord1" title="&nbsp;[#dispanme#]">&nbsp;[#dispname#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#ip#]">&nbsp;[#ip#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#groupname#]">&nbsp;[#groupname#]</td>
+            <td   nowrap class="bord1" title="&nbsp;[#bytes]" align="right">&nbsp;[#bytes#]&nbsp;</td>            
+            <td   nowrap class="bord3"  title="&nbsp;[#sumcount#]" align="right">&nbsp;<font color="#0000ff">[#sumcount#]</font>&nbsp;&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+       
+        </table>
+    	</TD>
+  	</TR>
+  	
+  	
+  	  	       	
+  	
+  	
+  	
+  	
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+
+</html>

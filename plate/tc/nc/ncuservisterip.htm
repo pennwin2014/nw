@@ -1,0 +1,87 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+parent.form1.CurPg.value=ll;
+parent.form1.TotPg.value=yy;
+parent.form1.TotRec.value='[#TotRec#]';
+
+function w1()
+{
+
+	var yy='<tbody>';
+	yy=yy+'<div  class="tScroll" id="tC" onscroll="setscrollvaue()"> ';
+	  yy = yy + '<table cellspacing=0 bordercolor="#DFDFDF" class="listDataTable" border="0" align="center" width="100%" >';
+	  yy=yy+'<tr class="tableHead" style="top:expression(document.getElementById(\'tC\').scrollTop)"> ';
+    yy=yy+'<td width="12%" height=20 bgcolor="#6382BD"  class="bord2"> 用 户</td>';
+    yy=yy+'<td width="10%" bgcolor="#6382BD"  class="bord2"> 部 门</td>';
+    yy=yy+'<td width="12%" bgcolor="#6382BD"  class="bord2"> 源IP地址</td>';
+    yy=yy+'<td  width="12%" bgcolor="#6382BD"  class="bord2"> 目标IP</td>';
+    yy=yy+'<td width="7%" bgcolor="#6382BD" class="bord2">端口号</td>';
+    yy=yy+'<td width="7%" bgcolor="#6382BD"  class="bord2"> 服 务</td>';
+    yy=yy+'<td width="8%" bgcolor="#6382BD"  class="bord2">进流量(字节)</td>';
+    yy=yy+'<td width="8%" bgcolor="#6382BD"  class="bord2">出流量(字节)</td>';
+
+    yy=yy+'<td width="8%" bgcolor="#6382BD" class="bord4">带宽(字节/秒)</td>';
+    yy=yy+'<td width="10%" bgcolor="#6382BD"  class="bord4">最近连接时间</td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+  yy = yy + '<tr height="18" bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)">';
+  yy = yy + '<td   class="bord1"  title="登录名:[#loginname#]" valign="bottom" nowrap>[#name#]</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap>&nbsp;[#dept#]</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap>&nbsp;[#sip#]</td>';
+  yy = yy + '<td   class="bord1" title="[#url#]" valign="bottom" nowrap>&nbsp;[#dip#]</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap align="right">[#port#]&nbsp;</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap align="right">[#service#]&nbsp;</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap align="right">[#inbytes#]&nbsp;</td>';
+  yy = yy + '<td   class="bord1" valign="bottom" nowrap align="right">[#outbytes#]&nbsp;</td>';
+
+  yy = yy + '<td   class="bord1" valign="bottom" align="right">[#band#]&nbsp;</td>';
+  yy = yy + '<td   class="bord3" valign="left">&nbsp;[#lasttime#]</td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+          <!-- [#SLPB#] -->
+  yy = yy + '<tr height="18" bgcolor="#ffffff">';
+  yy = yy + '<td class="bord1" id=[#snum#]>&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+
+  yy = yy + '<td class="bord3" >&nbsp;</td>';
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->  
+
+  yy=yy+'</table>';
+  yy=yy+'</div>';
+  yy=yy+'</tbody>';
+
+  parent.document.all.ff.innerHTML=(yy);
+
+
+  var temp_desc;
+
+	  temp_desc='<b style="font-size: 10pt;color:#333333;">&nbsp;[#title_name#]实时IP访问记录</b>';
+	  parent.document.all.wljtitle.innerHTML=temp_desc;
+	 
+  parent.document.getElementById("tC").scrollTop=parent.form1.sctop.value;
+}
+setTimeout('w1()',1000);
+
+ </SCRIPT> 
+
+</head>
+<body  >
+
+</body>
+</html>

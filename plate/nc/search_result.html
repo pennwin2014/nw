@@ -1,0 +1,179 @@
+<html>
+<head><title>[#query#] - 搜索结果</title>
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<link REL=stylesheet HREF="/css/search_css.css" TYPE="text/css">
+
+<SCRIPT>
+ function checkWd()
+   {
+       if(form1.wd.value == "")
+       {
+                return false;
+       }
+       return true;
+  }
+  function checkWd2()
+   {
+       if(form2.wd.value == "")
+       {
+                return false;
+       }
+       return true;
+  }
+  
+  function goto(time, userid, msgfile)
+  {
+     
+     var t="/pronline/Msg?FunName@ncWebPostRead&time@"+time+"&userid@"+userid+"&msgfile@"+msgfile;
+     window.open(t,'readpost','left=100,top=50,width=700,height=600,fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+  }
+
+  
+</SCRIPT>
+
+
+<style type="text/css"> 
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:615px;
+    cursor: default;
+    }
+</style>
+
+</head>
+<body onLoad="form1.wd.focus();">
+
+ 
+
+ 
+
+<div class="tScrollw"  id="tC">
+<center>
+	  <br>
+	             <div style="font-size:20pt;font-weight:bold;text-align: center;">表单查询</div>
+	    
+      
+       <p align="center">
+       <form method="post" action="/pronline/Msg" name="form1" onSubmit="return checkWd()">
+                <input type="hidden" name="FunName" value="S">
+                <span id=in><input type="text" name="wd" value="[#query#]" id="kw" size="80" maxlength="255">
+                <input type="submit" value="搜索" id="sb">&nbsp;</span><br>
+       </form>
+       
+       </p>
+      
+   <table cellSpacing=0 cellPadding=0 width="85%" style="word-break:break-all" border=0>
+		<tr>
+         <td><div id="top1" style="display:[#display1#]"><p align="right">找不到和您的查询 <b>"[#query#]"</b>相符的内容或信息</p></div><td>
+  	<td><div id="top2" style="display:[#display2#]"><p align="right">搜索 <b>[#query#]</b> 获得 <b>[#total#]</b> 个结果, 以下第 <b>[#start#]</b>-<b>[#end#]</b> 条</p></div></td>
+    </tr>	
+   </table>  
+  
+  
+	<table cellSpacing=0 cellPadding=0 width="85%" style="word-break:break-all" border=0>
+ 
+  
+  	
+  	
+  [#SLPB#]
+  <tr [#class#]>
+ 
+ 
+    <td width="70%">
+ 
+       
+       	
+  <h3>[#iNum#].<a href="[#url_no_highlighter#]" target="_blank">[#subject#]</a></h3>
+           
+           
+           
+           [#bbsname#]:<font color="green">[#url#]</font>
+           <br><br>[#content#]
+           
+           <br><br>作者:[#author#]&nbsp;&nbsp;发帖时间:[#fdate#]
+           
+           
+           <br><br>
+      </DIV>
+   </td>
+ 
+ 
+    <td width="30%">
+    	     <br>
+    	     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显示姓名:&nbsp;&nbsp;[#dispname#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;记录时间:&nbsp;&nbsp;[#vtime#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[#dept#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[#position#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAC地址:&nbsp;&nbsp;&nbsp;[#mac#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源IP地址:&nbsp;&nbsp;[#sip#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目标IP地址:[#dip#]
+    	     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表单:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#xxm' onClick="goto('[#vtime#]','[#userid#]', '[#upfile#]')">[#upfile#]</a>
+    	     <br><div id="top3" style="display:[#display3#]">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附件:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[#attfile#]</div>
+    	     <br><br>
+    	     
+    </td>
+ 
+ 
+ 
+ 
+    </tr>
+  [#SLPE#]
+  
+  
+  
+ 
+  
+  </table>
+
+  
+  <table cellSpacing=0 cellPadding=0 width="80%" border=0>
+		<tr>
+  	<td><p align="center">
+	      <a href="/pronline/Msg?FunName@S&wd@[#wd_prev#]&curpg@[#CurPg_prev#]" target="_self">[#prev#]</a>
+        [#SLPB#]
+        <a href="/pronline/Msg?FunName@S&wd@[#wd_page1#]&curpg@[#CurPg_page1#]" target="_self">[#page1#]</a>
+        [#SLPE#]
+  [#page#]
+        [#SLPB#]
+        <a href="/pronline/Msg?FunName@S&wd@[#wd_page2#]&curpg@[#CurPg_page2#]" target="_self">[#page2#]</a>
+        [#SLPE#]
+        <a href="/pronline/Msg?FunName@S&wd@[#wd_next#]&curpg@[#CurPg_next#]" target="_self">[#next#]</a>
+        </p></td>
+    </tr>	
+   </table>  
+   
+   
+   
+ 
+   
+   <br><div id="bot" style="display:[#display2#]">
+       <p align="center">
+       <form method="post" action="/pronline/Msg" name="form2" onSubmit="return checkWd2()">
+                <input type="hidden" name="FunName" value="S">
+                <span id=in><input type="text" name="wd" value="[#query#]" id="kw" size="80" maxlength="255">
+                <input type="submit" value="搜索" id="sb">&nbsp;</span><br>
+       </form>
+       
+     </p></div>
+   
+    <br>
+    <br>
+    <br>
+  
+ </center>
+</div>
+
+
+
+
+
+</body>
+
+</html>

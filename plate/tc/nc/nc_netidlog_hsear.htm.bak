@@ -1,0 +1,185 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>组合查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META content=no-cache http-equiv=Pragma>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.cccv {  border-style: inset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.xan3 {  width: 100px; font-size: 12px; font-weight: normal; font-family: "宋体"}
+.anjujue {  background-image: url(/images/anjj.gif); width: 60px; background-repeat: no-repeat; height: 30px}
+.anfasong {  background-image: url(/images/ansend.gif); width: 60px; background-repeat: no-repeat; height: 30px}
+
+-->
+</style>
+<script language="JavaScript">
+<!--
+function gg(){
+	
+	dialogArguments.form1.FunName.value='ncWebNetIdLog';
+	dialogArguments.form1.username_match.value=form1.username_match.value;
+	dialogArguments.form1.username.value=form1.username.value;
+	dialogArguments.form1.ntype.value=form1.ntype.value;
+	dialogArguments.form1.netid_match.value=form1.netid_match.value;
+	dialogArguments.form1.mac_match.value=form1.mac_match.value;
+	dialogArguments.form1.mac.value=form1.mac.value;
+	dialogArguments.form1.ip_match.value=form1.ip_match.value;
+	dialogArguments.form1.ip.value=form1.ip.value;
+	
+	dialogArguments.form1.name1.value=form1.ip.name1.value;
+	dialogArguments.form1.sdate.value=form1.sdate.value;
+	dialogArguments.form1.edate.value=form1.edate.value;
+	dialogArguments.form1.idfytype.value=form1.idfytype.value;
+	dialogArguments.form1.idfyno_match.value=form1.idfyno_match.value;
+	dialogArguments.form1.idfyno.value=form1.idfyno.value;
+	dialogArguments.form1.submit();
+	
+ self.close();
+ 
+}
+function init(){
+	form1.username.value=dialogArguments.form1.username.value;
+	if(dialogArguments.form1.sdate.value!='')
+		form1.sdate.value=dialogArguments.form1.sdate.value;
+	if(dialogArguments.form1.edate.value!='')
+  	form1.edate.value=dialogArguments.form1.edate.value;
+  
+  form1.ntype.value=dialogArguments.form1.ntype.value;
+	form1.name1.value=dialogArguments.form1.name1.value;
+  form1.mac.value=dialogArguments.form1.mac.value;
+  
+  form1.ip.value=dialogArguments.form1.ip.value;
+	form1.idfytype.value=dialogArguments.form1.idfytype.value;
+  form1.idfyno.value=dialogArguments.form1.idfyno.value;
+}
+
+
+
+//-->
+</script>
+</head>
+
+<body bgcolor="#BED1F5" leftmargin="0" topmargin="0" onload="init()">
+<form name="form1" method="post" action="/pronline/Msg"  target="sbpm_right">
+ <input type="hidden" name="FunName" value="ncWebNetIdLog"> 
+
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr> 
+            <td height="28" width="180" > 
+              <table width="180" height="22" border=1 cellpadding="0" cellspacing="0"    bordercolorlight=#6B9ADA bordercolordark=#ffffff background="/images/cell_bg.gif"   >
+                <tr> 
+                  <td width="180" height="22"  > 
+                    <div align="center">
+                      <table width="180" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="20">&nbsp;</td>
+                          <td width="140" bgcolor="#DEE8FA"> 
+                           <div align="center" style="font-size: 10pt"><font color="#D58000"><strong>虚拟身份使用日志查询</strong></font> 
+                            </div></td>
+                          <td width="20">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </div></td>
+                </tr>
+              </table>
+            </td>
+        <td align="right"> 
+              <input name="bok" type="button" class="an3-1" onClick="gg()"  value="开始查询">
+              &nbsp; 
+              <input name="can1" type="button" class="an3" onClick="self.close()" value="返 回">
+		</td>
+    </tr>
+    <tr> 
+      <td colspan="2" > <table width="100%" border="1"   cellpadding="4" cellspacing="0"   bordercolorlight=#000000   bordercolordark=#ffffff bgcolor="#DEE8FA" >
+          <tr> 
+            <td > <table width="98%" align="center" height="10%" border="0" cellspacing="0">
+                 <tr height="35"> 
+                  <td ></td>
+                  <td> <font color="#000000"><b><font size="2">用户名</font></b></font></td>
+                  <td ><select name="username_match"><option value="0" >等于</option><option value="1">包含</option></select> <input type="text" name="username" size="27" id=txt  >
+                  	
+                  	</td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+                <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">虚拟身份类别</font></b></font></td>
+                  <td > <select name="ntype" style="width:200px">
+                  	<option value="">全部</option>
+                  	[#SLPB#]
+                  	<option value="[#id#]">[#name#]</option>
+                  	[#SLPE#]
+                  	</select></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+               <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">虚拟身份账号</font></b></font></td>
+                  <td > <select name="netid_match"><option value="0" >等于</option><option value="1">包含</option></select><input type="text" name="name1" size="27"></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr>  
+               <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">MAC地址</font></b></font></td>
+                  <td > <select name="mac_match"><option value="0" >等于</option><option value="1">包含</option></select><input type="text" name="mac" size="27"></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr>
+               <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">上网IP</font></b></font></td>
+                  <td > <select name="ip_match"><option value="0" >等于</option><option value="1">包含</option></select><input type="text" name="ip" size="27"></td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr>
+                <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">使用时间</font></b></font></td>
+                  <td > <input type="text" name="sdate" size="27" maxlength="20" value="[#sdate#]"></td>
+                  <td >(YYYY/MM/DD HH:MI)</td>
+                </tr> 
+               <tr height="35"> 
+                  <td ></td>
+                  <td > <font color="#000000"><b><font size="2">到&nbsp;&nbsp;&nbsp;&nbsp;</font></b></font></td>
+                  <td > <input type="text" name="edate" size="27" maxlength="20" value="[#edate#]"></td>
+                  <td >(YYYY/MM/DD HH:MI)</td>
+                </tr> 
+                 <tr height="35"> 
+                  <td ></td>
+                  <td> <font color="#000000"><b><font size="2">证件类别</font></b></font></td>
+                  <td ><select name="idfytype" style="width:200px">
+                  	<option value="11" selected>身份证</option>
+                  								<option value="15" >学生证</option>
+                  								<option value="90">军官证</option>
+                  								<option value="91" >警官证</option>
+                  								<option value="92">士兵证</option>
+                  								<option value="93">户口薄</option>
+                  								<option value="94">护照</option>
+                  								<option value="95">台胞证</option>
+                  								<option value="96">图书证</option>
+                  								<option value="99">其他证件</option>
+                  	</select>
+                  	</td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr>
+                 <tr height="35"> 
+                  <td ></td>
+                  <td> <font color="#000000"><b><font size="2">证件号码</font></b></font></td>
+                  <td > <select name="idfyno_match"><option value="0" >等于</option><option value="1">包含</option></select><input type="text" name="idfyno" size="27" >
+
+                  	</td>
+                  <td >&nbsp;&nbsp;</td>
+                </tr> 
+                                 
+              </table>
+              <br>
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

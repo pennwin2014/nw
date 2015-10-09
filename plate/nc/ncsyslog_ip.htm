@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center" oncontextmenu="return false" style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"><div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">Syslog 和Snmp参数配置</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="80%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="411"> <table width="100%" border="0" align="center">
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%">&nbsp;</td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> Syslog服务器IP和端口</b> </td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="89">&nbsp;</td>
+                  <td height="89" width="67%" align="center"> <table width="100%" border="0"  bordercolorlight=#848284   bordercolordark=#ffffff>
+                      <tr> 
+                        <td width="37%"> Ip地址</td>
+                        <td width="63%"> <input type="text" name="syslogip" size="18" value="[#syslogip#]"> 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28"> 端口</td>
+                        <td width="63%" height="28"> <input type="text" name="syslogport" size="8" value="[#syslogport#]" maxlength="8"> 
+                        </td>
+                      </tr>
+                     
+                      <tr> 
+                        <td width="37%" height="28"> </td>
+                        <td width="63%" height="28"> 
+                        </td>
+                      </tr>
+                     
+                     <tr> 
+                        <td width="37%" height="28"> </td>
+                      <td width="63%" height="28"> 
+                        </td>
+                      </tr>
+                     
+                     
+                     
+                    </table></td>
+                  <td width="16%" height="89">&nbsp;</td>
+                </tr>
+                
+                
+                <tr><td colspan="3">&nbsp;<hr></td></tr>
+            
+            
+            
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> SNMP配置</b> </td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="89">&nbsp;</td>
+                  <td height="89" width="67%" align="center"> <table width="100%" border="0"  bordercolorlight=#848284   bordercolordark=#ffffff>
+                      <tr> 
+                        <td width="37%"> 帐号</td>
+                        <td width="63%"> <input type="text" name="snmpaccount" size="18" value="[#snmpaccount#]"> 
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td width="37%" height="28">允许IP地址</td>
+                        <td width="63%" height="28"> <input type="text" name="snmpaccountip" size="18" value="[#snmpaccountip#]" maxlength="18"> 
+                        </td>
+                      </tr>
+                     
+                      <tr> 
+                        <td width="37%" height="28"> </td>
+                        <td width="63%" height="28"> 
+                        </td>
+                      </tr>
+                     
+                     <tr> 
+                        <td width="37%" height="28"> </td>
+                      <td width="63%" height="28"> 
+                        </td>
+                      </tr>
+                     
+                     
+                     
+                    </table></td>
+                  <td width="16%" height="89">&nbsp;</td>
+                </tr>
+            
+             
+                
+                
+                
+                
+                
+                
+                
+              
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        </table>
+      </td>
+    </tr>
+    
+    
+    
+    <tr>
+      <td height="70" ><table width="90%" border="0" align="center">
+          <tr> 
+            <td> <div align="center"> 
+                <input type="hidden" name="FunName" value="ncWebSyslog_IpSave">
+                <input type="submit" name="next" value="保 存" class="an3">
+    
+                <input type="submit" name="app" value="应 用" class="an3">
+         
+          
+                <input type="submit" name="startsys" value="启动Syslog" class="an3-1">
+           
+                <input type="submit" name="stopsys" value="停止Syslog" class="an3-1">
+        
+                          <input type="submit" name="startsnmp" value="启动SNMP" class="an3-1">
+           
+                <input type="submit" name="stopsnmp" value="停止SNMP" class="an3-1">
+           
+          
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>form1.AdmLockType.value='[#AdmLockType#]';</script>
+</body>
+</html>

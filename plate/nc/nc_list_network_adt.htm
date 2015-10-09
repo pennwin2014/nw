@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+function goto(t){
+	self.location.href=t
+}
+
+</script>
+<link REL=stylesheet HREF="/css/runmit.css" TYPE="text/css">
+
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+.tScrollnet {
+       
+	overflow-x:hidden;
+        OVERFLOW: scroll;
+        height:418px;
+        cursor: default;
+}
+-->
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" bgcolor="#DEE8FA" style="overflow:hidden">
+<form name="form_n" method="post" action="/pronline/Msg"> 
+	<input type="hidden" name="FunName" value="ncWebSetNetwork_adt"> 
+	<input type="hidden" name="sum"   value="[#sum#]"> 
+	<input type="hidden" name="id"  value="[#id#]">
+	<input type="hidden" name="flags" value="[#flags#]">
+
+<table border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff width=100% height=100% cellspacing="0" cellpadding="0"  align=center>
+<tr> 
+<td width="100%"  valign=middle align=center class="ttt">
+<table width="100%" border="0" cellspacing="0">
+<tr> 
+    <td > 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr height="28">
+	  <td>
+	   优先级&nbsp;<input type="text" name="priv" size="1" value="0">
+	    &nbsp;起始 IP&nbsp;<input type="text" name="startip" size="14" value="[#sip#]">
+	    终止 IP <input type="text" name="stopip" size="14" value="[#eip#]">
+	    &nbsp;管理方式&nbsp;<select name="flags1" style="width:85px" >
+                    	<option value="2">IP地址</option>
+                    	<option value="3">MAC地址</option>
+                    	<option value="4">本地验证</option>
+                    	<option value="5">第三方验证</option>
+                    	<option value="11">交换机端口</option>
+                    	<option value="12">VlanID</option>
+                    	<option value="9">客户端管理</option>
+                    	<option value="8">主机监控</option>
+                    	<option value="1">名字管理</option>
+                    	<option value="7">禁止访问</option>
+                    	<option value="6">免监控</option>    
+	    </select>
+	    
+	    <input type="submit" name="add" value="添 加" class="an3">
+	    <input type="submit" name="del" value="删 除" class="an3"> 
+	    
+	  </td>
+	</tr>
+
+      </table> 
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+<tr>
+<td width="100%" height="*" valign=top align=center bgcolor="#DFF0F7">
+    <div id="tC">
+        <table width="100%" border="0" cellspacing="0" leftmargin="10" cellpadding="0" bgcolor="#FFFFFF" height="100%">
+          <tr class="tableHead"><!--style="top:expression(document.getElementById('tC').scrollTop)">-->
+            <td height="20" bgcolor="#6382BD" class="bord2">&nbsp;</td>
+            <td height="18" bgcolor="#6382BD" class="bord2"><font color="#FFFFFF">&nbsp;起始IP地址</font></td>
+            <td height="18" bgcolor="#6382BD" class="bord2"><font color="#FFFFFF">&nbsp;终止IP地址</font></td>
+            <td height="18" bgcolor="#6382BD" class="bord2"><font color="#FFFFFF">&nbsp;优先级</font></td>
+            <td height="18" bgcolor="#6382BD" class="bord4" align="center"><font color="#FFFFFF">&nbsp;管理方式</font></td> 
+          </tr>
+          <!-- [#SLPB#] -->
+          <tr onMouseOver="mouseovertr2(this)" onMouseOut="mouseouttr2(this)"  > 
+            <td class="bord1" width="25">
+		<input type="checkbox" name="ch[#num#]" value="[#id#]"> 
+            </td>
+            <td class="bord1">&nbsp;[#startip#]</td>
+            <td class="bord1">&nbsp;[#stopip#]</td>
+            <td class="bord1">&nbsp;[#priv#]</td>
+            <td class="bord3">&nbsp;[#flag_desc#]</td>
+          </tr>
+          <!-- [#SLPE#] -->
+          <!-- [#SLPB#] -->
+          <tr id=[#snum#]> 
+            <td class="bord1" width="25">&nbsp; </td>
+            <td class="bord1">&nbsp;</td>
+            <td class="bord1">&nbsp;</td>
+            <td class="bord1">&nbsp;</td>
+            <td class="bord3">&nbsp;</td>
+          </tr>
+          <!-- [#SLPE#] -->
+        </table>
+    </div>
+    </form>
+      
+</table>
+
+</body>
+
+</html>

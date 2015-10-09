@@ -1,0 +1,297 @@
+<html>
+<head>
+<title>实时监控</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<style>
+.conts{visibility:hidden}
+
+
+</style>
+<script language="javascript">
+var ll=0;
+var yy=1;
+
+function setscrollvaue()
+{
+	form1.sctop.value=document.all.tC.scrollTop;
+
+}
+
+function sx()
+{
+	form1.opmsg.value='';
+
+ 	form1.submit();
+	
+}
+
+</script>
+<script LANGUAGE="JavaScript">
+//this is the tab switching function
+function goto(t){
+self.location.href=t
+}
+
+
+
+function gotoselect(t){
+	var temp_src='/pronline/Msg?FunName@ncWebOnlineSearch&flag@'+t;
+
+ tt=showModalDialog(temp_src, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:520px;scroll:yes;dialogHeight:470px');
+}
+function showform(t)
+{
+	      window.open(t,'readpost','left=100,top=50,width=700,height=600,fullscreen=0,toolbar=no,scrollbars=yes,resizable=1,menubar=no,status=0');
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function gotoPage(nun)
+{
+	if(nun<1){
+	 form1.CurPg.value=1;
+	 return;
+	}
+	if(nun>form1.TotPg.value){
+		form1.CurPg.value=form1.TotPg.value;
+		return;
+	}
+	form1.CurPg.value=nun;
+	form1.submit();
+}
+var dfd1="0"
+function allChecked(){
+    if(dfd1=="1"){
+        dfd1="0"
+    }
+    else {
+         dfd1="1"
+    }
+	for(var i=0;i<document.all.DataTable.rows.length;i++)
+	{
+		if(typeof(document.all.DataTable.rows[i].cells[0].childNodes[0])=="object"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].tagName=="INPUT"
+
+				&&document.all.DataTable.rows[i].cells[0].childNodes[0].type=="checkbox") {
+			if(dfd1=="1"){
+  			    document.all.DataTable.rows[i].cells[0].childNodes[0].checked="true";
+            }
+			else{
+                document.all.DataTable.rows[i].cells[0].childNodes[0].checked="";
+            }
+        }
+ 	}
+}
+
+function kick()
+{ 
+    var flag=0;
+    	    for(var i=1;i<document.all.DataTable.rows.length;i++)
+	    {
+	    if(document.all.DataTable.rows[i].cells[0].childNodes[0].checked)
+	    {
+		    flag=1;
+		    break;
+	    }
+	    }
+	    if(flag==0)
+	    {
+	    	alert('请先选择要踢出的用户');
+	    	return false;
+	    }
+	    	return true;
+}
+function DoSave()
+{
+	if(confirm("真的要将在线的用户信息和数据库同步吗？")) {
+        form1.save.value = "save";
+        form1.submit();
+    }
+}
+function doSort(iSort)
+{
+    form1.sortby.value = iSort;
+	  form1.submit();
+}
+function doSortip(iSort)
+{
+    form1.sortbyip.value = iSort;
+
+	  form1.submit();
+}
+
+</script>
+<style>
+.conts  {visibility:hidden}
+
+
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Hide
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+
+function showuserinfo(uid){
+	var temp="/pronline/Msg?FunName@ncWebDispUserInfo2&userid@"+uid;
+
+ showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:660px;scroll:no;dialogHeight:600px');
+}
+
+</SCRIPT>
+<style type="text/css">
+
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.gray1 { filter:gray }
+.ttbbd {  cursor: default}
+
+-->
+</style>
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="1" topmargin="0"  style="overflow:hidden" onload="setInterval('sx()',7000);">
+<form name="form1" id="form1" method="post" action="/pronline/Msg" target="main">
+
+<input type="hidden" name="FunName" value="ncWebShowUserStatus">
+<input type="hidden" name="where" value="">
+<input type="hidden" name="opmsg" value="">
+<input type="hidden" name="groupid" value="">
+<input type="hidden" name="userid" value="">
+<input type="hidden" name="username" value="">
+<input type="hidden" name="dispname" value="">
+<input type="hidden" name="flag" value="1">
+<input type="hidden" name="con_flag" value="2">
+
+<input type="hidden" name="refresh_flag" value="2">
+<input type="hidden" name="plate" value="">
+<input type="hidden" name="tjfun" value="">
+<input type="hidden" name="temp_plate" value="">
+<input type="hidden" name="sctop" value="0">
+<input type="hidden" name="labname" value="ssjk">
+<input type="hidden" name="sortbyip" value="">
+    <table border="0" width="100%"  bordercolorlight=#aaaaaa bordercolordark=#ffffff  CELLPADDING="0" CELLSPACING="0" bgcolor=#E1E5E8 >
+         <tr height="30"> 
+         <td class="tabtitle" >客人上网在线信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         <td background="/images/images2/chaxun2-1.gif" align="right">        	
+         	 <table align=right border=0 cellpadding=0 cellspacing=0 class=main width=111>
+              <tbody> 
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-06.gif' border=0 height=17 width=35 class='gray1'>")}
+                      else{
+                        document.write("<a href='#xxm'><img src='/images/zbuyer-06.gif' border=0 height=17 width=35 onClick='gotoPage(1);form1.submit()' class='hand'>")}
+                   </script></td>
+                <td width="10%"><script>
+                      if (ll==1){
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 class='gray1'>")}
+                      else {
+                        document.write("<img src='/images/zbuyer-03.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)-1);' class='hand'>")}
+                   </script></td>
+                <td width="20%"><img src="/images/zbuyer-08.gif" border=0 height=17 width=32></td>
+                <td align=middle background="" width=92>
+                    <input class=Main id=browsdopage maxlength=68 name=CurPg size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 30px" value=0 onKeyPress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" onBlur="checkme(this)">
+                </td>
+                <td width="10%"><img src="/images/zbuyer-09.gif" border=0 height=17 width=16></td>
+                <td width="10%"><img align=middle border=0 height=17 src="/images/zbuyer-10.gif" width=17 onClick="form1.submit()" class="hand"><img align=middle height=17 src="/images/zbuyer-11.gif" width=3></td>
+                                
+						    <td width="10%"><img border=0 height=17 src="/images/zin1.gif" width=17 ></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=5 name=TotPg size=3 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img align=middle height=17 src="/images/zbuyer-09.gif" width=16></td>
+						    <td align=middle background="" width=92> 
+						      <input  class=Main id=browsdopage1 maxlength=8 name=TotRec size=8 style="FONT-SIZE: 12px; HEIGHT: 17px; TEXT-ALIGN: center; WIDTH: 40px" value='0'>
+						    </td>
+						    <td width="10%"><img border=0 height=17 src="/images/zin3.gif" width=17 align="middle" ><img align=middle height=17  src="/images/zbuyer-11.gif" width=3></td>
+						                
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-04.gif' border=0 height=17 width=20 onClick='gotoPage(parseInt(form1.CurPg.value)+1);' class='hand'>")}
+                    </script></td>
+                <td width="10%"><script>
+                        if (ll==yy){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else if (yy==0){
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 class='gray1'>")}
+                        else{
+                            document.write("<img src='/images/zbuyer-05.gif' border=0 height=17 width=36 onClick='gotoPage(form1.TotPg.value);' class='hand'>")}
+                    </script></td>
+              </tbody> 
+            </table>  
+         	         	
+         	</td>
+         </tr>
+                 
+         </table>
+
+		<tr >
+			<td colspan="10" valign="top" width="100%" style="position:relative;top:-2px">			
+
+				 <table width="100%" height="26" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/images2/table_bg8.jpg">
+				          <tr > 
+				          	<td  >
+				          		<div id="wlj" >
+	                   <input type="text" name="cond"  size="14" maxlength="31" value="[#cond#]"> 
+	                  <select name="flow_flag" ><option value="">不限</option><option value="1" selected>有流量</option><option value="2">无流量</option></select>     
+	                  排序&nbsp;<select name="sortby" style="width:60px"><option value="1">姓名</option><option value="2">部门</option><option value="3">IP地址</option><option value="4">MAC地址</option><option value="5">开始时间</option><option value="6">最后时间</option><option value="7">流量</option><option value="9">数据包数</option><option value="11">包平均流量</option></select><select name="orderby" style="width:40px"><option value="1">升</option><option value="0">降</option></select>
+	                 <input name="search" type="submit" class="an3" value="查 询" onclick="form1.CurPg.value='1'">
+	                 <input name="del" type="submit" class="an3" value="踢 出" onclick="return kick()">
+	                 <input name="dd" class="an3" type="button"  value="同 步" onClick="DoSave()">  
+				          		</div>
+				          	</td>
+				          	<td><div id="wljtitle" align="center">&nbsp;</div></td>
+				          	<td>
+				          		<div id="wlj3" align="right">&nbsp;</div>
+				          	</td>
+				           
+				        <td width="32%" height="23"> 
+             
+            </td>
+				            	
+				    </tr>    
+				</table>	
+		 </td>
+		</tr>	
+		
+<tr> 	
+<td HEIGHT="*" COLSPAN="10" ID="tabContents" align="left" valign="top"> 
+<div id="ff" name='ff' ></div>
+</td></tr>
+</table>
+
+	</form>	
+
+
+	<iframe name="main" id="data1" style="display:none" src="/pronline/Msg?FunName@ncWebShowUserStatus&flag@1"> </iframe>
+
+</body>
+</html>

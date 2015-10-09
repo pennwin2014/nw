@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-small;
+	color: #330000;
+}
+-->
+</style>
+<script>
+	function dopost() {
+		form1.submit();
+	}
+	
+
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  onload="doleft()" align="center" >
+<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="qosid" value="[#qosid#]">
+	<input type="hidden" name="qoslevel" value="[#qoslevel#]">
+
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr>
+      <td valign="top"><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">[#title#]带宽策略</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td valign="top">
+        <table width="85%" border="1"   align="center" cellpadding="0" cellspacing="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff>
+          <tr> 
+            <td ><br>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="19%" height="23"> <div align="right">带宽策略名称&nbsp;</div></td>
+                  <td width="38%" height="23"> <input name="qosname" type="text" id="qosname" value="[#qosname#]" size="15" maxlength="16" > 
+                  </td>
+                  <td width="43%" height="23">标识带宽。</td>
+                </tr>
+            
+                
+                <tr> 
+                  <td width="19%" height="20" > <p align="right">上行限制带宽&nbsp;</td>
+                  <td width="38%" height="20" > <input name="qosminup" type="hidden" id="qosminup" value="0" size="8" maxlength="11">
+                    <input name="qosmaxup" type="text" id="qosmaxup" value="[#qosmaxup#]" size="8" maxlength="11"></td>
+                  <td width="43%" height="16" >单位为 Kbps, (每秒Kbit)
+                  </td>
+                </tr>
+                
+                 <tr> 
+                  <td width="19%" height="20" > <p align="right">下行限制带宽&nbsp;</td>
+                  <td width="38%" height="20" > <input name="qosmindown" type="hidden" id="qosmindown" value="0" size="8" maxlength="11">
+                   <input name="qosmaxdown" type="text" id="qosmaxdown" value="[#qosmaxdown#]" size="8" maxlength="11"></td>
+                  <td width="43%" height="16" >单位为 Kbps, (每秒Kbit)
+                  </td>
+                </tr>
+                
+                
+                   <tr> 
+                  <td width="19%" height="20" > <p align="right">上级带宽策略 &nbsp;</td>
+                <td width="38%" height="20" ><select name="qos0" style="width:120px;"><option value="0">无</option>[#SLPB#]<option value="[#qsid#]">[#qname#]</option>[#SLPE#]</select>
+                    &nbsp</td>
+                  <td width="43%" height="16" >本级策略受上级策略控制
+                  </td>
+                </tr>
+             
+                <tr> 
+                  <td width="19%" height="20" > <p align="right">策略类别 &nbsp;</td>
+                <td width="38%" height="20" ><select name="qostype" style="width:120px;"><option value="0">共享</option><option value="1">独占</otion></select>
+                    &nbsp</td>
+                  <td width="43%" height="16" >共享指的是将策略分配给用户后，用户共享策略中定义的带宽;独占指的是每个用户分配到一个策略中定义的带宽。
+                  </td>
+                </tr>
+
+                <tr>
+                  <td height="16">&nbsp;</td>
+                  <td height="16">&nbsp;</td>
+                  <td height="16" class="style2">&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr height="25"><td>&nbsp;</td></tr>
+        </table>
+        <br>
+      </td>
+    </tr>
+    <tr> 
+      <td height="70"> 
+        <div align="center"> 
+          <table width="50%" border="0" align="center">
+            <tr> 
+              <td> <div align="right">
+                 
+                  <input type="hidden" name="FunName" value="ncWebTcProcy_newSave">
+                  <input name="ok" type="submit" class="an3" id="ok2" value="确 认" >
+                 
+                  
+                  &nbsp; </div></td>
+            </tr>
+          </table>
+
+        </div></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	form1.qostype.value='[#qostype#]';
+	form1.qos0.value='[#qos0#]';
+</script>
+</body>
+</html>

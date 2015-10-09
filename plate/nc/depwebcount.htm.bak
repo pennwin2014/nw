@@ -1,0 +1,227 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+<!--
+body {  font-size: 9pt}
+.tas {  border-color: black #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 1px}
+table {  font-size: 9pt}
+.hand {  cursor: hand}
+.gray1{filter:gray}
+-->
+</style>
+
+<script language="JavaScript">
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v3.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function MM_findObj(n, d) 
+{ //v4.0
+  	var p,i,x;
+  	if(!d) d=document;
+  	if((p=n.indexOf("?"))>0&&parent.frames.length)
+  	{
+    	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+    }
+  	if(!(x=d[n])&&d.all) x=d.all[n];
+  	for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  	for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  	if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_changeProp(objName,x,theProp,theValue)
+{ //v3.0
+  	var obj = MM_findObj(objName);
+  	if (obj && (theProp.indexOf("style.")==-1 || obj.style)) eval("obj."+theProp+"='"+theValue+"'");
+}
+
+function  doCon(){
+  self.location.href="/pronline/Msg?FunName@ncDeptFlowDispForm&opt@[#caOpt#]&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#caGroupid#]&recnum@[#recnum#]&time@[#time#]";
+}
+function lprint(){
+
+	for(i=1;i<=[#totpage#];i++)
+	{
+	eval("document.all.lpr"+i).style.display="none";
+	eval("document.all.con"+i).style.display="none";
+	eval("document.all.export"+i).style.display="none";
+	eval("document.all.opt"+i).style.display="none";
+	}
+
+  window.print()
+for(i=1;i<=[#totpage#];i++)
+	{
+	eval("document.all.lpr"+i).style.display="";
+	eval("document.all.con"+i).style.display="";
+	eval("document.all.export"+i).style.display="";
+	eval("document.all.opt"+i).style.display="";
+	}
+}
+function  doExport(){
+     self.location.href="/pronline/Msg?FunName@DeptWebCount&opt@[#caOpt#]&userid@[#userid#]&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#groupid#]&time@[#time#]&recnum@[#recnum#]&export@Exp ";
+
+}
+function gotopage(num)
+{
+var curpg=parseInt([#CurPg#])+num;
+var temp="/pronline/Msg?FunName@ncJstxFlowCount&opt@[#caOpt#]&userid@[#userid#]&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#caGroupid#]&recnum@[#recnum#]&CurPg@";
+temp=temp+curpg;
+
+self.location.href=temp;
+}
+
+function MM_reloadPage(init)
+{  //reloads the window if Nav4 resized
+  	if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+function tb(num)
+{
+
+        var temp;
+        temp="/pronline/Msg?FunName@ncWebReplace&plate@nc/depcountzzt.htm&sdate1@[#sdate1#]&sdate2@[#sdate2#]&sort@[#sort#]&groupid@[#caGroupid#]&recnum@[#recnum#]&opedesc@[#opedesc#]&opt@"+eval('document.all.opt'+num).value;
+        self.location.href=temp;
+	
+}
+
+// -->
+<!-- Hide
+
+function killErrors() {
+return true;
+}
+window.onerror = killErrors;
+// -->
+</SCRIPT>
+<style type="text/css">
+<!--
+.tScrollw {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+    overflow-x:hidden;
+    height:560px;
+    cursor: default;
+    }
+  tr.tableHead {
+    position:relative;
+    height: 18px; 
+    text-align: center;
+    }
+ -->   
+</style>
+
+</head>
+   <div class="tScrollw"  id="tC">
+[#SLPB#]
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" style="overflow:hidden">
+
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+ 
+    <tr> 
+      <td valign="bottom" class="ttt"> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr height="26"> 
+           
+            <td width="40%"> 
+             &nbsp;<input name="con[#ipage#]" type="button" class="an3" value="统计条件" onClick="doCon()">  
+              <input name="export[#ipage#]" type="button" class="an3" value="导 出" onclick="doExport()">
+              <input name="lpr[#ipage#]" type="button" class="an3" value="打 印" onClick="lprint()">
+              图表类型
+              <select name="opt[#ipage#]" style="width:100" onchange="tb('[#ipage#]')">         
+                      <option value="1">表格</option>
+                      <option value="2">流量柱状图</option>
+                      <option value="6">平均流量柱状图</option>
+                      <option value="7">平均时间柱状图</option>
+                      <option value="3">时间柱状图</option>
+                      <option value="4">流量饼图</option>
+                      <option value="5">时间饼图</option>
+               </select>                
+              
+              </td>
+              <td width="46%" align="center">
+              <font color="#000000" style="font-size:11pt"><strong>部门上网情况月报表</strong></font> <b>（从[#sdate1#]&nbsp;[#stime#]到[#sdate2#]&nbsp;[#etime#])</b>
+                  </td>
+              <td width="14%">
+             [#prepag#]
+             [#nextpag#]
+              </td>
+
+          </tr>
+
+        </table>
+        <div id="plabel"> </div>
+      </td>
+    </tr>
+  </table>
+ 
+
+  <table  cellspacing=0  cellpadding="0" bordercolor="#DFDFDF" border="0" align="center" width=100%>
+ <tr align="center" valign="middle" class="tableHead" style="top:expression(document.getElementById('tC').scrollTop)"> 
+    <td width="10%" height="20" bgcolor="#6382BD"  class="bord2"> 
+      <div align="center"><font color="#FFFFFF">序号</font></div></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">部门</font></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord2"><font color="#FFFFFF">总上网流量(M)</font></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord2"> <font color="#FFFFFF">总上网时间(H)</font></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord2"> <font color="#FFFFFF">平均流量(M/人)</font></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord2"> <font color="#FFFFFF">平均上网时间(H/人)</font></td>
+    <td  width="15%" height="20" bgcolor="#6382BD"  class="bord4"> <font color="#FFFFFF">上网人数</font></td>
+  </tr>
+
+  [#SLPB#]
+  <tr bgcolor="#FFFFFF"> 
+    <td  height="17"  class="bord1" align="center"> &nbsp;[#iNum#]</td>
+    <td   height="17"  class="bord1">&nbsp;[#groupname#]</td>
+    <td   height="17"  class="bord1" align="right">[#flow#]&nbsp;</td>
+    <td   height="17"  class="bord1" align="right">[#tottime#]&nbsp;</td>
+    <td   height="17"  class="bord1" align="right">[#avflow#]&nbsp;</td>
+    <td   height="17"  class="bord1" align="right">&nbsp; [#avtime#]&nbsp;</td>
+     <td   height="17"  class="bord3" align="right">&nbsp; [#lcount#]&nbsp;</td>
+  </tr>
+     [#SLPE#] 
+  </table>
+
+<p>&nbsp;</p>
+<p align="center">第 [#ipage1#]页</p>
+[#breakpage#]
+
+</body>
+
+[#SLPE#]
+</div>
+</html>

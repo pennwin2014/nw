@@ -1,0 +1,130 @@
+#菜单定义
+#
+#     #---注释    1--主菜单   2--二级菜单   H--竖线    L--横线    0--快捷键 M--主文件
+#     Title       ICON            URL                                                     Allowed  
+1     设置(F)
+2     网络设置     /images/blank.gif goto('/nc_networkset.htm');goto2('/no.htm');parent.go_hide()                                 1
+2     用户管理     /images/blank.gif goto('/pronline/Msg?FunName@ncWebUserSearch');goto2('/nc_usermgr_left.htm');parent.go_show() 1
+2     带宽限制     /images/blank.gif goto('/pronline/Msg?FunName@ncWebShowUserRandWidth');goto2('/pronline/Msg?FunName@ncWebListGroupTree&plate@nc/nc_tree_width.htm');parent.go_show() 1
+2     上网时间控制 /images/blank.gif goto('/pronline/Msg?FunName@ncWebTimeControl');goto2('/pronline/Msg?FunName@ncWebListGroupTree&plate@nc/nc_tree_timectl.htm');parent.go_show() 1
+2     系统参数设置 /images/blank.gif goto('/pronline/Msg?FunName@ncWebSystemSet_par');goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_syssettree.htm');parent.go_show() 1
+L     ============
+2     退出         /images/blank.gif parent.close() 1
+###########################################################
+1     察看(V)
+2     在线用户     /images/blank.gif goto('/pronline/Msg?FunName@ncWebShowUserStatus');goto2('/no.htm');parent.go_hide() 1
+2     当前IP访问   /images/blank.gif goto('/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_tree_monip.htm');parent.go_show() 1
+2     当前Web访问  /images/blank.gif  goto('/pronline/Msg?FunName@ncWebReplace&plate@ncnewweb_00.htm');goto2('/nc_monweb_left.htm');parent.go_show() 1
+2     当前出口流量 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountTotalFlow&unit@日&ctype@1');goto2('/no.htm');parent.go_hide() 1
+L     ============
+2     IP访问查询   /images/blank.gif  goto('/pronline/Msg?FunName@ncWebQyeIp&userid@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_tree_qyeip.htm');parent.go_show() 1
+2     网站访问查询 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebQyehttp&userid@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_tree_qyeweb.htm');parent.go_show() 1
+##########################################################
+1     统计(C)
+2     访问流量统计 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebFlowCount&opt@1&way@1&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_flow_count_tree.htm');parent.go_show() 1
+2     访问时间统计 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebFlowCount&opt@1&way@2&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_time_count_tree.htm');parent.go_show() 1
+2     网站访问统计 /images/blank.gif   goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_webuse_left.htm&recnum@30');goto('/pronline/Msg?FunName@ncWebuseDispForm&recnum@30&sort@0');parent.go_show() 1
+2     上网情况统计 /images/blank.gif   goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_netuse_left.htm&recnum@30');goto('/pronline/Msg?FunName@ncWebuseDispNetForm&recnum@30&sort@0');parent.go_show() 1
+2     IC卡上网统计 /images/blank.gif   goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_icuse_left.htm&recnum@50');goto('/pronline/Msg?FunName@ncWebuseDispIcForm&recnum@50&sort@0');parent.go_show() 1
+2     访问排行榜   /images/blank.gif   goto('/pronline/Msg?FunName@ncWebSortUserByFlow&group@W&order@F');goto2('/nc_sort.htm');parent.go_show() 1
+##########################################################
+1     图表(T)
+2     访问流量分析 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountIp&opt@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_count_flow_tree.htm');parent.go_show()  1
+2     访问时间分析 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountIp&opt@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_count_time_tree.htm');parent.go_show()  1
+2     出口流量统计 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountTotalFlow&unit@日&ctype@1');goto2('/no.htm');parent.go_hide()  1
+##########################################################
+1     内容监控
+2     监控邮件内容查看 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebMailMonList&flags@0&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmon.htm');parent.go_show() 1
+2     监控邮件分类查看 /images/blank.gif   goto('/pronline/Msg?FunName@ncMailMonFl_list&tid@1&tname@缺省邮件&CurPg@1');goto2('/pronline/Msg?FunName@ncWebSetMailGroup&plate@mail/nc_tree_mailmonfl.htm');parent.go_show() 1
+2     外发表单内容查看 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebUploadList&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_upload.htm');parent.go_show() 1
+2     外发表单分类查看 /images/blank.gif   goto('/pronline/Msg?FunName@ncMailFrmFl_list&tid@1&tname@缺省表单&CurPg@1');goto2('/pronline/Msg?FunName@ncWebSetFrmGroup&plate@mail/nc_tree_formmonfl.htm');parent.go_show() 1
+2     内容备份情况查看 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebShowMailBack&cond@mailmon');goto2('/no.htm');parent.go_hide() 1
+L     ================
+2     监控邮件收发统计 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebCountMailMonByBm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmoncontu.htm');parent.go_show() 1
+2     邮件收发数量分析 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebCountMailMon&opt@1&way@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmoncharc.htm');parent.go_show() 1
+2     邮件收发流量分析 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebCountMailMon&opt@0&way@2');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmoncharf.htm');parent.go_show() 1
+L     ================
+2     监控邮件分类定义 /images/blank.gif goto('/pronline/Msg?FunName@ncWebSetMailGroup&plate@mail/nc_mail_group.htm');goto2('/pronline/Msg?FunName@ncWebSetMailGroup&plate@mail/nc_mailmonsettree.htm');parent.go_show()  1
+2     外发表单分类定义 /images/blank.gif goto('/pronline/Msg?FunName@ncWebSetFrmGroup&plate@mail/nc_form_group.htm');goto2('/pronline/Msg?FunName@ncWebSetFrmGroup&plate@mail/nc_mailfrmsettree.htm');parent.go_show()  1
+L     ================
+##########################################################
+1     邮件拦截
+2     拦截邮件内容查看 /images/blank.gif  goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_mailbak_tree.htm');goto('/pronline/Msg?FunName@ncWebMailCtlList&userid@0');parent.go_show()  1
+2     拦截邮件分类查看 /images/blank.gif  goto('/pronline/Msg?FunName@ncMailCtlFl_list&flags@0&CurPg@1');goto2('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_tree_mailctlfl.htm');parent.go_show() 1
+2     拦截邮件备份记录 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebShowMailBack&cond@mailctl');goto2('/no.htm');parent.go_hide() 1
+2     拦截邮件审计     /images/blank.gif  goto('/pronline/Msg?FunName@ncWebMailCtlAuditlst&flags@4');goto2('/no.htm');parent.go_hide()  1
+2     拦截邮件审计日志 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebMailCtlAuditlst&flags@5');goto2('/no.htm');parent.go_hide()  1
+L     ================
+2     拦截邮件收发统计 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountMailCtlByBm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcontu.htm');parent.go_show() 1
+2     拦截邮件状态统计 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountMailByStatus');goto2('/no.htm');parent.go_hide()  1
+2     拦截邮件数量分析 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountMailCtl&opt@1&way@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcharc.htm');parent.go_show() 1
+2     拦截邮件流量分析 /images/blank.gif  goto('/pronline/Msg?FunName@ncWebCountMailCtl&opt@0&way@2');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailctlcharf.htm');parent.go_show() 1
+L     ================
+2     邮件拦截规则设置 /images/blank.gif goto('/pronline/Msg?FunName@ncMailCtlTypeList&usertype@0&gid@0&gname@全部');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_mailctl_tree1.htm');parent.go_show()  1
+2     拦截邮件分类定义 /images/blank.gif goto('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_mail_ctlgroup.htm');goto2('/pronline/Msg?FunName@ncWebMailCtlFl&plate@mail/nc_mailctlsettree.htm');parent.go_show()  1
+L     ================
+##########################################################
+1     访问控制
+2     设定访问控制         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_lim_setuptree.htm');parent.go_show()  1
+2     设定缺省访问         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimShowDefault');goto2('/no.htm');parent.go_hide() 1
+L     ================
+2     定义网址库访问策略     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimWebPolList&plate@nc/nc_limwebpolgroup.htm');goto2('/pronline/Msg?FunName@ncWebLimWebPolList&plate@nc/nc_limwebpoltree.htm');parent.go_show() 1
+2     定义网络应用策略     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimIpPolList&plate@nc/nc_limippolgroup.htm');goto2('/pronline/Msg?FunName@ncWebLimIpPolList&plate@nc/nc_limippoltree.htm');parent.go_show() 1
+2     定义访问控制策略     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimRuleGroup&plate@nc/nc_limrulegroup.htm');goto2('/pronline/Msg?FunName@ncWebLimRuleGroup&plate@nc/nc_limruletree.htm');parent.go_show() 1
+L     ================
+2     网站地址分类     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimWebListSearch');goto2('/pronline/Msg?FunName@ncWebLimWebTypeTree&plate@nc/nc_limwebtree.htm');parent.go_show() 1
+2     网络应用分类     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimIpList&CurPg@1');goto2('/pronline/Msg?FunName@ncWebLimIpGroup&plate@nc/nc_limiptree.htm');parent.go_show() 1
+2     限制日期分类     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebLimDateList&CurPg@1&name@全部日期');goto2('/pronline/Msg?FunName@ncWebLimDateGroup&plate@nc/nc_limdatetree.htm');parent.go_show()  1
+L     ================
+2     访问控制测试     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebReplace&plate@test/nc_test_vcontrol.htm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@test/nc_lim_testtree.htm');parent.go_show()  1
+##########################################################
+1     防火墙
+2     基本参数设置         /images/blank.gif   goto('/pronline/Msg?FunName@fireWebDispDefault');goto2('/pronline/Msg?FunName@ncWebReplace&plate@firewall/fire_setuptree.htm');parent.go_show()  1
+L     ================
+2     包过滤规则设置             /images/blank.gif   goto('/pronline/Msg?FunName@fireWebRuleEdit');goto2('/no.htm');parent.go_hide() 1
+2     源地址伪装                 /images/blank.gif   goto('/pronline/Msg?FunName@fireWebSnatEdit');goto2('/no.htm');parent.go_hide() 1
+2     内外地址映射               /images/blank.gif   goto('/pronline/Msg?FunName@fireWebNatipEdit');goto2('/no.htm');parent.go_hide() 1
+2     端口地址重定向             /images/blank.gif   goto('/pronline/Msg?FunName@fireWebNatportEdit');goto2('/no.htm');parent.go_hide() 1
+L     ================
+2     应用规则             /images/blank.gif   goto('/pronline/Msg?FunName@fireWebRunScript');goto2('/no.htm');parent.go_hide() 1
+2     取消规则             /images/blank.gif   goto('/pronline/Msg?FunName@fireWebUnRunScript');goto2('/no.htm');parent.go_hide() 1
+##########################################################
+
+1     系统(S)
+2     系统用户管理     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebAdminUserList');goto2('/no.htm');parent.go_hide() 1
+2     系统在线信息     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebShowSystemInfo');goto2('/no.htm');parent.go_hide() 1
+2     基础数据备份     /images/blank.gif   goto('/pronline/Msg?FunName@ncWebBackupBaseInfo');goto2('/no.htm');parent.go_hide() 1
+2     网络访问备份信息 /images/blank.gif   goto('/pronline/Msg?FunName@ncWebShowMailBack&cond@netlog');goto2('/no.htm');parent.go_hide() 1
+2     密码修改         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebDispModiPass');goto2('/no.htm');parent.go_hide() 1
+2     用户刷新         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebRefreshUser');goto2('/no.htm');parent.go_hide() 1
+L     ============
+2     系统关机         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebReplace&plate@shutdown.htm');goto2('/no.htm');parent.go_hide()  1
+##########################################################
+1     帮助(H)
+2     新网程           /images/blank.gif   window.open('http://www.pronetway.com','ccx','') 1
+2     在线帮助         /images/helps1.gif  showModalDialog('aboutus.htm', window, 'status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:400px;scroll:auto;dialogHeight:280px')  1
+2     在线升级         /images/blank.gif   goto('/pronline/Msg?FunName@ncWebUpgrade_1');goto2('/no.htm');parent.go_hide() 1
+2     关于...          /images/blank.gif   goto('/about.htm');goto2('/no.htm');parent.go_hide()  1
+##########################################################
+0     在线用户         /images/kouser.gif    goto('/pronline/Msg?FunName@ncWebShowUserStatus');goto2('/no.htm');parent.go_hide() 1
+0     当前Ip访问       /images/koip.gif      goto('/pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_tree_monip.htm');parent.go_show() 1
+0     当前Web访问      /images/koweb.gif    goto('/pronline/Msg?FunName@ncWebReplace&plate@ncnewweb_00.htm');goto2('/nc_monweb_left.htm');parent.go_show() 1
+0     监控邮件         /images/mailmon.gif   goto('/pronline/Msg?FunName@ncWebMailMonList&flags@0&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_mailmon.htm');parent.go_show() 1
+0     表单内容         /images/mailfrm.gif   goto('/pronline/Msg?FunName@ncWebUploadList&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@mail/nc_tree_upload.htm');parent.go_show() 1
+H     ===========
+0     排行榜           /images/vsort.gif     goto('/pronline/Msg?FunName@ncWebSortUserByFlow&group@W&order@F');goto2('/nc_sort.htm');parent.go_show() 1
+0     流量统计         /images/ans13.gif   goto('/pronline/Msg?FunName@ncWebFlowCount&opt@1&way@1&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_flow_count_tree.htm');parent.go_show()  1
+0     时间统计         /images/ctime.gif    goto('/pronline/Msg?FunName@ncWebFlowCount&opt@1&way@2&CurPg@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_time_count_tree.htm');parent.go_show() 1
+H     ============
+0     流量分析         /images/ans16.gif   goto('/pronline/Msg?FunName@ncWebCountIp&opt@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_count_flow_tree.htm');parent.go_show() 1
+0     时间分析         /images/ftime.gif   goto('/pronline/Msg?FunName@ncWebCountIp&opt@1');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_count_time_tree.htm');parent.go_show() 1
+H     ===========
+0     系统参数         /images/ans14.gif goto('/pronline/Msg?FunName@ncWebSystemSet_par');goto2('/pronline/Msg?FunName@ncWebReplace&plate@nc/nc_syssettree.htm');parent.go_show() 1
+0     网络设置         /images/snetwork.gif goto('/nc_networkset.htm');goto2('/no.htm');parent.go_hide()                                 1
+0     用户管理         /images/ans4.gif    goto('/pronline/Msg?FunName@ncWebUserSearch');goto2('/nc_usermgr_left.htm');parent.go_show() 1
+0     访问控制         /images/vcontrol.gif   goto('/pronline/Msg?FunName@ncWebLim_Dispmenu&plate@nc/nc_lim_setmenu.htm&gtype@3&id@0');goto2('/pronline/Msg?FunName@ncWebListUserTree&plate@nc/nc_lim_setuptree.htm');parent.go_show()  1
+H     ===========
+0     系统信息         /images/sysinfo.gif   goto('/pronline/Msg?FunName@ncWebShowSystemInfo');goto2('/no.htm');parent.go_hide() 1
+
+##########################################################
+M     主页             /nc_monip_left.htm  /pronline/Msg?FunName@ncWebReplace&plate@ncusermon_00.htm

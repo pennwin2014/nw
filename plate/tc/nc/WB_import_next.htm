@@ -1,0 +1,128 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<script language="javascript">
+
+
+function goBack()
+{
+	history.back();
+	return false;
+}
+
+
+</script>
+
+<body bgcolor="#DEE8FA">
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+  
+  <tr> 
+    <td align="center"> 
+    	<form action="/pronline/Msg" method="post"  name="form1" >
+    	<input name="FunName" type="hidden" value="whilteblank_imp">
+    	<input type="hidden" name="fname" value="[#fname#]">
+        <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center"> 
+              <table width="100%" border="1" align="center" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+
+                <tr> 
+                  <td align="center">
+                    <table width="100%" border="0" align="center" cellpadding="0"  bgcolor="#DEE8FA">
+
+                      <tr>
+                        <td width="16%" height="25"><div align="right">MAC地址&nbsp;</div></td>
+                        <td width="84%" height="25" valign="baseline">
+                        <select name="mac" style="width:300px">
+                        <option value="[#mac_num#]">[#mac#]</option>
+                        [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">IP地址&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="ip" style="width:300px">
+                        <option value="[#ip_num#]">[#ip#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">物理位置&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="position" style="width:300px">
+                       <option value="[#position_num#]">[#position#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="0">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="25"><div align="right">备注&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="disp" style="width:300px">
+                       <option value="[#disp_num#]">[#disp#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="0">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right">管理方式&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="adminflag" style="width:300px">
+                        <option value="0">禁止上网</option>
+            			      <option value="1">允许上网</option>
+            			      <option value="2">免监控</option>
+            			      <option value="3">本地验证</option>
+                    	  <option value="4">第三方验证</option>
+                         </select>
+                        </td>
+                      </tr>
+                                                   
+                      <tr>
+                        <td height="25"><div align="right">忽略第一行</div></td>
+                        <td height="25" valign="baseline"><input type="checkbox" name="first" value="checkbo"  >
+                        	&nbsp;&nbsp;导入前是否删除原来的信息<input type="checkbox" name="delflag" value="checdel">
+                        	</td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right"> </div></td>
+                        <td height="25" valign="baseline" id="xxm2"> <input name="ok" type="button" class="anuse3" id="ok" value="确 认" onclick="form1.submit();document.all.ok.disabled=1;document.all.xxm2.innerHTML='<font color=red size=3>正在导入,请稍候...</font>' ">
+                        <input name="return" type="button" onClick="javascript:history.back();"   class="anuse3" value="返 回"></td>
+                      </tr>
+                     
+                    </table></td>
+                </tr>
+              </table>
+</td>
+
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

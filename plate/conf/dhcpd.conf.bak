@@ -1,0 +1,33 @@
+ddns-update-style interim;
+ignore client-updates;
+[#SLPB#]
+subnet [#netid#] netmask [#netmask#] {
+
+# --- default gateway
+	option routers			[#routers#];
+	option subnet-mask		[#subnetmask#];
+
+	option nis-domain		"domain.org";
+	option domain-name		"domain.org";
+	option domain-name-servers	[#dnsserver#];
+
+	option time-offset		-18000;	# Eastern Standard Time
+#	option ntp-servers		192.168.1.1;
+#	option netbios-name-servers	192.168.1.1;
+# --- Selects point-to-point node (default is hybrid). Don't change this unless
+# -- you understand Netbios very well
+#	option netbios-node-type 2;
+
+	range dynamic-bootp [#iprange#];
+	default-lease-time [#defleasetime#];
+	max-lease-time [#maxleasetime#];
+
+	# we want the nameserver to appear at a fixed address
+	[#SLPB#]
+	host [#name#] {
+		hardware ethernet [#mac#];
+		fixed-address [#ip#];
+	}
+	[#SLPE#]
+}
+[#SLPE#]

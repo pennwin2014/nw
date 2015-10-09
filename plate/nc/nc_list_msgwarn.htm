@@ -1,0 +1,71 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<SCRIPT LANGUAGE="JavaScript">
+var ll='[#CurPg#]';
+var yy='[#TotPg#]';
+parent.form1.CurPg.value=ll;
+parent.form1.TotPg.value=yy;
+parent.form1.TotRec.value='[#TotRec#]';
+
+function w1()
+{
+	  var yy='<tbody>';
+	  yy=yy+'<div  class="tScroll" id="tC" onscroll="setscrollvaue()"> ';
+	  yy = yy + '<table cellspacing=0 bordercolor="#DFDFDF" class="listDataTable" border="0" width="100%" align="center">';	  
+	  yy = yy + '<tr bgcolor="#6382BD" height="20" class="tableHead" style="top:expression(document.getElementById(\'tC\').scrollTop)"> ';
+    yy = yy + '<td width="14%"  class="bord2"> <font color="#FFFFFF">用户名</font></td>';
+    yy = yy + '<td width="12%"  class="bord2"> <font color="#FFFFFF">部 门</td>';
+    yy = yy + '<td width="12%"  class="bord2"> <font color="#FFFFFF">时 间</td>';
+    yy = yy + '<td width="10%"  class="bord2"> <font color="#FFFFFF">告警级别 </font></td>';
+    yy = yy + '<td width="52%"  class="bord2" > <font color="#FFFFFF">内容</font></td>';
+    yy=yy+'</tr>';
+
+// [#SLPB#]
+ 
+  yy = yy + '<tr bgcolor="#ffffff" onmouseover="mouseovertr2 (this)" onmouseout="mouseouttr2 (this)"  ondblclick=window.open("/pronline/Msg?FunName@ncWebReplace&plate@nc/ncimmon_00.htm&userid@[#userid#]&mid@[#mid#]")>';
+  yy = yy + '<td  class="bord1"  nowrap title="[#username#]" >&nbsp;&nbsp;[#username#]</td>';
+  yy = yy + '<td  class="bord1"  nowrap title="[#groupname#]" >&nbsp;[#groupname#]</td>';
+  yy = yy + '<td  class="bord1"  nowrap  valign="top">&nbsp;[#sdate#]</td>';
+  yy = yy + '<td  class="bord1"  nowrap  valign="top">&nbsp;[#service#]</td>';
+  yy = yy + '<td  class="bord3"  nowrap  valign="top">&nbsp;[#mesg#] </td>';
+  yy = yy + '</tr>';
+// [#SLPE#]
+
+          <!-- [#SLPB#] -->
+  yy = yy + '<tr id=[#snum#] bgcolor="#ffffff">';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord1" >&nbsp;</td>';
+  yy = yy + '<td class="bord3" >&nbsp;</td>';
+  yy = yy + '</tr>';
+          <!-- [#SLPE#] -->  
+  yy=yy+'</table>';
+    yy=yy+'</div>';
+  yy = yy + '</tbody>'
+
+  var temp_desc;
+  temp_desc='<b style="font-size: 10pt;color:#333333;">&nbsp;[#title_name#]实时告警信息</b>';
+
+	parent.document.all.wljtitle.innerHTML=temp_desc;
+  parent.document.all.wlj3.innerHTML=("");
+  parent.document.all.ff.innerHTML=(yy);
+  
+  parent.document.getElementById("tC").scrollTop=parent.form1.sctop.value;
+}
+
+
+
+ </SCRIPT> 
+
+</head>
+<body bgcolor="#AFAFC0" text="#000000" oncontextmenu="return false" topmargin="0" leftmargin="0" >
+<SCRIPT LANGUAGE="JavaScript">
+setTimeout(' w1()',1000)
+ </SCRIPT> 
+</body>
+</html>

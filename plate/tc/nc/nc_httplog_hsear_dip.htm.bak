@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<script>
+var dfd1="0"
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+	
+}
+function passdate()
+{
+if('[#TotRec#]'>'1'){
+parent.form1.lcount.value='[#TotRec#]';
+}
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#333333;">[#title_name#] 网站访问日志</b>';
+}
+function showuserinfo(uid){
+	var temp="/pronline/Msg?FunName@ncWebDispUserInfo2&userid@"+uid;
+
+ showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:660px;scroll:no;dialogHeight:600px');
+}
+</script>
+
+<script src="/js/drawtable.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+
+var recordID = null;
+var Table = new FlexibleTable ('flexibleTable', '100%', '570', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('姓名', '本人地址', '网址', '网址类别','目标ip','访问时间','流量','网页快照');
+Table.ColumnsWidth ('80', '80', '270', '80', '100', '100', '60','60');
+Table.HeaderAligment ('center', 'center','center', 'center', 'center', 'center', 'center','center');
+Table.BodyAligment ('left', 'left', 'left','left', 'left','center', 'right','left');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('<a href="#xxm" onclick=showuserinfo("[#userid#]")>&nbsp;[#dispname#] </a>','&nbsp;[#sip#]','&nbsp;<a href="[#urllnk#]" target="_blank">[#url#]</a>','&nbsp;[#urltype#]','&nbsp;[#dip#]','&nbsp;[#sdate#]','[#bytes#]&nbsp;','&nbsp;[#wykz#]');
+[#SLPE#]
+
+//-->
+</SCRIPT>
+
+
+<style type="text/css">
+<!--
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<BODY oncontextmenu="return false;" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#eaf3f5" leftMargin=2 topMargin=2 scroll=no onload="Table.Draw();passdate()">
+	<form name="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" name="where"      value="[#where#]">
+		<TABLE style="BORDER-RIGHT: 1px inset; BORDER-TOP: 1px inset; BORDER-LEFT: 1px inset; BORDER-BOTTOM: 1px inset" height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+		
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+ 	</TABLE>
+ 		
+ </form>		
+</BODY>
+</html>

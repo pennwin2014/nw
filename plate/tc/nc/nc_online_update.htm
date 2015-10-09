@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>在线升级</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+    function InitValue() {
+        setradio(form1.ipaccess,'[#ipaccess#]');
+        setradio(form1.httpaccess,'[#httpaccess#]');
+        setradio(form1.postsend,'[#postsend#]');
+        setradio(form1.httpbyip,'[#httpbyip#]');
+        setcheck(form1.limitunit,'[#limitunit#]');
+        setradio(form1.ipbind,'[#ipbind#]');
+        setradio(form1.macbind,'[#macbind#]');
+        setradio(form1.namebind,'[#namebind#]');
+        setradio(form1.overctl,'[#overctl#]');
+        setradio(form1.onlyone,'[#onlyone#]');
+	}
+
+    function SetDefault() {
+        setradio(form1.ipaccess,'9');
+        setradio(form1.httpaccess,'9');
+        setradio(form1.postsend,'9');
+        setradio(form1.httpbyip,'9');
+        setcheck(form1.limitunit,'9');
+        setradio(form1.ipbind,'9');
+        setradio(form1.macbind,'9');
+        setradio(form1.namebind,'9');
+        setradio(form1.overctl,'9');
+        setradio(form1.onlyone,'9');
+        setcheck(form1.feeid,'9');
+        setcheck(form1.overid,'0');
+
+	}
+
+ 	function setradio(ob,t){
+	   var j=ob.length;
+       if(t=='' || t == ' ') t = '9';
+       for(i=0;i<j;i++) {
+		  if(ob[i].value == t) {
+             ob[i].checked = "true"; 
+             return;
+          } 
+      }
+    }
+
+    function setcheck(ob,t){
+       j=ob.options.length; 
+       for(i=0;i<j;i++) { 
+           gv = ob.options[i].value;
+           if(gv == t) {
+               ob.selectedIndex = i;
+           }
+       }
+    }
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  oncontextmenu="return false" style="overflow:hidden" >
+<form name="form1" method="post" action="/pronline/Msg">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"  >        <div align="left">
+        <table width="100%" height="27" border="0" align="center" cellpadding="0" cellspacing="0" background="/images/table_bg1.gif">
+            <tr > 
+              <td colspan="2"> <div align="center"><strong><font color="#FFFFFF">在线升级</font></strong></div></td>
+            </tr>
+            </table>
+      </div></td></tr>
+    <tr> 
+      <td align="center"  ><br>
+        <table width="74%" border="1"    bordercolorlight=#89ACED   bordercolordark=#ffffff    cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br> 
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td><div align="center"><strong>网址库在线升级</strong></div></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">产品序列号</td>
+                  <td width="62%" height="26"><input name="productsn" type="text" id="productsn" value="[#productsn#]" size="15" maxlength="15" readonly="yes"></td>
+                </tr>
+                <tr>
+                  <td width="11%">&nbsp;</td> 
+                  <td height="26" width="27%"><div align="left">
+                    <input name="autourl" type="checkbox" id="autourl" value="Yes" [#autourl#]>
+                    网址库自动升级</div></td>
+                  <td height="26">选择该功能，系统将自动定时更新网址库 </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">网址库更新时间间隔</td>
+                  <td height="26"><input name="urltime" type="text" id="urltime" value="[#urltime#]" size="4" maxlength="4">
+                  秒</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">网址库最后更新时间</td>
+                  <td height="26"><input name="lasttime" type="text" id="lasttime" value="[#lasttime#]" size="20" maxlength="15" readonly="Yes">
+                  	更新网址数&nbsp;<input name="upnum" type="text"  value="[#upnum#]" size="5" readonly="Yes">
+                  	</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26"><input type="submit" name="upnow" value="现在升级" ></td>
+                  <td height="26">在原有基础上升级</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26"><input type="submit" name="redown" value="重新更新网址库" ></td>
+                  <td height="26">删除原来的系统网址库，从网上下载一套全新的网址库</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td height="26">升级服务器地址和端口</td>
+                  <td height="26"><input name="updateserver" type="text" id="updateserver" value="[#updateserver#]" size="31" maxlength="31"> 
+                    (地址格式:202.210.0.3:5188)</td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr> 
+                  <td><div align="center"></div></td>
+                </tr>
+              </table>
+              <table width="90%" border="0" align="center">
+                <tr>
+                  <td width="11%">&nbsp;</td> 
+                  <td width="27%" height="19">&nbsp;</td>
+                  <td width="62%">&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td  align="center"  ><table width="50%" border="0" align="center">
+          <tr> 
+            <td height="26">  
+              <div align="center">
+                <input type="hidden" name="FunName" value="ncWebOnlineUpdateUrl">
+                <input type="submit" name="save" value="保 存" class="an3">
+&nbsp;<input name="app" type="submit" class="an3" id="app" value="应用">
+&nbsp; 
+                <input type="reset" name="cancel" value="取消" class="an3-1">
+&nbsp; &nbsp; </div></td>
+          </tr>
+        </table>
+        <div align="center"></div></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

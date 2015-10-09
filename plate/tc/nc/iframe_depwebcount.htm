@@ -1,0 +1,60 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns:v="urn:schemas-microsoft-com:vml">
+<HEAD>
+<TITLE> Test VML Chart for Version 1.0.1 </TITLE>
+<STYLE>
+    v\:* { BEHAVIOR: url(#default#VML) }
+</STYLE>
+<script language="Javascript" src="/js/drawdepzzt.js"></script>
+</HEAD>
+<div id=test1>
+[#SLPB#]
+
+<BODY>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var tmp = new Array();
+
+//柱状图
+var chart = new VerticalBarChart();
+
+//线图
+//var chart = new VerticalLineChart();
+
+chart.Text.Font.Size = 20;
+chart.Text.Font.Style = fstBold;
+chart.Shadow = false;
+chart.Container = test1;
+chart.Text.Text="部门上网[#caLabel#]统计([#unit#])";
+chart.initialise();
+
+var s = new Series();
+var label = new Array([#SLPB#]"[#groupname#]",[#SLPE#]"");
+
+for(var i=0;i<label.length-1;i++){
+temp_fs=new Array([#SLPB#]"[#outdate#]",[#SLPE#]"")
+v=Math.round(temp_fs[i]);
+  tmp[tmp.length] = v;
+  s.addData(label[i],v);
+}
+s.Title = "[#caLabel#]";
+s.Color = "red";
+chart.addSeries(s);
+
+
+chart.draw();
+
+//-->
+
+</SCRIPT>
+</BODY>
+<p align="center">第 [#ipage1#]页</p>
+<xmp style='page-break-after:always'></xmp>
+
+[#SLPE#]
+</div>
+
+</HTML>

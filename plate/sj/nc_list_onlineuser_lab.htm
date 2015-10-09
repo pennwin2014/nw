@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>在线用户</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="/css.css" type="text/css">
+<link href="/css/css.css" rel="stylesheet" type="text/css">
+<link REL=stylesheet HREF="/css/listdatetable.css" TYPE="text/css">
+<style type="text/css">
+<!--
+body {  font-size: 9pt}
+table {  font-size: 9pt}
+.anuse3 { font-size: 9pt; background-color: E7F3FF; 
+  vertical-align: middle; height: 18px; width: 45px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+-->
+
+.tScrollw22 {
+    SCROLLBAR-FACE-COLOR: #c1d8f9; 
+    OVERFLOW: scroll;
+    SCROLLBAR-SHADOW-COLOR: #c1d8f9; 
+    SCROLLBAR-3DLIGHT-COLOR: #c1d8f9;
+     SCROLLBAR-ARROW-COLOR: #5985ce; 
+     SCROLLBAR-DARKSHADOW-COLOR: #c1d8f9;
+     position:relative;
+     left:0px;
+     
+    overflow-x:hidden;
+    height:570px;
+    cursor: default;
+    }
+</style>
+
+<script>
+	function zt(uid,uname,ip){
+    t = "/pronline/Msg?FunName@ncWebReplace&plate@nc75/forbfrm.htm&userid@"+uid+"&uname@"+uname+"&ip@"+ip;  
+
+ 
+    var oDia=showModalDialog(t,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:450px;scroll:none;dialogHeight:200px;overflow:none");	
+
+	}
+function goto(t){
+self.location.href=t
+}
+function init()
+{
+ document.all.nexpg.disabled=1;
+}
+function gotopag(nun)
+{
+	var num=parseInt(frames.main.form1.CurPg.value)+nun;
+	if(num<=1) 
+	{
+	    num=1;
+		document.all.nexpg.disabled=1;
+	}
+	else
+	  document.all.nexpg.disabled=0;
+	  
+	if(num>=frames.main.form1.TotPg.value)
+	{
+	   document.all.prepg.disabled=1;
+	}
+	else
+	   document.all.prepg.disabled=0;
+	   
+var a="/pronline/Msg?FunName@ncWebShowUserFlow&CurPg@"+num+"&cond@"+form1.cond.value+"+sortby@"+form1.sortby.value+"+orderby@"+form1.orderby.value;
+
+frames.main.location.href=a;
+}
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+
+}
+function cx()
+{
+var a="/pronline/Msg?FunName@ncWebShowUserFlow_sj&cond@"+form1.cond.value+"+sortby@"+form1.sortby.value+"+orderby@"+form1.orderby.value;
+frames.main.location.href=a;
+}
+function exp()
+{
+var a="/pronline/Msg?FunName@ncWebShowUserFlow_sj&export@export&cond@"+form1.cond.value+"+sortby@"+form1.sortby.value+"+orderby@"+form1.orderby.value;
+frames.main.location.href=a;
+}
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}
+	
+	
+}
+function setscrollvaue()
+{
+	form1.sctop.value=document.all.tC.scrollTop;
+
+}
+function px(num)
+{
+  form1.sortby.value=num;
+var a="/pronline/Msg?FunName@ncWebShowUserFlow&cond@"+form1.cond.value+"+sortby@"+form1.sortby.value+"+orderby@"+form1.orderby.value;
+frames.main.location.href=a;
+  }
+</script>
+</head>
+
+<body bgcolor="#ffffff" topmargin="0"  leftmargin="0" onload="init()">
+ <form name="form1" method="post" action="/pronline/Msg" target="main">
+ 	<input type="hidden" name="sctop" value="0">
+<table  cellspacing=0   cellpadding="0" bordercolor="#DFDFDF" border="0" align="center" width="100%">
+  <tr bgcolor="#E7F3FF" height="25"> 
+    <td colspan="12" bgcolor="#E7F3FF" class="bord1"  onyes="head"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="xxm">
+        <tr> 
+          <td width="700">
+          &nbsp;<font color="#000000">关键字:</font> 
+              <input type="text" name="cond"  size="12" maxlength="31" value=""> 
+              <font color="#000000">排序&nbsp;</font>
+              <select name="sortby">
+                   
+                    <option value='5'>最近访问</option>
+                    <option value='6' selected>总流量</option>
+                    <option value='7'>出流量</option>
+                    <option value='8'>进流量</option>
+                    <option value='9'>带宽</option>
+              </select>
+                 <select name="orderby">
+                    <option value='1'>升</option>
+                    <option value='0' selected>降</option>
+         
+              </select>
+                 <input name="search" type="button" class="an3" value="查 询" onclick="cx()">
+                 <input name="export" type="button" class="an3" id="export" value="导出" onclick="exp()">
+                 <font color="#000000">&nbsp;</font>              <font color="#FFFFFF"> 
+              <input type="hidden" name="FunName" value="ncWebShowUserFlow">
+              <input type="hidden" name="CurPg"      value="[#CurPg#]">
+              <input type="hidden" name="TotPg"      value="[#TotPg#]">
+              </font> <span style="font-size: 11pt"><font color="#333333">在线用户即时流量</font></span>
+            </td>
+            <td>
+            页码1/23
+            </td>
+            <td>
+            共 条记录
+            </td>
+          <td><div align="right">
+           
+              <input type="button" name="nexpg" value="上一页" class="anuse3" onclick="gotopag(-1)" >
+              <input type="button" name="prepg" value="下一页" class="anuse3" onclick="gotopag(1)" >
+           
+          </div> </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+<div class="tScrollw22" >
+<form id="ff" name='ff'>
+</form>
+</div>
+<iframe name="main" id="data" style="display:none" src="/pronline/Msg?FunName@ncWebShowUserFlow_sj"> 
+</body>
+</html>

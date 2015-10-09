@@ -1,0 +1,279 @@
+-- MySQL dump 10.9
+--
+-- Host: localhost    Database: nc
+-- ------------------------------------------------------
+-- Server version	4.1.10-max
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+--
+-- Table structure for table `dsappsrv`
+--
+
+DROP TABLE IF EXISTS `dsappsrv`;
+CREATE TABLE `dsappsrv` (
+  `id` int(11) NOT NULL default '0',
+  `name` char(32) default NULL,
+  `dispname` char(32) default NULL,
+  `addtime` int(10) unsigned default NULL,
+  `moditime` int(10) unsigned default NULL,
+  `righttime` int(10) unsigned default NULL,
+  `lkey` char(24) default NULL,
+  `clttype` smallint(6) default NULL,
+  `timeout` int(11) default NULL,
+  `lasttime` int(10) unsigned default NULL,
+  `logcount` int(11) default NULL,
+  `useflags` smallint(6) default NULL,
+  `status` smallint(6) default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `dsappsrv_01` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsappsrv`
+--
+
+
+/*!40000 ALTER TABLE `dsappsrv` DISABLE KEYS */;
+LOCK TABLES `dsappsrv` WRITE;
+INSERT INTO `dsappsrv` VALUES (1004,'nc','nc',0,0,1386075243,'Ppz0mkaG$GMX60ymKJNSjL',1,300,1058688036,7,0,1);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsappsrv` ENABLE KEYS */;
+
+--
+-- Table structure for table `dscltright`
+--
+
+DROP TABLE IF EXISTS `dscltright`;
+CREATE TABLE `dscltright` (
+  `pasid` int(11) default NULL,
+  `name` char(32) default NULL,
+  `dispname` char(32) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dscltright`
+--
+
+
+/*!40000 ALTER TABLE `dscltright` DISABLE KEYS */;
+LOCK TABLES `dscltright` WRITE;
+INSERT INTO `dscltright` VALUES (1004,'ÊµÊ±¼à¿Ø','ÊµÊ±¼à¿Ø'),(1004,'¿ØÖÆ²ßÂÔ','¿ØÖÆ²ßÂÔ'),(1004,'ÈÕÖ¾²é¿´','ÈÕÖ¾²é¿´'),(1004,'¼ÆËã»úÐÅÏ¢','¼ÆËã»úÐÅÏ¢'),(1004,'»ù´¡ÐÅÏ¢','»ù´¡ÐÅÏ¢'),(1004,'ÏµÍ³¹ÜÀí','»ù´¡ÐÅÏ¢'),(1004,'¿Í»§¶ËÉý¼¶','¿Í»§¶ËÉý¼¶');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dscltright` ENABLE KEYS */;
+
+--
+-- Table structure for table `dsdictlist`
+--
+
+DROP TABLE IF EXISTS `dsdictlist`;
+CREATE TABLE `dsdictlist` (
+  `sid` int(11) NOT NULL default '0',
+  `dname` char(32) default NULL,
+  `dtype` smallint(6) default NULL,
+  `fname` char(32) default NULL,
+  `ftype` smallint(6) default NULL,
+  `fbytes` int(11) default NULL,
+  `fright` char(8) default NULL,
+  PRIMARY KEY  (`sid`),
+  UNIQUE KEY `dsdictlist_ind1` (`dname`,`fname`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsdictlist`
+--
+
+
+/*!40000 ALTER TABLE `dsdictlist` DISABLE KEYS */;
+LOCK TABLES `dsdictlist` WRITE;
+INSERT INTO `dsdictlist` VALUES (1,'!dsindex',0,'dsuser',0,0,'WWWWW'),(2,'!dsindex',0,'dsappsrv',0,0,'WWWWW'),(3,'!dsindex',0,'dsrole',0,0,'WWWWW'),(4,'!dsindex',0,'dsroleattr',0,0,'WWWWW'),(1001,'dsuser',0,'id',3,10,'WWWWW'),(1002,'dsuser',1,'name',6,32,'WWWWW'),(1003,'dsuser',1,'groupname',6,10,'WWWWW'),(1004,'dsuser',1,'dispname',6,32,'WWWWW'),(1005,'dsuser',0,'moditime',3,10,'WWWWW'),(1006,'dsuser',1,'lkey',6,32,'WWWWW'),(1007,'dsuser',0,'lasttime',3,10,'WWWWW'),(1008,'dsuser',1,'logcount',3,10,'WWWWW'),(1009,'dsuser',1,'useflags',3,4,'WWWWW'),(1010,'dsuser',1,'status',3,4,'WWWWW'),(1011,'dsuser',1,'usrlevel',3,4,'WWWWW'),(1012,'dsuser',1,'email',6,64,'WWWWW'),(1101,'dsappsrv',0,'id',3,4,'WWWWW'),(1102,'dsappsrv',1,'name',6,32,'WWWWW'),(1103,'dsappsrv',1,'dispname',6,32,'WWWWW'),(1104,'dsappsrv',0,'addtime',3,4,'WWWWW'),(1105,'dsappsrv',0,'moditime',3,4,'WWWWW'),(1106,'dsappsrv',0,'lasttime',3,4,'WWWWW'),(1107,'dsappsrv',0,'righttime',3,4,'WWWWW'),(1108,'dsappsrv',1,'lkey',6,24,'WWWWW'),(1109,'dsappsrv',1,'clttype',3,4,'WWWWW'),(1110,'dsappsrv',1,'timeout',3,4,'WWWWW'),(1111,'dsappsrv',0,'logcount',3,4,'WWWWW'),(1112,'dsappsrv',0,'useflags',3,4,'WWWWW'),(1113,'dsappsrv',0,'status',3,4,'WWWWW'),(1201,'dsrole',0,'id',3,4,'WWWWW'),(1202,'dsrole',1,'name',6,32,'WWWWW'),(1203,'dsrole',1,'dispname',6,32,'WWWWW'),(1204,'dsrole',1,'descr',6,127,'WWWWW'),(1205,'dsrole',0,'addtime',3,4,'WWWWW'),(1206,'dsrole',0,'moditime',3,4,'WWWWW'),(1301,'dsroleattr',0,'roleid',3,4,'WWWWW'),(1302,'dsroleattr',0,'pasid',3,4,'WWWWW'),(1303,'dsroleattr',0,'flags',3,4,'WWWWW'),(1304,'dsroleattr',1,'lright',6,32,'WWWWW'),(5,'!dsindex',0,'dsuserrole',0,0,'WWWWW'),(1501,'dsuserrole',0,'id',3,4,'WWWWW'),(1502,'dsuserrole',0,'roleid',3,4,'WWWWW'),(1503,'dsuserrole',0,'addtime',3,4,'WWWWW'),(1504,'dsuserrole',0,'addby',3,4,'WWWWW');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsdictlist` ENABLE KEYS */;
+
+--
+-- Table structure for table `dslogs`
+--
+
+DROP TABLE IF EXISTS `dslogs`;
+CREATE TABLE `dslogs` (
+  `dotime` int(10) unsigned default NULL,
+  `name` char(32) default NULL,
+  `ip` char(16) default NULL,
+  `command` char(132) default NULL,
+  KEY `dslogs_index` (`dotime`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dslogs`
+--
+
+
+/*!40000 ALTER TABLE `dslogs` DISABLE KEYS */;
+LOCK TABLES `dslogs` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dslogs` ENABLE KEYS */;
+
+--
+-- Table structure for table `dspasrole`
+--
+
+DROP TABLE IF EXISTS `dspasrole`;
+CREATE TABLE `dspasrole` (
+  `roleid` int(11) NOT NULL default '0',
+  `pasid` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`roleid`,`pasid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dspasrole`
+--
+
+
+/*!40000 ALTER TABLE `dspasrole` DISABLE KEYS */;
+LOCK TABLES `dspasrole` WRITE;
+INSERT INTO `dspasrole` VALUES (101,1004),(100014,1004),(100015,1004),(100016,1004),(100017,1004),(100018,1004),(100019,1004),(100020,1004),(100021,1004),(100022,1004),(100023,1004),(100024,1004),(100025,1004),(100026,1004),(100027,1004),(100028,1004);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dspasrole` ENABLE KEYS */;
+
+--
+-- Table structure for table `dsrole`
+--
+
+DROP TABLE IF EXISTS `dsrole`;
+CREATE TABLE `dsrole` (
+  `id` int(11) NOT NULL default '0',
+  `name` char(32) NOT NULL default '',
+  `dispname` char(32) default NULL,
+  `descr` char(128) default NULL,
+  `addtime` int(10) unsigned default NULL,
+  `moditime` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `dsrole_01` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsrole`
+--
+
+
+/*!40000 ALTER TABLE `dsrole` DISABLE KEYS */;
+LOCK TABLES `dsrole` WRITE;
+INSERT INTO `dsrole` VALUES (101,'È«²¿È¨ÏÞ','È«²¿È¨ÏÞ','È«²¿È¨ÏÞ',1058688529,1386075363);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsrole` ENABLE KEYS */;
+
+--
+-- Table structure for table `dsroleattr`
+--
+
+DROP TABLE IF EXISTS `dsroleattr`;
+CREATE TABLE `dsroleattr` (
+  `roleid` int(11) default NULL,
+  `pasid` int(11) default NULL,
+  `flags` smallint(6) default NULL,
+  `lright` char(32) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsroleattr`
+--
+
+
+/*!40000 ALTER TABLE `dsroleattr` DISABLE KEYS */;
+LOCK TABLES `dsroleattr` WRITE;
+INSERT INTO `dsroleattr` VALUES (100014,1004,0,'ÏµÍ³ÉèÖÃ'),(100015,1004,0,'ÏµÍ³ÓÃ»§¹ÜÀí'),(100016,1004,0,'ÏµÍ³²éÑ¯'),(100017,1004,0,'ÍøÂç·ÃÎÊ²éÑ¯'),(100018,1004,0,'ÍøÂç·ÃÎÊ¿ØÖÆ'),(100019,1004,0,'Í³¼Æ²éÑ¯'),(100020,1004,0,'ÄÚÈÝ¼à¿Ø²éÑ¯'),(100021,1004,0,'ÄÚÈÝ¼à¿ØÉèÖÃ'),(100022,1004,0,'À¹½ØÓÊ¼þ²éÑ¯'),(100023,1004,0,'À¹½ØÓÊ¼þÉó¼Æ'),(100024,1004,0,'À¹½ØÓÊ¼þÉèÖÃ'),(100025,1004,0,'´ø¿í¹ÜÀí'),(100026,1004,0,'¼Æ·Ñ¹ÜÀí'),(100027,1004,0,'·À»ðÇ½'),(100028,1004,0,'ÄÚÍø¹ÜÀí'),(101,1004,0,'¿Í»§¶ËÉý¼¶'),(101,1004,0,'ÏµÍ³¹ÜÀí'),(101,1004,0,'»ù´¡ÐÅÏ¢'),(101,1004,0,'¼ÆËã»úÐÅÏ¢'),(101,1004,0,'ÈÕÖ¾²é¿´'),(101,1004,0,'¿ØÖÆ²ßÂÔ'),(101,1004,0,'ÊµÊ±¼à¿Ø');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsroleattr` ENABLE KEYS */;
+
+--
+-- Table structure for table `dssequen`
+--
+
+DROP TABLE IF EXISTS `dssequen`;
+CREATE TABLE `dssequen` (
+  `id` int(10) unsigned default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dssequen`
+--
+
+
+/*!40000 ALTER TABLE `dssequen` DISABLE KEYS */;
+LOCK TABLES `dssequen` WRITE;
+INSERT INTO `dssequen` VALUES (100027);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dssequen` ENABLE KEYS */;
+
+--
+-- Table structure for table `dsuser`
+--
+
+DROP TABLE IF EXISTS `dsuser`;
+CREATE TABLE `dsuser` (
+  `id` int(11) NOT NULL default '0',
+  `name` varchar(32) default NULL,
+  `dispname` varchar(32) default NULL,
+  `groupid` int(11) default NULL,
+  `groupname` varchar(32) default NULL,
+  `addtime` int(10) unsigned default NULL,
+  `moditime` int(10) unsigned default NULL,
+  `lkey` varchar(24) default NULL,
+  `lasttime` int(10) unsigned default NULL,
+  `logcount` int(11) default NULL,
+  `useflags` smallint(6) default NULL,
+  `status` smallint(6) default NULL,
+  `usrlevel` smallint(6) default NULL,
+  `email` varchar(64) default NULL,
+  `opt` varchar(255) default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `dsuser_01` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsuser`
+--
+
+
+/*!40000 ALTER TABLE `dsuser` DISABLE KEYS */;
+LOCK TABLES `dsuser` WRITE;
+INSERT INTO `dsuser` VALUES (100,'admin','AdminUser',0,'',0,1386075400,'YKS$U8NgzuHfj3Kjr0cJsw',1386075400,0,0,0,1,'admin@email.com','all');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsuser` ENABLE KEYS */;
+
+--
+-- Table structure for table `dsuserrole`
+--
+
+DROP TABLE IF EXISTS `dsuserrole`;
+CREATE TABLE `dsuserrole` (
+  `id` int(11) default NULL,
+  `roleid` int(11) default NULL,
+  `addtime` int(10) unsigned default NULL,
+  `addby` char(32) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dsuserrole`
+--
+
+
+/*!40000 ALTER TABLE `dsuserrole` DISABLE KEYS */;
+LOCK TABLES `dsuserrole` WRITE;
+INSERT INTO `dsuserrole` VALUES (23750003,100014,1205918303,'admin'),(23750003,100015,1205918303,'admin'),(23750003,100016,1205918303,'admin'),(23750003,100017,1205918303,'admin'),(23750003,100018,1205918303,'admin'),(23750003,100019,1205918303,'admin'),(23750003,100020,1205918303,'admin'),(23750003,100021,1205918303,'admin'),(23750003,100022,1205918303,'admin'),(23750003,100023,1205918303,'admin'),(23750003,100024,1205918303,'admin'),(23750003,100025,1205918303,'admin'),(23750003,100026,1205918303,'admin'),(23750003,100027,1205918303,'admin'),(23750003,100028,1205918303,'admin'),(100,101,1386075400,'');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `dsuserrole` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

@@ -1,0 +1,281 @@
+<html>
+<head>
+<title>基本参数设置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function savebrig(){
+	if(form1.bip.value==''||form1.bmip.value==''){
+	alert('请填写网桥地址和网桥掩码地址！');
+	 return;
+	 }
+	 
+	 form1.FunName.value='ncbrgsave';
+	 form1.submit()
+	}
+	function delbrg(no){
+	if(confirm('您真的要删除网桥吗?')){
+	form1.brno.value=no;
+	form1.FunName.value="ncDelBrg";
+	form1.submit();
+	}
+	}
+function setAdminIp()
+{
+
+	if(form1.gateway[1].checked)
+	{
+	       if(form1.InDev1[0].checked)
+		{
+		form1.adminip.value=form1.eth0IP.value;
+		form1.adminmask.value=form1.eth0Mask.value;
+		}
+	        else if(form1.InDev1[1].checked)
+		{
+		form1.adminip.value=form1.eth1IP.value;
+		form1.adminmask.value=form1.eth1Mask.value;
+		}
+	        else if(form1.InDev1[2].checked)
+		{
+		form1.adminip.value=form1.eth2IP.value;
+		form1.adminmask.value=form1.eth2Mask.value;
+		}
+		
+	}		
+}
+
+function setrAdminIp(num)
+{
+
+	if(form1.gateway[1].checked)
+	{
+	       
+		form1.adminip.value=eval("form1.eth"+num+"IP").value;
+		form1.adminmask.value=eval("form1.eth"+num+"Mask").value;
+				
+		
+	}		
+}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form name="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" name="etcount" value="3">
+		<input type="hidden" name="brno" value="">
+	<div style="height:500px;overflow-y:scroll" >
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="15" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">&nbsp;</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td valign="top" >
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr> 
+            <td valign="top">
+              <table width="100%" border="1"   bordercolorlight=#89ACED   bordercolordark=#ffffff     align="center" cellpadding="0" cellspacing="0">
+               
+  
+                 
+                <tr>
+                   <td align="center"><b>网卡地址</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=40>
+                                      <td>&nbsp;</td>
+                                      <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                            <tr height="25"><td width="50">&nbsp;</td>
+                                                <td align="center" width="150">IP地址</td>
+                                                <td align="center" width="150">掩码地址</td>
+                                                <td>&nbsp;</td>
+                                             </tr> 
+                                             [#SLPB#]
+                                             <tr height="30"><td align="right"><b>Eth[#iNum#]</b></td>                                         
+                                                <td align="center" ><input type="text" name="eth[#iNum#]IP" value="[#ethIP#]" size="15" maxlength="15" ></td>
+                                                <td align="center"><input type="text" name="eth[#iNum#]Mask" value="[#ethMask#]" size="15" maxlength="15" ></td>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             [#SLPE#]
+                                             
+                                             <tr height="10"><td colspan="3">&nbsp;</td></tr>
+                                            </table>               
+                                      </td>
+                        </table>
+                   </td>
+                   </tr>
+ 
+                 <tr>
+                   <td align="center"><b>管理地址</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                  
+                                   <tr height=40>
+                                      
+                                      <td align="center">IP地址&nbsp;<input type="text" name="adminip" value="[#adminip#]" size="14" maxlength="15"></td>
+                                      <td align="center">掩码&nbsp;<input type="text" name="adminmask" value="[#adminmask#]" size="14" maxlength="15"></td>
+                                      <td align="center">管理端口&nbsp;<input type="text" name="adminport" value="[#adminport#]" size="4" maxlength="5"></td>
+                                      <td align="center">验证端口&nbsp;<input type="text" name="authport" value="[#authport#]" size="4" maxlength="5"></td>
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                   
+                 <tr>
+                   <td align="center"><b>缺省网关</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                   <tr height=30>
+                                      <td width="25">&nbsp;</td>
+                                      <td>&nbsp;&nbsp;&nbsp;<input type="text" name="defgateway" value="[#defgateway#]" size="15" maxlength="15">
+                                     
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                  
+                  
+                  
+                     <tr>
+                   <td align="center"><b>网桥设置</b>
+                   </td>
+                   <td> <table width="100%" border="1" align="center"  bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0" cellspacing="0" >
+                   	               <tr><td height="30">&nbsp;<input type="button" value="增加网桥" onclick="document.all.pcx.style.display='' "></td>
+                   	              </tr>
+                   	              
+                   	                 
+        <tr><td>
+  	 <div id="pcx" style="position:relative;display:none;"> 
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%" bgcolor="#eeeeee">
+       	             <tr height="30">
+          	  	     	<td  align="center">&nbsp;网桥名称</td>
+          	  	     	<td>
+          	  	     	<input type="text" name="bname"  size="12" maxlength="10" value="pronc[#curno1#]" readonly> 
+          	  	     	
+          	  	      </td>
+          	  	     
+          	  	     	<td  align="center">&nbsp;网桥地址</td>
+          	  	     	<td ><input type="text" name="bip" value="" size="16" maxlength="16"> </td> 
+          	  	     	<td  align="center">&nbsp;掩码</td>
+          	  	     	<td ><input type="text" name="bmip" value="" size="16" maxlength="16"S></td>
+          	  	     	<td align="center"></td> 	  	     	
+          	  	    </tr>
+          	  	   
+       	             <tr height="30">
+          	  	     	<td  colspan="7">&nbsp;&nbsp;&nbsp;网络接口&nbsp;
+          	  	     		[#SLPB#]&nbsp;<input type="checkbox" name="bth_[#iNum#]" value="eth[#iNum#]" >Eth[#iNum#][#SLPE#]
+          	  	     		&nbsp;&nbsp;
+          	  	     		<input type="button" name="bsave" value="保存" onclick="savebrig()">&nbsp;
+          	  	     		<input type="hidden" name="curno" value="[#curno#]">
+          	  	     		<input type="button" name="bhide" value="隐藏" onclick="document.all.pcx.style.display='none' ">
+          	  	     		</td>
+          	  	     	  	     	
+          	  	    </tr>
+
+          	  	   </table>
+</div>          	  	   
+          	  	</td>
+          	 </tr>
+
+                   	              
+                   	              
+                   	              
+   
+                                   
+    [#SLPB#]                               
+                                      <tr height=40>
+                                    
+                                      <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                            <tr height="25">
+                                                <td align="left"  colspan="2">&nbsp;网桥名称:&nbsp;<input type="text" name="brag[#bragno#]" size="16" value="[#brname#]" readonly></td>
+                                                <td align="center" width="150"><input type="button" value="删除网桥[#brname#]" onclick="delbrg('[#bragno#]')"></td>
+                                                <td>&nbsp;</td>
+                                             </tr> 
+                                            
+                                             <tr height="30"><td align="left" colspan="2">&nbsp;网络接口&nbsp;[#SLPB#]&nbsp;<input type="checkbox" name="breth[#brgno#]_[#iNum#]" value="eth[#iNum#]" [#breth#]>Eth[#iNum#][#SLPE#]</td>                                         
+
+                                                <td align="center"></td>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <td >&nbsp;网桥地址&nbsp;<input type="text" name="brgip[#bragno#]" value="[#brgip#]" size="14" maxlength="15"></td>
+                                             <td >&nbsp;掩码&nbsp;<input type="text" name="brgmask[#bragno#]" value="[#brgmask#]" size="14" maxlength="15"></td>
+                                             <td>&nbsp;</td>
+                                             <tr height="10"><td colspan="3">&nbsp;</td></tr>
+                                            </table>               
+                                      </td>
+                                    </tr>
+   [#SLPE#]                                
+                                    
+                                    
+                                    
+                        </table>
+                   </td>
+                   </tr>             
+                  
+                  
+                  
+                   
+                 <tr>
+                   <td align="center"><b>路由设置</b>
+                   </td>
+                   <td align="center"> <textarea name="routconf"  rows="3" style="width:100%">[#routconf#]</textarea>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td align="center"><b>DNS</b>
+                   </td>
+                   <td> <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+                                  
+                                   <tr height=40>
+                                      
+                                      <td align="center">DNS1&nbsp;<input type="text" name="dnsserver1" value="[#dnsserver1#]" size="15" maxlength="15"></td>
+                                      <td align="center">DNS2&nbsp;<input type="text" name="dnsserver2" value="[#dnsserver2#]" size="15" maxlength="15"></td>
+                                     
+                                      </td>                                   
+                                   </tr>
+                        </table>
+                   </td>
+                   </tr>
+                 <tr>
+                   <td align="center"><b>地址转换</b>
+                   </td>
+                   <td align="center"> <textarea name="iptable"  rows="3" style="width:100%">[#iptable#]</textarea>
+                   </td>
+                 </tr>
+              </table>
+             </td>
+             </tr>
+             </table>
+         </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebSave_base_new">
+                <input type="submit" name="next" value="保 存" class="an3">
+                &nbsp; 
+                <input type="submit" name="exec" value="临时执行" class="an3">
+                &nbsp; 
+                <input type="submit" name="app" value="应 用" class="an3">
+                &nbsp; 
+  <!--              <input type="reset" name="cancel" value="取消" class="an3-1" onClick="history.back()">
+  -->
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</div>
+</form>
+</body>
+</html>

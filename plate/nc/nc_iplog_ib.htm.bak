@@ -1,0 +1,349 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<title>main</title>
+<style type="text/css">
+<!--
+  .bordnr {
+	border-left: 1px solid #0148b2;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #0148b2;
+	border-right: 1px solid #0148b2;
+	background-color:#d0e1fa;
+	} 
+.ttt {  border-style: outset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.nnoo {  filter: Gray}
+-->
+
+</style>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+var dfd1="0"
+function gotoPage(pagenum)
+
+{
+    form1.CurPg.value = pagenum;
+}
+
+function goto(t){
+ tt=showModalDialog(t, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:550px;scroll:yes;dialogHeight:540px');
+}
+
+function showuserinfo(uid){
+	var temp="/pronline/Msg?FunName@ncWebDispUserInfo2&userid@"+uid;
+
+ showModalDialog(temp, window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:660px;scroll:no;dialogHeight:600px');
+}
+
+function mouseovertr2 (o){
+var i;
+df=o.style.backgroundColor
+	o.style.backgroundColor= "#ffff00";
+	o.style.borderColor= "#FFFF00";
+	o.style.cursor="hand";	
+for(i=0; i<o.cells.length; i++)
+{
+	o.cells(i).style.color="#000000";
+}	
+}
+
+function mouseouttr2(o){
+	o.style.backgroundColor=df
+	
+}
+function qr(){
+  if(form1.dispname.value!=form1.old_dispname.value){
+  form1.userid.value='';
+  }
+
+	parent.form1.userid.value=form1.userid.value;
+	parent.form1.groupid.value=form1.groupid.value;
+	parent.form1.sdate.value=form1.sdate.value;
+	parent.form1.stime.value=form1.stime.value;
+	parent.form1.edate.value=form1.edate.value;
+	parent.form1.etime.value=form1.etime.value;
+	parent.form1.mac.value=form1.mac.value;
+	parent.form1.dport.value=form1.dport.value;
+	parent.form1.username_match.value=form1.username_match.value;
+	parent.form1.dispname.value=form1.dispname.value;
+	parent.form1.idfyno.value=form1.idfyno.value;
+	parent.form1.sip.value=form1.sip.value;
+	parent.form1.prot.value=form1.prot.value;
+	parent.form1.dip.value=form1.dip.value;
+	parent.form1.service.value=form1.service.value;
+	parent.form1.byt_rflag.value=form1.byt_rflag.value;
+	parent.form1.byt.value=form1.byt.value;
+	parent.form1.byt_in.value=form1.byt_in.value;
+
+}
+
+function cleara(){
+form1.userid.value='';
+form1.groupid.value='';
+form1.sdate.value='';
+form1.edate.value='';
+form1.stime.value='';
+form1.etime.value='';
+form1.mac.value='';
+
+form1.idfyno.value='';
+form1.sip.value='';
+form1.old_dispname.value='';
+form1.stime.value='';
+form1.etime.value='';
+form1.dport.value='';
+form1.dispname.value='';
+form1.prot.value='';
+form1.dip.value='';
+form1.service.value='';
+form1.byt_rflag.value='';
+form1.byt.value='';
+parent.form1.userid.value='';
+parent.form1.groupid.value='';
+parent.form1.sdate.value='';
+parent.form1.edate.value='';
+parent.form1.stime.value='';
+parent.form1.etime.value='';
+parent.form1.mac.value='';
+parent.form1.username.value='';
+parent.form1.idfyno.value='';
+parent.form1.sip.value='';
+
+parent.form1.stime.value='';
+parent.form1.etime.value='';
+parent.form1.dport.value='';
+parent.form1.dispname.value='';
+parent.form1.prot.value='';
+parent.form1.dip.value='';
+parent.form1.service.value='';
+parent.form1.byt_rflag.value='';
+parent.form1.byt.value='';
+}
+
+function dosort(flag){
+if(flag=='1'){
+ form1.osort.value='name';
+ }
+ else if(flag=='2'){
+ form1.osort.value='name';
+ }
+ else if(flag=='3'){
+ form1.osort.value='dip';
+ }
+ else if(flag=='4'){
+ form1.osort.value='service';
+ }
+ else{
+ form1.osort.value='';
+ }
+ qr();
+ form1.submit();
+}
+
+
+
+// -->
+
+</script>
+
+<script src="/js/drawtable.js"></script>
+<script src="/js/calendar.js"></script>
+<SCRIPT language=JavaScript>
+<!--
+function passdate()
+{
+parent.form1.CurPg.value='[#CurPg#]';
+parent.form1.TotPg.value='[#TotPg#]';
+parent.form1.TotRec.value='[#TotRec#]';
+parent.form1.where.value=form1.where.value;
+parent.document.all.wlj.innerHTML='<b style="font-size: 10pt;color:#00237e;">[#title_name#] IP连接日志</b>';
+}
+var recordID = null;
+var Table = new FlexibleTable ('flexibleTable', '100%', '450', 'center', 32, 'flexibleTableSpan');
+
+Table.Header ('<span style="cursor: hand;" ondblclick=dosort("1")>姓名</span>', '<span ondblclick=dosort("2") style="cursor: hand;">源IP地址</span>', '<span ondblclick=dosort("3") style="cursor: hand;">目标IP地址</span>', '协议','端口','<span ondblclick=dosort("4") style="cursor: hand;">服务</span>','<span ondblclick=dosort("5") style="cursor: hand;">访问时间</span>','上行流量(bytes)','下行流量(bytes)');
+Table.ColumnsWidth ('120', '100', '100', '50', '70', '86', '120', '83','83');
+Table.HeaderAligment ('center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center');
+Table.BodyAligment ('left', 'left', 'left', 'center', 'right', 'left','center', 'right', 'right');
+
+Table.SetRowsTemplate (" onMouseOver=\"javascript:mouseovertr2(this);\" onMouseOut=\"javascript:mouseouttr2(this);\" ");
+[#SLPB#]
+Table.Row('<a href="#xxm" onclick=showuserinfo("[#userid#]")>&nbsp;[#dispname#] </a>','&nbsp;[#sip#] ','&nbsp;[#dip#] ','&nbsp;[#prot#] ','[#dport#]&nbsp;&nbsp;','&nbsp;[#service#] ','&nbsp;[#sdate#]&nbsp;[#stime#] ','[#ubytes#]&nbsp;','[#dbytes#]&nbsp;');
+[#SLPE#]
+
+
+function changservice(){
+callServer();
+//document.all.service.options[0].value='1';
+//document.all.service.options[0].text="111";
+
+
+}
+	var xmlHttp = false;
+
+//调用AJAX
+ function callServer() 
+ { 
+ 
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+   
+   xmlHttp = createXMLHttpRequest();
+ 
+   if( xmlHttp )
+   {
+   var web_url='/pronline/Msg?FunName@ncWebShowServiceDet&groupid@'+form1.serviceclass.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+//alert(response);         
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+document.all.service.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.service.options[i].value=aid[i];
+ document.all.service.options[i].text=aname[i];
+	}
+
+   }
+ 
+ }
+	
+
+
+
+
+
+//-->
+</SCRIPT>
+
+<script src="/js/ajax.js"></script>
+
+
+</head>
+
+<BODY  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" bgcolor="#eaf3f5" leftMargin=2 topMargin=2 scroll=no onload="Table.Draw();passdate()">
+	<form name="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" name="where"      value="[#where#]">
+	<input type="hidden" name="FunName" value="ncWebReplace">
+	<input type="hidden" name="fun" value="ncWebIpHSearch"> 
+	<input type="hidden" name="plate" value="ncmsg_showinfozhcx.htm">
+	<input type="hidden" name="userid" value="[#userid#]">
+	<input type="hidden" name="groupid" value="[#groupid#]">
+	<input type="hidden" name="old_dispname" value="[#dispname#]">
+	<input type="hidden" name="osort" value="[#osort#]">
+		<TABLE  height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  	<TR>
+    		<TD valign="top"><SPAN id=flexibleTableSpan></SPAN></TD>
+  	</TR>
+  	
+  	       	      <tr height="110">
+       	        	<td  class="bordnr" valign="top">
+       	        		<table border=0 cellpadding=0 cellspacing=0 width="100%">
+       	             <tr height="40">
+          	  	     	<td  align="center">&nbsp;上网时间</td>
+          	  	     	<td><input type="text" name="sdate" value="[#sdate#]" size="12" maxlength="10"> <input type="button" name="sdate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(sdate,sdate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="stime" value="[#stime#]" size="4" maxlength="5">&nbsp;</td> 
+          	  	     	<td  align="center">&nbsp;到</td>
+          	  	     	<td ><input type="text" name="edate" value="[#edate#]" size="12" maxlength="10"> <input type="button" name="edate_but" style="position:relative;left:-21px;top:-2px;width:15px;height:17px" value='…' onclick="fPopCalendar(edate,edate,'Up');return false"><input type="text" style="position:relative;left:-19px;" name="etime" value="[#etime#]" size="4" maxlength="5">&nbsp;</td> 
+          	  	     	<td  align="center">&nbsp;MAC地址</td>
+          	  	     	<td ><input type="text" name="mac" value="[#mac#]" size="18"></td>
+          	  	     	<td>&nbsp;端口</td>
+          	  	     	<td><input type="text" name="dport" value="[#dport#]" size="5" maxlength="5"></td>
+          	  	     	<td align="center"><input name="cxx" type="submit"  value="查 询" onclick="qr()"></td> 	  	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td width="90" align="center">&nbsp;用户名</td>
+          	  	     	<td width="180"><select name="username_match">
+                      <option value="0">等于</option>
+                      <option value="1">包含</option>
+                    </select><input type="text" name="dispname" value="[#dispname#]" size="14" >
+
+          	  	     		</td>  
+          	  	     	<td width="80" align="center">&nbsp;证件号</td>
+          	  	     	<td width="180"><input type="text" name="idfyno" value="[#idfyno#]" size="19"></td>
+          	  	     	<td width="80" align="center">&nbsp;源IP</td>
+          	  	     	<td ><input type="text" name="sip" value="[#sip#]" size="18"></td>
+          	  	     	<td width="50">&nbsp;协议</td>
+          	  	     	<td><select name="prot">
+                      <option value=" " selected>全部</option>
+                      <option value="17">UDP</option>
+                      <option value="6">TCP</option>
+                    </select></td>  
+          	  	     	<td width="120" align="center"><input name="clearaq" type="button"  value="清除条件" onclick="cleara()"></td>	     	
+          	  	    </tr>
+          	  	     <tr height="30">
+          	  	     	<td width="90" align="center">&nbsp;目标IP</td>
+          	  	     	<td width="160"><input type="text" name="dip" value="[#dip#]" size="22" ></td> 
+          	  	     	
+          	  	     	<td > 服务大类</td>
+          	  	     	<td colspan="2"><select name="serviceclass" style="width:80" onchange="changservice()">
+          	  	     	<option value="" selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#cgid#]">[#cgname#]</option>
+                      [#SLPE#]
+                      
+                    </select>&nbsp;细分服务
+          	  	     	<select name="service" style="width:90">
+          	  	     	<option value=" " selected>全部</option>
+          	  	     	[#SLPB#]
+                      <option value="[#id_s#]">[#name_s#]</option>
+                      [#SLPE#]
+                      
+                    </select></td>
+          	  	     	<td colspan="4">&nbsp;流量范围&nbsp;<select name="byt_rflag">
+                      <option value=" " selected>全部</option>
+                      <option value="1">上行</option>
+                      <option value="2">下行</option>
+                    </select>
+                    <input type="text" name="byt" size="9" maxlength="9" value="[#byt#]" > 
+                    <select name="byt_in">
+                      <option value="1">以内</option>
+                      <option value="2">以外</option>
+                    </select></td>
+ 
+          	  	        	
+          	  	    </tr>
+
+          	  	   </table>
+       	        	</td>
+       	        </tr> 
+  	
+ 	</TABLE>
+ 		
+ </form>	
+ 	<script>if('[#username_match#]'!='') form1.username_match.value='[#username_match#]';
+ 		if('[#prot#]'!='') form1.prot.value='[#prot#]';
+ 		if('[#service#]'!='') form1.service.value='[#service#]';
+ 		if('[#byt_rflag#]'!='') form1.byt_rflag.value='[#byt_rflag#]';
+ 		if('[#byt_in#]'!='') form1.byt_in.value='[#byt_in#]';
+ 	</script>
+</BODY>
+</html>

@@ -1,0 +1,98 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>上网验证</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link href="/css/style_sb.css" rel="stylesheet" type="text/css" />
+<script>
+	function spylogin(){
+	if((document.getElementById("nclogin").username.value=='')||(document.getElementById("nclogin").password.value=='')) {
+	
+		alert('用户名或密码不能为空！');
+	
+		return false;
+		}
+
+	document.getElementById("nclogin").submit();
+
+	}
+	function ss()
+	{
+	if(event.keyCode==13)
+	spylogin();
+	}
+
+</script>
+
+</head>
+
+<body topmargin="80">
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg">
+<input type="hidden" name="FunName" value="ncWebLoginMob">
+    <input type="hidden" name="url" value="[#url#]" >
+    <input type="hidden" name="sid" value="[#sid#]" >
+    <input type="hidden" name="ModiPass" value="">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" >
+	<tr>
+	  <td align="center" height="60"><img src="/images/sb/jie_03.gif"  /></td>
+	</tr>
+	<tr>
+		<td>
+			<table width="542" height="313" border="0" align="center" cellpadding="0" cellspacing="0" class="werper">
+
+					<tr><td height="298">
+						<table width="320" height="100%" align="center" border="0" cellpadding="0" cellspacing="0" >
+							<tr> <td colspan="4" height="30"><!--<img src="/images/sb/jie_13.gif"  />-->&nbsp;&nbsp;<font color="red">[#message#]</font></td>
+							</tr>
+							<tr><td colspan="4">
+              	    <table width="100%">
+							
+							<tr height="25"><td width="40">&nbsp;</td>
+								  <td class="buttom" align="right">注册手机号&nbsp;</td>
+								  <td><input type="text" name="username" /></td>
+								  <td width="50"></td>
+							</tr>
+					    <tr height="25"><td >&nbsp;</td>
+								  <td class="buttom" align="right">验证密码&nbsp;&nbsp;&nbsp;</td>
+								  <td><input type="password" name="password" onKeyPress="ss()" /></td>
+								  <td width="50"></td>
+							</tr>
+						 <tr><td >&nbsp;</td>
+								  <td class="buttom"></td>
+								  <td><input name="auth1" onclick="nclogin.ModiPass.value=''; spylogin()" type="button"  value="登 录"/>&nbsp; </td>
+								  <td width="50"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+							<tr>								  
+							<td colspan="4" class="zhuyi">未注册或忘记密码的用户请用你准备注册的手机<br /><br />
+              号发<span class="mei">116116116</span>数字串到<span class="mei">12114</span>免费获取验证码。</div>
+              </td>
+								 
+							</tr>
+							
+						</table>
+					</td></tr>
+				
+			</table>
+	   </td>
+	  </tr>
+		<tr>
+	  <td align="center" height="40">
+<!--	  	
+	  	<span ><img style="position:relative;top:6px" src="/images/sb/jie_23.gif"  /><a class="zz" href="http://www.pronetway.com">上海新网程信息技术有限公司承建</a></span>
+-->	  	
+	  	</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

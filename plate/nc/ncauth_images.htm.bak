@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>系统功能选项</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+	function resetfac(){
+	if(confirm("执行该操作将清除所有的数据，您真的要这样做吗?")) {
+		if(confirm("请再次确认?")){
+		return true;
+		}
+	}
+	return false;
+	}
+	function Restore(){
+	if(confirm("你真的要使用出厂时的验证页面吗")){
+	  return true;
+	}
+	else
+	  return false;
+	}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" align="center"  style="overflow:hidden">
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" >
+<input type="hidden" name="UploadPath" value="/home/ncmysql/nc/upload">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td valign="top" ><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr > 
+            <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">本地验证页面上传</div></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td >
+        <table width="70%" height="0%" border="1"  bordercolorlight=#89ACED   bordercolordark=#ffffff   align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" height="411"> <table width="90%" border="0" align="center">
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%">&nbsp;</td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> 验证界面图片</b> </td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="89">&nbsp;</td>
+                  <td height="89" width="67%" align="center"> <table width="100%" border="0"  bordercolorlight=#848284   bordercolordark=#ffffff>
+                      <tr> 
+                        <td width="44%"> 标题图片</td>
+                        <td width="56%">  <input type="file" name="fname1" style="width:200px">
+                        	
+                        </td>
+                      </tr>
+                      <tr height="40"> 
+                        <td colspan="2"> （图片大小1020X210,gif格式）
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       
+                        </td>
+                      </tr>
+                   
+                    </table></td>
+                  <td width="16%" >
+                  	<table>
+                  		<tr><td height="60" valign="bottom"><input type="button" name="app" value="预览验证页面" class="an3-1" onclick=window.open("/ncsendauth.htm")></td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> </b></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="93">&nbsp;</td>
+                  <td width="67%" align="center" height="93"> <table width="100%" border="0">
+                       <tr> 
+                        <td width="44%"> 背景图片</td>
+                        <td width="56%">  <input type="file" name="fname2" style="width:200px">
+
+                        </td>
+                      </tr>
+                      <tr height="40"> 
+                        <td colspan="2"> （图片大小96X6,gif格式）</td>
+                       
+                        </td>
+                      </tr>
+                    
+                    </table>
+                    <b> </b></td>
+                  <td width="16%" height="93">&nbsp;</td>
+                </tr>
+               
+               
+              <tr> 
+                  <td width="17%">&nbsp;</td>
+                  <td width="67%" height="25"><b> 修改密码和退出界面图片</b></td>
+                  <td width="16%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="17%" height="93">&nbsp;</td>
+                  <td width="67%" align="center" height="93"> <table width="100%" border="0">
+                   <tr> 
+                        <td width="44%"> </td>
+                        <td width="56%">  <input type="file" name="fname3" style="width:200px">
+
+                        </td>
+                      </tr>
+                      <tr height="40"> 
+                        <td colspan="2"> （图片大小540X54,gif格式）</td>
+                       
+                        </td>
+                      </tr>
+                    
+                    </table>
+                    <b> </b></td>
+                  <td width="16%" height="93">
+                  	<table>
+                  		<tr><td height="60" valign="bottom"><input type="button" name="app" value="预览验证退出" class="an3-1" onclick=window.open("/nc_login_ok.htm")></td>
+                  		</tr>
+                  	</table>
+                  	</td>
+                </tr>
+               
+               
+            <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;<font color="red" size="3">[#mesg#]</font></td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="70" ><table width="50%" border="0" align="center">
+          <tr> 
+            <td> <div align="right"> 
+                <input type="hidden" name="FunName" value="ncWebAuth_imageUpload">
+                <input type="submit" name="next" value="上 传" class="an3">
+                &nbsp; 
+                <input type="submit" name="res" value="恢复出厂页面" class="an3-1" onclick="return Restore()">
+                &nbsp; 
+
+
+              </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
