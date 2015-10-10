@@ -24,22 +24,28 @@ static char *utf8convert(char *src)
     return src;
 }
 
+char* getShortNameByGroupid(ulong lGroupid)
+{
+    static char shortname[256] = "";
+    char sql[1024] = "";
+    ulong pid = 0;
+    memset(shortname, 0, sizeof(shortname));
+    pid = findCompanyByGroupid(lGroupid);
+    sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
+    pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname) - 1, shortname);
+    printf("get shortname=%s, pid=%lu, groupid=%lu\n", shortname, pid, lGroupid);
+    return shortname;
+}
+
 char* getLoginShortName()
 {
     ulong lUserid = 0, lGroupid = 0;
-    ulong pid = 0;
     char sql[1024] = "";
-    static char shortname[256] = "";
     dsCltGetMyInfo(1, "Userid", &lUserid);
     sprintf(sql, "select groupid from dsuser where id = %lu", lUserid);
-	printf("sql=[%s]\n", sql);
+    printf("user=%lu,sql=[%s]\n", lUserid, sql);
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &lGroupid);
-    pid = findCompanyByGroupid(lGroupid);
-    sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
-    memset(shortname, 0, sizeof(shortname));
-    pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname) - 1, shortname);
-	printf("get shortname=%s, pid=%lu, groupid=%lu", shortname, pid, lGroupid);
-    return shortname;
+    return getShortNameByGroupid(lGroupid);
 }
 
 
@@ -59,12 +65,43 @@ int checkTableExists(char* tableName)
 }
 
 
+char* getNewLogTable(char* shortName, char* tableOri, int year, int month)
+{
+    static char newTable[256] = "";
+    if((strlen(shortName) > 0) && (strcmp(shortName, "lan") != 0))
+        snprintf(newTable, sizeof(newTable) - 1, "%s_%s_%04u%02u", shortName, tableOri, year, month);
+    else
+        snprintf(newTable, sizeof(newTable) - 1, "%s_%04u%02u", tableOri, year, month);
+	char sql[1024] = "";
+	if(!checkTableExists(newTable))
+    {
+        snprintf(sql, sizeof(sql) - 1, "create table %s like %s", newTable, tableOri);
+        printf("not exist logTable=%s, do sql=%s\n", newTable, sql);
+        pasDbExecSqlF(sql);
+    }
+    return newTable;
+}
+
+char* getNewTableName(char* shortName, char* tableName)
+{
+    static char newTable[256] = "";
+    memset(newTable, 0, sizeof(newTable));
+    if((strlen(shortName) > 0) && (strcmp(shortName, "lan") != 0))
+        snprintf(newTable, sizeof(newTable) - 1, "%s_%s", shortName, tableName);
+    else
+        snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);
+	
+    printf("get newTable=%s\n", newTable);
+    return newTable;
+}
+
+
 char* getNewTable(char* shortName, char* tableName)
 {
     static char newTable[256] = "";
     memset(newTable, 0, sizeof(newTable));
     char sql[1024] = "";
-    if(strlen(shortName) > 0)
+    if((strlen(shortName) > 0) && (strcmp(shortName, "lan") != 0))
         snprintf(newTable, sizeof(newTable) - 1, "%s_%s", shortName, tableName);
     else
         snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);

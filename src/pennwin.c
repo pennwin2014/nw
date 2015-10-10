@@ -82,6 +82,17 @@ int pennwin_get_data(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead){
 	return 0;
 }
 
+int doLoadLogToDB()
+{
+	FILE* fp ;
+	//1、读取该目录下所有的文件
+	utFileReadAllFile(char * pFile,unsigned long * lSize)
+	//2、解析出dat文件名
+	//3、解析出表名
+	File
+	//4、将文件导入该表
+}
+
 int pennwin_initFun(utShmHead *psShmHead)
 {
     int iReturn;

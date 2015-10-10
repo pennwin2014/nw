@@ -259,7 +259,7 @@ int  createDir(char *dir,  int dirlen)
 //       0: 查询成功
 //      -1: 参数错误
 ////////////////////////////////////////////////////////////////
-int    searchPos2(int Userid,  char *filetype, char *filePath, char *savefile,  int savefilelen)
+int    searchPos2(int Userid,  char* caShortName, char *filetype, char *filePath, char *savefile,  int savefilelen)
 {
 
     int iRet = -1;
@@ -270,6 +270,7 @@ int    searchPos2(int Userid,  char *filetype, char *filePath, char *savefile,  
     else
     {
         char    tableName[512];
+		char tableNameOri[512];
         char    DefaultPath[512];
         char    comm[512];
         char    year[10];
@@ -306,11 +307,12 @@ int    searchPos2(int Userid,  char *filetype, char *filePath, char *savefile,  
 
 
         //当前信息存放的数据库表名
-        snprintf(tableName, sizeof(tableName) - 1, "%s_%s%s", filetype, year,  mon);
+        snprintf(tableNameOri, sizeof(tableNameOri) - 1, "%s_%s%s", filetype, year,  mon);
+		strcpy(tableName, getNewTable(caShortName, tableNameOri));
 
         //默认的路径
         snprintf(savefile, savefilelen, "%s/%s_%s999999.dat", filePath, tableName, day);
-		
+
         FILE *fp = fopen(savefile,  "a+");
         if(fp)
         {
@@ -629,7 +631,7 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     sprintf(sql, "select groupid from nwcompute where compid=%lu", compid);
 
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(groupid2), &groupid2);
-	printf("groupid2=%d\n", groupid2);
+    printf("groupid2=%d\n", groupid2);
 
     //提取信息
     for(Numbers = 0; Numbers < Nums; Numbers++)
@@ -783,14 +785,14 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         Status = -3;
         Nums2 = 0;
         recodeLogInfo("文件日志：Error(Nums != success):", mesg, "");
-		printf("文件日志：Error(Nums != success)");
+        printf("文件日志：Error(Nums != success)");
     }
     else
     {
         //创建当天日志目录,并将创建?哪柯即娣诺絛ir中，以便后面使用该目录
         createDir(phdir,  sizeof(phdir));
-		printf("phdir=%s\n", phdir);
-        if(searchPos2(userid, "nwoutfilelog", phdir, phsavefile, sizeof(phdir)))
+        printf("phdir=%s\n", phdir);
+        if(searchPos2(userid, getShortNameByGroupid(groupid2), "nwoutfilelog", phdir, phsavefile, sizeof(phdir)))
         {
             Status = -4;
             Nums2 = 0;
@@ -822,17 +824,17 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         }
         createDir(dir,  sizeof(dir));
         //查询当前数据应该保存在哪个文件中， 如果查询成功，则打开此文件,失败则返回错误
-        if(searchPos2(userid, "nwfilelog", dir, savefile, sizeof(dir)))
+        if(searchPos2(userid, getShortNameByGroupid(groupid2), "nwfilelog", dir, savefile, sizeof(dir)))
         {
             Status = -4;
             Nums2 = 0;
-			printf("search pos2 failed");
-		}
+            printf("search pos2 failed");
+        }
         else
         {
 
             snprintf(mesg, sizeof(mesg) - 1, "dir=%s***********savefile=%s", dir, savefile);
-			printf("文件日志=%s\n", mesg);
+            printf("文件日志=%s\n", mesg);
             recodeLogInfo("文件日志s", mesg, "");
             if((fp = fopen(savefile, "ab")) == NULL)    //打开存储文件失败
             {
@@ -859,13 +861,13 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 fp = NULL;
 
                 Status = 1;
-				printf("保存成功--%s--len=%d\n", savefile, strlen(data));
+                printf("保存成功--%s--len=%d\n", savefile, strlen(data));
             }
-			/*
-			//再保存一份
-			memset(savefile, 0, sizeof(savefile));
-			snprintf(savefile, sizeof(savefile)-1, "/home/ncmysql/nw/log_penn/log.dat");
-			if((fp = fopen(savefile, "ab")) == NULL)    //打开存储文件失败
+            /*
+            //再保存一份
+            memset(savefile, 0, sizeof(savefile));
+            snprintf(savefile, sizeof(savefile)-1, "/home/ncmysql/nw/log_penn/log.dat");
+            if((fp = fopen(savefile, "ab")) == NULL)    //打开存储文件失败
             {
                 Status  = -6;
                 Nums2 = 0;
@@ -890,7 +892,7 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 fp = NULL;
 
                 Status = 1;
-				printf("111保存成功--%s--len=%d\n", savefile, strlen(data));
+                printf("111保存成功--%s--len=%d\n", savefile, strlen(data));
             }
             */
         }
@@ -910,21 +912,21 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
 
 int  timeToStringEx(unsigned int now, char *year, char *mon)
-{    
-	if((year == NULL) || (mon == NULL) || (now == 0))    
-	{        
-		return -1;    
-	}    
-	struct tm *time1;    
-	time1 = (struct tm *)localtime(&now);    
-	//年  
-	snprintf(year, 5, "%d", time1->tm_year + 1900);    
-	//月   
-	if((time1->tm_mon + 1 > 0) && (time1->tm_mon + 1 <= 9))
-		snprintf(mon, 3, "0%d", time1->tm_mon + 1);    
-	else        
-		snprintf(mon, 3, "%d", time1->tm_mon + 1);      
-	return 0;
+{
+    if((year == NULL) || (mon == NULL) || (now == 0))
+    {
+        return -1;
+    }
+    struct tm *time1;
+    time1 = (struct tm *)localtime(&now);
+    //年
+    snprintf(year, 5, "%d", time1->tm_year + 1900);
+    //月
+    if((time1->tm_mon + 1 > 0) && (time1->tm_mon + 1 <= 9))
+        snprintf(mon, 3, "0%d", time1->tm_mon + 1);
+    else
+        snprintf(mon, 3, "%d", time1->tm_mon + 1);
+    return 0;
 }
 
 //2、进程日志上传
@@ -964,7 +966,7 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char dir[300]; //存放目录
     char savefile[300];  //保存的文件名
     char    mesg[512];
-	//数据库相关
+    //数据库相关
     char sql_tmp[2048] = "";
 
     //utMsgPrintMsg(psMsgHead);
@@ -1019,27 +1021,27 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         return -1;
 
     }
-/*
-    //动态开辟存储空间
-    data = (char *)malloc(PACKAGE_MAXLEN);
-    if(!data)
-    {
-        Status = -4;
-        Nums2 = 0;
+    /*
+        //动态开辟存储空间
+        data = (char *)malloc(PACKAGE_MAXLEN);
+        if(!data)
+        {
+            Status = -4;
+            Nums2 = 0;
 
-        pasTcpResponse(iFd, psMsgHead, NULL,  3,
-                       "compid",   UT_TYPE_LONG,   compid,
-                       "Status",   UT_TYPE_STRUCT,  &Status, 1,
-                       "Nums",     UT_TYPE_LONG,     Nums2);
+            pasTcpResponse(iFd, psMsgHead, NULL,  3,
+                           "compid",   UT_TYPE_LONG,   compid,
+                           "Status",   UT_TYPE_STRUCT,  &Status, 1,
+                           "Nums",     UT_TYPE_LONG,     Nums2);
 
-        recodeLogInfo("进程日志：" , "动态开辟空间失败！", "");
-        return -1;
-    }
-    else
-    {
-        memset(data, 0, PACKAGE_MAXLEN);
-    }
-*/
+            recodeLogInfo("进程日志：" , "动态开辟空间失败！", "");
+            return -1;
+        }
+        else
+        {
+            memset(data, 0, PACKAGE_MAXLEN);
+        }
+    */
 
     int   Numbers = 0;
     char  str[20][50];
@@ -1178,58 +1180,63 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         {
             screenid = 0;
         }
-/*
-        snprintf(data + strlen(data), PACKAGE_MAXLEN - strlen(data) - 1,   "%llu\t%u\t%u\t%s\t"
-                 "%u\t%s\t%s\t%u\t"
-                 "%s\t%d\t%d\t%d\t%s\t"
-                 "%s\t%u\t%u\t%s\t"
-                 "%d\t%d\t%d\t%d\t%d\n",
-                 currentTime, compid,      userid ,    mac,
-                 groupid,     devname,     username,   sip,
-                 procname,    screenid,   Mark,       Pid,     Indexid,
-                 Pindexid,    Stime,       Btime,      Path,
-                 mem,         cpu,         flags,      nettime,   wndtime
-                );
-*/
-		//直接插入到数据库
-	    //1、根据当前年月生成表名
-	    char table_name[1024] = "";
-		char  year[10];   
-		char  mon[10];   
-		memset(year, 0, sizeof(year));   
-		memset(mon, 0 , sizeof(mon));
-		time_t now;            
-		time(&now);            
-		timeToStringEx(now, year, mon);
-		int syear = atoi(year);
-    	int smonth = atoi(mon);
-		snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwproclog_%4u%02u", syear, smonth);
-		//2、查询是否已经存在，如果已经存在则更新，否则就插入
-		memset(sql_tmp, 0, 2048);		
+        /*
+                snprintf(data + strlen(data), PACKAGE_MAXLEN - strlen(data) - 1,   "%llu\t%u\t%u\t%s\t"
+                         "%u\t%s\t%s\t%u\t"
+                         "%s\t%d\t%d\t%d\t%s\t"
+                         "%s\t%u\t%u\t%s\t"
+                         "%d\t%d\t%d\t%d\t%d\n",
+                         currentTime, compid,      userid ,    mac,
+                         groupid,     devname,     username,   sip,
+                         procname,    screenid,   Mark,       Pid,     Indexid,
+                         Pindexid,    Stime,       Btime,      Path,
+                         mem,         cpu,         flags,      nettime,   wndtime
+                        );
+        */
+        //直接插入到数据库
+        //1、根据当前年月生成表名
+        char table_name[1024] = "";
+        char  year[10];
+        char  mon[10];
+        memset(year, 0, sizeof(year));
+        memset(mon, 0 , sizeof(mon));
+        time_t now;
+        time(&now);
+        timeToStringEx(now, year, mon);
+        int syear = atoi(year);
+        int smonth = atoi(mon);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwproclog_%4u%02u", syear, smonth);
+        //2、查询是否已经存在，如果已经存在则更新，否则就插入
+        memset(sql_tmp, 0, 2048);
         snprintf(sql_tmp, sizeof(sql_tmp) - 1, "select count(*) from %s  where indexid=\'%s\'",   table_name, Indexid);
-        lCount = 0;		
-		pasDbOneRecord(sql_tmp, 0, UT_TYPE_ULONG, 4, &lCount);
-		//printf("sql=[%s],lcount=%d\n", sql_tmp, lCount);
-		memset(sql_tmp, 0, 2048);
-		if(lCount >0){
-			snprintf(sql_tmp, sizeof(sql_tmp)-1, "update %s  set btime=%u,wndtime=%d where indexid=\'%s\'", table_name,Btime,wndtime, Indexid);
-			//printf("update sql=[%s]\n", sql_tmp);
-			if(pasDbExecSql(sql_tmp, 0)){
-				recodeLogInfo(" 更新进程日志", " 操作数据库失败", sql_tmp );
-				break;
-			}
-		}else{
-			snprintf(sql_tmp, sizeof(sql_tmp)-1, "insert into %s(compid, userid,  mac, groupid, devname, udisp, sip, procname, screenid, mark, pid, indexid, pindexid, stime, btime, path, mem, cpu, flags, nettime, wndtime) values(%u,%u,\'%s\',%u,\'%s\',\'%s\',%u,\'%s\',%d,%d,%d,\'%s\',\'%s\',%u,%u,\'%s\',%d,%d,%d,%d,%d) ", table_name, compid, userid, mac, groupid,  devname,  username, sip,
-                 procname,    screenid,   Mark,       Pid,     Indexid,
-                 Pindexid,    Stime,       Btime,      Path,
-                 mem,         cpu,         flags,      nettime,   wndtime);
-			//printf("insert sql=[%s]\n", sql_tmp);
-			if(pasDbExecSql(sql_tmp, 0)){
-				recodeLogInfo(" 插入进程日志", "操作数据库失败！ " , sql_tmp);
-				break;
-			}
-		}		
-	    Nums2++;
+        lCount = 0;
+        pasDbOneRecord(sql_tmp, 0, UT_TYPE_ULONG, 4, &lCount);
+        //printf("sql=[%s],lcount=%d\n", sql_tmp, lCount);
+        memset(sql_tmp, 0, 2048);
+        if(lCount > 0)
+        {
+            snprintf(sql_tmp, sizeof(sql_tmp) - 1, "update %s  set btime=%u,wndtime=%d where indexid=\'%s\'", table_name, Btime, wndtime, Indexid);
+            //printf("update sql=[%s]\n", sql_tmp);
+            if(pasDbExecSql(sql_tmp, 0))
+            {
+                recodeLogInfo(" 更新进程日志", " 操作数据库失败", sql_tmp);
+                break;
+            }
+        }
+        else
+        {
+            snprintf(sql_tmp, sizeof(sql_tmp) - 1, "insert into %s(compid, userid,  mac, groupid, devname, udisp, sip, procname, screenid, mark, pid, indexid, pindexid, stime, btime, path, mem, cpu, flags, nettime, wndtime) values(%u,%u,\'%s\',%u,\'%s\',\'%s\',%u,\'%s\',%d,%d,%d,\'%s\',\'%s\',%u,%u,\'%s\',%d,%d,%d,%d,%d) ", table_name, compid, userid, mac, groupid,  devname,  username, sip,
+                     procname,    screenid,   Mark,       Pid,     Indexid,
+                     Pindexid,    Stime,       Btime,      Path,
+                     mem,         cpu,         flags,      nettime,   wndtime);
+            //printf("insert sql=[%s]\n", sql_tmp);
+            if(pasDbExecSql(sql_tmp, 0))
+            {
+                recodeLogInfo(" 插入进程日志", "操作数据库失败！ " , sql_tmp);
+                break;
+            }
+        }
+        Nums2++;
     }// end for()
 
 
@@ -1245,12 +1252,12 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
     else
     {
-    	/*
+        /*
         //创建当天日志目录,并将创建?哪柯即娣诺絛ir中，以便后面使用该目录
         createDir(dir,  sizeof(dir));
 
         //查询当前数据应该保存在哪个文件中， 如果查询成功，则打开此文件,失败则返回错误
-        if(searchPos2(userid, "nwproclog", dir, savefile, sizeof(dir)))
+        if(searchPos2(userid, getShortNameByGroupid(groupid2), "nwproclog", dir, savefile, sizeof(dir)))
         {
             Status = -4;
             Nums2 = 0;
@@ -1281,7 +1288,7 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
             }
         }
-		*/
+        */
         recodeLogInfo(" 接收进程日志3：" , mesg, "");
     }
 
@@ -1290,7 +1297,7 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                    "compid",   UT_TYPE_LONG,   compid,
                    "Status",   UT_TYPE_STRUCT,  &Status, 1,
                    "Nums",     UT_TYPE_LONG,     Nums2);
-   // free(data);
+    // free(data);
     return 0;
 }
 
@@ -1405,7 +1412,7 @@ int  Lan_RmoveLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char  str[12][50];
     memset(str, 0, 12 * 50);
 
-    // 檠鼻翱突Ф诵畔?
+    // 檠鼻翱突Ф诵畔?
     nwCompInfo *psComp = (nwCompInfo *)utShmHashLook(psShmHead, NC_LNK_COMPUTE, &compid);
     char Mysql[256];
     memset(Mysql, 0, sizeof(Mysql));
@@ -1566,7 +1573,7 @@ int  Lan_RmoveLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     }//end for()
 
-    //监测记录的Nums2的值是否和Nums 嗟?
+    //监测记录的Nums2的值是否和Nums 嗟?
     memset(mesg, 0, sizeof(mesg));
     snprintf(mesg, sizeof(mesg) - 1, "compid=%u, userid=%d, Nums=%d, success=%d,data=%s", compid, userid, Nums, Nums2, data);
     if(Nums != Nums2)
@@ -1582,11 +1589,11 @@ int  Lan_RmoveLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         if(strlen(data) > 0)
         {
 
-            //创建当天日志目录,并将创建?哪柯即娣诺絛ir中，? 便后面使?媚柯?
+            //创建当天日志目录,并将创建?哪柯即娣诺絛ir中，? 便后面使?媚柯?
             createDir(dir,  sizeof(dir));
 
             //查询当前数据应该保存在?母鑫募校?如果查询成功，则打开此文件,失败则返回错误
-            if(searchPos2(userid, "nwremovelog", dir, savefile, sizeof(dir)))
+            if(searchPos2(userid, getShortNameByGroupid(groupid2), "nwremovelog", dir, savefile, sizeof(dir)))
             {
                 Status = -4;
                 Nums2 = 0;
@@ -1723,7 +1730,7 @@ int  Lan_WebLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                        "Status",   UT_TYPE_STRUCT,  &Status, 1,
                        "Nums",     UT_TYPE_LONG,     Nums2);
 
-        //recodeLogInfo("网页日志：" , "动态 ?倏占涫О埽?, "");
+        //recodeLogInfo("网页日志：" , "动态 ?倏占涫О埽?, "");
         return -1;
     }
     else
@@ -1901,7 +1908,7 @@ int  Lan_WebLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         createDir(dir,  sizeof(dir));
 
         //查询当前数据应该保存在哪个文件中， 如果查询成功，则打开此文件,失败则返回错误
-        if(searchPos2(userid, "nwweblog", dir, savefile, sizeof(dir)))
+        if(searchPos2(userid, getShortNameByGroupid(groupid2), "nwweblog", dir, savefile, sizeof(dir)))
         {
             Status = -4;
             Nums2 = 0;
@@ -2039,7 +2046,7 @@ int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         Status = -4;
         Nums2 = 0;
 
-        pasTcpResponse(iFd, psMsgHead, NULL, /* 密钥， 菔辈挥? */ 3,
+        pasTcpResponse(iFd, psMsgHead, NULL, /* 密钥， 菔辈挥? */ 3,
                        "compid",   UT_TYPE_LONG,   compid,
                        "Status",   UT_TYPE_STRUCT,  &Status, 1,
                        "Nums",     UT_TYPE_LONG,     Nums2);
@@ -2248,7 +2255,7 @@ int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             }
             else
             {
-                recodeLogInfo(" 收到一 魾IG5聊天?罩緁rom:", "BIG5 to GBK  success", MyFriendaccount);
+                recodeLogInfo(" 收到一 魾IG5聊天?罩緁rom:", "BIG5 to GBK  success", MyFriendaccount);
                 snprintf(Friendaccount, sizeof(Friendaccount), "%s",  MyFriendaccount);
             }
         }
@@ -2328,11 +2335,12 @@ int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
     else
     {
+
         //创建当天?罩灸柯?并将创建?哪柯即娣诺絛ir中，以便后面使用该目录
         createDir(dir,  sizeof(dir));
 
         //查询当前数据应该保存在哪个文件中， 如果查询成功，则打开此文件,失败则返回错误
-        if(searchPos2(userid, "ncimclient", dir, savefile, sizeof(dir)))
+        if(searchPos2(userid, getShortNameByGroupid(groupid2), "ncimclient", dir, savefile, sizeof(dir)))
         {
             Status = -4;
             Nums2 = 0;
@@ -2458,8 +2466,8 @@ int  Lan_EventLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         return -1;
     }
 
-    //查询当前?萦Ω帽４嬖 哪个文件??如果查询成功，则 蚩 宋??
-    if(!searchPos2(userid, "nweventlog", dir, savefile, 300))
+    //查询当前?萦Ω帽４嬖 哪个文件??如果查询成功，则 蚩 宋??
+    if(!searchPos2(userid, getShortNameByGroupid(groupid2), "nweventlog", dir, savefile, 300))
     {
         if((fp = fopen(savefile, "a+")) != NULL)  //打开文件成功，则保存数据到文件中
         {
@@ -2531,7 +2539,7 @@ int  Lan_EventLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 unsigned long long currentTime = pasGetLongTimeId(); //获取时间
                 snprintf(conver, 50, "%llu", currentTime);
                 fwrite(conver, strlen(conver), 1, fp);
-                fwrite("\t" ,   1, 1,  fp);  //.谩癨t  侄畏挚?
+                fwrite("\t" ,   1, 1,  fp);  //.谩癨t  侄畏挚?
 
                 snprintf(conver, 50, "%u", compid);
                 fwrite(conver, strlen(conver), 1, fp);
@@ -2598,7 +2606,7 @@ int  Lan_EventLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 fwrite("\t" ,   1, 1,  fp);  //用“\t”将?侄?挚?
 
                 fwrite(Content,  strlen(Content), 1, fp);
-                fwrite("\n" ,   1, 1,  fp);  //用“\n”结 ?
+                fwrite("\n" ,   1, 1,  fp);  //用“\n”结 ?
 
                 Nums2++;
             }//end for()
@@ -2664,7 +2672,7 @@ int Lan_ScreenLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     int   Nums2 = 0;
     long  iReturn = 0;
     FILE   *fp = NULL;
-    char dir[512]; // ４婺柯?
+    char dir[512]; // ４婺柯?
     char savefile[512];  //保存的文件??
     //utMsgPrintMsg(psMsgHead);
 
@@ -2973,7 +2981,7 @@ int Lan_ScreenJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             char   save[1024];
             memset(receive, 0, sizeof(receive) - 1);
             memset(save, 0, sizeof(save) - 1);
-            snprintf(receive, sizeof(receive) - 1,  "compid=%u,  接收大 ? %d", compid, bufferLength);
+            snprintf(receive, sizeof(receive) - 1,  "compid=%u,  接收大 ? %d", compid, bufferLength);
             snprintf(save, sizeof(save) - 1,  "存储大小: %d", saveLength);
             recodeLogInfo("error：接收到一条屏幕截图：", receive, save);
             Status = 0;
@@ -3253,7 +3261,7 @@ int Lan_ScreenAlterJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     unsigned int screenid = 0;
     unsigned int stime = 0;
     char         destDir[512];
-    unsigned long long currentTime = pasGetLongTimeId(); // 袢∈奔?
+    unsigned long long currentTime = pasGetLongTimeId(); // 袢∈奔?
     char         *buffer = NULL;
     unsigned int   bufferLength = 0;
 
@@ -3762,7 +3770,7 @@ int Lan_MailFile_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                        "compid",   UT_TYPE_LONG,   compid,
                        "Status",   UT_TYPE_STRUCT,  &Status, 1);
 
-        //recodeLogInfo(" 邮 邮件文件? , "compid ? || filelen<=0", "");
+        //recodeLogInfo(" 邮 邮件文件? , "compid ? || filelen<=0", "");
         return -1;
     }
 
@@ -4218,7 +4226,7 @@ int Lan_MyPorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         }
         else
         {
-            //recodeLogInfo("敏感进程日志：",  "插入日志失 ?, sql);
+            //recodeLogInfo("敏感进程日志：",  "插入日志失 ?, sql);
         }
 
     }//end for()
@@ -4236,7 +4244,7 @@ int Lan_MyPorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         Status = 1;
     }
 
-    pasTcpResponse(iFd, psMsgHead, NULL, /* 密钥，暂 辈挥? */ 3,
+    pasTcpResponse(iFd, psMsgHead, NULL, /* 密钥，暂 辈挥? */ 3,
                    "compid",   UT_TYPE_LONG,   compid,
                    "Status",   UT_TYPE_STRUCT,  &Status, 1,
                    "Nums",     UT_TYPE_LONG,     Nums2);
@@ -4304,7 +4312,7 @@ int Lan_MyProcessJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     memset(mon, 0, sizeof(mon));
     memset(day, 0, sizeof(day));
 
-    //把客户端当前时间转换成 址 ?如?晒??其为屏幕图片存放目录，否则用服务器的当前时间来计算存放目录
+    //把客户端当前时间转换成 址 ?如?晒??其为屏幕图片存放目录，否则用服务器的当前时间来计算存放目录
     if(timeToString(stime, year, mon, day) == -1)
     {
         time_t now;

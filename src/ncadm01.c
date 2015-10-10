@@ -841,7 +841,8 @@ extern int mItem;
 //用户名密码公司简称验证
 int dsCltUserLogin3(char* caUsername, char* caPassword, char* caShortname)
 {
-    if(caUsername == NULL && caPassword == NULL && caShortname == NULL)
+    //if(caUsername == NULL && caPassword == NULL && caShortname == NULL)
+    if(caUsername == NULL && caPassword == NULL)
     {
         return -2;
     }
@@ -861,8 +862,16 @@ int dsCltUserLogin3(char* caUsername, char* caPassword, char* caShortname)
     sprintf(caKey0, "%s%s", caUsername, caPassword);
 
     utMd5Ascii22(caKey0, strlen(caKey0), NULL, caKey);
-    sprintf(sql, "select count(*) from dsuser where name='%s' and lkey='%s' and groupid=(select groupid from dsuser where name ='%sadmin')",caUsername, caKey,caShortname);
-    printf("sql=%s\n", sql);
+    if(strlen(caShortname) == 0)
+    {
+        sprintf(sql, "select count(*) from dsuser where name='%s' and lkey='%s' and groupid=(select groupid from dsuser where name ='lanadmin')", caUsername, caKey);
+    }
+    else
+    {
+        sprintf(sql, "select count(*) from dsuser where name='%s' and lkey='%s' and groupid=(select groupid from dsuser where name ='%sadmin')", caUsername, caKey, caShortname);
+    }
+
+    printf("check sql=%s\n", sql);
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &count);
 
     if(count > 0)
@@ -1076,7 +1085,7 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(iReturn == 0)
     {
-    	printf("验证%s,%s\n", caUsername, caPassword);
+        printf("验证%s,%s\n", caUsername, caPassword);
         iReturn = dsCltUserLogin(caUsername, caPassword, caIp);
 
     }
@@ -1190,7 +1199,7 @@ int ncWebAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             }
         }
         writeSysLog(psMsgHead, "01", "Success", ncLang("0173完成登录到系统"));
-        
+
     }
     if(strcmp(caUsername, "admin"))
     {

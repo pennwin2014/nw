@@ -175,8 +175,8 @@ int ncAdmWriteLog(char *pName,char *pIp,char *pMsg,...)
     va_end(args);
     strcpy(caDate,utTimFormat("%Y-%m-%d %H:%M:%S",time(0)));
     lSid = pasGetSid("ncadminlog","sid");
-    iReturn = pasDbExecSqlF("insert into ncadminlog(sid,sdate,name,ipaddr,descr,action) values (%lu,'%s','%s','%s','%s','02')",
-            lSid,caDate,pName,pIp,caMessage);
+    iReturn = pasDbExecSqlF("insert into %s(sid,sdate,name,ipaddr,descr,action) values (%lu,'%s','%s','%s','%s','02')",
+            getNewTable(getLoginShortName(),"ncadminlog"),lSid,caDate,pName,pIp,caMessage);
     if(iReturn == 0) {
         pasDbCommit(NULL);
     }

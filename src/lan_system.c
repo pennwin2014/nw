@@ -39,6 +39,8 @@ int lan_systemLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char limit_in[16] = "";
     char sort_in[16] = "";
     char dir_in[16] = "";
+	char caShortname[256] = "";
+	strcpy(caShortname, getLoginShortName());
 
     utMsgGetSomeNVar(psMsgHead, 12,
                      "ipaddr",       UT_TYPE_STRING,  sizeof(ipaddr_in) - 1,       ipaddr_in,
@@ -100,7 +102,7 @@ int lan_systemLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " order by %s %s", sort_in, dir_in);
     }
 
-    snprintf(sql, sizeof(sql), "select count(*) from %s where name in(select dispname from dsuser where groupid = (select groupid from dsuser where name='%s')) %s", getNewTable(shortName,char * tableName),username, sql_tmp);
+    snprintf(sql, sizeof(sql), "select count(*) from %s where name in(select dispname from dsuser where groupid = (select groupid from dsuser where name='%s')) %s", getNewTable(caShortname,  "ncadminlog"),username, sql_tmp);
 
 #if SYSTEM_LOG
     printf("sql_count:%s\n", sql);
@@ -113,7 +115,7 @@ int lan_systemLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     utPltPutVarF(psDbHead, "TotRec", "%u", db_count);
 
-    snprintf(sql, sizeof(sql), "select sdate,name,ipaddr,descr,action,result from ncadminlog where name in(select name from dsuser where groupid = (select groupid from dsuser where name='%s')) %s limit %s,%s", username, sql_tmp, start_in, limit_in);
+    snprintf(sql, sizeof(sql), "select sdate,name,ipaddr,descr,action,result from %s where name in(select name from dsuser where groupid = (select groupid from dsuser where name='%s')) %s limit %s,%s",  getNewTable(caShortname,  "ncadminlog"), username, sql_tmp, start_in, limit_in);
 
 #if SYSTEM_LOG
     printf("sql:%s\n", sql);

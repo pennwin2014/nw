@@ -11,6 +11,8 @@
 
 void chat_combine_table(char *table_name, char *sdate, char *edate)
 {
+	char caShortName[256]="";
+	strcpy(caShortName, getLoginShortName());
     //writeLog("logCheck.txt","sdate",sdate);
     //writeLog("logCheck.txt","edate",edate);
     sdate[4] = '\0';
@@ -30,7 +32,8 @@ void chat_combine_table(char *table_name, char *sdate, char *edate)
     if(syear == eyear && smonth == emonth)
     {
         writeLog("logCheck.txt", "---------------29-------------", "-----");
-        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "ncimclient_%4u%02u as new_table", syear, smonth);
+        //snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "ncimclient_%4u%02u as new_table", syear, smonth);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "ncimclient", syear, smonth) );
     }
     else
     {
@@ -43,7 +46,8 @@ void chat_combine_table(char *table_name, char *sdate, char *edate)
         //for(i=syear;i<=eyear&&j<=emonth;){
         for(i = syear; i <= eyear && (i < eyear ? j <= 12 : j <= emonth);)
         {
-            snprintf(sql, sizeof(sql), "select * from ncimclient_%4u%02u", i, j);
+            //snprintf(sql, sizeof(sql), "select * from ncimclient_%4u%02u", i, j);
+            snprintf(sql, sizeof(sql), "select * from %s", getNewLogTable(caShortName, "ncimclient", i, j));
             /////////////////////////////////////////////////////////////////////////////////////////////
             writeLog("logCheck.txt", "----------------------------", sql);
             psCur = pasDbOpenSql(sql, 0);
@@ -72,6 +76,8 @@ void chat_combine_table(char *table_name, char *sdate, char *edate)
 
 void chat_combine_table_and_condition(char *table_name, char *sdate, char *edate, char* condSql)
 {
+	char caShortName[256]="";
+	strcpy(caShortName, getLoginShortName());
     //writeLog("logCheck.txt","sdate",sdate);
     //writeLog("logCheck.txt","edate",edate);
     sdate[4] = '\0';
@@ -91,7 +97,7 @@ void chat_combine_table_and_condition(char *table_name, char *sdate, char *edate
     if(syear == eyear && smonth == emonth)
     {
         writeLog("logCheck.txt", "---------------29-------------", "-----");
-        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "ncimclient_%4u%02u %s", syear, smonth, condSql);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s %s",  getNewLogTable(caShortName, "ncimclient", syear, smonth), condSql);
     }
     else
     {
@@ -104,7 +110,8 @@ void chat_combine_table_and_condition(char *table_name, char *sdate, char *edate
         //for(i=syear;i<=eyear&&j<=emonth;){
         for(i = syear; i <= eyear && (i < eyear ? j <= 12 : j <= emonth);)
         {
-            snprintf(sql, sizeof(sql), "select * from ncimclient_%4u%02u %s", i, j, condSql);
+            //snprintf(sql, sizeof(sql), "select * from ncimclient_%4u%02u %s", i, j, condSql);
+            snprintf(sql, sizeof(sql), "select * from %s %s", getNewLogTable(caShortName, "ncimclient", i, j), condSql);
             /////////////////////////////////////////////////////////////////////////////////////////////
             writeLog("logCheck.txt", "----------------------------", sql);
             psCur = pasDbOpenSql(sql, 0);

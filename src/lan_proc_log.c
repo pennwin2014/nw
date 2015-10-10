@@ -18,6 +18,8 @@
 
 void proc_combine_table(char *table_name, char *sdatet, char *edatet)
 {
+    char caShortName[256] = "";
+    strcpy(caShortName, getLoginShortName());
     char sdate[24] = "";
     char edate[24] = "";
 
@@ -37,7 +39,11 @@ void proc_combine_table(char *table_name, char *sdatet, char *edatet)
     int emonth = atoi(edate + 5);
 
     if(syear == eyear && smonth == emonth)
-        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwproclog_%4u%02u as new_table", syear, smonth);
+    {
+        //  snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwproclog_%4u%02u as new_table", syear, smonth);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "nwproclog", syear, smonth));
+
+    }
     else
     {
         int i, j = smonth, iNum = 0;
@@ -46,7 +52,8 @@ void proc_combine_table(char *table_name, char *sdatet, char *edatet)
         pasDbCursor *psCur = NULL;
         for(i = syear; i <= eyear && j <= emonth;)
         {
-            snprintf(sql, sizeof(sql), "select * from nwproclog_%4u%02u", i, j);
+            //snprintf(sql, sizeof(sql), "select * from nwproclog_%4u%02u", i, j);
+            snprintf(sql, sizeof(sql), "select * from %s", getNewLogTable(caShortName, "nwproclog", i, j));
             psCur = pasDbOpenSql(sql, 0);
             if(psCur != NULL)
             {
@@ -131,9 +138,9 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     //取数据
     //增加where 条件的标识
-  //  printf("proc before modi==%s,%s\n", sdate_in, edate_in);
+    //  printf("proc before modi==%s,%s\n", sdate_in, edate_in);
     modifyDates(sdate_in, edate_in);
-  //  printf("proc after modi==%s,%s\n", sdate_in, edate_in);
+    //  printf("proc after modi==%s,%s\n", sdate_in, edate_in);
 
     unsigned long stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);
@@ -476,7 +483,7 @@ int lan_proc_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 utPltPutLoopVarF(psDbHead, "pid", iNum, "%d", pid);
                 utPltPutLoopVar(psDbHead, "indexid", iNum, indexid);
                 utPltPutLoopVar(psDbHead, "pindexid", iNum, pindexid);
-                //utPltPutLoopVar(psDbHead, "pindexid", iNum, convertCSV(psShmHead, pindexid));                
+                //utPltPutLoopVar(psDbHead, "pindexid", iNum, convertCSV(psShmHead, pindexid));
                 utPltPutLoopVar(psDbHead, "stime", iNum, _stime);
                 utPltPutLoopVar(psDbHead, "btime", iNum, _btime);
                 utPltPutLoopVar(psDbHead, "wndtime", iNum, _wndtime);

@@ -6,265 +6,292 @@
 #include "pasdb.h"
 #include "utoplt01.h"
 
-void mail_combine_table(char *table_name,char *sdate,char *edate){
-  printf("sdate:%s\tedate:%s\n",sdate,edate);
-	sdate[4] = '\0';
-	edate[4] = '\0';
-	
-	sdate[7] = '\0';
-	edate[7] = '\0';
-	
-	char sql[64] = "";
-	
-	int syear = atoi(sdate);
-	int smonth = atoi(sdate+5);
-	int eyear = atoi(edate);
-	int emonth = atoi(edate+5);
-	
-	if(syear==eyear && smonth==emonth)
-				snprintf(table_name+strlen(table_name),1024-strlen(table_name),"ncsmailmon_if_%4u%02u as new_table",syear,smonth);
-	else{
-			int i,j=smonth,iNum=0;
-			strcat(table_name,"(");
-			
-			pasDbCursor *psCur = NULL;
-			for(i=syear;i<=eyear&&j<=emonth;){
-					snprintf(sql,sizeof(sql),"select * from ncsmailmon_if_%4u%02u",i,j);
-					psCur = pasDbOpenSql(sql,0);
-					if(psCur!=NULL){
-							if(iNum>0){
-									strcat(table_name," union all ");
-							}
-							iNum++;
-							snprintf(table_name+strlen(table_name),1024-strlen(table_name),sql);
-							pasDbCloseCursor(psCur);
-					}
-					
-					if(j>11){
-							i++;
-							j=0;
-					}
-					j++;
-			}
-			snprintf(table_name+strlen(table_name),1024-strlen(table_name),")new_table");
-	}
-	printf("table_name:%s\n",table_name);
-	
-	
+void mail_combine_table(char *table_name, char *sdate, char *edate)
+{
+    printf("sdate:%s\tedate:%s\n", sdate, edate);
+    sdate[4] = '\0';
+    edate[4] = '\0';
+
+    sdate[7] = '\0';
+    edate[7] = '\0';
+
+    char sql[64] = "";
+
+    int syear = atoi(sdate);
+    int smonth = atoi(sdate + 5);
+    int eyear = atoi(edate);
+    int emonth = atoi(edate + 5);
+
+    if(syear == eyear && smonth == emonth)
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "ncsmailmon_if_%4u%02u as new_table", syear, smonth);
+    else
+    {
+        int i, j = smonth, iNum = 0;
+        strcat(table_name, "(");
+
+        pasDbCursor *psCur = NULL;
+        for(i = syear; i <= eyear && j <= emonth;)
+        {
+            snprintf(sql, sizeof(sql), "select * from ncsmailmon_if_%4u%02u", i, j);
+            psCur = pasDbOpenSql(sql, 0);
+            if(psCur != NULL)
+            {
+                if(iNum > 0)
+                {
+                    strcat(table_name, " union all ");
+                }
+                iNum++;
+                snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), sql);
+                pasDbCloseCursor(psCur);
+            }
+
+            if(j > 11)
+            {
+                i++;
+                j = 0;
+            }
+            j++;
+        }
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), ")new_table");
+    }
+    printf("table_name:%s\n", table_name);
+
+
 }
 
-int lan_mailSearch(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead){
-  utMsgPrintMsg(psMsgHead);
-  char groupid_in[16] = "";
-  char compid_in[16] = "";
-  char ip_in[16] = "";
-  char sdate_in[24] = "";
-  char edate_in[24] = "";
-  char compname_in[32] = "";
-  char keyword_in[32] = "";
-  char caExport_in[8] = "";
-  char start_in[8] = "";
-  char limit_in[8] = "";
-  char msub_in[256] = "";
-  char mfrom_in[64] = "";
-  char mto_in[64] = "";  
-  
-  utMsgGetSomeNVar(psMsgHead,13,
-		"groupid",	UT_TYPE_STRING,  sizeof(groupid_in)-1, 		groupid_in,
-		"compid",		UT_TYPE_STRING,  sizeof(compid_in)-1, 		compid_in,
-		"ip",				UT_TYPE_STRING,  sizeof(ip_in)-1, 				ip_in,
-		"sdate",		UT_TYPE_STRING,  sizeof(sdate_in)-1, 			sdate_in,
-		"bdate",		UT_TYPE_STRING,  sizeof(edate_in)-1, 			edate_in,
-		"compname",	UT_TYPE_STRING,  sizeof(compname_in)-1, 	compname_in,
-		"keyword",	UT_TYPE_STRING,  sizeof(keyword_in)-1, 		keyword_in,
-		"caExport",	UT_TYPE_STRING,  sizeof(caExport_in)-1, 	caExport_in,
-		"start",		UT_TYPE_STRING,  sizeof(start_in)-1, 		  start_in,
-		"limit",		UT_TYPE_STRING,  sizeof(limit_in)-1, 		  limit_in,
-		"mfrom",		UT_TYPE_STRING,  sizeof(mfrom_in)-1, 		  mfrom_in,
-		"mto",			UT_TYPE_STRING,  sizeof(mto_in)-1, 		    mto_in,
-		"msub",			UT_TYPE_STRING,  sizeof(msub_in)-1, 		  msub_in);
-		
-	char sql_tmp[384] = "";
-	
-	sprintf(sql_tmp,"where new_table.stime>%lu and new_table.stime<%lu",utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in),utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in));
-	
-	char *auth = getDsGroupid();
-	if(!utStrIsSpaces(auth)){
-		snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and new_table.groupid in (%s)",auth);
-	}
-	
-	if(!utStrIsSpaces(groupid_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.groupid in(%s)",getGroupid(strtoul(groupid_in,NULL,10)));
-	}
-	
-	if(!utStrIsSpaces(compid_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.compid=%s",compid_in);
-	}
-	
-	if(!utStrIsSpaces(keyword_in)){
-	  char *keywords = utf8convert(psShmHead,keyword_in);
-	  sprintf(sql_tmp+strlen(sql_tmp)," and (new_table.mailfrom like '%%%s%%' or new_table.mailto like '%%%s%%' or new_table.mailsub like '%%%s%%')",keywords,keywords,keywords);
-	}
-	
-	if(!utStrIsSpaces(compname_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and (nwcompute.compname like '%%%s%%' or nwcompute.devname like '%%%s%%')",utf8convert(psShmHead,compname_in),utf8convert(psShmHead,compname_in));
-	}
-	
-	if(!utStrIsSpaces(ip_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.sip like '%%%s%%'",ip_in);
-	}
-	
-	if(!utStrIsSpaces(mfrom_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.mailfrom like '%%%s%%'",utf8convert(psShmHead,mfrom_in));
-	}
-  
-	if(!utStrIsSpaces(mto_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.mailto like '%%%s%%'",utf8convert(psShmHead,mto_in));
-	}
-  
-	if(!utStrIsSpaces(msub_in)){
-	  sprintf(sql_tmp+strlen(sql_tmp)," and new_table.mailsub like '%%%s%%'",utf8convert(psShmHead,msub_in));
-	}
-	
-  char sql[512] = "";
-  
-  pasDbCursor *psCur = NULL;
-  utPltDbHead *psDbHead = utPltInitDb();
-  char table_name[256] = "";
-  mail_combine_table(table_name,sdate_in,edate_in);
-  
-  sprintf(sql,"select count(*) from %s %s",table_name,sql_tmp);
-  unsigned long db_count = 0;
-  pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(db_count), &db_count);
-  utPltPutVarF(psDbHead,"TotRec","%lu",db_count);
-  
-  sprintf(sql,"select new_table.recno,nwgroup.gname,nwcompute.compname,nwcompute.devname,new_table.sip,from_unixtime(new_table.stime,'%%Y/%%m/%%d %%H:%%i:%%s'),new_table.flags,new_table.mailfrom,new_table.mailto,new_table.mailsub,new_table.mailsize,new_table.mailasize,new_table.bodyinfo,new_table.affixinfo,ccode,filepath from %s left join nwgroup on new_table.groupid=gid left join nwcompute on new_table.compid=nwcompute.compid %s limit %s,%s ",table_name,sql_tmp,start_in,limit_in);
-  
-  writeLog("logCheck.txt","mail",sql);
-  psCur = pasDbOpenSql(sql,0);
-  
-  if(psCur){
-    unsigned long recno = 0;
-    char groupname[32] = "";
-    char compname[32] = "";
-    char devname[32] = "";
-    char sip[16] = "";
-    char stime[24] = "";
-    int  mtype = 0;
-    char mfrom[255] = "";
-    char mto[255] = "";
-    char msub[255] = "";
-    char msubT[255] = "";
-    char affixinfo[256] = "";
-    char affixinfo1[256] = "";
-    unsigned long msize = 0;
-    unsigned long masize = 0;
-    unsigned long ccode = 0;
-    char msizes[8] = "";
-    char masizes[8] = "";
-    char bodyinfo[255] = "";
-    char mpath[255] = "";
-    char *p = NULL;
-    char buff[10240]="";
-    char outbuff[10240]="";
-    char *affix[20];
-    
-    int iret=-1,iNum=0;
-    FILE *fp = NULL;
-    int i = 1;
-    int filelength = 0;
-    while(0==(iret = pasDbFetchInto(psCur,
-        UT_TYPE_ULONG,  sizeof(recno),      &recno,
-        UT_TYPE_STRING, sizeof(groupname)-1,groupname,
-        UT_TYPE_STRING, sizeof(compname)-1, compname,
-        UT_TYPE_STRING, sizeof(devname)-1,  devname,
-        UT_TYPE_STRING, sizeof(sip)-1,      sip,
-        UT_TYPE_STRING, sizeof(stime)-1,    stime,
-        UT_TYPE_ULONG,  sizeof(mtype),      &mtype,
-        UT_TYPE_STRING, sizeof(mfrom)-1, 		mfrom,
-        UT_TYPE_STRING, sizeof(mto)-1, 		  mto,
-        UT_TYPE_STRING, sizeof(msub)-1, 		msub,
-        UT_TYPE_ULONG,  sizeof(msize),			&msize,
-        UT_TYPE_ULONG,  sizeof(masize),			&masize,
-        UT_TYPE_STRING, sizeof(bodyinfo)-1, bodyinfo,
-        UT_TYPE_STRING, sizeof(affixinfo)-1,affixinfo,
-        UT_TYPE_ULONG,  sizeof(ccode),			&ccode,
-        UT_TYPE_STRING, sizeof(mpath)-1,    mpath)) || 1405==iret){
-      iNum++;
-      if(iNum > 1){
-  			utPltPutLoopVar(psDbHead,"dh",iNum,",");
-  		}
-	    utPltPutLoopVarF(psDbHead,"recno",iNum,"%lu",recno);
-			utPltPutLoopVar(psDbHead,"groupname",iNum,groupname);
-			utPltPutLoopVar(psDbHead,"compname",iNum,compname);
-			utPltPutLoopVar(psDbHead,"devname",iNum,devname);
-			utPltPutLoopVar(psDbHead,"sip",iNum,sip);
-			utPltPutLoopVar(psDbHead,"stime",iNum,stime);
-			utPltPutLoopVar(psDbHead,"devname",iNum,devname);
-	    utPltPutLoopVarF(psDbHead,"mtype",iNum,"%d",mtype);
-			utPltPutLoopVar(psDbHead,"mfrom",iNum,mfrom);
-			utPltPutLoopVar(psDbHead,"mto",iNum,mto);
-			pasStrCvtUcode(msub,msubT);
-			utPltPutLoopVar(psDbHead,"msub",iNum,msubT);
-			
-			switchFileSize(msizes,msize);
-			switchFileSize(masizes,masize);
-			utPltPutLoopVar(psDbHead,"msize",iNum,msizes);
-			utPltPutLoopVar(psDbHead,"masize",iNum,masizes);
-			utPltPutLoopVar(psDbHead,"mpath",iNum,mpath);
-			
-			if(!utStrIsSpaces(mpath)){
-  			fp = fopen(mpath,"r");
-  			if(fp){
-  			  if(!strncmp(bodyinfo,"base64",6)){
-    			  p = strtok(bodyinfo,":");
-    			  p = strtok(NULL,":");
-    			  filelength = atoi(p);
-    			  fseek(fp,filelength,SEEK_SET);
-    			  p = strtok(NULL,":");
-    			  fread(buff,atoi(p),1,fp);
-    			  
-      			  MailCodeDecode(buff,filelength,outbuff,&filelength);
-    			  utPltPutLoopVar(psDbHead,"bodyinfo",iNum,outbuff);
-    			}
-    			fclose(fp);
-    			if(!utStrIsSpaces(affixinfo)){
-    			  
-    			  printf("affixinfo:%s\n",affixinfo);
-      			affix[0]=strtok(affixinfo+1,",");
-      			i=1;
-      			while(p=strtok(NULL,",")){
-      			  affix[i] = p;
-      			  printf("affixinfo %d:%s\n",i,p);
-      			  i++;
-      			}
-      			i--;
-      			while(i>=0){
-      			  printf("%d\n",i);
-      			  i--;
-      			  p=strtok(affix[i],":");
-      			  printf("affixinfo %d:%s\n",i,p);
-      			  sprintf(affixinfo1+strlen(affixinfo1),",%s",p);
-      			}
-      			
-      			utPltPutLoopVar(psDbHead,"affixinfo",iNum,affixinfo);
-      		}
-    		}else{
-    		  printf("file cannot be open!\n");
-    		}
-  		}
-			
-			memset(mpath,0,sizeof(mpath));
-			memset(bodyinfo,0,sizeof(bodyinfo));
-			memset(affix,0,sizeof(affix));
-			memset(affixinfo,0,sizeof(affixinfo));
-			memset(affixinfo1,0,sizeof(affixinfo1));
-	  }
-	  pasDbCloseCursor(psCur);
-  }
-  utPltShowDb(psDbHead);
-  utPltOutToHtml(iFd,psMsgHead,psDbHead,"v8/smm/lan_log_mail.htm");
-  return 0;
+int lan_mailSearch(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    utMsgPrintMsg(psMsgHead);
+    char groupid_in[16] = "";
+    char compid_in[16] = "";
+    char ip_in[16] = "";
+    char sdate_in[24] = "";
+    char edate_in[24] = "";
+    char compname_in[32] = "";
+    char keyword_in[32] = "";
+    char caExport_in[8] = "";
+    char start_in[8] = "";
+    char limit_in[8] = "";
+    char msub_in[256] = "";
+    char mfrom_in[64] = "";
+    char mto_in[64] = "";
+
+    utMsgGetSomeNVar(psMsgHead, 13,
+                     "groupid",  UT_TYPE_STRING,  sizeof(groupid_in) - 1,      groupid_in,
+                     "compid",       UT_TYPE_STRING,  sizeof(compid_in) - 1,       compid_in,
+                     "ip",               UT_TYPE_STRING,  sizeof(ip_in) - 1,               ip_in,
+                     "sdate",        UT_TYPE_STRING,  sizeof(sdate_in) - 1,            sdate_in,
+                     "bdate",        UT_TYPE_STRING,  sizeof(edate_in) - 1,            edate_in,
+                     "compname", UT_TYPE_STRING,  sizeof(compname_in) - 1,     compname_in,
+                     "keyword",  UT_TYPE_STRING,  sizeof(keyword_in) - 1,      keyword_in,
+                     "caExport", UT_TYPE_STRING,  sizeof(caExport_in) - 1,     caExport_in,
+                     "start",        UT_TYPE_STRING,  sizeof(start_in) - 1,          start_in,
+                     "limit",        UT_TYPE_STRING,  sizeof(limit_in) - 1,          limit_in,
+                     "mfrom",        UT_TYPE_STRING,  sizeof(mfrom_in) - 1,          mfrom_in,
+                     "mto",          UT_TYPE_STRING,  sizeof(mto_in) - 1,          mto_in,
+                     "msub",         UT_TYPE_STRING,  sizeof(msub_in) - 1,           msub_in);
+
+    char sql_tmp[384] = "";
+
+    sprintf(sql_tmp, "where new_table.stime>%lu and new_table.stime<%lu", utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in), utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in));
+
+    char *auth = getDsGroupid();
+    if(!utStrIsSpaces(auth))
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and new_table.groupid in (%s)", auth);
+    }
+
+    if(!utStrIsSpaces(groupid_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.groupid in(%s)", getGroupid(strtoul(groupid_in, NULL, 10)));
+    }
+
+    if(!utStrIsSpaces(compid_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.compid=%s", compid_in);
+    }
+
+    if(!utStrIsSpaces(keyword_in))
+    {
+        char *keywords = utf8convert(psShmHead, keyword_in);
+        sprintf(sql_tmp + strlen(sql_tmp), " and (new_table.mailfrom like '%%%s%%' or new_table.mailto like '%%%s%%' or new_table.mailsub like '%%%s%%')", keywords, keywords, keywords);
+    }
+
+    if(!utStrIsSpaces(compname_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and (nwcompute.compname like '%%%s%%' or nwcompute.devname like '%%%s%%')", utf8convert(psShmHead, compname_in), utf8convert(psShmHead, compname_in));
+    }
+
+    if(!utStrIsSpaces(ip_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.sip like '%%%s%%'", ip_in);
+    }
+
+    if(!utStrIsSpaces(mfrom_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.mailfrom like '%%%s%%'", utf8convert(psShmHead, mfrom_in));
+    }
+
+    if(!utStrIsSpaces(mto_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.mailto like '%%%s%%'", utf8convert(psShmHead, mto_in));
+    }
+
+    if(!utStrIsSpaces(msub_in))
+    {
+        sprintf(sql_tmp + strlen(sql_tmp), " and new_table.mailsub like '%%%s%%'", utf8convert(psShmHead, msub_in));
+    }
+
+    char sql[512] = "";
+
+    pasDbCursor *psCur = NULL;
+    utPltDbHead *psDbHead = utPltInitDb();
+    char table_name[256] = "";
+    mail_combine_table(table_name, sdate_in, edate_in);
+
+    sprintf(sql, "select count(*) from %s %s", table_name, sql_tmp);
+    unsigned long db_count = 0;
+    pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(db_count), &db_count);
+    utPltPutVarF(psDbHead, "TotRec", "%lu", db_count);
+
+    sprintf(sql, "select new_table.recno,nwgroup.gname,nwcompute.compname,nwcompute.devname,new_table.sip,from_unixtime(new_table.stime,'%%Y/%%m/%%d %%H:%%i:%%s'),new_table.flags,new_table.mailfrom,new_table.mailto,new_table.mailsub,new_table.mailsize,new_table.mailasize,new_table.bodyinfo,new_table.affixinfo,ccode,filepath from %s left join nwgroup on new_table.groupid=gid left join nwcompute on new_table.compid=nwcompute.compid %s limit %s,%s ", table_name, sql_tmp, start_in, limit_in);
+
+    writeLog("logCheck.txt", "mail", sql);
+    psCur = pasDbOpenSql(sql, 0);
+
+    if(psCur)
+    {
+        unsigned long recno = 0;
+        char groupname[32] = "";
+        char compname[32] = "";
+        char devname[32] = "";
+        char sip[16] = "";
+        char stime[24] = "";
+        int  mtype = 0;
+        char mfrom[255] = "";
+        char mto[255] = "";
+        char msub[255] = "";
+        char msubT[255] = "";
+        char affixinfo[256] = "";
+        char affixinfo1[256] = "";
+        unsigned long msize = 0;
+        unsigned long masize = 0;
+        unsigned long ccode = 0;
+        char msizes[8] = "";
+        char masizes[8] = "";
+        char bodyinfo[255] = "";
+        char mpath[255] = "";
+        char *p = NULL;
+        char buff[10240] = "";
+        char outbuff[10240] = "";
+        char *affix[20];
+
+        int iret = -1, iNum = 0;
+        FILE *fp = NULL;
+        int i = 1;
+        int filelength = 0;
+        while(0 == (iret = pasDbFetchInto(psCur,
+                                          UT_TYPE_ULONG,  sizeof(recno),      &recno,
+                                          UT_TYPE_STRING, sizeof(groupname) - 1, groupname,
+                                          UT_TYPE_STRING, sizeof(compname) - 1, compname,
+                                          UT_TYPE_STRING, sizeof(devname) - 1,  devname,
+                                          UT_TYPE_STRING, sizeof(sip) - 1,      sip,
+                                          UT_TYPE_STRING, sizeof(stime) - 1,    stime,
+                                          UT_TYPE_ULONG,  sizeof(mtype),      &mtype,
+                                          UT_TYPE_STRING, sizeof(mfrom) - 1,        mfrom,
+                                          UT_TYPE_STRING, sizeof(mto) - 1,        mto,
+                                          UT_TYPE_STRING, sizeof(msub) - 1,         msub,
+                                          UT_TYPE_ULONG,  sizeof(msize),          &msize,
+                                          UT_TYPE_ULONG,  sizeof(masize),         &masize,
+                                          UT_TYPE_STRING, sizeof(bodyinfo) - 1, bodyinfo,
+                                          UT_TYPE_STRING, sizeof(affixinfo) - 1, affixinfo,
+                                          UT_TYPE_ULONG,  sizeof(ccode),          &ccode,
+                                          UT_TYPE_STRING, sizeof(mpath) - 1,    mpath)) || 1405 == iret)
+        {
+            iNum++;
+            if(iNum > 1)
+            {
+                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+            }
+            utPltPutLoopVarF(psDbHead, "recno", iNum, "%lu", recno);
+            utPltPutLoopVar(psDbHead, "groupname", iNum, groupname);
+            utPltPutLoopVar(psDbHead, "compname", iNum, compname);
+            utPltPutLoopVar(psDbHead, "devname", iNum, devname);
+            utPltPutLoopVar(psDbHead, "sip", iNum, sip);
+            utPltPutLoopVar(psDbHead, "stime", iNum, stime);
+            utPltPutLoopVar(psDbHead, "devname", iNum, devname);
+            utPltPutLoopVarF(psDbHead, "mtype", iNum, "%d", mtype);
+            utPltPutLoopVar(psDbHead, "mfrom", iNum, mfrom);
+            utPltPutLoopVar(psDbHead, "mto", iNum, mto);
+            pasStrCvtUcode(msub, msubT);
+            utPltPutLoopVar(psDbHead, "msub", iNum, msubT);
+
+            switchFileSize(msizes, msize);
+            switchFileSize(masizes, masize);
+            utPltPutLoopVar(psDbHead, "msize", iNum, msizes);
+            utPltPutLoopVar(psDbHead, "masize", iNum, masizes);
+            utPltPutLoopVar(psDbHead, "mpath", iNum, mpath);
+
+            if(!utStrIsSpaces(mpath))
+            {
+                fp = fopen(mpath, "r");
+                if(fp)
+                {
+                    if(!strncmp(bodyinfo, "base64", 6))
+                    {
+                        p = strtok(bodyinfo, ":");
+                        p = strtok(NULL, ":");
+                        filelength = atoi(p);
+                        fseek(fp, filelength, SEEK_SET);
+                        p = strtok(NULL, ":");
+                        fread(buff, atoi(p), 1, fp);
+
+                        MailCodeDecode(buff, filelength, outbuff, &filelength);
+                        utPltPutLoopVar(psDbHead, "bodyinfo", iNum, outbuff);
+                    }
+                    fclose(fp);
+                    if(!utStrIsSpaces(affixinfo))
+                    {
+
+                        printf("affixinfo:%s\n", affixinfo);
+                        affix[0] = strtok(affixinfo + 1, ",");
+                        i = 1;
+                        while(p = strtok(NULL, ","))
+                        {
+                            affix[i] = p;
+                            printf("affixinfo %d:%s\n", i, p);
+                            i++;
+                        }
+                        i--;
+                        while(i >= 0)
+                        {
+                            printf("%d\n", i);
+                            i--;
+                            p = strtok(affix[i], ":");
+                            printf("affixinfo %d:%s\n", i, p);
+                            sprintf(affixinfo1 + strlen(affixinfo1), ",%s", p);
+                        }
+
+                        utPltPutLoopVar(psDbHead, "affixinfo", iNum, affixinfo);
+                    }
+                }
+                else
+                {
+                    printf("file cannot be open!\n");
+                }
+            }
+
+            memset(mpath, 0, sizeof(mpath));
+            memset(bodyinfo, 0, sizeof(bodyinfo));
+            memset(affix, 0, sizeof(affix));
+            memset(affixinfo, 0, sizeof(affixinfo));
+            memset(affixinfo1, 0, sizeof(affixinfo1));
+        }
+        pasDbCloseCursor(psCur);
+    }
+    utPltShowDb(psDbHead);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_log_mail.htm");
+    return 0;
 }
 
 
@@ -272,69 +299,81 @@ int lan_mailSearch(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead){
 *@名称：void combine_table(char *table_name,struct tm *stime,struct tm *btime)
 *@功能：根据传入的指定日期，将每个月的表连接起来
 *@参数：char *table_name 需传出的表名
-*				struct tm *stime 起始时间
-*				struct tm *btime 结束时间
+*               struct tm *stime 起始时间
+*               struct tm *btime 结束时间
 *@返回值： void
 */
 
-void comp_combine_table(char *table_name,char *sdate,char *edate){
-	sdate[4] = '\0';
-	edate[4] = '\0';
-	
-	sdate[7] = '\0';
-	edate[7] = '\0';
-	
-	char sql[64] = "";
-	
-	int syear = atoi(sdate);
-	int smonth = atoi(sdate+5);
-	int eyear = atoi(edate);
-	int emonth = atoi(edate+5);
-	
-	if(syear==eyear && smonth==emonth)
-				snprintf(table_name+strlen(table_name),1024-strlen(table_name),"nwcomputelog_%4u%02u as new_table",syear,smonth);
-	else{
-			int i,j=smonth,iNum=0;
-			strcat(table_name,"(");
-			
-			pasDbCursor *psCur = NULL;
-			for(i=syear;i<=eyear&&j<=emonth;){
-					snprintf(sql,sizeof(sql),"select * from nwcomputelog_%4u%02u",i,j);
-					psCur = pasDbOpenSql(sql,0);
-					if(psCur!=NULL){
-							if(iNum>0){
-									strcat(table_name," union all ");
-							}
-							iNum++;
-							snprintf(table_name+strlen(table_name),1024-strlen(table_name),sql);
-							pasDbCloseCursor(psCur);
-					}
-					
-					if(j>11){
-							i++;
-							j=0;
-					}
-					j++;
-			}
-			snprintf(table_name+strlen(table_name),1024-strlen(table_name),")new_table");
-	}
-	printf("table_name:%s\n",table_name);
-	
-	
+void comp_combine_table(char *table_name, char *sdate, char *edate)
+{
+    char caShortName[256] = "";
+    strcpy(caShortName, getLoginShortName());
+    sdate[4] = '\0';
+    edate[4] = '\0';
+
+    sdate[7] = '\0';
+    edate[7] = '\0';
+
+    char sql[64] = "";
+
+    int syear = atoi(sdate);
+    int smonth = atoi(sdate + 5);
+    int eyear = atoi(edate);
+    int emonth = atoi(edate + 5);
+
+    if(syear == eyear && smonth == emonth)
+    {
+        //snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwcomputelog_%4u%02u as new_table", syear, smonth);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "nwcomputelog", syear, smonth));
+    }
+    else
+    {
+        int i, j = smonth, iNum = 0;
+        strcat(table_name, "(");
+
+        pasDbCursor *psCur = NULL;
+        for(i = syear; i <= eyear && j <= emonth;)
+        {
+            //snprintf(sql, sizeof(sql), "select * from nwcomputelog_%4u%02u", i, j);
+			snprintf(sql, sizeof(sql), "select * from %s", getNewLogTable(caShortName, "nwcomputelog", i, j));
+            psCur = pasDbOpenSql(sql, 0);
+            if(psCur != NULL)
+            {
+                if(iNum > 0)
+                {
+                    strcat(table_name, " union all ");
+                }
+                iNum++;
+                snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), sql);
+                pasDbCloseCursor(psCur);
+            }
+
+            if(j > 11)
+            {
+                i++;
+                j = 0;
+            }
+            j++;
+        }
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), ")new_table");
+    }
+    printf("table_name:%s\n", table_name);
+
+
 }
 
 /*
 *@名称：int lan_proc_log_search(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead)
 *@功能：根据面页传过来的参数进行查询数据库中程序日志的信息，再根据相应的模板传回去
 *@参数：utShmHead *psShmHead 共享内存句柄
-*				int iFd 						 文件描述符
-*				utMsgHead *psMsgHead 消息句柄
+*               int iFd                          文件描述符
+*               utMsgHead *psMsgHead 消息句柄
 *@返回值：0成功，其他失败
 */
-int lan_comp_log_search(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead)
-{    
+int lan_comp_log_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
     utMsgPrintMsg(psMsgHead);
-    
+
     char depart_in[16] = "";
     char compid_in[128] = "";
     char ip_in[16] = "";
@@ -349,286 +388,319 @@ int lan_comp_log_search(utShmHead *psShmHead, int iFd,utMsgHead *psMsgHead)
     char sort_in[32] = "";
     char dir_in[16] = "";
     char runTime_in[32] = "";
-/*
-    char idleTime_in[32] = "";
-    char wndTime_in[32] = "";
-*/    
-    utMsgGetSomeNVar(psMsgHead,15,
-    		"depart",		UT_TYPE_STRING,  sizeof(depart_in)-1, 		depart_in,
-    		"compId",		UT_TYPE_STRING,  sizeof(compid_in)-1, 		compid_in,
-    		"ip",				UT_TYPE_STRING,  sizeof(ip_in)-1, 				ip_in,
-    		"sdate",		UT_TYPE_STRING,  sizeof(sdate_in)-1, 			sdate_in,
-    		"bdate",		UT_TYPE_STRING,  sizeof(bdate_in)-1, 			bdate_in,
-    		"compName",	UT_TYPE_STRING,  sizeof(comp_name_in)-1, 	comp_name_in,
-    		"devName",	UT_TYPE_STRING,  sizeof(dev_name_in)-1, 	dev_name_in,
-    		"keyword",	UT_TYPE_STRING,  sizeof(keyword_in)-1, 		keyword_in,
-    		"caExport",	UT_TYPE_STRING,  sizeof(caExport)-1, 			caExport,
-    		"start",		UT_TYPE_STRING,  sizeof(page_start)-1, 		page_start,
-    		"limit",		UT_TYPE_STRING,  sizeof(page_limit)-1, 		page_limit,
-    		"sort",			UT_TYPE_STRING,  sizeof(sort_in)-1, 		  sort_in,
-    		"dir",			UT_TYPE_STRING,  sizeof(dir_in)-1, 		    dir_in,
-    		"runTime",	UT_TYPE_STRING,  sizeof(runTime_in)-1, 	  runTime_in);
-    
+    /*
+        char idleTime_in[32] = "";
+        char wndTime_in[32] = "";
+    */
+    utMsgGetSomeNVar(psMsgHead, 15,
+                     "depart",       UT_TYPE_STRING,  sizeof(depart_in) - 1,       depart_in,
+                     "compId",       UT_TYPE_STRING,  sizeof(compid_in) - 1,       compid_in,
+                     "ip",               UT_TYPE_STRING,  sizeof(ip_in) - 1,               ip_in,
+                     "sdate",        UT_TYPE_STRING,  sizeof(sdate_in) - 1,            sdate_in,
+                     "bdate",        UT_TYPE_STRING,  sizeof(bdate_in) - 1,            bdate_in,
+                     "compName", UT_TYPE_STRING,  sizeof(comp_name_in) - 1,    comp_name_in,
+                     "devName",  UT_TYPE_STRING,  sizeof(dev_name_in) - 1,     dev_name_in,
+                     "keyword",  UT_TYPE_STRING,  sizeof(keyword_in) - 1,      keyword_in,
+                     "caExport", UT_TYPE_STRING,  sizeof(caExport) - 1,            caExport,
+                     "start",        UT_TYPE_STRING,  sizeof(page_start) - 1,      page_start,
+                     "limit",        UT_TYPE_STRING,  sizeof(page_limit) - 1,      page_limit,
+                     "sort",         UT_TYPE_STRING,  sizeof(sort_in) - 1,           sort_in,
+                     "dir",          UT_TYPE_STRING,  sizeof(dir_in) - 1,          dir_in,
+                     "runTime",  UT_TYPE_STRING,  sizeof(runTime_in) - 1,    runTime_in);
+
     char sql[2048] = "";
     char sql_tmp[2048] = "";
     pasDbCursor *psCur = NULL;
     int iret = 0;
     int iNum = 0;
     utPltDbHead *psDbHead = utPltInitDb();
-    
+
     //取数据
     //增加where 条件的标识
-		
-		unsigned long stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
-		unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", bdate_in);
-		
-		snprintf(sql_tmp,sizeof(sql_tmp),"where new_table.startmactime>=%u and new_table.startmactime<=%u",stime,etime);
-		
-		sdate_in[10] = '\0';
-		bdate_in[10] = '\0';
-		
-		//添加按电脑名查询条件
-		if(!utStrIsSpaces(comp_name_in)){
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and (nwcompute.compname like '%%%s%%' or nwcompute.devname like '%%%s%%')",utf8convert(psShmHead,comp_name_in),utf8convert(psShmHead,comp_name_in));
-		}
-/*		
-		if(!utStrIsSpaces(idleTime_in)){
-			unsigned long timeTmp = 0;
-			switch(atoi(idleTime_in)){
-				//30 min
-				case 1: timeTmp = 1800;
-								break;
-				case 2: timeTmp = 3600;
-								break;
-				case 3: timeTmp = 10800;
-								break;
-				case 4: timeTmp = 18000;
-								break;
-			}
-			
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and idletime > %u",timeTmp);
-		}
 
-		if(!utStrIsSpaces(wndTime_in)){
-			unsigned long timeTmp = 0;;
-			switch(atoi(wndTime_in)){
-				//30 min
-				case 1: timeTmp = 1800;
-								break;
-				case 2: timeTmp = 3600;
-								break;
-				case 3: timeTmp = 10800;
-								break;
-				case 4: timeTmp = 18000;
-								break;
-			}
-			
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and activetime-startmactime > %u",timeTmp);
-		}
-*/		
-		if(!utStrIsSpaces(runTime_in)){
-			unsigned long timeTmp = 0;;
-			switch(atoi(runTime_in)){
-				//30 min
-				case 1: timeTmp = 1800;
-								break;
-				case 2: timeTmp = 3600;
-								break;
-				case 3: timeTmp = 10800;
-								break;
-				case 4: timeTmp = 18000;
-								break;
-			}
-			
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and activetime-startmactime > %u",timeTmp);
-		}
-		//权限
-		
-  	char auth2[32] = "";
-  	char shortname[32] = "";
-  	dsCltGetMyInfo(1,"USERNAME",auth2);
-  	
-  	findShortName(auth2,shortname);
-		
-		char *auth = getDsGroupid();
-		if(!utStrIsSpaces(auth)){
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and new_table.groupid in (%s)",auth);
-		}
-		
-		//添加按部门查询条件
-		if(!utStrIsSpaces(depart_in) && depart_in[0] != '0'){
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and new_table.groupid in (%s)",getGroupid(strtoul(depart_in,NULL,10)));
-		}
-		
-		//添加按电脑id查询条件
-		if(!utStrIsSpaces(compid_in)){
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and new_table.compid = %s",compid_in);
-		}
-		
-		//添加按ip查询条件
-		if(!utStrIsSpaces(ip_in)){			
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and inet_ntoa(nwcompute.ip) like '%%%s%%'",ip_in);
-		}
-		
-		char _sip[16] = "";
-		if(!utStrIsSpaces(keyword_in)){
-		  
-			char *keyword_gbk = utf8convert(psShmHead,keyword_in);	
-			snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp), " and (nwcompute.devname like '%%%s%%' or nwcompute.compname like '%%%s%%' or inet_ntoa(nwcompute.ip) like '%%%s%%' or new_table.devname like '%%%s%%')", keyword_gbk, keyword_gbk, keyword_gbk, keyword_gbk);
-			free(keyword_gbk);
-		}
-		iNum = 0;
-		//取表总数
+    unsigned long stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
+    unsigned long etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", bdate_in);
+
+    snprintf(sql_tmp, sizeof(sql_tmp), "where new_table.startmactime>=%u and new_table.startmactime<=%u", stime, etime);
+
+    sdate_in[10] = '\0';
+    bdate_in[10] = '\0';
+
+    //添加按电脑名查询条件
+    if(!utStrIsSpaces(comp_name_in))
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and (nwcompute.compname like '%%%s%%' or nwcompute.devname like '%%%s%%')", utf8convert(psShmHead, comp_name_in), utf8convert(psShmHead, comp_name_in));
+    }
+    /*
+            if(!utStrIsSpaces(idleTime_in)){
+                unsigned long timeTmp = 0;
+                switch(atoi(idleTime_in)){
+                    //30 min
+                    case 1: timeTmp = 1800;
+                                    break;
+                    case 2: timeTmp = 3600;
+                                    break;
+                    case 3: timeTmp = 10800;
+                                    break;
+                    case 4: timeTmp = 18000;
+                                    break;
+                }
+
+                snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and idletime > %u",timeTmp);
+            }
+
+            if(!utStrIsSpaces(wndTime_in)){
+                unsigned long timeTmp = 0;;
+                switch(atoi(wndTime_in)){
+                    //30 min
+                    case 1: timeTmp = 1800;
+                                    break;
+                    case 2: timeTmp = 3600;
+                                    break;
+                    case 3: timeTmp = 10800;
+                                    break;
+                    case 4: timeTmp = 18000;
+                                    break;
+                }
+
+                snprintf(sql_tmp+strlen(sql_tmp), sizeof(sql_tmp)-strlen(sql_tmp)," and activetime-startmactime > %u",timeTmp);
+            }
+    */
+    if(!utStrIsSpaces(runTime_in))
+    {
+        unsigned long timeTmp = 0;;
+        switch(atoi(runTime_in))
+        {
+                //30 min
+            case 1:
+                timeTmp = 1800;
+                break;
+            case 2:
+                timeTmp = 3600;
+                break;
+            case 3:
+                timeTmp = 10800;
+                break;
+            case 4:
+                timeTmp = 18000;
+                break;
+        }
+
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and activetime-startmactime > %u", timeTmp);
+    }
+    //权限
+
+    char auth2[32] = "";
+    char shortname[32] = "";
+    dsCltGetMyInfo(1, "USERNAME", auth2);
+
+    findShortName(auth2, shortname);
+
+    char *auth = getDsGroupid();
+    if(!utStrIsSpaces(auth))
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and new_table.groupid in (%s)", auth);
+    }
+
+    //添加按部门查询条件
+    if(!utStrIsSpaces(depart_in) && depart_in[0] != '0')
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and new_table.groupid in (%s)", getGroupid(strtoul(depart_in, NULL, 10)));
+    }
+
+    //添加按电脑id查询条件
+    if(!utStrIsSpaces(compid_in))
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and new_table.compid = %s", compid_in);
+    }
+
+    //添加按ip查询条件
+    if(!utStrIsSpaces(ip_in))
+    {
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and inet_ntoa(nwcompute.ip) like '%%%s%%'", ip_in);
+    }
+
+    char _sip[16] = "";
+    if(!utStrIsSpaces(keyword_in))
+    {
+
+        char *keyword_gbk = utf8convert(psShmHead, keyword_in);
+        snprintf(sql_tmp + strlen(sql_tmp), sizeof(sql_tmp) - strlen(sql_tmp), " and (nwcompute.devname like '%%%s%%' or nwcompute.compname like '%%%s%%' or inet_ntoa(nwcompute.ip) like '%%%s%%' or new_table.devname like '%%%s%%')", keyword_gbk, keyword_gbk, keyword_gbk, keyword_gbk);
+        free(keyword_gbk);
+    }
+    iNum = 0;
+    //取表总数
     unsigned int db_count = 0;
- 		char table_name[1024] = "";
- 		
-		comp_combine_table(table_name,sdate_in,bdate_in);
- 		printf("sql_tmp=%s\n",sql_tmp);
-    snprintf(sql,sizeof(sql),"select count(*) from %s left join nwcompute on nwcompute.compid=new_table.compid %s ",table_name,sql_tmp);
-    printf("sql_tmp=%s\n",sql);
-    
-    writeLog("logCheck.txt","compC",sql);
-    psCur = pasDbOpenSql(sql,0);
-    if(NULL != psCur){
-	    pasDbFetchInto(psCur,UT_TYPE_ULONG,sizeof(db_count),&db_count);
-	    pasDbCloseCursor(psCur);
-		}
-		
-		
-		memset(sql,0,sizeof(sql));
-    snprintf(sql, sizeof(sql), "select new_table.sid,nwcompute.devname,new_table.compid,new_table.mac,new_table.groupid,new_table.devname,inet_ntoa(nwcompute.ip),new_table.startmactime,new_table.activetime-new_table.startmactime from %s left join nwcompute on nwcompute.compid=new_table.compid %s",table_name,sql_tmp);
-    
-    //导出到文件
-   	FILE *fp;
-  	char caFilename[32];
-  	char caFile[128];
-  	char caPath[128];
-  	
-    if(strlen(caExport)>0){		
-  		time_t time_tmp;
-			struct tm *tm_tmp;
-			time(&time_tmp);
-			tm_tmp = gmtime(&time_tmp);
-		
-			sprintf(caFilename,"ncsCompLog_%04u%02u%02u.csv",tm_tmp->tm_year+1900,tm_tmp->tm_mon+1,tm_tmp->tm_mday);
-//	 		sprintf(caFilename,"ncsuserlog%d.csv",utStrGetId());
-      sprintf(caPath,"%s/html","/home/ncmysql/nw");
-      sprintf(caFile,"%s/%s",caPath,caFilename);
-  		fp = fopen(caFile,"w");
-      if(fp == NULL) {
-      		 pasDbCloseCursor(psCur);
-       		printf("open failed!\n");
-        writeSysLog(psMsgHead,"06","Fail","创建进程日志文件失败");
-  //        utWebDispMsg(iFd,psMsgHead,"ncs/ncmsg_back.htm",ncsLang("0546数据导出出错"),ncsLang("0546数据导出出错"));
-          return 0;
-      }
-      
-			fprintf(fp,"程序运行日志\n");
-			ncUtlPrintCsv(fp,10,
-             UT_TYPE_STRING,"用户名",
-             UT_TYPE_STRING,"MAC地址",
-             UT_TYPE_STRING,"部门ID",
-             UT_TYPE_STRING,"设备名",
-             UT_TYPE_STRING,"用户IP",
-             UT_TYPE_STRING,"启动时间",
-             UT_TYPE_STRING,"运行时间",
-             UT_TYPE_STRING,"空闲时间");
-			snprintf(sql+strlen(sql),sizeof(sql)-strlen(sql)," limit 0,400");
-		}else{
-				if(!utStrIsSpaces(sort_in)){
-						snprintf(sql+strlen(sql),sizeof(sql)-strlen(sql)," order by new_table.%s %s",sort_in,dir_in);
-				}else{
-						snprintf(sql+strlen(sql),sizeof(sql)-strlen(sql)," order by new_table.startmactime desc");
-				}
-				snprintf(sql+strlen(sql),sizeof(sql)-strlen(sql)," limit %d,%d",atoi(page_start),atoi(page_limit));
-		}
-    
-    //查看sql语句
-    writeLog("logCheck.txt","complog",sql);
+    char table_name[1024] = "";
+
+    comp_combine_table(table_name, sdate_in, bdate_in);
+    printf("sql_tmp=%s\n", sql_tmp);
+    snprintf(sql, sizeof(sql), "select count(*) from %s left join nwcompute on nwcompute.compid=new_table.compid %s ", table_name, sql_tmp);
+    printf("sql_tmp=%s\n", sql);
+
+    writeLog("logCheck.txt", "compC", sql);
     psCur = pasDbOpenSql(sql, 0);
-    if(psCur != NULL){
-			//定义要取的数据类型
-			long long sid = 0;
-			unsigned int 	compid = 0;
-			char 					mac[20] = "";
-			unsigned int 	groupid = 0;
-			char 					devname[32] = "";
-			char 					compname[32] = "";
-			char 					sip[16] = "";
-			unsigned int  stime = 0;
-			unsigned int  activetime = 0;
-			
-			//取游标指向的数据
-			while(0==(iret = pasDbFetchInto(psCur,
-				 UT_TYPE_LONG8,  sizeof(sid),         &sid,
-				 UT_TYPE_STRING, sizeof(compname)-1, 	compname,
-				 UT_TYPE_ULONG,  sizeof(compid),      &compid,
-				 UT_TYPE_STRING, sizeof(mac)-1, 			mac,
-				 UT_TYPE_ULONG,  sizeof(groupid),			&groupid,
-				 UT_TYPE_STRING, sizeof(devname)-1, 	devname,
-				 UT_TYPE_STRING, sizeof(sip)-1,				sip,
-				 UT_TYPE_ULONG,  sizeof(stime),  			&stime,
-				 UT_TYPE_ULONG,  sizeof(activetime),  &activetime)) || 1405==iret){
-				iNum++;
-				char _stime[24] = "";
-				char _activetime[24] = "";
-				
-				switchToRemainTime(_activetime,activetime);
-				
-				strcpy(_stime, utTimFormat("%H:%M:%S %Y/%m/%d ", stime));
-				
-				if(strlen(caExport)>0){
-				  ncUtlPrintCsv(fp,21,
-	          UT_TYPE_STRING,compname,
-	          UT_TYPE_STRING,mac,
-	          UT_TYPE_STRING,lanGetGroup(psShmHead,groupid),
-	          UT_TYPE_STRING,devname,
-			 			UT_TYPE_STRING,sip,
-	          UT_TYPE_STRING,_stime,
-			 			UT_TYPE_STRING,_activetime);
-				 }else{
-					//向缓存里存数据
-						if(iNum > 1){
-							utPltPutLoopVar(psDbHead,"dh",iNum,",");
-						}
-						utPltPutLoopVarF(psDbHead,"sid",iNum,"%lld",sid);
-						utPltPutLoopVar(psDbHead,"compname",iNum,compname);
-						utPltPutLoopVar(psDbHead,"mac",iNum,mac);
-						utPltPutLoopVar(psDbHead,"groupname",iNum,lanGetGroup(psShmHead,groupid));
-						utPltPutLoopVar(psDbHead,"devname",iNum,devname);
-						utPltPutLoopVar(psDbHead,"sip",iNum,sip);
-						utPltPutLoopVar(psDbHead,"stime",iNum,_stime);
-						utPltPutLoopVar(psDbHead,"activetime",iNum,_activetime);	
-				 }
-			}
-			
-			pasDbCloseCursor(psCur);
-			
-		}
-		
-		
-		if(strlen(caExport)>0){
-	 	    fclose(fp);
-        utPltFileDownload(iFd,"application/text",caPath,caFilename,caFilename);
+    if(NULL != psCur)
+    {
+        pasDbFetchInto(psCur, UT_TYPE_ULONG, sizeof(db_count), &db_count);
+        pasDbCloseCursor(psCur);
+    }
+
+
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select new_table.sid,nwcompute.devname,new_table.compid,new_table.mac,new_table.groupid,new_table.devname,inet_ntoa(nwcompute.ip),new_table.startmactime,new_table.activetime-new_table.startmactime from %s left join nwcompute on nwcompute.compid=new_table.compid %s", table_name, sql_tmp);
+
+    //导出到文件
+    FILE *fp;
+    char caFilename[32];
+    char caFile[128];
+    char caPath[128];
+
+    if(strlen(caExport) > 0)
+    {
+        time_t time_tmp;
+        struct tm *tm_tmp;
+        time(&time_tmp);
+        tm_tmp = gmtime(&time_tmp);
+
+        sprintf(caFilename, "ncsCompLog_%04u%02u%02u.csv", tm_tmp->tm_year + 1900, tm_tmp->tm_mon + 1, tm_tmp->tm_mday);
+        //          sprintf(caFilename,"ncsuserlog%d.csv",utStrGetId());
+        sprintf(caPath, "%s/html", "/home/ncmysql/nw");
+        sprintf(caFile, "%s/%s", caPath, caFilename);
+        fp = fopen(caFile, "w");
+        if(fp == NULL)
+        {
+            pasDbCloseCursor(psCur);
+            printf("open failed!\n");
+            writeSysLog(psMsgHead, "06", "Fail", "创建进程日志文件失败");
+            //        utWebDispMsg(iFd,psMsgHead,"ncs/ncmsg_back.htm",ncsLang("0546数据导出出错"),ncsLang("0546数据导出出错"));
+            return 0;
+        }
+
+        fprintf(fp, "程序运行日志\n");
+        ncUtlPrintCsv(fp, 10,
+                      UT_TYPE_STRING, "用户名",
+                      UT_TYPE_STRING, "MAC地址",
+                      UT_TYPE_STRING, "部门ID",
+                      UT_TYPE_STRING, "设备名",
+                      UT_TYPE_STRING, "用户IP",
+                      UT_TYPE_STRING, "启动时间",
+                      UT_TYPE_STRING, "运行时间",
+                      UT_TYPE_STRING, "空闲时间");
+        snprintf(sql + strlen(sql), sizeof(sql) - strlen(sql), " limit 0,400");
+    }
+    else
+    {
+        if(!utStrIsSpaces(sort_in))
+        {
+            snprintf(sql + strlen(sql), sizeof(sql) - strlen(sql), " order by new_table.%s %s", sort_in, dir_in);
+        }
+        else
+        {
+            snprintf(sql + strlen(sql), sizeof(sql) - strlen(sql), " order by new_table.startmactime desc");
+        }
+        snprintf(sql + strlen(sql), sizeof(sql) - strlen(sql), " limit %d,%d", atoi(page_start), atoi(page_limit));
+    }
+
+    //查看sql语句
+    writeLog("logCheck.txt", "complog", sql);
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur != NULL)
+    {
+        //定义要取的数据类型
+        long long sid = 0;
+        unsigned int    compid = 0;
+        char                    mac[20] = "";
+        unsigned int    groupid = 0;
+        char                    devname[32] = "";
+        char                    compname[32] = "";
+        char                    sip[16] = "";
+        unsigned int  stime = 0;
+        unsigned int  activetime = 0;
+
+        //取游标指向的数据
+        while(0 == (iret = pasDbFetchInto(psCur,
+                                          UT_TYPE_LONG8,  sizeof(sid),         &sid,
+                                          UT_TYPE_STRING, sizeof(compname) - 1,    compname,
+                                          UT_TYPE_ULONG,  sizeof(compid),      &compid,
+                                          UT_TYPE_STRING, sizeof(mac) - 1,             mac,
+                                          UT_TYPE_ULONG,  sizeof(groupid),           &groupid,
+                                          UT_TYPE_STRING, sizeof(devname) - 1,     devname,
+                                          UT_TYPE_STRING, sizeof(sip) - 1,             sip,
+                                          UT_TYPE_ULONG,  sizeof(stime),             &stime,
+                                          UT_TYPE_ULONG,  sizeof(activetime),  &activetime)) || 1405 == iret)
+        {
+            iNum++;
+            char _stime[24] = "";
+            char _activetime[24] = "";
+
+            switchToRemainTime(_activetime, activetime);
+
+            strcpy(_stime, utTimFormat("%H:%M:%S %Y/%m/%d ", stime));
+
+            if(strlen(caExport) > 0)
+            {
+                ncUtlPrintCsv(fp, 21,
+                              UT_TYPE_STRING, compname,
+                              UT_TYPE_STRING, mac,
+                              UT_TYPE_STRING, lanGetGroup(psShmHead, groupid),
+                              UT_TYPE_STRING, devname,
+                              UT_TYPE_STRING, sip,
+                              UT_TYPE_STRING, _stime,
+                              UT_TYPE_STRING, _activetime);
+            }
+            else
+            {
+                //向缓存里存数据
+                if(iNum > 1)
+                {
+                    utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+                }
+                utPltPutLoopVarF(psDbHead, "sid", iNum, "%lld", sid);
+                utPltPutLoopVar(psDbHead, "compname", iNum, compname);
+                utPltPutLoopVar(psDbHead, "mac", iNum, mac);
+                utPltPutLoopVar(psDbHead, "groupname", iNum, lanGetGroup(psShmHead, groupid));
+                utPltPutLoopVar(psDbHead, "devname", iNum, devname);
+                utPltPutLoopVar(psDbHead, "sip", iNum, sip);
+                utPltPutLoopVar(psDbHead, "stime", iNum, _stime);
+
+                utPltPutLoopVar(psDbHead, "activetime", iNum, _activetime);
+            }
+        }
+
+        pasDbCloseCursor(psCur);
+
+    }
+
+
+    if(strlen(caExport) > 0)
+    {
+        fclose(fp);
+        utPltFileDownload(iFd, "application/text", caPath, caFilename, caFilename);
         remove(caFile);
         utPltFreeDb(psDbHead);
-        writeSysLog(psMsgHead,"06","Success","导出开关机日志");
+        writeSysLog(psMsgHead, "06", "Success", "导出开关机日志");
         return 0;
-	 }
-	// utPltShowDb(psDbHead);
-	 char msg[256] = "";
-	 
-	 char *compname = findCompNameById(strtoul(compid_in,NULL,10));
-	 if(!utStrIsSpaces(depart_in)){
-		snprintf(msg,sizeof(msg),"查询[%s]开关机日志",lanGetGroup(psShmHead,atoi(depart_in)));
-	 }else if(!utStrIsSpaces(compid_in)){
-		snprintf(msg,sizeof(msg),"查询[%s]开关机日志",compname);
-	 }else {
-	 	snprintf(msg,sizeof(msg),"查询[全部]开关机日志");
-	 }
-	 free(compname);
-	 utPltPutVarF(psDbHead,"TotRec","%lu",db_count);
-	 utPltOutToHtml(iFd,psMsgHead,psDbHead,"v8/smm/lan_log_comp.htm");
-	 writeSysLog(psMsgHead,"06","Success",msg);
+    }
+    // utPltShowDb(psDbHead);
+    char msg[256] = "";
+
+    char *compname = findCompNameById(strtoul(compid_in, NULL, 10));
+    if(!utStrIsSpaces(depart_in))
+    {
+        snprintf(msg, sizeof(msg), "查询[%s]开关机日志", lanGetGroup(psShmHead, atoi(depart_in)));
+    }
+    else if(!utStrIsSpaces(compid_in))
+    {
+        snprintf(msg, sizeof(msg), "查询[%s]开关机日志", compname);
+    }
+    else
+    {
+        snprintf(msg, sizeof(msg), "查询[全部]开关机日志");
+    }
+    free(compname);
+    utPltPutVarF(psDbHead, "TotRec", "%lu", db_count);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_log_comp.htm");
+    writeSysLog(psMsgHead, "06", "Success", msg);
     return 0;
 }
