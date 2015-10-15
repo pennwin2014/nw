@@ -10,8 +10,8 @@
 
 void web_combine_table(char *table_name, char *sdate, char *edate)
 {
-	char caShortName[256]="";
-	strcpy(caShortName, getLoginShortName());
+    char caShortName[256] = "";
+    strcpy(caShortName, getLoginShortName());
     sdate[4] = '\0';
     edate[4] = '\0';
 
@@ -26,13 +26,11 @@ void web_combine_table(char *table_name, char *sdate, char *edate)
     int emonth = atoi(edate + 5);
 
     if(syear == eyear && smonth == emonth)
-    	{
+    {
         //snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwweblog_%4u%02u as new_table", syear, smonth);
-		snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "nwweblog", syear, smonth));
-
-		
-	}
-	else
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "nwweblog", syear, smonth));
+    }
+    else
     {
         int i, j = smonth, iNum = 0;
         strcat(table_name, "(");
@@ -64,8 +62,6 @@ void web_combine_table(char *table_name, char *sdate, char *edate)
         snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), ")new_table");
     }
     printf("table_name:%s\n", table_name);
-
-
 }
 
 
@@ -116,9 +112,9 @@ int lan_log_web(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     //取数据
     //增加where 条件的标识
-   // printf("web before modi==%s,%s\n", sdate_in, edate_in);
+    // printf("web before modi==%s,%s\n", sdate_in, edate_in);
     modifyDates(sdate_in, edate_in);
-   // printf("web after modi==%s,%s\n", sdate_in, edate_in);
+    // printf("web after modi==%s,%s\n", sdate_in, edate_in);
 
     int stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     int etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);

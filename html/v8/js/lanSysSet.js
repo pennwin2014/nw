@@ -18,11 +18,14 @@ Ext.define('ncViewer.lanSysSet',{
             title: 'IP地址配置', 
             id:'ipset',           
             html: '<iframe  id="lan_ipadress" name="lan_ipadress" src="/v8/lanset/lan_ipadress_set.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
-        },
-        {
+        },{
             title: '数据存储设置',
             id:'dataclean',            
             html: '<iframe  id="lan_dataclean" name="lan_dataclean" src="/v8/lanset/lan_dataclean_set.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '数据存储管理',
+            id:'datamanage',            
+            html: '<iframe  id="lan_datamanage" name="lan_datamanage" src="/v8/lanset/lan_dataclean_set.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
         },{
             title: '备份设置',
             id:'databack',            

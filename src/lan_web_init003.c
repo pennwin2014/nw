@@ -358,14 +358,21 @@ int lan_log_getFileLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             days = 1;
             break;
     }
-
+    char caTablePrefix[128] = "";
+    char caShortName[128] = "";
+    strcpy(caShortName, getLoginShortName());
+    if(isLanShort(caShortName))
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "nwfilelog_");
+    else
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwfilelog_", caShortName);
+    printf("caTablePrefix=%s\n", caTablePrefix);
     if(strlen(sdate) > 0 && strlen(edate) > 0)
-    { 	
-        ptmp = ncsUtlGetTable2(sdate, edate, "nwfilelog_", &lStartTime, &lTime, &lCount);
+    {
+        ptmp = ncsUtlGetTable2(sdate, edate, caTablePrefix, &lStartTime, &lTime, &lCount);
     }
     else
     {
-        ptmp = ncsUtlGetTable(lTime, days, "nwfilelog_",  &lStartTime, &lCount);
+        ptmp = ncsUtlGetTable(lTime, days, caTablePrefix,  &lStartTime, &lCount);
         lTime = lTime + 2 * 3600;
     }
 
@@ -969,9 +976,9 @@ void RepairCompid()
 }
 int modifyDates(char* sdate, char* edate)
 {
-	char ssdate[24]="", eedate[24]="";
-	strcpy(ssdate, sdate);
-	strcpy(eedate, edate);
+    char ssdate[24] = "", eedate[24] = "";
+    strcpy(ssdate, sdate);
+    strcpy(eedate, edate);
     /*
       * 2015/9/30T23:59:59  ===>  2015/09/30T23:59:59
       * 2015/10/8T00:00:00  ===>  2015/10/08T23:59:59
@@ -980,14 +987,14 @@ int modifyDates(char* sdate, char* edate)
     //找到第一个/和第二个/之间的字符串
     char* p = NULL;
     p = strtok(ssdate, "/");
-  //  if(p)
-     //   printf("first %s\n", p);
+    //  if(p)
+    //   printf("first %s\n", p);
     p = strtok(NULL, "/");
-   // if(p)
-       // printf("second %s\n", p);
+    // if(p)
+    // printf("second %s\n", p);
     if(strlen(p) == 1)
     {
-		//printf("add 0 in pos 5\n");
+        //printf("add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             sdate[i + 1] = sdate[i];
@@ -996,11 +1003,11 @@ int modifyDates(char* sdate, char* edate)
     }
     //找到第二个/和T之间的字符串
     p = strtok(NULL, "T");
-   // if(p)
-      //  printf("T %s\n", p);
+    // if(p)
+    //  printf("T %s\n", p);
     if(strlen(p) == 1)
     {
-		//printf("add 0 in pos 8\n");
+        //printf("add 0 in pos 8\n");
         for(i = 18; i > 7; i--)
         {
             sdate[i + 1] = sdate[i];
@@ -1010,27 +1017,27 @@ int modifyDates(char* sdate, char* edate)
 
     //结束时间
     p = strtok(eedate, "/");
-   // if(p)
-        //printf("efirst %s\n", p);
+    // if(p)
+    //printf("efirst %s\n", p);
     p = strtok(NULL, "/");
     //if(p)
-        //printf("esecond %s\n", p);
+    //printf("esecond %s\n", p);
     if(strlen(p) == 1)
     {
-		//printf("e add 0 in pos 5\n");
+        //printf("e add 0 in pos 5\n");
         for(i = 18; i > 4; i--)
         {
             edate[i + 1] = edate[i];
         }
         edate[5] = '0';
     }
-	//找到第二个/和T之间的字符串
+    //找到第二个/和T之间的字符串
     p = strtok(NULL, "T");
-   // if(p)
-       // printf("eT %s\n", p);
+    // if(p)
+    // printf("eT %s\n", p);
     if(strlen(p) == 1)
     {
-		//printf("e add 0 in pos 8\n");
+        //printf("e add 0 in pos 8\n");
         for(i = 18; i > 7; i--)
         {
             edate[i + 1] = edate[i];
@@ -1143,9 +1150,9 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     if(!utStrIsSpaces(sdate))
     {
-      //  printf("before modi==%s,%s\n", sdate, edate);
+        //  printf("before modi==%s,%s\n", sdate, edate);
         modifyDates(sdate, edate);
-      //  printf("after modi==%s,%s\n", sdate, edate);
+        //  printf("after modi==%s,%s\n", sdate, edate);
 
         lStartTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate);
         lTime1 = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate);
@@ -1583,7 +1590,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
-//鍛婅鏃ュ織鏌ョ湅
+//告警日志查询
 int lan_log_getAlarmLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
 
@@ -1730,19 +1737,35 @@ int lan_log_getAlarmLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             days = 1;
             break;
     }
-
-    if(strlen(sdate) > 0 && strlen(edate) > 0)
+    char caTablePrefixLog[128] = "";
+    char caTablePrefixScreen[128] = "";
+    char caShortName[128] = "";
+    strcpy(caShortName, getLoginShortName());
+    if(isLanShort(caShortName))
     {
-    	//printf("alarm before modi==%s,%s\n", sdate, edate);
-        modifyDates(sdate, edate);
-       //printf("alarm after modi==%s,%s\n", sdate, edate);
-        ptmp = ncsUtlGetTable2(sdate, edate, "nwwarnlog_", &lStartTime, &lTime, &lCount);
-        ptmp2 = ncsUtlGetTable2(sdate, edate, "nwwarnscreen_", &lStartTime, &lTime, &lCount);
+        snprintf(caTablePrefixLog, sizeof(caTablePrefixLog) - 1, "nwwarnlog_");
+        snprintf(caTablePrefixScreen, sizeof(caTablePrefixScreen) - 1, "nwwarnscreen_");
     }
     else
     {
-        ptmp = ncsUtlGetTable(lTime, days, "nwwarnlog_",  &lStartTime, &lCount);
-        ptmp2 = ncsUtlGetTable(lTime, days, "nwwarnscreen_",  &lStartTime, &lCount);
+        snprintf(caTablePrefixLog, sizeof(caTablePrefixLog) - 1, "%s_nwwarnlog_", caShortName);
+        snprintf(caTablePrefixScreen, sizeof(caTablePrefixScreen) - 1, "%s_nwwarnscreen_", caShortName);
+    }
+
+
+
+    if(strlen(sdate) > 0 && strlen(edate) > 0)
+    {
+        //printf("alarm before modi==%s,%s\n", sdate, edate);
+        modifyDates(sdate, edate);
+        //printf("alarm after modi==%s,%s\n", sdate, edate);
+        ptmp = ncsUtlGetTable2(sdate, edate, caTablePrefixLog, &lStartTime, &lTime, &lCount);
+        ptmp2 = ncsUtlGetTable2(sdate, edate, caTablePrefixScreen, &lStartTime, &lTime, &lCount);
+    }
+    else
+    {
+        ptmp = ncsUtlGetTable(lTime, days, caTablePrefixLog,  &lStartTime, &lCount);
+        ptmp2 = ncsUtlGetTable(lTime, days, caTablePrefixScreen,  &lStartTime, &lCount);
         lTime = lTime + 2 * 3600;
     }
 

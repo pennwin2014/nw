@@ -1885,6 +1885,27 @@ int ncWebAuth_app(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
         return 0;
     }
+    //验证用户的简称
+    iReturn = dsCltUserLogin3(caUsername, caPassword, caShortname);
+    if(-1 == iReturn)
+    {
+        utPltPutVar(psDbHead, "buff", "{success:false,sesid:\'\',mesg:\'用户不存在!\'}");
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
+        return 0;
+    }
+    else if(-2 == iReturn)
+    {
+
+        utPltPutVar(psDbHead, "buff", "{success:false,sesid:\'\',mesg:\'用户名不可以为空!\'}");
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
+        return 0;
+    }
+    else if(-3 == iReturn)
+    {
+        utPltPutVar(psDbHead, "buff", "{success:false,sesid:\'\',mesg:\'验证错误\'}");
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
+        return 0;
+    }
 
     iReturn = dsCltUserLoginBySid(caUsername, caPassword, caIp, caSessid);
 

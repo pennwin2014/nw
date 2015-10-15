@@ -9,6 +9,9 @@
 
 void waishe_combine_table(char *table_name, char *sdate, char *edate)
 {
+    char caShortName[256] = "";
+    strcpy(caShortName, getLoginShortName());
+
     sdate[4] = '\0';
     edate[4] = '\0';
 
@@ -23,7 +26,11 @@ void waishe_combine_table(char *table_name, char *sdate, char *edate)
     int emonth = atoi(edate + 5);
 
     if(syear == eyear && smonth == emonth)
-        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwremovelog_%4u%02u as new_table", syear, smonth);
+    {
+        //snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwremovelog_%4u%02u as new_table", syear, smonth);
+        snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "%s as new_table", getNewLogTable(caShortName, "nwremovelog", syear, smonth));
+
+    }
     else
     {
         int i, j = smonth, iNum = 0;
@@ -32,7 +39,9 @@ void waishe_combine_table(char *table_name, char *sdate, char *edate)
         pasDbCursor *psCur = NULL;
         for(i = syear; i <= eyear && j <= emonth;)
         {
-            snprintf(sql, sizeof(sql), "select * from nwremovelog_%4u%02u", i, j);
+            //snprintf(sql, sizeof(sql), "select * from nwremovelog_%4u%02u", i, j);
+            snprintf(sql, sizeof(sql), "select * from %s", getNewLogTable(caShortName, "nwremovelog", i, j));
+
             psCur = pasDbOpenSql(sql, 0);
             if(psCur != NULL)
             {
@@ -105,10 +114,10 @@ int lan_log_peri(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     //取数据
     //增加where 条件的标识
-    
-   // printf("peri before modi==%s,%s\n", sdate_in, edate_in);
+
+    // printf("peri before modi==%s,%s\n", sdate_in, edate_in);
     modifyDates(sdate_in, edate_in);
-   // printf("peri after modi==%s,%s\n", sdate_in, edate_in);
+    // printf("peri after modi==%s,%s\n", sdate_in, edate_in);
 
     int stime = utTimStrToLong("%Y/%m/%d %H:%M:%S", sdate_in);
     int etime = utTimStrToLong("%Y/%m/%d %H:%M:%S", edate_in);

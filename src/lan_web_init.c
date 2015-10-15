@@ -5867,29 +5867,32 @@ int lanShutDown(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
 int lan_recover_system(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
-	utMsgPrintMsg(psMsgHead);	
-	utPltDbHead *psDbHead = utPltInitDb();
-	utPltFreeDb(psDbHead);
+    utMsgPrintMsg(psMsgHead);
+    utPltDbHead *psDbHead = utPltInitDb();
+    utPltFreeDb(psDbHead);
 
-	printf("[reset system]\n");
-	if(!utFileIsExist("/home/ncmysql/nw/bin/recover")){
-		utPltPutVar(psDbHead,"buff","{success:false, mesg:\'reset fail\'}"); 
-	}else{
-		system("chmod -Rf 777 /home/ncmysql/nw/bin/recover");
-		system("./recover");
-		pasKillProcess(NULL,"nw");
-		exit(0);
-		utPltPutVar(psDbHead,"buff","{success:true, mesg:\'reset success\'}"); 
-	}	   	
-	utPltOutToHtml(iFd,psMsgHead,psDbHead,"v8/smm/lan_tmpPlate.htm");
-	return 0;
+    printf("[reset system]\n");
+    if(!utFileIsExist("/home/ncmysql/nw/bin/recover"))
+    {
+        utPltPutVar(psDbHead, "buff", "{success:false, mesg:\'reset fail\'}");
+    }
+    else
+    {
+        system("chmod -Rf 777 /home/ncmysql/nw/bin/recover");
+        system("./recover");
+        pasKillProcess(NULL, "nw");
+        exit(0);
+        utPltPutVar(psDbHead, "buff", "{success:true, mesg:\'reset success\'}");
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
+    return 0;
 }
 
 
 int lanWeb_initFun(utShmHead *psShmHead)
 {
     int iReturn;
-	iReturn = pasSetTcpFunName("lan_recover_system", lan_recover_system, 0);
+    iReturn = pasSetTcpFunName("lan_recover_system", lan_recover_system, 0);
     iReturn = pasSetTcpFunName("lanTree_depComp", lanTree_depComp, 0);
     iReturn = pasSetTcpFunName("lanTreeProcy", lanTreeProcy, 0);
     iReturn = pasSetTcpFunName("lan_Procy_File", lan_Procy_File, 0);

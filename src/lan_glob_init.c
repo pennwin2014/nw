@@ -1483,7 +1483,7 @@ int lanUtlLoadProcy(utShmHead *psShmHead)
     */
     char userid[24] = "";
     char olduserid[24] = "";
-   // strcpy(olduserid, "-1");
+    // strcpy(olduserid, "-1");
     //生成黑白名单数据
     pasDbOneRecord("select max(updatetime) from blacklist", 0, UT_TYPE_LONG, 4, &lModtime);
     if(lLasttime_base < lModtime)
@@ -1508,7 +1508,7 @@ int lanUtlLoadProcy(utShmHead *psShmHead)
                                         UT_TYPE_ULONG, sizeof(blackstatus), &blackstatus,
                                         UT_TYPE_STRING, sizeof(userid) - 1, userid)) == 0 || iReturn == 1405)
         {
-			printf("[userid=%s, olduserid=%s]\n", userid, olduserid);
+            printf("[userid=%s, olduserid=%s]\n", userid, olduserid);
             if(strcmp(userid, olduserid))
             {
                 strcpy(olduserid, userid);
@@ -1522,16 +1522,18 @@ int lanUtlLoadProcy(utShmHead *psShmHead)
                 }
 
                 sprintf(path + strlen(path), "blacklist_type.txt");
-				printf("[iNum=%d]\n", iNum);
+                printf("[iNum=%d]\n", iNum);
                 if(iNum > 0)
                 {
                     fclose(fp);
                 }
                 //printf("基础数据生成：%s\n",path);
                 fp = fopen(path, "w");
-            }else{
-				printf("do nothing\n");
-			}
+            }
+            else
+            {
+                printf("do nothing\n");
+            }
             pasLogs(PAS_SRCFILE, 1000, "genblackfile,file=%s,blackname=%s", path, blackname);
             fprintf(fp, "%s^%s^%s^%lu\r\n", blacktype, blackname, blackvalue, blackstatus);
             iNum++;
@@ -5436,7 +5438,7 @@ int lanAutoClean(utShmHead *psShmHead)
             }
             else
             {
-                //处理自动??
+                //处理自动清理
                 lKeep = utComGetVar_ld(psShmHead, "InstantKeepMon", 2);
                 lanCleanTable(lKeep, "ncimclient");
                 lKeep = utComGetVar_ld(psShmHead, "InstantBakKeep", 2);
@@ -5722,7 +5724,7 @@ int lanCleanTable(int lKeep, char *pTable)
 
     while(iReturn == 0)
     {
-        if(strcmp(caTable, caKeepTable) < 0)
+        if((strcmp(caTable, caKeepTable) < 0) && (strcmp(caTable, pTable) != 0))
         {
             strcpy(caTables[iNum], caTable);
             iNum++;
