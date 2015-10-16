@@ -1211,27 +1211,41 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     {
         sprintf(sql_tmp, " and mousepos=%d", atoi(cursepos));
     }
+    lCompid1 = strtoul(compid1, NULL, 10);
+    char caShortName[128] = "", caTablePrefix[128] = "", caScreenPrefix[128] = "";
+    strcpy(caShortName, getShortNameByCompid(lCompid1));
+    if(isLanShort(caShortName))
+    {
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "nwprocscreen_");
+        snprintf(caScreenPrefix, sizeof(caScreenPrefix) - 1, "ncscreenlog_");
+
+    }
+    else
+    {
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwprocscreen_", caShortName);
+        snprintf(caScreenPrefix, sizeof(caScreenPrefix) - 1, "%s_ncscreenlog_", caShortName);
+    }
 
     if(strlen(sdate) > 0 && strlen(edate) > 0)
     {
         if(atoi(screenMod) == 2)
         {
-            ptmp = ncsUtlGetTable2(sdate, edate, "nwprocscreen_", &lStartTime, &lTime, &lCount);
+            ptmp = ncsUtlGetTable2(sdate, edate, caTablePrefix, &lStartTime, &lTime, &lCount);
         }
         else
         {
-            ptmp = ncsUtlGetTable2(sdate, edate, "ncscreenlog_", &lStartTime, &lTime, &lCount);
+            ptmp = ncsUtlGetTable2(sdate, edate, caScreenPrefix, &lStartTime, &lTime, &lCount);
         }
     }
     else
     {
         if(atoi(screenMod) == 2)
         {
-            ptmp = ncsUtlGetTable(lTime, days, "nwprocscreen_",  &lStartTime, &lCount);
+            ptmp = ncsUtlGetTable(lTime, days, caTablePrefix,  &lStartTime, &lCount);
         }
         else
         {
-            ptmp = ncsUtlGetTable(lTime, days, "ncscreenlog_",  &lStartTime, &lCount);
+            ptmp = ncsUtlGetTable(lTime, days, caScreenPrefix,  &lStartTime, &lCount);
         }
         lTime = lTime + 2 * 3600;
     }
@@ -1241,7 +1255,7 @@ int lan_log_getScreenLog(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         sprintf(sql_tmp + strlen(sql_tmp), " and lower(proscreen)='%s'", strtoLow(senseProcName));
     }
 
-    lCompid1 = strtoul(compid1, NULL, 10);
+
 
     char *ip1_gbk = (char *)utf8convert(psShmHead, ip1);
     char _sdate[11] = "";

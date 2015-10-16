@@ -68,7 +68,7 @@ int    timeToString(unsigned int now, char *year, char *mon, char *day)
 }
 
 
-static char* getShortNameByCompid(ulong compid)
+char* getShortNameByCompid(ulong compid)
 {
     ulong lGroupId = 0;
     char sql[1024] = "";
@@ -517,6 +517,23 @@ int GetHost(char *Webaddr, char * Host, int  len)
     return 0;
 }
 
+int  timeToStringEx(unsigned int now, char *year, char *mon)
+{
+    if((year == NULL) || (mon == NULL) || (now == 0))
+    {
+        return -1;
+    }
+    struct tm *time1;
+    time1 = (struct tm *)localtime(&now);
+    //年
+    snprintf(year, 5, "%d", time1->tm_year + 1900);
+    //月
+    if((time1->tm_mon + 1 > 0) && (time1->tm_mon + 1 <= 9))
+        snprintf(mon, 3, "0%d", time1->tm_mon + 1);
+    else
+        snprintf(mon, 3, "%d", time1->tm_mon + 1);
+    return 0;
+}
 
 
 //1、文件操作日志上传
@@ -929,23 +946,7 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 }
 
 
-int  timeToStringEx(unsigned int now, char *year, char *mon)
-{
-    if((year == NULL) || (mon == NULL) || (now == 0))
-    {
-        return -1;
-    }
-    struct tm *time1;
-    time1 = (struct tm *)localtime(&now);
-    //年
-    snprintf(year, 5, "%d", time1->tm_year + 1900);
-    //月
-    if((time1->tm_mon + 1 > 0) && (time1->tm_mon + 1 <= 9))
-        snprintf(mon, 3, "0%d", time1->tm_mon + 1);
-    else
-        snprintf(mon, 3, "%d", time1->tm_mon + 1);
-    return 0;
-}
+
 
 //2、进程日志上传
 int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
@@ -1067,6 +1068,7 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     memset(str, 0, 20 * 50);
     memset(conver, 0, sizeof(conver));
 
+
     //查询当前客户端信息
     nwCompInfo *psComp = (nwCompInfo *)utShmHashLook(psShmHead, NC_LNK_COMPUTE, &compid);
 
@@ -1076,6 +1078,9 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     sprintf(sql, "select groupid from nwcompute where compid=%lu", compid);
 
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(groupid2), &groupid2);
+    //先得到简称
+    char caShortName[128] = "";
+    strcpy(caShortName, getShortNameByGroupid(groupid2));
 
     long lCount = 0;
     for(Numbers = 0; Numbers < Nums; Numbers++)
@@ -1223,10 +1228,8 @@ int  Lan_PorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         timeToStringEx(now, year, mon);
         int syear = atoi(year);
         int smonth = atoi(mon);
-        //先得到简称
-        char caShortName[128] = "";
-        strcpy(caShortName, getShortNameByGroupid(groupid));
-        if((strlen(caShortName) == 0) || (strcmp(caShortName, "lan") == 0))
+
+        if(isLanShort(caShortName))
         {
             snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), "nwproclog_%4u%02u", syear, smonth);
         }
@@ -1665,7 +1668,7 @@ int  Lan_RmoveLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
-//4、网页?罩旧洗?
+//4、网页日志上传
 int  Lan_WebLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     unsigned int   Nums   = 0;
@@ -1695,7 +1698,7 @@ int  Lan_WebLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char    mesg[512];
 
     char dir[512]; //保存目录
-    char savefile[512];  //保存的文??
+    char savefile[512];  //保存的文件
     //utMsgPrintMsg(psMsgHead);
 
     memset(mac, 0, sizeof(mac));
@@ -1987,7 +1990,7 @@ int  Lan_WebLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
-//5?⒘奶烊罩旧洗?
+//聊天日志上传
 int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     unsigned int   Nums   = 0;
@@ -2410,7 +2413,7 @@ int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 Status = 1;
             }
         }
-        recodeLogInfo(" 接收聊天???：" , mesg, "");
+        recodeLogInfo(" 接收聊天日志：" , mesg, "");
     }
 
 
@@ -2424,7 +2427,7 @@ int  Lan_ChatLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
-//6、阻?彩录洗?
+//阻挡事件上传
 int  Lan_EventLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     unsigned int   Nums   = 0;
@@ -2643,7 +2646,7 @@ int  Lan_EventLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
             Status = 1;
 
-            //?募馑?
+            //文件解锁
             pasFileSetFileUnLock(fp);
 
             fclose(fp);
@@ -2762,6 +2765,11 @@ int Lan_ScreenLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
     char caShortName[128] = "";
     strcpy(caShortName, getShortNameByCompid(compid));
+    char caTablePrefix[128] = "";
+    if(isLanShort(caShortName))
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "ncscreenlog_");
+    else
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_ncscreenlog_", caShortName);
     int   Numbers = 0;
     char  str[12][50];
     char  conver[50];
@@ -2786,6 +2794,9 @@ int Lan_ScreenLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(mydevname, sizeof(mydevname) - 1, "%s", psComp->devname);
         groupid2 = psComp->groupid;
     }
+
+
+
 
     for(Numbers = 0; Numbers < Nums; Numbers++)
     {
@@ -2855,15 +2866,15 @@ int Lan_ScreenLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         }
         //groupid = groupid2;
 
-        snprintf(sql, sizeof(sql) - 1,  "insert into ncscreenlog_%s%s( compid, userid, groupid,  devname, udisp, mac, sip, stime, file, sid) values(%u, %u, %u, \'%s\', \'%s\', \'%s\', %u, %u, \'%s\', %llu)",
-                 year, mon, compid, userid,  groupid, devname, mydevname, mac, sip, stime, destPath, currentTime);
+        snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( compid, userid, groupid,  devname, udisp, mac, sip, stime, file, sid) values(%u, %u, %u, \'%s\', \'%s\', \'%s\', %u, %u, \'%s\', %llu)",
+                 caTablePrefix, year, mon, compid, userid,  groupid, devname, mydevname, mac, sip, stime, destPath, currentTime);
         //printf("sql = %s\n",  sql);
 
         iReturn = pasDbExecSql(sql, 0);
         //printf("iReturn = %d\n", iReturn );
         if(iReturn != 0)
         {
-            iReturn = pasDbExecSqlF("create table ncscreenlog_%s%s ( \
+            iReturn = pasDbExecSqlF("create table %s%s%s ( \
     									sid  	    bigint auto_increment  primary key,   \
      									compid    int unsigned,\
 									userid    int unsigned default 0,     \
@@ -2874,7 +2885,7 @@ int Lan_ScreenLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
    			 						sip	      int unsigned,           \
     									stime     int,        \
     									file      char(80)    \
-							);", year, mon);
+							);", caTablePrefix, year, mon);
             iReturn = pasDbExecSql(sql, 0);
             //printf("iReturn = %u,\n", iReturn);
         }
@@ -3152,6 +3163,16 @@ int Lan_ScreenAlterLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     pasDbOneRecord(Mysql, 0, UT_TYPE_ULONG, sizeof(groupid2), &groupid2);
     char caShortName[128] = "";
     strcpy(caShortName, getShortNameByCompid(compid));
+    char caTablePrefix[128] = "";
+    if(isLanShort(caShortName))
+    {
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "nwwarnlog_");
+
+    }
+    else
+    {
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwwarnlog_", caShortName);
+    }
 
     for(Numbers = 0; Numbers < Nums; Numbers++)
     {
@@ -3222,25 +3243,18 @@ int Lan_ScreenAlterLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         timeToString(now, year, mon, day);
 
         //printf("current time = %s%s,  compid = %u, groupid = %u, userid=%u\n", year, mon, compid,  groupid,userid);
-        if(isLanShort(caShortName))
-        {
-            snprintf(sql, sizeof(sql) - 1,  "insert into %s_nwwarnlog_%s%s( compid, userid, groupid,  devname, udisp, mac, sip, stime, screenid,pid, mesg,  sid) values(%u, %u, %u, \'%s\', \'%s\', \'%s\', %u, %u, %u, %u,  \'%s\', %llu)",
-                     caShortName, year, mon, compid, userid,  groupid, devname, username, mac, sip, stime, screenid, pid,  mesg, currentTime);
-        }
-        else
-        {
-            snprintf(sql, sizeof(sql) - 1,  "insert into nwwarnlog_%s%s( compid, userid, groupid,  devname, udisp, mac, sip, stime, screenid,pid, mesg,  sid) values(%u, %u, %u, \'%s\', \'%s\', \'%s\', %u, %u, %u, %u,  \'%s\', %llu)",
-                     year, mon, compid, userid,  groupid, devname, username, mac, sip, stime, screenid, pid,  mesg, currentTime);
-        }
+
+        snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( compid, userid, groupid,  devname, udisp, mac, sip, stime, screenid,pid, mesg,  sid) values(%u, %u, %u, \'%s\', \'%s\', \'%s\', %u, %u, %u, %u,  \'%s\', %llu)",
+                 caTablePrefix, year, mon, compid, userid,  groupid, devname, username, mac, sip, stime, screenid, pid,  mesg, currentTime);
+
+
         //printf("sql = %s\n",  sql);
 
         iReturn = pasDbExecSql(sql, 0);
         //printf("iReturn = %d\n", iReturn );
         if(iReturn != 0)
         {
-            if(isLanShort(caShortName))
-            {
-                iReturn = pasDbExecSqlF("create table nwwarnlog_%s%s ( \
+            iReturn = pasDbExecSqlF("create table %s%s%s ( \
 											sid 	  bigint auto_increment  primary key,	\
 											compid	  int unsigned,\
 										userid	  int unsigned default 0,	  \
@@ -3253,26 +3267,10 @@ int Lan_ScreenAlterLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 											screenid  int unsigned,\
 											pid 	  int unsigned,\
 											mesg	  char(256)\
-										);", year, mon);
+										);", caTablePrefix, year, mon);
 
-            }
-            else
-            {
-                iReturn = pasDbExecSqlF("create table %s_nwwarnlog_%s%s ( \
-    									sid  	  bigint auto_increment  primary key,   \
-     									compid    int unsigned,\
-									userid    int unsigned default 0,     \
-	 								groupid   int unsigned default 0,\
-									devname   char(32)  default ' ',      \
-									udisp     char(32)  default '',       \
-    									mac       char(20)  default '',       \
-   			 						sip	  int unsigned, \
-    									stime     int unsigned,\
-    									screenid  int unsigned,\
-    									pid       int unsigned,\
-    									mesg   	  char(256)\
-									);", caShortName, year, mon);
-            }
+
+
 
 
             iReturn = pasDbExecSql(sql, 0);
@@ -3397,6 +3395,13 @@ int Lan_ScreenAlterJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     memset(day, 0, sizeof(day));
     char caShortName[128] = "";
     strcpy(caShortName, getShortNameByCompid(compid));
+	char caTablePrefix[128] = "";
+	if(isLanShort(caShortName)){
+		snprintf(caTablePrefix, sizeof(caTablePrefix)-1, "nwwarnscreen_");
+		
+	}else{
+		snprintf(caTablePrefix, sizeof(caTablePrefix)-1, "%s_nwwarnscreen_", caShortName);
+	}
 
     //把客户端当前时间转换成字符串， 如果成功，则 其为屏幕?计娣拍柯迹裨蛴梅衿鞯牡鼻笆奔?来计?娣拍柯?
     if(timeToString(stime, year, mon, day) == -1)
@@ -3483,19 +3488,19 @@ int Lan_ScreenAlterJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             else
                 snprintf(mon, 3, "%d", time1->tm_mon + 1);
 
-            snprintf(sql, sizeof(sql) - 1,  "insert into nwwarnscreen_%s%s( warnid, stime, file, sid) values(%u, %u, \'%s\', %llu)", year, mon, screenid, stime, destDir, currentTime);
+            snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( warnid, stime, file, sid) values(%u, %u, \'%s\', %llu)", caTablePrefix,year, mon, screenid, stime, destDir, currentTime);
             //printf("sql = %s\n",  sql);
 
             iReturn = pasDbExecSql(sql, 0);
             //printf("iReturn = %d\n", iReturn );
             if(iReturn != 0)
             {
-                iReturn = pasDbExecSqlF("create table nwwarnscreen_%s%s ( \
+                iReturn = pasDbExecSqlF("create table %s%s%s ( \
     									  	sid       bigint auto_increment  primary key,\
   										warnid    int unsigned,\
     										stime     int,\
     										file      char(80)\
-     										);", year, mon);
+     										);",caTablePrefix, year, mon);
                 iReturn = pasDbExecSql(sql, 0);
                 //printf("iReturn = %u,\n", iReturn);
             }
@@ -3662,20 +3667,24 @@ int Lan_ProcessJPG_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 snprintf(mon, 3, "0%d", time1->tm_mon + 1);
             else
                 snprintf(mon, 3, "%d", time1->tm_mon + 1);
-
-            snprintf(sql, sizeof(sql) - 1,  "insert into nwprocscreen_%s%s( procid, stime, file, sid) values(%u, %u, \'%s\', %llu)", year, mon, screenid, stime, destDir, currentTime);
+            char caTablePrefix[128] = "";
+            if(isLanShort(caShortName))
+                snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "nwprocscreen_");
+            else
+                snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwprocscreen_", caShortName);
+            snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( procid, stime, file, sid) values(%u, %u, \'%s\', %llu)", caTablePrefix, year, mon, screenid, stime, destDir, currentTime);
             //printf("sql = %s\n",  sql);
 
             iReturn = pasDbExecSql(sql, 0);
             //printf("iReturn = %d\n", iReturn );
             if(iReturn != 0)
             {
-                iReturn = pasDbExecSqlF("create table nwprocscreen_%s%s ( \
+                iReturn = pasDbExecSqlF("create table %s%s%s ( \
     									  	sid       bigint auto_increment  primary key,\
   										procid    int unsigned,\
     										stime     int,\
     										file      char(80)\
-     										);", year, mon);
+     										);", caTablePrefix, year, mon);
                 iReturn = pasDbExecSql(sql, 0);
                 //printf("iReturn = %u,\n", iReturn);
             }
@@ -3774,7 +3783,7 @@ int Lan_MacRunInfo_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     memset(sql, 0, sizeof(sql));
     sprintf(sql, "select groupid from nwcompute where compid=%lu", compid);
     pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(groupid2), &groupid2);
-	char caShortName[128] = "";
+    char caShortName[128] = "";
     strcpy(caShortName, getShortNameByCompid(compid));
     char caTablePrefix[128] = "";
     if(isLanShort(caShortName))
@@ -3783,7 +3792,7 @@ int Lan_MacRunInfo_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwcomputelog_", caShortName);
 
 
-	
+
     //  groupid2 = groupid;
     recodeLogInfo(" 接收电脑开关机日志3：" , "", "");
 
@@ -3805,12 +3814,12 @@ int Lan_MacRunInfo_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(mon, 3, "%d", time1->tm_mon + 1);
 
     int myCompid = 0;
-    snprintf(sql, sizeof(sql) - 1, "select compid  from  %s%s%s   where compid=%u and  startmactime=%u",  caTablePrefix,year, mon, compid,  startmactime);
+    snprintf(sql, sizeof(sql) - 1, "select compid  from  %s%s%s   where compid=%u and  startmactime=%u",  caTablePrefix, year, mon, compid,  startmactime);
     iReturn = pasDbOneRecord(sql, 0, UT_TYPE_ULONG, 4, &myCompid);
     if((iReturn == 0) && (myCompid != 0))
     {
         snprintf(sql, sizeof(sql) - 1, "update %s%s%s  set userid=%u, mac= \'%s\',  groupid=%u,  devname= \'%s\',  udisp= \'%s\',  idletime=%u, activetime=%u, closemactime=%u  where compid=%u and startmactime=%u",
-                 caTablePrefix,year, mon, userid, mac, groupid2, devname, username, idletimelen, activetime, closemactime, compid, startmactime);
+                 caTablePrefix, year, mon, userid, mac, groupid2, devname, username, idletimelen, activetime, closemactime, compid, startmactime);
 
         iReturn = pasDbExecSql(sql, 0);
 
@@ -3821,7 +3830,7 @@ int Lan_MacRunInfo_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     {
         snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( compid, userid, mac, groupid, devname, udisp, startmactime, idletime, activetime, closemactime) "
                  "values(%u,%u, \'%s\',%u,\'%s\',\'%s\',%u, %u, %u, %u)",
-                 caTablePrefix,year, mon, compid, userid, mac, groupid2, devname, username, startmactime, idletimelen, activetime, closemactime);
+                 caTablePrefix, year, mon, compid, userid, mac, groupid2, devname, username, startmactime, idletimelen, activetime, closemactime);
         iReturn = pasDbExecSql(sql, 0);
 
         recodeLogInfo(" 接收电脑开关机日志4：" , "insert", "");
@@ -3841,6 +3850,7 @@ int Lan_MacRunInfo_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
+//邮件文件上传
 int Lan_MailFile_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     unsigned int    compid = 0; //-- 计算机ID
@@ -4247,6 +4257,13 @@ int Lan_MyPorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     memset(Mysql, 0, sizeof(Mysql));
     sprintf(Mysql, "select groupid from nwcompute where compid=%lu", compid);
     pasDbOneRecord(Mysql, 0, UT_TYPE_ULONG, sizeof(groupid2), &groupid2);
+    char caShortName[128] = "";
+    strcpy(caShortName, getShortNameByCompid(compid));
+    char caTablePrefix[128] = "";
+    if(isLanShort(caShortName))
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "nwprocscreen_");
+    else
+        snprintf(caTablePrefix, sizeof(caTablePrefix) - 1, "%s_nwprocscreen_", caShortName);
 
     for(Numbers = 0; Numbers < Nums; Numbers++)
     {
@@ -4319,7 +4336,7 @@ int Lan_MyPorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         //groupid = groupid2;
 
         int   count = 0;
-        snprintf(sql, sizeof(sql) - 1, "select  count(*)  from nwprocscreen_%s%s  where  compid=%u and  proscreen=\'%s\' and  stime=%u",   year, mon,  compid,  procname,  stime);
+        snprintf(sql, sizeof(sql) - 1, "select  count(*)  from %s%s%s  where  compid=%u and  proscreen=\'%s\' and  stime=%u",   caTablePrefix, year, mon,  compid,  procname,  stime);
         pasDbOneRecord(sql, 0, UT_TYPE_ULONG, sizeof(count), &count);
         if(count > 0)
         {
@@ -4332,9 +4349,9 @@ int Lan_MyPorcessLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             recodeLogInfo("敏感进程日志：",  "count <= 0", sql);
         }
 
-        snprintf(sql, sizeof(sql) - 1,  "insert into nwprocscreen_%s%s( compid, userid, groupid,  devname, udisp, mac, proscreen, sip, stime, file,mousepos, sid) "
+        snprintf(sql, sizeof(sql) - 1,  "insert into %s%s%s( compid, userid, groupid,  devname, udisp, mac, proscreen, sip, stime, file,mousepos, sid) "
                  " values(%u, %u, %u, \'%s\', \'%s\', \'%s\', \'%s\', %u, %u, \'%s\',%u,  %llu)",
-                 year, mon, compid, userid,  groupid, devname, username, mac, procname, sip, stime, destPath, procpos,  currentTime);
+                 caTablePrefix, year, mon, compid, userid,  groupid, devname, username, mac, procname, sip, stime, destPath, procpos,  currentTime);
         iReturn = pasDbExecSql(sql, 0);
         if(0 == iReturn)
         {
