@@ -18,6 +18,8 @@
 #define EARTH_RADIUS            6378.137        //地球近似半径
 
 
+
+
 int pennwin_set_data(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     char msg[256] = "";
@@ -122,7 +124,7 @@ int createTableByName(char* tableName)
     int pos1 = 0, pos2 = 0;
     char templateName[128] = "";
     char sql[1024] = "";
-	printf("tableName=[%s],", tableName);
+    printf("tableName=[%s],", tableName);
     //判断有几个_，大于等于2个则认为是lan的，否则加上简称
     if(getCharCount(tableName, '_') > 1)
     {
@@ -135,15 +137,15 @@ int createTableByName(char* tableName)
         pos2 = pos1 + getCharPos(tableName + pos1 + 1, '_');
         if(pos2 <= 0)
             return 1;
-		printf("pos1=%d, pos2=%d\n", pos1, pos2);
+        printf("pos1=%d, pos2=%d\n", pos1, pos2);
         memcpy(templateName, tableName + pos1 + 1, pos2 - pos1);
     }
     else
     {
-        //e.g.nwoutfilelog_201510  
+        //e.g.nwoutfilelog_201510
         //获取得到第一个_的序号
         pos1 = getCharPos(tableName, '_');
-		printf("pos1=%d\n", pos1);
+        printf("pos1=%d\n", pos1);
         memcpy(templateName, tableName, pos1);
     }
     printf("============templateName=[%s]=========\n", templateName);
@@ -269,11 +271,44 @@ int lanLoadLogToDB(utShmHead *psShmHead)
 }
 
 
+
+
+
+int getCleanDataDetail(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+	char msg[256] = "";
+    char num[256] = "";
+    int iReturn = 0;
+    utMsgPrintMsg(psMsgHead);
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "msg",       UT_TYPE_STRING,  sizeof(msg) - 1,        msg);
+    time_t local_time = 0;
+    time(&local_time);
+    char sql[2512] = "";
+    utPltDbHead *psDbHead = utPltInitDb();
+	
+    snprintf(sql, sizeof(sql) - 1,  "insert into people_distribute(userid, collect_time, collect_number, mesg) values(%u, %u, \'%s\', \'%s\')", 1, local_time, num, msg);
+    printf("sql = %s\n",  sql);
+    int iret = pasDbExecSqlF(sql);
+    if(iret == 0)
+    {
+        utPltPutVar(psDbHead, "buff", "{success:true,value:'success'}");
+    }
+    else
+    {
+        utPltPutVar(psDbHead, "buff", "{success:true,value:'failure'}");
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/smm/lan_tmpPlate.htm");
+    return 0;
+}
+
+
 int pennwin_initFun(utShmHead *psShmHead)
 {
     int iReturn;
     iReturn = pasSetTcpFunName("pennwin_get_data", pennwin_get_data, 0);
     iReturn = pasSetTcpFunName("pennwin_set_data", pennwin_set_data, 0);
+    iReturn = pasSetTcpFunName("getCleanDataDetail", getCleanDataDetail, 0);
     return 0;
 }
 

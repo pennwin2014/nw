@@ -26,6 +26,10 @@
       
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
 <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/newver/chart/highcharts.js"></script>
+<script type="text/javascript" src="/newver/chart/modules/funnel.js"></script>
+<script type="text/javascript" src="/newver/chart/modules/exporting.js"></script>
+<script type="text/javascript" src="/newver/chart/modules/drilldown.js"></script>
 
 <script>  
 
@@ -36,18 +40,13 @@ Ext.require([
 ]);
 
 
-
-Ext.onReady(function() {
-$(function () {
-    
-    var colors = Highcharts.getOptions().colors,
-        categories = ['6月', '7月', '8月', '9月', '10月'],
-        name = '月份',
-        data = [{
+function getData(colors){
+	var data = [];
+    data = [{
                 y: 55.11,
                 color: colors[0],
                 drilldown: {
-                    name: '6月',
+                    name: '6',
                     categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志'],
                     data: [10.85, 7.35, 33.06, 2.81],
                     color: colors[0]
@@ -56,7 +55,7 @@ $(function () {
                 y: 21.63,
                 color: colors[1],
                 drilldown: {
-                    name: '7月',
+                    name: '7',
                     categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志'],
                     data: [0.20, 0.83, 1.58, 13.12],
                     color: colors[1]
@@ -65,7 +64,7 @@ $(function () {
                 y: 11.94,
                 color: colors[2],
                 drilldown: {
-                    name: '8月',
+                    name: '8',
                     categories: ['聊天日志', '屏幕截图'],
                     data: [ 9.91, 0.52],
                     color: colors[2]
@@ -74,7 +73,7 @@ $(function () {
                 y: 7.15,
                 color: colors[3],
                 drilldown: {
-                    name: '9月',
+                    name: '9',
                     categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志', '进程日志', '开关机日志'],
                     data: [4.55, 1.42, 0.21, 0.20, 0.19, 0.14],
                     color: colors[3]
@@ -83,187 +82,146 @@ $(function () {
                 y: 2.14,
                 color: colors[4],
                 drilldown: {
-                    name: '10月',
+                    name: '10',
                     categories: ['聊天日志', '屏幕截图', '外设日志'],
                     data: [ 0.12, 0.37, 1.65],
                     color: colors[4]
                 }
             }];
+    return data;
+}
 
-    function setChart(name, categories, data, color) {
-		chart.xAxis[0].setCategories(categories, false);
-		chart.series[0].remove(false);
-		chart.addSeries({
+var colors = Highcharts.getOptions().colors,
+    categories = ['6', '7', '8', '9', '10'],
+    name = '月份',
+    data = getData(colors);
+
+function setChart(name, categories, data, color) {
+	chart.xAxis[0].setCategories(categories, false);
+	chart.series[0].remove(false);
+	chart.addSeries({
+		name: name,
+		data: data,
+		color: color || 'white'
+	}, false);
+	chart.redraw();
+}
+
+var chart;
+function createChart(){
+    chart = new Highcharts.Chart({ 
+		chart: {
+			type: 'column',
+			renderTo: 'container'
+		},
+		title: {
+			text: '系统数据存储情况'
+		},
+		subtitle: {
+			text: '点击可以查看明细'
+		},
+		xAxis: {
+			categories: categories
+		},
+		yAxis: {
+			title: {
+				text: '每月所占百分比'
+			}
+		},
+		plotOptions: {
+			column: {
+				cursor: 'pointer',
+				point: {
+					events: {
+						click: function() {
+							var drilldown = this.drilldown;
+							if (drilldown) { // drill down
+								setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+							} else { // restore
+							alert("点击"+this.category);                              
+							}
+						}
+					}
+				},
+				dataLabels: {
+					enabled: true,
+					color: colors[0],
+					style: {
+						fontWeight: 'bold'
+					},
+					formatter: function() {
+					var point = this.point;
+					var s = "";
+					if (point.drilldown) {
+						s += this.y +'%';
+					} else {
+						s += this.y +'MB';
+					}
+						return s;
+					}
+				}
+			}
+		},
+		tooltip: {
+			formatter: function() {
+				var point = this.point,
+					s = this.x +':<b>'+ this.y +'% </b><br>';
+				if (point.drilldown) {
+					s += '点击查看 '+ point.category+'月明细';
+				} else {
+					s += '点击返回';
+				}
+				return s;
+			}
+		},
+		series: [{
 			name: name,
 			data: data,
-			color: color || 'white'
-		}, false);
-		chart.redraw();
-    }
+			color: 'white'
+		}],
+		exporting: {
+			enabled: true
+		}
+	});
+}
 
-    var chart = $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '系统数据存储情况'
-        },
-        subtitle: {
-            text: '点击可以查看明细'
-        },
-        xAxis: {
-            categories: categories
-        },
-        yAxis: {
-            title: {
-                text: '每月所占百分比'
-            }
-        },
-        plotOptions: {
-            column: {
-                cursor: 'pointer',
-                point: {
-                    events: {
-                        click: function() {
-                            var drilldown = this.drilldown;
-                            if (drilldown) { // drill down
-                                setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
-                            } else { // restore
-                                setChart(name, categories, data);
-								alert("功能菜单");
-                            }
-                        }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    color: colors[0],
-                    style: {
-                        fontWeight: 'bold'
-                    },
-                    formatter: function() {
-						var point = this.point;
-						var s = "";
-						if (point.drilldown) {
-							s += this.y +'%';
-						} else {
-							s += this.y +'MB';
-						}
-                        return s;
-                    }
-                }
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                var point = this.point,
-                    s = this.x +':<b>'+ this.y +'% </b><br>';
-                if (point.drilldown) {
-                    s += '点击查看 '+ point.category+'明细';
-                } else {
-                    s += '点击返回';
-                }
-                return s;
-            }
-        },
-        series: [{
-            name: name,
-            data: data,
-            color: 'white'
-        }],
-        exporting: {
-            enabled: true
-        }
-    })
-    .highcharts(); // return chart
+Ext.onReady(function(){
+	createChart();
+	//chart.highcharts(); // return chart
 });
-/*
-	$(function () { 	
-			var chart = new Highcharts.Chart({ 
-				chart: { 
-					type: 'bar',
-					renderTo: 'container'  
-				}, 
-				title: { 
-					text: '每月数据使用情况' 
-				}, 
-				exporting:{
-                    enabled:false
-                },
-				xAxis: { 
-					type: 'datetime', 
-					labels: { 
-						formatter: function() { 
-							return Highcharts.dateFormat('%H:%M', this.value); 
-						} 
-					} 
-				}, 
-				yAxis: { 
-					title: { 
-						text: '存储空间占用' 
-					}, 
-					min: 0 
-				}, 
-				tooltip: { 
-				//这种模式下，每点的tooltip单独显示 
-					shared: false, 
-					formatter: function() { 
-						var s = '<b>'+ this.point.name +'</b>'+'<br/>   '+this.point.y +'MB<br/>'; 
-						return s; 
-					}  
-				}, 
-				series: [{ 
-					name: '月份', 
-					data: [ 
-						{x:Date.UTC(1970, 9, 27, 0, 0, 0), y:55, name:'八月'}, 
-						{x:Date.UTC(1970, 9, 27, 0, 1, 5), y:60, name:'九月'}, 
-						{x:Date.UTC(1970, 9, 27, 1,5,15), y:70, name:'十月'}, 
-						{x:Date.UTC(1970, 9, 27, 1,5,25), y:80, name:'十一月'}
-					] 
-					//,type:'column' 
-				}] 
-			}); 
-		});
-		
-    Ext.QuickTips.init();
-	var form = Ext.create('Ext.form.Panel', {
-        renderTo: 'docbody',
-        title   : '数据存储参数设置',
-        autoHeight: true,
-        width   : 600,
-        height:400,
-        bodyPadding: 10,
-        frame:true,
-        defaults: {
-            anchor: '100%',
-            labelWidth: 100
-        },
-		items:[
-			{
-				
+
+function clkBack(){
+	setChart(name, categories, data);
+}
+
+function clkRefresh(){
+	//从后台获取数据
+	Ext.Ajax.request({
+			url: '/pronline/Msg?FunName@getCleanDataDetail',  
+			method: 'GET',
+			success: function(resp,opts){   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					categories = [];
+					categories.add(respRecord.data.category);
+				}catch(e){
+					//console.log(e.message);
+				}				
+			},
+			failure: function(resp,opts){   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);
 			}
-		],
-		buttons: [
-			{
-                text   : '导出',
-                handler: function() {
-					if(confirm("是否导出?")){
-						alert("");
-					} 
-                }
-            }
-		]
-	});  
-*/	
-});
+		});
+}
 </script>
     
     
 </head>
-<body style="background-color:#DEE8FA">    
-	<script src="/newver/chart/highcharts.js"></script>
-	<script src="/newver/chart/modules/funnel.js"></script>
-	<script src="/newver/chart/modules/exporting.js"></script>
+<body style="background-color:#DEE8FA">
+	<button id="btnBack" onclick="clkBack()">返回</button>
+	<button id="btnRefresh" onclick="clkRefresh()">刷新</button>
 	<div id="container" class="csCanvas"></div>
 	<!--div id="docbody" class="csData"></div-->
 </body>
