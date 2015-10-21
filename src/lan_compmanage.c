@@ -33,7 +33,7 @@ char* getShortNameByGroupid(ulong lGroupid)
     pid = findCompanyByGroupid(lGroupid);
     sprintf(sql, "select gname from nwgroup where gid = %lu", pid);
     pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(shortname) - 1, shortname);
-    printf("get shortname=%s, pid=%lu, groupid=%lu\n", shortname, pid, lGroupid);
+    //printf("get shortname=%s, pid=%lu, groupid=%lu\n", shortname, pid, lGroupid);
     return shortname;
 }
 
@@ -91,7 +91,7 @@ char* getNewTableName(char* shortName, char* tableName)
     else
         snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);
 	
-    printf("get newTable=%s\n", newTable);
+    //printf("get newTable=%s\n", newTable);
     return newTable;
 }
 
@@ -106,7 +106,7 @@ char* getNewTable(char* shortName, char* tableName)
     else
         snprintf(newTable, sizeof(newTable) - 1, "%s", tableName);
 
-    printf("get newTable=%s\n", newTable);
+    //printf("get newTable=%s\n", newTable);
     //先查询是否有这张表
     if(!checkTableExists(newTable))
     {

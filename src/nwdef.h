@@ -93,6 +93,7 @@
 #define NC_LNK_NW_COMPY          174      /* 公司信息 */
 #define NC_LNK_NW_BLACKLIST      175      /* 黑白名单信息 */
 #define NC_LNK_NW_PLAST      176      /*  计算机最后策略时间 */
+#define NC_LNK_NW_CLEAN      177      /*统计待清理的日志*/  
 /* 部门信息  */
 typedef struct lanGroupInfo_s {
 	  unsigned long  lGroupid;
@@ -369,6 +370,19 @@ typedef struct lanBlackList_s {    /* 黑白名单*/
     char   snap[2];								/*截屏快照*/
     char   companyname[24];				/**/
 } lanBlackList;
+
+typedef struct lanCleanData_s {    /* 清理数据*/
+	char cleanKey[135];/*月份+公司简称201509lan*/
+    ulong lScreenJpg;    /*文件:屏幕图片*/
+	ulong lImClient; /*数据库:里聊天日志*/
+	ulong lWebLog; /*数据库:网页日志*/
+	ulong lProcLog; /*数据库:进程日志*/
+	ulong lComputeLog; /*数据库:开关机日志*/
+	ulong lOutFileLog; /*数据库:外发文件日志*/
+	ulong lFileLog; /*数据库:文件日志*/
+	ulong lProcScreen; /*数据库:屏幕日志*/	
+} lanCleanData;
+
 
 typedef struct lanPmain_s {    /* 主控制策略*/
     unsigned long   pid;       /*主策略ID*/

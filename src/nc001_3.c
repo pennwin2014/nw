@@ -134,6 +134,8 @@ int nwLoadFileToDb(utShmHead *psShmHead);
 int lanAutoClean(utShmHead *psShmHead);
 int lanAutoBack(utShmHead *psShmHead);
 int lanLoadLogToDB(utShmHead *psShmHead);
+int lanCalcClean(utShmHead *psShmHead);
+
 
 /* 启动部分进程  */
 
@@ -258,6 +260,8 @@ int ncStartSetAllProcess(utShmHead *psShmHead)
     ncUtlSetDoProcess(psShmHead, "Back", 0, 5, lanAutoBack, "Yes", 36000L, 0);
     ncUtlSetDoProcess(psShmHead, "Clean", 0, 5, lanAutoClean, "No", 36000L, 0);
     ncUtlSetDoProcess(psShmHead, "LogToDb", 0, 5, lanLoadLogToDB, "Yes", 36000L, 0);
+	ncUtlSetDoProcess(psShmHead, "CalcClean", 0, 5, lanCalcClean, "Yes", 36000L, 0);
+	
 
 
     //    ncUtlSetDoProcess(psShmHead,"Count",0,20,ncCountLog,"Yes",71000L,0);

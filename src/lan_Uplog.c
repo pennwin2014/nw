@@ -329,7 +329,7 @@ int    searchPos2(int Userid,  char* caShortName, char *filetype, char *filePath
 
         //默认的路径
         snprintf(savefile, savefilelen, "%s/%s_%s999999.dat", filePath, tableName, day);
-        printf("===============save file path=%s\n=====================", savefile);
+        printf("\n===============save file path=%s=====================\n", savefile);
         FILE *fp = fopen(savefile,  "a+");
         if(fp)
         {
@@ -869,7 +869,7 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         {
 
             snprintf(mesg, sizeof(mesg) - 1, "dir=%s***********savefile=%s", dir, savefile);
-            printf("文件日志=%s\n", mesg);
+            //printf("文件日志=%s\n", mesg);
             recodeLogInfo("文件日志s", mesg, "");
             if((fp = fopen(savefile, "ab")) == NULL)    //打开存储文件失败
             {
@@ -896,7 +896,7 @@ int  Lan_FileLog_Up(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 fp = NULL;
 
                 Status = 1;
-                printf("保存成功--%s--len=%d\n", savefile, strlen(data));
+                //printf("保存成功--%s--len=%d\n", savefile, strlen(data));
             }
             /*
             //再保存一份

@@ -30,8 +30,9 @@
 <script type="text/javascript" src="/newver/chart/modules/funnel.js"></script>
 <script type="text/javascript" src="/newver/chart/modules/exporting.js"></script>
 <script type="text/javascript" src="/newver/chart/modules/drilldown.js"></script>
-
-<script>  
+<script type="text/javascript" src="/newver/chart/highcharts-3d.js"></script>
+<script type="text/javascript" src="/newver/chart/modules/exporting.js"></script>
+<script>
 
 Ext.require([
     'Ext.form.*',
@@ -39,10 +40,65 @@ Ext.require([
     'Ext.tip.QuickTipManager'
 ]);
 
+var cleanMap = {
+	'201509':[131.02,['聊天日志', '屏幕截图', '告警日志'],[10.85, 7.35, 33.06]], 
+	'201510':[221.32,['聊天日志', '屏幕截图', '外设日志', '告警日志'],[10.85, 7.35, 33.06, 2.81]]		
+};
 
+function getDetailByMonth(monthStr){
+	Ext.Ajax.request({
+			url: '/pronline/Msg?FunName@getCleanDetailByMonth&month@'+monthStr,
+			method: 'GET',
+			async: false,
+			success: function(resp,opts) {   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					var tmpData1 = ['聊天日志', '屏幕截图'];
+					var tmpData2 = [10.85, 33.06];
+					//tmpData1 = 
+					cleanMap[monthStr][1] = tmpData1;
+					cleanMap[monthStr][2] = tmpData2;
+				}catch(e){
+					//console.log(e.message);
+				}
+			},   
+			failure: function(resp,opts) {  
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);   
+			}   	 
+		});
+}
+
+function updateCleanMap(){
+	cleanMap = {};
+	Ext.Ajax.request({
+			url: '/pronline/Msg?FunName@getCleanPercent',
+			method: 'GET',
+			success: function(resp,opts) {   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					var tmpData = [];			
+					for(var i in respRecord.eimdata){
+						tmpData[0] = parseFloat(respRecord.eimdata[i].lsize);
+						tmpData[1] = ['聊天日志', '屏幕截图', '外设日志', '告警日志'];
+						tmpData[2] = [10.85, 7.35, 33.06, 2.81];
+						cleanMap[respRecord.eimdata[i].month] = tmpData;
+					}
+				}catch(e){
+					//console.log(e.message);
+				}
+					
+			},   
+			failure: function(resp,opts) {  
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);   
+			}   	 
+		});
+}
 function getData(colors){
-	var data = [];
-    data = [{
+	var data1 = [{
                 y: 55.11,
                 color: colors[0],
                 drilldown: {
@@ -88,12 +144,38 @@ function getData(colors){
                     color: colors[4]
                 }
             }];
+	var data = [];
+	var monthStr ="";
+	var tmpArr = [];
+	var iCount = 0;
+	for(monthStr in cleanMap){
+		iCount ++;
+		tmpArr = cleanMap[monthStr];
+		data.push(
+			{
+				y:tmpArr[0],
+				color:colors[iCount % colors.length],
+				drilldown:{
+					name:monthStr,
+					categories:tmpArr[1],
+					data:tmpArr[2],
+					color:colors[iCount % colors.length]
+				}
+			});
+	}		
     return data;
 }
 
+function getCategories(){
+	var cat = [];
+	for(var i in cleanMap)
+		cat.push(i);
+	return cat;
+}
+
 var colors = Highcharts.getOptions().colors,
-    categories = ['6', '7', '8', '9', '10'],
     name = '月份',
+	categories = getCategories(),
     data = getData(colors);
 
 function setChart(name, categories, data, color) {
@@ -108,7 +190,57 @@ function setChart(name, categories, data, color) {
 }
 
 var chart;
+function createPie(){
+    chart = new Highcharts.Chart({ 
+        chart: {
+            type: 'pie',
+			renderTo:'container',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        title: {
+            text: '磁盘空间'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35, 
+                events: {
+	                    click: function (event) {
+							createChart();
+	                    } 
+					},
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}{point.y}MB'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '空间比例',
+            data: [
+                ['剩余',   455.0],
+                {
+                    name: '已使用',
+                    y: 1222.8,
+                    sliced: true,
+                    selected: true
+                }
+            ]
+        }]
+    });
+}
 function createChart(){
+	categories = getCategories();
+    data = getData(colors);
     chart = new Highcharts.Chart({ 
 		chart: {
 			type: 'column',
@@ -136,9 +268,11 @@ function createChart(){
 						click: function() {
 							var drilldown = this.drilldown;
 							if (drilldown) { // drill down
-								setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+								getDetailByMonth(drilldown.name);
+								setChart(drilldown.name, cleanMap[drilldown.name][1], cleanMap[drilldown.name][2], drilldown.color);
+								//setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
 							} else { // restore
-							alert("点击"+this.category);                              
+								alert("点击"+this.category);                              
 							}
 						}
 					}
@@ -153,7 +287,7 @@ function createChart(){
 					var point = this.point;
 					var s = "";
 					if (point.drilldown) {
-						s += this.y +'%';
+						s += this.y +'MB';
 					} else {
 						s += this.y +'MB';
 					}
@@ -186,41 +320,31 @@ function createChart(){
 }
 
 Ext.onReady(function(){
-	createChart();
-	//chart.highcharts(); // return chart
+	createPie();
 });
 
-function clkBack(){
-	setChart(name, categories, data);
+function clkHome(){
+	createPie();	
+}
+
+function clkMonth(){
+	//setChart(name, categories, data);
+	createChart();
 }
 
 function clkRefresh(){
-	//从后台获取数据
-	Ext.Ajax.request({
-			url: '/pronline/Msg?FunName@getCleanDataDetail',  
-			method: 'GET',
-			success: function(resp,opts){   
-				try{
-					var respText = resp.responseText; 
-					var respRecord = eval("("+respText+")");
-					categories = [];
-					categories.add(respRecord.data.category);
-				}catch(e){
-					//console.log(e.message);
-				}				
-			},
-			failure: function(resp,opts){   
-				var respText = eval("("+respText+")");
-				alert('错误', respText.error);
-			}
-		});
+	updateCleanMap();
 }
+
+
+
 </script>
     
     
 </head>
 <body style="background-color:#DEE8FA">
-	<button id="btnBack" onclick="clkBack()">返回</button>
+	<button id="btnBack" onclick="clkHome()">总览</button>
+	<button id="btnMonth" onclick="clkMonth()">按月统计</button>
 	<button id="btnRefresh" onclick="clkRefresh()">刷新</button>
 	<div id="container" class="csCanvas"></div>
 	<!--div id="docbody" class="csData"></div-->

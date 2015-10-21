@@ -152,6 +152,7 @@ int main(int argc, char **argv)
     lanWeb_initFun003(psShmHead);
     lanWeb_initFun004(psShmHead);
     pennwin_initFun(psShmHead);
+    clean_data_initFun(psShmHead);
 
     //        iReturn = fireInit(psShmHead);
     dsCltSetSessionType("dispname", UT_TYPE_STRING, 32, 1);
