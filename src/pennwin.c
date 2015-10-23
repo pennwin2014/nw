@@ -284,9 +284,11 @@ static int sum(const char *fpath, const struct stat *sb, int typeflag)
 }
 
 #define DATA_DISK_SECTION "/data"
-int getDiskSize(uint8* totalDisk, uint8* availDisk){
+#define DB_DISK_SECTION "/db"
+
+int getDiskSize(char* sectionPath, uint8* totalDisk, uint8* availDisk){
 	struct statfs diskInfo;
-	statfs(DATA_DISK_SECTION, &diskInfo);
+	statfs(sectionPath, &diskInfo);
 	uint8 blocksize = diskInfo.f_bsize;
 	*totalDisk = blocksize * diskInfo.f_blocks;
 	*availDisk = diskInfo.f_bavail * blocksize; 
@@ -317,6 +319,13 @@ ulong getFolderSize(char* dirPath)
     }
     return total;
 }
+
+int deleteJpgFileByMonth(char* JpgDir, char* caShortName, char* dateStr)
+{
+	
+	return 0;
+}
+
 
 //SCREENJPG_DIR  201509
 ulong getJpgFileSizeByMonth(char* JpgDir, char* caShortName, char* dateStr)
@@ -442,15 +451,25 @@ char* getMonthTableName(char* caShortName, char* tableName, char* tableMonth)
 int getCleanDetailByMonth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     char caMonth[7] = "";
+	char caDelete[7] = "";
     char caShortName[128] = "";
+	//传递的待删除的项目
+	char caScreen[32] = "";
     int iReturn = 0;
     utMsgPrintMsg(psMsgHead);
     iReturn = utMsgGetSomeNVar(psMsgHead, 1,
-                               "month",       UT_TYPE_STRING,  sizeof(caMonth) - 1,        caMonth);
+                               "month",       UT_TYPE_STRING,  sizeof(caMonth) - 1,        caMonth,
+                               "delete",      UT_TYPE_STRING,  sizeof(caDelete) - 1,        caDelete,
+                               "f_screen",    UT_TYPE_STRING,  sizeof(caScreen) - 1,        caScreen);
 
     strcpy(caShortName, getLoginShortName());
     utPltDbHead *psDbHead = utPltInitDb();
-
+	if(strlen(caDelete)>0){
+		//删除该月对应明细
+		if(strlen(caScreen)>0){
+			deleteJpgFileByMonth(SCREENJPG_DIR, caShortName, caMonth);
+		}
+	}
     //数据库
     utPltPutVar(psDbHead, "month", caMonth);
     utPltPutVarF(psDbHead, "ncimclient", "%lu", getDbTableSize(getMonthTableName(caShortName, "ncimclient", caMonth)));
@@ -463,8 +482,8 @@ int getCleanDetailByMonth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     //文件
     ulong jpgSize = getJpgFileSizeByMonth(SCREENJPG_DIR, caShortName, caMonth);
     utPltPutVarF(psDbHead, "screen", "%lu", jpgSize);
-    utPltPutVarF(psDbHead, "alter", "%lu", jpgSize);
-    utPltPutVarF(psDbHead, "process", "%lu", jpgSize);
+    utPltPutVarF(psDbHead, "alter", "%lu", 0);
+    utPltPutVarF(psDbHead, "process", "%lu", 0);
 
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "clean/clean_month_detail.htm");
     return 0;
@@ -495,6 +514,43 @@ int isDateFolder(char* caFolderName)
     return 1;
 }
 
+int calcLogTables(utShmHead *psShmHead, char* tableBaseName, char* caShortName)
+{
+	char caMonthStr[7] = "";
+    char caCleanKey[135] = "";
+	ulong lSize = 0;
+	lanCleanData* psData = NULL;
+	memset(caMonthStr, 0, sizeof(caMonthStr));
+	//1、遍历得到该简称下所有像tableBaseName的表名(会包含年月信息caMonthStr)
+	memcpy(caMonthStr,"201509", 6);
+	//2、计算该表的空间lSize
+	lSize = 123456;
+	//3、组装该表所该对应的key
+	memset(caCleanKey, 0, sizeof(caCleanKey));
+	snprintf(caCleanKey, sizeof(caCleanKey) - 1, "%s%s", caMonthStr, caShortName);
+    psData = (lanCleanData *)utShmHashLookA(psShmHead, NC_LNK_NW_CLEAN, caCleanKey);
+    if(psData)
+    {	
+    	//3、根据tableBaseName的不同，给psData中的不同数据赋值
+		psData->lImClient += lSize;
+    }
+
+	memset(caMonthStr, 0, sizeof(caMonthStr));
+	//1、遍历得到该简称下所有像tableBaseName的表名(会包含年月信息caMonthStr)
+	memcpy(caMonthStr,"201510", 6);
+	//2、计算该表的空间lSize
+	lSize = 13456;
+	//3、组装该表所该对应的key
+	memset(caCleanKey, 0, sizeof(caCleanKey));
+	snprintf(caCleanKey, sizeof(caCleanKey) - 1, "%s%s", caMonthStr, caShortName);
+    psData = (lanCleanData *)utShmHashLookA(psShmHead, NC_LNK_NW_CLEAN, caCleanKey);
+    if(psData)
+    {	
+    	//3、根据tableBaseName的不同，给psData中的不同数据赋值
+		psData->lImClient += lSize;
+    }
+	return 0;
+}
 
 int lanCalcClean(utShmHead *psShmHead)
 {
@@ -564,7 +620,6 @@ int lanCalcClean(utShmHead *psShmHead)
                 printf("Open dir error...");
                 continue;
             }
-
             while((ptr1 = readdir(dir1)) != NULL)
             {
                 if(strcmp(ptr1->d_name, ".") == 0 || strcmp(ptr1->d_name, "..") == 0)
@@ -617,6 +672,10 @@ int lanCalcClean(utShmHead *psShmHead)
                 }
             }
             closedir(dir1);
+			//统计数据库相关
+        	calcLogTables(psShmHead, "ncimclient", caShortNameList[lIndex]);
+			calcLogTables(psShmHead, "nwoutfilelog", caShortNameList[lIndex]);
+			calcLogTables(psShmHead, "nwfilelog", caShortNameList[lIndex]);
         }
         //5、释放内存
         for(lIndex = 0; lIndex <= lShortCount; lIndex++)
@@ -624,7 +683,7 @@ int lanCalcClean(utShmHead *psShmHead)
             free(caShortNameList[lIndex]);
         }
         free(caShortNameList);
-        //统计数据相关
+        
         sleep(30);
     }
     return 0;
@@ -660,14 +719,20 @@ int getCleanPercent(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 memcpy(caMonthStr, psCleanData->cleanKey, 6);
                 utPltPutLoopVar(psDbHead, "month", iNum, caMonthStr);
                 utPltPutLoopVarF(psDbHead, "lsize", iNum, "%lu", psCleanData->lScreenJpg);
+				utPltPutLoopVarF(psDbHead, "ldbsize", iNum, "%lu", psCleanData->lImClient);
             }
             psCleanData = (lanCleanData *)pasHashNextS(&sHashInfo);
         }
     }
 	uint8 totalDisk = 0, availDisk = 0;
-	getDiskSize(&totalDisk, &availDisk);
+	uint8 totalDbDisk = 0, availDbDisk = 0;
+	getDiskSize(DATA_DISK_SECTION, &totalDisk, &availDisk);
+	getDiskSize(DB_DISK_SECTION, &totalDbDisk, &availDbDisk);
+	printf("%llu, %llu, %llu, %llu\n", totalDisk, availDisk, totalDbDisk, availDbDisk);
 	utPltPutVarF(psDbHead, "TotalDisk", "%llu", totalDisk);
 	utPltPutVarF(psDbHead, "AvailDisk", "%llu", availDisk);
+	utPltPutVarF(psDbHead, "TotalDbDisk", "%llu", totalDbDisk);
+	utPltPutVarF(psDbHead, "AvailDbDisk", "%llu", availDbDisk);
     utPltPutVarF(psDbHead, "TotRec", "%lu", iNum);
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "clean/clean_percent.htm");
     return 0;

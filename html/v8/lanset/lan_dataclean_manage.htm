@@ -16,6 +16,29 @@
 		height: 50%; 
 		margin: 0 auto;
 	}
+	.csCanvasLeft{
+			position:absolute;
+		min-width: 40%; 
+		max-width: 50%; 
+		height: 50%; 
+		left:0;
+		margin: 0 auto;
+	}
+	.csCanvasRight{
+		position:absolute;
+		min-width: 40%; 
+		max-width: 50%; 
+		height: 50%;
+		left:50%;
+		margin: 0 auto;
+	}
+	.csGroup{
+		position:absolute;
+		width: 100%; 
+		height: 50%; 
+		top:5%;
+		margin: 0 auto;
+	}
 	.csData{
 		position:absolute;
 		top:50%;
@@ -25,7 +48,8 @@
 </style>
       
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
-<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script>
+<!--script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script-->
+<script type="text/javascript" src="/newver/resources/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/newver/chart/highcharts.js"></script>
 <script type="text/javascript" src="/newver/chart/modules/funnel.js"></script>
 <script type="text/javascript" src="/newver/chart/modules/exporting.js"></script>
@@ -38,145 +62,203 @@ Ext.require([
     'Ext.form.*',
     'Ext.data.*',
     'Ext.tip.QuickTipManager'
-]);
+]);         
 
-var cleanMap = {
-	'201509':[131.02,['聊天日志', '屏幕截图', '告警日志'],[10.85, 7.35, 33.06]], 
-	'201510':[221.32,['聊天日志', '屏幕截图', '外设日志', '告警日志'],[10.85, 7.35, 33.06, 2.81]]		
+
+var gTotalDisk = 30;
+var gAvailDisk = 20;
+var gTotalDbDisk = 30;
+var gAvailDbDisk = 20;
+var gCleanMap = {
+	'201509':[131.02,11.12,['聊天日志', '屏幕截图', '告警日志'],[10.85, 7.35, 33.06]], 
+	'201510':[221.32,12.23,['聊天日志', '屏幕截图', '外设日志', '告警日志'],[10.85, 7.35, 33.06, 2.81]]		
 };
+var chart,chart2,chart3;
+var DictCleanName = {
+	'f_screen':'屏幕截图',
+	'f_process':'进程截图',
+	'f_alter':'告警截图',
+	'db_ncimclient':'数据库聊天日志',
+	'db_nwweblog':'数据库网页日志',
+	'db_nwproclog':'数据库进程使用日志',
+	'db_nwcomputelog':'数据库开关机日志',
+	'db_nwoutfilelog':'数据库外发文件日志',
+	'db_nwfilelog':'数据库文件日志',
+	'db_nwprocscreen':'数据库敏感进程日志'
+}
 
-function getDetailByMonth(monthStr){
-	Ext.Ajax.request({
-			url: '/pronline/Msg?FunName@getCleanDetailByMonth&month@'+monthStr,
-			method: 'GET',
-			async: false,
-			success: function(resp,opts) {   
-				try{
-					var respText = resp.responseText; 
-					var respRecord = eval("("+respText+")");
-					var tmpData1 = ['聊天日志', '屏幕截图'];
-					var tmpData2 = [10.85, 33.06];
-					//tmpData1 = 
-					cleanMap[monthStr][1] = tmpData1;
-					cleanMap[monthStr][2] = tmpData2;
-				}catch(e){
-					//console.log(e.message);
-				}
-			},   
-			failure: function(resp,opts) {  
-				var respText = eval("("+respText+")");
-				alert('错误', respText.error);   
-			}   	 
-		});
+function getNameByDispname(dispName){
+	for(var key in DictCleanName){
+		if(DictCleanName[key] == dispName){
+			return key;
+		}
+	}
+	return "null";
+}
+
+function isNull(value){
+	if (!value || typeof(value)=="undefined" || value==0){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function getStdLabel(str){
+	var totalLen = str.length;
+	var resultStr = str;
+	if(totalLen > 5){
+		resultStr = str.substr(0, 5)+"..";
+	}
+	return resultStr;
+}
+
+function getStdValueStr(fValue){
+	var stdValue = 0;
+	if(fValue<1024){
+		stdValue = fValue + 'B';
+	}else if((fValue>=1024)&&(fValue<1024*1024)){
+		stdValue = (fValue/1024.0).toFixed(2)+'KB';
+	}else if((fValue>=1024*1024)&&(fValue<1024*1024*1024)){
+		stdValue = (fValue/(1024.0*1024.0)).toFixed(2)+'MB';
+	}else if((fValue>=1024*1024*1024)&&(fValue<1024*1024*1024*1024)){
+		stdValue = (fValue/(1024.0*1024.0*1024.0)).toFixed(2)+'GB';
+	}else{
+		stdValue = (fValue/(1024.0*1024.0*1024.0*1024.0)).toFixed(2)+'TB';
+	}
+	return stdValue;
+}
+
+function isTypeCompat(fileType, dataName){
+	var valueIndex = dataName.indexOf(fileType);
+	if(valueIndex>=0)
+		return true;
+	else
+		return false;
 }
 
 function updateCleanMap(){
-	cleanMap = {};
+	gCleanMap = {};
 	Ext.Ajax.request({
-			url: '/pronline/Msg?FunName@getCleanPercent',
-			method: 'GET',
-			success: function(resp,opts) {   
-				try{
-					var respText = resp.responseText; 
-					var respRecord = eval("("+respText+")");
-					var tmpData = [];			
-					for(var i in respRecord.eimdata){
-						tmpData[0] = parseFloat(respRecord.eimdata[i].lsize);
-						tmpData[1] = ['聊天日志', '屏幕截图', '外设日志', '告警日志'];
-						tmpData[2] = [10.85, 7.35, 33.06, 2.81];
-						cleanMap[respRecord.eimdata[i].month] = tmpData;
-					}
-				}catch(e){
-					//console.log(e.message);
+		url: '/pronline/Msg?FunName@getCleanPercent',
+		method: 'GET',
+		async: false,
+		success: function(resp,opts) {   
+			try{
+				var respText = resp.responseText; 
+				var respRecord = eval("("+respText+")");
+				gTotalDisk = respRecord.TotalDisk;
+				gAvailDisk = respRecord.AvailDisk;	
+				gTotalDbDisk = respRecord.TotalDbDisk;
+				gAvailDbDisk = respRecord.AvailDbDisk;					
+				for(var i in respRecord.eimdata){
+					gCleanMap[respRecord.eimdata[i].month] = [];
+					gCleanMap[respRecord.eimdata[i].month][0] = (parseFloat(respRecord.eimdata[i].lsize));
+					gCleanMap[respRecord.eimdata[i].month][1] = (parseFloat(respRecord.eimdata[i].ldbsize));
+					gCleanMap[respRecord.eimdata[i].month][2] = [];
+					gCleanMap[respRecord.eimdata[i].month][3] = [];
 				}
-					
-			},   
-			failure: function(resp,opts) {  
-				var respText = eval("("+respText+")");
-				alert('错误', respText.error);   
-			}   	 
-		});
+			}catch(e){
+				//console.log(e.message);
+			}				
+		},   
+		failure: function(resp,opts) {  
+			var respText = eval("("+respText+")");
+			alert('错误', respText.error);   
+		}   	 
+	});
 }
-function getData(colors){
-	var data1 = [{
-                y: 55.11,
-                color: colors[0],
-                drilldown: {
-                    name: '6',
-                    categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志'],
-                    data: [10.85, 7.35, 33.06, 2.81],
-                    color: colors[0]
-                }
-            }, {
-                y: 21.63,
-                color: colors[1],
-                drilldown: {
-                    name: '7',
-                    categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志'],
-                    data: [0.20, 0.83, 1.58, 13.12],
-                    color: colors[1]
-                }
-            }, {
-                y: 11.94,
-                color: colors[2],
-                drilldown: {
-                    name: '8',
-                    categories: ['聊天日志', '屏幕截图'],
-                    data: [ 9.91, 0.52],
-                    color: colors[2]
-                }
-            }, {
-                y: 7.15,
-                color: colors[3],
-                drilldown: {
-                    name: '9',
-                    categories: ['聊天日志', '屏幕截图', '外设日志', '告警日志', '进程日志', '开关机日志'],
-                    data: [4.55, 1.42, 0.21, 0.20, 0.19, 0.14],
-                    color: colors[3]
-                }
-            }, {
-                y: 2.14,
-                color: colors[4],
-                drilldown: {
-                    name: '10',
-                    categories: ['聊天日志', '屏幕截图', '外设日志'],
-                    data: [ 0.12, 0.37, 1.65],
-                    color: colors[4]
-                }
-            }];
+
+function getDetailByMonth(fileType, monthStr){
+	Ext.Ajax.request({
+		url: '/pronline/Msg?FunName@getCleanDetailByMonth&month@'+monthStr,
+		method: 'GET',
+		async: false,
+		success: function(resp,opts) {   
+			try{
+				var respText = resp.responseText; 
+				var respRecord = eval("("+respText+")");
+				var tmpData1 = [];
+				var tmpData2 = [];
+				var fValue = 0.0;
+				for(var key in respRecord){
+					if(!isNull(DictCleanName[key])){
+						fValue = parseFloat(respRecord[key]);
+						if(fValue > 0){
+							if(isTypeCompat(fileType, key)){
+								tmpData1.push(DictCleanName[key]);
+								tmpData2.push(fValue);
+							}
+						}
+					}
+				}
+				gCleanMap[monthStr][2] = tmpData1;
+				gCleanMap[monthStr][3] = tmpData2;
+			}catch(e){
+				//console.log(e.message);
+			}
+		},   
+		failure: function(resp,opts) {  
+			var respText = eval("("+respText+")");
+			alert('错误', respText.error);   
+		}   	 
+	});
+}
+
+function getMonthData(fileType, colors){
 	var data = [];
 	var monthStr ="";
 	var tmpArr = [];
 	var iCount = 0;
-	for(monthStr in cleanMap){
+	var yValue = 0;
+	for(monthStr in gCleanMap){
 		iCount ++;
-		tmpArr = cleanMap[monthStr];
-		data.push(
-			{
-				y:tmpArr[0],
-				color:colors[iCount % colors.length],
-				drilldown:{
-					name:monthStr,
-					categories:tmpArr[1],
-					data:tmpArr[2],
-					color:colors[iCount % colors.length]
-				}
-			});
+		tmpArr = gCleanMap[monthStr];
+		var categoriesArr = [];
+		var dataArr = [];
+		var cCnt = 0;
+		for(var i = 0; i<tmpArr[2].length; i++){
+			if(isTypeCompat(fileType,getNameByDispname(tmpArr[2][i]))){
+				categoriesArr[cCnt] = tmpArr[2][i];
+				dataArr[cCnt] = tmpArr[3][i];
+				cCnt++;
+			}
+		}
+		if(fileType=='db_'){
+			yValue = tmpArr[1];
+		}else{
+			yValue = tmpArr[0];
+		}
+		if(yValue>0){
+			data.push({
+					y:yValue,
+					color:colors[iCount % colors.length],
+					drilldown:{
+						name:monthStr,
+						categories:categoriesArr,
+						data:dataArr,
+						color:colors[iCount % colors.length]
+					}
+				});
+		}
 	}		
     return data;
 }
 
-function getCategories(){
+function getCategories(fileType){
 	var cat = [];
-	for(var i in cleanMap)
-		cat.push(i);
+	var yValue = 0;
+	for(var i in gCleanMap){
+		if(fileType=="db_"){
+			yValue = gCleanMap[i][1];
+		}else{
+			yValue = gCleanMap[i][0];
+		}
+		if(yValue>0)
+			cat.push(i);	
+	}	
 	return cat;
 }
-
-var colors = Highcharts.getOptions().colors,
-    name = '月份',
-	categories = getCategories(),
-    data = getData(colors);
 
 function setChart(name, categories, data, color) {
 	chart.xAxis[0].setCategories(categories, false);
@@ -188,21 +270,140 @@ function setChart(name, categories, data, color) {
 	}, false);
 	chart.redraw();
 }
+/*
+function showDeleteWindow(monthStr, ArrName, ArrData, checkName){
+	alert(monthStr+','+checkName);
+	
+	for(var i=0;i<ArrData.length;i++){
+		alert(ArrName[i]+','+ArrData[i]);
+	}
+}*/
+function showDeleteWindow(monthStr, ArrName, ArrData, checkName) {
+    var rightcheckGroup = {
+        xtype: 'fieldset',
+        title: monthStr + '清理列表',
+        layout: 'form',
+        defaults: {
+            labelStyle: 'padding-left:4px;'
+        },
+        collapsible: false,
+        items: [{
+            xtype: 'checkboxgroup',
+            name: 'rightgroup',
+            columns: 2,
+            items: getCombAdminuserData(monthStr, ArrName, ArrData, checkName)
+        }]
+    };
 
-var chart;
+    var fp2 = Ext.create('Ext.FormPanel', {
+        frame: true,
+        fieldDefaults: {
+            labelWidth: 110
+        },
+        width: 600,
+        bodyPadding: 10,
+        items: [rightcheckGroup],
+        buttons: [
+			{
+				text: '删除',
+				handler: function () {
+					var groupcheck = fp2.getForm().findField('rightgroup');
+					//获取选中的选项
+					var checkArr = groupcheck.getChecked();
+					var checkValue = "";
+					for(var i in checkArr){
+						checkValue+=','+checkArr[i].inputValue;
+					}
+					alert("删除"+checkValue);
+				}
+			},{
+				text: '导出',
+				handler: function () {
+					var groupcheck = fp2.getForm().findField('rightgroup');
+					//获取选中的选项
+					var checkArr = groupcheck.getChecked();
+					var checkValue = "";
+					for(var i in checkArr){
+						checkValue+=','+checkArr[i].inputValue;
+					}
+					alert("导出"+checkValue);
+
+				}
+			},{
+				text: '关闭',
+				handler: function () {
+					Ext.getCmp('addwindow').close();
+				}
+			}]
+    });
+
+
+    var win2 = new Ext.Window({
+        id: "addwindow",
+        title: "日志详细",
+        x: 0,
+        y: 0,
+        width: 630,
+        height: 300,
+        bodyPadding: 10,
+        modal: true,
+        resizable: true,
+        //                  draggable:false,
+        items: fp2
+
+    })
+    win2.show();
+}
+//显示复选框信息
+function getCombAdminuserData(monthStr, ArrName, ArrData, checkName) {
+    var dataStr = "[";
+    var bCheck;
+    bCheck = "false";
+    if (ArrName[0] == checkName) {
+        bCheck = "true";
+    }
+    dataStr = dataStr + "{boxLabel: '" + DictCleanName[ArrName[0]] + '[' + getStdValueStr(ArrData[0]) + "]" + "' ,inputValue:'" + ArrName[0] + "',checked:" + bCheck + "}";
+    bCheck = "false";
+    for (var i = 1; i < ArrName.length; i++) {
+        if (ArrName[i] == checkName) {
+            bCheck = "true";
+        }
+        dataStr = dataStr + ",{boxLabel: '" + DictCleanName[ArrName[i]] + '[' + getStdValueStr(ArrData[i]) + "]" + "' ,inputValue:'" + ArrName[i] + "',checked:" + bCheck + "}";
+        bCheck = "false";
+    }
+    dataStr = dataStr + "]";
+    return eval(dataStr);
+};
+
+
 function createPie(){
-    chart = new Highcharts.Chart({ 
+	$("#grpSummary").css("display","block");
+/*	$("#container2").css("display","block");
+	$("#container3").css("display","block");*/
+	$("#container").css("display","none");
+	/*
+	$("#container").hide();
+	$("#grpSummary").show();
+	*/
+    chart2 = new Highcharts.Chart({ 
         chart: {
             type: 'pie',
-			renderTo:'container',
+			backgroundColor: '#DEE8FA',
+			renderTo:'containerL',
             options3d: {
                 enabled: true,
                 alpha: 45,
                 beta: 0
             }
         },
+		exporting:{
+            enabled:false
+        },
+		credits: {
+			enabled:false
+		},
         title: {
-            text: '磁盘空间'
+            text: '<p style="color:#000">截屏图片硬盘空间</p>'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -214,23 +415,87 @@ function createPie(){
                 depth: 35, 
                 events: {
 	                    click: function (event) {
-							createChart();
+							createChart("f_");
 	                    } 
 					},
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}{point.y}MB'
+					formatter: function() {
+						var point = this.point;
+						var s = point.name+getStdValueStr(point.y);
+						return s;
+					}
+                    /*format: '{point.name}'+getStdValueStr({point.y})*/
                 }
             }
         },
         series: [{
             type: 'pie',
             name: '空间比例',
-            data: [
-                ['剩余',   455.0],
+            data:[
+                ['硬盘剩余',   gAvailDisk],
                 {
-                    name: '已使用',
-                    y: 1222.8,
+                    name: '硬盘已使用',
+                    y: gTotalDisk-gAvailDisk,
+                    sliced: true,
+                    selected: true
+                }
+            ]
+        }]
+    });
+	chart3 = new Highcharts.Chart({ 
+		colors: ['#4f9094', '#bb4b3c', '#009899', '#fb8f35', '#514a44'],
+        chart: {
+            type: 'pie',
+			backgroundColor: '#DEE8FA',
+			renderTo:'containerR',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+		exporting:{
+            enabled:false
+        },
+		credits: {
+			enabled:false
+		},
+        title: {
+            text: '数据库'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35, 
+                events: {
+	                    click: function (event) {
+							createChart("db_");
+	                    } 
+					},
+                dataLabels: {
+                    enabled: true,
+					formatter: function() {
+						var point = this.point;
+						var s = point.name+getStdValueStr(point.y);
+						return s;
+					}
+                    /*format: '{point.name}'+getStdValueStr({point.y})*/
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '空间比例',
+            data:[
+                ['数据库剩余',   gAvailDbDisk],
+                {
+                    name: '数据库已使用',
+                    y: gTotalDbDisk-gAvailDbDisk,
                     sliced: true,
                     selected: true
                 }
@@ -238,22 +503,56 @@ function createPie(){
         }]
     });
 }
-function createChart(){
-	categories = getCategories();
-    data = getData(colors);
+
+function createChart(fileType){
+	/*
+	$("#grpSummary").hide();
+	$("#container2").hide();
+	$("#container3").hide();
+	$("#container").show();
+	*/
+	$("#grpSummary").css("display","none");
+	/*
+	$("#container2").css("display","none");
+	$("#container3").css("display","none");
+	*/
+	$("#container").css("display","block");
+	var colors = Highcharts.getOptions().colors;
+	var categories = getCategories(fileType);
+    var data = getMonthData(fileType, colors);
+	var name = '月份';
+	var caTitle = "";
+	if(fileType == "db_"){
+		caTitle = "数据库使用情况";
+	}else{
+		caTitle = "屏幕截图硬盘使用情况";
+	}
     chart = new Highcharts.Chart({ 
 		chart: {
 			type: 'column',
+			backgroundColor: '#DEE8FA',
 			renderTo: 'container'
 		},
+		exporting:{
+            enabled:false
+        },
+		credits: {
+			enabled:false
+		},
 		title: {
-			text: '系统数据存储情况'
+			text: caTitle
 		},
 		subtitle: {
 			text: '点击可以查看明细'
 		},
 		xAxis: {
-			categories: categories
+			categories: categories,
+			labels: { 
+				rotation: -45,
+				formatter: function() { 
+					return this.value;
+				} 
+			} 
 		},
 		yAxis: {
 			title: {
@@ -268,11 +567,17 @@ function createChart(){
 						click: function() {
 							var drilldown = this.drilldown;
 							if (drilldown) { // drill down
-								getDetailByMonth(drilldown.name);
-								setChart(drilldown.name, cleanMap[drilldown.name][1], cleanMap[drilldown.name][2], drilldown.color);
+								getDetailByMonth(fileType, drilldown.name);
+								setChart(drilldown.name, gCleanMap[drilldown.name][2], gCleanMap[drilldown.name][3], drilldown.color);
 								//setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
 							} else { // restore
-								alert("点击"+this.category);                              
+								var clickName = getNameByDispname(this.category);
+								var monthStr=chart.series[0].name;		
+								var ArrName = [];
+								for(var i in gCleanMap[monthStr][2]){
+									ArrName[i] = getNameByDispname(gCleanMap[monthStr][2][i]);
+								}
+								showDeleteWindow(monthStr, ArrName, gCleanMap[monthStr][3], clickName);
 							}
 						}
 					}
@@ -284,13 +589,13 @@ function createChart(){
 						fontWeight: 'bold'
 					},
 					formatter: function() {
-					var point = this.point;
-					var s = "";
-					if (point.drilldown) {
-						s += this.y +'MB';
-					} else {
-						s += this.y +'MB';
-					}
+						var point = this.point;
+						var s = "";
+						if (point.drilldown) {
+							s += getStdValueStr(this.y);
+						} else {
+							s += getStdValueStr(this.y);
+						}
 						return s;
 					}
 				}
@@ -298,12 +603,13 @@ function createChart(){
 		},
 		tooltip: {
 			formatter: function() {
-				var point = this.point,
-					s = this.x +':<b>'+ this.y +'% </b><br>';
+				var point = this.point,s;					
 				if (point.drilldown) {
-					s += '点击查看 '+ point.category+'月明细';
+					s = this.x +'占用<b>'+ getStdValueStr(this.y) +'</b><br>';
+					s += '点击查看明细';
 				} else {
-					s += '点击返回';
+					s = this.x +':<b>'+ getStdValueStr(this.y) +'</b><br>';
+					s += '点击进行管理';
 				}
 				return s;
 			}
@@ -312,14 +618,12 @@ function createChart(){
 			name: name,
 			data: data,
 			color: 'white'
-		}],
-		exporting: {
-			enabled: true
-		}
+		}]
 	});
 }
 
 Ext.onReady(function(){
+	updateCleanMap();
 	createPie();
 });
 
@@ -327,13 +631,14 @@ function clkHome(){
 	createPie();	
 }
 
-function clkMonth(){
-	//setChart(name, categories, data);
-	createChart();
+function clkMonth(fileType){
+	createChart(fileType);
 }
 
 function clkRefresh(){
 	updateCleanMap();
+	alert("数据更新成功!!");
+	clkHome();
 }
 
 
@@ -344,9 +649,14 @@ function clkRefresh(){
 </head>
 <body style="background-color:#DEE8FA">
 	<button id="btnBack" onclick="clkHome()">总览</button>
-	<button id="btnMonth" onclick="clkMonth()">按月统计</button>
+	<button id="btnMonth" onclick="clkMonth('f_')">按月统计屏幕截图</button>
+	<button id="btnMonth" onclick="clkMonth('db_')">按月统计数据库</button>
 	<button id="btnRefresh" onclick="clkRefresh()">刷新</button>
 	<div id="container" class="csCanvas"></div>
+	<div id="grpSummary" class="csGroup">
+		<div id="containerL" class="csCanvasLeft"></div>
+		<div id="containerR" class="csCanvasRight"></div>
+	</div>
 	<!--div id="docbody" class="csData"></div-->
 </body>
 </html>
